@@ -1,0 +1,14 @@
+{
+  control=createControl();
+  @SuppressWarnings("unchecked") Function<URL,String> urlToUA=control.createMock(Function.class);
+  this.urlToUA=urlToUA;
+  @SuppressWarnings("unchecked") Closure<Pair<HttpServletRequest,HttpServletResponse>> handler=control.createMock(Closure.class);
+  requestHandler=handler;
+  urlResolverUtil=new UrlResolverUtil(urlToUA);
+  servlet=new HttpServlet(){
+    @Override protected void service(    HttpServletRequest req,    HttpServletResponse resp) throws ServletException, IOException {
+      requestHandler.execute(Pair.of(req,resp));
+    }
+  }
+;
+}

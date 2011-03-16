@@ -1,0 +1,44 @@
+{
+  try {
+    InetSocketAddressHelper.parse(null);
+    fail();
+  }
+ catch (  NullPointerException e) {
+  }
+  try {
+    InetSocketAddressHelper.parse("");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    InetSocketAddressHelper.parse(":");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    InetSocketAddressHelper.parse("*:");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    InetSocketAddressHelper.parse(":jake");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    InetSocketAddressHelper.parse(":70000");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    InetSocketAddressHelper.parse("localhost:");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

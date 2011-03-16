@@ -1,0 +1,4 @@
+{
+  this.scaleFactor=scaleFactor;
+  return this;
+}

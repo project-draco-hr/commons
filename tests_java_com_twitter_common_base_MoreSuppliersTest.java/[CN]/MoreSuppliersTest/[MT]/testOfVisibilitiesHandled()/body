@@ -1,0 +1,6 @@
+{
+  testOfForType(PrivateClassPublicConstructor.class);
+  testOfForType(PrivateClassPrivateConstructor.class);
+  testOfForType(PublicClassPublicConstructor.class);
+  testOfForType(PublicClassPrivateConstructor.class);
+}

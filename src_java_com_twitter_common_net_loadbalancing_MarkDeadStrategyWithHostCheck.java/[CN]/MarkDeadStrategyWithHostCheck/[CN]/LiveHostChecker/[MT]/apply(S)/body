@@ -1,0 +1,4 @@
+{
+  ConnectionResult result=lastConnectionResult.get(backend);
+  return result != null && result == ConnectionResult.SUCCESS;
+}

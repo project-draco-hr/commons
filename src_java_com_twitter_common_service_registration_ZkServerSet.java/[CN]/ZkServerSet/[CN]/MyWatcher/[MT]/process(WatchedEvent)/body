@@ -1,0 +1,24 @@
+{
+  if (LOG.isLoggable(Level.FINE)) {
+    LOG.log(Level.FINE,"" + event);
+  }
+  if (event.getType() == Watcher.Event.EventType.None) {
+switch (event.getState()) {
+case Disconnected:
+      if (listener != null) {
+        listener.onConnect(false);
+      }
+    break;
+case SyncConnected:
+  if (listener != null) {
+    listener.onConnect(true);
+  }
+break;
+case Expired:
+case NoSyncConnected:
+case Unknown:
+default :
+break;
+}
+}
+}

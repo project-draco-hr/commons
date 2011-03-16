@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < numRequests; i++) {
+    if (result == Result.SUCCESS) {
+      decider.addSuccess();
+    }
+ else {
+      decider.addFailure();
+    }
+    boolean backingOff=state == State.BACKOFF;
+    assertThat(decider.shouldBackOff(),is(backingOff));
+  }
+}

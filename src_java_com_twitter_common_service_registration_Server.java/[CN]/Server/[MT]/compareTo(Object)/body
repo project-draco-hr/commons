@@ -1,0 +1,4 @@
+{
+  Server s=(Server)o;
+  return hostPort.compareTo(s.hostPort);
+}

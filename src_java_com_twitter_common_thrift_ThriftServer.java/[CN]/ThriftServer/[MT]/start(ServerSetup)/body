@@ -1,0 +1,12 @@
+{
+  Preconditions.checkNotNull(setup.getProcessor());
+  Preconditions.checkState(status != Status.ALIVE,"Server must only be started once.");
+  setStatus(Status.ALIVE);
+  try {
+    doStart(setup);
+  }
+ catch (  TTransportException e) {
+    LOG.log(Level.SEVERE,"Failed to open thrift socket.",e);
+    setStatus(Status.DEAD);
+  }
+}

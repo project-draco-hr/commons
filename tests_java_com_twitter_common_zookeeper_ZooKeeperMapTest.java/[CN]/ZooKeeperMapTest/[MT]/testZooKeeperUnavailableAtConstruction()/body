@@ -1,0 +1,6 @@
+{
+  final String parentPath="/twitter/path";
+  ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
+  shutdownNetwork();
+  ZooKeeperMap zkMap=makeUninitializedMap(parentPath);
+}

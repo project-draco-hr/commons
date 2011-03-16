@@ -1,0 +1,10 @@
+{
+  for (int i=0; i <= 100; i++) {
+    expect(random.nextDouble()).andReturn(0.01 * i);
+  }
+  control.replay();
+  Sampler sampler=new Sampler(25,random);
+  for (int i=0; i <= 100; i++) {
+    assertThat(sampler.select(),is(i < 25));
+  }
+}

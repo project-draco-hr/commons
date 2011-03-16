@@ -1,0 +1,3 @@
+{
+  return new UrlResolver(clock,backoffStrategy,resolver,maxRedirects);
+}

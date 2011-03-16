@@ -1,0 +1,12 @@
+def rglobs(*globspecs):
+    'Returns a Fileset that does a recursive scan under the current directory combining the lists of\n  files returned that would be returned by glob.glob for each globspec.'
+    root = os.curdir
+
+    def recursive_globs():
+        for (base, dirs, files) in os.walk(root):
+            for file in files:
+                path = os.path.relpath(os.path.normpath(os.path.join(base, file)), root)
+                for globspec in globspecs:
+                    if fnmatch.fnmatch(path, globspec):
+                        yield path
+    return Fileset((lambda : set(recursive_globs())))

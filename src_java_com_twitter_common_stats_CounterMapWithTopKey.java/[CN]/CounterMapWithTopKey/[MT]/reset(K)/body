@@ -1,0 +1,6 @@
+{
+  super.reset(key);
+  for (  Map.Entry<K,Integer> entry : this) {
+    updateMostCommon(entry.getKey(),entry.getValue());
+  }
+}

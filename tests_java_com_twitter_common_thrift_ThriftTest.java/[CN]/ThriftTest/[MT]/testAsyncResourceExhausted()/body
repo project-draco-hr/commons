@@ -1,0 +1,9 @@
+{
+  expectConnectionPoolResourceExhausted(ASYNC_CONNECT_TIMEOUT);
+  Thrift<TestServiceAsync> thrift=createAsyncThrift(expectUnusedExecutorService());
+  callback.onError((Throwable)and(anyObject(),isA(TResourceExhaustedException.class)));
+  control.replay();
+  TestServiceAsync testService=thrift.builder().withConnectTimeout(ASYNC_CONNECT_TIMEOUT).create();
+  testService.calculateMass("jake",callback);
+  control.verify();
+}

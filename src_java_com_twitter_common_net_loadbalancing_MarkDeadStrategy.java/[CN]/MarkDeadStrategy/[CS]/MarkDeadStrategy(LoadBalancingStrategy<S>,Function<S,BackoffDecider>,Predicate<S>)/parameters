@@ -1,0 +1,3 @@
+LoadBalancingStrategy<S> wrappedStrategy
+Function<S,BackoffDecider> backoffFactory
+Predicate<S> hostChecker

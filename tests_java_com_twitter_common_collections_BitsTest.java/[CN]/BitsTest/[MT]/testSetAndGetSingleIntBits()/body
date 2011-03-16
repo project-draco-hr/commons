@@ -1,0 +1,12 @@
+{
+  for (  List<Integer> testList : INTS_TEST_LISTS) {
+    for (    int testValue : testList) {
+      for (int i=0; i < 32; ++i) {
+        int setOneBit=Bits.setBit(testValue,i);
+        assertTrue(Bits.isBitSet(setOneBit,i));
+        assertEquals(Bits.clearBit(testValue,i),Bits.clearBit(setOneBit,i));
+        assertTrue(!Bits.isBitSet(Bits.clearBit(setOneBit,i),i));
+      }
+    }
+  }
+}

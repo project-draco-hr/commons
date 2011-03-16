@@ -1,0 +1,3 @@
+{
+  assertEquals(Lists.newArrayList(Amount.of(1,Data.BITS),Amount.of(1,Data.KB),Amount.of(1,Data.MB),Amount.of(1,Data.MB)),Ordering.natural().sortedCopy(Lists.newArrayList(Amount.of(1,Data.KB),Amount.of(1024,Data.KB),Amount.of(1,Data.BITS),Amount.of(1,Data.MB))));
+}

@@ -1,0 +1,13 @@
+{
+  getCurrentContext().write();
+  if (getCurrentContext().isMapKey()) {
+    throw new TException(OBJECT_AS_KEY_ILLEGAL);
+  }
+  pushContext(context);
+  try {
+    writer.beginObject();
+  }
+ catch (  IOException ex) {
+    throw new TException(ex);
+  }
+}

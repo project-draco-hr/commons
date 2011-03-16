@@ -1,0 +1,12 @@
+{
+  StringBuffer sb=new StringBuffer();
+  E key=null;
+  long count;
+  Iterator<E> it=countedSet.keySet().iterator();
+  while (it.hasNext()) {
+    key=it.next();
+    count=countedSet.get(key)[0];
+    sb.append("K:" + key + "\tV:"+ count+ "\n");
+  }
+  return sb.toString();
+}

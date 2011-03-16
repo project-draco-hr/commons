@@ -1,0 +1,4 @@
+{
+  Preconditions.checkArgument(nowMillis >= 0);
+  this.nowNanos=TimeUnit.MILLISECONDS.toNanos(nowMillis);
+}

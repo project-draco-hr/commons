@@ -1,0 +1,14 @@
+{
+  @SuppressWarnings("unchecked") Supplier<Boolean> task=control.createMock(Supplier.class);
+  IllegalArgumentException thrown=new IllegalArgumentException();
+  expect(task.get()).andThrow(thrown);
+  control.replay();
+  try {
+    backoffHelper.doUntilSuccess(task);
+    fail("Expected exception to be bubbled");
+  }
+ catch (  IllegalArgumentException e) {
+    assertSame(thrown,e);
+  }
+  control.verify();
+}

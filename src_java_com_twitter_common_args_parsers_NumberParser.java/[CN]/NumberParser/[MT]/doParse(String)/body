@@ -1,0 +1,8 @@
+{
+  try {
+    return parseNumber(raw);
+  }
+ catch (  NumberFormatException e) {
+    throw new IllegalArgumentException(String.format("Invalid %s value: " + e.getMessage(),parsedClass.getSimpleName()));
+  }
+}

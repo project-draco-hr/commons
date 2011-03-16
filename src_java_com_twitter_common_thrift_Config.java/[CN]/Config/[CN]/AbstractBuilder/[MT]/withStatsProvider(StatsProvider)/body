@@ -1,0 +1,4 @@
+{
+  config.statsProvider=Preconditions.checkNotNull(statsProvider);
+  return getThis();
+}

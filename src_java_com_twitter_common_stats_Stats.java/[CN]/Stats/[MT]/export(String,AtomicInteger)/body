@@ -1,0 +1,9 @@
+{
+  export(new SampledStat<Integer>(name,0){
+    @Override public Integer doSample(){
+      return intVar.get();
+    }
+  }
+);
+  return intVar;
+}

@@ -1,0 +1,9 @@
+{
+  doUntilResult(new ExceptionalSupplier<Boolean,E>(){
+    @Override public Boolean get() throws E {
+      Boolean result=task.get();
+      return Boolean.TRUE.equals(result) ? result : null;
+    }
+  }
+);
+}

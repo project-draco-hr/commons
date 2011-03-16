@@ -1,0 +1,4 @@
+{
+  test(null,LogUtil.DEFAULT_LOG_DIR);
+  test("",LogUtil.DEFAULT_LOG_DIR);
+}

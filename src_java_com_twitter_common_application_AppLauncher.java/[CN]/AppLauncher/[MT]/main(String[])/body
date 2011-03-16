@@ -1,0 +1,11 @@
+{
+  LOG.info("Scanning arguments.");
+  try {
+    ArgScanner.parse(Arrays.asList("com.twitter"),args);
+  }
+ catch (  IllegalArgumentException e) {
+    LOG.log(Level.SEVERE,"Failed to apply arguments:\n" + e.getMessage());
+    System.exit(1);
+  }
+  new AppLauncher().run(APP_CLASS.get().newInstance());
+}

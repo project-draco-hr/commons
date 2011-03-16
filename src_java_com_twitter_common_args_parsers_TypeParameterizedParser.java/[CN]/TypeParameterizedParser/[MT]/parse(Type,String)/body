@@ -1,0 +1,5 @@
+{
+  List<Class<?>> typeParamClasses=TypeUtil.getTypeParamClasses(type);
+  checkArgument(typeParamClasses.size() == typeParamCount,String.format("Expected %d type parameters for %s but got %d",typeParamCount,type,typeParamClasses.size()));
+  return doParse(raw,typeParamClasses);
+}

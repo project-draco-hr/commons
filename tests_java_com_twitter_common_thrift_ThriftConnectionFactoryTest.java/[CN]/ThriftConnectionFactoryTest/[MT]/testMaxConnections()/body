@@ -1,0 +1,14 @@
+{
+  ThriftConnectionFactory thriftConnectionFactory=createConnectionFactory(2);
+  Connection<TTransport,InetSocketAddress> connection1=thriftConnectionFactory.create(ObjectPool.NO_TIMEOUT);
+  assertOpenConnection(connection1);
+  Connection<TTransport,InetSocketAddress> connection2=thriftConnectionFactory.create(ObjectPool.NO_TIMEOUT);
+  assertOpenConnection(connection2);
+  assertThat(connection1,not(sameInstance(connection2)));
+  assertNull("Should've reached maximum connections",thriftConnectionFactory.create(ObjectPool.NO_TIMEOUT));
+  thriftConnectionFactory.destroy(connection1);
+  assertClosedConnection(connection1);
+  Connection<TTransport,InetSocketAddress> connection3=thriftConnectionFactory.create(ObjectPool.NO_TIMEOUT);
+  assertOpenConnection(connection3);
+  assertThat(connection3,allOf(not(sameInstance(connection1)),not(sameInstance(connection2))));
+}

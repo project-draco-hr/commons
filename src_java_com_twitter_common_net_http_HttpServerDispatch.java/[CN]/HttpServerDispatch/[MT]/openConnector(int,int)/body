@@ -1,0 +1,30 @@
+{
+  if (minPort != 0 || maxPort != 0) {
+    Preconditions.checkState(minPort > 0,"Invalid port range.");
+    Preconditions.checkState(maxPort > 0,"Invalid port range.");
+    Preconditions.checkState(minPort <= maxPort,"Invalid port range.");
+  }
+  int attempts=0;
+  int port;
+  int maxAttempts=minPort == maxPort ? 1 : 5;
+  while (++attempts <= maxAttempts) {
+    if (minPort == maxPort) {
+      port=minPort;
+    }
+ else {
+      port=minPort + new Random().nextInt(maxPort - minPort);
+    }
+    LOG.info("Attempting to listen on port " + port);
+    try {
+      AbstractConnector connector=new SelectChannelConnector();
+      connector.setPort(port);
+      connector.setAcceptQueueSize(50);
+      connector.open();
+      return connector;
+    }
+ catch (    IOException e) {
+      LOG.log(Level.INFO,"Failed to create HTTP server on port " + port);
+    }
+  }
+  return null;
+}

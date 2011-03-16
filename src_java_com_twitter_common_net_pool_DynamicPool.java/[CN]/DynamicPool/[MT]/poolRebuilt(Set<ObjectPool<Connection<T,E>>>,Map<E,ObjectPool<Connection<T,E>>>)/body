@@ -1,0 +1,6 @@
+{
+  pool.setBackends(livePools);
+  for (  ObjectPool<Connection<T,E>> deadTargetPool : deadPools) {
+    deadTargetPool.close();
+  }
+}

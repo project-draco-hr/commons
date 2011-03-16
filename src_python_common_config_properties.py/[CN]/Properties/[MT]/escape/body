@@ -1,0 +1,4 @@
+def escape(self, value):
+    newvalue = value.replace(':', '\\:')
+    newvalue = newvalue.replace('=', '\\=')
+    return newvalue

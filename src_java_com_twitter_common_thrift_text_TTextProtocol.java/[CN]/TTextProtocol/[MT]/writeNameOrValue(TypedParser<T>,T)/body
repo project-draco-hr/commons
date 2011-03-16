@@ -1,0 +1,14 @@
+{
+  getCurrentContext().write();
+  try {
+    if (getCurrentContext().isMapKey()) {
+      writer.name(val.toString());
+    }
+ else {
+      helper.writeValue(writer,val);
+    }
+  }
+ catch (  IOException ex) {
+    throw new TException(ex);
+  }
+}

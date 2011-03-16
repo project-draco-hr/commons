@@ -1,0 +1,3 @@
+List<String> kestrelServers
+String queueName
+Function<String,Boolean> taskHandler

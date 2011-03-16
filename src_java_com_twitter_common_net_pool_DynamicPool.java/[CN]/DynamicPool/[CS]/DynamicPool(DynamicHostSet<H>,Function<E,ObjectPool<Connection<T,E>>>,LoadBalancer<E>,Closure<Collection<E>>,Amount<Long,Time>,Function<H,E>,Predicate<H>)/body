@@ -1,0 +1,11 @@
+{
+  Preconditions.checkNotNull(hostSet);
+  Preconditions.checkNotNull(endpointPoolFactory);
+  pool=new MetaPool<T,E>(loadBalancer,onBackendsChosen,restoreInterval);
+  hostSet.monitor(new PoolMonitor<H,Connection<T,E>>(endpointPoolFactory,endpointExtractor,livenessChecker){
+    @Override protected void onPoolRebuilt(    Set<ObjectPool<Connection<T,E>>> deadPools,    Map<E,ObjectPool<Connection<T,E>>> livePools){
+      poolRebuilt(deadPools,livePools);
+    }
+  }
+);
+}

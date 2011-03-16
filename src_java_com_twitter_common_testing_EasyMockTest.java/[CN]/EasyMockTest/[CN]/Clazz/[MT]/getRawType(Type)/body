@@ -1,0 +1,19 @@
+{
+  if (type instanceof Class<?>) {
+    return (Class<?>)type;
+  }
+ else   if (type instanceof ParameterizedType) {
+    ParameterizedType parametrizedType=(ParameterizedType)type;
+    Type rawType=parametrizedType.getRawType();
+    return (Class<?>)rawType;
+  }
+ else   if (type instanceof GenericArrayType) {
+    throw new IllegalStateException("cannot mock arrays, rejecting type: " + type);
+  }
+ else   if (type instanceof WildcardType) {
+    throw new IllegalStateException("wildcarded instantiations are not allowed in java, rejecting type: " + type);
+  }
+ else {
+    throw new IllegalArgumentException("Could not decode raw type for: " + type);
+  }
+}

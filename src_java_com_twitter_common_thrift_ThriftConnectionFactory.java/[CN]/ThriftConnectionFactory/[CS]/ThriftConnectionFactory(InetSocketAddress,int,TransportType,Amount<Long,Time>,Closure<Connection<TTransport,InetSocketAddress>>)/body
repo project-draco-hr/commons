@@ -1,0 +1,11 @@
+{
+  Preconditions.checkArgument(maxConnections > 0,"maxConnections must be at least 1");
+  if (socketTimeout != null) {
+    Preconditions.checkArgument(socketTimeout.as(Time.MILLISECONDS) >= 0);
+  }
+  this.endpoint=Preconditions.checkNotNull(endpoint);
+  this.maxConnections=maxConnections;
+  this.transportType=transportType;
+  this.socketTimeout=socketTimeout;
+  this.postCreateCallback=Preconditions.checkNotNull(postCreateCallback);
+}

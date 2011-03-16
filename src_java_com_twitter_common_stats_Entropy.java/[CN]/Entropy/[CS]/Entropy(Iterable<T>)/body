@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(elements);
+  for (  T element : elements) {
+    counts.incrementAndGet(element);
+    total++;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    return get(WAIT_FOREVER);
+  }
+ catch (  TimeoutException e) {
+    InterruptedException interruptedException=new InterruptedException("Got an unexpected TimeoutException for 0 wait");
+    interruptedException.initCause(e);
+    throw interruptedException;
+  }
+}

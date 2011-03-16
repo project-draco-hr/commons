@@ -1,0 +1,4 @@
+def _create_ivy_file(self, target):
+    ivy_file = os.path.abspath(os.path.join(self.target_path, 'ivy.xml'))
+    AntBuilder.generate_ivy(self.root_dir, ivy_file, target)
+    return ivy_file

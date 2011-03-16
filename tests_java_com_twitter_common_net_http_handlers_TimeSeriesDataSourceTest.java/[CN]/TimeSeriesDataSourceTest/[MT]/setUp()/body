@@ -1,0 +1,4 @@
+{
+  timeSeriesRepo=createMock(TimeSeriesRepository.class);
+  dataSource=new TimeSeriesDataSource(timeSeriesRepo);
+}

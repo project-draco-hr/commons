@@ -1,0 +1,22 @@
+{
+  Preconditions.checkState(threadPoolSize != null,"finish() should not be called on a synchronous URL resolver.");
+  logThreadpoolInfo();
+  executor.shutdown();
+  try {
+    if (!executor.awaitTermination(waitSeconds,TimeUnit.SECONDS)) {
+      LOG.info("Pool did not terminate, forcing shutdown.");
+      logThreadpoolInfo();
+      List<Runnable> remaining=executor.shutdownNow();
+      LOG.info("Tasks still running: " + remaining);
+      if (!executor.awaitTermination(waitSeconds,TimeUnit.SECONDS)) {
+        LOG.warning("Pool did not terminate.");
+        logThreadpoolInfo();
+      }
+    }
+  }
+ catch (  InterruptedException e) {
+    LOG.log(Level.WARNING,"Interrupted while waiting for threadpool to finish.",e);
+    executor.shutdownNow();
+    Thread.currentThread().interrupt();
+  }
+}

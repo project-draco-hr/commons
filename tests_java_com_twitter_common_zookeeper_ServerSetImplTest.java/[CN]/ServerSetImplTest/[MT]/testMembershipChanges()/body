@@ -1,0 +1,20 @@
+{
+  ServerSetImpl client=createServerSet();
+  client.monitor(serverSetMonitor);
+  assertChangeFiredEmpty();
+  ServerSetImpl server=createServerSet();
+  EndpointStatus foo=join(server,"foo");
+  assertChangeFired("foo");
+  expireSession(client.getZkClient());
+  EndpointStatus bar=join(server,"bar");
+  assertChangeFired("foo","bar");
+  foo.update(Status.DEAD);
+  assertChangeFired("bar");
+  EndpointStatus baz=join(server,"baz");
+  assertChangeFired("bar","baz");
+  baz.update(Status.DEAD);
+  assertChangeFired("bar");
+  bar.update(Status.DEAD);
+  assertChangeFiredEmpty();
+  assertTrue(serverSetBuffer.isEmpty());
+}

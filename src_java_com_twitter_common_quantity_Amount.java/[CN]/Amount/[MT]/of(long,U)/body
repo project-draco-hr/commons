@@ -1,0 +1,8 @@
+{
+  return new Amount<Long,U>(value,unit){
+    @Override protected Long scale(    double multiplier){
+      return (long)(getValue() * multiplier);
+    }
+  }
+;
+}

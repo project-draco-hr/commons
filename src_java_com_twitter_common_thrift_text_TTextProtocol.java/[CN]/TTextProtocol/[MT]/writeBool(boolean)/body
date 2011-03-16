@@ -1,0 +1,3 @@
+{
+  writeNameOrValue(TypedParser.BOOLEAN,b);
+}

@@ -1,0 +1,32 @@
+{
+  if (stateMachine.getState() == State.BACKOFF) {
+    return;
+  }
+  requests.addResult(success);
+  double failRate=requests.getFailureRate();
+  boolean highFailRate=requests.isSeeded() && (failRate > toleratedFailureRate);
+switch (stateMachine.getState()) {
+case NORMAL:
+    if (!highFailRate) {
+      break;
+    }
+ else {
+      stateMachine.setStateDurationNs(0);
+    }
+case RECOVERY:
+  if (highFailRate) {
+    requests.reset();
+    transitionToBackOff(failRate,false);
+  }
+ else {
+  }
+break;
+case FORCED_NORMAL:
+if (!highFailRate) {
+stateMachine.transition(State.RECOVERY,stateMachine.getStateDurationNs());
+}
+break;
+case BACKOFF:
+throw new IllegalStateException("Backoff state may only be exited by expiration.");
+}
+}

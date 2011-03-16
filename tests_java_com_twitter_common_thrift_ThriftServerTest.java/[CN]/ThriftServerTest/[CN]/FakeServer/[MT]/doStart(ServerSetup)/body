@@ -1,0 +1,3 @@
+{
+  if (failStart)   throw new TTransportException("Injected failure.");
+}

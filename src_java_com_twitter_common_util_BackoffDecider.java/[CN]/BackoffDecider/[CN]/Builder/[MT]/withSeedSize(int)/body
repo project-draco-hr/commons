@@ -1,0 +1,4 @@
+{
+  this.seedSize=seedSize;
+  return this;
+}

@@ -1,0 +1,4 @@
+{
+  leasedConnections.add(connection);
+  return connection;
+}

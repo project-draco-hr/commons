@@ -1,0 +1,4 @@
+{
+  test("/a/b/c/d/logs.%g.%u.log","/a/b/c/d");
+  test("/asdf.log","/");
+}

@@ -1,0 +1,3 @@
+{
+  writeJsonObjectBegin(new MapContext(null));
+}

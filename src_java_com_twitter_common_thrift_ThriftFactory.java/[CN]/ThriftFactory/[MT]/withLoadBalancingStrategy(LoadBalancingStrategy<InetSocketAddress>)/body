@@ -1,0 +1,4 @@
+{
+  this.loadBalancingStrategy=Preconditions.checkNotNull(strategy);
+  return this;
+}

@@ -1,0 +1,12 @@
+{
+  getCurrentContext().read();
+  if (getCurrentContext().isMapKey()) {
+    throw new TException(SEQUENCE_AS_KEY_ILLEGAL);
+  }
+  JsonElement curElem=getCurrentContext().getCurrentChild();
+  if (!curElem.isJsonArray()) {
+    throw new TException("Expected JSON Array!");
+  }
+  pushContext(new SequenceContext(curElem.getAsJsonArray()));
+  return curElem.getAsJsonArray().size();
+}

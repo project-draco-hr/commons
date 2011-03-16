@@ -1,0 +1,4 @@
+{
+  checkArgument(raw.length() == 1,"String " + raw + " cannot be assigned to a character.");
+  return raw.charAt(0);
+}

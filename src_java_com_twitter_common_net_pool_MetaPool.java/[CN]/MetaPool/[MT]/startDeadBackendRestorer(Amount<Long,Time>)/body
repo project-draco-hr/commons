@@ -1,0 +1,22 @@
+{
+  final AtomicBoolean shouldRestore=new AtomicBoolean(true);
+  Runnable restoreDeadBackends=new Runnable(){
+    @Override public void run(){
+      if (shouldRestore.get()) {
+        restoreDeadBackends(restoreInterval);
+      }
+    }
+  }
+;
+  final ScheduledExecutorService scheduledExecutorService=Executors.newScheduledThreadPool(1,new ThreadFactoryBuilder().setDaemon(true).setNameFormat("MTCP-DeadBackendRestorer[%s]").build());
+  long restoreDelay=restoreInterval.getValue();
+  scheduledExecutorService.scheduleWithFixedDelay(restoreDeadBackends,restoreDelay,restoreDelay,restoreInterval.getUnit().getTimeUnit());
+  return new Command(){
+    @Override public void execute(){
+      shouldRestore.set(false);
+      scheduledExecutorService.shutdownNow();
+      LOG.info("Backend restorer shut down");
+    }
+  }
+;
+}

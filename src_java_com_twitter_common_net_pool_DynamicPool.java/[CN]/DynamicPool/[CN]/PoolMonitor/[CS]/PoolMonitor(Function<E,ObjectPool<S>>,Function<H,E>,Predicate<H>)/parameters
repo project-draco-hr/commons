@@ -1,0 +1,3 @@
+Function<E,ObjectPool<S>> endpointPoolFactory
+Function<H,E> endpointExtractor
+Predicate<H> livenessTest

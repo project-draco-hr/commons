@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument((selectPercent >= 0) && (selectPercent <= 100),"Invalid selectPercent value: " + selectPercent);
+  this.threshold=selectPercent / 100;
+  this.rand=Preconditions.checkNotNull(rand);
+}

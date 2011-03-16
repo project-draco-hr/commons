@@ -1,0 +1,15 @@
+{
+  TTransportException tException=new TTransportException();
+  expectAsyncServiceCall(true).calculateMass(eq("jake"),(AsyncMethodCallback)anyObject());
+  expectLastCall().andThrow(tException);
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Thrift<TestServiceAsync> thrift=createAsyncThrift(expectUnusedExecutorService());
+  callback.onError(tException);
+  control.replay();
+  thrift.builder().withConnectTimeout(ASYNC_CONNECT_TIMEOUT).create().calculateMass("jake",callback);
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

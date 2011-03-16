@@ -1,0 +1,4 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    if self.args:
+        self.error('The filemap subcommand accepts no arguments.')

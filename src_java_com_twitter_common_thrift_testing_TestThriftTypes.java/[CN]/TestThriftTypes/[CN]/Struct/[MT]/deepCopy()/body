@@ -1,0 +1,5 @@
+{
+  Struct struct=new Struct();
+  struct.fields.putAll(fields);
+  return struct;
+}

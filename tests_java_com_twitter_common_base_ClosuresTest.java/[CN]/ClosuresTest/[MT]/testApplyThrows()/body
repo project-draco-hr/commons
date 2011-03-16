@@ -1,0 +1,15 @@
+{
+  ExceptionalClosure<Integer,IOException> work=createMock(ExceptionalClosure.class);
+  work.execute(1);
+  IOException ioException=new IOException();
+  EasyMock.expectLastCall().andThrow(ioException);
+  control.replay();
+  Function<Integer,Void> workFunction=Closures.asFunction(work);
+  try {
+    workFunction.apply(1);
+  }
+ catch (  RuntimeException e) {
+    assertSame(ioException,e.getCause());
+  }
+  control.verify();
+}

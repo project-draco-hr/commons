@@ -1,0 +1,3 @@
+{
+  fileContents=Resources.toString(Resources.getResource(getClass(),"/com/twitter/common/thrift/text/TTextProtocol_TestData.txt"),Charsets.UTF_8);
+}

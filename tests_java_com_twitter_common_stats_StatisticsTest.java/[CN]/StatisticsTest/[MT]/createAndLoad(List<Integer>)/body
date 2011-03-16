@@ -1,0 +1,7 @@
+{
+  Statistics stats=new Statistics();
+  for (  long value : values) {
+    stats.accumulate(value);
+  }
+  return stats;
+}

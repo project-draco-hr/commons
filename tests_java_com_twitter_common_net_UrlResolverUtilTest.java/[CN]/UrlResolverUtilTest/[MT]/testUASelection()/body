@@ -1,0 +1,10 @@
+{
+  url=startServer();
+  String redirectLocation="http://bar.com";
+  expect(urlToUA.apply(new URL(url))).andReturn("foo-agent");
+  expectRequestAndRedirect(redirectLocation);
+  control.replay();
+  String effectiveUrl=urlResolverUtil.getEffectiveUrl(url,null);
+  assertEquals(redirectLocation,effectiveUrl);
+  control.verify();
+}

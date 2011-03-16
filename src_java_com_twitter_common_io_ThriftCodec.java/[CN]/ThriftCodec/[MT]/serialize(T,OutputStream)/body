@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(item);
+  Preconditions.checkNotNull(sink);
+  try {
+    item.write(protocolFactory.apply(new TIOStreamTransport(null,sink)));
+  }
+ catch (  TException e) {
+    throw new IOException("Problem serializing thrift struct: " + item,e);
+  }
+}

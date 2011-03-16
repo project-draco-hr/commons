@@ -1,0 +1,3 @@
+{
+  assertEquals(value,percentiles.getPercentile(percentile).sample(),EPSILON);
+}

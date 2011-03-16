@@ -1,0 +1,14 @@
+{
+  Preconditions.checkNotNull(customBinding);
+  Preconditions.checkNotNull(defaultBinding);
+  Preconditions.checkNotNull(exposedBinding);
+  Preconditions.checkArgument(!customBinding.equals(defaultBinding) && !customBinding.equals(exposedBinding));
+  binder.install(new AbstractModule(){
+    @Override protected void configure(){
+      Provider<T> defaultProvider=new DefaultProvider<T>(defaultBinding,customBinding);
+      requestInjection(defaultProvider);
+      bind(exposedBinding).toProvider(defaultProvider);
+    }
+  }
+);
+}

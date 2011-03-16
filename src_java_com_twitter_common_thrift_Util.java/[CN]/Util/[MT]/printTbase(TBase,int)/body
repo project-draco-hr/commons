@@ -1,0 +1,8 @@
+{
+  List<String> fields=Lists.newArrayList();
+  for (  Map.Entry<? extends TFieldIdEnum,FieldMetaData> entry : FieldMetaData.getStructMetaDataMap(t.getClass()).entrySet()) {
+    @SuppressWarnings("unchecked") Object value=t.getFieldValue(entry.getKey());
+    fields.add(tabs(depth) + entry.getValue().fieldName + ": "+ printValue(value,depth));
+  }
+  return Joiner.on("\n").join(fields);
+}

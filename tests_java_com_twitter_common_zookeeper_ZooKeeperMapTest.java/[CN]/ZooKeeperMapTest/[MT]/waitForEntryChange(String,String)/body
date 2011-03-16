@@ -1,0 +1,9 @@
+{
+  Pair<String,String> expectedEntry=Pair.of(key,value);
+  while (true) {
+    Pair<String,String> nextEntry=entryChanges.take();
+    if (expectedEntry.equals(nextEntry)) {
+      return;
+    }
+  }
+}

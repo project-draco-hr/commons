@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(state);
+  for (  T transition : transitionStates)   Preconditions.checkNotNull(transition);
+  instance.stateTransitions.putAll(state,Arrays.asList(transitionStates));
+  return this;
+}

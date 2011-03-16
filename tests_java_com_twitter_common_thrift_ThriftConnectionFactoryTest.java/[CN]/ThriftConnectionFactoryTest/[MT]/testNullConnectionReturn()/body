@@ -1,0 +1,3 @@
+{
+  createConnectionFactory(1).destroy(null);
+}

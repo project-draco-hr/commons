@@ -1,0 +1,12 @@
+{
+  Preconditions.checkNotNull(expectedState);
+  readLock.lock();
+  try {
+    if (currentState != expectedState) {
+      throw new IllegalStateException(String.format("In state %s, expected to be in %s.",expectedState,currentState));
+    }
+  }
+  finally {
+    readLock.unlock();
+  }
+}

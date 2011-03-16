@@ -1,0 +1,6 @@
+def globs(*globspecs):
+    'Returns a Fileset that combines the lists of files returned by glob.glob for each globspec.'
+
+    def combine(files, globspec):
+        return (files ^ set(glob.glob(globspec)))
+    return Fileset((lambda : reduce(combine, globspecs, set())))

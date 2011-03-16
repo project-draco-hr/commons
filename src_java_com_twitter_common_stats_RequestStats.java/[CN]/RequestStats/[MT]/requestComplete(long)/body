@@ -1,0 +1,4 @@
+{
+  requests.accumulate(latencyMicros);
+  if (percentile != null)   percentile.record(latencyMicros);
+}

@@ -1,0 +1,14 @@
+{
+  Throwable exception=nonRetryable();
+  expectCall(exception);
+  control.replay();
+  RetryingCaller retry=makeRetry(false,NO_RETRYABLE);
+  try {
+    call(retry);
+    fail();
+  }
+ catch (  Throwable t) {
+    assertThat(t,is(exception));
+  }
+  assertThat(memoizeGetCounter.get(methodA).get(),is(0L));
+}

@@ -1,0 +1,13 @@
+{
+  @SuppressWarnings("unchecked") Supplier<String> task=control.createMock(Supplier.class);
+  expect(task.get()).andReturn(null);
+  expect(backoffStrategy.calculateBackoffMs(0)).andReturn(42L);
+  clock.waitFor(42L);
+  expect(task.get()).andReturn(null);
+  expect(backoffStrategy.calculateBackoffMs(42L)).andReturn(37L);
+  clock.waitFor(37L);
+  expect(task.get()).andReturn("jake");
+  control.replay();
+  assertEquals("jake",backoffHelper.doUntilResult(task));
+  control.verify();
+}

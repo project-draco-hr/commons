@@ -1,0 +1,3 @@
+LoadBalancer<E> loadBalancer
+Closure<Collection<E>> onBackendsChosen
+Amount<Long,Time> restoreInterval

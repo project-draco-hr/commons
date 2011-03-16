@@ -1,0 +1,2 @@
+def __eq__(self, other):
+    return (other and (type(other) == Exclude) and (self.org == other.org) and (self.name == other.name))

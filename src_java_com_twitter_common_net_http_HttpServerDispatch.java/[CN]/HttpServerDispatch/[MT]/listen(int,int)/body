@@ -1,0 +1,20 @@
+{
+  boolean state=!isStarted();
+  Preconditions.checkState(state,"HttpServerDispatch has already been started on port: %d",port);
+  Connector connector=openConnector(minPort,maxPort);
+  if (connector == null)   return false;
+  port=connector.getLocalPort();
+  server=new Server();
+  server.addConnector(connector);
+  context=new Context(server,"/",Context.NO_SESSIONS);
+  context.addServlet(new ServletHolder(new RootHandler()),"/");
+  try {
+    server.start();
+    LOG.info("HTTP server is listening on port " + port);
+    return true;
+  }
+ catch (  Exception e) {
+    LOG.log(Level.SEVERE,"HTTP server failed to start on port " + connector.getLocalPort(),e);
+    return false;
+  }
+}

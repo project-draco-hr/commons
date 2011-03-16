@@ -1,0 +1,6 @@
+{
+  if (count > get(mostCommonKey)) {
+    mostCommonKey=key;
+  }
+  return count;
+}

@@ -1,0 +1,19 @@
+def _resolve_target(self, target, is_meta):
+    AntBuilder._check_target(target)
+    if self.is_ide:
+
+        def is_transitive():
+            if (self.ide_transitivity == TRANSITIVITY_TESTS):
+                return (lambda target: (type(target) in set([JavaTests, ScalaTests])))
+            if (self.ide_transitivity == TRANSITIVITY_ALL):
+                return (lambda target: True)
+            if (self.ide_transitivity == TRANSITIVITY_NONE):
+                return (lambda target: False)
+            if (self.ide_transitivity == TRANSITIVITY_SOURCES):
+                return (lambda target: (type(target) not in set([JavaTests, ScalaTests])))
+        is_transitive = is_transitive()
+        return target.do_in_context((lambda : ide.extract_target(target, is_transitive)))
+    elif is_meta:
+        return target.do_in_context((lambda : bang.extract_target(target)))
+    else:
+        return target

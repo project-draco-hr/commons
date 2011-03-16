@@ -1,0 +1,3 @@
+{
+  this.injector=Preconditions.checkNotNull(injector);
+}

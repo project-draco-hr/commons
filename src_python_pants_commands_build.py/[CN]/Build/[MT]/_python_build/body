@@ -1,0 +1,6 @@
+def _python_build(self, target):
+    try:
+        executor = PythonBuilder(self.error, self.root_dir)
+        return executor.build(target, self.address.is_meta, self.build_args)
+    except:
+        self.error(('Problem executing PythonBuilder for target %s: %s' % (self.address, traceback.format_exc())))

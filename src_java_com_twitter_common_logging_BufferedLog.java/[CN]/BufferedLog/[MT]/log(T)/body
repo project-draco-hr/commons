@@ -1,0 +1,9 @@
+{
+synchronized (localBuffer) {
+    localBuffer.add(entry);
+    if (localBuffer.size() >= chunkLength) {
+      logSubmitService.submit(logPusher);
+    }
+  }
+  return null;
+}

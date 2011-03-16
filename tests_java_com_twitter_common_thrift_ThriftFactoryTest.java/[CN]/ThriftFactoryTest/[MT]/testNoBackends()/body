@@ -1,0 +1,3 @@
+{
+  ThriftFactory.create(GoodService.Iface.class).build(ImmutableSet.<InetSocketAddress>of());
+}

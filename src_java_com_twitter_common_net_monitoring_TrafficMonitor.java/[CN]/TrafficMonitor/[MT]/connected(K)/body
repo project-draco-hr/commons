@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(key);
+  trafficInfos.get(key).incConnections();
+}

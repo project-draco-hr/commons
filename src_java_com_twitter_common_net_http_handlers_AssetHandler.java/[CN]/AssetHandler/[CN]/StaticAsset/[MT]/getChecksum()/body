@@ -1,0 +1,6 @@
+{
+  if (hash == null) {
+    load();
+  }
+  return hash;
+}

@@ -1,0 +1,8 @@
+def setup_parser(self, parser):
+    parser.set_usage('%prog build (options) [spec] (build args)')
+    parser.disable_interspersed_args()
+    parser.add_option('--fast', action='store_true', dest='is_meta', default=False, help='Specifies the build should be flattened before executing, this can help speed up many builds.  Equivalent to the ! suffix BUILD target modifier')
+    parser.add_option('--ide', action='store_true', dest='is_ide', default=False, help='Specifies the build should just do enough to get an IDE usable.')
+    parser.add_option('--ide-transitivity', dest='ide_transitivity', default=None, help='Specifies IDE dependencies should be transitive for: sources, tests, all or none')
+    parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Don't output result of empty targets")
+    parser.epilog = 'Builds the specified target.  Currently any additional arguments are passed\n    straight through to the ant build system.'

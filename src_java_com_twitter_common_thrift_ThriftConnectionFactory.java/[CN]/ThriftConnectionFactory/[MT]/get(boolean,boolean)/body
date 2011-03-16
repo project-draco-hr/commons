@@ -1,0 +1,7 @@
+{
+  if (nonblocking) {
+    Preconditions.checkArgument(framedTransport,"nonblocking client requires a server running framed transport");
+    return NONBLOCKING;
+  }
+  return framedTransport ? FRAMED : BLOCKING;
+}

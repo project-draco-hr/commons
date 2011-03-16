@@ -1,0 +1,16 @@
+{
+  final Capture<Pair<HttpServletRequest,HttpServletResponse>> requestCapture=new Capture<Pair<HttpServletRequest,HttpServletResponse>>();
+  requestHandler.execute(capture(requestCapture));
+  expectLastCall().andAnswer(new IAnswer<Void>(){
+    @Override public Void answer() throws Throwable {
+      assertTrue(requestCapture.hasCaptured());
+      Pair<HttpServletRequest,HttpServletResponse> pair=requestCapture.getValue();
+      HttpServletRequest request=pair.getFirst();
+      assertEquals("HEAD",request.getMethod());
+      assertEquals("foo-agent",request.getHeader("User-Agent"));
+      pair.getSecond().sendRedirect(location);
+      return null;
+    }
+  }
+);
+}

@@ -1,0 +1,33 @@
+{
+  List<String> joinedArgs=Lists.newArrayList();
+  String unmappedKey=null;
+  for (  String arg : args) {
+    if (unmappedKey == null) {
+      if (DANGLING_ASSIGNMENT_PATTERN.matcher(arg).matches()) {
+        unmappedKey=arg;
+      }
+ else {
+        joinedArgs.add(arg);
+      }
+    }
+ else {
+      if (ASSIGNMENT_PATTERN.matcher(arg).matches()) {
+        joinedArgs.add(unmappedKey);
+        joinedArgs.add(arg);
+        unmappedKey=null;
+      }
+ else       if (DANGLING_ASSIGNMENT_PATTERN.matcher(arg).find()) {
+        joinedArgs.add(unmappedKey);
+        unmappedKey=arg;
+      }
+ else {
+        joinedArgs.add(unmappedKey + "=" + arg);
+        unmappedKey=null;
+      }
+    }
+  }
+  if (unmappedKey != null) {
+    joinedArgs.add(unmappedKey);
+  }
+  return joinedArgs;
+}

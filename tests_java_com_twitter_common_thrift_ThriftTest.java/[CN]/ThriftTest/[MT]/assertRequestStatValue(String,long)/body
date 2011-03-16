@@ -1,0 +1,5 @@
+{
+  Stat<Long> var=Stats.getVariable("foo_calculateMass_" + statName);
+  assertNotNull(var);
+  assertEquals(expectedValue,(long)var.read());
+}

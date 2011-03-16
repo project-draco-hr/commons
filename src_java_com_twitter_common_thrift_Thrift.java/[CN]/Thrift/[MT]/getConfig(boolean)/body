@@ -1,0 +1,3 @@
+{
+  return async ? DEFAULT_ASYNC_CONFIG : DEFAULT_CONFIG;
+}

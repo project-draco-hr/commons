@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(period);
+  long newNanos=nowNanos + period.as(Time.NANOSECONDS);
+  Preconditions.checkArgument(newNanos >= 0,"invalid period %s - would move current time to a negative value: %sns",period,newNanos);
+  nowNanos=newNanos;
+}

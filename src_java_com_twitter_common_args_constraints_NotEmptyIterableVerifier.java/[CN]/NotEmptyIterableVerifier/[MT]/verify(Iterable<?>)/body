@@ -1,0 +1,3 @@
+{
+  checkArgument(!Iterables.isEmpty(value),"Value must not be empty.");
+}

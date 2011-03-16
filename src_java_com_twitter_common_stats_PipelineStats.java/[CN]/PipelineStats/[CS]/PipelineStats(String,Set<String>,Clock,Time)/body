@@ -1,0 +1,12 @@
+{
+  MorePreconditions.checkNotBlank(pipelineName);
+  MorePreconditions.checkNotBlank(stages);
+  Preconditions.checkArgument(!stages.contains(FULL_PIPELINE_NAME));
+  this.clock=Preconditions.checkNotNull(clock);
+  this.precision=Preconditions.checkNotNull(precision);
+  this.stages=Maps.newHashMap();
+  for (  String stage : stages) {
+    this.stages.put(stage,new SlidingStats(String.format("%s_%s",pipelineName,stage),precision.toString()));
+  }
+  this.stages.put(FULL_PIPELINE_NAME,new SlidingStats(String.format("%s_%s",pipelineName,FULL_PIPELINE_NAME),precision.toString()));
+}

@@ -1,0 +1,12 @@
+{
+  client.getName();
+  server.awaitShutdown(Amount.of(10L,Time.SECONDS));
+  verifyConnections(serverMonitor,0);
+  verifyConnections(clientMonitor,0);
+  verifySuccessCount(serverMonitor,1);
+  verifyFailureCount(serverMonitor,1);
+  verifySuccessCount(clientMonitor,1);
+  verifyFailureCount(clientMonitor,0);
+  verifyLifetimeRequestCount(serverMonitor,2);
+  verifyLifetimeRequestCount(clientMonitor,1);
+}

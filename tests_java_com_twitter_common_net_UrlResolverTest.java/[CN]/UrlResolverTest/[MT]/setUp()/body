@@ -1,0 +1,7 @@
+{
+  control=createControl();
+  @SuppressWarnings("unchecked") ExceptionalFunction<String,String,IOException> resolver=control.createMock(ExceptionalFunction.class);
+  this.resolver=resolver;
+  this.clock=control.createMock(Clock.class);
+  this.backoffStrategy=control.createMock(BackoffStrategy.class);
+}

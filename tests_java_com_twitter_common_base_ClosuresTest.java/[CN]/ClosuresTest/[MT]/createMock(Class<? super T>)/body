@@ -1,0 +1,3 @@
+{
+  return (T)control.createMock(type);
+}

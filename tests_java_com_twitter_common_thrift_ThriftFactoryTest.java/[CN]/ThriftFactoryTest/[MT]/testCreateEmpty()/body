@@ -1,0 +1,12 @@
+{
+  DynamicHostSet emptyHostSet=control.createMock(DynamicHostSet.class);
+  final Thrift<GoodService.Iface> thrift=ThriftFactory.create(GoodService.Iface.class).withMaxConnectionsPerEndpoint(1).build(emptyHostSet);
+  addTearDown(new TearDown(){
+    @Override public void tearDown(){
+      thrift.close();
+    }
+  }
+);
+  GoodService.Iface client=thrift.create();
+  client.doWork();
+}

@@ -1,0 +1,10 @@
+{
+  String data1="test_data";
+  zkClient.get().create(nodePath,data1.getBytes(),ACL,CreateMode.PERSISTENT);
+  Listener<String> listener=new Listener<String>();
+  ZooKeeperNode<String> zkNode=makeNode(nodePath,listener);
+  assertEquals(data1,listener.waitForUpdate());
+  String data2="BLAH";
+  zkClient.get().setData(nodePath,data2.getBytes(),-1);
+  assertEquals(data2,listener.waitForUpdate());
+}

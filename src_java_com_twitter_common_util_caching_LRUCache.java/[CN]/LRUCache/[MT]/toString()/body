@@ -1,0 +1,3 @@
+{
+  return String.format("size: %d, accesses: %s, misses: %s",map.size(),accesses,misses);
+}

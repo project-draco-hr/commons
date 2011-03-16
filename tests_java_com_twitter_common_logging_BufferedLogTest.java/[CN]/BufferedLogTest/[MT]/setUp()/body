@@ -1,0 +1,4 @@
+{
+  wrappedLog=createMock(Log.class);
+  bufferedLog=BufferedLog.<String,Boolean>builder().buffer(wrappedLog).withRetryFilter(RETRY_FILTER).withChunkLength(BUFFER_SIZE).withMaxBuffer(MAX_BUFFER_SIZE).withFlushInterval(Amount.of(10000,Time.SECONDS)).withExecutorService(MoreExecutors.sameThreadExecutor()).build();
+}

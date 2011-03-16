@@ -1,0 +1,15 @@
+{
+  Preconditions.checkNotNull(numerator);
+  Preconditions.checkNotNull(denominator);
+  return new Ratio(name,new Supplier<Number>(){
+    @Override public Number get(){
+      return numerator;
+    }
+  }
+,new Supplier<Number>(){
+    @Override public Number get(){
+      return denominator;
+    }
+  }
+);
+}

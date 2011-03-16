@@ -1,0 +1,10 @@
+{
+  onLoseMembership.execute();
+  try {
+    backoffHelper.doUntilSuccess(tryJoin);
+  }
+ catch (  InterruptedException e) {
+    Thread.currentThread().interrupt();
+    throw new RuntimeException(String.format("Interrupted while trying to re-join group: %s, giving up",path),e);
+  }
+}

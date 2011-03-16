@@ -1,0 +1,18 @@
+def _create_doc_target(self):
+    all_sources = []
+    all_deps = OrderedSet()
+    for target in self.targets:
+        if ((not self.only_provides) or (isinstance(target, ExportableJavaLibrary) and target.provides)):
+            for source in target.sources:
+                source_path = os.path.join(self.java_src_prefix, source)
+                if os.path.exists(source_path):
+                    all_sources.append(source_path)
+                else:
+                    print ('skipping %s' % source_path)
+                for jar_dep in target.jar_dependencies:
+                    if jar_dep.rev:
+                        all_deps.add(copy(jar_dep).intransitive())
+
+    def create_meta_target():
+        return JavaLibrary('pants.doc.deps', all_sources, provides=None, dependencies=all_deps, excludes=None, resources=None, binary_resources=None, deployjar=False, buildflags=None, is_meta=True)
+    return list(self.targets)[0].do_in_context(create_meta_target)

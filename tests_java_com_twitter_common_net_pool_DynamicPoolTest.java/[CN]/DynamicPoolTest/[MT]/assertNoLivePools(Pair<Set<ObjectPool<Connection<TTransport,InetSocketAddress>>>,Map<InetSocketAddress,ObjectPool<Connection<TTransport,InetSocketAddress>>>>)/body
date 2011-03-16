@@ -1,0 +1,9 @@
+{
+  assertTrue("Expected no live pools to be set",rebuild.getSecond().isEmpty());
+  try {
+    connectionPool.get();
+    fail("Expected server set to be exhausted with no endpoints");
+  }
+ catch (  ResourceExhaustedException e) {
+  }
+}

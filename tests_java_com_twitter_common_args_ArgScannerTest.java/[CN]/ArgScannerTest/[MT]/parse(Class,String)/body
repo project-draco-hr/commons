@@ -1,0 +1,3 @@
+{
+  ArgScanner.process(ImmutableSet.copyOf(scope.getDeclaredFields()),args);
+}

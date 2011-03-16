@@ -1,0 +1,12 @@
+{
+  String name=null;
+  if (!getCurrentContext().hasMoreChildren()) {
+    return new TField("",UNUSED_TYPE,(short)0);
+  }
+  getCurrentContext().read();
+  JsonElement jsonName=getCurrentContext().getCurrentChild();
+  if (!jsonName.getAsJsonPrimitive().isString()) {
+    throw new RuntimeException("Expected String for a field name");
+  }
+  return getCurrentContext().getTFieldByName(jsonName.getAsJsonPrimitive().getAsString());
+}

@@ -1,0 +1,3 @@
+{
+  candidateBuffer=new LinkedBlockingDeque<CandidateImpl>();
+}

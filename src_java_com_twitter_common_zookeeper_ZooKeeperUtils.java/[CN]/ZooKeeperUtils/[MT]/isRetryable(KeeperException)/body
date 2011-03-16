@@ -1,0 +1,29 @@
+{
+  Preconditions.checkNotNull(e);
+switch (e.code()) {
+case CONNECTIONLOSS:
+case SESSIONEXPIRED:
+case SESSIONMOVED:
+case OPERATIONTIMEOUT:
+    return true;
+case RUNTIMEINCONSISTENCY:
+case DATAINCONSISTENCY:
+case MARSHALLINGERROR:
+case BADARGUMENTS:
+case NONODE:
+case NOAUTH:
+case BADVERSION:
+case NOCHILDRENFOREPHEMERALS:
+case NODEEXISTS:
+case NOTEMPTY:
+case INVALIDCALLBACK:
+case INVALIDACL:
+case AUTHFAILED:
+case UNIMPLEMENTED:
+case SYSTEMERROR:
+case APIERROR:
+case OK:
+default :
+  return false;
+}
+}

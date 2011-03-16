@@ -1,0 +1,41 @@
+{
+  try {
+    return backoffHelper.doUntilResult(new Supplier<ServiceInstance>(){
+      @Override public ServiceInstance get(){
+        try {
+          byte[] data=zkClient.get().getData(nodePath,serviceInstanceWatcher,null);
+          return codec.deserialize(new ByteArrayInputStream(data));
+        }
+ catch (        InterruptedException e) {
+          Thread.currentThread().interrupt();
+          throw new ServiceInstanceFetchException("Interrupted updating service data for: " + nodePath,e);
+        }
+catch (        ZooKeeperConnectionException e) {
+          LOG.log(Level.WARNING,"Temporary error trying to updating service data for: " + nodePath,e);
+          return null;
+        }
+catch (        NoNodeException e) {
+          invalidateNodePath(nodePath);
+          throw new ServiceInstanceDeletedException(nodePath);
+        }
+catch (        KeeperException e) {
+          if (zkClient.shouldRetry(e)) {
+            LOG.log(Level.WARNING,"Temporary error trying to update service data for: " + nodePath,e);
+            return null;
+          }
+ else {
+            throw new ServiceInstanceFetchException("Failed to update service data for: " + nodePath,e);
+          }
+        }
+catch (        IOException e) {
+          throw new ServiceInstanceFetchException("Failed to deserialize the ServiceInstance data for: " + nodePath,e);
+        }
+      }
+    }
+);
+  }
+ catch (  InterruptedException e) {
+    Thread.currentThread().interrupt();
+    throw new ServiceInstanceFetchException("Interrupted trying to update service data for: " + nodePath,e);
+  }
+}

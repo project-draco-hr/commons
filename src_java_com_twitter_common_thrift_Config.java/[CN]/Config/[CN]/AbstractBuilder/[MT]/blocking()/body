@@ -1,0 +1,4 @@
+{
+  config.requestTimeout=DEADLINE_BLOCKING;
+  return getThis();
+}

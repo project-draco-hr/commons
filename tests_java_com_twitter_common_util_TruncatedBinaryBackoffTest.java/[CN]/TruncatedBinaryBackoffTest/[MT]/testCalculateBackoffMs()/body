@@ -1,0 +1,13 @@
+{
+  TruncatedBinaryBackoff backoff=new TruncatedBinaryBackoff(Amount.of(1L,Time.MILLISECONDS),Amount.of(6L,Time.MILLISECONDS));
+  try {
+    backoff.calculateBackoffMs(-1L);
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  assertEquals(1,backoff.calculateBackoffMs(0));
+  assertEquals(2,backoff.calculateBackoffMs(1));
+  assertEquals(4,backoff.calculateBackoffMs(2));
+  assertEquals(6,backoff.calculateBackoffMs(4));
+  assertEquals(6,backoff.calculateBackoffMs(8));
+}

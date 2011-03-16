@@ -1,0 +1,3 @@
+{
+  realStream.flush();
+}

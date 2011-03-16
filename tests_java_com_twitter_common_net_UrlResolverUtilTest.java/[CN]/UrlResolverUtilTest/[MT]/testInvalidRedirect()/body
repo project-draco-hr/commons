@@ -1,0 +1,10 @@
+{
+  url=startServer();
+  String badRedirect=":::<<<<<::IAMNOTAVALIDURI";
+  expect(urlToUA.apply(new URL(url))).andReturn("foo-agent");
+  expectRequestAndRedirect(badRedirect);
+  control.replay();
+  String effectiveUrl=urlResolverUtil.getEffectiveUrl(url,null);
+  assertEquals(badRedirect,effectiveUrl);
+  control.verify();
+}

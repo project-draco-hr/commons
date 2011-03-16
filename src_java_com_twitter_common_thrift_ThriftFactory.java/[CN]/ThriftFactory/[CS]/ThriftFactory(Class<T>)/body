@@ -1,0 +1,8 @@
+{
+  this.serviceInterface=Thrift.checkServiceInterface(serviceInterface);
+  this.maxConnectionsPerEndpoint=DEFAULT_MAX_CONNECTIONS_PER_ENDPOINT;
+  this.connectionRestoreInterval=DEFAULT_DEAD_TARGET_RESTORE_INTERVAL;
+  this.framedTransport=false;
+  this.monitor=new TrafficMonitor<InetSocketAddress>(serviceInterface.getName());
+  this.serviceName=serviceInterface.getEnclosingClass().getSimpleName();
+}

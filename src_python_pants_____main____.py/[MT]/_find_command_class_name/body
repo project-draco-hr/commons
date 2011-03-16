@@ -1,0 +1,12 @@
+def _find_command_class_name(root_dir, args):
+    arg = args[0]
+    command_class_name = (_BUILD_COMMAND if (arg in _BUILD_ALIASES) else arg.capitalize())
+    if hasattr(commands, command_class_name):
+        return ((args[1:] if (len(args) > 1) else []), command_class_name)
+    if arg.startswith('-'):
+        exit(('Unrecognized option: %s' % arg))
+    try:
+        Address.parse(root_dir, arg)
+        return (args, _BUILD_COMMAND)
+    except:
+        exit(('Failed to execute pants build: %s' % traceback.format_exc()))

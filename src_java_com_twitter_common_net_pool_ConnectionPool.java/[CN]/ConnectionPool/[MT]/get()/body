@@ -1,0 +1,10 @@
+{
+  checkNotClosed();
+  poolLock.lock();
+  try {
+    return leaseConnection(NO_TIMEOUT);
+  }
+  finally {
+    poolLock.unlock();
+  }
+}

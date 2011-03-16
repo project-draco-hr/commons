@@ -1,0 +1,27 @@
+{
+  Set<String> currentMemberIds=ImmutableSet.copyOf(memberIds);
+  Set<String> oldMemberIds=servicesByMemberId.keySet();
+  if ((serverSet == null) || !currentMemberIds.equals(oldMemberIds)) {
+    SetView<String> deletedMemberIds=Sets.difference(oldMemberIds,currentMemberIds);
+    oldMemberIds.removeAll(deletedMemberIds);
+    SetView<String> unchangedMemberIds=Sets.intersection(oldMemberIds,currentMemberIds);
+    ImmutableSet.Builder<ServiceInstance> services=ImmutableSet.builder();
+    for (    String unchangedMemberId : unchangedMemberIds) {
+      services.add(servicesByMemberId.get(unchangedMemberId));
+    }
+    SetView<String> newMemberIds=Sets.difference(currentMemberIds,oldMemberIds);
+    for (    String newMemberId : newMemberIds) {
+      try {
+        services.add(servicesByMemberId.get(newMemberId));
+      }
+ catch (      ComputationException e) {
+        Throwable cause=e.getCause();
+        if (!(cause instanceof ServiceInstanceDeletedException)) {
+          Throwables.propagateIfInstanceOf(cause,ServiceInstanceFetchException.class);
+          throw new IllegalStateException("Unexpected error fetching member data for: " + newMemberId,e);
+        }
+      }
+    }
+    notifyServerSetChange(services.build());
+  }
+}

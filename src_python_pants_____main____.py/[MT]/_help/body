@@ -1,0 +1,5 @@
+def _help(root_dir):
+    print ('Pants 0.0.1 @ BUILD_ROOT: %s' % root_dir)
+    print 
+    print ('Available subcommands:\n\t%s' % '\n\t'.join(find_all_commands()))
+    exit()

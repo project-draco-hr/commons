@@ -1,0 +1,32 @@
+{
+  try {
+    Future<Object> result=executorService.submit(new Callable<Object>(){
+      @Override public Object call() throws Exception {
+        try {
+          return invoke(method,args,callback,null,connectTimeoutOverride);
+        }
+ catch (        Throwable t) {
+          Throwables.propagateIfInstanceOf(t,Exception.class);
+          throw new RuntimeException(t);
+        }
+      }
+    }
+);
+    try {
+      return result.get(timeout.getValue(),timeout.getUnit().getTimeUnit());
+    }
+ catch (    TimeoutException e) {
+      result.cancel(true);
+      throw new TTimeoutException(e);
+    }
+catch (    ExecutionException e) {
+      throw Throwables.throwCause(e,false);
+    }
+  }
+ catch (  RejectedExecutionException e) {
+    throw new TResourceExhaustedException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw e.getCause();
+  }
+}

@@ -1,0 +1,9 @@
+{
+  final String message=String.format("All %d x %d connections in use",endpointCount,maxConnectionsPerEndpoint);
+  delegate.setRejectedExecutionHandler(new RejectedExecutionHandler(){
+    @Override public void rejectedExecution(    Runnable runnable,    ThreadPoolExecutor executor){
+      throw new RejectedExecutionException(message);
+    }
+  }
+);
+}

@@ -1,0 +1,24 @@
+{
+  requestCount.incrementAndGet();
+  String resolvedUrl=urlCache.get(url);
+  if (resolvedUrl != null) {
+    cacheHits.incrementAndGet();
+    return resolvedUrl;
+  }
+  try {
+    long startTimeMs=System.currentTimeMillis();
+    resolvedUrl=resolver.apply(url);
+    if (resolvedUrl == null) {
+      return null;
+    }
+    urlCache.put(url,resolvedUrl);
+synchronized (urlResolutionTimesMs) {
+      urlResolutionTimesMs.addValue(System.currentTimeMillis() - startTimeMs);
+    }
+    return resolvedUrl;
+  }
+ catch (  IOException e) {
+    failureCount.incrementAndGet();
+    throw e;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  Supplier<byte[]> dataSupplier=new EasyMockTest.Clazz<Supplier<byte[]>>(){
+  }
+.createMock();
+  byte[] initial="start".getBytes();
+  expect(dataSupplier.get()).andReturn(initial);
+  byte[] second="update".getBytes();
+  expect(dataSupplier.get()).andReturn(second);
+  replay(dataSupplier);
+  Membership membership=group.join(dataSupplier,onLoseMembership);
+  assertArrayEquals("Initial setting is incorrect.",initial,zkClient.get().getData(membership.getMemberPath(),false,null));
+  assertArrayEquals("Updating supplier should not change membership data",initial,zkClient.get().getData(membership.getMemberPath(),false,null));
+  membership.updateMemberData();
+  assertArrayEquals("Updating membership should change data",second,zkClient.get().getData(membership.getMemberPath(),false,null));
+  verify(dataSupplier);
+}

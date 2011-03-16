@@ -1,0 +1,9 @@
+{
+  List<T> buffer=copyBuffer();
+  if (buffer.isEmpty())   return;
+  R result=bufferedLog.log(buffer);
+  if (retryFilter != null && retryFilter.apply(result)) {
+    LOG.warning("Log request failed, restoring spooled messages.");
+    restoreToLocalBuffer(buffer);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return resolveChain.isEmpty() ? null : Iterables.getLast(resolveChain);
+}

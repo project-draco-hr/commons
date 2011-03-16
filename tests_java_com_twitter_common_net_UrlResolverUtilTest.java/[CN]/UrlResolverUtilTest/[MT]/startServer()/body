@@ -1,0 +1,17 @@
+{
+  final Server server=new Server();
+  final SocketConnector connector=new SocketConnector();
+  connector.setHost("127.0.0.1");
+  connector.setPort(0);
+  server.addConnector(connector);
+  Context context=new Context(server,"/",Context.NO_SECURITY);
+  context.addServlet(new ServletHolder(servlet),"/*");
+  server.start();
+  addTearDown(new TearDown(){
+    @Override public void tearDown() throws Exception {
+      server.stop();
+    }
+  }
+);
+  return "http://" + connector.getHost() + ":"+ connector.getLocalPort()+ "/";
+}

@@ -1,0 +1,9 @@
+{
+  DistributedLock lock1=new DistributedLockImpl(zkClient,LOCK_PATH);
+  DistributedLock lock2=new DistributedLockImpl(zkClient,LOCK_PATH);
+  lock1.lock();
+  boolean acquired=lock2.tryLock(10,TimeUnit.MILLISECONDS);
+  assertFalse("Couldn't acquire lock because it's currently held",acquired);
+  lock1.unlock();
+  lock2.unlock();
+}

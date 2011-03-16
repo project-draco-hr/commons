@@ -1,0 +1,12 @@
+{
+  getCurrentContext().read();
+  if (getCurrentContext().isMapKey()) {
+    throw new TException(OBJECT_AS_KEY_ILLEGAL);
+  }
+  JsonElement curElem=getCurrentContext().getCurrentChild();
+  if (!curElem.isJsonObject()) {
+    throw new TException("Expected JSON Object!");
+  }
+  pushContext(new MapContext(curElem.getAsJsonObject()));
+  return new TMap(UNUSED_TYPE,UNUSED_TYPE,curElem.getAsJsonObject().entrySet().size());
+}

@@ -1,0 +1,5 @@
+{
+  ImmutableList<String> argument=ImmutableList.of("");
+  ImmutableList<String> result=MorePreconditions.checkNotBlank(argument);
+  assertSame(argument,result);
+}

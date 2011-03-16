@@ -1,0 +1,8 @@
+{
+  ZooKeeperClient zkClient=createZkClient(Amount.of(1,Time.MINUTES));
+  zkClient.close();
+  zkClient.close();
+  long firstSessionId=zkClient.get().getSessionId();
+  zkClient.close();
+  assertNotEqual(firstSessionId,zkClient.get().getSessionId());
+}

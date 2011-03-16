@@ -1,0 +1,4 @@
+{
+  instance.retryFilter=retryFilter;
+  return this;
+}

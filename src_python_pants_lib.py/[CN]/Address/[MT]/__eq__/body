@@ -1,0 +1,3 @@
+def __eq__(self, other):
+    result = (other and (type(other) == Address) and (self.buildfile.canonical_relpath == other.buildfile.canonical_relpath) and (self.target_name == other.target_name))
+    return result

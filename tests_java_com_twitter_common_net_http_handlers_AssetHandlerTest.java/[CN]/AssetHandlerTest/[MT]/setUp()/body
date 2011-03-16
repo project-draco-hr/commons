@@ -1,0 +1,5 @@
+{
+  inputSupplier=createMock(new Clazz<InputSupplier<InputStream>>(){
+  }
+);
+}

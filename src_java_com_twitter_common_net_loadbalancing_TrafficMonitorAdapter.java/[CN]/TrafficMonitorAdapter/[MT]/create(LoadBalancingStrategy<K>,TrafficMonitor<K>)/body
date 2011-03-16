@@ -1,0 +1,3 @@
+{
+  return new TrafficMonitorAdapter<K>(strategy,monitor);
+}

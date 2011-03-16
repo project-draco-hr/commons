@@ -1,0 +1,4 @@
+String path
+Class<? extends HttpServlet> servletClass
+ImmutableMap<String,String> params
+boolean silent

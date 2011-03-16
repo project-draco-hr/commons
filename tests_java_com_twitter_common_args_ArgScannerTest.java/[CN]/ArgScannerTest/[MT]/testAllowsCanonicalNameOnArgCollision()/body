@@ -1,0 +1,3 @@
+{
+  parse(ImmutableList.<Class>of(NameClashA.class,NameClashB.class),"-" + NameClashB.class.getCanonicalName() + ".string=blah");
+}

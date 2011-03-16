@@ -1,0 +1,5 @@
+{
+  BackoffDecider decider=new BackoffDecider(name,seedSize,toleratedFailureRate,deciderGroup,strategy,recoveryPeriod,requestWindowNs,numBuckets,recoveryType,statsProvider,random,clock);
+  if (deciderGroup != null)   deciderGroup.add(decider);
+  return decider;
+}

@@ -1,0 +1,38 @@
+{
+  /** 
+ * A grouping of values in the multimap.
+ */
+class Grouping implements Comparable<Grouping> {
+    private K key;
+    private int size;
+    public Grouping(    K key,    int size){
+      this.key=key;
+      this.size=size;
+    }
+    @Override public int hashCode(){
+      return size;
+    }
+    @Override public int compareTo(    Grouping grouping){
+      return size - grouping.size;
+    }
+    @Override public boolean equals(    Object o){
+      if (!(o instanceof Grouping)) {
+        return false;
+      }
+      Grouping other=(Grouping)o;
+      return key.equals(other.key);
+    }
+  }
+  SortedSet<Grouping> topGroups=Sets.newTreeSet();
+  for (  K key : map.keySet()) {
+    topGroups.add(new Grouping(key,map.get(key).size()));
+    if (topGroups.size() > topValues) {
+      topGroups.remove(topGroups.first());
+    }
+  }
+  Set<K> topKeys=Sets.newHashSet();
+  for (  Grouping group : topGroups) {
+    topKeys.add(group.key);
+  }
+  return topKeys;
+}

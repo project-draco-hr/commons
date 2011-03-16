@@ -1,0 +1,6 @@
+{
+  control.replay();
+  BackoffDecider decider=builder(NAME).withTolerateFailureRate(0.5).build();
+  run(decider,5,Result.SUCCESS,State.NORMAL);
+  run(decider,5,Result.FAILURE,State.NORMAL);
+}

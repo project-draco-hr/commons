@@ -1,0 +1,3 @@
+{
+  assertChangeFired(ImmutableSet.<ServiceInstance>of());
+}

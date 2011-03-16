@@ -1,0 +1,2 @@
+Set<ObjectPool<S>> deadPools
+Map<E,ObjectPool<S>> livePools

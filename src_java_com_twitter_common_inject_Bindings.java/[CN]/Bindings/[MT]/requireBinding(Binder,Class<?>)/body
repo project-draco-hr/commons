@@ -1,0 +1,3 @@
+{
+  requireBinding(binder,Key.get(Preconditions.checkNotNull(required)));
+}

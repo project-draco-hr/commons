@@ -1,0 +1,5 @@
+def extend(self, **kwargs):
+    "Returns a new TemplateData with this template's data overlayed by the key value pairs\n    specified as keyword arguments."
+    props = self._props.copy()
+    props.update(kwargs)
+    return TemplateData(**props)

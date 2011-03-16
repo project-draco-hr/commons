@@ -1,0 +1,5 @@
+{
+  this.endState=endState;
+  this.startUrl=startUrl;
+  this.resolveChain=Lists.newArrayList(resolveChain);
+}

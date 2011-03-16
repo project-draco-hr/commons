@@ -1,0 +1,9 @@
+{
+  expect(function.apply(STRING)).andReturn(1);
+  expect(function.apply(STRING)).andReturn(2);
+  control.replay();
+  CallableExceptionalSupplier<Integer,IOException> supplier=ExceptionalFunctions.curry(function,STRING);
+  assertEquals("curried function should be called",Integer.valueOf(1),supplier.get());
+  assertEquals("curried function should not be memoized",Integer.valueOf(2),supplier.get());
+  control.verify();
+}

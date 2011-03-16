@@ -1,0 +1,14 @@
+{
+  DistributedLock lock1=new DistributedLockImpl(zkClient,LOCK_PATH);
+  DistributedLock lock2=new DistributedLockImpl(zkClient,LOCK_PATH);
+  lock1.lock();
+  List<String> children=expectZkNodes(LOCK_PATH);
+  assertEquals("One child == lock held!",children.size(),1);
+  lock1.unlock();
+  children=expectZkNodes(LOCK_PATH);
+  assertEquals("No children, no lock held!",children.size(),0);
+  lock2.lock();
+  children=expectZkNodes(LOCK_PATH);
+  assertEquals("One child == lock held!",children.size(),1);
+  lock2.unlock();
+}

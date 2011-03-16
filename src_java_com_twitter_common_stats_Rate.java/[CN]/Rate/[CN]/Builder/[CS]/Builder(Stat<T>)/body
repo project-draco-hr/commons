@@ -1,0 +1,10 @@
+{
+  Stats.export(input);
+  this.name=input.getName() + "_per_sec";
+  inputAccessor=new Supplier<T>(){
+    @Override public T get(){
+      return input.read();
+    }
+  }
+;
+}

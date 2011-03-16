@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(backend);
+  Preconditions.checkNotNull(result);
+  Preconditions.checkArgument(result != ConnectionResult.SUCCESS);
+  if (!hasBackend(backend))   return;
+  strategy.addConnectResult(backend,result,0);
+}

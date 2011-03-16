@@ -1,0 +1,3 @@
+{
+  parse(DuplicateNames.class,"-string-str");
+}

@@ -1,0 +1,12 @@
+{
+  long prevBackoffMs=Amount.of(previousBackoffPeriodNs,Time.NANOSECONDS).as(Time.MILLISECONDS);
+  long backoffPeriodNs=Amount.of(strategy.calculateBackoffMs(prevBackoffMs),Time.MILLISECONDS).as(Time.NANOSECONDS);
+  if (!force) {
+    LOG.info(String.format("%s failure rate at %g, backing off for %s ms",name,failRate,Amount.of(backoffPeriodNs,Time.NANOSECONDS).as(Time.MILLISECONDS)));
+  }
+ else {
+    LOG.info(String.format("%s forced to back off for %s ms",name,Amount.of(backoffPeriodNs,Time.NANOSECONDS).as(Time.MILLISECONDS)));
+  }
+  stateMachine.transition(State.BACKOFF,backoffPeriodNs);
+  previousBackoffPeriodNs=backoffPeriodNs;
+}

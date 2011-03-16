@@ -1,0 +1,2 @@
+int maxRedirects
+int threadPoolSize

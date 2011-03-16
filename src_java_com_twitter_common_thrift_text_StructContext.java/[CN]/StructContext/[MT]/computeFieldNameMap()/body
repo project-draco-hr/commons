@@ -1,0 +1,12 @@
+{
+  Map<String,TField> map=new HashMap<String,TField>();
+  Class<? extends TBase> clazz=getCurrentThriftMessageClass();
+  Map<? extends TFieldIdEnum,FieldMetaData> metaDataMap=FieldMetaData.getStructMetaDataMap(clazz);
+  for (  TFieldIdEnum key : metaDataMap.keySet()) {
+    final String fieldName=key.getFieldName();
+    final FieldMetaData metaData=metaDataMap.get(key);
+    byte type=(TType.ENUM == metaData.valueMetaData.type) ? TType.I32 : metaData.valueMetaData.type;
+    map.put(fieldName,new TField(fieldName,type,key.getThriftFieldId()));
+  }
+  return map;
+}

@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(url);
+  int paramStartIndex=url.indexOf("?");
+  if (paramStartIndex == -1) {
+    return url;
+  }
+ else {
+    return url.substring(0,paramStartIndex);
+  }
+}

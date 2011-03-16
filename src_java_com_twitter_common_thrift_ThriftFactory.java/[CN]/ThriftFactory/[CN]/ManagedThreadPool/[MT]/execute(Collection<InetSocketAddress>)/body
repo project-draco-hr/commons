@@ -1,0 +1,17 @@
+{
+  int previousPoolSize=delegate.getMaximumPoolSize();
+  int backendCount=Math.max(chosenBackends.size(),1);
+  int newPoolSize=backendCount * maxConnectionsPerEndpoint;
+  if (previousPoolSize != newPoolSize) {
+    LOG.info(String.format("Re-sizing deadline thread pool from: %d to: %d",previousPoolSize,newPoolSize));
+    if (previousPoolSize < newPoolSize) {
+      delegate.setMaximumPoolSize(newPoolSize);
+      delegate.setCorePoolSize(newPoolSize);
+    }
+ else {
+      delegate.setCorePoolSize(newPoolSize);
+      delegate.setMaximumPoolSize(newPoolSize);
+    }
+    setRejectedExecutionHandler(backendCount);
+  }
+}

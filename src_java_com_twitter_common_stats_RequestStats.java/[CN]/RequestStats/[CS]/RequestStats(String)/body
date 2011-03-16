@@ -1,0 +1,3 @@
+{
+  this(name,new Percentile<Long>(name,DEFAULT_SAMPLE_PERCENT,DEFAULT_PERCENTILES));
+}

@@ -1,0 +1,22 @@
+@classmethod
+def _aggregate(cls, name, provides, deployjar, buildflags, scala_libs):
+    all_deps = OrderedSet()
+    all_excludes = OrderedSet()
+    all_sources = []
+    all_java_sources = []
+    all_resources = []
+    all_binary_resources = []
+    for scala_lib in scala_libs:
+        if scala_lib.resolved_dependencies:
+            all_deps.update((dep for dep in scala_lib.jar_dependencies if (dep.rev is not None)))
+        if scala_lib.excludes:
+            all_excludes.update(scala_lib.excludes)
+        if scala_lib.sources:
+            all_sources.extend(scala_lib.sources)
+        if scala_lib.java_sources:
+            all_java_sources.extend(scala_lib.java_sources)
+        if scala_lib.resources:
+            all_resources.extend(scala_lib.resources)
+        if scala_lib.binary_resources:
+            all_binary_resources.extend(scala_lib.binary_resources)
+    return ScalaLibrary(name, all_sources, java_sources=all_java_sources, provides=provides, dependencies=all_deps, excludes=all_excludes, resources=all_resources, binary_resources=all_binary_resources, deployjar=deployjar, buildflags=buildflags, is_meta=True)

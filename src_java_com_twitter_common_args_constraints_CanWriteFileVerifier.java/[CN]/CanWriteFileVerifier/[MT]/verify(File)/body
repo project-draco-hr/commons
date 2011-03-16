@@ -1,0 +1,3 @@
+{
+  checkArgument(value.canWrite(),"File must be writable.");
+}

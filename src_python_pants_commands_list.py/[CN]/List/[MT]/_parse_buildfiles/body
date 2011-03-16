@@ -1,0 +1,12 @@
+def _parse_buildfiles(self):
+    buildfiles = OrderedSet()
+    for spec in self.args:
+        try:
+            if self.options.is_directory_list:
+                for buildfile in BuildFile.scan_buildfiles(self.root_dir, spec):
+                    buildfiles.add(buildfile)
+            else:
+                buildfiles.add(Address.parse(self.root_dir, spec).buildfile)
+        except:
+            self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+    return buildfiles

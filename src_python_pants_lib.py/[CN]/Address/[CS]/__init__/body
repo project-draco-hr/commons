@@ -1,0 +1,4 @@
+def __init__(self, buildfile, target_name, is_meta):
+    self.buildfile = buildfile
+    self.target_name = target_name
+    self.is_meta = is_meta

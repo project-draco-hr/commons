@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(nodes);
+  Preconditions.checkState(nodes.size() > 0);
+  this.nodes=nodes;
+}

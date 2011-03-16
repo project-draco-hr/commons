@@ -1,0 +1,4 @@
+{
+  backends=Preconditions.checkNotNull(pools);
+  loadBalancer.offerBackends(pools.keySet(),onBackendsChosen);
+}

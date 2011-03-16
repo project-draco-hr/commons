@@ -1,0 +1,44 @@
+{
+  final ZooKeeperClient zkClient=createZkClient();
+  shutdownNetwork();
+  try {
+    zkClient.get(Amount.of(50L,Time.MILLISECONDS));
+    fail("Expected client connection to timeout while network down");
+  }
+ catch (  TimeoutException e) {
+  }
+  final CountDownLatch blockingGetComplete=new CountDownLatch(1);
+  final AtomicReference<ZooKeeper> client=new AtomicReference<ZooKeeper>();
+  new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        client.set(zkClient.get());
+      }
+ catch (      ZooKeeperConnectionException e) {
+        throw new RuntimeException(e);
+      }
+catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+ finally {
+        blockingGetComplete.countDown();
+      }
+    }
+  }
+).start();
+  restartNetwork();
+  blockingGetComplete.await();
+  assertNotNull(client.get());
+  long sessionId=zkClient.get().getSessionId();
+  assertSame(client.get(),zkClient.get());
+  shutdownNetwork();
+  ZooKeeper zooKeeper=zkClient.get();
+  try {
+    zooKeeper.exists("/",false);
+    fail("Expected client operation to fail while network down");
+  }
+ catch (  ConnectionLossException e) {
+  }
+  restartNetwork();
+  assertEquals("Expected connection to be re-established with existing session",sessionId,zkClient.get().getSessionId());
+}

@@ -1,0 +1,22 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison;
+  lastComparison=Integer.valueOf(fields.size()).compareTo(other.fields.size());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  for (  Map.Entry<Field,Object> entry : fields.entrySet()) {
+    Field field=entry.getKey();
+    lastComparison=Boolean.TRUE.compareTo(other.isSet(field));
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    lastComparison=TBaseHelper.compareTo(entry.getValue(),other.getFieldValue(field));
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

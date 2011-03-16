@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(host);
+  Preconditions.checkArgument(port > 0 && port < MAX_SOCKET_NUMBER,"port must be > 0 and < 0xFFFF");
+  Preconditions.checkNotNull(props);
+  this.port=port;
+  this.host=host;
+  hostPort=host + ":" + port;
+  this.props=new HashMap<String,String>(props);
+  serialized=serialize();
+}

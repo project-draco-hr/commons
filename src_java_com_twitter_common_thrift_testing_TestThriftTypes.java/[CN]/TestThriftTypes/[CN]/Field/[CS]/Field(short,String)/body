@@ -1,0 +1,5 @@
+{
+  this.fieldId=fieldId;
+  this.fieldName=fieldName;
+  FIELDS_BY_ID.put(fieldId,this);
+}

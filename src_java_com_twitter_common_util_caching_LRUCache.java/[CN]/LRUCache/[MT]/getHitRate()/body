@@ -1,0 +1,4 @@
+{
+  double numAccesses=accesses.longValue();
+  return numAccesses == 0 ? 0 : (numAccesses - misses.longValue()) / numAccesses;
+}

@@ -1,0 +1,5 @@
+ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool
+RequestTracker<InetSocketAddress> requestTracker
+Function<TTransport,T> clientFactory
+Amount<Long,Time> timeout
+boolean debug

@@ -1,0 +1,5 @@
+{
+  for (int i=0; i < count; i++) {
+    markDead.addRequestResult(backend,result,0L);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(template);
+  this.config=new Config(template);
+}

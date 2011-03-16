@@ -1,0 +1,3 @@
+{
+  this(getConfig(async),executorService,connectionPool,requestTracker,serviceName,serviceInterface,clientFactory,async);
+}

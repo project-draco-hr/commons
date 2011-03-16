@@ -1,0 +1,13 @@
+{
+synchronized (samples) {
+    if (samples.isEmpty())     return 0d;
+    if (sortFirst)     Collections.sort(samples,NUMBER_COMPARATOR);
+    int selectIndex=((samples.size() * percentile) / 100) - 1;
+    selectIndex=selectIndex < 0 ? 0 : selectIndex;
+    boolean interpolate=((selectIndex + 1) * 100) / percentile < samples.size();
+    double value=samples.get(selectIndex).doubleValue();
+    if (interpolate)     value=(value + samples.get(selectIndex + 1).doubleValue()) / 2;
+    if (flushAfterSampling)     samples.clear();
+    return value;
+  }
+}

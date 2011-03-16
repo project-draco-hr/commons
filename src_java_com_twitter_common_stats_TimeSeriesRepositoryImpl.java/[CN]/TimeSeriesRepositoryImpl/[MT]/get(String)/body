@@ -1,0 +1,4 @@
+{
+  if (!timeSeries.containsKey(name))   return null;
+  return timeSeries.get(name);
+}

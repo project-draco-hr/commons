@@ -1,0 +1,26 @@
+{
+  Preconditions.checkNotNull(executor);
+  Preconditions.checkNotNull(poolLock);
+  Preconditions.checkNotNull(connectionFactory);
+  Preconditions.checkNotNull(statsProvider);
+  this.executor=executor;
+  this.poolLock=poolLock;
+  available=poolLock.newCondition();
+  this.connectionFactory=connectionFactory;
+  String cfName=Stats.normalizeName(connectionFactory.toString());
+  statsProvider.makeGauge("cp_leased_connections_" + cfName,new Supplier<Integer>(){
+    @Override public Integer get(){
+      return leasedConnections.size();
+    }
+  }
+);
+  statsProvider.makeGauge("cp_available_connections_" + cfName,new Supplier<Integer>(){
+    @Override public Integer get(){
+      return availableConnections.size();
+    }
+  }
+);
+  this.connectionsCreated=statsProvider.makeCounter("cp_created_connections_" + cfName);
+  this.connectionsDestroyed=statsProvider.makeCounter("cp_destroyed_connections_" + cfName);
+  this.connectionsReturned=statsProvider.makeCounter("cp_returned_connections_" + cfName);
+}

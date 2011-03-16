@@ -1,0 +1,7 @@
+{
+  S connection=(availableConnections.size() == 1) ? Iterables.getOnlyElement(availableConnections) : availableConnections.iterator().next();
+  if (!availableConnections.remove(connection)) {
+    throw new IllegalArgumentException("Connection picked not in pool: " + connection);
+  }
+  return connection;
+}

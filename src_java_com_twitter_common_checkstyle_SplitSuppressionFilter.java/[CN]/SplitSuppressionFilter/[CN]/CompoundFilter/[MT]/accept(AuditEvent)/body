@@ -1,0 +1,8 @@
+{
+  for (  Filter filter : filters) {
+    if (!filter.accept(auditEvent)) {
+      return false;
+    }
+  }
+  return true;
+}

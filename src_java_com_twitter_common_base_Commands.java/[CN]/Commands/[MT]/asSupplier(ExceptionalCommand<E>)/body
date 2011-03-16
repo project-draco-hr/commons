@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(command);
+  return new ExceptionalSupplier<Void,E>(){
+    @Override public Void get() throws E {
+      command.execute();
+      return null;
+    }
+  }
+;
+}

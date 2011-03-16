@@ -1,0 +1,4 @@
+def __init__(self, ferror, root_dir):
+    object.__init__(self)
+    self.ferror = ferror
+    self.root_dir = root_dir

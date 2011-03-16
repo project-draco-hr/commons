@@ -1,0 +1,5 @@
+{
+  DataInput di=new DataInputStream(in);
+  readFromDataInput(di);
+  return;
+}

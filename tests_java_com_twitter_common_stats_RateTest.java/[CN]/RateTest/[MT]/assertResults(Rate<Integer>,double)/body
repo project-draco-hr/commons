@@ -1,0 +1,8 @@
+{
+  assertEquals(0d,rate.sample(),EPSILON);
+  clock.waitFor(ONE_SEC);
+  for (  double result : results) {
+    assertEquals(result,rate.sample(),EPSILON);
+    clock.waitFor(ONE_SEC);
+  }
+}

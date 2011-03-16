@@ -1,0 +1,3 @@
+{
+  return clientFactory == null ? createClientFactory(serviceInterface) : clientFactory;
+}

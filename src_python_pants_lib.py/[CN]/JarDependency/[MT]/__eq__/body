@@ -1,0 +1,3 @@
+def __eq__(self, other):
+    result = (other and (type(other) == JarDependency) and (self.org == other.org) and (self.name == other.name) and (self.rev == other.rev))
+    return result

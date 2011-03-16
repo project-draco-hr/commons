@@ -1,0 +1,4 @@
+{
+  control.replay();
+  new Sampler(-10,random);
+}

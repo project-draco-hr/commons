@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(binder);
+  Preconditions.checkNotNull(required);
+  binder.install(new AbstractModule(){
+    @Override protected void configure(){
+      requireBinding(required);
+    }
+  }
+);
+}

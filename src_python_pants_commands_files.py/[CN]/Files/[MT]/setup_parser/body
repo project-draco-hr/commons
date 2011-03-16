@@ -1,0 +1,3 @@
+def setup_parser(self, parser):
+    parser.set_usage('%prog files [spec]')
+    parser.epilog = 'Lists all source files owned by the given BUILD target.'

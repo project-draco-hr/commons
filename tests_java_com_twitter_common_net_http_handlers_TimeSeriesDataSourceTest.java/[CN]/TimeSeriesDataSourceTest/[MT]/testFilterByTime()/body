@@ -1,0 +1,18 @@
+{
+  expect(timeSeriesRepo.getTimestamps()).andReturn(TIMESTAMPS);
+  expect(timeSeriesRepo.get(TIME_SERIES_1)).andReturn(TS_DATA.get(TIME_SERIES_1));
+  expect(timeSeriesRepo.get(TIME_SERIES_2)).andReturn(TS_DATA.get(TIME_SERIES_2));
+  control.replay();
+  String colString=Joiner.on(',').join(Arrays.asList(TIME_SERIES_1,TIME_SERIES_2,TIME_COLUMN));
+  DataTable data=fetch("SELECT  " + colString + " WHERE time >= 3");
+  assertThat(data.getNumberOfColumns(),is(TS_DATA.keySet().size() + 1));
+  Iterable<List<Number>> expectedData=Iterables2.zip(0,getSamples(TIME_SERIES_1),getSamples(TIME_SERIES_2),TIMESTAMPS);
+  expectedData=Iterables.filter(expectedData,new Predicate<List<Number>>(){
+    @Override public boolean apply(    List<Number> row){
+      return row.get(2).intValue() >= 3;
+    }
+  }
+);
+  assertThat(data.getNumberOfRows(),is(Iterables.size(expectedData)));
+  checkRows(data.getRows(),expectedData);
+}

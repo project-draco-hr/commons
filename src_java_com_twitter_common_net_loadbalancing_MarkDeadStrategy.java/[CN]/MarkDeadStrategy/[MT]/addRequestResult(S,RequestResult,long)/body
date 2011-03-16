@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(requestKey);
+  Preconditions.checkNotNull(result);
+  BackoffDecider decider=targets.get(requestKey);
+  Preconditions.checkNotNull(decider);
+  addResult(decider,result);
+  if (shouldNotifyFor(requestKey)) {
+    wrappedStrategy.addRequestResult(requestKey,result,requestTimeNanos);
+  }
+}

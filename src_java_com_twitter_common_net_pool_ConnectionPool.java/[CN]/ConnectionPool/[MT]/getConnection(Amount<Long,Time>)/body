@@ -1,0 +1,59 @@
+{
+  if (availableConnections.isEmpty()) {
+    if (leasedConnections.isEmpty()) {
+      try {
+        return createConnection(timeout);
+      }
+ catch (      Exception e) {
+        throw new ResourceExhaustedException("failed to create a new connection",e);
+      }
+    }
+ else {
+      if (connectionFactory.mightCreate()) {
+        executor.execute(new Runnable(){
+          @Override public void run(){
+            try {
+              S connection=createConnection(timeout);
+              if (connection != null) {
+                addConnection(connection);
+              }
+ else {
+                LOG.log(Level.WARNING,"Failed to create a new connection for a waiting client " + "due to due to maximum pool size or timeout");
+              }
+            }
+ catch (            Exception e) {
+              LOG.log(Level.WARNING,"Failed to create a new connection for a waiting client",e);
+            }
+          }
+        }
+);
+      }
+      try {
+        if (timeout.getValue() == 0) {
+          while (availableConnections.isEmpty()) {
+            available.await();
+          }
+        }
+ else {
+          long timeRemainingNs=timeout.as(Time.NANOSECONDS);
+          while (availableConnections.isEmpty()) {
+            long start=System.nanoTime();
+            if (!available.await(timeRemainingNs,TimeUnit.NANOSECONDS)) {
+              throw new TimeoutException("timeout waiting for a connection to be released to the pool");
+            }
+ else {
+              timeRemainingNs-=(System.nanoTime() - start);
+            }
+          }
+          if (availableConnections.isEmpty()) {
+            throw new TimeoutException("timeout waiting for a connection to be released to the pool");
+          }
+        }
+      }
+ catch (      InterruptedException e) {
+        throw new TimeoutException("Interrupted while waiting for a connection.");
+      }
+    }
+  }
+  return getAvailableConnection();
+}

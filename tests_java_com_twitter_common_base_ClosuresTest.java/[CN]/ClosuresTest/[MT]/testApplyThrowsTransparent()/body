@@ -1,0 +1,15 @@
+{
+  Closure<Integer> work=createMock(Closure.class);
+  work.execute(1);
+  RuntimeException runtimeException=new IllegalArgumentException();
+  EasyMock.expectLastCall().andThrow(runtimeException);
+  control.replay();
+  Function<Integer,Void> workFunction=Closures.asFunction(work);
+  try {
+    workFunction.apply(1);
+  }
+ catch (  RuntimeException e) {
+    assertSame(runtimeException,e);
+  }
+  control.verify();
+}

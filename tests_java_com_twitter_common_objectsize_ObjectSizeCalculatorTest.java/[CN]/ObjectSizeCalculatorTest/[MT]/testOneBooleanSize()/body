@@ -1,0 +1,3 @@
+{
+  assertSizeIs(24,new Class1());
+}

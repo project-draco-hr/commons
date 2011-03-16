@@ -1,0 +1,12 @@
+def __init__(self, name, dependencies, is_meta):
+    Target.__init__(self, name, is_meta)
+    self.resolved_dependencies = OrderedSet()
+    self.internal_dependencies = OrderedSet()
+    self.jar_dependencies = OrderedSet()
+    if dependencies:
+        for dependency in dependencies:
+            resolved_dependency = dependency.resolve()
+            self.resolved_dependencies.add(resolved_dependency)
+            if isinstance(resolved_dependency, InternalTarget):
+                self.internal_dependencies.add(resolved_dependency)
+            self.jar_dependencies.update(resolved_dependency._as_jar_dependencies())

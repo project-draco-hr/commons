@@ -1,0 +1,13 @@
+{
+switch (result) {
+case FAILED:
+case TIMEOUT:
+    addResult(decider,false);
+  break;
+case SUCCESS:
+addResult(decider,true);
+break;
+default :
+throw new UnsupportedOperationException("Unhandled result type " + result);
+}
+}

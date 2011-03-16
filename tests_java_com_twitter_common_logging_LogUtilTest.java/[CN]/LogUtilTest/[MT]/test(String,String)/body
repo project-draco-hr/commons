@@ -1,0 +1,3 @@
+{
+  assertThat(LogUtil.getLogManagerLogDir(pattern).getPath(),is(expected));
+}

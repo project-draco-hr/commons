@@ -1,0 +1,9 @@
+{
+  strategy=createMock(new Clazz<LoadBalancingStrategy<String>>(){
+  }
+);
+  onBackendsChosen=createMock(new Clazz<Closure<Collection<String>>>(){
+  }
+);
+  loadBalancer=LoadBalancerImpl.create(this.strategy);
+}

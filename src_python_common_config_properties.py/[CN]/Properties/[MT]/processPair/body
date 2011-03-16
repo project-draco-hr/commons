@@ -1,0 +1,24 @@
+def processPair(self, key, value):
+    ' Process a (key, value) pair '
+    oldkey = key
+    oldvalue = value
+    keyparts = self.bspacere.split(key)
+    strippable = False
+    lastpart = keyparts[(-1)]
+    if (lastpart.find('\\ ') != (-1)):
+        keyparts[(-1)] = lastpart.replace('\\', '')
+    elif (lastpart and (lastpart[(-1)] == ' ')):
+        strippable = True
+    key = ''.join(keyparts)
+    if strippable:
+        key = key.strip()
+        oldkey = oldkey.strip()
+    oldvalue = self.unescape(oldvalue)
+    value = self.unescape(value)
+    self._props[key] = value.strip()
+    if self._keymap.has_key(key):
+        oldkey = self._keymap.get(key)
+        self._origprops[oldkey] = oldvalue.strip()
+    else:
+        self._origprops[oldkey] = oldvalue.strip()
+        self._keymap[key] = oldkey

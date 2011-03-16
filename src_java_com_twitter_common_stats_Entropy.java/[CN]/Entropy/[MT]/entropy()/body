@@ -1,0 +1,8 @@
+{
+  double entropy=0;
+  for (  int count : counts.values()) {
+    double prob=(double)count / total;
+    entropy-=prob * Log2(prob);
+  }
+  return entropy;
+}

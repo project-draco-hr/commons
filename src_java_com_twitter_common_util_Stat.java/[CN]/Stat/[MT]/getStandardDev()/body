@@ -1,0 +1,6 @@
+{
+  if (_number > 1) {
+    _stdDev=Math.sqrt((_sumOfSq - ((_sum * _sum) / _number)) / (_number - 1));
+  }
+  return _stdDev;
+}

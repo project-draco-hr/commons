@@ -1,0 +1,3 @@
+{
+  return nodes.get(rand.nextInt(nodes.size()));
+}

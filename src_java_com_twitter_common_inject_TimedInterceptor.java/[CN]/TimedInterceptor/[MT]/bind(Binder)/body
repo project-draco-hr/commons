@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(binder);
+  Bindings.requireBinding(binder,TimeSeriesRepository.class);
+  TimedInterceptor interceptor=new TimedInterceptor();
+  binder.requestInjection(interceptor);
+  binder.bindInterceptor(Matchers.any(),Matchers.annotatedWith(Timed.class),interceptor);
+}

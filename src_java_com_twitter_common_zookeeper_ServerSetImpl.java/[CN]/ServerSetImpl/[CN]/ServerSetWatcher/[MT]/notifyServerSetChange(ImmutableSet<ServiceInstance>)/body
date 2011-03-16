@@ -1,0 +1,12 @@
+{
+  if (!currentServerSet.equals(serverSet)) {
+    serverSet=currentServerSet;
+    if (serverSet.isEmpty()) {
+      LOG.warning("server set empty!");
+    }
+ else {
+      LOG.info("server set change to:\n\t" + Joiner.on("\n\t").join(serverSet));
+    }
+    monitor.onChange(serverSet);
+  }
+}

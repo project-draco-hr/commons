@@ -1,0 +1,50 @@
+{
+  final AtomicReference<Socket> clientConnection=new AtomicReference<Socket>();
+  final CountDownLatch connected=new CountDownLatch(1);
+  final ServerSocket server=new ServerSocket(0);
+  Thread service=new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        clientConnection.set(server.accept());
+      }
+ catch (      IOException e) {
+        LOG.log(Level.WARNING,"Problem accepting a connection to thrift server",e);
+      }
+ finally {
+        connected.countDown();
+      }
+    }
+  }
+);
+  service.setDaemon(true);
+  service.start();
+  ServerSetImpl serverSetImpl=new ServerSetImpl(createZkClient(),SERVICE);
+  serverSetImpl.monitor(serverSetMonitor);
+  assertChangeFiredEmpty();
+  InetSocketAddress localSocket=new InetSocketAddress(server.getLocalPort());
+  EndpointStatus status=serverSetImpl.join(localSocket,Maps.<String,InetSocketAddress>newHashMap(),Status.STARTING);
+  assertChangeFired(ImmutableMap.<InetSocketAddress,Status>of(localSocket,Status.STARTING));
+  Service.Iface svc=createThriftClient(serverSetImpl);
+  try {
+    svc.getString();
+    fail("ServerSet is currently empty, should throw exception here.");
+  }
+ catch (  TResourceExhaustedException e) {
+    assertTrue(true);
+  }
+  status.update(Status.ALIVE);
+  assertChangeFired(ImmutableMap.<InetSocketAddress,Status>of(localSocket,Status.ALIVE));
+  svc=createThriftClient(serverSetImpl);
+  try {
+    String value=svc.getString();
+    LOG.info("Got value: " + value + " from server");
+    assertEquals(Service.Iface.DONE,value);
+  }
+ catch (  TResourceExhaustedException e) {
+    fail("ServerSet is not empty, should not throw exception here");
+  }
+ finally {
+    connected.await();
+    server.close();
+  }
+}

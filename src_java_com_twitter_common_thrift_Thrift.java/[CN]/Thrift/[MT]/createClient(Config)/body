@@ -1,0 +1,33 @@
+{
+  StatsProvider statsProvider=config.getStatsProvider();
+  boolean debug=config.isDebug();
+  Caller decorated=new ThriftCaller<T>(connectionPool,requestTracker,clientFactory,config.getConnectTimeout(),debug);
+  if (config.getMaxRetries() > 0) {
+    decorated=new RetryingCaller(decorated,async,statsProvider,serviceName,config.getMaxRetries(),config.getRetryableExceptions(),debug);
+  }
+  if (config.getRequestTimeout().getValue() > 0) {
+    Preconditions.checkArgument(!async,"Request deadlines may not be used with an asynchronous client.");
+    decorated=new DeadlineCaller(decorated,async,executorService,config.getRequestTimeout());
+  }
+  if (debug) {
+    decorated=new DebugCaller(decorated,async);
+  }
+  if (config.enableStats()) {
+    decorated=new StatTrackingCaller(decorated,async,statsProvider,serviceName);
+  }
+  final Caller caller=decorated;
+  final InvocationHandler invocationHandler=new InvocationHandler(){
+    @Override public Object invoke(    Object o,    Method method,    Object[] args) throws Throwable {
+      AsyncMethodCallback callback=null;
+      if (args != null && async) {
+        List<Object> argsList=Lists.newArrayList(args);
+        callback=extractCallback(argsList);
+        args=argsList.toArray();
+      }
+      return caller.call(method,args,callback,null);
+    }
+  }
+;
+  @SuppressWarnings("unchecked") T instance=(T)Proxy.newProxyInstance(serviceInterface.getClassLoader(),new Class<?>[]{serviceInterface},invocationHandler);
+  return instance;
+}

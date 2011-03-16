@@ -1,0 +1,8 @@
+{
+  if (column.getId().equals(TIME_COLUMN))   return timeSeriesRepo.getTimestamps();
+  TimeSeries series=timeSeriesRepo.get(column.getId());
+  if (series == null) {
+    throw new DataSourceException(ReasonType.INVALID_REQUEST,"Unknown column " + column);
+  }
+  return series.getSamples();
+}

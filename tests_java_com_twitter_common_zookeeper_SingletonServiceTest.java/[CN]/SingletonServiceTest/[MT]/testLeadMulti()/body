@@ -1,0 +1,21 @@
+{
+  List<Capture<Leader>> captures=Lists.newArrayList();
+  for (int i=0; i < 5; i++) {
+    Pair<InetSocketAddress,Map<String,InetSocketAddress>> endpoints=getEndpoints("foo" + i);
+    Capture<Leader> leaderCapture=new Capture<Leader>();
+    captures.add(leaderCapture);
+    expect(candidate.offerLeadership(capture(leaderCapture))).andReturn(null);
+    expect(serverSet.join(endpoints.getFirst(),endpoints.getSecond(),Status.STARTING)).andReturn(endpointStatus);
+    listener.onLeading(endpointStatus);
+    endpointStatus.update(Status.ALIVE);
+    endpointStatus.update(Status.STOPPED);
+  }
+  control.replay();
+  for (int i=0; i < 5; i++) {
+    final String leaderName="foo" + i;
+    newLeader(leaderName);
+    endpointStatus.update(Status.ALIVE);
+    endpointStatus.update(Status.STOPPED);
+    captures.get(i).getValue().onElected(abdicate);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  clock=new FakeClock();
+  monitor=new TrafficMonitor<String>("test service",clock);
+}

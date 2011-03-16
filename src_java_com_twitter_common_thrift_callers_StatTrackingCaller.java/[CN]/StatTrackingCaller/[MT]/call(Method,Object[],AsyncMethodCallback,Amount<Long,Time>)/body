@@ -1,0 +1,22 @@
+{
+  final StatsProvider.RequestTimer requestStats=stats.get(method);
+  final long startTime=System.nanoTime();
+  ResultCapture capture=new ResultCapture(){
+    @Override public void success(){
+      requestStats.requestComplete(TimeUnit.NANOSECONDS.toMicros(System.nanoTime() - startTime));
+    }
+    @Override public boolean fail(    Throwable t){
+      if (t instanceof TTimeoutException || t instanceof TimeoutException) {
+        requestStats.incTimeouts();
+        return true;
+      }
+      if (!(t instanceof TResourceExhaustedException)) {
+        requestStats.incReconnects();
+      }
+      requestStats.incErrors();
+      return true;
+    }
+  }
+;
+  return invoke(method,args,callback,capture,connectTimeoutOverride);
+}

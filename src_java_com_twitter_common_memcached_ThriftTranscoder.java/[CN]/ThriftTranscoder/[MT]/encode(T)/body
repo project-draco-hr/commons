@@ -1,0 +1,12 @@
+{
+  ByteArrayOutputStream buffer=new ByteArrayOutputStream();
+  if (thriftStruct != null) {
+    try {
+      codec.serialize(thriftStruct,buffer);
+    }
+ catch (    IOException e) {
+      throw new RuntimeException("Unable to encode value: " + thriftStruct,e);
+    }
+  }
+  return new CachedData(0,buffer.toByteArray(),CachedData.MAX_SIZE);
+}

@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(argument,message,args);
+  Preconditions.checkArgument(!StringUtils.isBlank(argument),message,args);
+  return argument;
+}

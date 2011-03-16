@@ -1,0 +1,13 @@
+{
+  DeadlineCaller deadline=makeDeadline(false);
+  Throwable exception=new IllegalArgumentException();
+  expectCall(exception);
+  control.replay();
+  try {
+    call(deadline);
+    fail();
+  }
+ catch (  Throwable t) {
+    assertThat(t,is(exception));
+  }
+}

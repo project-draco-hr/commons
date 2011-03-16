@@ -1,0 +1,8 @@
+{
+  try {
+    return new URI(raw);
+  }
+ catch (  URISyntaxException e) {
+    throw new IllegalArgumentException("Malformed URI " + raw + ", "+ e.getMessage());
+  }
+}

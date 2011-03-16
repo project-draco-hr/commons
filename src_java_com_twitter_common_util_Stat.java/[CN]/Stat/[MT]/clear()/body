@@ -1,0 +1,9 @@
+{
+  _max=0;
+  _min=Double.MAX_VALUE;
+  _number=0;
+  _mean=0;
+  _stdDev=0;
+  _sum=0;
+  _sumOfSq=0;
+}

@@ -1,0 +1,10 @@
+@staticmethod
+def find_command_class(name):
+    'Attempts to find the command class for the given command name.  Raises a KeyError if the\n    command could not be found.\n\n    name: the case insensitive name of the command'
+    try:
+        command_class = getattr(__import__(__name__), name.capitalize())
+    except AttributeError as e:
+        raise KeyError(('Failed to find a command with name %s in the commands module: %s' % (name, e)))
+    if (not issubclass(command_class, Command)):
+        raise KeyError(('Invalid command class %s, must be a subclass of Command' % command_class))
+    return command_class

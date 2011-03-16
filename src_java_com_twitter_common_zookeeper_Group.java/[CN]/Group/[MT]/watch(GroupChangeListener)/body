@@ -1,0 +1,36 @@
+{
+  Preconditions.checkNotNull(groupChangeListener);
+  try {
+    ensurePersistentGroupPath();
+  }
+ catch (  JoinException e) {
+    throw new WatchException("Failed to create group path: " + path,e);
+  }
+  final GroupMonitor groupMonitor=new GroupMonitor(groupChangeListener);
+  backoffHelper.doUntilSuccess(new ExceptionalSupplier<Boolean,WatchException>(){
+    @Override public Boolean get() throws WatchException {
+      try {
+        groupMonitor.watchGroup();
+        return true;
+      }
+ catch (      InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new WatchException("Interrupted trying to watch group at path: " + path,e);
+      }
+catch (      ZooKeeperConnectionException e) {
+        LOG.log(Level.WARNING,"Temporary error trying to watch group at path: " + path,e);
+        return null;
+      }
+catch (      KeeperException e) {
+        if (zkClient.shouldRetry(e)) {
+          LOG.log(Level.WARNING,"Temporary error trying to watch group at path: " + path,e);
+          return null;
+        }
+ else {
+          throw new WatchException("Problem trying to watch group at path: " + path,e);
+        }
+      }
+    }
+  }
+);
+}

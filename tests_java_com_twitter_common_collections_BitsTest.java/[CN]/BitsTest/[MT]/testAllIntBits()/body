@@ -1,0 +1,20 @@
+{
+  for (  List<Integer> testList : INTS_TEST_LISTS) {
+    for (    int testValue : testList) {
+      int inverseValue1=0;
+      int inverseValue2=0xFFFFFFFF;
+      for (int i=0; i < 32; ++i) {
+        if (!Bits.isBitSet(testValue,i)) {
+          inverseValue1=Bits.setBit(inverseValue1,i);
+        }
+ else {
+          inverseValue2=Bits.clearBit(inverseValue2,i);
+        }
+      }
+      assertThat(0xFFFFFFFF,is(inverseValue1 | testValue));
+      assertThat(0xFFFFFFFF,is(inverseValue2 | testValue));
+      assertThat(0xFFFFFFFF,is(inverseValue1 ^ testValue));
+      assertThat(0xFFFFFFFF,is(inverseValue2 ^ testValue));
+    }
+  }
+}

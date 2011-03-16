@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(var);
+  MorePreconditions.checkNotBlank(var.getName());
+  String validatedName=validateName(var.getName());
+  @SuppressWarnings("unchecked") Stat<T> displaced=(Stat<T>)VAR_MAP.put(validatedName,var);
+  if (displaced != null) {
+    LOG.warning("Warning - exported variable collision on " + validatedName);
+  }
+  return var;
+}

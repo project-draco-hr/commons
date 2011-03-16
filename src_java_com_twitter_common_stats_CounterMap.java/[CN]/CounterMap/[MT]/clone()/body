@@ -1,0 +1,5 @@
+{
+  CounterMap<K> newInstance=new CounterMap<K>();
+  newInstance.map.putAll(map);
+  return newInstance;
+}

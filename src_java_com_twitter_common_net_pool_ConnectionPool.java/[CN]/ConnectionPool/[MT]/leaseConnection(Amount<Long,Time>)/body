@@ -1,0 +1,7 @@
+{
+  S connection=getConnection(timeout);
+  if (connection == null) {
+    throw new ResourceExhaustedException("Connection pool resources exhausted");
+  }
+  return leaseConnection(connection);
+}

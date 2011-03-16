@@ -1,0 +1,11 @@
+{
+  List<String> lines=Lists.newLinkedList();
+  for (  Map.Entry<Thread,StackTraceElement[]> entry : Thread.getAllStackTraces().entrySet()) {
+    Thread t=entry.getKey();
+    lines.add(String.format("Name: %s\nState: %s\nDaemon: %s\nID: %d",t.getName(),t.getState(),t.isDaemon(),t.getId()));
+    for (    StackTraceElement s : entry.getValue()) {
+      lines.add("    " + s.toString());
+    }
+  }
+  return lines;
+}

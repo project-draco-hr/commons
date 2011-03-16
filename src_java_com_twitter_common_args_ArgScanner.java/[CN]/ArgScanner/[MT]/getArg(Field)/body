@@ -1,0 +1,9 @@
+{
+  field.setAccessible(true);
+  try {
+    return ((Arg)field.get(null));
+  }
+ catch (  IllegalAccessException e) {
+    throw new RuntimeException("Failed to set value for " + field);
+  }
+}

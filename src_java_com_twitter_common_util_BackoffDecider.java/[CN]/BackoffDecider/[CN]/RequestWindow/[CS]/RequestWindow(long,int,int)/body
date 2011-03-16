@@ -1,0 +1,6 @@
+{
+  this.durationNs=durationNs;
+  this.bucketLengthNs=durationNs / bucketCount;
+  buckets.addFirst(new TimeSlice());
+  this.seedSize=seedSize;
+}

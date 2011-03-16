@@ -1,0 +1,5 @@
+{
+  Preconditions.checkState(!methodCaches.isEmpty(),"At least one method must be cached.");
+  Preconditions.checkState(recordMode,"prepare() may only be invoked once.");
+  recordMode=false;
+}

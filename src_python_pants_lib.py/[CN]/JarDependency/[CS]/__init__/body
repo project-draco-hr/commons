@@ -1,0 +1,9 @@
+def __init__(self, org, name, rev=None, ext=None):
+    self.org = org
+    self.name = name
+    self.rev = rev
+    self.excludes = []
+    self.transitive = True
+    self.ext = ext
+    self._id = None
+    self._configurations = ['default']

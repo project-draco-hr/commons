@@ -1,0 +1,17 @@
+{
+  control.replay();
+  BackoffDecider decider=builder(NAME).build();
+  run(decider,10,Result.SUCCESS,State.NORMAL);
+  run(decider,10,Result.FAILURE,State.NORMAL);
+  assertThat(decider.shouldBackOff(),is(false));
+  clock.waitFor(10000);
+  run(decider,1,Result.SUCCESS,State.NORMAL);
+  assertThat(decider.shouldBackOff(),is(false));
+  assertThat(decider.requests.totalRequests,is(21L));
+  assertThat(decider.requests.totalFailures,is(10L));
+  clock.waitFor(101);
+  run(decider,1,Result.SUCCESS,State.NORMAL);
+  assertThat(decider.shouldBackOff(),is(false));
+  assertThat(decider.requests.totalRequests,is(2L));
+  assertThat(decider.requests.totalFailures,is(0L));
+}

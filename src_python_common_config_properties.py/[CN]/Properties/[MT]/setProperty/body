@@ -1,0 +1,6 @@
+def setProperty(self, key, value):
+    ' Set the property for the given key '
+    if ((type(key) is str) and (type(value) is str)):
+        self.processPair(key, value)
+    else:
+        raise TypeError, 'both key and value should be strings!'

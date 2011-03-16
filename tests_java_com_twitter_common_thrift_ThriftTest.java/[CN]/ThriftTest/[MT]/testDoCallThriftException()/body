@@ -1,0 +1,23 @@
+{
+  Capture<TTransport> transportCapture=new Capture<TTransport>();
+  TestService testService=expectThriftError(transportCapture);
+  TTransportException tException=new TTransportException();
+  expect(testService.calculateMass("jake")).andThrow(tException);
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Thrift<TestService> thrift=createThrift(expectUnusedExecutorService());
+  control.replay();
+  try {
+    thrift.builder().blocking().create().calculateMass("jake");
+    fail("Expected thrift exception to bubble unmodified");
+  }
+ catch (  TException e) {
+    assertSame(tException,e);
+  }
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  assertTrue(transportCapture.hasCaptured());
+  assertFalse("Expected the transport to be forcibly closed when a thrift error is encountered",transportCapture.getValue().isOpen());
+  control.verify();
+}

@@ -1,0 +1,12 @@
+{
+  if (joinThread == null) {
+    throw new IllegalStateException("join() has not yet been called.");
+  }
+  if (!joinThread.server.equals(server)) {
+    throw new IllegalStateException("The supplied server object does not equal to the object supplied to join().");
+  }
+  if (joinThread != null) {
+    joinThread.cancel();
+    joinThread=null;
+  }
+}

@@ -1,0 +1,3 @@
+{
+  stats=new PipelineStats("test",Sets.newHashSet("a","b","c"),clock,Time.MILLISECONDS);
+}

@@ -1,0 +1,4 @@
+{
+  testServer.shutdown();
+  assertThat(testServer.getStatus(),is(Status.STOPPED));
+}

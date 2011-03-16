@@ -1,0 +1,12 @@
+{
+  ServiceInstance serviceInstance=new ServiceInstance(toEndpoint(endpoint),Maps.transformValues(additionalEndpoints,TO_ENDPOINT),status);
+  LOG.info("updating endpoint data to:\n\t" + serviceInstance);
+  ByteArrayOutputStream output=new ByteArrayOutputStream();
+  try {
+    codec.serialize(serviceInstance,output);
+  }
+ catch (  IOException e) {
+    throw new IllegalStateException("Unexpected problem serializing thrift struct: " + serviceInstance + " to a byte[]",e);
+  }
+  return output.toByteArray();
+}

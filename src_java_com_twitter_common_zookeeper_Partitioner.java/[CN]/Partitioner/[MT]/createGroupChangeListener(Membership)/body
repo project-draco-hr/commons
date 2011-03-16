@@ -1,0 +1,13 @@
+{
+  return new GroupChangeListener(){
+    @Override public void onGroupChange(    Iterable<String> memberIds){
+      List<String> members=Ordering.natural().sortedCopy(memberIds);
+      int newSize=members.size();
+      int newIndex=members.indexOf(membership.getMemberId());
+      LOG.info(String.format("Rebuilding group %s:%s [%d:%d]->[%d:%d]",membership.getGroupPath(),members,groupSize,groupIndex,newSize,newIndex));
+      groupSize=newSize;
+      groupIndex=newIndex;
+    }
+  }
+;
+}

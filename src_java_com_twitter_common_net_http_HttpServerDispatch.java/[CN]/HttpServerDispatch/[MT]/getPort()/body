@@ -1,0 +1,4 @@
+{
+  Preconditions.checkState(isStarted(),"HttpServer must be started before port can be determined");
+  return port;
+}

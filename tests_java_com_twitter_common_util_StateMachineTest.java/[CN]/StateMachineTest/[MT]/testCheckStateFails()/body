@@ -1,0 +1,3 @@
+{
+  StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build().checkState(B);
+}

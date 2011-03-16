@@ -1,0 +1,5 @@
+{
+  super("thrift",true);
+  this.clientMonitors=Preconditions.checkNotNull(clientMonitors);
+  this.serverMonitors=Preconditions.checkNotNull(serverMonitors);
+}

@@ -1,0 +1,10 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!(obj instanceof Amount)) {
+    return false;
+  }
+  Amount<?,?> other=(Amount<?,?>)obj;
+  return amount.equals(other.amount) || isSameAmount(other);
+}

@@ -1,0 +1,12 @@
+{
+  requests=new SlidingStats(name + "_requests","micros");
+  this.percentile=percentile;
+  errors=Stats.exportLong(name + "_errors");
+  reconnects=Stats.exportLong(name + "_reconnects");
+  timeouts=Stats.exportLong(name + "_timeouts");
+  Rate<AtomicLong> requestsPerSec=Rate.of(name + "_requests_per_sec",requests.getEventCounter()).build();
+  Stats.export(Ratio.of(name + "_error_rate",Rate.of(name + "_errors_per_sec",errors).build(),requestsPerSec));
+  Rate<AtomicLong> timeoutsPerSec=Rate.of(name + "_timeouts_per_sec",timeouts).build();
+  Stats.export(timeoutsPerSec);
+  Stats.export(Ratio.of(name + "_timeout_rate",timeoutsPerSec,requestsPerSec));
+}

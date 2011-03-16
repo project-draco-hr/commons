@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(key);
+  map.put(key,newValue);
+}

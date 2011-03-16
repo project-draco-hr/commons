@@ -1,0 +1,3 @@
+{
+  parse(NonArgArg.class,"-string=str");
+}

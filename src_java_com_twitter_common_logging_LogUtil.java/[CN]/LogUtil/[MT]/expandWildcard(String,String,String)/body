@@ -1,0 +1,7 @@
+{
+  String replace=dirWildcard;
+  if (replacement.charAt(replacement.length() - 1) == '/') {
+    replace+='/';
+  }
+  return pattern.replaceAll(replace,replacement);
+}

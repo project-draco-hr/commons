@@ -1,0 +1,5 @@
+{
+  for (int i=0; i < count; i++) {
+    leastCon.addConnectResult(backend,ConnectionResult.SUCCESS,0L);
+  }
+}

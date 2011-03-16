@@ -1,0 +1,13 @@
+def __xor__(self, other):
+
+    def union():
+        if callable(other):
+            return (self() ^ other())
+        elif isinstance(other, set):
+            return (self() ^ other)
+        else:
+            try:
+                return (self() ^ set(iter(other)))
+            except:
+                return self().add(other)
+    return Fileset(union)

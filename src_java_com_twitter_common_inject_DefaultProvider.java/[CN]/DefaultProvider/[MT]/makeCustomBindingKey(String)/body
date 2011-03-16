@@ -1,0 +1,3 @@
+{
+  return rootKey + CUSTOM_BINDING_KEY_SUFFIX;
+}

@@ -1,0 +1,8 @@
+{
+  ExceptionTransporter.guard(new Function<ExceptionTransporter<SocketException>,File>(){
+    @Override public File apply(    ExceptionTransporter<SocketException> transporter){
+      throw new IllegalStateException();
+    }
+  }
+);
+}

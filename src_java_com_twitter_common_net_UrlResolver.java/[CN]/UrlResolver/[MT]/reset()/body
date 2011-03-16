@@ -1,0 +1,8 @@
+{
+  Preconditions.checkState(threadPoolSize != null);
+  if (executor != null) {
+    Preconditions.checkState(executor.isShutdown(),"The thread pool must be shut down before resetting.");
+    Preconditions.checkState(executor.isTerminated(),"There may still be pending async tasks.");
+  }
+  executor=Executors.newFixedThreadPool(threadPoolSize,new ThreadFactoryBuilder().setDaemon(true).setNameFormat("UrlResolver[%d]").build());
+}

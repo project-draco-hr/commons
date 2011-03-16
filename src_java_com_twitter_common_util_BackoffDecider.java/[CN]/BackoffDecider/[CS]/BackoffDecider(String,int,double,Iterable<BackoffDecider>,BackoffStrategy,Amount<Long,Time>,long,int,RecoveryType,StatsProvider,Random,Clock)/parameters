@@ -1,0 +1,12 @@
+String name
+int seedSize
+double toleratedFailureRate
+Iterable<BackoffDecider> deciderGroup
+BackoffStrategy strategy
+Amount<Long,Time> recoveryPeriod
+long requestWindowNs
+int numBuckets
+RecoveryType recoveryType
+StatsProvider statsProvider
+Random random
+Clock clock

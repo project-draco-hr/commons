@@ -1,0 +1,20 @@
+{
+  if (callback != null) {
+    callback=new WrappedMethodCallback(callback,capture);
+  }
+  try {
+    Object result=decoratedCaller.call(method,args,callback,connectTimeoutOverride);
+    if (callback == null && capture != null)     capture.success();
+    return result;
+  }
+ catch (  Throwable t) {
+    if (callback != null) {
+      callback.onError(t);
+      return null;
+    }
+ else {
+      if (capture != null)       capture.fail(t);
+      throw t;
+    }
+  }
+}

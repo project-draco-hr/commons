@@ -1,0 +1,12 @@
+{
+  expect(input.getName()).andReturn("test");
+  expectLastCall().atLeastOnce();
+  for (  int value : inputs) {
+    expect(input.read()).andReturn(value);
+  }
+  control.replay();
+  MovingAverage<Integer> movingAvg=MovingAverage.of(input,10);
+  for (  double output : expectedOutputs) {
+    assertThat(movingAvg.sample(),is(output));
+  }
+}

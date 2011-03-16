@@ -1,0 +1,3 @@
+def __eq__(self, other):
+    result = (other and (type(other) == Repository) and (self.name == other.name))
+    return result

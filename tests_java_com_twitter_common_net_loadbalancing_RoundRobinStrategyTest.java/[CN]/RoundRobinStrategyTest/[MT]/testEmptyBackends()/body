@@ -1,0 +1,14 @@
+{
+  Capture<Collection<String>> capture=createCapture();
+  onBackendsChosen.execute(capture(capture));
+  control.replay();
+  roundRobin.offerBackends(Sets.<String>newHashSet(),onBackendsChosen);
+  try {
+    roundRobin.nextBackend();
+    fail("Expected ResourceExhaustedException to be thrown");
+  }
+ catch (  ResourceExhaustedException e) {
+  }
+  assertTrue(capture.hasCaptured());
+  assertTrue(capture.getValue().isEmpty());
+}

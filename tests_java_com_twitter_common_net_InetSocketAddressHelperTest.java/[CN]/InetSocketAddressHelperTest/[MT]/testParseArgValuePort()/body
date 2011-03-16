@@ -1,0 +1,4 @@
+{
+  assertEquals(new InetSocketAddress(6666),InetSocketAddressHelper.parse(":6666"));
+  assertEquals(new InetSocketAddress(0),InetSocketAddressHelper.parse(":*"));
+}

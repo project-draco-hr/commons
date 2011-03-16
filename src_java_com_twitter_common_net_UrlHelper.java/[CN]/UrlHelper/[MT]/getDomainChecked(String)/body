@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(url);
+  url=addProtocol(url);
+  return new URI(url).getHost();
+}

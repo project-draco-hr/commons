@@ -1,0 +1,10 @@
+{
+  Iterables.removeIf(trafficInfos.entrySet(),new Predicate<Map.Entry<K,TrafficInfo>>(){
+    @Override public boolean apply(    Map.Entry<K,TrafficInfo> clientInfo){
+      if (clientInfo.getValue().connections.get() > 0)       return false;
+      long idlePeriod=clock.nowNanos() - clientInfo.getValue().getLastActiveTimestamp();
+      return idlePeriod > gcInterval.as(Time.NANOSECONDS);
+    }
+  }
+);
+}

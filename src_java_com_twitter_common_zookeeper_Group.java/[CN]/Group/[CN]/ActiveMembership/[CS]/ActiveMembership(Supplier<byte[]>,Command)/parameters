@@ -1,0 +1,2 @@
+Supplier<byte[]> memberData
+Command onLoseMembership

@@ -1,0 +1,11 @@
+{
+  if (retryableExceptions.contains(exceptionClass)) {
+    return true;
+  }
+  return Iterables.any(retryableExceptions,new Predicate<Class<? extends Exception>>(){
+    @Override public boolean apply(    Class<? extends Exception> retryableExceptionClass){
+      return retryableExceptionClass.isAssignableFrom(exceptionClass);
+    }
+  }
+);
+}

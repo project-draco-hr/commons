@@ -1,0 +1,3 @@
+{
+  assertThat(testServer.getName(),is(SERVER_NAME));
+}

@@ -1,0 +1,10 @@
+{
+  if (clock.nowNanos() - buckets.peekFirst().bucketStartNs >= bucketLengthNs) {
+    while (!buckets.isEmpty() && buckets.peekLast().bucketStartNs < clock.nowNanos() - durationNs) {
+      TimeSlice removed=buckets.removeLast();
+      totalRequests-=removed.requestCount;
+      totalFailures-=removed.failureCount;
+    }
+    buckets.addFirst(new TimeSlice());
+  }
+}

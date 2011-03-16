@@ -1,0 +1,9 @@
+{
+  assertEquals("A fake clock should start out at time 0",0,fakeClock.nowMillis());
+  fakeClock.setNowMillis(42L);
+  assertEquals("A fake clock's time should only be controled by setNow",42L,fakeClock.nowMillis());
+  long start=System.currentTimeMillis();
+  Thread.sleep(10L);
+  assertTrue(System.currentTimeMillis() - start > 0);
+  assertEquals("A fake clock's time should only be controled by setNow",42L,fakeClock.nowMillis());
+}

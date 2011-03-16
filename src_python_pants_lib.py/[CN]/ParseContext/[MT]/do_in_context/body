@@ -1,0 +1,7 @@
+def do_in_context(self, work):
+    'Executes the callable work in this parse context.'
+    try:
+        ParseContext._contexts.append(self)
+        return work()
+    finally:
+        ParseContext._contexts.pop()

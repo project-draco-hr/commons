@@ -1,0 +1,2 @@
+boolean async
+ImmutableSet<Class<? extends Exception>> retryableExceptions

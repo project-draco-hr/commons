@@ -1,0 +1,3 @@
+{
+  return Key.get(type,makeDefaultBindingName(rootKey));
+}

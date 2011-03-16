@@ -1,0 +1,3 @@
+{
+  ManagementFactory.getThreadMXBean().setThreadContentionMonitoringEnabled(true);
+}

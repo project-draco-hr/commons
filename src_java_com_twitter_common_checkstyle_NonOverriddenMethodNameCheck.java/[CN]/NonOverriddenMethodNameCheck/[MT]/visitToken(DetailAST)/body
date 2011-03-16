@@ -1,0 +1,5 @@
+{
+  if (!AnnotationUtility.containsAnnotation(aAST,OVERRIDE) && !AnnotationUtility.containsAnnotation(aAST,FQ_OVERRIDE)) {
+    super.visitToken(aAST);
+  }
+}

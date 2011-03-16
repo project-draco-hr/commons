@@ -1,0 +1,3 @@
+{
+  stateMachine=StateMachine.<State>builder(name + "_backoff_state_machine").addState(State.NORMAL,State.BACKOFF,State.FORCED_NORMAL).addState(State.BACKOFF,State.RECOVERY,State.FORCED_NORMAL).addState(State.RECOVERY,State.NORMAL,State.BACKOFF,State.FORCED_NORMAL).addState(State.FORCED_NORMAL,State.RECOVERY).initialState(State.NORMAL).build();
+}

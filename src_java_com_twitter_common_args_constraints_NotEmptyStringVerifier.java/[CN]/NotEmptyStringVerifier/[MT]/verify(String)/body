@@ -1,0 +1,3 @@
+{
+  checkArgument(!s.isEmpty(),"Value must not be empty.");
+}

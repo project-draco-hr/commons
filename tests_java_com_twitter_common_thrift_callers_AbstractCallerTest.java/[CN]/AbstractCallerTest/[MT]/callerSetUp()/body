@@ -1,0 +1,5 @@
+{
+  caller=createMock(Caller.class);
+  methodA=Object.class.getMethod("toString");
+  argsA=new Object[]{};
+}

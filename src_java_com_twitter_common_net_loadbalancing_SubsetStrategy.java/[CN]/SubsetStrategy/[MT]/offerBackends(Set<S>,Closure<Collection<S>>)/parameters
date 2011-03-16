@@ -1,0 +1,2 @@
+Set<S> offeredBackends
+Closure<Collection<S>> onBackendsChosen

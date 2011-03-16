@@ -1,0 +1,25 @@
+{
+  try {
+    backoffHelper.doUntilSuccess(new ExceptionalSupplier<Boolean,RuntimeException>(){
+      @Override public Boolean get(){
+        try {
+          group.watch(new GroupChangeListener(){
+            @Override public void onGroupChange(            Iterable<String> memberIds){
+              notifyGroupChange(memberIds);
+            }
+          }
+);
+          return true;
+        }
+ catch (        Exception e) {
+          LOG.log(Level.WARNING,"Join thread failed to set watch. Will retry.",e);
+        }
+        return false;
+      }
+    }
+);
+  }
+ catch (  InterruptedException e) {
+    LOG.log(Level.WARNING,"Listener thread was interrupted, which should never happen.",e);
+  }
+}

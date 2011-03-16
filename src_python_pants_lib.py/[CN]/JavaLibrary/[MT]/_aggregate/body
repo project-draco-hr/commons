@@ -1,0 +1,19 @@
+@classmethod
+def _aggregate(cls, name, provides, deployjar, buildflags, java_libs):
+    all_deps = OrderedSet()
+    all_excludes = OrderedSet()
+    all_sources = []
+    all_resources = []
+    all_binary_resources = []
+    for java_lib in java_libs:
+        if java_lib.resolved_dependencies:
+            all_deps.update((dep for dep in java_lib.jar_dependencies if (dep.rev is not None)))
+        if java_lib.excludes:
+            all_excludes.update(java_lib.excludes)
+        if java_lib.sources:
+            all_sources.extend(java_lib.sources)
+        if java_lib.resources:
+            all_resources.extend(java_lib.resources)
+        if java_lib.binary_resources:
+            all_binary_resources.extend(java_lib.binary_resources)
+    return JavaLibrary(name, all_sources, provides=provides, dependencies=all_deps, excludes=all_excludes, resources=all_resources, binary_resources=all_binary_resources, deployjar=deployjar, buildflags=buildflags, is_meta=True)

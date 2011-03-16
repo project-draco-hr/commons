@@ -1,0 +1,7 @@
+{
+  if (_number > 0) {
+    _mean=_sum / _number;
+  }
+  _mean=_mean * 100;
+  return _mean;
+}

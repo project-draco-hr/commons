@@ -1,0 +1,6 @@
+{
+  template.setAttribute(FILE_PARAM,file);
+  template.setAttribute(PAGE_PARAM,page);
+  template.setAttribute(FILTER_PARAM,filter);
+  template.setAttribute(TAIL_PARAM,tailing);
+}

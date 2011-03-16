@@ -1,0 +1,8 @@
+{
+  assertChangeFired(ImmutableSet.copyOf(Iterables.transform(ImmutableSet.copyOf(hostsStatuses.entrySet()),new Function<Map.Entry<InetSocketAddress,Status>,ServiceInstance>(){
+    @Override public ServiceInstance apply(    Map.Entry<InetSocketAddress,Status> e){
+      return new ServiceInstance(new Endpoint(e.getKey().getHostName(),e.getKey().getPort()),ImmutableMap.<String,Endpoint>of(),e.getValue());
+    }
+  }
+)));
+}

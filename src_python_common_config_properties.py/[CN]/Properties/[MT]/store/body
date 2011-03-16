@@ -1,0 +1,13 @@
+def store(self, out, header=''):
+    " Write the properties list to the stream 'out' along\n        with the optional 'header' "
+    if (out.mode[0] != 'w'):
+        raise ValueError, 'Steam should be opened in write mode!'
+    try:
+        out.write(''.join(('#', header, '\n')))
+        tstamp = time.strftime('%a %b %d %H:%M:%S %Z %Y', time.localtime())
+        out.write(''.join(('#', tstamp, '\n')))
+        for (prop, val) in self._origprops.items():
+            out.write(''.join((prop, '=', self.escape(val), '\n')))
+        out.close()
+    except IOError as e:
+        raise

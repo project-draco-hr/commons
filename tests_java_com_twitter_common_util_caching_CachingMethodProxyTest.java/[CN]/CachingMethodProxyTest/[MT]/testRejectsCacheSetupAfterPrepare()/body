@@ -1,0 +1,5 @@
+{
+  control.replay();
+  proxyBuilder.cache(cachedMath.sum(0,0),intCache,intFilter).prepare();
+  proxyBuilder.cache(null,intCache,intFilter);
+}

@@ -1,0 +1,9 @@
+{
+  writeTemplate(resp,new Closure<StringTemplate>(){
+    @Override public void execute(    StringTemplate template){
+      template.setAttribute("clientMonitors",clientMonitors);
+      template.setAttribute("serverMonitors",serverMonitors);
+    }
+  }
+);
+}

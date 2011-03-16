@@ -1,0 +1,4 @@
+{
+  strategy.connectionReturned(key);
+  monitor.released(key);
+}

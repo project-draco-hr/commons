@@ -1,0 +1,9 @@
+{
+  try {
+    return new MemcachedClient(new DaemonThreadBinaryConnectionFactory(),AddrUtil.getAddresses(serverListJoiner.join(servers)));
+  }
+ catch (  IOException e) {
+    log.log(Level.SEVERE,"Failed to build server list.",e);
+    return null;
+  }
+}

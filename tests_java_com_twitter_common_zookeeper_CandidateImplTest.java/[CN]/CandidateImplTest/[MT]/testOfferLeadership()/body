@@ -1,0 +1,52 @@
+{
+  Amount<Integer,Time> timeout=Amount.of(1,Time.MINUTES);
+  ZooKeeperClient zkClient1=createZkClient(timeout);
+  final CandidateImpl candidate1=new CandidateImpl(createGroup(zkClient1)){
+    @Override public String toString(){
+      return "Leader1";
+    }
+  }
+;
+  ZooKeeperClient zkClient2=createZkClient(timeout);
+  final CandidateImpl candidate2=new CandidateImpl(createGroup(zkClient2)){
+    @Override public String toString(){
+      return "Leader2";
+    }
+  }
+;
+  ZooKeeperClient zkClient3=createZkClient(timeout);
+  final CandidateImpl candidate3=new CandidateImpl(createGroup(zkClient3)){
+    @Override public String toString(){
+      return "Leader3";
+    }
+  }
+;
+  Reign candidate1Reign=new Reign("1",candidate1);
+  Reign candidate2Reign=new Reign("2",candidate2);
+  Reign candidate3Reign=new Reign("3",candidate3);
+  Supplier<Boolean> candidate1Leader=candidate1.offerLeadership(candidate1Reign);
+  Supplier<Boolean> candidate2Leader=candidate2.offerLeadership(candidate2Reign);
+  Supplier<Boolean> candidate3Leader=candidate3.offerLeadership(candidate3Reign);
+  assertTrue("Since initial group join is synchronous, candidate 1 should be the first leader",candidate1Leader.get());
+  shutdownNetwork();
+  restartNetwork();
+  assertTrue("A re-connect without a session expiration should leave the leader elected",candidate1Leader.get());
+  candidate1Reign.abdicate();
+  assertSame(candidate1,candidateBuffer.takeLast());
+  assertFalse(candidate1Leader.get());
+  candidate1Reign.expectDefeated();
+  CandidateImpl secondCandidate=candidateBuffer.takeLast();
+  assertTrue("exactly 1 remaining candidate should now be leader: " + secondCandidate + " "+ candidateBuffer,candidate2Leader.get() ^ candidate3Leader.get());
+  if (secondCandidate == candidate2) {
+    expireSession(zkClient2);
+    assertSame(candidate3,candidateBuffer.takeLast());
+    assertTrue(candidate3Leader.get());
+    candidate2Reign.expectDefeated();
+  }
+ else {
+    expireSession(zkClient3);
+    assertSame(candidate2,candidateBuffer.takeLast());
+    assertTrue(candidate2Leader.get());
+    candidate3Reign.expectDefeated();
+  }
+}

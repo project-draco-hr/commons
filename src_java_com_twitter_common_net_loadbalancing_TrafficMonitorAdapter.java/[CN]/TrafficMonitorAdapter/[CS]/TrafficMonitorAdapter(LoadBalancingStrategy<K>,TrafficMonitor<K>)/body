@@ -1,0 +1,4 @@
+{
+  this.strategy=Preconditions.checkNotNull(strategy);
+  this.monitor=Preconditions.checkNotNull(monitor);
+}

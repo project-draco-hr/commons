@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(exception);
+  config.retryableExceptions=ImmutableSet.<Class<? extends Exception>>builder().add(exception).build();
+  return getThis();
+}

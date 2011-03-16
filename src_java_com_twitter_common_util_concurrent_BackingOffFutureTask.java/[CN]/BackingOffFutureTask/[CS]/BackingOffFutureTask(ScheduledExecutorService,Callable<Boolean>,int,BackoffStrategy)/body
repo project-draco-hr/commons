@@ -1,0 +1,5 @@
+{
+  super(executor,callable,maxRetries);
+  this.executor=executor;
+  this.backoffStrategy=Preconditions.checkNotNull(backoffStrategy);
+}

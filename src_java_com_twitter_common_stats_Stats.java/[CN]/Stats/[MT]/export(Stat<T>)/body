@@ -1,0 +1,20 @@
+{
+  Preconditions.checkNotNull(var);
+  MorePreconditions.checkNotBlank(var.getName());
+  if (var instanceof RecordingStat) {
+    String validatedName=validateName(var.getName());
+    @SuppressWarnings("unchecked") Stat<T> stat=(Stat<T>)NUMERIC_STATS.get(validatedName);
+    if (stat != null) {
+      LOG.warning("Re-using already registered variable for key " + validatedName);
+      return stat;
+    }
+ else {
+      NUMERIC_STATS.put(validatedName,(RecordingStat<T>)var);
+      exportStatic(var);
+      return var;
+    }
+  }
+ else {
+    return export(new RecordingStatImpl<T>(var));
+  }
+}

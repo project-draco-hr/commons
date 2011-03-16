@@ -1,0 +1,3 @@
+{
+  return makeDefaultKey(TypeLiteral.get(type),rootKey);
+}

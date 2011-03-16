@@ -1,0 +1,4 @@
+{
+  candidateBuffer.offerFirst(candidate);
+  this.abdicate=abdicate;
+}

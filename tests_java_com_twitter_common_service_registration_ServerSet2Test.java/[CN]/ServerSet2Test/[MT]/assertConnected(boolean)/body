@@ -1,0 +1,6 @@
+{
+  Object o=eventQ.poll(90,TimeUnit.SECONDS);
+  assertThat(o,instanceOf(Boolean.class));
+  Boolean b=(Boolean)o;
+  assertEquals(b,isConnected);
+}

@@ -1,0 +1,9 @@
+{
+  Cache<List,Math> crazyCache=control.createMock(Cache.class);
+  Predicate<Math> crazyFilter=control.createMock(Predicate.class);
+  expect(crazyCache.get(Arrays.asList(null,null))).andReturn(null);
+  expect(uncachedMath.crazyMath(null,null)).andReturn(null);
+  control.replay();
+  proxyBuilder.cache(cachedMath.crazyMath(null,null),crazyCache,crazyFilter).prepare();
+  cachedMath.crazyMath(null,null);
+}

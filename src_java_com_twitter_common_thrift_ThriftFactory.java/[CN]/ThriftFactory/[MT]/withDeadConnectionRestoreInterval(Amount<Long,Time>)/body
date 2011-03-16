@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(connectionRestoreInterval);
+  Preconditions.checkArgument(connectionRestoreInterval.getValue() >= 0,"A negative interval is invalid: %s",connectionRestoreInterval);
+  this.connectionRestoreInterval=connectionRestoreInterval;
+  return this;
+}

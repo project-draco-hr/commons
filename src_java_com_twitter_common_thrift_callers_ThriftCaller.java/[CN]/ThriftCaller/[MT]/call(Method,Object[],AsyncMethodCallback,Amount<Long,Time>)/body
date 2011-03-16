@@ -1,0 +1,28 @@
+{
+  final Connection<TTransport,InetSocketAddress> connection=getConnection(connectTimeoutOverride);
+  final long startNanos=System.nanoTime();
+  ResultCapture capture=new ResultCapture(){
+    @Override public void success(){
+      try {
+        requestTracker.requestResult(connection.getEndpoint(),RequestTracker.RequestResult.SUCCESS,System.nanoTime() - startNanos);
+      }
+  finally {
+        connectionPool.release(connection);
+      }
+    }
+    @Override public boolean fail(    Throwable t){
+      if (debug) {
+        LOG.warning(String.format("Call to endpoint: %s failed: %s",connection,t));
+      }
+      try {
+        requestTracker.requestResult(connection.getEndpoint(),RequestTracker.RequestResult.FAILED,System.nanoTime() - startNanos);
+      }
+  finally {
+        connectionPool.remove(connection);
+      }
+      return true;
+    }
+  }
+;
+  return invokeMethod(clientFactory.apply(connection.get()),method,args,callback,capture);
+}

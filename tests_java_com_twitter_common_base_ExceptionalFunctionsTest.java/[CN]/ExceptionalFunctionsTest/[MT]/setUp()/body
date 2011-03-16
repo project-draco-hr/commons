@@ -1,0 +1,5 @@
+{
+  control=EasyMock.createControl();
+  @SuppressWarnings("unchecked") ExceptionalFunction<String,Integer,IOException> f=control.createMock(ExceptionalFunction.class);
+  this.function=f;
+}

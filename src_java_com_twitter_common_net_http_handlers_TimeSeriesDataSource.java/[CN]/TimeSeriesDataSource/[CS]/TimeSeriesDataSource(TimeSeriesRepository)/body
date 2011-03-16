@@ -1,0 +1,3 @@
+{
+  this.timeSeriesRepo=Preconditions.checkNotNull(timeSeriesRepo);
+}

@@ -1,0 +1,8 @@
+{
+  Preconditions.checkArgument(instance.chunkLength > 0);
+  Preconditions.checkArgument(instance.flushInterval.as(Time.MILLISECONDS) > 0);
+  Preconditions.checkNotNull(instance.logSubmitService);
+  Preconditions.checkArgument(instance.chunkLength <= instance.maxBufferSize);
+  instance.start();
+  return instance;
+}

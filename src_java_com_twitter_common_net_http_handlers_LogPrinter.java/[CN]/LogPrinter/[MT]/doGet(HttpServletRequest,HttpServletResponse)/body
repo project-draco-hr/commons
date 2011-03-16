@@ -1,0 +1,62 @@
+{
+  final LogViewRequest request=new LogViewRequest(req);
+  if (request.download) {
+    if (request.file == null) {
+      resp.sendError(HttpServletResponse.SC_BAD_REQUEST,"No file requested for download.");
+      return;
+    }
+    if (!request.file.isRegularFile()) {
+      resp.sendError(HttpServletResponse.SC_BAD_REQUEST,"Only regular files may be downloaded.");
+      return;
+    }
+    try {
+      OutputStream out=resp.getOutputStream();
+      ServletContext context=getServletConfig().getServletContext();
+      String mimetype=context.getMimeType(request.file.getName());
+      resp.setContentType(mimetype != null ? mimetype : "application/octet-stream");
+      resp.setContentLength((int)request.file.getFile().length());
+      resp.setHeader("Content-Disposition",String.format("attachment; filename=\"%s\"",request.file.getName()));
+      Files.copy(request.file.getFile(),out);
+    }
+ catch (    Exception e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Failed to fetch file.");
+      LOG.warning("Failed to download file " + request.file.getPath() + ": "+ e.getMessage());
+    }
+  }
+ else {
+    writeTemplate(resp,new ExceptionalClosure<StringTemplate,LogConfigException>(){
+      @Override public void execute(      StringTemplate template) throws LogConfigException {
+        if (request.isFileViewRequest()) {
+          request.sendToTemplate(template);
+          if (!request.tailing) {
+            long readStartPos=getReadStartPos(request.file.getFile(),request.page);
+            if (readStartPos > 0)             template.setAttribute("prev",request.page + 1);
+            if (request.page > 0)             template.setAttribute("next",request.page - 1);
+          }
+        }
+ else {
+          File dir=request.getListingDir();
+          List<LogFile> logFiles=Lists.newArrayList();
+          for (          File file : dir.listFiles()) {
+            logFiles.add(new LogFile(file));
+          }
+          Collections.sort(logFiles,new Comparator<LogFile>(){
+            @Override public int compare(            LogFile fileA,            LogFile fileB){
+              if (fileA.isDir() == fileB.isDir()) {
+                return fileA.file.getName().compareTo(fileB.file.getName());
+              }
+ else {
+                return fileA.isDir() ? -1 : 1;
+              }
+            }
+          }
+);
+          template.setAttribute("dir",dir);
+          template.setAttribute("parent",dir.getParentFile());
+          template.setAttribute("files",logFiles);
+        }
+      }
+    }
+);
+  }
+}

@@ -1,0 +1,6 @@
+def __reversed__(self):
+    end = self.end
+    curr = end[PREV]
+    while (curr is not end):
+        yield curr[KEY]
+        curr = curr[PREV]

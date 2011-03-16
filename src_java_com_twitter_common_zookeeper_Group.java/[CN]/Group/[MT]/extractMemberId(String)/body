@@ -1,0 +1,5 @@
+{
+  String memberId=StringUtils.substringAfterLast(nodePath,"/");
+  Preconditions.checkArgument(nodeNameFilter.apply(memberId),"Not a group member: %s",memberId);
+  return memberId;
+}

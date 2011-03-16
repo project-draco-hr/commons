@@ -1,0 +1,17 @@
+{
+  try {
+    client.getCounters();
+    fail();
+  }
+ catch (  TException e) {
+  }
+  server.awaitShutdown(Amount.of(10L,Time.SECONDS));
+  verifyConnections(serverMonitor,0);
+  verifyConnections(clientMonitor,0);
+  verifySuccessCount(serverMonitor,0);
+  verifyFailureCount(serverMonitor,1);
+  verifySuccessCount(clientMonitor,0);
+  verifyFailureCount(clientMonitor,1);
+  verifyLifetimeRequestCount(serverMonitor,1);
+  verifyLifetimeRequestCount(clientMonitor,1);
+}

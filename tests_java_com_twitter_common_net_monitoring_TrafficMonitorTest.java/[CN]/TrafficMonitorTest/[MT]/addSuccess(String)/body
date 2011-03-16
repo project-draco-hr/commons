@@ -1,0 +1,3 @@
+{
+  monitor.requestResult(host,RequestTracker.RequestResult.SUCCESS,0L);
+}

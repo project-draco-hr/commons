@@ -1,0 +1,11 @@
+{
+  AtomicLong leading=Stats.exportLong("  leading space");
+  AtomicLong trailing=Stats.exportLong("trailing space   ");
+  AtomicLong surround=Stats.exportLong("   surround space   ");
+  leading.incrementAndGet();
+  trailing.incrementAndGet();
+  surround.incrementAndGet();
+  assertCounter("__leading_space",1);
+  assertCounter("trailing_space___",1);
+  assertCounter("___surround_space___",1);
+}

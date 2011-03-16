@@ -1,0 +1,7 @@
+{
+  TrafficMonitor<String>.TrafficInfo info=monitor.getTrafficInfo().get(host);
+  if (count > 0)   assertNotNull(info);
+  if (info != null) {
+    assertThat(monitor.getTrafficInfo().get(host).getRequestSuccessCount(),is(count));
+  }
+}

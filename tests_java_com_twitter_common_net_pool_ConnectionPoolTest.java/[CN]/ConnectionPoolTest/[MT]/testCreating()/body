@@ -1,0 +1,22 @@
+{
+  Amount<Long,Time> timeout=Amount.of(1L,Time.SECONDS);
+  Executor executor=new ThreadPoolExecutor(1,1,0,TimeUnit.MILLISECONDS,new SynchronousQueue<Runnable>());
+  expect(connectionFactory.mightCreate()).andReturn(true);
+  Capture<Amount<Long,Time>> timeout1=new Capture<Amount<Long,Time>>();
+  @SuppressWarnings("unchecked") Connection<String,Integer> connection1=control.createMock(Connection.class);
+  expect(connectionFactory.create(capture(timeout1))).andReturn(connection1);
+  Capture<Amount<Long,Time>> timeout2=new Capture<Amount<Long,Time>>();
+  @SuppressWarnings("unchecked") Connection<String,Integer> connection2=control.createMock(Connection.class);
+  expect(connectionFactory.create(capture(timeout2))).andReturn(connection2);
+  control.replay();
+  ConnectionPool<Connection<String,Integer>> connectionPool=createConnectionPool(executor);
+  assertSame(connection1,connectionPool.get(timeout));
+  assertTrue(timeout1.hasCaptured());
+  Long timeout1Millis=timeout1.getValue().as(Time.MILLISECONDS);
+  assertTrue(timeout1Millis > 0 && timeout1Millis <= timeout.as(Time.MILLISECONDS));
+  assertSame(connection2,connectionPool.get(timeout));
+  assertTrue(timeout2.hasCaptured());
+  Long timeout2Millis=timeout1.getValue().as(Time.MILLISECONDS);
+  assertTrue(timeout2Millis > 0 && timeout2Millis <= timeout.as(Time.MILLISECONDS));
+  control.verify();
+}

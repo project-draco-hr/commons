@@ -1,0 +1,21 @@
+{
+  try {
+    Connection<TTransport,InetSocketAddress> connection;
+    if (connectTimeoutOverride != null) {
+      connection=connectionPool.get(connectTimeoutOverride);
+    }
+ else {
+      connection=(timeout.getValue() > 0) ? connectionPool.get(timeout) : connectionPool.get();
+    }
+    if (connection == null) {
+      throw new TResourceExhaustedException("no connection was available");
+    }
+    return connection;
+  }
+ catch (  ResourceExhaustedException e) {
+    throw new TResourceExhaustedException(e);
+  }
+catch (  TimeoutException e) {
+    throw new TTimeoutException(e);
+  }
+}

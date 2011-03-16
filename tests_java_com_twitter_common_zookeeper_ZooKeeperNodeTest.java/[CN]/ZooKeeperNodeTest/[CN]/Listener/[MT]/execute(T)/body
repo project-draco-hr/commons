@@ -1,0 +1,3 @@
+{
+  queue.offer(new AtomicReference<T>(item));
+}

@@ -1,0 +1,4 @@
+{
+  super(wrappedStrategy,backoffFactory,new LiveHostChecker<S>());
+  this.liveHostChecker=((LiveHostChecker<S>)hostChecker);
+}

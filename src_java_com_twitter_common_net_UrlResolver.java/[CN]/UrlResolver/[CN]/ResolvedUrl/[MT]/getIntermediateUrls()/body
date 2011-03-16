@@ -1,0 +1,3 @@
+{
+  return resolveChain.size() <= 1 ? ImmutableList.<String>of() : resolveChain.subList(0,resolveChain.size() - 1);
+}

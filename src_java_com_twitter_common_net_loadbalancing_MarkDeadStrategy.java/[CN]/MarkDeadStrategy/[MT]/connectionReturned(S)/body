@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(backendKey);
+  if (shouldNotifyFor(backendKey)) {
+    wrappedStrategy.connectionReturned(backendKey);
+  }
+}

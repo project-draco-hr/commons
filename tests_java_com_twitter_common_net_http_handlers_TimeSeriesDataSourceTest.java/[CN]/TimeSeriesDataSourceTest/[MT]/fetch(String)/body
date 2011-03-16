@@ -1,0 +1,3 @@
+{
+  return dataSource.generateDataTable(getQuery(query),null);
+}

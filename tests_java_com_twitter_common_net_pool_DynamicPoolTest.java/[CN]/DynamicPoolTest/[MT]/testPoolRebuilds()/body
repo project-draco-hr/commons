@@ -1,0 +1,21 @@
+{
+  ConnectionFactory<Connection<TTransport,InetSocketAddress>> connectionFactory=control.createMock(ConnectionFactory.class);
+  TTransport transport=new MockTSocket();
+  Connection<TTransport,InetSocketAddress> connection=new TTransportConnection(transport,InetSocketAddress.createUnresolved("jake",1137));
+  expect(connectionFactory.create(EasyMock.isA(Amount.class))).andReturn(connection);
+  ConnectionPool<Connection<TTransport,InetSocketAddress>> fooPool=new ConnectionPool<Connection<TTransport,InetSocketAddress>>(connectionFactory);
+  expect(poolFactory.apply(InetSocketAddress.createUnresolved("foo",42))).andReturn(fooPool);
+  control.replay();
+  Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>> rebuild1=poolRebuilds.take();
+  assertTrue("Should not have any dead pools on initial rebuild",rebuild1.getFirst().isEmpty());
+  assertNoLivePools(rebuild1);
+  EndpointStatus fooStatus=join("foo",Status.ALIVE);
+  Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>> rebuild2=poolRebuilds.take();
+  assertTrue("The NULL pool should never be tracked as dead",rebuild2.getFirst().isEmpty());
+  assertEquals(transport,connectionPool.get().get());
+  fooStatus.update(Status.STOPPING);
+  Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>> rebuild3=poolRebuilds.take();
+  assertSame("Expected foo pool to be discarded",fooPool,Iterables.getOnlyElement(rebuild3.getFirst()));
+  assertNoLivePools(rebuild1);
+  control.verify();
+}

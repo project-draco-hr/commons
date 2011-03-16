@@ -1,0 +1,13 @@
+{
+  final GroupChangeListener listener=super.createGroupChangeListener(membership);
+  return new GroupChangeListener(){
+    @Override public void onGroupChange(    Iterable<String> memberIds){
+      listener.onGroupChange(memberIds);
+synchronized (myViewOfGroupSize) {
+        myViewOfGroupSize.set(getGroupSize());
+        myViewOfGroupSize.notify();
+      }
+    }
+  }
+;
+}

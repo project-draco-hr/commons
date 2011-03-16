@@ -1,0 +1,7 @@
+{
+  double score=Math.pow((observed - expected),2) / expected;
+  if (observed < expected) {
+    score*=-1;
+  }
+  return score;
+}

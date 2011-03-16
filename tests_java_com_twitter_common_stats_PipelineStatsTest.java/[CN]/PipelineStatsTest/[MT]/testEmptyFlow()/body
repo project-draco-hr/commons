@@ -1,0 +1,8 @@
+{
+  PipelineStats.Snapshot pipeline=stats.newSnapshot();
+  pipeline.end();
+  checkSample("a",0,0);
+  checkSample("b",0,0);
+  checkSample("c",0,0);
+  checkSample("full",1,0);
+}

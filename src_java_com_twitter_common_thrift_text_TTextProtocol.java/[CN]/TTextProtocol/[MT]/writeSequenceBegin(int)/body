@@ -1,0 +1,13 @@
+{
+  getCurrentContext().write();
+  if (getCurrentContext().isMapKey()) {
+    throw new TException(SEQUENCE_AS_KEY_ILLEGAL);
+  }
+  pushContext(new SequenceContext(null));
+  try {
+    writer.beginArray();
+  }
+ catch (  IOException ex) {
+    throw new TTransportException(ex);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  SlidingStats stat=stats.get(methodInvocation.getMethod());
+  long start=System.nanoTime();
+  try {
+    return methodInvocation.proceed();
+  }
+  finally {
+    stat.accumulate(System.nanoTime() - start);
+  }
+}

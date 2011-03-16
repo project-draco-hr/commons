@@ -1,0 +1,21 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    if (not self.args):
+        self.error('A spec argument is required')
+    spec = self.args[0]
+    try:
+        self.address = Address.parse(root_dir, spec)
+    except:
+        self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+    if (not self.address.is_meta):
+        self.address.is_meta = self.options.is_meta
+    self.is_ide = self.options.is_ide
+    if self.options.ide_transitivity:
+        if (not self.is_ide):
+            self.error('--ide-transitivity only applies when using --ide')
+        elif (self.options.ide_transitivity not in _VALID_TRANSITIVITIES):
+            self.error(('%s is not a valid value for --ide-transitivity' % self.options.ide_transitivity))
+        self.ide_transitivity = self.options.ide_transitivity
+    else:
+        self.ide_transitivity = _DEFAULT_TRANSITIVITY
+    self.build_args = (self.args[1:] if (len(self.args) > 1) else [])

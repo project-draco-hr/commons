@@ -1,0 +1,4 @@
+{
+  valueApplied=false;
+  this.value=hasDefault ? defaultValue : null;
+}

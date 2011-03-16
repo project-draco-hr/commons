@@ -1,0 +1,4 @@
+{
+  for (  T entry : entries)   log(entry);
+  return null;
+}

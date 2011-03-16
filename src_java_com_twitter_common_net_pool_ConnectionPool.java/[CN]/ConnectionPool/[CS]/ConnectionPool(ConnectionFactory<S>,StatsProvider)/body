@@ -1,0 +1,3 @@
+{
+  this(Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("CP-" + connectionFactory + "[%d]").setDaemon(true).build()),new ReentrantLock(true),connectionFactory,statsProvider);
+}

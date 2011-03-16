@@ -1,0 +1,20 @@
+def execute(self):
+    if os.path.exists(self.target_path):
+        shutil.rmtree(self.target_path)
+    os.makedirs(self.target_path)
+    doc_target = self._create_doc_target()
+    (classpath_result, classpath_file) = self._create_classpath_file(doc_target)
+    if (classpath_result != 0):
+        print 'Failed to generate javadoc classpath.'
+        return classpath_result
+    self._create_artifact_data()
+    javadoc_result = subprocess.call((['javadoc', '-doctitle', self.options.title, '-use', '-linksource', '-top', '<script type="text/javascript">top.updateArtifact(window.location);</script>', '-classpath', ('@%s' % classpath_file), '-d', self.target_path] + doc_target.sources))
+    if (self.options.ignore_failure or (javadoc_result == 0)):
+        for (root, dirs, files) in os.walk(_TEMPLATES_DIR):
+            newdir = os.path.join(self.target_path, os.path.relpath(root, _TEMPLATES_DIR))
+            if (not os.path.exists(newdir)):
+                os.makedirs(os.path.dirname(newdir))
+            for file in files:
+                shutil.copy(os.path.join(root, file), newdir)
+        return 0
+    return javadoc_result

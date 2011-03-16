@@ -1,0 +1,15 @@
+{
+  Command action=control.createMock(Command.class);
+  action.execute();
+  control.replay();
+  actionController.addAction(action);
+  actionController.execute();
+  actionController.execute();
+  try {
+    actionController.addAction(action);
+    fail("Should not be ablke to register shutdown actions after shutdown");
+  }
+ catch (  IllegalStateException e) {
+  }
+  control.verify();
+}

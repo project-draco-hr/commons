@@ -1,0 +1,5 @@
+{
+  test(".",".");
+  test("./asdf.%g.log",".");
+  test("asdf.%g.log",".");
+}

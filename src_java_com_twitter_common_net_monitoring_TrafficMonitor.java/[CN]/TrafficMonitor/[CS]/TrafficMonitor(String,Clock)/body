@@ -1,0 +1,3 @@
+{
+  this(serviceName,DEFAULT_GC_INTERVAL,clock);
+}

@@ -1,0 +1,6 @@
+{
+  totalRequests=0;
+  totalFailures=0;
+  buckets.clear();
+  buckets.addFirst(new TimeSlice());
+}

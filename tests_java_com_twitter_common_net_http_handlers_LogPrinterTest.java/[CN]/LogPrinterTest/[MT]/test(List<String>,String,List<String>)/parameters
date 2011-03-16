@@ -1,0 +1,3 @@
+List<String> testLines
+String filter
+List<String> expectedLines

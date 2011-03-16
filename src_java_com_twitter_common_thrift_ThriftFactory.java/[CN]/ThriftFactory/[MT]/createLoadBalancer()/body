@@ -1,0 +1,6 @@
+{
+  if (loadBalancingStrategy == null) {
+    loadBalancingStrategy=createDefaultLoadBalancingStrategy();
+  }
+  return LoadBalancerImpl.create(TrafficMonitorAdapter.create(loadBalancingStrategy,monitor));
+}

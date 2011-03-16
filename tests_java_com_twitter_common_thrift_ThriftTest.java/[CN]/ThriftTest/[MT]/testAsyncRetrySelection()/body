@@ -1,0 +1,23 @@
+{
+class HopelesslyLost extends NotFoundException {
+  }
+  Capture<AsyncMethodCallback<Integer>> callbackCapture1=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceCall(true).calculateMass(eq("jake"),capture(callbackCapture1));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Capture<AsyncMethodCallback<Integer>> callbackCapture2=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceRetry(true).calculateMass(eq("jake"),capture(callbackCapture2));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  TTransportException nonRetryableException=new TTransportException();
+  callback.onError(nonRetryableException);
+  Thrift<TestServiceAsync> thrift=createAsyncThrift(expectUnusedExecutorService());
+  control.replay();
+  TestServiceAsync testService=thrift.builder().withRetries(2).retryOn(NotFoundException.class).withConnectTimeout(ASYNC_CONNECT_TIMEOUT).create();
+  testService.calculateMass("jake",callback);
+  callbackCapture1.getValue().onError(new HopelesslyLost());
+  callbackCapture2.getValue().onError(nonRetryableException);
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

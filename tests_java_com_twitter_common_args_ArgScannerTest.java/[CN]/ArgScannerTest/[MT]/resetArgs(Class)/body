@@ -1,0 +1,12 @@
+{
+  for (  Field field : scope.getDeclaredFields()) {
+    if (Arg.class.isAssignableFrom(field.getType()) && Modifier.isStatic(field.getModifiers())) {
+      try {
+        ((Arg)field.get(null)).reset();
+      }
+ catch (      IllegalAccessException e) {
+        fail(e.getMessage());
+      }
+    }
+  }
+}

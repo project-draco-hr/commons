@@ -1,0 +1,6 @@
+{
+  Iterable<Module> modules=ImmutableList.<Module>builder().add(new LifecycleModule()).add(new AppLauncherModule()).addAll(application.getModules()).build();
+  Injector injector=Guice.createInjector(GUICE_STAGE.get(),Modules.override(Modules.combine(modules)).with(application.getOverridingModules()));
+  injector.injectMembers(this);
+  injector.injectMembers(application);
+}

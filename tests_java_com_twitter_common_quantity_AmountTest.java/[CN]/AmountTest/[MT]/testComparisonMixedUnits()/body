@@ -1,0 +1,8 @@
+{
+  assertTrue(Amount.of(1,Time.MINUTES).compareTo(Amount.of(59,Time.SECONDS)) > 0);
+  assertTrue(Amount.of(1,Time.MINUTES).compareTo(Amount.of(60,Time.SECONDS)) == 0);
+  assertTrue(Amount.of(1,Time.MINUTES).compareTo(Amount.of(61,Time.SECONDS)) < 0);
+  assertTrue(Amount.of(59,Time.SECONDS).compareTo(Amount.of(1,Time.MINUTES)) < 0);
+  assertTrue(Amount.of(60,Time.SECONDS).compareTo(Amount.of(1,Time.MINUTES)) == 0);
+  assertTrue(Amount.of(61,Time.SECONDS).compareTo(Amount.of(1,Time.MINUTES)) > 0);
+}

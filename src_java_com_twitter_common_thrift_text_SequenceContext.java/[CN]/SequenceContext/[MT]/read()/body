@@ -1,0 +1,6 @@
+{
+  if (!children.hasNext()) {
+    throw new RuntimeException("Called SequenceContext.read() too many times!");
+  }
+  currentChild=children.next();
+}

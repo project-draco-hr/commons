@@ -1,0 +1,3 @@
+{
+  percentiles=new Percentile<Integer>("test",SAMPLE_RATE,PERCENTILES);
+}

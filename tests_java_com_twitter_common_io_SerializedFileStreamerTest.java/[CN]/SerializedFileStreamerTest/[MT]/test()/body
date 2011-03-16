@@ -1,0 +1,21 @@
+{
+  File tmpDir=FileUtils.createTempDir();
+  tmpDir.deleteOnExit();
+  File uncompressed=new File(tmpDir,"data");
+  File compressed=new File(tmpDir,"data.gz");
+  GZIPOutputStream gzOutputStream=new GZIPOutputStream(new FileOutputStream(compressed));
+  ObjectOutputStream compressedOS=new ObjectOutputStream(gzOutputStream);
+  ObjectOutputStream uncompressedOS=new ObjectOutputStream(new FileOutputStream(uncompressed));
+  List<String> strings=Lists.newArrayList("hello","goodbye");
+  for (  String s : strings) {
+    compressedOS.writeObject(s);
+    uncompressedOS.writeObject(s);
+  }
+  gzOutputStream.finish();
+  compressedOS.close();
+  uncompressedOS.close();
+  ObjectInputStream compressedIS=new ObjectInputStream(new GZIPInputStream(new FileInputStream(compressed)));
+  ObjectInputStream uncompressedIS=new ObjectInputStream(new FileInputStream(uncompressed));
+  testStreamer(new SerializedFileStreamer<String>(Lists.newArrayList(compressedIS)),strings);
+  testStreamer(new SerializedFileStreamer<String>(Lists.newArrayList(uncompressedIS)),strings);
+}

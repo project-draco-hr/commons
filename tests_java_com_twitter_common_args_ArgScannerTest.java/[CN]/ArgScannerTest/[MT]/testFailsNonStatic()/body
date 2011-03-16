@@ -1,0 +1,3 @@
+{
+  parse(NonStaticArg.class,"-string=str");
+}

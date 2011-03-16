@@ -1,0 +1,3 @@
+{
+  registerHttpAsset(binder,servedPath,Resources.getResource(contextClass,assetRelativePath),assetType,silent);
+}

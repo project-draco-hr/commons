@@ -1,0 +1,7 @@
+{
+  while (expectedSize != myViewOfGroupSize.get()) {
+synchronized (myViewOfGroupSize) {
+      myViewOfGroupSize.wait();
+    }
+  }
+}

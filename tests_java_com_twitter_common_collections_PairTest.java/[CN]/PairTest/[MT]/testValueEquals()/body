@@ -1,0 +1,5 @@
+{
+  assertEquals(new Pair<Integer,String>(1,"a"),Pair.of(1,"a"));
+  assertEquals(new Pair<Integer,String>(null,"a"),Pair.<Integer,String>of(null,"a"));
+  assertEquals(new Pair<Integer,String>(1,null),Pair.<Integer,String>of(1,null));
+}

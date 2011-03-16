@@ -1,0 +1,4 @@
+{
+  instance.bufferedLog=bufferedLog;
+  return this;
+}

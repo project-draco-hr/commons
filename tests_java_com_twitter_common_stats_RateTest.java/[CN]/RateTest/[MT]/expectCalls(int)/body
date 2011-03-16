@@ -1,0 +1,7 @@
+{
+  expect(input.getName()).andReturn("test");
+  expectLastCall().atLeastOnce();
+  for (  int sample : samples) {
+    expect(input.read()).andReturn(sample);
+  }
+}

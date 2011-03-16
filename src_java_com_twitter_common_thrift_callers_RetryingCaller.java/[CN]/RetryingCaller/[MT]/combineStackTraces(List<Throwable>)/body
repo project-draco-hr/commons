@@ -1,0 +1,14 @@
+{
+  if (exceptions.isEmpty()) {
+    return "none";
+  }
+ else {
+    return STACK_TRACE_JOINER.join(Iterables.transform(exceptions,new Function<Throwable,String>(){
+      private int index=1;
+      @Override public String apply(      Throwable exception){
+        return String.format("[%d] %s",index++,Throwables.getStackTraceAsString(exception));
+      }
+    }
+));
+  }
+}

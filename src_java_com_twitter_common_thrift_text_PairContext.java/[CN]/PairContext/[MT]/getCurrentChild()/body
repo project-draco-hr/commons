@@ -1,0 +1,6 @@
+{
+  if (lhs) {
+    return new JsonPrimitive(currentChild.getKey());
+  }
+  return currentChild.getValue();
+}

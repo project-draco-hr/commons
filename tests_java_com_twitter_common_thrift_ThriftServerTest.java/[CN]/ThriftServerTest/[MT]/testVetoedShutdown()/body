@@ -1,0 +1,6 @@
+{
+  testServer.start(serverSetup);
+  testServer.vetoShutdown=true;
+  testServer.shutdown();
+  assertThat(testServer.getStatus(),is(Status.WARNING));
+}

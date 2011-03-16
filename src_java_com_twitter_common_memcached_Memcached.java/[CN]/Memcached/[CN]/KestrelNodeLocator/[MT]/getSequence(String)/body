@@ -1,0 +1,5 @@
+{
+  List<MemcachedNode> shuffled=Lists.newLinkedList(nodes);
+  Collections.shuffle(shuffled);
+  return shuffled.iterator();
+}

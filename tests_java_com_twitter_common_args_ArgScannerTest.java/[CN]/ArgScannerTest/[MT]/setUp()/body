@@ -1,0 +1,5 @@
+{
+  for (  Class cls : this.getClass().getDeclaredClasses()) {
+    resetArgs(cls);
+  }
+}

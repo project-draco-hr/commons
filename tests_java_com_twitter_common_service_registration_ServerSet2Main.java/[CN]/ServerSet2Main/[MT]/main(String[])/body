@@ -1,0 +1,9 @@
+{
+  try {
+    new ServerSet2Main().main();
+  }
+ catch (  Throwable e) {
+    e.printStackTrace();
+    Runtime.getRuntime().halt(1);
+  }
+}

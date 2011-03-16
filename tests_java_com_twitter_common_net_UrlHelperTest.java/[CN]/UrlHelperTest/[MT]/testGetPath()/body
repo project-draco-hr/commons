@@ -1,0 +1,13 @@
+{
+  assertEquals("",UrlHelper.getPath("www.twitter.com"));
+  assertEquals("/",UrlHelper.getPath("www.twitter.com/"));
+  assertEquals("/foo",UrlHelper.getPath("http://www.twitter.com/foo"));
+  assertEquals("/bar",UrlHelper.getPath("https://www.twitter.com/bar"));
+  assertEquals("/a/b/c",UrlHelper.getPath("www.twitter.com/a/b/c"));
+  assertEquals("/davidvandiverhttp://cli.gs/da0e0",UrlHelper.getPath("www.bign.com/davidvandiverhttp://cli.gs/da0e0"));
+  assertEquals("/sol/homepa-http://dragtotop.com/thesun.co.uk",UrlHelper.getPath("www.thesun.co.uk/sol/homepa-http://dragtotop.com/thesun.co.uk"));
+  assertEquals("/chuuworangerrhttp://bit.ly/7pydt3",UrlHelper.getPath("www.formspring.me/chuuworangerrhttp://bit.ly/7pydt3"));
+  assertEquals("/davidvandiverhttp://cli.gs/da0e0",UrlHelper.getPath("www.bign.com/davidvandiverhttp://cli.gs/da0e0"));
+  assertEquals("/en/watch/10855/3/baltimore-rave-http://dragtotop.com/patriots_vs_ravens",UrlHelper.getPath("www.roundplace.com/en/watch/10855/3/" + "baltimore-rave-http://dragtotop.com/patriots_vs_ravens"));
+  assertEquals("/davidvandiverhttp://cli.gs/da0e0",UrlHelper.getPath("www.bign.com/davidvandiverhttp://cli.gs/da0e0"));
+}

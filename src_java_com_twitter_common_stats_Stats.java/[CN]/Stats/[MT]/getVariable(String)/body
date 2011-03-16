@@ -1,0 +1,4 @@
+{
+  MorePreconditions.checkNotBlank(name);
+  return VAR_MAP.get(name);
+}

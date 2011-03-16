@@ -1,0 +1,38 @@
+{
+  RandomAccessFile seekFile=new RandomAccessFile(request.file.getFile(),"r");
+  try {
+    if (!request.tailing) {
+      seekFile.seek(getReadStartPos(request.file.getFile(),request.page));
+    }
+ else {
+      if (request.startPos < 0) {
+        seekFile.seek(Math.max(0,request.file.getFile().length() - TAIL_START_BYTES));
+      }
+ else {
+        seekFile.seek(request.startPos);
+      }
+    }
+    byte[] buffer=new byte[PAGE_CHUNK_SIZE_BYTES];
+    int bytesRead=seekFile.read(buffer);
+    long chunkStop=seekFile.getFilePointer();
+    StringBuilder fileChunk=new StringBuilder();
+    if (bytesRead > 0) {
+      fileChunk.append(new String(buffer,0,bytesRead));
+      buffer=new byte[PAGE_END_BUFFER_SIZE_BYTES];
+      int newlinePos=0;
+      bytesRead=seekFile.read(buffer);
+      if (bytesRead > 0) {
+        for (        byte b : buffer) {
+          newlinePos++;
+          if (b == '\n')           break;
+        }
+        fileChunk.append(new String(buffer,0,newlinePos));
+        chunkStop=seekFile.getFilePointer() - (bytesRead - newlinePos);
+      }
+    }
+    return logChunkXml(filterLines(fileChunk.toString(),request.filter),chunkStop);
+  }
+  finally {
+    seekFile.close();
+  }
+}

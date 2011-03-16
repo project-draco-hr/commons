@@ -1,0 +1,12 @@
+{
+  pulse();
+switch (result) {
+case SUCCESS:
+    requestSuccesses.incrementAndGet();
+  break;
+case FAILED:
+case TIMEOUT:
+requestFailures.incrementAndGet();
+break;
+}
+}

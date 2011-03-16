@@ -1,0 +1,26 @@
+{
+  Preconditions.checkNotNull(type);
+  try {
+    final Constructor<? extends T> constructor=getNoArgConstructor(type);
+    return new Supplier<T>(){
+      @Override public T get(){
+        try {
+          return constructor.newInstance();
+        }
+ catch (        InstantiationException e) {
+          throw instantiationFailed(e,type);
+        }
+catch (        IllegalAccessException e) {
+          throw instantiationFailed(e,type);
+        }
+catch (        InvocationTargetException e) {
+          throw instantiationFailed(e,type);
+        }
+      }
+    }
+;
+  }
+ catch (  NoSuchMethodException e) {
+    throw new IllegalArgumentException("No accessible no-arg constructor for " + type,e);
+  }
+}

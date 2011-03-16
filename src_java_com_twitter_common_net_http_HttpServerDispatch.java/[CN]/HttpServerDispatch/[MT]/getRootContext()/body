@@ -1,0 +1,4 @@
+{
+  Preconditions.checkState(context != null,"Context is not yet available. " + "Ensure that listen(...) is called prior to calling this method.");
+  return context;
+}

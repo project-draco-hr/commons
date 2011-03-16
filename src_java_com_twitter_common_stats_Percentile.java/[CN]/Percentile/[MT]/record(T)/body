@@ -1,0 +1,8 @@
+{
+  if (sampler.select()) {
+synchronized (samples) {
+      samples.addLast(value);
+      while (samples.size() > MAX_BUFFER_SIZE)       samples.removeFirst();
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  assertSizeIs(32,new Object[1]);
+  assertSizeIs(40,new Object[2]);
+  assertSizeIs(48,new Object[3]);
+  assertSizeIs(32,new String[1]);
+  assertSizeIs(40,new String[2]);
+  assertSizeIs(48,new String[3]);
+}

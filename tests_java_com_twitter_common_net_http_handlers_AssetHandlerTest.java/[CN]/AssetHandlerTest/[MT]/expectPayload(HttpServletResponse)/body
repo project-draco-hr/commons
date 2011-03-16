@@ -1,0 +1,5 @@
+{
+  ByteArrayOutputStream responseBody=new ByteArrayOutputStream();
+  expect(resp.getOutputStream()).andReturn(new FakeServletOutputStream(responseBody));
+  return responseBody;
+}

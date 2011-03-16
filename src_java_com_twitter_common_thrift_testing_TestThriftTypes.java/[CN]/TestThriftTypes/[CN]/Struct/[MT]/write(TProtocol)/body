@@ -1,0 +1,11 @@
+{
+  tProtocol.writeStructBegin(new TStruct("Field"));
+  for (  Entry<Field,Object> entry : fields.entrySet()) {
+    Field field=entry.getKey();
+    tProtocol.writeFieldBegin(new TField(field.getFieldName(),TType.STRING,field.getThriftFieldId()));
+    tProtocol.writeString(entry.getValue().toString());
+    tProtocol.writeFieldEnd();
+  }
+  tProtocol.writeFieldStop();
+  tProtocol.writeStructEnd();
+}

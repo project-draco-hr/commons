@@ -1,0 +1,5 @@
+{
+  this.defaultProviderKey=Preconditions.checkNotNull(defaultProviderKey);
+  this.customProviderKey=Preconditions.checkNotNull(customProviderKey);
+  Preconditions.checkArgument(!defaultProviderKey.equals(customProviderKey));
+}

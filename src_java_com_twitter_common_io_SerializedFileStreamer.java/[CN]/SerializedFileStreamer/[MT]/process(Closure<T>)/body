@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(work);
+  for (  ObjectInputStream input : inputs) {
+    process(input,work);
+  }
+}

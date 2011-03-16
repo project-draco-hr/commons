@@ -1,0 +1,4 @@
+Clock clock
+BackoffStrategy backoffStrategy
+ExceptionalFunction<String,String,IOException> resolver
+int maxRedirects

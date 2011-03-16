@@ -1,0 +1,6 @@
+{
+  assertSizeIs(24,new byte[0]);
+  assertSizeIs(24,new int[0]);
+  assertSizeIs(24,new long[0]);
+  assertSizeIs(24,new Object[0]);
+}

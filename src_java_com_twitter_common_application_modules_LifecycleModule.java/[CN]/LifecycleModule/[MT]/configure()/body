@@ -1,0 +1,6 @@
+{
+  bind(Lifecycle.class).in(Singleton.class);
+  bindController(StartupStage.class,binder());
+  bindController(ShutdownStage.class,binder());
+  requestStaticInjection(Init.class);
+}

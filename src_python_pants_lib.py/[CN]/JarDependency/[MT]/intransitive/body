@@ -1,0 +1,4 @@
+def intransitive(self):
+    'Declares this Dependency intransitive, indicating only the jar for the depenency itself\n    should be downloaded and placed on the classpath'
+    self.transitive = False
+    return self

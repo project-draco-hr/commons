@@ -1,0 +1,3 @@
+{
+  assertThat(testServer.getVersion(),is(SERVER_VERSION));
+}

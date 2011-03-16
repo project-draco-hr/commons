@@ -1,0 +1,12 @@
+{
+  StringBuilder display=new StringBuilder();
+  display.append("Histogram: ");
+  for (int bucketId=0; bucketId < bucketCounts.length - 1; bucketId++) {
+    display.append(String.format("\n(%g - %g]\n\t",bucketBoundaries[bucketId],bucketBoundaries[bucketId + 1]));
+    for (int i=0; i < getBucketRatio(bucketId) * 100; i++) {
+      display.append('#');
+    }
+    display.append(String.format(" %.2g%% (%d)",getBucketRatio(bucketId) * 100,bucketCounts[bucketId]));
+  }
+  return display.toString();
+}

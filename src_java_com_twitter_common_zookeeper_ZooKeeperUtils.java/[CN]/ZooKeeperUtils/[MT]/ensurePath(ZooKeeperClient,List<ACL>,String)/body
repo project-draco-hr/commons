@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(zkClient);
+  Preconditions.checkNotNull(path);
+  Preconditions.checkArgument(path.startsWith("/"));
+  ensurePathInternal(zkClient,acl,path);
+}

@@ -1,0 +1,8 @@
+{
+  if (other.getUnit().multiplier() > getUnit().multiplier()) {
+    return getValue().compareTo(other.as(getUnit()));
+  }
+ else {
+    return as(other.getUnit()).compareTo(other.getValue());
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return expectAsyncServiceCall(expectConnectionPoolGet(RetryingCaller.NONBLOCKING_TIMEOUT),withFailure);
+}

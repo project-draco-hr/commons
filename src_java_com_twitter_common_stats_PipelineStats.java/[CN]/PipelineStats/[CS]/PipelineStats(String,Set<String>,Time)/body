@@ -1,0 +1,3 @@
+{
+  this(pipelineName,stages,Clock.SYSTEM_CLOCK,precision);
+}

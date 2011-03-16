@@ -1,0 +1,32 @@
+{
+  try {
+    new ThriftConnectionFactory(null,1,1);
+    fail("a non-null host should be required");
+  }
+ catch (  NullPointerException e) {
+  }
+  try {
+    new ThriftConnectionFactory(" ",1,1);
+    fail("a non-blank host should be required");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new ThriftConnectionFactory("localhost",0,1);
+    fail("a valid concrete remote port should be required");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new ThriftConnectionFactory("localhost",65536,1);
+    fail("a valid port should be required");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    new ThriftConnectionFactory("localhost",65535,0);
+    fail("a non-zero value for maxConnections should be required");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

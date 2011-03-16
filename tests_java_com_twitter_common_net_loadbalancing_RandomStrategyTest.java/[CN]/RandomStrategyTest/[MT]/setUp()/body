@@ -1,0 +1,6 @@
+{
+  onBackendsChosen=createMock(new Clazz<Closure<Collection<String>>>(){
+  }
+);
+  randomStrategy=new RandomStrategy<String>();
+}

@@ -1,0 +1,11 @@
+{
+  @SuppressWarnings("unchecked") Connection<String,Integer> connection=control.createMock(Connection.class);
+  Executor executor=createMockExecutor();
+  control.replay();
+  try {
+    createConnectionPool(executor).release(connection);
+  }
+  finally {
+    control.verify();
+  }
+}

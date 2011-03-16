@@ -1,0 +1,3 @@
+{
+  zooKeeperServer.closeSession(zkClient.get().getSessionId());
+}

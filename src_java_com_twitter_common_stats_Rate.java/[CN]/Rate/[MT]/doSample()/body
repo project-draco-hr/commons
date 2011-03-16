@@ -1,0 +1,14 @@
+{
+  T newSample=inputAccessor.get();
+  long newTimestamp=clock.nowNanos();
+  double rate=0;
+  if (!samples.isEmpty()) {
+    Pair<Long,Double> oldestSample=samples.peekLast();
+    double dy=newSample.doubleValue() - oldestSample.getSecond();
+    double dt=newTimestamp - oldestSample.getFirst();
+    rate=dt == 0 ? 0 : (NANOS_PER_SEC * scaleFactor * dy) / dt;
+  }
+  if (samples.remainingCapacity() == 0)   samples.removeLast();
+  samples.addFirst(Pair.of(newTimestamp,newSample.doubleValue()));
+  return rate;
+}

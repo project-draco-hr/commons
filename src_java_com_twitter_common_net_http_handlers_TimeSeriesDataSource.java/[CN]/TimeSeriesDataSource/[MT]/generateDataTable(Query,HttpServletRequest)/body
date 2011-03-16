@@ -1,0 +1,34 @@
+{
+  Preconditions.checkNotNull(query);
+  int offset=query.getRowOffset();
+  int limit=query.getRowLimit() == -1 ? Integer.MAX_VALUE : query.getRowLimit();
+  QueryFilter queryFilter=query.getFilter();
+  QuerySelection select=query.getSelection();
+  if (select == null && limit != 0) {
+    throw new DataSourceException(ReasonType.INVALID_REQUEST,"Selection must be specified.");
+  }
+  final QueryLabels labels=query.getLabels() == null ? new QueryLabels() : query.getLabels();
+  List<AbstractColumn> columns=getColumns(select);
+  DataTable table=new DataTable();
+  table.addColumns(Lists.transform(columns,new Function<AbstractColumn,ColumnDescription>(){
+    @Override public ColumnDescription apply(    AbstractColumn column){
+      return new ColumnDescription(column.getId(),ValueType.NUMBER,labels.getLabel(column) != null ? labels.getLabel(column) : column.getId());
+    }
+  }
+));
+  if (limit != 0) {
+    List<Iterable<Number>> columnData=Lists.newArrayList();
+    for (    AbstractColumn column : columns) {
+      columnData.add(getData(column));
+    }
+    for (    List<Number> rowData : Iterables.skip(Iterables2.zip(columnData,0),offset)) {
+      TableRow row=new TableRow();
+      for (      Number number : rowData) {
+        row.addCell(number.doubleValue());
+      }
+      if (queryFilter == null || queryFilter.isMatch(table,row))       table.addRow(row);
+      if (table.getNumberOfRows() >= limit)       break;
+    }
+  }
+  return table;
+}

@@ -1,0 +1,3 @@
+{
+  Multibinder.newSetBinder(binder,HttpAssetConfig.class).addBinding().toInstance(new HttpAssetConfig(servedPath,asset,assetType,silent));
+}

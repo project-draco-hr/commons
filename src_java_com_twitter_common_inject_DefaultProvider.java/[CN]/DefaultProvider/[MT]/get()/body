@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(injector);
+  return injector.getBindings().containsKey(customProviderKey) ? injector.getInstance(customProviderKey) : injector.getInstance(defaultProviderKey);
+}

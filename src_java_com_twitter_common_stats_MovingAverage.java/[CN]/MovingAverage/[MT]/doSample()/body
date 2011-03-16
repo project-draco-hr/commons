@@ -1,0 +1,9 @@
+{
+  T sample=input.read();
+  if (samples.remainingCapacity() == 0) {
+    sampleSum-=samples.removeLast().doubleValue();
+  }
+  samples.addFirst(sample);
+  sampleSum+=sample.doubleValue();
+  return sampleSum / samples.size();
+}

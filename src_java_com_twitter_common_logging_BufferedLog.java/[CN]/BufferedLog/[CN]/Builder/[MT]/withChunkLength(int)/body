@@ -1,0 +1,4 @@
+{
+  instance.chunkLength=chunkLength;
+  return this;
+}

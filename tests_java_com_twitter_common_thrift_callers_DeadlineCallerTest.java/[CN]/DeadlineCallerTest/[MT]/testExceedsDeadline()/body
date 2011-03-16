@@ -1,0 +1,5 @@
+{
+  DeadlineCaller deadline=makeDeadline(true);
+  control.replay();
+  call(deadline);
+}

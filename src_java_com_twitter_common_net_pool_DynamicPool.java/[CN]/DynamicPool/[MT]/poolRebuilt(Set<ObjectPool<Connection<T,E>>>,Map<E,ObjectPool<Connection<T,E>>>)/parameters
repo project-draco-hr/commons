@@ -1,0 +1,2 @@
+Set<ObjectPool<Connection<T,E>>> deadPools
+Map<E,ObjectPool<Connection<T,E>>> livePools

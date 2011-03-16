@@ -1,0 +1,5 @@
+{
+  transitionUnbounded(state);
+  this.stateEndNs=clock.nowNanos() + durationNs;
+  this.stateDurationNs=durationNs;
+}

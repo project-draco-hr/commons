@@ -1,0 +1,6 @@
+{
+  onBackendsChosen=createMock(new Clazz<Closure<Collection<String>>>(){
+  }
+);
+  leastCon=new LeastConnectedStrategy<String>();
+}

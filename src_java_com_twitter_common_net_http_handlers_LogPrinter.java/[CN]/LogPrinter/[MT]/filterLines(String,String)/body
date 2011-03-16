@@ -1,0 +1,12 @@
+{
+  if (StringUtils.isEmpty(filterRegexp))   return text;
+  List<String> lines=Lists.newArrayList(text.split("\n"));
+  final Pattern pattern=Pattern.compile(filterRegexp);
+  Iterable<String> filtered=Iterables.filter(lines,new Predicate<String>(){
+    @Override public boolean apply(    String line){
+      return pattern.matcher(line).matches();
+    }
+  }
+);
+  return Joiner.on("\n").join(filtered);
+}

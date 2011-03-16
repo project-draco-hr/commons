@@ -1,0 +1,17 @@
+{
+  Number value=other.getValue();
+  if (!getValue().getClass().isInstance(value)) {
+    return false;
+  }
+  Unit<?> unit=other.getUnit();
+  if (!getUnit().getClass().isInstance(unit)) {
+    return false;
+  }
+  @SuppressWarnings("unchecked") U otherUnit=(U)other.getUnit();
+  if (otherUnit.multiplier() > getUnit().multiplier()) {
+    return getValue().equals(other.asUnit(getUnit()));
+  }
+ else {
+    return as(otherUnit).equals(other.getValue());
+  }
+}

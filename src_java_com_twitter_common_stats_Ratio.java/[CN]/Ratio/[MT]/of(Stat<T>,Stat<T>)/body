@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(numerator);
+  Preconditions.checkNotNull(denominator);
+  String name=String.format("%s_per_%s",numerator.getName(),denominator.getName());
+  return Ratio.of(name,numerator,denominator);
+}

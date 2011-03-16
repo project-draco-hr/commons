@@ -1,0 +1,4 @@
+Executor executor
+Lock poolLock
+ConnectionFactory<S> connectionFactory
+StatsProvider statsProvider

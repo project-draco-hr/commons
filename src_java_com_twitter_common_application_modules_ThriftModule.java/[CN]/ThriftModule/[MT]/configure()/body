@@ -1,0 +1,5 @@
+{
+  Multibinder.newSetBinder(binder(),TrafficMonitor.class,Names.named(ThriftServlet.THRIFT_CLIENT_MONITORS));
+  Multibinder.newSetBinder(binder(),TrafficMonitor.class,Names.named(ThriftServlet.THRIFT_SERVER_MONITORS));
+  Registration.registerServlet(binder(),"/thrift",ThriftServlet.class,false);
+}

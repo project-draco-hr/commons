@@ -1,0 +1,9 @@
+{
+  List<String> lines=Lists.newArrayList();
+  lines.add("<html>");
+  for (  String handler : registeredHandlers) {
+    lines.add(String.format("<a href='%s'>%s</a><br />",handler,handler));
+  }
+  lines.add("</html>");
+  return lines;
+}

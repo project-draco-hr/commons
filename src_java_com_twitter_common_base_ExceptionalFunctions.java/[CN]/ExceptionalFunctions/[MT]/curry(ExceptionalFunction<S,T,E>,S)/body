@@ -1,0 +1,8 @@
+{
+  return new CallableExceptionalSupplier<T,E>(){
+    @Override public T get() throws E {
+      return function.apply(argument);
+    }
+  }
+;
+}

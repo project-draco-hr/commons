@@ -1,0 +1,3 @@
+{
+  assertThat(Stats.<Long>getVariable(name).read(),is(value));
+}

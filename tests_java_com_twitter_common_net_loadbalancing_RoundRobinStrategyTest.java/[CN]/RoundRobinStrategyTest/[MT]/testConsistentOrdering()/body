@@ -1,0 +1,12 @@
+{
+  Capture<Collection<String>> capture=createCapture();
+  onBackendsChosen.execute(capture(capture));
+  control.replay();
+  HashSet<String> backends=Sets.newHashSet(BACKEND_1,BACKEND_2,BACKEND_3);
+  roundRobin.offerBackends(backends,onBackendsChosen);
+  Set<String> iteration1=Sets.newHashSet(roundRobin.nextBackend(),roundRobin.nextBackend(),roundRobin.nextBackend());
+  Set<String> iteration2=Sets.newHashSet(roundRobin.nextBackend(),roundRobin.nextBackend(),roundRobin.nextBackend());
+  assertThat(iteration2,is(iteration1));
+  assertTrue(capture.hasCaptured());
+  assertEquals(backends,Sets.newHashSet(capture.getValue()));
+}

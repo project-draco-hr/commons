@@ -1,0 +1,4 @@
+{
+  assertEquals(InetSocketAddress.createUnresolved("localhost",5555),InetSocketAddressHelper.parse("localhost:5555"));
+  assertEquals(InetSocketAddress.createUnresolved("127.0.0.1",4444),InetSocketAddressHelper.parse("127.0.0.1:4444"));
+}

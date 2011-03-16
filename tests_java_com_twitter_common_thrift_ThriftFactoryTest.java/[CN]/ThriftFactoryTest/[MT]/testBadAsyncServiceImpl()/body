@@ -1,0 +1,3 @@
+{
+  ThriftFactory.<BadService.AsyncIface>create(BadService.AsyncIface.class).useFramedTransport(true).buildAsync(endpoints);
+}

@@ -1,0 +1,13 @@
+def main():
+    if ('BUILD_ROOT' not in os.environ):
+        exit('BUILD_ROOT environment must be defined')
+    root_dir = os.path.realpath(os.environ['BUILD_ROOT'])
+    if (not os.path.exists(root_dir)):
+        exit(('BUILD_ROOT does not point to a valid path: %s' % root_dir))
+    if ((len(sys.argv) < 2) or ((len(sys.argv) == 2) and (sys.argv[1] in _HELP_ALIASES))):
+        _help(root_dir)
+    (subcommand_args, subcommand_class) = _find_command_class(root_dir, sys.argv[1:])
+    parser = optparse.OptionParser(version='%prog 0.0.1')
+    command = subcommand_class(root_dir, parser, subcommand_args)
+    result = command.execute()
+    sys.exit(result)

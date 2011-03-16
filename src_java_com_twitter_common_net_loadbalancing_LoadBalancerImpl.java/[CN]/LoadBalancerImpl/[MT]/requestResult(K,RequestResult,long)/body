@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(backend);
+  Preconditions.checkNotNull(result);
+  if (!hasBackend(backend))   return;
+  strategy.addRequestResult(backend,result,requestTimeNanos);
+}

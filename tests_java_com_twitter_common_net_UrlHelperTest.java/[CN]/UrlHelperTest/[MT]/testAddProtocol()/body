@@ -1,0 +1,7 @@
+{
+  assertEquals("http://www.twitter.com",UrlHelper.addProtocol("www.twitter.com"));
+  assertEquals("http://www.twitter.com",UrlHelper.addProtocol("http://www.twitter.com"));
+  assertEquals("https://www.twitter.com",UrlHelper.addProtocol("https://www.twitter.com"));
+  assertEquals("http://www.twitter.com/this/is/a/http://stange/but/valid/path",UrlHelper.addProtocol("http://www.twitter.com/this/is/a/http://stange/but/valid/path"));
+  assertEquals("http://www.twitter.com/this/is/a/http://stange/but/valid/path",UrlHelper.addProtocol("www.twitter.com/this/is/a/http://stange/but/valid/path"));
+}

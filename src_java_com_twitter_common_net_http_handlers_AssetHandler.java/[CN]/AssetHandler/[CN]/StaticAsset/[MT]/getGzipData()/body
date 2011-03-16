@@ -1,0 +1,11 @@
+{
+  byte[] data=gzipData;
+  if (!cacheLocally || gzipData == null) {
+    load();
+    data=gzipData;
+  }
+  if (!cacheLocally) {
+    gzipData=null;
+  }
+  return data;
+}

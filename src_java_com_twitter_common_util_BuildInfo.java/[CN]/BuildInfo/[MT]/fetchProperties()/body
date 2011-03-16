@@ -1,0 +1,15 @@
+{
+  properties=new Properties();
+  LOG.info("Fetching build properties from " + resourcePath);
+  InputStream in=ClassLoader.getSystemResourceAsStream(resourcePath);
+  if (in == null) {
+    LOG.warning("Failed to fetch build properties from " + resourcePath);
+    return;
+  }
+  try {
+    properties.load(in);
+  }
+ catch (  Exception e) {
+    LOG.log(Level.WARNING,"Failed to load properties file " + resourcePath,e);
+  }
+}

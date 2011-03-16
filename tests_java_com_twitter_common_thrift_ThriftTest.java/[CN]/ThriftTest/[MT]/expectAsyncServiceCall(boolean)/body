@@ -1,0 +1,3 @@
+{
+  return expectAsyncServiceCall(expectConnectionPoolGet(ASYNC_CONNECT_TIMEOUT),withFailure);
+}

@@ -1,0 +1,10 @@
+{
+  ZooKeeperUtils.ensurePath(zkClient,ZooDefs.Ids.OPEN_ACL_UNSAFE,lockPath);
+  LOG.log(Level.FINE,"Working with locking path:" + lockPath);
+  currentNode=zkClient.get().create(lockPath + "/member_",null,ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.EPHEMERAL_SEQUENTIAL);
+  if (currentNode.contains("/")) {
+    currentId=currentNode.substring(currentNode.lastIndexOf("/") + 1);
+  }
+  LOG.log(Level.FINE,"Received ID from zk:" + currentId);
+  this.watcher=new LockWatcher();
+}

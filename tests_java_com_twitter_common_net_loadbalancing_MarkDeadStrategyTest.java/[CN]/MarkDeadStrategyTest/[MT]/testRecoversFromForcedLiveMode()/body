@@ -1,0 +1,23 @@
+{
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  expectConnected(BACKEND_1,ConnectionResult.SUCCESS,5);
+  expectConnected(BACKEND_1,ConnectionResult.FAILED,5);
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_2),onBackendsChosen);
+  expectConnected(BACKEND_2,ConnectionResult.SUCCESS,5);
+  expectConnected(BACKEND_2,ConnectionResult.FAILED,5);
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  expectConnected(BACKEND_2,ConnectionResult.SUCCESS,5);
+  expectConnected(BACKEND_2,ConnectionResult.FAILED,5);
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1),onBackendsChosen);
+  control.replay();
+  markDead.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  connect(BACKEND_1,ConnectionResult.SUCCESS,5);
+  connect(BACKEND_1,ConnectionResult.FAILED,6);
+  connect(BACKEND_2,ConnectionResult.SUCCESS,5);
+  connect(BACKEND_2,ConnectionResult.FAILED,6);
+  clock.advance(INITIAL_BACKOFF);
+  clock.waitFor(1);
+  connect(BACKEND_2,ConnectionResult.SUCCESS,5);
+  connect(BACKEND_2,ConnectionResult.FAILED,5);
+}

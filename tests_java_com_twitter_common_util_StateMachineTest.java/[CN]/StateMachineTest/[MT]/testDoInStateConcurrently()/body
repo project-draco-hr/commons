@@ -1,0 +1,61 @@
+{
+  final StateMachine<String> stateMachine=StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build();
+  final BlockingQueue<Integer> results=new LinkedBlockingQueue<Integer>();
+  final CountDownLatch supplier1Proceed=new CountDownLatch(1);
+  final ExceptionalSupplier<Void,RuntimeException> supplier1=Commands.asSupplier(new Command(){
+    @Override public void execute(){
+      results.offer(1);
+      try {
+        supplier1Proceed.await();
+      }
+ catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+);
+  final CountDownLatch supplier2Proceed=new CountDownLatch(1);
+  final ExceptionalSupplier<Void,RuntimeException> supplier2=Commands.asSupplier(new Command(){
+    @Override public void execute(){
+      results.offer(2);
+      try {
+        supplier2Proceed.await();
+      }
+ catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+);
+  Thread thread1=new Thread(new Runnable(){
+    @Override public void run(){
+      stateMachine.doInState(A,supplier1);
+    }
+  }
+);
+  Thread thread2=new Thread(new Runnable(){
+    @Override public void run(){
+      stateMachine.doInState(A,supplier2);
+    }
+  }
+);
+  Thread thread3=new Thread(new Runnable(){
+    @Override public void run(){
+      stateMachine.transition(B);
+    }
+  }
+);
+  thread1.start();
+  thread2.start();
+  Integer result1=results.take();
+  Integer result2=results.take();
+  thread3.start();
+  assertThat(ImmutableSet.of(result1,result2),is(ImmutableSet.of(1,2)));
+  assertTrue(results.isEmpty());
+  supplier1Proceed.countDown();
+  supplier2Proceed.countDown();
+  thread1.join();
+  thread2.join();
+  thread3.join();
+  assertThat(B,is(stateMachine.getState()));
+}

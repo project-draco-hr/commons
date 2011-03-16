@@ -1,0 +1,4 @@
+{
+  testServer.start(serverSetup);
+  assertThat(testServer.getStatus(),is(Status.ALIVE));
+}

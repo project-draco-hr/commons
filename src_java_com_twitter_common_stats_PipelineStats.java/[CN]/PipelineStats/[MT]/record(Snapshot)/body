@@ -1,0 +1,5 @@
+{
+  for (  Pair<String,Long> stage : snapshot.stages) {
+    stages.get(stage.getFirst()).accumulate(stage.getSecond());
+  }
+}

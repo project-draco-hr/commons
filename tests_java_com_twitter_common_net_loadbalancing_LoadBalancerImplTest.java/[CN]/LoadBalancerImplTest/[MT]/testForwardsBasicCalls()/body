@@ -1,0 +1,13 @@
+{
+  BackendOfferExpectation backendOfferExpectation=new BackendOfferExpectation(BACKEND_1,BACKEND_2);
+  expect(strategy.nextBackend()).andReturn(BACKEND_1);
+  strategy.addConnectResult(BACKEND_1,ConnectionResult.SUCCESS,0L);
+  strategy.connectionReturned(BACKEND_1);
+  strategy.addConnectResult(BACKEND_1,ConnectionResult.TIMEOUT,0L);
+  control.replay();
+  backendOfferExpectation.simulateBackendsChosen();
+  assertThat(loadBalancer.nextBackend(),is(BACKEND_1));
+  loadBalancer.connected(BACKEND_1,0L);
+  loadBalancer.released(BACKEND_1);
+  loadBalancer.connectFailed(BACKEND_1,ConnectionResult.TIMEOUT);
+}

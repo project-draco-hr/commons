@@ -1,0 +1,25 @@
+{
+  final Watcher nodeWatcher=new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == Watcher.Event.EventType.NodeDataChanged) {
+        try {
+          tryAddChild(child);
+        }
+ catch (        InterruptedException e) {
+          LOG.log(Level.WARNING,"Interrupted while trying to add a child.",e);
+        }
+      }
+ else       if (event.getType() == Watcher.Event.EventType.NodeDeleted) {
+        removeEntry(child);
+      }
+    }
+  }
+;
+  try {
+    V value=deserializer.apply(zkClient.get().getData(makePath(child),nodeWatcher,null));
+    putEntry(child,value);
+  }
+ catch (  KeeperException.NoNodeException e) {
+    removeEntry(child);
+  }
+}

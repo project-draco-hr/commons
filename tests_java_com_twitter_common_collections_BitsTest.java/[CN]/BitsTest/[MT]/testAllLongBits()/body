@@ -1,0 +1,20 @@
+{
+  for (  List<Long> testList : LONGS_TEST_LISTS) {
+    for (    long testValue : testList) {
+      long inverseValue1=0;
+      long inverseValue2=0xFFFFFFFFFFFFFFFFL;
+      for (int i=0; i < 64; ++i) {
+        if (!Bits.isBitSet(testValue,i)) {
+          inverseValue1=Bits.setBit(inverseValue1,i);
+        }
+ else {
+          inverseValue2=Bits.clearBit(inverseValue2,i);
+        }
+      }
+      assertThat(0xFFFFFFFFFFFFFFFFL,is(inverseValue1 | testValue));
+      assertThat(0xFFFFFFFFFFFFFFFFL,is(inverseValue2 | testValue));
+      assertThat(0xFFFFFFFFFFFFFFFFL,is(inverseValue1 ^ testValue));
+      assertThat(0xFFFFFFFFFFFFFFFFL,is(inverseValue2 ^ testValue));
+    }
+  }
+}

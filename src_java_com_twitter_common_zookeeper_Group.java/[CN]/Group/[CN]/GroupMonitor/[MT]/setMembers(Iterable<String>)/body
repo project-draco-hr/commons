@@ -1,0 +1,15 @@
+{
+  if (this.members == null) {
+    zkClient.registerExpirationHandler(new Command(){
+      @Override public void execute(){
+        tryWatchGroup();
+      }
+    }
+);
+  }
+  Set<String> membership=ImmutableSet.copyOf(members);
+  if (!membership.equals(this.members)) {
+    groupChangeListener.onGroupChange(members);
+    this.members=membership;
+  }
+}

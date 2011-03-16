@@ -1,0 +1,11 @@
+{
+  try {
+    return method.invoke(subject,args);
+  }
+ catch (  IllegalAccessException e) {
+    throw new RuntimeException("Cannot access " + subject.getClass() + "."+ method,e);
+  }
+catch (  InvocationTargetException e) {
+    throw e.getCause();
+  }
+}

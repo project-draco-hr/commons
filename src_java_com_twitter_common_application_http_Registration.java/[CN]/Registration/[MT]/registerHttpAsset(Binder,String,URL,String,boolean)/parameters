@@ -1,0 +1,5 @@
+Binder binder
+String servedPath
+URL asset
+String assetType
+boolean silent

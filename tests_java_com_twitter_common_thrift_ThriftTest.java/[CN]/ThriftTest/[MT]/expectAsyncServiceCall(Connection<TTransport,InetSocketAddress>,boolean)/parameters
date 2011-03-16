@@ -1,0 +1,2 @@
+Connection<TTransport,InetSocketAddress> connection
+boolean withFailure

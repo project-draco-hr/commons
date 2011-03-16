@@ -1,0 +1,10 @@
+{
+  if (iterators == null) {
+    iterators=ImmutableList.copyOf(Iterables.transform(iterables,new Function<Iterable<T>,Iterator<T>>(){
+      @Override public Iterator<T> apply(      Iterable<T> it){
+        return it.iterator();
+      }
+    }
+));
+  }
+}

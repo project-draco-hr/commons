@@ -1,0 +1,19 @@
+{
+  onLoseMembership.execute();
+  replay(onLoseMembership);
+  assertEmptyMembershipObserved();
+  Membership membership=group.join(onLoseMembership);
+  String originalMemberId=membership.getMemberId();
+  assertMembershipObserved(originalMemberId);
+  expireSession(zkClient);
+  Iterable<String> members=membershipChanges.take();
+  if (Iterables.isEmpty(members)) {
+    members=membershipChanges.take();
+  }
+  assertEquals(1,Iterables.size(members));
+  assertNotEqual(originalMemberId,Iterables.getOnlyElement(members));
+  assertNotEqual(originalMemberId,membership.getMemberId());
+  assertTrue(membershipChanges.isEmpty());
+  verify(onLoseMembership);
+  reset(onLoseMembership);
+}

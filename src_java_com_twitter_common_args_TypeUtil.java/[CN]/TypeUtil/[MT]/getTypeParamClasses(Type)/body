@@ -1,0 +1,3 @@
+{
+  return Lists.transform(Arrays.asList(((ParameterizedType)type).getActualTypeArguments()),GET_CLASS);
+}

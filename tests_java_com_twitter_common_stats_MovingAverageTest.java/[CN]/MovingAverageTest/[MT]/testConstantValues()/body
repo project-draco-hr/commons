@@ -1,0 +1,3 @@
+{
+  runTest(Lists.newArrayList(5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5),Lists.newArrayList(5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d,5d));
+}

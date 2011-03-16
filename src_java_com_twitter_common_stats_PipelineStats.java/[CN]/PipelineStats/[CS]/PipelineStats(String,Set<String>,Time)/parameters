@@ -1,0 +1,3 @@
+String pipelineName
+Set<String> stages
+Time precision

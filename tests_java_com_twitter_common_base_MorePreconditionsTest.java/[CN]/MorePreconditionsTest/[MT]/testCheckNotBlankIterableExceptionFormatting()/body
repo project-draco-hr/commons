@@ -1,0 +1,14 @@
+{
+  try {
+    MorePreconditions.checkNotBlank((Iterable<?>)null,"the meaning of life is %s",42);
+  }
+ catch (  NullPointerException e) {
+    assertEquals("the meaning of life is 42",e.getMessage());
+  }
+  try {
+    MorePreconditions.checkNotBlank(ImmutableList.of(),"wing beats per second is %s",43);
+  }
+ catch (  IllegalArgumentException e) {
+    assertEquals("wing beats per second is 43",e.getMessage());
+  }
+}

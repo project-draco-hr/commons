@@ -1,0 +1,6 @@
+{
+  this.method=method;
+  this.cache=cache;
+  this.keyBuilder=keyBuilder;
+  this.entryFilter=entryFilter;
+}

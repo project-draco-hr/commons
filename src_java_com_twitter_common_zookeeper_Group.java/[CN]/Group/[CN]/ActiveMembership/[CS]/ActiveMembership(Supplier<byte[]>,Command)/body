@@ -1,0 +1,4 @@
+{
+  this.memberData=memberData;
+  this.onLoseMembership=(onLoseMembership == null) ? Commands.NOOP : onLoseMembership;
+}

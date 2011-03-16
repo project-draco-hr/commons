@@ -1,0 +1,8 @@
+self
+name
+sources
+provides
+dependencies
+excludes
+buildflags
+is_meta

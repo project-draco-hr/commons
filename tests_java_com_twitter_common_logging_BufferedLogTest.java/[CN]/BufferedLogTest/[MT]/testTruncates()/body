@@ -1,0 +1,21 @@
+{
+  expect(wrappedLog.log(MESSAGES)).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("1","2","3","4","5","a"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("1","2","3","4","5","a","b"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("1","2","3","4","5","a","b","c"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("1","2","3","4","5","a","b","c","d"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("1","2","3","4","5","a","b","c","d","e"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("1","2","3","4","5","a","b","c","d","e","f"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("2","3","4","5","a","b","c","d","e","f","g"))).andReturn(FALSE);
+  expect(wrappedLog.log(Arrays.asList("3","4","5","a","b","c","d","e","f","g","h"))).andReturn(TRUE);
+  replay(wrappedLog);
+  bufferedLog.log(MESSAGES);
+  bufferedLog.log("a");
+  bufferedLog.log("b");
+  bufferedLog.log("c");
+  bufferedLog.log("d");
+  bufferedLog.log("e");
+  bufferedLog.log("f");
+  bufferedLog.log("g");
+  bufferedLog.log("h");
+}

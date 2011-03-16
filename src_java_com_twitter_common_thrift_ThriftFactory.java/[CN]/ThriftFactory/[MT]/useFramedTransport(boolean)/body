@@ -1,0 +1,4 @@
+{
+  this.framedTransport=framedTransport;
+  return this;
+}

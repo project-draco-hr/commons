@@ -1,0 +1,13 @@
+{
+  expectConnectionPoolResourceExhausted(Config.DEFAULT_CONNECT_TIMEOUT);
+  Thrift<TestService> thrift=createThrift(expectUnusedExecutorService());
+  control.replay();
+  TestService testService=thrift.builder().blocking().create();
+  try {
+    testService.calculateMass("jake");
+    fail("Expected a TResourceExhaustedException.");
+  }
+ catch (  TResourceExhaustedException e) {
+  }
+  control.verify();
+}

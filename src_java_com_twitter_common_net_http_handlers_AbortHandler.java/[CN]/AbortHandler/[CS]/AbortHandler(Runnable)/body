@@ -1,0 +1,3 @@
+{
+  this.abortListener=Preconditions.checkNotNull(abortListener);
+}

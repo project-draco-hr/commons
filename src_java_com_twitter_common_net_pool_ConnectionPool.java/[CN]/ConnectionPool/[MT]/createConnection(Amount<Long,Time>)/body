@@ -1,0 +1,7 @@
+{
+  S connection=connectionFactory.create(timeout);
+  if (connection != null) {
+    connectionsCreated.incrementAndGet();
+  }
+  return connection;
+}

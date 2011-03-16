@@ -1,0 +1,5 @@
+{
+  expect(wrappedStrategy.nextBackend()).andThrow(new ResourceExhaustedException("No backends."));
+  control.replay();
+  subsetStrategy.nextBackend();
+}

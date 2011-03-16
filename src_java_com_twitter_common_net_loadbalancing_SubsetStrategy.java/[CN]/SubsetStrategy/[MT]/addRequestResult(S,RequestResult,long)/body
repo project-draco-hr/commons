@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(requestKey);
+  if (backendSubset.contains(requestKey)) {
+    wrapped.addRequestResult(requestKey,result,requestTimeNanos);
+  }
+}

@@ -1,0 +1,7 @@
+DynamicHostSet<H> hostSet
+Function<E,ObjectPool<Connection<T,E>>> endpointPoolFactory
+LoadBalancer<E> loadBalancer
+Closure<Collection<E>> onBackendsChosen
+Amount<Long,Time> restoreInterval
+Function<H,E> endpointExtractor
+Predicate<H> livenessChecker

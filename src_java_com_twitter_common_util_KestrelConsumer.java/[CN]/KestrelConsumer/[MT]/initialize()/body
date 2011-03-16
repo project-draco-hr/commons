@@ -1,0 +1,3 @@
+{
+  queue=Memcached.newKestrelClient(kestrelServers);
+}

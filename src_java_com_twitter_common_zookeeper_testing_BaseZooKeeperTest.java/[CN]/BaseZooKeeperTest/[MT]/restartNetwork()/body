@@ -1,0 +1,4 @@
+{
+  Preconditions.checkState(zkPort > 0);
+  startupNetwork(zkPort);
+}

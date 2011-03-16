@@ -1,0 +1,12 @@
+{
+  Watcher watcher=new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == EventType.None && event.getState() == KeeperState.Expired) {
+        onExpired.execute();
+      }
+    }
+  }
+;
+  register(watcher);
+  return watcher;
+}

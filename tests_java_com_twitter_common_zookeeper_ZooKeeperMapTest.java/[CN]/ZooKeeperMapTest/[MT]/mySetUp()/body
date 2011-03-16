@@ -1,0 +1,4 @@
+{
+  zkClient=createZkClient();
+  entryChanges=new LinkedBlockingQueue<Pair<String,String>>();
+}

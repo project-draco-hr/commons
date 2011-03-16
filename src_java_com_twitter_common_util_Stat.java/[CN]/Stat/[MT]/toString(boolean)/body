@@ -1,0 +1,46 @@
+{
+  calculate();
+  NumberFormat nf=NumberFormat.getInstance();
+  nf.setMaximumFractionDigits(4);
+  if (_number > 1) {
+    StringBuffer results=new StringBuffer();
+    if (percent) {
+      results.append("Number:" + nf.format(_number * 100) + "%");
+    }
+ else {
+      results.append("Number:" + nf.format(_number));
+    }
+    if (percent) {
+      results.append(" Max:" + nf.format(_max * 100) + "%");
+    }
+ else {
+      results.append(" Max:" + nf.format(_max));
+    }
+    if (percent) {
+      results.append(" Min:" + nf.format(_min * 100) + "%");
+    }
+ else {
+      results.append(" Min:" + nf.format(_min));
+    }
+    if (percent) {
+      results.append(" Mean:" + nf.format(_mean * 100) + "%");
+    }
+ else {
+      results.append(" Mean:" + nf.format(_mean));
+    }
+    results.append(" Sum:" + nf.format(_sum));
+    results.append(" STD:" + nf.format(_stdDev));
+    return results.toString();
+  }
+ else   if (_number == 1) {
+    if (percent) {
+      return ("Number:" + nf.format(_sum * 100) + "%");
+    }
+ else {
+      return ("Number:" + nf.format(_sum));
+    }
+  }
+ else {
+    return ("Number: N/A");
+  }
+}

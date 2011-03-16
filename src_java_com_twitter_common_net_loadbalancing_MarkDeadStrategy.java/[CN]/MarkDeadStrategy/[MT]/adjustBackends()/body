@@ -1,0 +1,12 @@
+{
+  liveBackends=Sets.newHashSet(Iterables.filter(targets.keySet(),deadTargetFilter));
+  if (liveBackends.isEmpty()) {
+    liveBackends=targets.keySet();
+    forcedLive=true;
+  }
+ else {
+    forcedLive=false;
+  }
+  LOG.info("Observed backend state change, changing live backends to " + liveBackends);
+  wrappedStrategy.offerBackends(liveBackends,onBackendsChosen);
+}

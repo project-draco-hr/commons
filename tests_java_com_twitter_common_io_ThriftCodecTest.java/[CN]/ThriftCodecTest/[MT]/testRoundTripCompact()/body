@@ -1,0 +1,3 @@
+{
+  testRoundTrip(ThriftCodec.COMPACT_PROTOCOL);
+}

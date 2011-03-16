@@ -1,0 +1,3 @@
+{
+  return zkClient.get().getData(getMemberPath(memberId),false,null);
+}

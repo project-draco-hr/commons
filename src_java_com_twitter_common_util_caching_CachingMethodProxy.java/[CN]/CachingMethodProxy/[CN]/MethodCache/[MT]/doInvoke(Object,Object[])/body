@@ -1,0 +1,10 @@
+{
+  K key=keyBuilder.apply(args);
+  V cachedValue=cache.get(key);
+  if (cachedValue != null)   return cachedValue;
+  Object fetched=invokeMethod(uncached,method,args);
+  if (fetched == null)   return null;
+  @SuppressWarnings("unchecked") V typedValue=(V)fetched;
+  if (entryFilter.apply(typedValue))   cache.put(key,typedValue);
+  return typedValue;
+}

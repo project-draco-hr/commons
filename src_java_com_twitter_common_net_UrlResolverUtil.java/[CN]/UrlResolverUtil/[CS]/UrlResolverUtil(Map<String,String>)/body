@@ -1,0 +1,8 @@
+{
+  this(Functions.compose(Functions.forMap(checkNotBlank(hostToUserAgent),DEFAULT_USER_AGENT),new Function<URL,String>(){
+    @Override public String apply(    URL url){
+      return url.getHost();
+    }
+  }
+));
+}

@@ -1,0 +1,8 @@
+{
+  try {
+    return clientFactory == null ? createAsyncClientFactory(serviceInterface) : clientFactory;
+  }
+ catch (  IOException e) {
+    throw new ThriftFactoryException("Failed to create async client factory.",e);
+  }
+}

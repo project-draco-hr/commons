@@ -1,0 +1,18 @@
+{
+  Capture<AsyncMethodCallback<Integer>> callbackCapture=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceCall(true).calculateMass(eq("jake"),capture(callbackCapture));
+  expectLastCall().andThrow(new TTransportException());
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  expectAsyncServiceRetry(false).calculateMass(eq("jake"),capture(callbackCapture));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.SUCCESS),anyLong());
+  callback.onComplete(42);
+  Thrift<TestServiceAsync> thrift=createAsyncThrift(expectUnusedExecutorService());
+  control.replay();
+  thrift.builder().withRetries(1).withConnectTimeout(ASYNC_CONNECT_TIMEOUT).create().calculateMass("jake",callback);
+  callbackCapture.getValue().onComplete(42);
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,0);
+  assertReconnectsTotal(thrift,0);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

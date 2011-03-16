@@ -1,0 +1,5 @@
+{
+  String memberId=group.getMemberId(deletedPath);
+  servicesByMemberId.remove(memberId);
+  return memberId;
+}

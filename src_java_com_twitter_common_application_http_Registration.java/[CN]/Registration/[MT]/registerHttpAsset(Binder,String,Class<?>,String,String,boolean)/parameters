@@ -1,0 +1,6 @@
+Binder binder
+String servedPath
+Class<?> contextClass
+String assetRelativePath
+String assetType
+boolean silent

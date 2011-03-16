@@ -1,0 +1,5 @@
+{
+  control.replay();
+  ExceptionalFunctions.curry(function,STRING);
+  control.verify();
+}

@@ -1,0 +1,9 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    if (len(self.args) is not 1):
+        self.error('Exactly one BUILD address is required.')
+    spec = self.args[0]
+    try:
+        self.address = Address.parse(root_dir, spec)
+    except:
+        self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))

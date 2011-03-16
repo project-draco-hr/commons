@@ -1,0 +1,9 @@
+{
+  long[] count=countedSet.get(o);
+  if (count == null) {
+    return 0;
+  }
+ else {
+    return count[0];
+  }
+}

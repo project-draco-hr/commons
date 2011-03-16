@@ -1,0 +1,18 @@
+{
+  Map<S,ConnectionStats> newConnections=Maps.newHashMapWithExpectedSize(backends.size());
+  Collection<ConnectionStats> newConnectionStats=Lists.newArrayListWithCapacity(backends.size());
+  for (  S backend : backends) {
+    ConnectionStats stats=connections.get(backend);
+    if (stats == null) {
+      stats=new ConnectionStats(backend);
+    }
+    stats.useCount=0;
+    newConnections.put(backend,stats);
+    newConnectionStats.add(stats);
+  }
+  connections.clear();
+  connections.putAll(newConnections);
+  connectionStats.clear();
+  connectionStats.addAll(newConnectionStats);
+  return connections.keySet();
+}

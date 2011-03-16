@@ -1,0 +1,11 @@
+{
+  StartWatch timer=new StartWatch();
+  timer.start();
+  try {
+    return timedWork.get();
+  }
+  finally {
+    timer.stop();
+    stat.accumulate(timer.getTime());
+  }
+}

@@ -1,0 +1,4 @@
+{
+  this.toleratedFailureRate=toleratedRate;
+  return this;
+}

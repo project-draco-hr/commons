@@ -1,0 +1,5 @@
+{
+  assertEquals(ImmutableList.of("www.fred"),UrlHelper.getDomainLevels("fred"));
+  assertEquals(ImmutableList.of("www.twitter.com","twitter.com"),UrlHelper.getDomainLevels("www.twitter.com"));
+  assertEquals(ImmutableList.of("www.twitter.co.uk","twitter.co.uk","co.uk"),UrlHelper.getDomainLevels("twitter.co.uk"));
+}

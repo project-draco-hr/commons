@@ -1,0 +1,3 @@
+{
+  assertValues(Iterables2.zip(10,list(1,2,3,4),Arrays.<Integer>asList()),list(1,10),list(2,10),list(3,10),list(4,10));
+}

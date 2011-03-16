@@ -1,0 +1,2 @@
+def _create_template_data(self):
+    return TemplateData(org=self.org, name=self.name)

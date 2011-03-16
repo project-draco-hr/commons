@@ -1,0 +1,4 @@
+{
+  this.clock=Preconditions.checkNotNull(clock);
+  this.backoffStrategy=Preconditions.checkNotNull(backoffStrategy);
+}

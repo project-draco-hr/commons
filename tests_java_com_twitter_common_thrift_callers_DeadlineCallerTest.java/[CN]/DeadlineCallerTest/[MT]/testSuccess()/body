@@ -1,0 +1,6 @@
+{
+  DeadlineCaller deadline=makeDeadline(false);
+  expectCall("foo");
+  control.replay();
+  assertThat(call(deadline),is("foo"));
+}

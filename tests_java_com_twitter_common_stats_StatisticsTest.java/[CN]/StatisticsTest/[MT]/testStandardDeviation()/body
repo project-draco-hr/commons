@@ -1,0 +1,6 @@
+{
+  Statistics stats=createAndLoad(EMPTY_SET);
+  assertEquals(Double.NaN,stats.standardDeviation());
+  stats=createAndLoad(TEST_SET_A);
+  checkWithinThreshold(1.0435888145066835E7,stats.standardDeviation());
+}

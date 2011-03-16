@@ -1,0 +1,15 @@
+{
+  Amount<Long,Data> length=Amount.of(file.length(),Data.BYTES);
+  if (length.as(Data.GB) > 0) {
+    return length.as(Data.GB) + " GB";
+  }
+ else   if (length.as(Data.MB) > 0) {
+    return length.as(Data.MB) + " MB";
+  }
+ else   if (length.as(Data.KB) > 0) {
+    return length.as(Data.KB) + " KB";
+  }
+ else {
+    return length.getValue() + " bytes";
+  }
+}

@@ -1,0 +1,6 @@
+{
+  fakeClock.waitFor(42L);
+  assertEquals(42L,fakeClock.nowMillis());
+  fakeClock.waitFor(42L);
+  assertEquals(84L,fakeClock.nowMillis());
+}

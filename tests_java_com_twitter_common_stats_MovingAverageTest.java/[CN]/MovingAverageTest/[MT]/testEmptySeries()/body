@@ -1,0 +1,3 @@
+{
+  runTest(Lists.<Integer>newArrayList(),Lists.<Double>newArrayList());
+}

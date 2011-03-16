@@ -1,0 +1,8 @@
+{
+  if (remove) {
+    pool.remove(connection);
+  }
+ else {
+    pool.release(connection);
+  }
+}

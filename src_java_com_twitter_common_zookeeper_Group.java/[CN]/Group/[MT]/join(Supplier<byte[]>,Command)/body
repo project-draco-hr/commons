@@ -1,0 +1,30 @@
+{
+  Preconditions.checkNotNull(memberData);
+  ensurePersistentGroupPath();
+  final ActiveMembership groupJoiner=new ActiveMembership(memberData,onLoseMembership);
+  return backoffHelper.doUntilResult(new ExceptionalSupplier<Membership,JoinException>(){
+    @Override public Membership get() throws JoinException {
+      try {
+        return groupJoiner.join();
+      }
+ catch (      InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new JoinException("Interrupted trying to join group at path: " + path,e);
+      }
+catch (      ZooKeeperConnectionException e) {
+        LOG.log(Level.WARNING,"Temporary error trying to join group at path: " + path,e);
+        return null;
+      }
+catch (      KeeperException e) {
+        if (zkClient.shouldRetry(e)) {
+          LOG.log(Level.WARNING,"Temporary error trying to join group at path: " + path,e);
+          return null;
+        }
+ else {
+          throw new JoinException("Problem joining partition group at path: " + path,e);
+        }
+      }
+    }
+  }
+);
+}

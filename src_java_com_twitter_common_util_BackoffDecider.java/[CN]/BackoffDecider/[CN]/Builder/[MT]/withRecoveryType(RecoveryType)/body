@@ -1,0 +1,4 @@
+{
+  this.recoveryType=recoveryType;
+  return this;
+}

@@ -1,0 +1,3 @@
+{
+  onBackendsChosen.execute(onBackendsOffered(offeredBackends));
+}

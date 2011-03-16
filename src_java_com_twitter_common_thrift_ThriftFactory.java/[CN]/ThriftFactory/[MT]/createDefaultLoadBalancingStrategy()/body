@@ -1,0 +1,10 @@
+{
+  Function<InetSocketAddress,BackoffDecider> backoffFactory=new Function<InetSocketAddress,BackoffDecider>(){
+    @Override public BackoffDecider apply(    InetSocketAddress socket){
+      BackoffStrategy backoffStrategy=new TruncatedBinaryBackoff(Amount.of(2L,Time.SECONDS),Amount.of(10L,Time.SECONDS));
+      return BackoffDecider.builder(socket.toString()).withTolerateFailureRate(0.2).withRequestWindow(Amount.of(1L,Time.SECONDS)).withSeedSize(5).withStrategy(backoffStrategy).withRecoveryType(BackoffDecider.RecoveryType.FULL_CAPACITY).withStatsProvider(statsProvider).build();
+    }
+  }
+;
+  return new MarkDeadStrategy<InetSocketAddress>(new LeastConnectedStrategy<InetSocketAddress>(),backoffFactory);
+}

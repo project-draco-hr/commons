@@ -1,0 +1,2 @@
+import collections
+(KEY, PREV, NEXT) = range(3)

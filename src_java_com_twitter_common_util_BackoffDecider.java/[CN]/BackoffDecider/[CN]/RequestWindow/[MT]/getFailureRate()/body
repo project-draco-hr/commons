@@ -1,0 +1,3 @@
+{
+  return totalRequests == 0 ? 0 : ((double)totalFailures) / totalRequests;
+}

@@ -1,0 +1,19 @@
+{
+  poolLock.lock();
+  try {
+    if (!leasedConnections.remove(connection)) {
+      throw new IllegalArgumentException("Connection not controlled by this connection pool: " + connection);
+    }
+    if (!closed && !remove && connection.isValid()) {
+      addConnection(connection);
+      connectionsReturned.incrementAndGet();
+    }
+ else {
+      connectionFactory.destroy(connection);
+      connectionsDestroyed.incrementAndGet();
+    }
+  }
+  finally {
+    poolLock.unlock();
+  }
+}

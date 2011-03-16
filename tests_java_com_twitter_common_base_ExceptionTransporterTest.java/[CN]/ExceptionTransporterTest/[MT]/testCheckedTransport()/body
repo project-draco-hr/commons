@@ -1,0 +1,8 @@
+{
+  ExceptionTransporter.guard(new Function<ExceptionTransporter<FileNotFoundException>,File>(){
+    @Override public File apply(    ExceptionTransporter<FileNotFoundException> transporter){
+      throw transporter.transport(new FileNotFoundException());
+    }
+  }
+);
+}

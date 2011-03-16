@@ -1,0 +1,4 @@
+int port
+TProcessor processor
+TProtocolFactory protoFactory
+TrafficMonitor<InetSocketAddress> monitor

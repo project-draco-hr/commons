@@ -1,0 +1,9 @@
+{
+  ByteArrayOutputStream gzipBaos=new ByteArrayOutputStream();
+  GZIPOutputStream gzipStream=new GZIPOutputStream(gzipBaos);
+  ByteStreams.copy(inputSupplier,gzipStream);
+  gzipStream.flush();
+  gzipStream.close();
+  gzipData=gzipBaos.toByteArray();
+  hash=Base64.encodeBase64String(DigestUtils.md5(gzipData)).trim();
+}

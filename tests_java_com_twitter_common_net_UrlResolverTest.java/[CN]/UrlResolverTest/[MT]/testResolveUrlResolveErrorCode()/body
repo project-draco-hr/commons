@@ -1,0 +1,16 @@
+{
+  expect(resolver.apply("jake")).andReturn(null);
+  expect(backoffStrategy.calculateBackoffMs(0L)).andReturn(1L);
+  clock.waitFor(1L);
+  expect(resolver.apply("jake")).andReturn(null);
+  expect(backoffStrategy.calculateBackoffMs(1L)).andReturn(2L);
+  clock.waitFor(2L);
+  expect(resolver.apply("jake")).andReturn(null);
+  control.replay();
+  ResolvedUrl resolvedUrl=createResolver(3).resolveUrl("jake");
+  assertEquals("jake",resolvedUrl.getStartUrl());
+  assertContentsInOrder("Expected no intermediate urls",resolvedUrl.getIntermediateUrls());
+  assertNull(resolvedUrl.getEndUrl());
+  assertEquals(EndState.ERROR,resolvedUrl.getEndState());
+  control.verify();
+}

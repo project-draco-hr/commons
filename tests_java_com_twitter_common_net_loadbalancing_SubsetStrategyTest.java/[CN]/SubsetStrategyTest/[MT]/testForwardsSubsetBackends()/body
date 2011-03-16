@@ -1,0 +1,7 @@
+{
+  Capture<Set<String>> backendCapture=createCapture();
+  wrappedStrategy.offerBackends(capture(backendCapture),eq(onBackendsChosen));
+  control.replay();
+  subsetStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2,BACKEND_3),onBackendsChosen);
+  assertThat(backendCapture.getValue().size(),is(2));
+}

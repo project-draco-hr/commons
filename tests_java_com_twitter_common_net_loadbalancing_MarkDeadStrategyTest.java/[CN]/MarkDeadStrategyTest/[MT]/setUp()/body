@@ -1,0 +1,20 @@
+{
+  wrappedStrategy=createMock(new Clazz<LoadBalancingStrategy<String>>(){
+  }
+);
+  onBackendsChosen=createMock(new Clazz<Closure<Collection<String>>>(){
+  }
+);
+  mockHostChecker=createMock(new Clazz<Predicate<String>>(){
+  }
+);
+  random=createMock(Random.class);
+  clock=new FakeClock();
+  Function<String,BackoffDecider> backoffFactory=new Function<String,BackoffDecider>(){
+    @Override public BackoffDecider apply(    String s){
+      return BackoffDecider.builder(s).withSeedSize(1).withClock(clock).withRandom(random).withTolerateFailureRate(0.5).withStrategy(new TruncatedBinaryBackoff(INITIAL_BACKOFF,MAX_BACKOFF)).withRecoveryType(BackoffDecider.RecoveryType.FULL_CAPACITY).withRequestWindow(MAX_BACKOFF).build();
+    }
+  }
+;
+  markDead=new MarkDeadStrategy<String>(wrappedStrategy,backoffFactory,mockHostChecker);
+}

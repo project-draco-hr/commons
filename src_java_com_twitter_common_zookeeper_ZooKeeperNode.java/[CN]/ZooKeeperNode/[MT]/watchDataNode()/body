@@ -1,0 +1,23 @@
+{
+  final Watcher nodeWatcher=new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == Watcher.Event.EventType.NodeDataChanged || event.getType() == Watcher.Event.EventType.NodeDeleted) {
+        try {
+          tryWatchDataNode();
+        }
+ catch (        InterruptedException e) {
+          LOG.log(Level.WARNING,"Interrupted while trying to watch a data node.",e);
+        }
+      }
+    }
+  }
+;
+  try {
+    T newData=deserializer.apply(zkClient.get().getData(nodePath,nodeWatcher,null));
+    updateData(newData);
+  }
+ catch (  KeeperException.NoNodeException e) {
+    updateData(NO_DATA);
+    watchForExistence();
+  }
+}

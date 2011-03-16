@@ -1,0 +1,5 @@
+{
+  ZooKeeperNode<T> zkNode=new ZooKeeperNode<T>(zkClient,nodePath,deserializer,dataUpdateListener);
+  zkNode.init();
+  return zkNode;
+}

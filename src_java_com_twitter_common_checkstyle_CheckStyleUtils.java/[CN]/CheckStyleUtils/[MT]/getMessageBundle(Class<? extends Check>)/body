@@ -1,0 +1,10 @@
+{
+  String parentBuiltInCheckClassName=parentBuiltInCheckClass.getName();
+  final int endIndex=parentBuiltInCheckClassName.lastIndexOf('.');
+  final String messages="messages";
+  if (endIndex < 0) {
+    return messages;
+  }
+  final String packageName=parentBuiltInCheckClassName.substring(0,endIndex);
+  return packageName + "." + messages;
+}

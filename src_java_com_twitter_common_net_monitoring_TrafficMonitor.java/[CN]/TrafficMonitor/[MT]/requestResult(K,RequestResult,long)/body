@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(key);
+  lifetimeRequests.incrementAndGet();
+  trafficInfos.get(key).addResult(result);
+}

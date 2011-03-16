@@ -1,0 +1,7 @@
+{
+  expectCall("foo");
+  control.replay();
+  RetryingCaller retry=makeRetry(false,NO_RETRYABLE);
+  assertThat(call(retry),is("foo"));
+  assertThat(memoizeGetCounter.get(methodA).get(),is(0L));
+}

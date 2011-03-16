@@ -1,0 +1,18 @@
+{
+  final DetailAST openingBrace=aAST.findFirstToken(TokenTypes.SLIST);
+  if (openingBrace != null) {
+    final DetailAST closingBrace=openingBrace.findFirstToken(TokenTypes.RCURLY);
+    int length=closingBrace.getLineNo() - openingBrace.getLineNo() + 1;
+    final FileContents contents=getFileContents();
+    final int lastLine=closingBrace.getLineNo();
+    for (int i=openingBrace.getLineNo() - 1; i < lastLine; i++) {
+      if (contents.lineIsBlank(i)) {
+        length--;
+      }
+    }
+    if (length <= minLineCount) {
+      return true;
+    }
+  }
+  return false;
+}

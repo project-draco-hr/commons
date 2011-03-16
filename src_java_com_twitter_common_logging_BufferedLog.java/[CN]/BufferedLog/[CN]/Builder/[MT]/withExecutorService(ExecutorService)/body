@@ -1,0 +1,4 @@
+{
+  instance.logSubmitService=logSubmitService;
+  return this;
+}

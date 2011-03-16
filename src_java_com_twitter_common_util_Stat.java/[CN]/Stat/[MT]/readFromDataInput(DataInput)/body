@@ -1,0 +1,10 @@
+{
+  _max=in.readDouble();
+  _min=in.readDouble();
+  _number=in.readLong();
+  _mean=in.readDouble();
+  _stdDev=in.readDouble();
+  _sum=in.readDouble();
+  _sumOfSq=in.readDouble();
+  return;
+}

@@ -1,0 +1,4 @@
+{
+  countedSet=new TreeMap<E,long[]>();
+  totalFrequency=0;
+}

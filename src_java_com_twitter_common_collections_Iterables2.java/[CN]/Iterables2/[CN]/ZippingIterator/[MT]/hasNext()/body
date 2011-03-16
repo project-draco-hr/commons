@@ -1,0 +1,9 @@
+{
+  init();
+  for (  Iterator<T> it : iterators) {
+    if (it.hasNext()) {
+      return true;
+    }
+  }
+  return false;
+}

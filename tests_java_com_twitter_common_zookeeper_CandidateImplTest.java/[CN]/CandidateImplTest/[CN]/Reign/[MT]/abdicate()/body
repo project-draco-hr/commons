@@ -1,0 +1,4 @@
+{
+  Preconditions.checkState(abdicate != null);
+  abdicate.execute();
+}

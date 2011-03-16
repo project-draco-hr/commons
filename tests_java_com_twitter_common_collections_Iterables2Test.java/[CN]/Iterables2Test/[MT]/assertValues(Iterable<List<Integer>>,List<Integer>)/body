@@ -1,0 +1,7 @@
+{
+  assertThat(Iterables.size(meta),is(rows.length));
+  int i=0;
+  for (  List<Integer> row : meta) {
+    assertThat(row,is(rows[i++]));
+  }
+}

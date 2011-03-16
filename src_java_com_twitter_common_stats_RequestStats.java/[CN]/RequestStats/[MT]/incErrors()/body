@@ -1,0 +1,4 @@
+{
+  requestComplete(0);
+  errors.incrementAndGet();
+}

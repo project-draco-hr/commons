@@ -1,0 +1,8 @@
+{
+  listener=createMock(SingletonService.LeadershipListener.class);
+  serverSet=createMock(ServerSet.class);
+  candidate=createMock(Candidate.class);
+  endpointStatus=createMock(ServerSet.EndpointStatus.class);
+  abdicate=createMock(ExceptionalCommand.class);
+  service=new SingletonService(serverSet,candidate);
+}

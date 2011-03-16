@@ -1,0 +1,4 @@
+{
+  this.postCreateCallback=Preconditions.checkNotNull(postCreateCallback);
+  return this;
+}

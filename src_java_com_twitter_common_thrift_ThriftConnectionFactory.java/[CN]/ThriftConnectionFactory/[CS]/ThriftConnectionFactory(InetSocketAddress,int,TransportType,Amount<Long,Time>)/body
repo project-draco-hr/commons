@@ -1,0 +1,3 @@
+{
+  this(endpoint,maxConnections,transportType,socketTimeout,Closures.<Connection<TTransport,InetSocketAddress>>noop());
+}

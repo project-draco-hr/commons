@@ -1,0 +1,9 @@
+{
+  try {
+    return getDomainChecked(url);
+  }
+ catch (  URISyntaxException e) {
+    LOG.finest("Malformed url: " + url);
+    return null;
+  }
+}

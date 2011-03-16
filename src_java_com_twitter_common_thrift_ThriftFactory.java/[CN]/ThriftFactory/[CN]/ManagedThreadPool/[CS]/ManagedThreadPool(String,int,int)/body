@@ -1,0 +1,5 @@
+{
+  super(createThreadPool(serviceName,initialEndpointCount * maxConnectionsPerEndpoint));
+  this.maxConnectionsPerEndpoint=maxConnectionsPerEndpoint;
+  setRejectedExecutionHandler(initialEndpointCount);
+}

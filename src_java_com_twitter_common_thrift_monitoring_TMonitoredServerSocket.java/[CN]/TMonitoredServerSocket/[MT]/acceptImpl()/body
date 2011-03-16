@@ -1,0 +1,23 @@
+{
+  final TSocket socket=super.acceptImpl();
+  final InetSocketAddress remoteAddress=(InetSocketAddress)socket.getSocket().getRemoteSocketAddress();
+  TSocket monitoredSocket=new TSocket(socket.getSocket()){
+    boolean closed=false;
+    @Override public void close(){
+      try {
+        super.close();
+      }
+  finally {
+        if (!closed) {
+          monitor.released(remoteAddress);
+          addressMap.remove(this);
+        }
+        closed=true;
+      }
+    }
+  }
+;
+  addressMap.put(monitoredSocket,remoteAddress);
+  monitor.connected(remoteAddress);
+  return monitoredSocket;
+}

@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(maxBackends > 0);
+  this.maxBackends=maxBackends;
+  this.wrapped=Preconditions.checkNotNull(wrapped);
+}

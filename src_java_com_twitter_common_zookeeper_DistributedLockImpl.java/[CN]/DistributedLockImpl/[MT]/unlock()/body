@@ -1,0 +1,14 @@
+{
+  if (currentId == null) {
+    throw new LockingException("Error, neither attempting to lock nor holding a lock!");
+  }
+  Preconditions.checkNotNull(currentId);
+  if (!holdsLock) {
+    aborted.set(true);
+    LOG.log(Level.INFO,"Not holding lock, aborting acquisition attempt!");
+  }
+ else {
+    LOG.log(Level.INFO,"Cleaning up this locks ephemeral node.");
+    cleanup();
+  }
+}

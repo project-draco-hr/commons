@@ -1,0 +1,21 @@
+{
+  Executor executor=Executors.newSingleThreadExecutor();
+  @SuppressWarnings("unchecked") Connection<String,Integer> connection=control.createMock(Connection.class);
+  expect(connectionFactory.create(eq(ObjectPool.NO_TIMEOUT))).andReturn(connection);
+  @SuppressWarnings("unchecked") Connection<String,Integer> connection2=control.createMock(Connection.class);
+  expect(connectionFactory.create(eq(ObjectPool.NO_TIMEOUT))).andReturn(connection2);
+  expect(connectionFactory.mightCreate()).andReturn(true);
+  connectionFactory.destroy(connection2);
+  expect(connection2.isValid()).andReturn(true);
+  control.replay();
+  ConnectionPool<Connection<String,Integer>> connectionPool=createConnectionPool(executor);
+  Connection<String,Integer> leasedDuringClose=connectionPool.get();
+  connectionPool.release(connectionPool.get());
+  connectionPool.close();
+  control.verify();
+  control.reset();
+  connectionFactory.destroy(connection);
+  control.replay();
+  connectionPool.release(leasedDuringClose);
+  control.verify();
+}

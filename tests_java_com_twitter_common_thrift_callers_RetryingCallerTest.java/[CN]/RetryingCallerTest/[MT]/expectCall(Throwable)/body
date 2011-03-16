@@ -1,0 +1,4 @@
+{
+  super.expectCall(thrown);
+  memoizeGetCounter.get(methodA);
+}

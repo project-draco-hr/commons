@@ -1,0 +1,3 @@
+{
+  return checkNotBlank(argument,ARG_NOT_BLANK_MSG);
+}

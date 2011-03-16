@@ -1,0 +1,2 @@
+def __init__(self, ferror, root_dir):
+    Builder.__init__(self, ferror, root_dir)

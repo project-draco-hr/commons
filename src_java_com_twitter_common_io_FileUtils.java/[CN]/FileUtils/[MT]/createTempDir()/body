@@ -1,0 +1,12 @@
+{
+  File tempDir;
+  int tries=0;
+  do {
+    if (++tries > MAX_TMP_DIR_TRIES) {
+      throw new IllegalStateException("Failed to create a new temp directory in " + MAX_TMP_DIR_TRIES + " attempts, giving up");
+    }
+    tempDir=new File(SystemUtils.getJavaIoTmpDir(),UUID.randomUUID().toString());
+  }
+ while (!tempDir.mkdir());
+  return tempDir;
+}

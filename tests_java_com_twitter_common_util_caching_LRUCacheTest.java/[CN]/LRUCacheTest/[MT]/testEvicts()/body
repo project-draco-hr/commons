@@ -1,0 +1,9 @@
+{
+  int cacheSize=10;
+  int inserts=100;
+  LRUCache<Integer,Integer> cache=LRUCache.<Integer,Integer>builder().maxSize(cacheSize).build();
+  for (int i=0; i < inserts; i++) {
+    cache.put(i,i);
+    assertThat(cache.size(),is(Math.min(i + 1,cacheSize)));
+  }
+}

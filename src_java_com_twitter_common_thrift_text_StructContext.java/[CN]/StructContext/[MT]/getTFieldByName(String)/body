@@ -1,0 +1,6 @@
+{
+  if (!fieldNameMap.containsKey(name)) {
+    throw new TException("Unknown field: " + name);
+  }
+  return fieldNameMap.get(name);
+}

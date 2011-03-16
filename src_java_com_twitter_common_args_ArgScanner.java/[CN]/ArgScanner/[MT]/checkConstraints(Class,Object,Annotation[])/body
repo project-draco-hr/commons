@@ -1,0 +1,8 @@
+{
+  for (  Annotation annotation : annotations) {
+    Verifier verifier=Constraints.get(fieldClass,annotation);
+    if (verifier != null) {
+      verifier.verify(value,annotation);
+    }
+  }
+}

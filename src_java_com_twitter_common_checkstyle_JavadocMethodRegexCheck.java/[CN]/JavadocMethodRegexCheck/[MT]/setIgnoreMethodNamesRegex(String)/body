@@ -1,0 +1,3 @@
+{
+  methodNameIgnoreRegex=Utils.createPattern(s);
+}

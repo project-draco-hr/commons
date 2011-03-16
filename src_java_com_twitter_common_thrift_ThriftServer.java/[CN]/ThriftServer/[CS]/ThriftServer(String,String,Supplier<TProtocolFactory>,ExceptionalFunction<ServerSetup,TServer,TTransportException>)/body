@@ -1,0 +1,6 @@
+{
+  this.name=Preconditions.checkNotNull(name);
+  this.version=Preconditions.checkNotNull(version);
+  this.protoFactorySupplier=Preconditions.checkNotNull(protoFactorySupplier);
+  this.serverSupplier=Preconditions.checkNotNull(serverSupplier);
+}

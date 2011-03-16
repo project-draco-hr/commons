@@ -1,0 +1,57 @@
+{
+  TestService testService=expectServiceCall(true);
+  final CountDownLatch remoteCallComplete=new CountDownLatch(1);
+  final CountDownLatch remoteCallStarted=new CountDownLatch(1);
+  final Command verifyCancelled=control.createMock(Command.class);
+  verifyCancelled.execute();
+  final Object block=new Object();
+  expect(testService.calculateMass("jake")).andAnswer(new IAnswer<Integer>(){
+    @Override public Integer answer() throws TException {
+      try {
+synchronized (block) {
+          remoteCallStarted.countDown();
+          block.wait();
+        }
+        fail("Expected late work to be cancelled and interrupted");
+      }
+ catch (      InterruptedException e) {
+        verifyCancelled.execute();
+      }
+ finally {
+        remoteCallComplete.countDown();
+      }
+      throw new TTransportException();
+    }
+  }
+);
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.TIMEOUT),anyLong());
+  ExecutorService executorService=new ForwardingExecutorService<ExecutorService>(Executors.newSingleThreadExecutor()){
+    @Override public <T>Future<T> submit(    Callable<T> task){
+      Future<T> future=super.submit(task);
+      try {
+        remoteCallStarted.await();
+      }
+ catch (      InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+      return future;
+    }
+  }
+;
+  Thrift<TestService> thrift=createThrift(executorService);
+  control.replay();
+  try {
+    thrift.builder().withRequestTimeout(Amount.of(1L,Time.NANOSECONDS)).create().calculateMass("jake");
+    fail("Expected a timeout");
+  }
+ catch (  TTimeoutException e) {
+  }
+ finally {
+    remoteCallComplete.await();
+  }
+  assertRequestsTotal(thrift,0);
+  assertErrorsTotal(thrift,0);
+  assertReconnectsTotal(thrift,0);
+  assertTimeoutsTotal(thrift,1);
+  control.verify();
+}

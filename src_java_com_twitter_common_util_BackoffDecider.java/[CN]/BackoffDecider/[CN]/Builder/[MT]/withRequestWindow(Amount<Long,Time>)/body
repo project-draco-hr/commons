@@ -1,0 +1,4 @@
+{
+  this.requestWindowNs=requestWindow.as(Time.NANOSECONDS);
+  return this;
+}

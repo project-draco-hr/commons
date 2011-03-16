@@ -1,0 +1,4 @@
+{
+  Stats.flush();
+  control.verify();
+}

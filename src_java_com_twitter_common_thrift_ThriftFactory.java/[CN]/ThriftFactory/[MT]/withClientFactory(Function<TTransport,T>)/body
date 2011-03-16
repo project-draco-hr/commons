@@ -1,0 +1,4 @@
+{
+  this.clientFactory=Preconditions.checkNotNull(clientFactory);
+  return this;
+}

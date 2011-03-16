@@ -1,0 +1,14 @@
+{
+  Preconditions.checkNotNull(backendKey);
+  Preconditions.checkState(connections.size() == connectionStats.size());
+  ConnectionStats stats=connections.get(backendKey);
+  Preconditions.checkNotNull(stats);
+  if (stats.value > 0) {
+    Preconditions.checkState(connectionStats.remove(stats));
+    stats.value--;
+    Preconditions.checkState(connectionStats.add(stats));
+  }
+ else {
+    LOG.warning("connection stats dropped below zero, ignoring");
+  }
+}

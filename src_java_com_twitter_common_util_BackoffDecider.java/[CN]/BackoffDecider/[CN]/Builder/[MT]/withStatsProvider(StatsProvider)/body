@@ -1,0 +1,4 @@
+{
+  this.statsProvider=statsProvider;
+  return this;
+}

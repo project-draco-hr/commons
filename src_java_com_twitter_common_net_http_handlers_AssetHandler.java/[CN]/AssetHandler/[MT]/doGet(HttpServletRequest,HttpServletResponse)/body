@@ -1,0 +1,16 @@
+{
+  OutputStream responseBody=resp.getOutputStream();
+  if (checksumMatches(req)) {
+    resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+  }
+ else {
+    setPayloadHeaders(resp);
+    boolean gzip=supportsGzip(req);
+    if (gzip) {
+      resp.setHeader("Content-Encoding",GZIP_ENCODING);
+    }
+    InputStream in=new ByteArrayInputStream(gzip ? staticAsset.getGzipData() : staticAsset.getRawData());
+    ByteStreams.copy(in,responseBody);
+  }
+  Closeables.closeQuietly(responseBody);
+}

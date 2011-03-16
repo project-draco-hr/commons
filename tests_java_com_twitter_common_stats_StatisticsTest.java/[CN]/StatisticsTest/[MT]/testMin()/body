@@ -1,0 +1,6 @@
+{
+  Statistics stats=createAndLoad(EMPTY_SET);
+  stats.min();
+  stats=createAndLoad(TEST_SET_A);
+  assertEquals(24067379,stats.min());
+}

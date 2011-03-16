@@ -1,0 +1,10 @@
+{
+  if (isStarted()) {
+    try {
+      server.stop();
+    }
+ catch (    Exception e) {
+      LOG.log(Level.SEVERE,"Error stopping HTTPServer on " + port,e);
+    }
+  }
+}

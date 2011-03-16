@@ -1,0 +1,16 @@
+{
+  long startNanos=System.nanoTime();
+  boolean exceptionThrown=false;
+  try {
+    return wrapped.process(in,out);
+  }
+ catch (  TException e) {
+    exceptionThrown=true;
+    throw e;
+  }
+ finally {
+    InetSocketAddress address=monitoredServerSocket.getAddress((TSocket)in.getTransport());
+    Preconditions.checkState(address != null,"Address unknown for transport " + in.getTransport());
+    monitor.requestResult(address,exceptionThrown ? FAILED : SUCCESS,System.nanoTime() - startNanos);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  String suppliedETag=req.getHeader("If-None-Match");
+  if ("*".equals(suppliedETag)) {
+    return true;
+  }
+  String checksum=staticAsset.getChecksum();
+  return (checksum != null) && (suppliedETag != null) && suppliedETag.contains(checksum);
+}

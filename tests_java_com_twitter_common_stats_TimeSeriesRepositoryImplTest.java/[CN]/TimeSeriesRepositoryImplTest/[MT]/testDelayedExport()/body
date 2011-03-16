@@ -1,0 +1,19 @@
+{
+  control.replay();
+  AtomicLong earlyExport=Stats.exportLong("early");
+  clock.setNowMillis(1000);
+  for (int i=0; i < 4; i++) {
+    earlyExport.addAndGet(2);
+    repo.runSampler(clock);
+    clock.waitFor(1000);
+  }
+  expectTimestamps(1000,2000,3000,4000);
+  expectSeriesData("early",2,4,6,8);
+  AtomicLong delayedExport=Stats.exportLong("delayed");
+  delayedExport.set(100);
+  earlyExport.addAndGet(2);
+  repo.runSampler(clock);
+  expectTimestamps(1000,2000,3000,4000,5000);
+  expectSeriesData("early",2,4,6,8,10);
+  expectSeriesData("delayed",0,0,0,0,100);
+}

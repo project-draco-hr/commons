@@ -1,0 +1,10 @@
+{
+  Set<String> addedChildren=Sets.difference(zkChildren,keySet());
+  Set<String> removedChildren=Sets.difference(keySet(),zkChildren);
+  for (  String child : addedChildren) {
+    tryAddChild(child);
+  }
+  for (  String child : removedChildren) {
+    removeEntry(child);
+  }
+}

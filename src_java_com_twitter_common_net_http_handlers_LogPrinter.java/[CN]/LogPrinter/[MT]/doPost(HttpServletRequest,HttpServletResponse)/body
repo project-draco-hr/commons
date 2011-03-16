@@ -1,0 +1,19 @@
+{
+  resp.setContentType("text/xml");
+  try {
+    LogViewRequest request=new LogViewRequest(req);
+    if (request.file == null) {
+      resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return;
+    }
+    resp.setStatus(HttpServletResponse.SC_OK);
+    PrintWriter responseBody=resp.getWriter();
+    String responseXml=fetchXmlLogContents(request);
+    responseBody.write(responseXml);
+    responseBody.close();
+  }
+ catch (  Exception e) {
+    LOG.log(Level.SEVERE,"Unknown exception.",e);
+    resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+  }
+}

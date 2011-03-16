@@ -1,0 +1,4 @@
+{
+  ThreadFactory threadFactory=new ThreadFactoryBuilder().setNameFormat("Thrift[" + serviceName + "][%d]").setDaemon(true).build();
+  return new ThreadPoolExecutor(initialSize,initialSize,0,TimeUnit.MILLISECONDS,new SynchronousQueue<Runnable>(),threadFactory);
+}

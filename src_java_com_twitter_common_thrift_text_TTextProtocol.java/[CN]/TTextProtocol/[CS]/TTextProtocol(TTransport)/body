@@ -1,0 +1,16 @@
+{
+  super(trans);
+  ByteArrayOutputStream mybaos=new TTransportOutputStream();
+  OutputStreamWriter osw;
+  osw=new OutputStreamWriter(mybaos,Charsets.UTF_8);
+  writer=new JsonWriter(osw);
+  writer.setIndent("  ");
+  reset();
+  try {
+    parser=createParser();
+  }
+ catch (  IOException ex) {
+  }
+  contextStack=new Stack<BaseContext>();
+  contextStack.push(new BaseContext());
+}

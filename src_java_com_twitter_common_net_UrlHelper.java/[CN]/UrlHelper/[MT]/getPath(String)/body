@@ -1,0 +1,11 @@
+{
+  Preconditions.checkNotNull(url);
+  url=addProtocol(url);
+  try {
+    return new URI(url).getPath();
+  }
+ catch (  URISyntaxException e) {
+    LOG.info("Malformed url: " + url);
+    return null;
+  }
+}

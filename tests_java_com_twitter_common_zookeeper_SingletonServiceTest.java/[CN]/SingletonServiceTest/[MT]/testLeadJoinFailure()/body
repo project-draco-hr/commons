@@ -1,0 +1,9 @@
+{
+  Pair<InetSocketAddress,Map<String,InetSocketAddress>> endpoints=getEndpoints("foo");
+  Capture<Leader> leaderCapture=new Capture<Leader>();
+  expect(candidate.offerLeadership(capture(leaderCapture))).andReturn(null);
+  expect(serverSet.join(endpoints.getFirst(),endpoints.getSecond(),Status.STARTING)).andThrow(new Group.JoinException("Injected join failure.",new Exception()));
+  control.replay();
+  newLeader("foo");
+  leaderCapture.getValue().onElected(abdicate);
+}

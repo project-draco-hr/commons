@@ -1,0 +1,21 @@
+{
+  this.serviceName=MorePreconditions.checkNotBlank(serviceName);
+  this.clock=Preconditions.checkNotNull(clock);
+  Preconditions.checkNotNull(gcInterval);
+  Preconditions.checkArgument(gcInterval.getValue() > 0,"GC interval must be > zero.");
+  this.gcInterval=gcInterval;
+  trafficInfos=new MapMaker().makeComputingMap(new Function<K,TrafficInfo>(){
+    @Override public TrafficInfo apply(    K key){
+      return new TrafficInfo(key);
+    }
+  }
+);
+  Runnable gc=new Runnable(){
+    @Override public void run(){
+      gc();
+    }
+  }
+;
+  ScheduledExecutorService gcExecutor=new ScheduledThreadPoolExecutor(1,new ThreadFactoryBuilder().setDaemon(true).setNameFormat("TrafficMonitor-gc-%d").build());
+  gcExecutor.scheduleAtFixedRate(gc,gcInterval.as(Time.SECONDS),gcInterval.as(Time.SECONDS),TimeUnit.SECONDS);
+}

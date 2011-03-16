@@ -1,0 +1,29 @@
+{
+  Preconditions.checkNotNull("Asynchronous URL resolution cannot be performed without a valid handler.",handler);
+  try {
+    poolEntrySemaphore.acquire();
+  }
+ catch (  InterruptedException e) {
+    LOG.log(Level.SEVERE,"Interrupted while waiting for thread to resolve URL: " + url,e);
+    return null;
+  }
+  final ListenableFutureTask<ResolvedUrl> future=new ListenableFutureTask<ResolvedUrl>(new Callable<ResolvedUrl>(){
+    @Override public ResolvedUrl call(){
+      return resolveUrl(url);
+    }
+  }
+);
+  future.addListener(new Runnable(){
+    @Override public void run(){
+      try {
+        handler.resolved(future);
+      }
+  finally {
+        poolEntrySemaphore.release();
+      }
+    }
+  }
+,handlerExecutor);
+  executor.execute(future);
+  return future;
+}

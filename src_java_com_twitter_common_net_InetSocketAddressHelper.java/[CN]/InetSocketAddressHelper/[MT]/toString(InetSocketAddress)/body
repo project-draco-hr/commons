@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(value);
+  return value.getHostName() + ":" + value.getPort();
+}

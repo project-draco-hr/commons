@@ -1,0 +1,5 @@
+{
+  Function<Pair<Pair<String,Integer>,Character>,Pair<String,Integer>> first=Pair.first();
+  Function<Pair<String,Integer>,Integer> second=Pair.second();
+  assertEquals(Integer.valueOf(42),Functions.compose(second,first).apply(Pair.of(Pair.of("arthur",42),'z')));
+}

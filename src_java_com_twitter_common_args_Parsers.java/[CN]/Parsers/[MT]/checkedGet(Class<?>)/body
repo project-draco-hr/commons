@@ -1,0 +1,5 @@
+{
+  Parser parser=get(cls);
+  checkArgument(parser != null,"No parser found for class " + cls);
+  return parser;
+}

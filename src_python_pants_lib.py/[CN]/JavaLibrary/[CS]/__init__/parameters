@@ -1,0 +1,11 @@
+self
+name
+sources
+provides
+dependencies
+excludes
+resources
+binary_resources
+deployjar
+buildflags
+is_meta

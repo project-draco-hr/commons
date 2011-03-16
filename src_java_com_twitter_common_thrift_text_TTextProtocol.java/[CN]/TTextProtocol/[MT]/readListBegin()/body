@@ -1,0 +1,4 @@
+{
+  int size=readSequenceBegin();
+  return new TList(UNUSED_TYPE,size);
+}

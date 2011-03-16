@@ -1,0 +1,4 @@
+{
+  liveHostChecker.addConnectResult(backendKey,result);
+  super.addConnectResult(backendKey,result,connectTimeNanos);
+}

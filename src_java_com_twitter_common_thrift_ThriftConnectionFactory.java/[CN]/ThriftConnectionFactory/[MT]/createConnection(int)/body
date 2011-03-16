@@ -1,0 +1,11 @@
+{
+  TTransport transport=createTransport(timeoutMillis);
+  if (transport == null) {
+    return null;
+  }
+  Connection<TTransport,InetSocketAddress> connection=new TTransportConnection(transport,endpoint);
+  postCreateCallback.execute(connection);
+  activeConnections.add(connection);
+  lastActiveConnectionsSize=activeConnections.size();
+  return connection;
+}

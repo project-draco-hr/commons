@@ -1,0 +1,16 @@
+{
+  try {
+    Field field=TNonblockingServerSocket.class.getDeclaredField("serverSocket_");
+    field.setAccessible(true);
+    return (ServerSocket)field.get(thriftSocket);
+  }
+ catch (  NoSuchFieldException e) {
+    throw new TTransportException("Couldn't get listening port",e);
+  }
+catch (  SecurityException e) {
+    throw new TTransportException("Couldn't get listening port",e);
+  }
+catch (  IllegalAccessException e) {
+    throw new TTransportException("Couldn't get listening port",e);
+  }
+}

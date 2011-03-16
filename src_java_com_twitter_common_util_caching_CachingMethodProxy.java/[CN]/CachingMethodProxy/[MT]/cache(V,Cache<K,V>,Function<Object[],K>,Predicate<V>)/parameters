@@ -1,0 +1,4 @@
+V value
+Cache<K,V> cache
+Function<Object[],K> keyBuilder
+Predicate<V> valueFilter

@@ -1,0 +1,2 @@
+Connection<T,E> connection
+ObjectPool<Connection<T,E>> pool

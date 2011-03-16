@@ -1,0 +1,14 @@
+{
+  @SuppressWarnings("unchecked") ExceptionalSupplier<String,IOException> task=control.createMock(ExceptionalSupplier.class);
+  IOException thrown=new IOException();
+  expect(task.get()).andThrow(thrown);
+  control.replay();
+  try {
+    backoffHelper.doUntilResult(task);
+    fail("Expected exception to be bubbled");
+  }
+ catch (  IOException e) {
+    assertSame(thrown,e);
+  }
+  control.verify();
+}

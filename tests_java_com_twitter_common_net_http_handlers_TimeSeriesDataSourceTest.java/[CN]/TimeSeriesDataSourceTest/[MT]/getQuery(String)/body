@@ -1,0 +1,3 @@
+{
+  return QueryParser.parseString(query);
+}

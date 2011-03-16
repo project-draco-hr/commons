@@ -1,0 +1,15 @@
+{
+  expect(random.nextDouble()).andReturn(0d).atLeastOnce();
+  control.replay();
+  BackoffDecider decider=builder(NAME).build();
+  List<Integer> backoffDurationsMs=Arrays.asList(100,200,400,800,1600,3200,6400,10000,10000);
+  assertThat(decider.shouldBackOff(),is(false));
+  decider.addFailure();
+  assertThat(decider.shouldBackOff(),is(true));
+  for (  int backoffDurationMs : backoffDurationsMs) {
+    assertThat(decider.shouldBackOff(),is(true));
+    clock.waitFor(backoffDurationMs + 1);
+    assertThat(decider.shouldBackOff(),is(false));
+    decider.addFailure();
+  }
+}

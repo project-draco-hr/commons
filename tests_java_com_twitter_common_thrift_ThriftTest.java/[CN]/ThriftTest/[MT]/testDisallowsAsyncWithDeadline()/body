@@ -1,0 +1,4 @@
+{
+  Config config=Config.builder().withRequestTimeout(Amount.of(1L,Time.SECONDS)).create();
+  new Thrift<TestServiceAsync>(config,connectionPool,requestTracker,"foo",TestServiceAsync.class,asyncClientFactory,true).create();
+}

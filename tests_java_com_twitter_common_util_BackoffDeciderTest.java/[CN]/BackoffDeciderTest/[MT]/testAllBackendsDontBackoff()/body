@@ -1,0 +1,24 @@
+{
+  expect(random.nextDouble()).andReturn(1d);
+  expect(random.nextDouble()).andReturn(0d);
+  control.replay();
+  Set<BackoffDecider> group=Sets.newHashSet();
+  BackoffDecider decider1=builder(NAME + 1).groupWith(group).build();
+  BackoffDecider decider2=builder(NAME + 2).groupWith(group).build();
+  BackoffDecider decider3=builder(NAME + 3).groupWith(group).build();
+  decider1.addFailure();
+  assertThat(decider1.shouldBackOff(),is(true));
+  decider2.addFailure();
+  assertThat(decider2.shouldBackOff(),is(true));
+  assertThat(decider3.shouldBackOff(),is(false));
+  decider3.addFailure();
+  assertThat(decider1.shouldBackOff(),is(false));
+  assertThat(decider2.shouldBackOff(),is(false));
+  assertThat(decider3.shouldBackOff(),is(false));
+  decider1.addSuccess();
+  assertThat(decider1.shouldBackOff(),is(false));
+  assertThat(decider2.shouldBackOff(),is(false));
+  assertThat(decider2.shouldBackOff(),is(true));
+  assertThat(decider3.shouldBackOff(),is(false));
+  assertThat(decider3.shouldBackOff(),is(false));
+}

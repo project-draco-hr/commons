@@ -1,0 +1,5 @@
+{
+  loadBalancer.offerBackends(backends,onBackendsChosen);
+  assertTrue(onBackendsChosenCapture.hasCaptured());
+  onBackendsChosenCapture.getValue().execute(backends);
+}

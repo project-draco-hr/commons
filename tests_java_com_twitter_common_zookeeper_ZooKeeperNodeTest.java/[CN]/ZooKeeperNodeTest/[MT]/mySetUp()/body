@@ -1,0 +1,5 @@
+{
+  zkClient=createZkClient();
+  ZooKeeperUtils.ensurePath(zkClient,ACL,"/twitter");
+  nodePath="/twitter/node";
+}

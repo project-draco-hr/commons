@@ -1,0 +1,4 @@
+{
+  String memberId=invalidateNodePath(changedPath);
+  notifyGroupChange(Iterables.concat(servicesByMemberId.keySet(),ImmutableList.of(memberId)));
+}

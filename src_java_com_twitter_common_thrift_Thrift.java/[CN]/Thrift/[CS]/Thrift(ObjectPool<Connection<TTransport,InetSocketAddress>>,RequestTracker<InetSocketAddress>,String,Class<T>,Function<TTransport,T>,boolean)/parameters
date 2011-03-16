@@ -1,0 +1,6 @@
+ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool
+RequestTracker<InetSocketAddress> requestTracker
+String serviceName
+Class<T> serviceInterface
+Function<TTransport,T> clientFactory
+boolean async

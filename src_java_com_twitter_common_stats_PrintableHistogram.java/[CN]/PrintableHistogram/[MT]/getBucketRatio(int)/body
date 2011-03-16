@@ -1,0 +1,5 @@
+{
+  Preconditions.checkState(bucketId >= 0);
+  Preconditions.checkState(bucketId < bucketCounts.length);
+  return (double)bucketCounts[bucketId] / totalCount;
+}

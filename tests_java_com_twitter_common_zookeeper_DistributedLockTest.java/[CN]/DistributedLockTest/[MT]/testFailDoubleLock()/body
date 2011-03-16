@@ -1,0 +1,13 @@
+{
+  DistributedLock lock=new DistributedLockImpl(zkClient,LOCK_PATH);
+  lock.lock();
+  try {
+    lock.lock();
+    fail("Exception expected!");
+  }
+ catch (  DistributedLockImpl.LockingException e) {
+  }
+ finally {
+    lock.unlock();
+  }
+}

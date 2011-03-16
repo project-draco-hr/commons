@@ -1,0 +1,3 @@
+{
+  return getLogManagerLogDir(LogManager.getLogManager().getProperty(LOG_MANAGER_FILE_PROP));
+}

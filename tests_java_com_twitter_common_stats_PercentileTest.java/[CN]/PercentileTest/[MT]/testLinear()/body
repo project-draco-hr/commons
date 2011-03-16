@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < 100; i++) {
+    percentiles.record(i + 1);
+  }
+  checkPercentiles(10,50,90,99);
+}

@@ -1,0 +1,22 @@
+{
+  boolean success=false;
+  try {
+    success=callable.call();
+  }
+ catch (  Exception e) {
+    LOG.log(Level.WARNING,"Exception while executing task.",e);
+  }
+  if (!success) {
+    numRetries++;
+    if (numRetries > maxRetries) {
+      LOG.severe("Task did not complete after " + maxRetries + " retries, giving up.");
+    }
+ else {
+      LOG.info("Task was not successful, resubmitting (num retries: " + numRetries + ")");
+      retry();
+    }
+  }
+ else {
+    set(true);
+  }
+}

@@ -1,0 +1,25 @@
+{
+  final String parentPath="/twitter/path";
+  final String node1="node1";
+  final String node2="node2";
+  final String nodePath1=parentPath + "/" + node1;
+  final String nodePath2=parentPath + "/" + node2;
+  final String data1="wefwe";
+  final String data2="rtgrtg";
+  ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
+  zkClient.get().create(nodePath1,data1.getBytes(),ACL,CreateMode.PERSISTENT);
+  Map<String,String> zkMap=makeMap(parentPath);
+  assertEquals(1,zkMap.size());
+  assertEquals(data1,zkMap.get(node1));
+  assertEquals(null,zkMap.get(node2));
+  zkClient.get().create(nodePath2,data2.getBytes(),ACL,CreateMode.PERSISTENT);
+  waitForEntryChange(node2,data2);
+  assertEquals(2,zkMap.size());
+  assertEquals(data1,zkMap.get(node1));
+  assertEquals(data2,zkMap.get(node2));
+  zkClient.get().delete(nodePath1,-1);
+  waitForEntryChange(node1,null);
+  assertEquals(1,zkMap.size());
+  assertEquals(null,zkMap.get(node1));
+  assertEquals(data2,zkMap.get(node2));
+}

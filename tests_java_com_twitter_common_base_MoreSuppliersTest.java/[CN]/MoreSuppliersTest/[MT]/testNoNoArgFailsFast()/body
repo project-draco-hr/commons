@@ -1,0 +1,3 @@
+{
+  MoreSuppliers.of(NoNoArgConstructor.class);
+}

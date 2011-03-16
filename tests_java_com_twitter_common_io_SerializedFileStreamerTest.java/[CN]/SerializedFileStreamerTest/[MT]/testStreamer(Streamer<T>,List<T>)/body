@@ -1,0 +1,13 @@
+{
+  final List<T> readObjects=Lists.newArrayList();
+  streamer.process(new Closure<T>(){
+    @Override public void execute(    T t){
+      readObjects.add(t);
+    }
+  }
+);
+  assertEquals("Mismatch in number of objects",objects.size(),readObjects.size());
+  for (int i=0; i < objects.size(); ++i) {
+    assertEquals("Mismatch in object #" + i,objects.get(i),readObjects.get(i));
+  }
+}

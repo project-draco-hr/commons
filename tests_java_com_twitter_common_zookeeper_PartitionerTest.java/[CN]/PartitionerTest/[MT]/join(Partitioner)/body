@@ -1,0 +1,10 @@
+{
+  final Partition partition=partitioner.join();
+  addTearDown(new TearDown(){
+    @Override public void tearDown() throws JoinException {
+      partition.cancel();
+    }
+  }
+);
+  return partition;
+}

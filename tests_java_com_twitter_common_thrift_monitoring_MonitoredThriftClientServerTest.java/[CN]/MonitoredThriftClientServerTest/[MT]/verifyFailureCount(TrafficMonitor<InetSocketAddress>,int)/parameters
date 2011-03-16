@@ -1,0 +1,2 @@
+TrafficMonitor<InetSocketAddress> monitor
+int failCount

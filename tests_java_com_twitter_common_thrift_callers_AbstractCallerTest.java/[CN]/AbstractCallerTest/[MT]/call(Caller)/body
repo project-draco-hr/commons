@@ -1,0 +1,3 @@
+{
+  return (String)caller.call(methodA,argsA,null,CONNECT_TIMEOUT);
+}

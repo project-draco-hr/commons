@@ -1,0 +1,4 @@
+{
+  instance.flushInterval=flushInterval;
+  return this;
+}

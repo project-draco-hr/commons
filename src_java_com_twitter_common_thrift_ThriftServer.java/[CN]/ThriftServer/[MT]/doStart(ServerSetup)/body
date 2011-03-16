@@ -1,0 +1,19 @@
+{
+  serverSetup=setup;
+  server=serverSupplier.apply(setup);
+  serverStartNanos=System.nanoTime();
+  LOG.info("Starting thrift server on port " + getListeningPort());
+  listeningThread=new ThreadFactoryBuilder().setDaemon(false).build().newThread(new Runnable(){
+    @Override public void run(){
+      try {
+        server.serve();
+      }
+ catch (      Throwable t) {
+        LOG.log(Level.WARNING,"Uncaught exception while attempting to handle service requests: " + t,t);
+        setStatus(Status.DEAD);
+      }
+    }
+  }
+);
+  listeningThread.start();
+}

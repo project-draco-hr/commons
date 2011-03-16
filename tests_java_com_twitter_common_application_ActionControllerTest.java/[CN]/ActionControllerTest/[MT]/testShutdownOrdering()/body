@@ -1,0 +1,12 @@
+{
+  control.checkOrder(true);
+  Command registeredSecond=control.createMock(Command.class);
+  registeredSecond.execute();
+  Command registeredFirst=control.createMock(Command.class);
+  registeredFirst.execute();
+  control.replay();
+  actionController.addAction(registeredFirst);
+  actionController.addAction(registeredSecond);
+  actionController.execute();
+  control.verify();
+}

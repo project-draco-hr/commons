@@ -1,0 +1,3 @@
+{
+  return URLEncoder.encode(getPath(),Charsets.UTF_8.name());
+}

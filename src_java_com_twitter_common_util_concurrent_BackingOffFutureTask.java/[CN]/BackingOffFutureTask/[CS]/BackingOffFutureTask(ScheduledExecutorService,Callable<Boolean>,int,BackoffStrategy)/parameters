@@ -1,0 +1,4 @@
+ScheduledExecutorService executor
+Callable<Boolean> callable
+int maxRetries
+BackoffStrategy backoffStrategy

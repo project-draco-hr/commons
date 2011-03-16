@@ -1,0 +1,14 @@
+{
+  if (!completed) {
+    LOG.info(String.format("Executing %d lifecycle commands.",actions.size()));
+    completed=true;
+    for (    ExceptionalCommand<? extends Exception> action : Lists.reverse(actions)) {
+      try {
+        action.execute();
+      }
+ catch (      Exception e) {
+        LOG.log(Level.WARNING,"Lifecycle action failed.",e);
+      }
+    }
+  }
+}

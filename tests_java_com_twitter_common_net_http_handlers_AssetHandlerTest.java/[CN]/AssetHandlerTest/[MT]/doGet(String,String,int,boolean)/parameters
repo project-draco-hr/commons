@@ -1,0 +1,4 @@
+String suppliedChecksum
+String supportedEncodings
+int expectedResponseCode
+boolean expectRead

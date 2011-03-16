@@ -1,0 +1,3 @@
+{
+  return MovingAverage.of(input,DEFAULT_WINDOW);
+}

@@ -1,0 +1,17 @@
+{
+  backoffHelper.doUntilSuccess(new ExceptionalSupplier<Boolean,InterruptedException>(){
+    @Override public Boolean get() throws InterruptedException {
+      try {
+        addChild(child);
+        return true;
+      }
+ catch (      KeeperException e) {
+        return false;
+      }
+catch (      ZooKeeperConnectionException e) {
+        return false;
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,4 @@
+{
+  long flushIntervalMillis=flushInterval.as(Time.MILLISECONDS);
+  new Timer(true).scheduleAtFixedRate(logPusher,flushIntervalMillis,flushIntervalMillis);
+}

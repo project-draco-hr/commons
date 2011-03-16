@@ -1,0 +1,3 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    self.buildfiles = (self._parse_buildfiles() if self.args else BuildFile.scan_buildfiles(root_dir))

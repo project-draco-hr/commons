@@ -1,0 +1,21 @@
+{
+  getCurrentContext().read();
+  if (getCurrentContext().isMapKey()) {
+    throw new TException(OBJECT_AS_KEY_ILLEGAL);
+  }
+  JsonElement structElem;
+  if (1 == contextStack.size()) {
+    structElem=parser.next();
+    if (null == structElem) {
+      throw new TException("parser.next() has nothing to parse!");
+    }
+  }
+ else {
+    structElem=getCurrentContext().getCurrentChild();
+  }
+  if (!structElem.isJsonObject()) {
+    throw new TException("Expected Json Object!");
+  }
+  pushContext(new StructContext(structElem.getAsJsonObject()));
+  return ANONYMOUS_STRUCT;
+}

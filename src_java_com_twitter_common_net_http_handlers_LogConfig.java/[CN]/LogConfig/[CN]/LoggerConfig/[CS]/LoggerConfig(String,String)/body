@@ -1,0 +1,4 @@
+{
+  this.name=name;
+  this.level=StringUtils.isBlank(level) ? "INHERIT" : level;
+}

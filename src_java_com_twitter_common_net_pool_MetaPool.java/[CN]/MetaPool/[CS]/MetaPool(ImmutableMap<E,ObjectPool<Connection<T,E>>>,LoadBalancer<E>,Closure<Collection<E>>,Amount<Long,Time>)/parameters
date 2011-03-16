@@ -1,0 +1,4 @@
+ImmutableMap<E,ObjectPool<Connection<T,E>>> backends
+LoadBalancer<E> loadBalancer
+Closure<Collection<E>> onBackendsChosen
+Amount<Long,Time> restoreInterval

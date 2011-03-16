@@ -1,0 +1,5 @@
+{
+synchronized (NUMERIC_STATS) {
+    return ImmutableList.copyOf(NUMERIC_STATS.values());
+  }
+}

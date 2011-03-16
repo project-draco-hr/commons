@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(backendKey);
+  Preconditions.checkNotNull(result);
+  BackoffDecider decider=targets.get(backendKey);
+  Preconditions.checkNotNull(decider);
+  addResult(decider,result);
+  if (shouldNotifyFor(backendKey)) {
+    wrappedStrategy.addConnectResult(backendKey,result,connectTimeNanos);
+  }
+}

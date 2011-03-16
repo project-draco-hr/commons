@@ -1,0 +1,8 @@
+{
+  List<String> bufferAppended=ImmutableList.<String>builder().addAll(MESSAGES).add("6").build();
+  expect(wrappedLog.log(MESSAGES)).andReturn(FALSE);
+  expect(wrappedLog.log(bufferAppended)).andReturn(TRUE);
+  replay(wrappedLog);
+  bufferedLog.log(MESSAGES);
+  bufferedLog.log("6");
+}

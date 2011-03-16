@@ -1,0 +1,14 @@
+{
+  List<Integer> args=Arrays.asList(1,2);
+  expect(intCache.get(args)).andReturn(null);
+  Math.AddException thrown=new Math.AddException();
+  expect(uncachedMath.sum(1,2)).andThrow(thrown);
+  control.replay();
+  proxyBuilder.cache(cachedMath.sum(0,0),intCache,intFilter).prepare();
+  try {
+    cachedMath.sum(1,2);
+  }
+ catch (  Math.AddException e) {
+    assertSame(e,thrown);
+  }
+}

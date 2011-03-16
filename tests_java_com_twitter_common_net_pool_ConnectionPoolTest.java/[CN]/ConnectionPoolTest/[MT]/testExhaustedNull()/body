@@ -1,0 +1,11 @@
+{
+  Executor executor=createMockExecutor();
+  expect(connectionFactory.create(eq(ObjectPool.NO_TIMEOUT))).andReturn(null);
+  control.replay();
+  try {
+    createConnectionPool(executor).get();
+  }
+  finally {
+    control.verify();
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (shouldBackOff()) {
+    long backoffTimeMs=stateMachine.getStateRemainingMs();
+    if (backoffTimeMs > 0) {
+      Object waitCondition=new Object();
+synchronized (waitCondition) {
+        waitCondition.wait(backoffTimeMs);
+      }
+      return backoffTimeMs;
+    }
+  }
+  return 0;
+}

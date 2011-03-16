@@ -1,0 +1,9 @@
+{
+  tProtocol.readStructBegin();
+  TField field;
+  while ((field=tProtocol.readFieldBegin()).type != TType.STOP) {
+    fields.put(fieldForId(field.id),tProtocol.readString());
+    tProtocol.readFieldEnd();
+  }
+  tProtocol.readStructEnd();
+}

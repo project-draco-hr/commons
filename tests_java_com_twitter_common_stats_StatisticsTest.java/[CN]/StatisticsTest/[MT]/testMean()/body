@@ -1,0 +1,6 @@
+{
+  Statistics stats=createAndLoad(EMPTY_SET);
+  stats.mean();
+  stats=createAndLoad(TEST_SET_A);
+  checkWithinThreshold(7.435609325925925E7,stats.mean());
+}

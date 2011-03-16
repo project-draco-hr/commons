@@ -1,0 +1,22 @@
+{
+  LOG.info("Cleaning up!");
+  Preconditions.checkNotNull(currentId);
+  try {
+    Stat stat=zkClient.get().exists(currentNode,false);
+    if (stat != null) {
+      zkClient.get().delete(currentNode,ZooKeeperUtils.ANY_VERSION);
+    }
+ else {
+      LOG.log(Level.WARNING,"Called cleanup but nothing to cleanup!");
+    }
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
+  holdsLock=false;
+  aborted.set(false);
+  currentId=null;
+  currentNode=null;
+  watcher=null;
+  syncPoint=new CountDownLatch(1);
+}

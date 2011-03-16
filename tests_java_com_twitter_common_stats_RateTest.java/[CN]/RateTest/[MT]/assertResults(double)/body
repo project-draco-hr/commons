@@ -1,0 +1,3 @@
+{
+  assertResults(Rate.of(input).withClock(clock).build(),results);
+}

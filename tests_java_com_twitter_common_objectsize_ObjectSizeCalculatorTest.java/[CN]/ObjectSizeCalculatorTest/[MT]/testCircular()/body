@@ -1,0 +1,5 @@
+{
+  Circular c1=new Circular();
+  c1.c=c1;
+  assertSizeIs(24,c1);
+}

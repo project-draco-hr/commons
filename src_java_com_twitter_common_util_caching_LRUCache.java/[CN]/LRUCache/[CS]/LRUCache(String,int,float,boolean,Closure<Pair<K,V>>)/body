@@ -1,0 +1,17 @@
+{
+  map=new LinkedHashMap<K,V>(maxCapacity,loadFactor,true){
+    @Override public boolean removeEldestEntry(    Map.Entry<K,V> entry){
+      boolean evict=size() > maxCapacity;
+      if (evict && evictionListener != null) {
+        evictionListener.execute(Pair.of(entry.getKey(),entry.getValue()));
+      }
+      return evict;
+    }
+  }
+;
+  if (makeSynchronized) {
+    map=Collections.synchronizedMap(map);
+  }
+  accesses=Stats.exportLong(name + "_lru_cache_accesses");
+  misses=Stats.exportLong(name + "_lru_cache_misses");
+}

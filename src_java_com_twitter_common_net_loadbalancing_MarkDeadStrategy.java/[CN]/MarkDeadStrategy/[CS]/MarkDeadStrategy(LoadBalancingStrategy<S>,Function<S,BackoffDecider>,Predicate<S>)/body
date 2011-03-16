@@ -1,0 +1,5 @@
+{
+  this.wrappedStrategy=Preconditions.checkNotNull(wrappedStrategy);
+  this.backoffFactory=Preconditions.checkNotNull(backoffFactory);
+  this.hostChecker=Preconditions.checkNotNull(hostChecker);
+}

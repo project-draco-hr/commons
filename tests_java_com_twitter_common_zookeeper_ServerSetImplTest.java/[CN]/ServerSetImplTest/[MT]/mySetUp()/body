@@ -1,0 +1,9 @@
+{
+  serverSetBuffer=new LinkedBlockingQueue<ImmutableSet<ServiceInstance>>();
+  serverSetMonitor=new DynamicHostSet.HostChangeMonitor<ServiceInstance>(){
+    @Override public void onChange(    ImmutableSet<ServiceInstance> serverSet){
+      serverSetBuffer.offer(serverSet);
+    }
+  }
+;
+}

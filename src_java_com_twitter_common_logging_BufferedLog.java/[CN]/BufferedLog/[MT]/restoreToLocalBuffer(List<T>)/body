@@ -1,0 +1,10 @@
+{
+synchronized (localBuffer) {
+    int restoreRecords=Math.min(buffer.size(),maxBufferSize - localBuffer.size());
+    if (restoreRecords != buffer.size()) {
+      LOG.severe((buffer.size() - restoreRecords) + " log records truncated!");
+      if (restoreRecords == 0)       return;
+    }
+    localBuffer.addAll(0,buffer.subList(buffer.size() - restoreRecords,buffer.size()));
+  }
+}

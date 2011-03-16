@@ -1,0 +1,3 @@
+{
+  return String.format("Cache: %s\nFailed requests: %d,\nResolution Times: %s",urlCache,failureCount.get(),urlResolutionTimesMs.toString());
+}

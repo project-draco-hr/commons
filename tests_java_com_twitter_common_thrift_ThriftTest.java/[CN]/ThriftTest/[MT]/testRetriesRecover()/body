@@ -1,0 +1,15 @@
+{
+  expect(expectServiceCall(true).calculateMass("jake")).andThrow(new TTransportException());
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  expect(expectServiceCall(false).calculateMass("jake")).andReturn(42);
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.SUCCESS),anyLong());
+  Thrift<TestService> thrift=createThrift(expectUnusedExecutorService());
+  control.replay();
+  TestService testService=thrift.builder().blocking().withRetries(1).create();
+  assertEquals(42,testService.calculateMass("jake"));
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,0);
+  assertReconnectsTotal(thrift,0);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

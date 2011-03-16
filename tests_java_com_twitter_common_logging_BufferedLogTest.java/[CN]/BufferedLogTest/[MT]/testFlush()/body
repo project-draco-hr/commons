@@ -1,0 +1,8 @@
+{
+  expect(wrappedLog.log(Arrays.asList("a","b","c"))).andReturn(TRUE);
+  replay(wrappedLog);
+  bufferedLog.log("a");
+  bufferedLog.log("b");
+  bufferedLog.log("c");
+  bufferedLog.flush();
+}

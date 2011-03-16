@@ -1,0 +1,27 @@
+{
+  List<String> lines=Lists.newLinkedList();
+  ThreadMXBean bean=ManagementFactory.getThreadMXBean();
+  Map<Long,StackTraceElement[]> threadStacks=Maps.newHashMap();
+  for (  Map.Entry<Thread,StackTraceElement[]> entry : Thread.getAllStackTraces().entrySet()) {
+    threadStacks.put(entry.getKey().getId(),entry.getValue());
+  }
+  Set<Long> lockOwners=Sets.newHashSet();
+  lines.add("Locked threads:");
+  for (  ThreadInfo t : bean.getThreadInfo(bean.getAllThreadIds())) {
+switch (t.getThreadState()) {
+case BLOCKED:
+case WAITING:
+case TIMED_WAITING:
+      lines.addAll(getThreadInfo(t,threadStacks.get(t.getThreadId())));
+    if (t.getLockOwnerId() != -1)     lockOwners.add(t.getLockOwnerId());
+  break;
+}
+}
+if (lockOwners.size() > 0) {
+lines.add("\nLock Owners");
+for (ThreadInfo t : bean.getThreadInfo(Longs.toArray(lockOwners))) {
+lines.addAll(getThreadInfo(t,threadStacks.get(t.getThreadId())));
+}
+}
+return lines;
+}

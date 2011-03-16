@@ -1,0 +1,6 @@
+{
+  this.path=checkNotBlank(path);
+  this.handlerClass=checkNotNull(servletClass);
+  this.params=checkNotNull(params);
+  this.silent=silent;
+}

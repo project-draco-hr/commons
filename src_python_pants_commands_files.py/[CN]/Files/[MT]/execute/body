@@ -1,0 +1,3 @@
+def execute(self):
+    for sourcefile in Target.get(self.address).sources:
+        print sourcefile

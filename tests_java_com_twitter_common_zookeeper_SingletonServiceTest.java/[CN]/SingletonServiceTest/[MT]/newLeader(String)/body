@@ -1,0 +1,3 @@
+{
+  service.lead(InetSocketAddress.createUnresolved(hostName,PORT_A),ImmutableMap.of("http-admin",InetSocketAddress.createUnresolved(hostName,PORT_B)),Status.STARTING,listener);
+}

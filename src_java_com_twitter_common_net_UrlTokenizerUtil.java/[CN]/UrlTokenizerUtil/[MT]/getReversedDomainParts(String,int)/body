@@ -1,0 +1,21 @@
+{
+  List<String> domainParts=Lists.newArrayList();
+  for (  String item : host.split("\\.")) {
+    domainParts.add(item);
+  }
+  Collections.reverse(domainParts);
+  if (domainParts.size() >= 2 && TWO_PART_TLDS.contains(Pair.of(domainParts.get(1),domainParts.get(0)))) {
+    domainParts.set(0,domainParts.get(1) + "." + domainParts.get(0));
+    domainParts.remove(1);
+  }
+  if (domainParts.size() > numParts) {
+    return domainParts.subList(0,numParts);
+  }
+ else   if (domainParts.size() < numParts) {
+    int diff=numParts - domainParts.size();
+    for (int i=0; i < diff; ++i) {
+      domainParts.add("");
+    }
+  }
+  return domainParts;
+}

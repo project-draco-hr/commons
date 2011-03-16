@@ -1,0 +1,2 @@
+def locate(self):
+    return self.address

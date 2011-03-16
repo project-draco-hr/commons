@@ -1,0 +1,6 @@
+{
+  this.backends=Sets.newHashSet(backends);
+  onBackendsChosenCapture=createCapture();
+  strategy.offerBackends(eq(this.backends),capture(onBackendsChosenCapture));
+  onBackendsChosen.execute(this.backends);
+}

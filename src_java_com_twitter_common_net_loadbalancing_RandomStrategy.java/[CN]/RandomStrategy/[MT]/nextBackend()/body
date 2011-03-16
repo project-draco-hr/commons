@@ -1,0 +1,4 @@
+{
+  if (targets.isEmpty())   throw new ResourceExhaustedException("No backends.");
+  return targets.get(random.nextInt(targets.size()));
+}

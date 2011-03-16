@@ -1,0 +1,8 @@
+{
+  Integer value=map.get(key);
+  if (value == null) {
+    value=0;
+  }
+  map.put(key,count + value);
+  return count + value;
+}

@@ -1,0 +1,23 @@
+{
+  Preconditions.checkNotNull(listener);
+  candidate.offerLeadership(new Leader(){
+    private EndpointStatus endpointStatus=null;
+    @Override public void onElected(    ExceptionalCommand<JoinException> abdicate){
+      try {
+        endpointStatus=serverSet.join(endpoint,additionalEndpoints,status);
+        listener.onLeading(endpointStatus);
+      }
+ catch (      Group.JoinException e) {
+        LOG.log(Level.SEVERE,"Failed to join group.",e);
+      }
+catch (      InterruptedException e) {
+        LOG.log(Level.SEVERE,"Interrupted while joining group.",e);
+        Thread.currentThread().interrupt();
+      }
+    }
+    @Override public void onDefeated(){
+      listener.onDefeated(endpointStatus);
+    }
+  }
+);
+}

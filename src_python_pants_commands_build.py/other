@@ -1,0 +1,8 @@
+from . import Command
+from pants import Address, Target
+from pants.ant import AntBuilder
+from pants.ant.lib import TRANSITIVITY_NONE, TRANSITIVITY_SOURCES, TRANSITIVITY_TESTS, TRANSITIVITY_ALL
+from pants.python import PythonBuilder
+import traceback
+_VALID_TRANSITIVITIES = set([TRANSITIVITY_NONE, TRANSITIVITY_SOURCES, TRANSITIVITY_TESTS, TRANSITIVITY_ALL])
+_DEFAULT_TRANSITIVITY = TRANSITIVITY_TESTS

@@ -1,0 +1,7 @@
+{
+  Set<Server> set=new HashSet<Server>();
+  for (  Server s : servers) {
+    set.add(s);
+  }
+  assertChangeFired(set);
+}

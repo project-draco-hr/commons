@@ -1,0 +1,6 @@
+cls
+name
+provides
+deployjar
+buildflags
+scala_libs

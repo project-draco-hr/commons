@@ -1,0 +1,6 @@
+{
+  Supplier<Object> supplier=MoreSuppliers.of(type);
+  Object object=supplier.get();
+  assertNotNull(object);
+  assertNotSame(object,supplier.get());
+}

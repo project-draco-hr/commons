@@ -1,0 +1,3 @@
+def __setitem__(self, name, value):
+    ' To support direct dictionary like access '
+    self.setProperty(name, value)

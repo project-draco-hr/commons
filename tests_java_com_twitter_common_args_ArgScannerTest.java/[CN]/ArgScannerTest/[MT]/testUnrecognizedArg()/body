@@ -1,0 +1,3 @@
+{
+  parse(OneRequired.class,"-string2=blah","-string3=blah");
+}

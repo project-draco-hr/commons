@@ -1,0 +1,3 @@
+{
+  super(Amount.class,2);
+}

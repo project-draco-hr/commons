@@ -1,0 +1,16 @@
+{
+  List<Integer> numbers=Lists.newArrayList();
+  double deviation=0.01;
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).entropy(),0,deviation);
+  numbers.add(1);
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).entropy(),0,deviation);
+  numbers.add(2);
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).entropy(),1,deviation);
+  numbers.addAll(Lists.newArrayList(1,2));
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).entropy(),1,deviation);
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).perplexity(),2,deviation);
+  numbers.addAll(Lists.newArrayList(2,2,3,4));
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).entropy(),1.75,deviation);
+  numbers.addAll(Lists.newArrayList(1,1,1,1));
+  assertEqualsWithDeviation(new Entropy<Integer>(numbers).entropy(),1.625,deviation);
+}

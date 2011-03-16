@@ -1,0 +1,6 @@
+{
+  Preconditions.checkState(bit >= LSB);
+  Preconditions.checkState(bit <= INT_MSB);
+  int mask=1 << bit;
+  return (value & mask) != 0;
+}

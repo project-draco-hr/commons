@@ -1,0 +1,24 @@
+{
+  Capture<AsyncMethodCallback<Integer>> callbackCapture1=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceCall(true).calculateMass(eq("jake"),capture(callbackCapture1));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Capture<AsyncMethodCallback<Integer>> callbackCapture2=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceRetry(true).calculateMass(eq("jake"),capture(callbackCapture2));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Capture<AsyncMethodCallback<Integer>> callbackCapture3=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceRetry(true).calculateMass(eq("jake"),capture(callbackCapture3));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  TTransportException returnedException=new TTransportException();
+  callback.onError(returnedException);
+  Thrift<TestServiceAsync> thrift=createAsyncThrift(expectUnusedExecutorService());
+  control.replay();
+  thrift.builder().withRetries(2).withConnectTimeout(ASYNC_CONNECT_TIMEOUT).create().calculateMass("jake",callback);
+  callbackCapture1.getValue().onError(new TTransportException());
+  callbackCapture2.getValue().onError(new IOException());
+  callbackCapture3.getValue().onError(returnedException);
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

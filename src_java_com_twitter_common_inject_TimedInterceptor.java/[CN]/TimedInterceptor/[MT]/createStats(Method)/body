@@ -1,0 +1,7 @@
+{
+  Timed timed=method.getAnnotation(Timed.class);
+  Preconditions.checkArgument(timed != null,"TimedInterceptor can only be applied to @Timed methods");
+  String name=timed.value();
+  String statName=!StringUtils.isEmpty(name) ? name : method.getName();
+  return new SlidingStats(statName,"nanos");
+}

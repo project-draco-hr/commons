@@ -1,0 +1,3 @@
+int maxRedirects
+int threadPoolSize
+ProxyConfig proxyConfig

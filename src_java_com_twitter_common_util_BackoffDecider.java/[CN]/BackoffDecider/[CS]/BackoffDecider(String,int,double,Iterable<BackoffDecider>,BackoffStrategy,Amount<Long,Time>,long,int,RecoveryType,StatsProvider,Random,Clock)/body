@@ -1,0 +1,24 @@
+{
+  MorePreconditions.checkNotBlank(name);
+  Preconditions.checkArgument(seedSize > 0);
+  Preconditions.checkArgument(toleratedFailureRate >= 0 && toleratedFailureRate < 1.0);
+  Preconditions.checkNotNull(strategy);
+  Preconditions.checkArgument(recoveryPeriod == null || recoveryPeriod.getValue() > 0);
+  Preconditions.checkArgument(requestWindowNs > 0);
+  Preconditions.checkArgument(numBuckets > 0);
+  Preconditions.checkNotNull(recoveryType);
+  Preconditions.checkNotNull(statsProvider);
+  Preconditions.checkNotNull(random);
+  Preconditions.checkNotNull(clock);
+  this.name=name;
+  this.toleratedFailureRate=toleratedFailureRate;
+  this.deciderGroup=deciderGroup;
+  this.strategy=strategy;
+  this.recoveryPeriod=recoveryPeriod;
+  this.recoveryType=recoveryType;
+  this.random=random;
+  this.clock=clock;
+  this.backoffs=statsProvider.makeCounter(name + "_backoffs");
+  this.requests=new RequestWindow(requestWindowNs,numBuckets,seedSize);
+  this.stateMachine=new TimedStateMachine(name);
+}

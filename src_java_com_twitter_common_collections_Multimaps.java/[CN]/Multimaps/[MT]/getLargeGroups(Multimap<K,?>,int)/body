@@ -1,0 +1,9 @@
+{
+  Set<K> largeKeys=Sets.newHashSet();
+  for (  K key : map.keySet()) {
+    if (map.get(key).size() >= minSize) {
+      largeKeys.add(key);
+    }
+  }
+  return largeKeys;
+}

@@ -1,0 +1,3 @@
+{
+  return ((ParameterizedType)field.getGenericType()).getActualTypeArguments()[0];
+}

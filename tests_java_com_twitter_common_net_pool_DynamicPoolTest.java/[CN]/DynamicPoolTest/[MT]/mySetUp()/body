@@ -1,0 +1,17 @@
+{
+  control=createControl();
+  @SuppressWarnings("unchecked") Function<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>> poolFactory=control.createMock(Function.class);
+  this.poolFactory=poolFactory;
+  LoadBalancerImpl<InetSocketAddress> lb=LoadBalancerImpl.create(new RandomStrategy<InetSocketAddress>());
+  poolRebuilds=new LinkedBlockingQueue<Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>>>();
+  serverSet=new ServerSetImpl(createZkClient(),ZooDefs.Ids.OPEN_ACL_UNSAFE,"/test-service");
+  Closure<Collection<InetSocketAddress>> onBackendsChosen=Closures.noop();
+  Amount<Long,Time> restoreInterval=Amount.of(1L,Time.MINUTES);
+  connectionPool=new DynamicPool<ServiceInstance,TTransport,InetSocketAddress>(serverSet,poolFactory,lb,onBackendsChosen,restoreInterval,Util.GET_ADDRESS,Util.IS_ALIVE){
+    @Override void poolRebuilt(    Set<ObjectPool<Connection<TTransport,InetSocketAddress>>> deadPools,    Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>> livePools){
+      super.poolRebuilt(deadPools,livePools);
+      poolRebuilds.offer(Pair.of(deadPools,livePools));
+    }
+  }
+;
+}

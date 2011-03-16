@@ -1,0 +1,7 @@
+{
+  this.connectionPool=connectionPool;
+  this.requestTracker=requestTracker;
+  this.clientFactory=clientFactory;
+  this.timeout=timeout;
+  this.debug=debug;
+}

@@ -1,0 +1,19 @@
+{
+  if (status == Status.STOPPED) {
+    LOG.info("Server already stopped, shutdown request ignored.");
+    return;
+  }
+  LOG.info("Received shutdown request, stopping server.");
+  setStatus(Status.STOPPING);
+  if (server != null)   server.stop();
+  server=null;
+  try {
+    tryShutdown();
+  }
+ catch (  Exception e) {
+    LOG.log(Level.WARNING,"Service handler vetoed shutdown request.",e);
+    setStatus(Status.WARNING);
+    return;
+  }
+  setStatus(Status.STOPPED);
+}

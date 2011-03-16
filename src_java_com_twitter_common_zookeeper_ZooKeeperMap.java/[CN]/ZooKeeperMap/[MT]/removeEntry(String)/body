@@ -1,0 +1,3 @@
+{
+  localMap.remove(key);
+}

@@ -1,0 +1,11 @@
+{
+  expect(random.nextDouble()).andReturn(1d);
+  control.replay();
+  BackoffDecider decider=builder(NAME).build();
+  decider.addFailure();
+  assertThat(decider.shouldBackOff(),is(true));
+  clock.waitFor(101);
+  assertThat(decider.shouldBackOff(),is(true));
+  clock.waitFor(101);
+  assertThat(decider.shouldBackOff(),is(false));
+}

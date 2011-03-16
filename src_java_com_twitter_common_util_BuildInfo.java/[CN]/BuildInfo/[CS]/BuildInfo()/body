@@ -1,0 +1,3 @@
+{
+  this(DEFAULT_BUILD_PROPERTIES_PATH);
+}

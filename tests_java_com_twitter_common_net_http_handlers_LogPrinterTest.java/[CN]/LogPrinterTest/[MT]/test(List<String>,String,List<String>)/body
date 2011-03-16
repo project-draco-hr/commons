@@ -1,0 +1,4 @@
+{
+  List<String> filteredLines=Lists.newArrayList(LogPrinter.filterLines(Joiner.on("\n").join(testLines),filter).split("\n"));
+  assertThat(filteredLines,is(expectedLines));
+}

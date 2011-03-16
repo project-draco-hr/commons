@@ -1,0 +1,11 @@
+def __init__(self, spec):
+    parse_context = ParseContext.locate()
+
+    def parse_address():
+        if spec.startswith(':'):
+            pathish = ('%s:%s' % (parse_context.buildfile.canonical_relpath, spec[1:]))
+            return Address.parse(parse_context.buildfile.root_dir, pathish, False)
+        else:
+            return Address.parse(parse_context.buildfile.root_dir, spec, False)
+    self.address = parse_address()
+    Target.__init__(self, self.address.target_name, False)

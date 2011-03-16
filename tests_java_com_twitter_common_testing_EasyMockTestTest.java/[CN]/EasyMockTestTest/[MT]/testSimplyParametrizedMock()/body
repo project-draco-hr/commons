@@ -1,0 +1,17 @@
+{
+  final AtomicBoolean ran=new AtomicBoolean(false);
+  Runnable runnable=createMock(new Clazz<Runnable>(){
+  }
+);
+  runnable.run();
+  expectLastCall().andAnswer(new IAnswer<Void>(){
+    @Override public Void answer() throws Throwable {
+      ran.set(true);
+      return null;
+    }
+  }
+);
+  control.replay();
+  runnable.run();
+  assertTrue(ran.get());
+}

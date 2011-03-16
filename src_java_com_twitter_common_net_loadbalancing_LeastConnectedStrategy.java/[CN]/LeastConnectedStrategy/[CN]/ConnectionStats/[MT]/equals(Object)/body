@@ -1,0 +1,4 @@
+{
+  @SuppressWarnings("unchecked") ConnectionStats other=(ConnectionStats)o;
+  return compareTo(other) == 0 && connectionKey.equals(other.connectionKey);
+}

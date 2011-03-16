@@ -1,0 +1,8 @@
+{
+  startupRegistry.addAction(new Command(){
+    @Override public void execute(){
+      Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
+    }
+  }
+);
+}

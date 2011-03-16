@@ -1,0 +1,3 @@
+TypeLiteral<T> type
+String exposedKey
+Binder binder

@@ -1,0 +1,4 @@
+{
+  this.templateSupplier=Preconditions.checkNotNull(templateSupplier);
+  this.protocolFactory=Preconditions.checkNotNull(protocolFactory);
+}

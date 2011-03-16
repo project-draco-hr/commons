@@ -1,0 +1,8 @@
+{
+  assertChangeFired(ImmutableSet.copyOf(Iterables.transform(ImmutableSet.copyOf(serviceHosts),new Function<String,ServiceInstance>(){
+    @Override public ServiceInstance apply(    String serviceHost){
+      return new ServiceInstance(new Endpoint(serviceHost,42),ImmutableMap.<String,Endpoint>of(),Status.ALIVE);
+    }
+  }
+)));
+}

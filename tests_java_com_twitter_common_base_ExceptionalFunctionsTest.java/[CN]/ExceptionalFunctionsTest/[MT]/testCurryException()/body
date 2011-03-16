@@ -1,0 +1,21 @@
+{
+  IOException ioException=new IOException();
+  expect(function.apply(STRING)).andThrow(ioException);
+  RuntimeException runtimeException=new IllegalStateException();
+  expect(function.apply(STRING)).andThrow(runtimeException);
+  control.replay();
+  CallableExceptionalSupplier<Integer,IOException> supplier=ExceptionalFunctions.curry(function,STRING);
+  try {
+    supplier.get();
+  }
+ catch (  IOException e) {
+    assertSame("Expected exception propagation to be transparent",ioException,e);
+  }
+  try {
+    supplier.get();
+  }
+ catch (  IllegalStateException e) {
+    assertSame("Expected exception propagation to be transparent",runtimeException,e);
+  }
+  control.verify();
+}

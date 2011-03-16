@@ -1,0 +1,5 @@
+{
+  List<Number> expectedValues=Lists.newArrayList();
+  for (  long value : values)   expectedValues.add(value);
+  assertThat(Lists.newArrayList(repo.get(series).getSamples()),is(expectedValues));
+}

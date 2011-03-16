@@ -1,0 +1,9 @@
+{
+  try {
+    return work.apply(new ExceptionTransporter<X>());
+  }
+ catch (  TransportingException e) {
+    @SuppressWarnings("unchecked") X cause=(X)e.getCause();
+    throw cause;
+  }
+}

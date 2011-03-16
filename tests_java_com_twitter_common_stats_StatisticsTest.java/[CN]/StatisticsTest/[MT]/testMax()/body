@@ -1,0 +1,6 @@
+{
+  Statistics stats=createAndLoad(EMPTY_SET);
+  stats.max();
+  stats=createAndLoad(TEST_SET_A);
+  assertEquals(80052983,stats.max());
+}

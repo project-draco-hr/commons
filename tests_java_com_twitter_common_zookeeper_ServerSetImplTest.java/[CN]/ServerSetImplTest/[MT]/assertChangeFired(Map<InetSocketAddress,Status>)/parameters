@@ -1,0 +1,1 @@
+Map<InetSocketAddress,Status> hostsStatuses

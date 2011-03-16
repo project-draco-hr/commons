@@ -1,0 +1,6 @@
+{
+  super(factory,manager,transport);
+  assertNotNull(factory);
+  assertNotNull(manager);
+  assertNotNull(transport);
+}

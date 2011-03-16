@@ -1,0 +1,5 @@
+{
+  this.uncached=Preconditions.checkNotNull(uncached);
+  this.type=Preconditions.checkNotNull(type);
+  Preconditions.checkArgument(type.isInterface(),"The proxied type must be an interface.");
+}

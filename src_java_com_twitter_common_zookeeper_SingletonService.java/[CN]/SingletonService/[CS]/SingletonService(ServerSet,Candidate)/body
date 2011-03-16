@@ -1,0 +1,4 @@
+{
+  this.serverSet=Preconditions.checkNotNull(serverSet);
+  this.candidate=Preconditions.checkNotNull(candidate);
+}

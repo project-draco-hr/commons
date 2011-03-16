@@ -1,0 +1,9 @@
+{
+  resp.setStatus(HttpServletResponse.SC_OK);
+  resp.setContentType(staticAsset.getContentType());
+  resp.setHeader("Cache-Control","public,max-age=" + CACHE_CONTROL_MAX_AGE_SECS);
+  String checksum=staticAsset.getChecksum();
+  if (checksum != null) {
+    resp.setHeader("ETag",checksum);
+  }
+}

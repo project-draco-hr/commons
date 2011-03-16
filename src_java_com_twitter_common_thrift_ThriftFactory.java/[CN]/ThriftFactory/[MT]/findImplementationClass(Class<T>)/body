@@ -1,0 +1,13 @@
+{
+  try {
+    return (Class<? extends T>)Iterables.find(ImmutableList.copyOf(serviceInterface.getEnclosingClass().getClasses()),new Predicate<Class<?>>(){
+      @Override public boolean apply(      Class<?> inner){
+        return !serviceInterface.equals(inner) && serviceInterface.isAssignableFrom(inner);
+      }
+    }
+);
+  }
+ catch (  NoSuchElementException e) {
+    throw new IllegalArgumentException("Could not find a sibling enclosed implementation of " + "service interface: " + serviceInterface);
+  }
+}

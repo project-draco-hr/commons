@@ -1,0 +1,15 @@
+{
+  ByteArrayInputStream bais1=new ByteArrayInputStream(fileContents.getBytes());
+  TTextProtocolTestMsg msg1=new TTextProtocolTestMsg();
+  msg1.read(new TTextProtocol(new TIOStreamTransport(bais1)));
+  LOG.info("Got thrift message from file: \n" + msg1);
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  msg1.write(new TTextProtocol(new TIOStreamTransport(baos)));
+  byte[] bytes=baos.toByteArray();
+  LOG.info("Serialized message to bytes string: \n" + bytes);
+  ByteArrayInputStream bais2=new ByteArrayInputStream(bytes);
+  TTextProtocolTestMsg msg2=new TTextProtocolTestMsg();
+  msg2.read(new TTextProtocol(new TIOStreamTransport(bais2)));
+  LOG.info("Deserialized back to thrift message: \n" + msg2);
+  assertEquals(msg1,msg2);
+}

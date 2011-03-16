@@ -1,0 +1,3 @@
+{
+  return Names.named(makeCustomBindingKey(rootKey));
+}

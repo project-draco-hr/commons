@@ -1,0 +1,11 @@
+{
+  boolean allowed=true;
+  try {
+    machine.transition(to);
+    assertThat(machine.getState(),is(to));
+  }
+ catch (  StateMachine.IllegalStateTransitionException e) {
+    allowed=false;
+  }
+  assertThat(allowed,is(expectAllowed));
+}

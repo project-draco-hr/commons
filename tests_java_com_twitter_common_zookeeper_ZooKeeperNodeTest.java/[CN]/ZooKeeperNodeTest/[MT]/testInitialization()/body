@@ -1,0 +1,8 @@
+{
+  String data="abcdefg";
+  zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
+  ZooKeeperNode zkNode=makeUninitializedNode(nodePath,Closures.<String>noop());
+  assertEquals(null,zkNode.get());
+  zkNode.init();
+  assertEquals(data,zkNode.get());
+}

@@ -1,0 +1,4 @@
+{
+  VAR_MAP.clear();
+  NUMERIC_STATS.clear();
+}

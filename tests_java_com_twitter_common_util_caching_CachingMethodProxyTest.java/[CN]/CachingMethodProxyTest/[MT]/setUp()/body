@@ -1,0 +1,8 @@
+{
+  control=createControl();
+  uncachedMath=control.createMock(Math.class);
+  intCache=control.createMock(Cache.class);
+  intFilter=control.createMock(Predicate.class);
+  proxyBuilder=CachingMethodProxy.proxyFor(uncachedMath,Math.class);
+  cachedMath=proxyBuilder.getCachingProxy();
+}

@@ -1,0 +1,3 @@
+def test_extend(self):
+    base = TemplateData(foo='bar', baz=42)
+    self.assertEqual(base.extend(jake=0.3), TemplateData(baz=42, foo='bar', jake=0.3))

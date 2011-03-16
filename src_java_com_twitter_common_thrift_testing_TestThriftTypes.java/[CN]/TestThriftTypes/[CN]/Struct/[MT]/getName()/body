@@ -1,0 +1,4 @@
+{
+  Object name=getFieldValue(Field.NAME);
+  return name == null ? null : (String)name;
+}

@@ -1,0 +1,4 @@
+{
+  config.enableStats=false;
+  return getThis();
+}

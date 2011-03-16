@@ -1,0 +1,3 @@
+{
+  queue=new BoundedQueue<Integer>(SIZE);
+}

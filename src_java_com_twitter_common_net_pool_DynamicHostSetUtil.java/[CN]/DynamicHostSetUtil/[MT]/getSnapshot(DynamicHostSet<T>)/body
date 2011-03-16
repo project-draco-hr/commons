@@ -1,0 +1,10 @@
+{
+  final Set<T> set=Sets.newHashSet();
+  hostSet.monitor(new DynamicHostSet.HostChangeMonitor<T>(){
+    @Override public void onChange(    ImmutableSet<T> hostSet){
+      set.addAll(hostSet);
+    }
+  }
+);
+  return ImmutableSet.copyOf(set);
+}

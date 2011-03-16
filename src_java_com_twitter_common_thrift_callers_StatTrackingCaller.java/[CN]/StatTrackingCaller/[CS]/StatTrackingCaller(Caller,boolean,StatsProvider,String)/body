@@ -1,0 +1,5 @@
+{
+  super(decoratedCaller,async);
+  this.statsProvider=statsProvider;
+  this.serviceName=serviceName;
+}

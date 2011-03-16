@@ -1,0 +1,3 @@
+{
+  checkArgument(value != null,"Value must not be null.");
+}

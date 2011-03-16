@@ -1,0 +1,11 @@
+{
+  expect(resolver.apply("jake")).andReturn("joe");
+  expect(resolver.apply("joe")).andReturn("joe");
+  control.replay();
+  ResolvedUrl resolvedUrl=createResolver(3).resolveUrl("jake");
+  assertEquals("jake",resolvedUrl.getStartUrl());
+  assertContentsInOrder("Expected no intermediate urls",resolvedUrl.getIntermediateUrls());
+  assertEquals("joe",resolvedUrl.getEndUrl());
+  assertEquals(EndState.REACHED_LANDING,resolvedUrl.getEndState());
+  control.verify();
+}

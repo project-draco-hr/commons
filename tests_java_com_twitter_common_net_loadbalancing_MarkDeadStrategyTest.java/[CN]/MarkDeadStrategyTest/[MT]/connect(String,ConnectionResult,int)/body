@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < count; i++) {
+    markDead.addConnectResult(backend,result,0L);
+  }
+  return count;
+}

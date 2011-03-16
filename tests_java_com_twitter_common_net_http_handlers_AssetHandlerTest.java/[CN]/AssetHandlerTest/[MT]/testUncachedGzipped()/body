@@ -1,0 +1,13 @@
+{
+  Request test1=doGet(null,"gzip",SC_OK,true);
+  Request test2=doGet("foo","gzip,fakeencoding",SC_OK,true);
+  Request test3=doGet(TEST_DATA_CHECKSUM,"gzip,deflate",SC_NOT_MODIFIED,true);
+  control.replay();
+  AssetHandler handler=new AssetHandler(new StaticAsset(inputSupplier,CONTENT_TYPE,false));
+  handler.doGet(test1.req,test1.resp);
+  assertThat(unzip(test1.responseBody),is(TEST_DATA));
+  handler.doGet(test2.req,test2.resp);
+  assertThat(unzip(test2.responseBody),is(TEST_DATA));
+  handler.doGet(test3.req,test3.resp);
+  assertThat(new String(test3.responseBody.toByteArray()),is(""));
+}

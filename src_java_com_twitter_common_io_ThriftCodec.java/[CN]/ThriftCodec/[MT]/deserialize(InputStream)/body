@@ -1,0 +1,11 @@
+{
+  Preconditions.checkNotNull(source);
+  T template=templateSupplier.get();
+  try {
+    template.read(protocolFactory.apply(new TIOStreamTransport(source,null)));
+  }
+ catch (  TException e) {
+    throw new IOException("Problem de-serializing thrift struct from stream",e);
+  }
+  return template;
+}

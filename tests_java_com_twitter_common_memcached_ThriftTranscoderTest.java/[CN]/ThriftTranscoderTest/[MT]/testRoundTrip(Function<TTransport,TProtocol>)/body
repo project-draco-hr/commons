@@ -1,0 +1,6 @@
+{
+  ThriftTranscoder<Struct> transcoder=new ThriftTranscoder<Struct>(Struct.class,protocolFactory);
+  Struct struct=transcoder.decode(transcoder.encode(new Struct("jake","jones")));
+  assertEquals("jake",struct.getName());
+  assertEquals("jones",struct.getValue());
+}

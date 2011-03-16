@@ -1,0 +1,10 @@
+{
+  url=startServer();
+  String relativeRedirect="relatively/speaking";
+  expect(urlToUA.apply(new URL(url))).andReturn("foo-agent");
+  expectRequestAndRedirect(relativeRedirect);
+  control.replay();
+  String effectiveUrl=urlResolverUtil.getEffectiveUrl(url,null);
+  assertEquals(url + relativeRedirect,effectiveUrl);
+  control.verify();
+}

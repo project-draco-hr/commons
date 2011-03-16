@@ -1,0 +1,5 @@
+{
+  if (socketTimeout != null) {
+    socket.setTimeout(socketTimeout.as(Time.MILLISECONDS).intValue());
+  }
+}

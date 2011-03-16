@@ -1,0 +1,7 @@
+{
+  ZooKeeperClient zkClient=createZkClient();
+  ZooKeeperUtils.ensurePath(zkClient,ACL,PARTITION_NAMESPACE + "/not-a-partition-node");
+  Partitioner partitioner=new Partitioner(zkClient,ACL,PARTITION_NAMESPACE);
+  join(partitioner);
+  assertEquals("Expected Partitioner to be tolerant of foreign nodes",1,partitioner.getGroupSize());
+}

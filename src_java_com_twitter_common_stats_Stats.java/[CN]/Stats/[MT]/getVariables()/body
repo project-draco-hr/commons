@@ -1,0 +1,5 @@
+{
+synchronized (VAR_MAP) {
+    return ImmutableList.copyOf(VAR_MAP.values());
+  }
+}

@@ -1,0 +1,8 @@
+{
+  control=EasyMock.createControl();
+  this.connectionPool=control.createMock(ObjectPool.class);
+  this.clientFactory=control.createMock(Function.class);
+  this.asyncClientFactory=control.createMock(Function.class);
+  this.requestTracker=control.createMock(LoadBalancer.class);
+  this.callback=control.createMock(AsyncMethodCallback.class);
+}

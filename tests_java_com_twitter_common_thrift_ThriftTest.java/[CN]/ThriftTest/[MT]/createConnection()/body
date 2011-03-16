@@ -1,0 +1,3 @@
+{
+  return new TTransportConnection(new MockTSocket(),InetSocketAddress.createUnresolved(MockTSocket.HOST,MockTSocket.PORT));
+}

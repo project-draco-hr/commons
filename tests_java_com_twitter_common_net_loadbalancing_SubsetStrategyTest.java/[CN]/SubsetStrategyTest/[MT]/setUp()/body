@@ -1,0 +1,9 @@
+{
+  wrappedStrategy=createMock(new Clazz<LoadBalancingStrategy<String>>(){
+  }
+);
+  onBackendsChosen=createMock(new Clazz<Closure<Collection<String>>>(){
+  }
+);
+  subsetStrategy=new SubsetStrategy<String>(2,wrappedStrategy);
+}

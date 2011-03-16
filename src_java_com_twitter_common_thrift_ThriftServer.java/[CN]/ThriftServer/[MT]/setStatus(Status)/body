@@ -1,0 +1,4 @@
+{
+  LOG.info("Moving from status " + this.status + " to "+ status);
+  this.status=status;
+}

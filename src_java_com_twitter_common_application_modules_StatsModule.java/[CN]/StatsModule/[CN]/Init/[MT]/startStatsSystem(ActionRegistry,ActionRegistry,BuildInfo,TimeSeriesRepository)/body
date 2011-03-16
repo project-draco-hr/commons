@@ -1,0 +1,18 @@
+{
+  startupRegistry.addAction(new Command(){
+    @Override public void execute() throws RuntimeException {
+      LOG.info("Build information: " + buildInfo.getProperties());
+      for (      final BuildInfo.Key key : BuildInfo.Key.values()) {
+        Stats.exportString(new StatImpl<String>(Stats.normalizeName(key.value)){
+          @Override public String read(){
+            return buildInfo.getProperties().getProperty(key.value);
+          }
+        }
+);
+      }
+      JvmStats.export();
+      timeSeriesRepository.start(shutdownRegistry);
+    }
+  }
+);
+}

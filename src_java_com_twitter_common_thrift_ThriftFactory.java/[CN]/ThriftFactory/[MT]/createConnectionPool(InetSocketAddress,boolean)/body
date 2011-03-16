@@ -1,0 +1,4 @@
+{
+  ThriftConnectionFactory connectionFactory=new ThriftConnectionFactory(backend,maxConnectionsPerEndpoint,TransportType.get(framedTransport,nonblocking),socketTimeout,postCreateCallback);
+  return new ConnectionPool<Connection<TTransport,InetSocketAddress>>(connectionFactory,statsProvider);
+}

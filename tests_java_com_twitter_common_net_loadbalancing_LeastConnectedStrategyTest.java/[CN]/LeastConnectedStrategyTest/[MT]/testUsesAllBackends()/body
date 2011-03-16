@@ -1,0 +1,14 @@
+{
+  BackendOfferExpectation backendOfferExpectation=new BackendOfferExpectation();
+  control.replay();
+  Set<String> allBackends=Sets.newHashSet(BACKEND_1,BACKEND_2,BACKEND_3);
+  backendOfferExpectation.offerBackends(allBackends);
+  Set<String> usedBackends=Sets.newHashSet();
+  for (int i=0; i < allBackends.size(); i++) {
+    String backend=leastCon.nextBackend();
+    usedBackends.add(backend);
+    connect(backend,1);
+    disconnect(backend,1);
+  }
+  assertThat(usedBackends,is(allBackends));
+}

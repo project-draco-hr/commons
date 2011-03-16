@@ -1,0 +1,4 @@
+def _create_classpath_file(self, target):
+    classpath_file = os.path.abspath(os.path.join(self.target_path, 'classpath.txt'))
+    classpath_result = subprocess.call(['java', '-jar', self.ivy_jar, '-warn', '-settings', self.ivy_settings, '-ivy', self._create_ivy_file(target), '-cachepath', classpath_file])
+    return (classpath_result, classpath_file)

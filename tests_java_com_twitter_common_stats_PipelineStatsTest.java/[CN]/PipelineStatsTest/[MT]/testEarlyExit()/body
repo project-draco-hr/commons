@@ -1,0 +1,11 @@
+{
+  PipelineStats.Snapshot pipeline=stats.newSnapshot();
+  pipeline.start("a");
+  clock.waitFor(10);
+  pipeline.start("b");
+  clock.waitFor(20);
+  pipeline.end();
+  checkSample("a",1,10);
+  checkSample("b",1,20);
+  checkSample("full",1,30);
+}

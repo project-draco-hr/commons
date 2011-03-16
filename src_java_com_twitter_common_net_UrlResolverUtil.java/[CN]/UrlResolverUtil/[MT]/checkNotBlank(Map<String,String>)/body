@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(hostToUserAgent);
+  MorePreconditions.checkNotBlank(hostToUserAgent.entrySet());
+  return hostToUserAgent;
+}

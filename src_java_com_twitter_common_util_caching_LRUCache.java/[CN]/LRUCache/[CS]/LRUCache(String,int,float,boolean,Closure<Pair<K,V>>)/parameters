@@ -1,0 +1,5 @@
+String name
+int maxCapacity
+float loadFactor
+boolean makeSynchronized
+Closure<Pair<K,V>> evictionListener

@@ -1,0 +1,4 @@
+{
+  this.recoveryPeriod=recoveryPeriod;
+  return this;
+}

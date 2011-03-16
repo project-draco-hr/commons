@@ -1,0 +1,4 @@
+{
+  control=EasyMock.createControl();
+  endpoints=ImmutableSet.of(new InetSocketAddress(5555));
+}

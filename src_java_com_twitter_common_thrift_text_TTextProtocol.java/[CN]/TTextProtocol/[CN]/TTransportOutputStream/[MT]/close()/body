@@ -1,0 +1,5 @@
+{
+  flush();
+  super.close();
+  trans_.close();
+}

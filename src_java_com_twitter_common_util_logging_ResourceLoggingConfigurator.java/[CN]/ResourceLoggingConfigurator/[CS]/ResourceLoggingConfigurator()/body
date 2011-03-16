@@ -1,0 +1,6 @@
+{
+  String loggingPropertiesResourcePath=System.getProperty(LOGGING_PROPERTIES_RESOURCE_PATH,"/logging.properties");
+  InputStream loggingConfig=getClass().getResourceAsStream(loggingPropertiesResourcePath);
+  Preconditions.checkNotNull(loggingConfig,"Could not locate logging config file at resource path: %s",loggingPropertiesResourcePath);
+  LogManager.getLogManager().readConfiguration(loggingConfig);
+}

@@ -1,0 +1,5 @@
+{
+  connectionFactory=new NIOServerCnxn.Factory(new InetSocketAddress(port));
+  connectionFactory.startup(zooKeeperServer);
+  zkPort=zooKeeperServer.getClientPort();
+}

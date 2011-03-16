@@ -1,0 +1,3 @@
+String serviceName
+Amount<Long,Time> gcInterval
+Clock clock

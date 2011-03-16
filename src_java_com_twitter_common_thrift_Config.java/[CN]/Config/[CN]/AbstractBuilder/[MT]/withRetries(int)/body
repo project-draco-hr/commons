@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(retries >= 0,"A negative retry count is invalid: %d",retries);
+  config.maxRetries=retries;
+  return getThis();
+}

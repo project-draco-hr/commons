@@ -1,0 +1,9 @@
+{
+  maybeShuffleBuckets();
+  buckets.peekFirst().requestCount++;
+  totalRequests++;
+  if (!success) {
+    buckets.peekFirst().failureCount++;
+    totalFailures++;
+  }
+}

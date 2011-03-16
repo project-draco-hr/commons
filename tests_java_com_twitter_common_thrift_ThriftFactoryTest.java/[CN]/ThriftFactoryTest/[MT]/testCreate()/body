@@ -1,0 +1,39 @@
+{
+  final AtomicReference<Socket> clientConnection=new AtomicReference<Socket>();
+  final CountDownLatch connected=new CountDownLatch(1);
+  final ServerSocket server=new ServerSocket(0);
+  Thread service=new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        clientConnection.set(server.accept());
+      }
+ catch (      IOException e) {
+        LOG.log(Level.WARNING,"Problem accepting a connection to thrift server",e);
+      }
+ finally {
+        connected.countDown();
+      }
+    }
+  }
+);
+  service.setDaemon(true);
+  service.start();
+  try {
+    final Thrift<GoodService.Iface> thrift=ThriftFactory.create(GoodService.Iface.class).withMaxConnectionsPerEndpoint(1).build(ImmutableSet.of(new InetSocketAddress(server.getLocalPort())));
+    addTearDown(new TearDown(){
+      @Override public void tearDown(){
+        thrift.close();
+      }
+    }
+);
+    GoodService.Iface client=thrift.create();
+    assertEquals(GoodService.DONE,client.doWork());
+  }
+  finally {
+    connected.await();
+    server.close();
+  }
+  Socket socket=clientConnection.get();
+  assertNotNull(socket);
+  socket.close();
+}

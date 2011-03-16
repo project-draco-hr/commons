@@ -1,0 +1,8 @@
+{
+  this.loadBalancer=Preconditions.checkNotNull(loadBalancer);
+  this.onBackendsChosen=Preconditions.checkNotNull(onBackendsChosen);
+  setBackends(backends);
+  Preconditions.checkNotNull(restoreInterval);
+  Preconditions.checkArgument(restoreInterval.getValue() > 0);
+  stopCommand=startDeadBackendRestorer(restoreInterval);
+}

@@ -1,0 +1,6 @@
+{
+  Cache<List,Math> mathCache=control.createMock(Cache.class);
+  Predicate<Math> mathFilter=control.createMock(Predicate.class);
+  control.replay();
+  proxyBuilder.cache(cachedMath.doNothing(),mathCache,mathFilter);
+}

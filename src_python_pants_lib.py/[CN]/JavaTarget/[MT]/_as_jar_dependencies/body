@@ -1,0 +1,2 @@
+def _as_jar_dependencies(self):
+    yield self._as_jar_dependency()

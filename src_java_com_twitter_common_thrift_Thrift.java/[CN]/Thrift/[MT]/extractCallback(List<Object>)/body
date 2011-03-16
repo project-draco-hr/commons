@@ -1,0 +1,6 @@
+{
+  Preconditions.checkArgument(args.size() > 0);
+  Object lastArg=args.get(args.size() - 1);
+  Preconditions.checkArgument(lastArg instanceof AsyncMethodCallback,"Last argument of an async thrift call is expected to be of type AsyncMethodCallback.");
+  return (AsyncMethodCallback)args.remove(args.size() - 1);
+}

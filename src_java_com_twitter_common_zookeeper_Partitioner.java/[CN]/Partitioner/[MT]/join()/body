@@ -1,0 +1,31 @@
+{
+  final Membership membership=group.join();
+  try {
+    group.watch(createGroupChangeListener(membership));
+  }
+ catch (  WatchException e) {
+    membership.cancel();
+    throw new JoinException("Problem establishing watch on group after joining it",e);
+  }
+  return new Partition(){
+    @Override public boolean isMember(    long value){
+      return (value % groupSize) == groupIndex;
+    }
+    @Override public String getGroupPath(){
+      return membership.getGroupPath();
+    }
+    @Override public String getMemberId(){
+      return membership.getMemberId();
+    }
+    @Override public String getMemberPath(){
+      return membership.getMemberPath();
+    }
+    @Override public byte[] updateMemberData() throws UpdateException {
+      return membership.updateMemberData();
+    }
+    @Override public void cancel() throws JoinException {
+      membership.cancel();
+    }
+  }
+;
+}

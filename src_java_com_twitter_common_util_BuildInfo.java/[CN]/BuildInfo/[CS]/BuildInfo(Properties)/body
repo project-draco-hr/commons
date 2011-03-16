@@ -1,0 +1,4 @@
+{
+  this.resourcePath=null;
+  this.properties=properties;
+}

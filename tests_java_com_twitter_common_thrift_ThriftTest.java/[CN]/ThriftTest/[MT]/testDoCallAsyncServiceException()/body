@@ -1,0 +1,16 @@
+{
+  NotFoundException notFoundException=new NotFoundException();
+  Capture<AsyncMethodCallback<Integer>> callbackCapture=new Capture<AsyncMethodCallback<Integer>>();
+  expectAsyncServiceCall(true).calculateMass(eq("jake"),capture(callbackCapture));
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  callback.onError(notFoundException);
+  Thrift<TestServiceAsync> thrift=createAsyncThrift(expectUnusedExecutorService());
+  control.replay();
+  thrift.builder().withConnectTimeout(ASYNC_CONNECT_TIMEOUT).create().calculateMass("jake",callback);
+  callbackCapture.getValue().onError(notFoundException);
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

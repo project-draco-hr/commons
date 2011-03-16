@@ -1,0 +1,3 @@
+{
+  assertThat(monitor.getLifetimeRequestCount(),is(count));
+}

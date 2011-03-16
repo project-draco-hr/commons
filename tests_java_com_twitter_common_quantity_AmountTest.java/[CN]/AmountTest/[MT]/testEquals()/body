@@ -1,0 +1,9 @@
+{
+  assertEquals("expected value equality semantics",Amount.of(1L,Time.DAYS),Amount.of(1L,Time.DAYS));
+  assertEquals("expected equality to be calculated from amounts converted to a common unit",Amount.of(1L,Time.DAYS),Amount.of(24L,Time.HOURS));
+  assertNotEqual("expected unit conversions for equality tests to not lose precision",Amount.of(25L,Time.HOURS),Amount.of(1L,Time.DAYS));
+  assertNotEqual("expected unit conversions for equality tests to not lose precision",Amount.of(1L,Time.DAYS),Amount.of(25L,Time.HOURS));
+  assertFalse("expected value equality to work only for the same Number types",Amount.of(1L,Time.DAYS).equals(Amount.of(1.0,Time.DAYS)));
+  assertFalse("expected value equality to work only for the same Number types",Amount.of(1L,Time.DAYS).equals(Amount.of(1,Time.DAYS)));
+  assertFalse("amounts with incompatible units should never be equal even if their values are",Amount.of(1L,Time.NANOSECONDS).equals(Amount.of(1L,Data.BITS)));
+}

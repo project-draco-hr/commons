@@ -1,0 +1,3 @@
+{
+  return String.format("Mean: %f, Min: %d, Max: %d, Range: %d, Stddev: %f, Variance: %f",mean(),min(),max(),range(),standardDeviation(),variance());
+}

@@ -1,0 +1,6 @@
+{
+  assertEquals("jake",Pair.of("jake",null).getFirst());
+  assertNull(Pair.of("jake",null).getSecond());
+  assertNull(Pair.of(null,"jim").getFirst());
+  assertEquals("jim",Pair.of(null,"jim").getSecond());
+}

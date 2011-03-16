@@ -1,0 +1,6 @@
+{
+  LOG.log(Level.INFO,"Cancelling lock attempt!");
+  cleanup();
+  holdsLock=false;
+  syncPoint.countDown();
+}

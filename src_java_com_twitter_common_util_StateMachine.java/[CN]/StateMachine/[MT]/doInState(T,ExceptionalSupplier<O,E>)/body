@@ -1,0 +1,12 @@
+{
+  Preconditions.checkNotNull(expectedState);
+  Preconditions.checkNotNull(work);
+  readLock.lock();
+  try {
+    checkState(expectedState);
+    return work.get();
+  }
+  finally {
+    readLock.unlock();
+  }
+}

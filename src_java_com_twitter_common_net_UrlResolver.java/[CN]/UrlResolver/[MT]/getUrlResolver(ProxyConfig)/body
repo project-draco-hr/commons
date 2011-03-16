@@ -1,0 +1,13 @@
+{
+  if (proxyConfig != null) {
+    return new ExceptionalFunction<String,String,IOException>(){
+      @Override public String apply(      String url) throws IOException {
+        return URL_RESOLVER.getEffectiveUrl(url,proxyConfig);
+      }
+    }
+;
+  }
+ else {
+    return RESOLVER;
+  }
+}

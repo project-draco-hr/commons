@@ -1,0 +1,52 @@
+{
+  ResolvedUrl resolvedUrl=new ResolvedUrl();
+  resolvedUrl.setStartUrl(url);
+  String cached=urlCache.get(url);
+  if (cached != null) {
+    cacheHits.incrementAndGet();
+    resolvedUrl.setNextResolve(cached);
+    resolvedUrl.setEndState(EndState.CACHED);
+    return resolvedUrl;
+  }
+  String currentUrl=url;
+  long backoffMs=0L;
+  String next=null;
+  for (int i=0; i < maxRedirects; i++) {
+    try {
+      next=resolveOnce(currentUrl);
+      if (next == null) {
+        if (i < maxRedirects - 1) {
+          backoffMs=backoffStrategy.calculateBackoffMs(backoffMs);
+          try {
+            clock.waitFor(backoffMs);
+          }
+ catch (          InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Interrupted waiting to retry a failed resolution for: " + currentUrl,e);
+          }
+        }
+        continue;
+      }
+      backoffMs=0L;
+      if (next.equals(currentUrl)) {
+        resolvedUrl.setEndState(EndState.REACHED_LANDING);
+        urlCache.put(url,currentUrl);
+        for (        String intermediateUrl : resolvedUrl.getIntermediateUrls()) {
+          urlCache.put(intermediateUrl,currentUrl);
+        }
+        return resolvedUrl;
+      }
+ else       if (!url.equals(next)) {
+        resolvedUrl.setNextResolve(next);
+      }
+      currentUrl=next;
+    }
+ catch (    IOException e) {
+      LOG.log(Level.INFO,"Failed to resolve url: " + url,e);
+      resolvedUrl.setEndState(EndState.ERROR);
+      return resolvedUrl;
+    }
+  }
+  resolvedUrl.setEndState(next == null || url.equals(currentUrl) ? EndState.ERROR : EndState.REDIRECT_LIMIT);
+  return resolvedUrl;
+}

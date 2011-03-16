@@ -1,0 +1,5 @@
+{
+  config.maxRetries=0;
+  config.retryableExceptions=ImmutableSet.of();
+  return getThis();
+}

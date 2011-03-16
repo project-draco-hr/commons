@@ -1,0 +1,6 @@
+{
+  control=EasyMock.createControl();
+  @SuppressWarnings("unchecked") ConnectionFactory<Connection<String,Integer>> connectionFactory=control.createMock(ConnectionFactory.class);
+  this.connectionFactory=connectionFactory;
+  poolLock=new ReentrantLock();
+}

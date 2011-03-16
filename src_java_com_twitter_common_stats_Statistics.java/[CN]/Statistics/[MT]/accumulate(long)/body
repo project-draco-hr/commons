@@ -1,0 +1,8 @@
+{
+  populationSize++;
+  double delta=value - runningMean;
+  runningMean+=delta / populationSize;
+  accumulatedVariance+=delta * (value - runningMean);
+  minValue=value < minValue ? value : minValue;
+  maxValue=value > maxValue ? value : maxValue;
+}

@@ -1,0 +1,13 @@
+{
+  for (  E backend : backends.keySet()) {
+    try {
+      release(get(backend,restoreInterval));
+    }
+ catch (    TimeoutException e) {
+      LOG.warning("Backend restorer failed to revive backend: " + backend + " -> "+ e);
+    }
+catch (    ResourceExhaustedException e) {
+      LOG.warning("Backend restorer failed to revive backend: " + backend + " -> "+ e);
+    }
+  }
+}

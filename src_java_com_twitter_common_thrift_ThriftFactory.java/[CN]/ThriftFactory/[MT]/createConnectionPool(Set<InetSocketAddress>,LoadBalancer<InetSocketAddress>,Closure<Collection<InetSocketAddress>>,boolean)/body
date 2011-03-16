@@ -1,0 +1,7 @@
+{
+  ImmutableMap.Builder<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>> backendBuilder=ImmutableMap.builder();
+  for (  InetSocketAddress backend : backends) {
+    backendBuilder.put(backend,createConnectionPool(backend,nonblocking));
+  }
+  return new MetaPool<TTransport,InetSocketAddress>(backendBuilder.build(),loadBalancer,onBackendsChosen,connectionRestoreInterval);
+}

@@ -1,0 +1,4 @@
+InetSocketAddress endpoint
+Map<String,InetSocketAddress> additionalEndpoints
+Status status
+LeadershipListener listener

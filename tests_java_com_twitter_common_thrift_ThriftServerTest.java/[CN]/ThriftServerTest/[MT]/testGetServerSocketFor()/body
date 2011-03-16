@@ -1,0 +1,9 @@
+{
+  TNonblockingServerSocket ephemeralThriftSocket=new TNonblockingServerSocket(0);
+  try {
+    assertTrue(ThriftServer.getServerSocketFor(ephemeralThriftSocket).getLocalPort() > 0);
+  }
+  finally {
+    ephemeralThriftSocket.close();
+  }
+}

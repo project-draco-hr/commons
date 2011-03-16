@@ -1,0 +1,3 @@
+{
+  assertRequestStatValue(STAT_TIMEOUTS,total);
+}

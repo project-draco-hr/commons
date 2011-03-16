@@ -1,0 +1,9 @@
+{
+  FilterBuilder filterBuilder=new FilterBuilder().add(new FilterBuilder.Exclude(".*Test"));
+  ImmutableSet.Builder<URL> urls=ImmutableSet.builder();
+  for (  String packagePrefix : scanPackagePrefixes) {
+    filterBuilder.add(new FilterBuilder.Include(FilterBuilder.prefix(packagePrefix)));
+    urls.addAll(ClasspathHelper.getUrlsForPackagePrefix(packagePrefix));
+  }
+  return new Reflections(new ConfigurationBuilder().filterInputsBy(filterBuilder).setUrls(urls.build()).useParallelExecutor().setScanners(new FieldAnnotationsScanner())).getFieldsAnnotatedWith(CmdLine.class);
+}

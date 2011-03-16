@@ -1,0 +1,6 @@
+{
+  Cache<List,Void> voidCache=control.createMock(Cache.class);
+  Predicate<Void> voidFilter=control.createMock(Predicate.class);
+  control.replay();
+  proxyBuilder.cache(null,voidCache,voidFilter);
+}

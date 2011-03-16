@@ -1,0 +1,6 @@
+def __hash__(self):
+    value = 17
+    value *= (37 + hash(self.org))
+    value *= (37 + hash(self.name))
+    value *= (37 + hash(self.rev))
+    return value

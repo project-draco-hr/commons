@@ -1,0 +1,27 @@
+{
+  if (holdsLock) {
+    throw new LockingException("Error, already holding a lock. Call unlock first!");
+  }
+  try {
+    prepare();
+    watcher.checkForLock();
+    boolean success=syncPoint.await(timeout,unit);
+    if (!success) {
+      return false;
+    }
+    if (!holdsLock && !success) {
+      throw new LockingException("Error, couldn't acquire the lock!");
+    }
+  }
+ catch (  InterruptedException e) {
+    cancelAttempt();
+    return false;
+  }
+catch (  KeeperException e) {
+    throw new LockingException("KeeperException while trying to acquire lock!",e);
+  }
+catch (  ZooKeeperClient.ZooKeeperConnectionException e) {
+    throw new LockingException("ZooKeeperConnectionException while trying to acquire lock",e);
+  }
+  return true;
+}

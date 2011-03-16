@@ -1,0 +1,12 @@
+{
+  activeConnectionsWriteLock.lock();
+  try {
+    if (!willCreateSafe()) {
+      return null;
+    }
+    return createConnection(0);
+  }
+  finally {
+    activeConnectionsWriteLock.unlock();
+  }
+}

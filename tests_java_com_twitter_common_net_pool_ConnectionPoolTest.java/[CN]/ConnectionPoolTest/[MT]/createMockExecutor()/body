@@ -1,0 +1,3 @@
+{
+  return control.createMock(Executor.class);
+}

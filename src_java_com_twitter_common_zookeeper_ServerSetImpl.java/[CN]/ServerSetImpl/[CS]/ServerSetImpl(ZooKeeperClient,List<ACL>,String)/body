@@ -1,0 +1,3 @@
+{
+  this(zkClient,new Group(zkClient,acl,path),THRIFT_BINARY_PROTOCOL_CODEC);
+}

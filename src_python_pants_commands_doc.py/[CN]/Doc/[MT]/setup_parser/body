@@ -1,0 +1,7 @@
+def setup_parser(self, parser):
+    parser.set_usage('%prog doc ([spec]...)')
+    parser.add_option('--provides', action='store_true', dest='only_provides', default=False, help='Specifies docs should only be generated for build targets with a provides artifact')
+    parser.add_option('--ignore-failure', action='store_true', dest='ignore_failure', default=False, help="Specifies that javadoc failures should not be reflected in this command's exit code.")
+    parser.add_option('--link-changelog', action='store_true', dest='link_changelog', default=False, help="Causes a link to the artifact's changelog to be shown in the artifact header")
+    parser.add_option('--title', dest='title', default='API Javadoc', help='Specifies a custom title for the generated javadoc site.')
+    parser.epilog = 'Generates documentation for the specified targets or else all documentable\n    targets if none are specified.  If any of the specified targets are not documentable, aborts\n    with a non-zero exit code'

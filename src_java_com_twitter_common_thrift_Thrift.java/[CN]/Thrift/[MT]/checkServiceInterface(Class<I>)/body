@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(serviceInterface);
+  Preconditions.checkArgument(serviceInterface.isInterface(),"%s must be a thrift service interface",serviceInterface);
+  return serviceInterface;
+}

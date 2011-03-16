@@ -1,0 +1,3 @@
+{
+  assertTrue(Math.abs(expected - actual) < ERROR_THRESHOLD);
+}

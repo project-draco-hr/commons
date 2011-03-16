@@ -1,0 +1,7 @@
+{
+  List<String> entries=Lists.newArrayList();
+  for (  Map.Entry entry : map.entrySet()) {
+    entries.add(tabs(depth) + printValue(entry.getKey(),depth) + " = "+ printValue(entry.getValue(),depth));
+  }
+  return entries.isEmpty() ? "{}" : String.format("{\n%s\n%s}",Joiner.on(",\n").join(entries),tabs(depth - 1));
+}

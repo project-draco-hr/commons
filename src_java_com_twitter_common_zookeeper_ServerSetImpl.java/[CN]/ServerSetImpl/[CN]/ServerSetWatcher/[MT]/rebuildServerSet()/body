@@ -1,0 +1,5 @@
+{
+  Set<String> memberIds=ImmutableSet.copyOf(servicesByMemberId.keySet());
+  servicesByMemberId.clear();
+  notifyGroupChange(memberIds);
+}

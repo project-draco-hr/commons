@@ -1,0 +1,3 @@
+@classmethod
+def _check_target(cls, target):
+    assert isinstance(target, JavaTarget), ('AntBuilder can only build JavaTargets, given %s' % str(target))

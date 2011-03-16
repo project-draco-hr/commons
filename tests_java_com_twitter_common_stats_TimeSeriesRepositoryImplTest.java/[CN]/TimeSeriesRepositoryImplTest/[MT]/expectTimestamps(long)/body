@@ -1,0 +1,5 @@
+{
+  List<Number> expectedTimestamps=Lists.newArrayList();
+  for (  long timestamp : timestamps)   expectedTimestamps.add(timestamp);
+  assertThat(Lists.newArrayList(repo.getTimestamps()),is(expectedTimestamps));
+}

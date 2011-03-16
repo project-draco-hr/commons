@@ -1,0 +1,8 @@
+{
+  List<String> lines=Lists.newArrayList();
+  for (  Stat var : Stats.getVariables()) {
+    lines.add(var.getName() + " " + var.read());
+  }
+  Collections.sort(lines);
+  return lines;
+}

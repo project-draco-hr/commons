@@ -1,0 +1,8 @@
+{
+  AtomicLong var=Stats.exportLong("test_long");
+  assertCounter("test_long",0);
+  var.incrementAndGet();
+  assertCounter("test_long",1);
+  var.addAndGet(100);
+  assertCounter("test_long",101);
+}

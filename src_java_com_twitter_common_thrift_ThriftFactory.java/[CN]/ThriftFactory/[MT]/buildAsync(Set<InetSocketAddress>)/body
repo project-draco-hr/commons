@@ -1,0 +1,9 @@
+{
+  checkBaseState();
+  MorePreconditions.checkNotBlank(backends);
+  LoadBalancer<InetSocketAddress> loadBalancer=createLoadBalancer();
+  Closure<Collection<InetSocketAddress>> noop=Closures.noop();
+  Function<TTransport,T> asyncClientFactory=getAsyncClientFactory();
+  ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool=createConnectionPool(backends,loadBalancer,noop,true);
+  return new Thrift<T>(connectionPool,loadBalancer,serviceName,serviceInterface,asyncClientFactory,true);
+}

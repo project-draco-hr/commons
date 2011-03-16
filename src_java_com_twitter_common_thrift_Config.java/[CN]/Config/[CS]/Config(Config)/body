@@ -1,0 +1,7 @@
+{
+  requestTimeout=copyFrom.requestTimeout;
+  maxRetries=copyFrom.maxRetries;
+  retryableExceptions=copyFrom.retryableExceptions;
+  debug=copyFrom.debug;
+  statsProvider=copyFrom.statsProvider;
+}

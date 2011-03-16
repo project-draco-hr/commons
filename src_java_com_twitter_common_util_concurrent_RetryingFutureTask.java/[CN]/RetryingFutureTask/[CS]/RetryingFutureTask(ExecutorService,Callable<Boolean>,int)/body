@@ -1,0 +1,6 @@
+{
+  super(callable);
+  this.callable=Preconditions.checkNotNull(callable);
+  this.executor=Preconditions.checkNotNull(executor);
+  this.maxRetries=maxRetries;
+}

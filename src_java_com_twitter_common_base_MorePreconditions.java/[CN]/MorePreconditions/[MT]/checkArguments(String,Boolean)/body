@@ -1,0 +1,8 @@
+{
+  for (  Boolean argument : arguments) {
+    if (argument) {
+      return true;
+    }
+  }
+  throw new IllegalArgumentException(message);
+}

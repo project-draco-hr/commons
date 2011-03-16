@@ -1,0 +1,14 @@
+{
+  Preconditions.checkArgument(port >= 0 && port < 0xFFFF,"Invalid port: " + port);
+  Preconditions.checkArgument(numThreads != 0);
+  Preconditions.checkArgument(queueSize != 0);
+  if (socketTimeout != null)   Preconditions.checkArgument(socketTimeout.getValue() >= 0);
+  this.name=name;
+  this.port=port;
+  this.processor=processor;
+  this.protoFactory=protoFactory;
+  this.numThreads=numThreads;
+  this.queueSize=queueSize;
+  this.socketTimeout=socketTimeout;
+  this.monitor=monitor;
+}

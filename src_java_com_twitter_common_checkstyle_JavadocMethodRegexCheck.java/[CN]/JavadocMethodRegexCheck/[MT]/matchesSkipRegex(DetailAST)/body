@@ -1,0 +1,11 @@
+{
+  if (methodNameIgnoreRegex != null) {
+    final DetailAST ident=aAST.findFirstToken(TokenTypes.IDENT);
+    String methodName=ident.getText();
+    Matcher matcher=methodNameIgnoreRegex.matcher(methodName);
+    if (matcher.matches()) {
+      return true;
+    }
+  }
+  return false;
+}

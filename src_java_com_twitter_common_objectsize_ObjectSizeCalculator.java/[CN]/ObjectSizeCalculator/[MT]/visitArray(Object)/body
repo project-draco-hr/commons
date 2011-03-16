@@ -1,0 +1,24 @@
+{
+  final Class<?> componentType=array.getClass().getComponentType();
+  final int length=Array.getLength(array);
+  if (componentType.isPrimitive()) {
+    increaseSize(ARRAY_HEADER_SIZE + length * getPrimitiveFieldSize(componentType));
+  }
+ else {
+    increaseSize(ARRAY_HEADER_SIZE + length * REFERENCE_FIELD_SIZE);
+switch (length) {
+case 0:
+{
+        break;
+      }
+case 1:
+{
+      enqueue(Array.get(array,0));
+    }
+default :
+{
+    enqueue(new ArrayElementsVisitor((Object[])array));
+  }
+}
+}
+}

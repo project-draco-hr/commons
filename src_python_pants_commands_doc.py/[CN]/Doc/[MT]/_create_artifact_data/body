@@ -1,0 +1,31 @@
+def _create_artifact_data(self):
+    props_by_repo = dict()
+
+    def get_publish_properties(target):
+        publish_properties = props_by_repo.get(target.provides.repo)
+        if (not publish_properties):
+            publish_properties = Properties()
+            with open(target.provides.repo.push_db) as props:
+                publish_properties.load(props)
+            props_by_repo[target.provides.repo] = publish_properties
+        return publish_properties
+    data = {}
+    for target in self.targets:
+        if (isinstance(target, ExportableJavaLibrary) and target.provides):
+            props = get_publish_properties(target)
+            for source in target.sources:
+                source_path = os.path.join(self.java_src_prefix, source)
+                if os.path.exists(source_path):
+                    if (('revision.major.%s' % target.provides.name) in props.getPropertyDict()):
+                        major = props.getProperty(('revision.major.%s' % target.provides.name))
+                        minor = props.getProperty(('revision.minor.%s' % target.provides.name))
+                        patch = props.getProperty(('revision.patch.%s' % target.provides.name))
+                        revision = ('%s.%s.%s' % (major, minor, patch))
+                    else:
+                        revision = 'NOT-PUBLISHED-YET'
+                    data[source] = dict(org=target.provides.org, name=target.provides.name, rev=revision, artifactBaseUrl=target.provides.repo.url)
+    with open(self.artifact_data_path, mode='w') as data_file:
+        print  >> data_file, ('var artifacts = %s;' % json.dumps(data, sort_keys=True, indent=2))
+        print  >> data_file, ("artifacts.title = '%s';" % self.options.title)
+        print  >> data_file, ("artifacts.publishDate = '%s';" % datetime.now().strftime('%m/%d/%Y %I:%M %p'))
+        print  >> data_file, ('artifacts.hasChangelog = %s;' % ('true' if self.link_changelog else 'false'))

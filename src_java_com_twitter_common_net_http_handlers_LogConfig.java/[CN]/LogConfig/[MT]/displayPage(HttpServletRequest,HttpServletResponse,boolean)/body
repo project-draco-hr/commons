@@ -1,0 +1,27 @@
+{
+  writeTemplate(resp,new Closure<StringTemplate>(){
+    @Override public void execute(    StringTemplate stringTemplate){
+      LoggingMXBean logBean=LogManager.getLoggingMXBean();
+      if (posted) {
+        String loggerName=req.getParameter("logger");
+        String loggerLevel=req.getParameter("level");
+        if (loggerName != null && loggerLevel != null) {
+          Logger logger=Logger.getLogger(loggerName);
+          Level newLevel=loggerLevel.equals("INHERIT") ? null : Level.parse(loggerLevel);
+          logger.setLevel(newLevel);
+          if (newLevel != null) {
+            maybeAdjustHandlerLevels(logger,newLevel);
+          }
+          stringTemplate.setAttribute("configChange",String.format("%s level changed to %s",loggerName,loggerLevel));
+        }
+      }
+      List<LoggerConfig> loggerConfigs=Lists.newArrayList();
+      for (      String logger : logBean.getLoggerNames()) {
+        loggerConfigs.add(new LoggerConfig(logger,logBean.getLoggerLevel(logger)));
+      }
+      stringTemplate.setAttribute("loggers",loggerConfigs);
+      stringTemplate.setAttribute("levels",LOG_LEVELS);
+    }
+  }
+);
+}

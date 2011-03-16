@@ -1,0 +1,5 @@
+{
+  MethodCache cache=methodCaches.get(method);
+  if (cache == null)   return invokeMethod(uncached,method,args);
+  return cache.doInvoke(uncached,args);
+}

@@ -1,0 +1,20 @@
+{
+  final Constructor<? extends T> implementationConstructor=findImplementationConstructor(serviceInterface);
+  return new Function<TTransport,T>(){
+    @Override public T apply(    TTransport transport){
+      try {
+        return implementationConstructor.newInstance(new TBinaryProtocol(transport));
+      }
+ catch (      InstantiationException e) {
+        throw new RuntimeException(e);
+      }
+catch (      IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+catch (      InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+;
+}

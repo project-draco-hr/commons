@@ -1,0 +1,7 @@
+{
+  int requests=0;
+  for (  TrafficMonitor<InetSocketAddress>.TrafficInfo info : monitor.getTrafficInfo().values()) {
+    requests+=info.getRequestSuccessCount();
+  }
+  assertThat(requests,is(requestCount));
+}

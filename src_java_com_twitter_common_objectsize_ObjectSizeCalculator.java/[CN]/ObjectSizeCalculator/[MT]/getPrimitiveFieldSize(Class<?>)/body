@@ -1,0 +1,15 @@
+{
+  if (type == boolean.class || type == byte.class) {
+    return 1;
+  }
+  if (type == char.class || type == short.class) {
+    return 2;
+  }
+  if (type == int.class || type == float.class) {
+    return 4;
+  }
+  if (type == long.class || type == double.class) {
+    return 8;
+  }
+  throw new AssertionError("Encountered unexpected primitive type " + type.getName());
+}

@@ -1,0 +1,3 @@
+{
+  return zip(Arrays.asList(iterables),defaultValue);
+}

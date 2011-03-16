@@ -1,0 +1,7 @@
+{
+  ImmutableList.Builder<Filter> filters=ImmutableList.builder();
+  for (  String file : files) {
+    filters.add(SuppressionsLoader.loadSuppressions(file));
+  }
+  this.suppressions=new CompoundFilter(filters.build());
+}

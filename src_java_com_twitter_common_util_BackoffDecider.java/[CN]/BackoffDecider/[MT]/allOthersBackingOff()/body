@@ -1,0 +1,10 @@
+{
+  for (  BackoffDecider decider : deciderGroup) {
+    State deciderState=decider.stateMachine.getState();
+    boolean inBackoffState=deciderState == State.BACKOFF || deciderState == State.FORCED_NORMAL;
+    if ((decider != this) && !inBackoffState) {
+      return false;
+    }
+  }
+  return true;
+}

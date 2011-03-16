@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(maxSize > 0);
+  this.maxSize=maxSize;
+  return this;
+}

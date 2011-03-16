@@ -1,0 +1,17 @@
+{
+  ZooKeeperClient zkClient=createZkClient();
+  zkClient.get().addAuthInfo("digest","client1:boo".getBytes(Charsets.UTF_8));
+  assertNull(zkClient.get().exists("/foo",false));
+  ZooKeeperUtils.ensurePath(zkClient,ZooDefs.Ids.CREATOR_ALL_ACL,"/foo/bar/baz");
+  zkClient=createZkClient();
+  zkClient.get().addAuthInfo("digest","client2:bap".getBytes(Charsets.UTF_8));
+  assertNotNull(zkClient.get().exists("/foo",false));
+  assertNotNull(zkClient.get().exists("/foo/bar",false));
+  assertNotNull(zkClient.get().exists("/foo/bar/baz",false));
+  try {
+    zkClient.get().delete("/foo/bar/baz",-1);
+    fail("Expected CREATOR_ALL_ACL to be applied to created path and client2 mutations to be " + "rejected");
+  }
+ catch (  NoAuthException e) {
+  }
+}

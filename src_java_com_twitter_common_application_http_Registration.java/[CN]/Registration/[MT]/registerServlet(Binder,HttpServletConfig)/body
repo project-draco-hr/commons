@@ -1,0 +1,3 @@
+{
+  Multibinder.newSetBinder(binder,HttpServletConfig.class).addBinding().toInstance(config);
+}

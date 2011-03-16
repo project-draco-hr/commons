@@ -1,0 +1,4 @@
+{
+  if (!iterator.hasNext())   throw new ResourceExhaustedException("No backends available!");
+  return iterator.next();
+}

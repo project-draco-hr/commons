@@ -1,0 +1,14 @@
+{
+  Function<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>> endpointPoolFactory=new Function<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>(){
+    @Override public ObjectPool<Connection<TTransport,InetSocketAddress>> apply(    InetSocketAddress endpoint){
+      return createConnectionPool(endpoint,nonblocking);
+    }
+  }
+;
+  try {
+    return new DynamicPool<ServiceInstance,TTransport,InetSocketAddress>(hostSet,endpointPoolFactory,loadBalancer,onBackendsChosen,connectionRestoreInterval,Util.GET_ADDRESS,Util.IS_ALIVE);
+  }
+ catch (  DynamicHostSet.MonitorException e) {
+    throw new ThriftFactoryException("Failed to monitor host set.",e);
+  }
+}

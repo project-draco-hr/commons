@@ -1,0 +1,26 @@
+{
+  expect(expectServiceCall(true).calculateMass("jake")).andThrow(new NotFoundException());
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+class HopelesslyLost extends NotFoundException {
+  }
+  expect(expectServiceCall(true).calculateMass("jake")).andThrow(new HopelesslyLost());
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  TTransportException nonRetryableException=new TTransportException();
+  expect(expectServiceCall(true).calculateMass("jake")).andThrow(nonRetryableException);
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Thrift<TestService> thrift=createThrift(expectUnusedExecutorService());
+  control.replay();
+  TestService testService=thrift.builder().blocking().withRetries(2).retryOn(NotFoundException.class).create();
+  try {
+    testService.calculateMass("jake");
+    fail("Expected n exception to be thrown since all retires failed");
+  }
+ catch (  TException e) {
+    assertSame(nonRetryableException,e);
+  }
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

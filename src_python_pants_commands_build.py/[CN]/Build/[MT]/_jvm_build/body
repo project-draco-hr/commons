@@ -1,0 +1,10 @@
+def _jvm_build(self, target):
+    try:
+        executor = AntBuilder(self.error, self.root_dir, self.is_ide, self.ide_transitivity)
+        if self.options.quiet:
+            self.build_args.insert(0, '-logger')
+            self.build_args.insert(1, 'org.apache.tools.ant.NoBannerLogger')
+            self.build_args.insert(2, '-q')
+        return executor.build(target, self.address.is_meta, self.build_args)
+    except:
+        self.error(('Problem executing AntBuilder for target %s: %s' % (self.address, traceback.format_exc())))

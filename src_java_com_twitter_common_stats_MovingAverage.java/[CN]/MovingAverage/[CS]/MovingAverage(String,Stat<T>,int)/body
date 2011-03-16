@@ -1,0 +1,7 @@
+{
+  super(name,0d);
+  Preconditions.checkArgument(windowSize > 1);
+  this.input=Preconditions.checkNotNull(input);
+  this.samples=new LinkedBlockingDeque<T>(windowSize);
+  Stats.export(input);
+}

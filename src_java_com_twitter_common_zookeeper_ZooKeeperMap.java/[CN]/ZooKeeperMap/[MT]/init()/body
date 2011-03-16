@@ -1,0 +1,36 @@
+{
+  Watcher watcher=zkClient.registerExpirationHandler(new Command(){
+    @Override public void execute(){
+      try {
+synchronized (safeToRewatchLock) {
+          if (safeToRewatch) {
+            rewatchDataNodes();
+            tryWatchChildren();
+          }
+        }
+      }
+ catch (      InterruptedException e) {
+        LOG.log(Level.WARNING,"Interrupted while trying to re-establish watch.",e);
+      }
+    }
+  }
+);
+  try {
+synchronized (safeToRewatchLock) {
+      watchChildren();
+      safeToRewatch=true;
+    }
+  }
+ catch (  InterruptedException e) {
+    zkClient.unregister(watcher);
+    throw e;
+  }
+catch (  KeeperException e) {
+    zkClient.unregister(watcher);
+    throw e;
+  }
+catch (  ZooKeeperConnectionException e) {
+    zkClient.unregister(watcher);
+    throw e;
+  }
+}

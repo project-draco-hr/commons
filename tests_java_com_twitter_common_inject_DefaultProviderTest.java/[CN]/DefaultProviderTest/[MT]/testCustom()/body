@@ -1,0 +1,14 @@
+{
+  assertEquals("jill",Guice.createInjector(new AbstractModule(){
+    @Override protected void configure(){
+      DefaultProvider.bindOrElse(CUSTOM_STRING,DEFAULT_STRING,FINAL_STRING,binder());
+    }
+    @Provides @Named("default") String provideDefault(){
+      return "jack";
+    }
+    @Provides @Named("custom") String provideCustom(){
+      return "jill";
+    }
+  }
+).getInstance(FINAL_STRING));
+}

@@ -1,0 +1,19 @@
+{
+  int integerRating=(int)Math.round(rating);
+  if (integerRating == 2) {
+    integerRating=1;
+  }
+ else   if (integerRating == 4) {
+    integerRating=3;
+  }
+ else   if (integerRating == 6) {
+    integerRating=5;
+  }
+ else   if (integerRating == 8) {
+    integerRating=7;
+  }
+ else   if (integerRating == 9) {
+    integerRating=10;
+  }
+  return (float)integerRating;
+}

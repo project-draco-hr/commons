@@ -1,0 +1,6 @@
+def __init__(self, org, name, repo):
+    'org: the originization of this artifact, the group id in maven parlance\n    name: the name of the artifact\n    repo: the repository this artifact is published to'
+    self.org = org
+    self.name = name
+    self.rev = None
+    self.repo = repo.resolve()

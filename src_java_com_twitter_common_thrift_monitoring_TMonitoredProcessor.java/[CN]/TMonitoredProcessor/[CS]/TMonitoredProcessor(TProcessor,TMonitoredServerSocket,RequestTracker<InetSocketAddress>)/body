@@ -1,0 +1,5 @@
+{
+  this.wrapped=Preconditions.checkNotNull(wrapped);
+  this.monitoredServerSocket=Preconditions.checkNotNull(monitoredServerSocket);
+  this.monitor=Preconditions.checkNotNull(monitor);
+}

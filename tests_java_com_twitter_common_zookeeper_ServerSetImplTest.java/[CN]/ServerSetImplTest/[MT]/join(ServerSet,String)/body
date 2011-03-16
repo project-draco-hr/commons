@@ -1,0 +1,3 @@
+{
+  return serverSet.join(InetSocketAddress.createUnresolved(host,42),ImmutableMap.<String,InetSocketAddress>of(),Status.ALIVE);
+}

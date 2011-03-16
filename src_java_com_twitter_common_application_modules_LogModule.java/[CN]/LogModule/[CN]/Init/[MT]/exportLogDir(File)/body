@@ -1,0 +1,8 @@
+{
+  Stats.exportStatic(new StatImpl<String>("logging_dir"){
+    @Override public String read(){
+      return logDir.getAbsolutePath();
+    }
+  }
+);
+}

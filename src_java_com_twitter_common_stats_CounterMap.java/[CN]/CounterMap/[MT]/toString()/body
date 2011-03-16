@@ -1,0 +1,7 @@
+{
+  StringBuilder strVal=new StringBuilder();
+  for (  Map.Entry<K,Integer> entry : this) {
+    strVal.append(entry.getKey().toString()).append(": ").append(entry.getValue()).append('\n');
+  }
+  return strVal.toString();
+}

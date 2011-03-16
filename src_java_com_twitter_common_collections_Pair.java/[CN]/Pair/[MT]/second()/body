@@ -1,0 +1,8 @@
+{
+  return new Function<Pair<S,T>,T>(){
+    @Override public T apply(    Pair<S,T> pair){
+      return pair.second;
+    }
+  }
+;
+}

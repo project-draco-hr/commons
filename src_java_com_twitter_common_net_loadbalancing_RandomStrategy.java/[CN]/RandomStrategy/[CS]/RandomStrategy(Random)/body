@@ -1,0 +1,3 @@
+{
+  this.random=Preconditions.checkNotNull(random);
+}

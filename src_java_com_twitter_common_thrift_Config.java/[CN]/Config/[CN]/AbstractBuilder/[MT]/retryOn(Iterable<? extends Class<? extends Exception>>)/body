@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(retryableExceptions);
+  ImmutableSet<Class<? extends Exception>> classes=ImmutableSet.copyOf(Iterables.filter(retryableExceptions,Predicates.notNull()));
+  Preconditions.checkArgument(!classes.isEmpty(),"Must provide at least one retryable exception class");
+  config.retryableExceptions=classes;
+  return getThis();
+}

@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(cond);
+  endCondition=Predicates.or(cond);
+  return this;
+}

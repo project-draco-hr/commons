@@ -1,0 +1,3 @@
+{
+  this.healthChecker=Preconditions.checkNotNull(healthChecker);
+}

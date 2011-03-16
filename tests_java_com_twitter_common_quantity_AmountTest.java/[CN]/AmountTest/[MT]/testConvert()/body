@@ -1,0 +1,9 @@
+{
+  Amount<Long,Time> integralDuration=Amount.of(15L,Time.MINUTES);
+  assertEquals(Long.valueOf(15 * 60 * 1000),integralDuration.as(Time.MILLISECONDS));
+  assertEquals("expected conversion losing precision to use truncation",Long.valueOf(0),integralDuration.as(Time.HOURS));
+  assertEquals("expected conversion losing precision to use truncation",Long.valueOf(0),Amount.of(45L,Time.MINUTES).as(Time.HOURS));
+  Amount<Double,Time> decimalDuration=Amount.of(15.0,Time.MINUTES);
+  assertEquals(Double.valueOf(15 * 60 * 1000),decimalDuration.as(Time.MILLISECONDS));
+  assertEquals(Double.valueOf(0.25),decimalDuration.as(Time.HOURS));
+}

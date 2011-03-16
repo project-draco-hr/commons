@@ -1,0 +1,5 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.lockPath=MorePreconditions.checkNotBlank(lockPath);
+  this.syncPoint=new CountDownLatch(1);
+}

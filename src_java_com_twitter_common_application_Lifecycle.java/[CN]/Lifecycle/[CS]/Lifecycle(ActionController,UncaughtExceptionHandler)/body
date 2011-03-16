@@ -1,0 +1,10 @@
+{
+  this.shutdownController=shutdownController;
+  Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
+    @Override public void run(){
+      shutdownController.execute();
+    }
+  }
+,getClass().getSimpleName() + "-ShutdownHook"));
+}

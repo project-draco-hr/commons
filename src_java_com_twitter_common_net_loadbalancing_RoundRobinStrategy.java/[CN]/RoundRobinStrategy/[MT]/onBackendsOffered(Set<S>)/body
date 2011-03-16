@@ -1,0 +1,6 @@
+{
+  List<S> newTargets=Lists.newArrayList(targets);
+  Collections.shuffle(newTargets);
+  iterator=Iterators.cycle(newTargets);
+  return newTargets;
+}

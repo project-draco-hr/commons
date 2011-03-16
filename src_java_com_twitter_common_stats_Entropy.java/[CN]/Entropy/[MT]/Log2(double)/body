@@ -1,0 +1,3 @@
+{
+  return Math.log(n) / Math.log(2);
+}

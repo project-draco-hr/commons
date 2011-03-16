@@ -1,0 +1,3 @@
+{
+  lastActive.set(clock.nowNanos());
+}

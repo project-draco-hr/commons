@@ -1,0 +1,28 @@
+{
+  backoffHelper.doUntilSuccess(new ExceptionalSupplier<Boolean,JoinException>(){
+    @Override public Boolean get() throws JoinException {
+      try {
+        ZooKeeperUtils.ensurePath(zkClient,acl,path);
+        return true;
+      }
+ catch (      InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new JoinException("Interrupted trying to ensure group at path: " + path,e);
+      }
+catch (      ZooKeeperConnectionException e) {
+        LOG.log(Level.WARNING,"Problem connecting to ZooKeeper, retrying",e);
+        return false;
+      }
+catch (      KeeperException e) {
+        if (zkClient.shouldRetry(e)) {
+          LOG.log(Level.WARNING,"Temporary error ensuring path: " + path,e);
+          return false;
+        }
+ else {
+          throw new JoinException("Problem ensuring group at path: " + path,e);
+        }
+      }
+    }
+  }
+);
+}

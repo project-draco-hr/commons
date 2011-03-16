@@ -1,0 +1,50 @@
+{
+  ZooKeeperClient zk1=createZkClient();
+  ZooKeeperClient zk2=createZkClient();
+  ZooKeeperClient zk3=createZkClient();
+  final DistributedLock lock1=new DistributedLockImpl(zk1,LOCK_PATH);
+  final DistributedLock lock2=new DistributedLockImpl(zk2,LOCK_PATH);
+  final DistributedLock lock3=new DistributedLockImpl(zk3,LOCK_PATH);
+  Callable<Object> t1=new Callable(){
+    @Override public Object call() throws InterruptedException {
+      lock1.lock();
+      try {
+        Thread.sleep(50);
+      }
+  finally {
+        lock1.unlock();
+      }
+      return new Object();
+    }
+  }
+;
+  Callable<Object> t2=new Callable(){
+    @Override public Object call() throws InterruptedException {
+      lock2.lock();
+      try {
+        Thread.sleep(50);
+      }
+  finally {
+        lock2.unlock();
+      }
+      return new Object();
+    }
+  }
+;
+  Callable<Object> t3=new Callable(){
+    @Override public Object call() throws InterruptedException {
+      lock3.lock();
+      try {
+        Thread.sleep(50);
+      }
+  finally {
+        lock3.unlock();
+      }
+      return new Object();
+    }
+  }
+;
+  ExecutorService ex=Executors.newCachedThreadPool();
+  ex.invokeAll(Arrays.asList(t1,t2,t3));
+  assertTrue("No Children left!",expectZkNodes(LOCK_PATH).size() == 0);
+}

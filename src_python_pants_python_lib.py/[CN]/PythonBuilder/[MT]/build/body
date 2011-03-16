@@ -1,0 +1,5 @@
+def build(self, target, is_meta, args):
+    assert isinstance(target, PythonTarget), ('PythonBuilder can only build PythonTargets, given %s' % str(target))
+    if isinstance(target, PythonTests):
+        return self._run_tests(target, args)
+    raise Exception(('PythonBuilder cannot handle target: %s' % str(target)))

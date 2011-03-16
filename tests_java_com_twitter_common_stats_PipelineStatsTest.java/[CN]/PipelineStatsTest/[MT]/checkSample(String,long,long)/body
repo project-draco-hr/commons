@@ -1,0 +1,6 @@
+{
+  AtomicLong eventsCounter=stats.getStatsForStage(stage).getEventCounter();
+  AtomicLong latencyCounter=stats.getStatsForStage(stage).getTotalCounter();
+  assertThat(eventsCounter.get(),is(events));
+  assertThat(latencyCounter.get(),is(latency));
+}

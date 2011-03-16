@@ -1,0 +1,14 @@
+{
+  zkClient.registerExpirationHandler(new Command(){
+    @Override public void execute() throws RuntimeException {
+      rebuildServerSet();
+    }
+  }
+);
+  group.watch(new GroupChangeListener(){
+    @Override public void onGroupChange(    Iterable<String> memberIds){
+      notifyGroupChange(memberIds);
+    }
+  }
+);
+}

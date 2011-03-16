@@ -1,0 +1,8 @@
+def _get_artifact_info(self):
+    provides = self._provides()
+    exported = bool(provides)
+    org = (provides.org if exported else 'internal')
+    module = (provides.name if exported else self._id)
+    version = (provides.rev if exported else None)
+    id = (('%s-%s' % (provides.org, provides.name)) if exported else self._id)
+    return (JarDependency(org=org, name=module, rev=version), id, exported)

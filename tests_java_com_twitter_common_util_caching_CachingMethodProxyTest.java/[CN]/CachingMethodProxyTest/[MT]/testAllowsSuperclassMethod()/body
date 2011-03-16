@@ -1,0 +1,14 @@
+{
+  SubMath subMath=control.createMock(SubMath.class);
+  List<Integer> args=Arrays.asList(1,2);
+  expect(intCache.get(args)).andReturn(null);
+  expect(subMath.sum(1,2)).andReturn(3);
+  expect(intFilter.apply(3)).andReturn(true);
+  intCache.put(args,3);
+  control.replay();
+  Method add=SubMath.class.getMethod("sum",int.class,int.class);
+  CachingMethodProxy<SubMath> proxyBuilder=CachingMethodProxy.proxyFor(subMath,SubMath.class);
+  SubMath cached=proxyBuilder.getCachingProxy();
+  proxyBuilder.cache(cached.sum(0,0),intCache,intFilter).prepare();
+  cached.sum(1,2);
+}

@@ -1,0 +1,4 @@
+{
+  this.zkClient=zkClient;
+  this.monitor=monitor;
+}

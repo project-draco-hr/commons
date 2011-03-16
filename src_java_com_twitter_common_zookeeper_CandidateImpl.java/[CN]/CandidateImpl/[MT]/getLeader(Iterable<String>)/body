@@ -1,0 +1,4 @@
+{
+  ImmutableList<String> sortedMembers=Ordering.natural().immutableSortedCopy(candidates);
+  return sortedMembers.get(0);
+}

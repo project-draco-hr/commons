@@ -1,0 +1,4 @@
+{
+  shutdownNetwork();
+  makeUninitializedNode(nodePath,Closures.<String>noop());
+}

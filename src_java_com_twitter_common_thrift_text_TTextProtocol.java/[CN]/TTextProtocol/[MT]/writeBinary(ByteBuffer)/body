@@ -1,0 +1,3 @@
+{
+  writeString(new String(base64Encoder.encode(buf.array())));
+}

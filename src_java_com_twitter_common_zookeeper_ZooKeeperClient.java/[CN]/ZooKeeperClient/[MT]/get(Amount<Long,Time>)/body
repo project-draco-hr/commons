@@ -1,0 +1,43 @@
+{
+  if (zooKeeper == null) {
+    final CountDownLatch connected=new CountDownLatch(1);
+    Watcher watcher=new Watcher(){
+      @Override public void process(      WatchedEvent event){
+switch (event.getType()) {
+case None:
+switch (event.getState()) {
+case Expired:
+            close();
+          break;
+case SyncConnected:
+        connected.countDown();
+      break;
+  }
+}
+synchronized (watchers) {
+for (Watcher watcher : watchers) {
+  watcher.process(event);
+}
+}
+}
+}
+;
+try {
+zooKeeper=(sessionState != null) ? new ZooKeeper(zooKeeperServers,sessionTimeoutMs,watcher,sessionState.sessionId,sessionState.sessionPasswd) : new ZooKeeper(zooKeeperServers,sessionTimeoutMs,watcher);
+}
+ catch (IOException e) {
+throw new ZooKeeperConnectionException("Problem connecting to servers: " + zooKeeperServers,e);
+}
+if (connectionTimeout.getValue() > 0) {
+if (!connected.await(connectionTimeout.as(Time.MILLISECONDS),TimeUnit.MILLISECONDS)) {
+throw new TimeoutException("Timed out waiting for a ZK connection after " + sessionTimeoutMs + "ms");
+}
+}
+ else {
+connected.await();
+}
+sessionState=new SessionState(zooKeeper.getSessionId(),zooKeeper.getSessionPasswd());
+closed=false;
+}
+return zooKeeper;
+}

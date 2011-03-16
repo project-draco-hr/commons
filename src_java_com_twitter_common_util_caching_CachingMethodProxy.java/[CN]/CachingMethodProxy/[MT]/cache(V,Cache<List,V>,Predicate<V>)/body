@@ -1,0 +1,3 @@
+{
+  return cache(value,cache,DEFAULT_KEY_BUILDER,valueFilter);
+}

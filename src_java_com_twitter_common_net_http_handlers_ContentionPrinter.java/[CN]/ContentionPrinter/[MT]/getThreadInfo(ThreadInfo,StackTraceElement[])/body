@@ -1,0 +1,12 @@
+{
+  List<String> lines=Lists.newLinkedList();
+  lines.add(String.format("'%s' Id=%d %s",t.getThreadName(),t.getThreadId(),t.getThreadState()));
+  lines.add("Waiting for lock: " + t.getLockName());
+  lines.add("Lock is currently held by thread: " + t.getLockOwnerName());
+  lines.add("Wait time: " + t.getBlockedTime() + " ms.");
+  for (  StackTraceElement s : stack) {
+    lines.add(String.format("    " + s.toString()));
+  }
+  lines.add("\n");
+  return lines;
+}

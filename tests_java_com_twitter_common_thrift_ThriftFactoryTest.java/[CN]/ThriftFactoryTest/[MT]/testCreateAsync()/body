@@ -1,0 +1,26 @@
+{
+  final String responseHolder[]=new String[]{null};
+  final CountDownLatch done=new CountDownLatch(1);
+  AsyncMethodCallback<String> callback=new AsyncMethodCallback<String>(){
+    @Override public void onComplete(    String response){
+      responseHolder[0]=response;
+      done.countDown();
+    }
+    @Override public void onError(    Throwable throwable){
+      responseHolder[0]=throwable.toString();
+      done.countDown();
+    }
+  }
+;
+  final Thrift<AsyncIface> thrift=ThriftFactory.create(GoodService.AsyncIface.class).withMaxConnectionsPerEndpoint(1).useFramedTransport(true).buildAsync(ImmutableSet.of(new InetSocketAddress(1234)));
+  addTearDown(new TearDown(){
+    @Override public void tearDown(){
+      thrift.close();
+    }
+  }
+);
+  GoodService.AsyncIface client=thrift.builder().blocking().create();
+  client.doWork(callback);
+  assertTrue("wasn't called back in time, callback got " + responseHolder[0],done.await(5000,TimeUnit.MILLISECONDS));
+  assertEquals(GoodService.DONE,responseHolder[0]);
+}

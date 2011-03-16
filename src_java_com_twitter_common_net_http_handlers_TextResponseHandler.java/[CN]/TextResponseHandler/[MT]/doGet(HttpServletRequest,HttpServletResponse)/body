@@ -1,0 +1,9 @@
+{
+  resp.setContentType(textContentType);
+  resp.setStatus(HttpServletResponse.SC_OK);
+  PrintWriter responseBody=resp.getWriter();
+  for (  String line : getLines(req)) {
+    responseBody.println(line);
+  }
+  responseBody.close();
+}

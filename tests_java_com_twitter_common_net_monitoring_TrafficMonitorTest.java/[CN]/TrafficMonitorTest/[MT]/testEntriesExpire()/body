@@ -1,0 +1,18 @@
+{
+  monitor.connected(HOST_A);
+  addSuccess(HOST_A);
+  monitor.released(HOST_A);
+  verifyConnections(HOST_A,0);
+  verifyRequests(HOST_A,1);
+  monitor.connected(HOST_B);
+  addSuccess(HOST_B);
+  verifyConnections(HOST_B,1);
+  verifyRequests(HOST_B,1);
+  clock.advance(Amount.of(TrafficMonitor.DEFAULT_GC_INTERVAL.as(Time.SECONDS) + 1,Time.SECONDS));
+  monitor.gc();
+  verifyConnections(HOST_A,0);
+  verifyRequests(HOST_A,0);
+  verifyConnections(HOST_B,1);
+  verifyRequests(HOST_B,1);
+  verifyLifetimeRequests(2);
+}

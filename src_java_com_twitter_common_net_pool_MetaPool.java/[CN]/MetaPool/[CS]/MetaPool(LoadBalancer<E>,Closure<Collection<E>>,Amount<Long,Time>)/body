@@ -1,0 +1,3 @@
+{
+  this(ImmutableMap.<E,ObjectPool<Connection<T,E>>>of(),loadBalancer,onBackendsChosen,restoreInterval);
+}

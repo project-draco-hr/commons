@@ -1,0 +1,4 @@
+{
+  if (vetoShutdown)   throw new Exception("Injected failure.");
+  assertThat(testServer.getStatus(),is(Status.STOPPING));
+}

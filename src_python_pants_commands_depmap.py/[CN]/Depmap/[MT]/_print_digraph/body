@@ -1,0 +1,37 @@
+def _print_digraph(self, target):
+    (target_id, _) = self._dep_id(target)
+
+    def print_dep(dep):
+        (dep_id, internal) = self._dep_id(dep)
+        science_styled = (internal and (not self.is_internal_only))
+        twitter_styled = ((not internal) and dep.org.startswith('com.twitter'))
+        if science_styled:
+            fmt = '  "%(id)s" [label="%(id)s", style="fill", fillcolor="#0084b4", fontcolor="white"];'
+            print (fmt % {'id': dep_id, })
+        elif twitter_styled:
+            print ('  "%s" [style="fill", fillcolor="#codeed"];' % dep_id)
+        else:
+            print ('  "%s";' % dep_id)
+
+    def print_deps(printed, dep):
+        if (dep not in printed):
+            printed.add(dep)
+            (dep_id, _) = self._dep_id(dep)
+            for dependency in dep.internal_dependencies:
+                print_deps(printed, dependency)
+            for jar in dep.jar_dependencies:
+                (jar_id, internal) = self._dep_id(jar)
+                output_candidate = ((self.is_internal_only and internal) or (self.is_external_only and (not internal)) or ((not self.is_internal_only) and (not self.is_external_only)))
+                if (output_candidate and (jar not in printed)):
+                    print_dep(jar)
+                    printed.add(jar)
+                if output_candidate:
+                    left_id = (target_id if self.is_external_only else dep_id)
+                    if ((left_id, jar_id) not in printed):
+                        styled = (internal and (not self.is_internal_only))
+                        print ('  "%s" -> "%s"%s;' % (left_id, jar_id, (' [style="dashed"]' if styled else '')))
+                        printed.add((left_id, jar_id))
+    print ('digraph "%s" {' % target._id)
+    print_dep(target)
+    print_deps(set(), target)
+    print '}'

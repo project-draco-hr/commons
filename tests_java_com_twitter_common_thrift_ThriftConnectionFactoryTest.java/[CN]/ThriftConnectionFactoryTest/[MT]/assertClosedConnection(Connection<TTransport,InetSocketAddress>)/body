@@ -1,0 +1,4 @@
+{
+  assertFalse(connection.isValid());
+  assertFalse(connection.get().isOpen());
+}

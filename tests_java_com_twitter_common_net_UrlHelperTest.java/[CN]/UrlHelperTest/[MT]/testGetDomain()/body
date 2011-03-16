@@ -1,0 +1,12 @@
+{
+  assertEquals("www.twitter.com",UrlHelper.getDomain("www.twitter.com"));
+  assertEquals("www.twitter.com",UrlHelper.getDomain("www.twitter.com/a/b/c?foo=bar&bar=baz"));
+  assertEquals("www.bign.com",UrlHelper.getDomain("www.bign.com/davidvandiverhttp://cli.gs/da0e0"));
+  assertEquals("www.thesun.co.uk",UrlHelper.getDomain("www.thesun.co.uk/sol/homepa-http://dragtotop.com/thesun.co.uk"));
+  assertEquals("www.formspring.me",UrlHelper.getDomain("www.formspring.me/chuuworangerrhttp://bit.ly/7pydt3"));
+  assertEquals("www.bign.com",UrlHelper.getDomain("www.bign.com/davidvandiverhttp://cli.gs/da0e0"));
+  assertEquals("www.roundplace.com",UrlHelper.getDomain("www.roundplace.com/en/watch/108/3/" + "baltimore-rave-http://dragtotop.com/patriots_vs_ravens"));
+  assertEquals("www.bign.com",UrlHelper.getDomain("www.bign.com/davidvandiverhttp://cli.gs/da0e0"));
+  assertEquals(null,UrlHelper.getDomain("http://?idonthaveadomain=true"));
+  assertEquals(null,UrlHelper.getDomain(":::<<<<<::IAMNOTAVALIDURI???"));
+}

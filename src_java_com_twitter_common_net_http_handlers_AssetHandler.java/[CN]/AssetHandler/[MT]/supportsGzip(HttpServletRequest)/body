@@ -1,0 +1,4 @@
+{
+  String header=req.getHeader("Accept-Encoding");
+  return (header != null) && Iterables.contains(Splitter.on(",").trimResults().split(header),GZIP_ENCODING);
+}

@@ -1,0 +1,3 @@
+{
+  realStream.write(b,off,len);
+}

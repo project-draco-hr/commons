@@ -1,0 +1,12 @@
+{
+  long now=Amount.of(clock.nowNanos(),Time.NANOSECONDS).as(precision);
+  if (currentStage != null) {
+    stages.add(Pair.of(currentStage,now - ticker));
+  }
+ else {
+    startTime=now;
+  }
+  if (stageName == null)   stages.add(Pair.of(FULL_PIPELINE_NAME,now - startTime));
+  ticker=now;
+  currentStage=stageName;
+}

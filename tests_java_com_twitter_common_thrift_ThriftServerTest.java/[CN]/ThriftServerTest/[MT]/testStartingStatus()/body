@@ -1,0 +1,3 @@
+{
+  assertThat(testServer.getStatus(),is(Status.STARTING));
+}

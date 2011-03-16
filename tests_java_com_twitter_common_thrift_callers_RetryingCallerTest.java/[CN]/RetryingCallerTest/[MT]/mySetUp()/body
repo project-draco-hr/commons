@@ -1,0 +1,3 @@
+{
+  statsProvider=createMock(StatsProvider.class);
+}

@@ -1,0 +1,34 @@
+{
+  control.replay();
+  ExecutorService executorService=new ThreadPoolExecutor(1,1,0,TimeUnit.MILLISECONDS,new SynchronousQueue<Runnable>());
+  Thrift<TestService> thrift=createThrift(executorService);
+  final TestService service=thrift.builder().noRetries().withRequestTimeout(Amount.of(1L,Time.SECONDS)).create();
+  final CountDownLatch remoteCallComplete=new CountDownLatch(1);
+  final CountDownLatch remoteCallStarted=new CountDownLatch(1);
+  Future<Integer> result=executorService.submit(new Callable<Integer>(){
+    @Override public Integer call() throws Exception {
+      remoteCallStarted.countDown();
+      remoteCallComplete.await();
+      return service.calculateMass("jake");
+    }
+  }
+);
+  remoteCallStarted.await();
+  try {
+    service.calculateMass("jake");
+    fail("Expected no available threads to trigger resource exhausted");
+  }
+ catch (  TResourceExhaustedException e) {
+  }
+ finally {
+    remoteCallComplete.countDown();
+  }
+  try {
+    result.get();
+    fail("Expected no available threads to trigger resource exhausted");
+  }
+ catch (  ExecutionException e) {
+    assertEquals(TResourceExhaustedException.class,e.getCause().getClass());
+  }
+  control.verify();
+}

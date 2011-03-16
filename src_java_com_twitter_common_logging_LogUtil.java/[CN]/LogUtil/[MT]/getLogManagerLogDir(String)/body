@@ -1,0 +1,10 @@
+{
+  if (StringUtils.isEmpty(logFilePattern)) {
+    LOG.warning("Could not find log dir in logging property " + LOG_MANAGER_FILE_PROP + ", reading from "+ DEFAULT_LOG_DIR);
+    return DEFAULT_LOG_DIR;
+  }
+  String logDir=expandWildcard(logFilePattern,"%t",SystemUtils.JAVA_IO_TMPDIR);
+  logDir=expandWildcard(logDir,"%h",SystemUtils.USER_HOME);
+  File parent=new File(logDir).getParentFile();
+  return parent == null ? new File(".") : parent;
+}

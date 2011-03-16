@@ -1,0 +1,3 @@
+def setup_parser(self, parser):
+    parser.set_usage('%prog help ([command])')
+    parser.epilog = 'Lists available commands with no arguments; otherwise prints help for the\n                    specifed command.'

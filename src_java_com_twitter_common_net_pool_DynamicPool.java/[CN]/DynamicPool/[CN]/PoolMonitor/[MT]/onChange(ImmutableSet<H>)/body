@@ -1,0 +1,15 @@
+{
+  Map<E,H> newEndpoints=Maps.uniqueIndex(Iterables.filter(serverSet,livenessTest),endpointExtractor);
+  Set<E> deadEndpoints=ImmutableSet.copyOf(Sets.difference(endpointPools.keySet(),newEndpoints.keySet()));
+  Set<ObjectPool<S>> deadPools=Sets.newHashSet();
+  for (  E endpoint : deadEndpoints) {
+    ObjectPool<S> deadPool=endpointPools.remove(endpoint);
+    deadPools.add(deadPool);
+  }
+  Set<E> addedEndpoints=ImmutableSet.copyOf(Sets.difference(newEndpoints.keySet(),endpointPools.keySet()));
+  for (  E endpoint : addedEndpoints) {
+    ObjectPool<S> endpointPool=endpointPoolFactory.apply(endpoint);
+    endpointPools.put(endpoint,endpointPool);
+  }
+  onPoolRebuilt(deadPools,ImmutableMap.copyOf(endpointPools));
+}

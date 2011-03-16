@@ -1,0 +1,1 @@
+Iterable<Stat<? extends Number>> vars

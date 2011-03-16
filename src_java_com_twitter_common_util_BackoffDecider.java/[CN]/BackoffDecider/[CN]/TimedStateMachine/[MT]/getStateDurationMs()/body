@@ -1,0 +1,3 @@
+{
+  return Amount.of(stateDurationNs,Time.NANOSECONDS).as(Time.MILLISECONDS);
+}

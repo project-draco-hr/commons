@@ -1,0 +1,5 @@
+{
+  this.socketTimeout=Preconditions.checkNotNull(socketTimeout);
+  Preconditions.checkArgument(socketTimeout.as(Time.MILLISECONDS) >= 0);
+  return this;
+}

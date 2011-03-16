@@ -1,0 +1,4 @@
+{
+  control=createControl();
+  input=control.createMock(Stat.class);
+}

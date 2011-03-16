@@ -1,0 +1,4 @@
+{
+  testServer=new FakeServer();
+  serverSetup=new ThriftServer.ServerSetup(0,createMock(TProcessor.class),null);
+}

@@ -1,0 +1,25 @@
+{
+  if (success) {
+    decider.addSuccess();
+  }
+ else {
+    decider.addFailure();
+  }
+  for (  Map.Entry<S,BackoffDecider> entry : targets.entrySet()) {
+    boolean dead=entry.getValue().shouldBackOff();
+    boolean markedDead=!liveBackends.contains(entry.getKey());
+    if (markedDead && !dead) {
+      boolean alive=hostChecker.apply(entry.getKey());
+      if (!alive) {
+        entry.getValue().transitionToBackOff(0,true);
+      }
+      dead=!alive;
+    }
+    if (dead && !markedDead && forcedLive) {
+    }
+ else     if (dead != markedDead || !dead && forcedLive) {
+      adjustBackends();
+      break;
+    }
+  }
+}

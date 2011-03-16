@@ -1,0 +1,6 @@
+{
+  if (values.remainingCapacity() == 0) {
+    values.removeFirst();
+  }
+  values.addLast(value);
+}

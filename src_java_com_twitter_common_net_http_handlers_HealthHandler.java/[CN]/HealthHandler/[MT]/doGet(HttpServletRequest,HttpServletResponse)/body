@@ -1,0 +1,11 @@
+{
+  resp.setContentType("text/plain");
+  PrintWriter writer=resp.getWriter();
+  try {
+    writer.println(Boolean.TRUE.equals(healthChecker.get()) ? IS_HEALTHY : IS_NOT_HEALTHY);
+  }
+ catch (  Exception e) {
+    writer.println(IS_NOT_HEALTHY);
+    LOG.log(Level.WARNING,"Health check failed.",e);
+  }
+}

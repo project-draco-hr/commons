@@ -1,0 +1,14 @@
+{
+  if (zkClient.get().exists(path,false) == null) {
+    int lastPathIndex=path.lastIndexOf('/');
+    if (lastPathIndex > 0) {
+      ensurePathInternal(zkClient,acl,path.substring(0,lastPathIndex));
+    }
+    try {
+      zkClient.get().create(path,null,acl,CreateMode.PERSISTENT);
+    }
+ catch (    KeeperException.NodeExistsException e) {
+      LOG.info("Node existed when trying to ensure path " + path + ", somebody beat us to it?");
+    }
+  }
+}

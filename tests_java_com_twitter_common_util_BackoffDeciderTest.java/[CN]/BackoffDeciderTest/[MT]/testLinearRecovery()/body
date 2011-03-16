@@ -1,0 +1,16 @@
+{
+  for (int i=0; i < 10; i++) {
+    expect(random.nextDouble()).andReturn(0.1 * i + 0.01);
+    expect(random.nextDouble()).andReturn(0.1 * i - 0.01);
+  }
+  control.replay();
+  BackoffDecider decider=builder(NAME).build();
+  decider.addFailure();
+  assertThat(decider.shouldBackOff(),is(true));
+  clock.waitFor(101);
+  for (int i=0; i < 10; i++) {
+    clock.waitFor(10);
+    assertThat(decider.shouldBackOff(),is(true));
+    assertThat(decider.shouldBackOff(),is(false));
+  }
+}

@@ -1,0 +1,32 @@
+{
+class TestConnection implements Connection<String,Integer> {
+    @Override public String get(){
+      return "test";
+    }
+    @Override public boolean isValid(){
+      return true;
+    }
+    @Override public void close(){
+    }
+    @Override public Integer getEndpoint(){
+      return 1;
+    }
+    @Override public boolean equals(    Object obj){
+      return obj instanceof TestConnection;
+    }
+  }
+  Executor executor=createMockExecutor();
+  TestConnection connection=new TestConnection();
+  expect(connectionFactory.create(eq(ObjectPool.NO_TIMEOUT))).andReturn(connection);
+  control.replay();
+  ConnectionPool<Connection<String,Integer>> connectionPool=createConnectionPool(executor);
+  assertSame(connection,connectionPool.get());
+  TestConnection equalConnection=new TestConnection();
+  assertEquals(equalConnection,connection);
+  try {
+    connectionPool.release(equalConnection);
+  }
+  finally {
+    control.verify();
+  }
+}

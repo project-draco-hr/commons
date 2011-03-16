@@ -1,0 +1,3 @@
+__author__ = 'John Sirios'
+from orderedset import OrderedSet
+__all__ = (OrderedSet,)

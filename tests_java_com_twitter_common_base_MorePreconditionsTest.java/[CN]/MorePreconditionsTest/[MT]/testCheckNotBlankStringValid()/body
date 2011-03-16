@@ -1,0 +1,4 @@
+{
+  String argument=new String("foo");
+  assertSame(argument,MorePreconditions.checkNotBlank(argument));
+}

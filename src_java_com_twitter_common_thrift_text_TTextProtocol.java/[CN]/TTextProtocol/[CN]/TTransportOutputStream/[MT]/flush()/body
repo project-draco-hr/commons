@@ -1,0 +1,12 @@
+{
+  try {
+    super.flush();
+    byte[] bytes=toByteArray();
+    trans_.write(bytes);
+    trans_.flush();
+  }
+ catch (  TTransportException ex) {
+    throw new IOException(ex);
+  }
+  super.reset();
+}

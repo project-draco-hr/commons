@@ -1,0 +1,8 @@
+{
+  expect(uncachedMath.sub(2,1)).andReturn(1);
+  expect(uncachedMath.sub(2,1)).andReturn(1);
+  control.replay();
+  proxyBuilder.cache(cachedMath.sum(0,0),intCache,intFilter).prepare();
+  assertThat(cachedMath.sub(2,1),is(1));
+  assertThat(cachedMath.sub(2,1),is(1));
+}

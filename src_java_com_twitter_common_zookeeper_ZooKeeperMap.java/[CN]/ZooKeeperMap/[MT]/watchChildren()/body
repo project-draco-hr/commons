@@ -1,0 +1,31 @@
+{
+  zkClient.get().exists(nodePath,new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == Watcher.Event.EventType.NodeDeleted) {
+        localMap.clear();
+        try {
+          tryWatchChildren();
+        }
+ catch (        InterruptedException e) {
+          LOG.log(Level.WARNING,"Interrupted while trying to watch children.",e);
+        }
+      }
+    }
+  }
+);
+  final Watcher childWatcher=new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+        try {
+          tryWatchChildren();
+        }
+ catch (        InterruptedException e) {
+          LOG.log(Level.WARNING,"Interrupted while trying to watch children.",e);
+        }
+      }
+    }
+  }
+;
+  List<String> children=zkClient.get().getChildren(nodePath,childWatcher);
+  updateChildren(Sets.newHashSet(children));
+}

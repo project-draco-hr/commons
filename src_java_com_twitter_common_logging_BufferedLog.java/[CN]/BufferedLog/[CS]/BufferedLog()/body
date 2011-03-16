@@ -1,0 +1,8 @@
+{
+  Stats.export(new StatImpl<Integer>("scribe_buffer_size"){
+    public Integer read(){
+      return getBacklog();
+    }
+  }
+);
+}

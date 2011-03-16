@@ -1,0 +1,3 @@
+{
+  expect(caller.call(methodA,argsA,null,CONNECT_TIMEOUT)).andThrow(thrown);
+}

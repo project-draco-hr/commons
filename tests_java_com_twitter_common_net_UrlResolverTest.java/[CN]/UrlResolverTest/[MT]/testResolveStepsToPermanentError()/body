@@ -1,0 +1,11 @@
+{
+  expect(resolver.apply("jake")).andReturn("joe");
+  expect(resolver.apply("joe")).andReturn("fred");
+  expect(resolver.apply("fred")).andReturn(null);
+  control.replay();
+  ResolvedUrl resolvedUrl=createResolver(3).resolveUrl("jake");
+  assertEquals("jake",resolvedUrl.getStartUrl());
+  assertContentsInOrder(resolvedUrl.getIntermediateUrls(),"joe");
+  assertEquals("fred",resolvedUrl.getEndUrl());
+  assertEquals(EndState.ERROR,resolvedUrl.getEndState());
+}

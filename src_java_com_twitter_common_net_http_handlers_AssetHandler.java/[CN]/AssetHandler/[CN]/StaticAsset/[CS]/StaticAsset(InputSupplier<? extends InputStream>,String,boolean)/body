@@ -1,0 +1,5 @@
+{
+  this.inputSupplier=checkNotNull(inputSupplier);
+  this.contentType=checkNotNull(contentType);
+  this.cacheLocally=cacheLocally;
+}

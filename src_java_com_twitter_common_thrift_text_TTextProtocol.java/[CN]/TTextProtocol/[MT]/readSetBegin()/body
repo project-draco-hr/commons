@@ -1,0 +1,4 @@
+{
+  int size=readSequenceBegin();
+  return new TSet(UNUSED_TYPE,size);
+}

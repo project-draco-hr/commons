@@ -1,0 +1,12 @@
+{
+  eventQ=new LinkedBlockingQueue<Object>();
+  serverSetListener=new ServerSetListener(){
+    @Override public void onChange(    Set<Server> serverSet){
+      eventQ.offer(serverSet);
+    }
+    @Override public void onConnect(    boolean connected){
+      eventQ.offer(connected);
+    }
+  }
+;
+}

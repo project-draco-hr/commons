@@ -1,0 +1,4 @@
+{
+  Registration.registerHttpAsset(binder,"/graphview/dygraph-combined.js",GraphViewer.class,"dygraph-combined.js","application/javascript",true);
+  Registration.registerHttpAsset(binder,"/graphview",GraphViewer.class,"graphview.html","text/html",false);
+}

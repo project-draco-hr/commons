@@ -1,0 +1,43 @@
+{
+  Supplier<byte[]> leaderAddress=Suppliers.ofInstance(getAddress().getBytes());
+  final Membership membership=group.join(leaderAddress,new Command(){
+    @Override public void execute(){
+      leader.onDefeated();
+    }
+  }
+);
+  final AtomicBoolean elected=new AtomicBoolean(false);
+  final AtomicBoolean abdicated=new AtomicBoolean(false);
+  group.watch(new GroupChangeListener(){
+    @Override public void onGroupChange(    Iterable<String> memberIds){
+      boolean noCandidates=Iterables.isEmpty(memberIds);
+      if (noCandidates) {
+        LOG.warning("All candidates have temporarily left the group: " + group);
+      }
+ else {
+        boolean electedLeader=membership.getMemberId().equals(getLeader(memberIds));
+        boolean previouslyElected=elected.getAndSet(electedLeader);
+        if (!previouslyElected && electedLeader) {
+          LOG.info(String.format("Candidate %s is now leader of group: %s",membership.getMemberPath(),memberIds));
+          leader.onElected(new ExceptionalCommand<JoinException>(){
+            @Override public void execute() throws JoinException {
+              membership.cancel();
+              abdicated.set(true);
+            }
+          }
+);
+        }
+ else         if (!electedLeader) {
+          LOG.info(String.format("Candidate %s waiting for the next leader election, current voting: %s",membership.getMemberPath(),memberIds));
+        }
+      }
+    }
+  }
+);
+  return new Supplier<Boolean>(){
+    @Override public Boolean get(){
+      return !abdicated.get() && elected.get();
+    }
+  }
+;
+}

@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(value);
+  String[] spec=value.split(":",2);
+  if (spec.length != 2) {
+    throw new IllegalArgumentException("Invalid socket address spec: " + value);
+  }
+  String host=spec[0];
+  int port=asPort(spec[1]);
+  return StringUtils.isEmpty(host) ? new InetSocketAddress(port) : InetSocketAddress.createUnresolved(host,port);
+}

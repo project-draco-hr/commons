@@ -1,0 +1,11 @@
+{
+  String parentPath="/twitter/path";
+  String node="node";
+  String nodePath=parentPath + "/" + node;
+  String data="DaTa";
+  ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
+  zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
+  Map<String,String> zkMap=ZooKeeperMap.create(zkClient,parentPath,BYTES_TO_STRING);
+  assertEquals(1,zkMap.size());
+  assertEquals(data,zkMap.get(node));
+}

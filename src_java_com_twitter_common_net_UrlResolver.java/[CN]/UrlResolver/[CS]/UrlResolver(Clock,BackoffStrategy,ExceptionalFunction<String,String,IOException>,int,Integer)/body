@@ -1,0 +1,18 @@
+{
+  this.clock=clock;
+  this.backoffStrategy=backoffStrategy;
+  this.resolver=resolver;
+  this.maxRedirects=maxRedirects;
+  if (threadPoolSize != null) {
+    this.threadPoolSize=threadPoolSize;
+    Preconditions.checkState(threadPoolSize > 0);
+    poolEntrySemaphore=new Semaphore(threadPoolSize);
+    reset();
+    handlerExecutor=Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setDaemon(true).build());
+  }
+ else {
+    this.threadPoolSize=null;
+    poolEntrySemaphore=null;
+    handlerExecutor=null;
+  }
+}

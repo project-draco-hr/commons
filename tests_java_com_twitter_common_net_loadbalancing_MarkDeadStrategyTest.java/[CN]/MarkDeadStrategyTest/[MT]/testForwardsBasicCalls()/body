@@ -1,0 +1,7 @@
+{
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  expect(wrappedStrategy.nextBackend()).andReturn(BACKEND_1);
+  control.replay();
+  markDead.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  assertThat(markDead.nextBackend(),is(BACKEND_1));
+}

@@ -1,0 +1,4 @@
+{
+  this.filter=Preconditions.checkNotNull(filter);
+  return this;
+}

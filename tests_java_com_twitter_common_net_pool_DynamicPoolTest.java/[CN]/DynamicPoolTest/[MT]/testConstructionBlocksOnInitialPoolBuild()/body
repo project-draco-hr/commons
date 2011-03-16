@@ -1,0 +1,3 @@
+{
+  assertNotNull(Iterables.getOnlyElement(poolRebuilds));
+}

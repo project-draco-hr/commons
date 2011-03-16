@@ -1,0 +1,3 @@
+{
+  parse(ImmutableList.<Class>of(NameClashA.class,NameClashB.class),"-string=blah");
+}

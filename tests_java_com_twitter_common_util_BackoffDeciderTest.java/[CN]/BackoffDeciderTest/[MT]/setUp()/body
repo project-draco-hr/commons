@@ -1,0 +1,5 @@
+{
+  control=createControl();
+  random=control.createMock(Random.class);
+  clock=new FakeClock();
+}

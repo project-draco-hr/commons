@@ -1,0 +1,17 @@
+{
+  if (path == null) {
+    return false;
+  }
+  if (path.exists()) {
+    File[] files=path.listFiles();
+    for (    File file : files) {
+      if (file.isDirectory()) {
+        forceDeletePath(file);
+      }
+ else {
+        file.delete();
+      }
+    }
+  }
+  return (path.delete());
+}

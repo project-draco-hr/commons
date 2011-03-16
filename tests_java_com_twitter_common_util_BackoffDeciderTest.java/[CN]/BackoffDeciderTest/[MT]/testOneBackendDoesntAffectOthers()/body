@@ -1,0 +1,12 @@
+{
+  control.replay();
+  Set<BackoffDecider> group=Sets.newHashSet();
+  BackoffDecider decider1=builder(NAME + 1).groupWith(group).build();
+  BackoffDecider decider2=builder(NAME + 2).groupWith(group).build();
+  BackoffDecider decider3=builder(NAME + 3).groupWith(group).build();
+  run(decider1,10,Result.SUCCESS,State.NORMAL);
+  run(decider2,10,Result.SUCCESS,State.NORMAL);
+  run(decider3,10,Result.FAILURE,State.BACKOFF);
+  run(decider1,10,Result.SUCCESS,State.NORMAL);
+  run(decider2,10,Result.SUCCESS,State.NORMAL);
+}

@@ -1,0 +1,3 @@
+{
+  registerServlet(binder,new HttpServletConfig(path,servletClass,silent));
+}

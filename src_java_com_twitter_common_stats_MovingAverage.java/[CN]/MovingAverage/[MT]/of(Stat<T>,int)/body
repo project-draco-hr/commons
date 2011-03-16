@@ -1,0 +1,3 @@
+{
+  return MovingAverage.of(String.format("%s_avg",input.getName()),input,windowSize);
+}

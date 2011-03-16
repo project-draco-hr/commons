@@ -1,0 +1,11 @@
+{
+  Set<T> copy=Sets.newHashSet();
+  Set<T> collisions=Sets.newHashSet();
+  for (  T entry : input) {
+    if (!copy.add(entry)) {
+      collisions.add(entry);
+    }
+  }
+  copy.removeAll(collisions);
+  return copy;
+}

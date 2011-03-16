@@ -1,0 +1,11 @@
+{
+  zooKeeperServer=new ZooKeeperServer(new FileTxnSnapLog(createTempDir(),createTempDir()),new BasicDataTreeBuilder());
+  startupNetwork(0);
+  addTearDown(new TearDown(){
+    @Override public void tearDown(){
+      shutdownNetwork();
+    }
+  }
+);
+  zkPort=zooKeeperServer.getClientPort();
+}

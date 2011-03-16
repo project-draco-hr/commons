@@ -1,0 +1,6 @@
+{
+  Calendar calendar=Calendar.getInstance();
+  calendar.setTime(referenceDate);
+  calendar.add(calendarField,-1 * amount);
+  return calendar.getTime();
+}

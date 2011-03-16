@@ -1,0 +1,6 @@
+{
+  if (_denominator == 0) {
+    return _midB;
+  }
+  return ((value - _minA) / _denominator) * _B + _minB;
+}

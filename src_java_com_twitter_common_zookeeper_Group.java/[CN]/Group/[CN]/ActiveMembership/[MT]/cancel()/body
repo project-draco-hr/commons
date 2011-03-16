@@ -1,0 +1,41 @@
+{
+  if (!cancelled) {
+    try {
+      backoffHelper.doUntilSuccess(new ExceptionalSupplier<Boolean,JoinException>(){
+        @Override public Boolean get() throws JoinException {
+          try {
+            zkClient.get().delete(nodePath,ZooKeeperUtils.ANY_VERSION);
+            return true;
+          }
+ catch (          InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new JoinException("Interrupted trying to cancel membership: " + nodePath,e);
+          }
+catch (          ZooKeeperConnectionException e) {
+            LOG.log(Level.WARNING,"Problem connecting to ZooKeeper, retrying",e);
+            return false;
+          }
+catch (          NoNodeException e) {
+            LOG.info("Membership already cancelled, node at path: " + nodePath + " has been deleted");
+            return true;
+          }
+catch (          KeeperException e) {
+            if (zkClient.shouldRetry(e)) {
+              LOG.log(Level.WARNING,"Temporary error cancelling membership: " + nodePath,e);
+              return false;
+            }
+ else {
+              throw new JoinException("Problem cancelling membership: " + nodePath,e);
+            }
+          }
+        }
+      }
+);
+      cancelled=true;
+    }
+ catch (    InterruptedException e) {
+      Thread.currentThread().interrupt();
+      throw new JoinException("Problem cancelling membership: " + nodePath,e);
+    }
+  }
+}

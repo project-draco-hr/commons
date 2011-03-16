@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(maxConnectionsPerEndpoint > 0);
+  this.maxConnectionsPerEndpoint=maxConnectionsPerEndpoint;
+  return this;
+}

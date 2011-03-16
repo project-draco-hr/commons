@@ -1,0 +1,5 @@
+{
+  this.path=checkNotBlank(path);
+  this.handler=new AssetHandler(new StaticAsset(Resources.newInputStreamSupplier(asset),contentType,true));
+  this.silent=silent;
+}

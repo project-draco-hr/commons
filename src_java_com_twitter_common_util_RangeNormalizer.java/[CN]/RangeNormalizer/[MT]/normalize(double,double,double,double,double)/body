@@ -1,0 +1,6 @@
+{
+  if (minA == maxA) {
+    return minB;
+  }
+  return ((value - minA) / (maxA - minA)) * (maxB - minB) + minB;
+}

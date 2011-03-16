@@ -1,0 +1,7 @@
+self
+name
+sources
+dependencies
+excludes
+buildflags
+is_meta

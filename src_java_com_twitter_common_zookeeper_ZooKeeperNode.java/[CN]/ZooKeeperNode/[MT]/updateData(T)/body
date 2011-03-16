@@ -1,0 +1,4 @@
+{
+  nodeData=newData;
+  dataUpdateListener.execute(newData);
+}

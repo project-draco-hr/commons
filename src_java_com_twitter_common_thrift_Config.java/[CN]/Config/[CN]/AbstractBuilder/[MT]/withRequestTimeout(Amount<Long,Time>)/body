@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(timeout);
+  Preconditions.checkArgument(timeout.getValue() >= 0,"A negative deadline is invalid: %s",timeout);
+  config.requestTimeout=timeout;
+  return getThis();
+}

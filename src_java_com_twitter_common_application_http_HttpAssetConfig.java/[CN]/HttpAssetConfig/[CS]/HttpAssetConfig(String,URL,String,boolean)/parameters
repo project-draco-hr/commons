@@ -1,0 +1,4 @@
+String path
+URL asset
+String contentType
+boolean silent

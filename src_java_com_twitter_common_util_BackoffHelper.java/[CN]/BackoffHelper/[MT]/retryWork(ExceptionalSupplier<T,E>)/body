@@ -1,0 +1,12 @@
+{
+  long currentBackoffMs=0;
+  while (true) {
+    currentBackoffMs=backoffStrategy.calculateBackoffMs(currentBackoffMs);
+    LOG.fine("Operation failed, backing off for " + currentBackoffMs + "ms");
+    clock.waitFor(currentBackoffMs);
+    T result=work.get();
+    if (result != null) {
+      return result;
+    }
+  }
+}

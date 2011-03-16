@@ -1,0 +1,28 @@
+{
+  Preconditions.checkNotNull(timeout);
+  if (timeout.getValue() == 0) {
+    return create();
+  }
+  try {
+    long timeRemainingNs=timeout.as(Time.NANOSECONDS);
+    long start=System.nanoTime();
+    if (activeConnectionsWriteLock.tryLock(timeRemainingNs,TimeUnit.NANOSECONDS)) {
+      try {
+        if (!willCreateSafe()) {
+          return null;
+        }
+        timeRemainingNs-=(System.nanoTime() - start);
+        return createConnection((int)TimeUnit.NANOSECONDS.toMillis(timeRemainingNs));
+      }
+  finally {
+        activeConnectionsWriteLock.unlock();
+      }
+    }
+ else {
+      return null;
+    }
+  }
+ catch (  InterruptedException e) {
+    return null;
+  }
+}

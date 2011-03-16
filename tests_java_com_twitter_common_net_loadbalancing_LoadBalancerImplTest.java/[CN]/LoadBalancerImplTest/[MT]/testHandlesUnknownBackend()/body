@@ -1,0 +1,30 @@
+{
+  BackendOfferExpectation first=new BackendOfferExpectation(BACKEND_1,BACKEND_2);
+  BackendOfferExpectation second=new BackendOfferExpectation(BACKEND_1);
+  strategy.addConnectResult(BACKEND_1,ConnectionResult.SUCCESS,0L);
+  strategy.connectionReturned(BACKEND_1);
+  BackendOfferExpectation third=new BackendOfferExpectation(BACKEND_1,BACKEND_2);
+  strategy.addConnectResult(BACKEND_1,ConnectionResult.SUCCESS,0L);
+  strategy.addConnectResult(BACKEND_2,ConnectionResult.SUCCESS,0L);
+  BackendOfferExpectation fourth=new BackendOfferExpectation(BACKEND_1);
+  strategy.addRequestResult(BACKEND_1,RequestResult.SUCCESS,0L);
+  strategy.connectionReturned(BACKEND_1);
+  control.replay();
+  first.simulateBackendsChosen();
+  second.simulateBackendsChosen();
+  loadBalancer.connected(BACKEND_1,0L);
+  loadBalancer.released(BACKEND_1);
+  loadBalancer.released("foo");
+  loadBalancer.connected(BACKEND_2,0L);
+  loadBalancer.connectFailed(BACKEND_2,ConnectionResult.FAILED);
+  loadBalancer.requestResult(BACKEND_2,RequestResult.SUCCESS,0L);
+  loadBalancer.released(BACKEND_2);
+  third.simulateBackendsChosen();
+  loadBalancer.connected(BACKEND_1,0L);
+  loadBalancer.connected(BACKEND_2,0L);
+  fourth.simulateBackendsChosen();
+  loadBalancer.requestResult(BACKEND_1,RequestResult.SUCCESS,0L);
+  loadBalancer.requestResult(BACKEND_2,RequestResult.SUCCESS,0L);
+  loadBalancer.released(BACKEND_1);
+  loadBalancer.released(BACKEND_2);
+}

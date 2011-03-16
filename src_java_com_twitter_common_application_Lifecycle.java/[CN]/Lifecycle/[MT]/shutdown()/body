@@ -1,0 +1,8 @@
+{
+  LOG.info("Shutting down application");
+  shutdownController.execute();
+  destroyed=true;
+synchronized (waitMonitor) {
+    waitMonitor.notifyAll();
+  }
+}

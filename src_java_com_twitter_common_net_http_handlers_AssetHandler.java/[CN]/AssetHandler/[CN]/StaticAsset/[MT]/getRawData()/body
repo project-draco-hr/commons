@@ -1,0 +1,5 @@
+{
+  byte[] zipData=getGzipData();
+  GZIPInputStream in=new GZIPInputStream(new ByteArrayInputStream(zipData));
+  return ByteStreams.toByteArray(in);
+}

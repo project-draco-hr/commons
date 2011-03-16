@@ -1,0 +1,8 @@
+{
+  init();
+  for (  Iterator<T> it : iterators) {
+    if (!overflowing.get(it)) {
+      it.remove();
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  _minA=minA;
+  _maxA=maxA;
+  _minB=minB;
+  _maxB=maxB;
+  _denominator=(_maxA - _minA);
+  _B=(_maxB - _minB);
+  _midB=minB + (_B / 2f);
+}

@@ -1,0 +1,10 @@
+{
+  poolLock.lock();
+  try {
+    availableConnections.add(connection);
+    available.signal();
+  }
+  finally {
+    poolLock.unlock();
+  }
+}

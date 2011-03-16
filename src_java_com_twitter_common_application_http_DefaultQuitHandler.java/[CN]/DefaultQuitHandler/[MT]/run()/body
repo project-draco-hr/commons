@@ -1,0 +1,4 @@
+{
+  LOG.info("Instructing lifecycle to destroy.");
+  lifecycle.shutdown();
+}

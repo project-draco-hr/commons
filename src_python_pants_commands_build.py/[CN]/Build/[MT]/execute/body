@@ -1,0 +1,9 @@
+def execute(self):
+    print ('Build operating on address: %s' % self.address)
+    try:
+        target = Target.get(self.address)
+    except:
+        self.error(('Problem parsing BUILD target %s: %s' % (self.address, traceback.format_exc())))
+    if (not target):
+        self.error(('Target %s does not exist' % self.address))
+    return self._build(target)

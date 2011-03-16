@@ -1,0 +1,2 @@
+SlidingStats stat
+ExceptionalSupplier<T,E> timedWork

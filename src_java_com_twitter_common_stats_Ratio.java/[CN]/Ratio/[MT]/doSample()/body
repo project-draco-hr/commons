@@ -1,0 +1,8 @@
+{
+  double numeratorValue=numeratorAccessor.get().doubleValue();
+  double denominatorValue=denominatorAccessor.get().doubleValue();
+  if ((denominatorValue == 0) || (denominatorValue == Double.NaN) || (numeratorValue == Double.NaN)) {
+    return 0d;
+  }
+  return numeratorValue / denominatorValue;
+}

@@ -1,0 +1,8 @@
+{
+  try {
+    StateMachine.<String>builder(NAME).addState(A,B).build();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

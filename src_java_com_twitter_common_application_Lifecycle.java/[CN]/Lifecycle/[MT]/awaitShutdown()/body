@@ -1,0 +1,15 @@
+{
+  LOG.info("Awaiting shutdown");
+synchronized (waitMonitor) {
+    while (!destroyed) {
+      try {
+        waitMonitor.wait();
+      }
+ catch (      InterruptedException e) {
+        LOG.info("Exiting on interrupt");
+        shutdown();
+        return;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  writeLock.lock();
+  try {
+    if (stateTransitions.containsEntry(currentState,nextState)) {
+      LOG.info(String.format("%s state machine transition %s -> %s",name,currentState,nextState));
+      currentState=nextState;
+    }
+ else {
+      throw new IllegalStateTransitionException(String.format("State transition from %s to %s is not allowed.",currentState,nextState));
+    }
+  }
+  finally {
+    writeLock.unlock();
+  }
+}

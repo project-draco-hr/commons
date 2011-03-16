@@ -1,0 +1,17 @@
+{
+  replay(onLoseMembership);
+  assertEmptyMembershipObserved();
+  Membership membership=group.join();
+  String originalMemberId=membership.getMemberId();
+  assertMembershipObserved(originalMemberId);
+  shutdownNetwork();
+  restartNetwork();
+  group.watch(listener);
+  assertMembershipObserved(originalMemberId);
+  membership.cancel();
+  assertEmptyMembershipObserved();
+  assertEmptyMembershipObserved();
+  assertTrue(membershipChanges.isEmpty());
+  verify(onLoseMembership);
+  reset(onLoseMembership);
+}

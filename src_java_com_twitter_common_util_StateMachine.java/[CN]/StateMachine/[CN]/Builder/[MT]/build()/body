@@ -1,0 +1,5 @@
+{
+  Preconditions.checkState(instance.currentState != null);
+  Preconditions.checkState(!instance.stateTransitions.isEmpty());
+  return instance;
+}

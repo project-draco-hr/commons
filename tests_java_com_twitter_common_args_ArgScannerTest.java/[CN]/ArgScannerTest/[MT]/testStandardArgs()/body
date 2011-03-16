@@ -1,0 +1,74 @@
+{
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.stringVal.get(),is("newstring"));
+    }
+  }
+,"string","newstring");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.charVal.get(),is('x'));
+    }
+  }
+,"char","x");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.byteVal.get(),is((byte)10));
+    }
+  }
+,"byte","10");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.shortVal.get(),is((short)10));
+    }
+  }
+,"short","10");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.intVal.get(),is(10));
+    }
+  }
+,"int","10");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.longVal.get(),is(10L));
+    }
+  }
+,"long","10");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.floatVal.get(),is(10f));
+    }
+  }
+,"float","10.0");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.doubleVal.get(),is(10d));
+    }
+  }
+,"double","10.0");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.bool.get(),is(true));
+    }
+  }
+,"bool","true");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.bool.get(),is(true));
+    }
+  }
+,"bool","");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.bool.get(),is(false));
+    }
+  }
+,"no_bool","");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.bool.get(),is(true));
+    }
+  }
+,"no_bool","false");
+}

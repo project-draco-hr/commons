@@ -1,0 +1,3 @@
+def __eq__(self, other):
+    result = (other and (type(other) == TemplateData) and (self._props == other._props))
+    return result

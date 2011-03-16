@@ -1,0 +1,3 @@
+{
+  this.parsedClass=Preconditions.checkNotNull(parsedClass);
+}

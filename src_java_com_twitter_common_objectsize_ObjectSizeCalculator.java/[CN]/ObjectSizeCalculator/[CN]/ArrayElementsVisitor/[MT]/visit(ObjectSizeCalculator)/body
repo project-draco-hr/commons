@@ -1,0 +1,7 @@
+{
+  for (  Object elem : array) {
+    if (elem != null) {
+      calc.visit(elem);
+    }
+  }
+}

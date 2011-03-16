@@ -1,0 +1,12 @@
+{
+  expectUncachedAdd(1,2,true);
+  expectUncachedAdd(3,4,true);
+  expect(intCache.get(Arrays.asList(1,2))).andReturn(3);
+  expect(intCache.get(Arrays.asList(3,4))).andReturn(7);
+  control.replay();
+  proxyBuilder.cache(cachedMath.sum(0,0),intCache,intFilter).prepare();
+  assertThat(cachedMath.sum(1,2),is(3));
+  assertThat(cachedMath.sum(3,4),is(7));
+  assertThat(cachedMath.sum(1,2),is(3));
+  assertThat(cachedMath.sum(3,4),is(7));
+}

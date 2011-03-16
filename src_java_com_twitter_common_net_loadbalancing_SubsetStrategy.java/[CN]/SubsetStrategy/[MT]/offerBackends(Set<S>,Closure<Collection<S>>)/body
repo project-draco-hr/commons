@@ -1,0 +1,6 @@
+{
+  List<S> allTargets=Lists.newArrayList(offeredBackends);
+  Collections.shuffle(allTargets);
+  backendSubset=ImmutableSet.copyOf(allTargets.subList(0,Math.min(maxBackends,allTargets.size())));
+  wrapped.offerBackends(backendSubset,onBackendsChosen);
+}

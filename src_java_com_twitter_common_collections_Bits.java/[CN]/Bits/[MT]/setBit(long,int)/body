@@ -1,0 +1,6 @@
+{
+  Preconditions.checkState(bit >= LSB);
+  Preconditions.checkState(bit <= LONG_MSB);
+  long mask=1L << bit;
+  return value | mask;
+}

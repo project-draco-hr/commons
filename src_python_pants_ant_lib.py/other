@@ -1,0 +1,11 @@
+from pants import Builder, Generator, JavaTarget, JavaTests, ScalaTests
+import bang
+import ide
+import os
+import shutil
+import subprocess
+import traceback
+TRANSITIVITY_NONE = 'none'
+TRANSITIVITY_SOURCES = 'sources'
+TRANSITIVITY_TESTS = 'tests'
+TRANSITIVITY_ALL = 'all'

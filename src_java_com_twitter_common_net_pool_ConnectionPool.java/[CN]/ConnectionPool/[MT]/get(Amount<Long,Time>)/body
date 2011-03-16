@@ -1,0 +1,26 @@
+{
+  checkNotClosed();
+  Preconditions.checkNotNull(timeout);
+  if (timeout.getValue() == 0) {
+    return get();
+  }
+  try {
+    long start=System.nanoTime();
+    long timeBudgetNs=timeout.as(Time.NANOSECONDS);
+    if (poolLock.tryLock(timeBudgetNs,TimeUnit.NANOSECONDS)) {
+      try {
+        timeBudgetNs-=(System.nanoTime() - start);
+        return leaseConnection(Amount.of(timeBudgetNs,Time.NANOSECONDS));
+      }
+  finally {
+        poolLock.unlock();
+      }
+    }
+ else {
+      throw new TimeoutException("Timed out waiting for pool lock");
+    }
+  }
+ catch (  InterruptedException e) {
+    throw new TimeoutException("Interrupted waiting for pool lock");
+  }
+}

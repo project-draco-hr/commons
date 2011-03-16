@@ -1,0 +1,4 @@
+{
+  this.makeSynchronized=makeSynchronized;
+  return this;
+}

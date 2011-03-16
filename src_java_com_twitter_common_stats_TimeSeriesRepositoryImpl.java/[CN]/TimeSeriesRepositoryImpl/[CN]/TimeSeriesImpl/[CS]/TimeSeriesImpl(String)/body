@@ -1,0 +1,4 @@
+{
+  this.name=name;
+  samples=new BoundedQueue<Number>(retainedSampleLimit);
+}

@@ -1,0 +1,17 @@
+{
+  Preconditions.checkNotNull(path);
+  Preconditions.checkNotNull(handler);
+  Preconditions.checkState(path.length() > 0);
+  Preconditions.checkState(path.charAt(0) == '/');
+  if (silent) {
+    registeredHandlers.remove(path);
+  }
+ else {
+    registeredHandlers.add(path);
+  }
+  ServletHolder servletHolder=new ServletHolder(handler);
+  if (initParams != null) {
+    servletHolder.setInitParameters(initParams);
+  }
+  context.addServlet(servletHolder,path.replaceFirst("/?$","/*"));
+}

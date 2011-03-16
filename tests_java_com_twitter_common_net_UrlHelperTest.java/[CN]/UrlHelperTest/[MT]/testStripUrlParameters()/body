@@ -1,0 +1,8 @@
+{
+  assertEquals("www.twitter.com",UrlHelper.stripUrlParameters("www.twitter.com"));
+  assertEquals("www.twitter.com",UrlHelper.stripUrlParameters("www.twitter.com?foo-bar"));
+  assertEquals("www.twitter.com/a/b/",UrlHelper.stripUrlParameters("www.twitter.com/a/b/?foo-bar"));
+  assertEquals("http://www.twitter.com",UrlHelper.stripUrlParameters("http://www.twitter.com"));
+  assertEquals("http://www.twitter.com",UrlHelper.stripUrlParameters("http://www.twitter.com?foo=bar"));
+  assertEquals("http://www.twitter.com/a",UrlHelper.stripUrlParameters("http://www.twitter.com/a?foo=bar"));
+}

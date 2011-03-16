@@ -1,0 +1,8 @@
+{
+  return new BindHelper<T>(){
+    public LinkedBindingBuilder<T> with(    Binder binder){
+      return binder.bind(key);
+    }
+  }
+;
+}

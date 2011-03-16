@@ -1,0 +1,10 @@
+{
+  getCurrentContext().read();
+  JsonElement elem=getCurrentContext().getCurrentChild();
+  if (getCurrentContext().isMapKey()) {
+    return ch.readFromString(elem.getAsString());
+  }
+ else {
+    return ch.readFromJsonElement(elem);
+  }
+}

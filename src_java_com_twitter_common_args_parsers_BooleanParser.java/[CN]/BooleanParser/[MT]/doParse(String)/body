@@ -1,0 +1,3 @@
+{
+  return raw.isEmpty() || Boolean.parseBoolean(raw);
+}

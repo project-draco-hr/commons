@@ -1,0 +1,33 @@
+{
+  final TAsyncClientManager clientManager=new TAsyncClientManager();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    @Override public void run(){
+      clientManager.stop();
+    }
+  }
+);
+  final Constructor<? extends T> implementationConstructor=findAsyncImplementationConstructor(serviceInterface);
+  return new Function<TTransport,T>(){
+    @Override public T apply(    TTransport transport){
+      Preconditions.checkNotNull(transport);
+      Preconditions.checkArgument(transport instanceof TNonblockingTransport,"Invalid transport provided to client factory: " + transport.getClass());
+      try {
+        T client=implementationConstructor.newInstance(new TBinaryProtocol.Factory(),clientManager,transport);
+        if (socketTimeout != null) {
+          ((TAsyncClient)client).setTimeout(socketTimeout.as(Time.MILLISECONDS));
+        }
+        return client;
+      }
+ catch (      InstantiationException e) {
+        throw new RuntimeException(e);
+      }
+catch (      IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+catch (      InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+;
+}

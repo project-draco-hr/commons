@@ -1,0 +1,9 @@
+{
+  checkBaseState();
+  MorePreconditions.checkNotBlank(backends);
+  ManagedThreadPool managedThreadPool=createManagedThreadpool(backends.size());
+  LoadBalancer<InetSocketAddress> loadBalancer=createLoadBalancer();
+  Function<TTransport,T> clientFactory=getClientFactory();
+  ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool=createConnectionPool(backends,loadBalancer,managedThreadPool,false);
+  return new Thrift<T>(managedThreadPool,connectionPool,loadBalancer,serviceName,serviceInterface,clientFactory,false);
+}

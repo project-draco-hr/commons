@@ -1,0 +1,3 @@
+{
+  assertTrue(String.format("%2.4f not within %2.4f distance of %2.4f",predicted,deviation,expected),Math.abs(expected - predicted) <= deviation);
+}

@@ -1,0 +1,5 @@
+{
+synchronized (map) {
+    return ImmutableList.copyOf(map.values());
+  }
+}

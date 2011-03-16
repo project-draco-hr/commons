@@ -1,0 +1,4 @@
+{
+  instance.maxBufferSize=maxBufferSize;
+  return this;
+}

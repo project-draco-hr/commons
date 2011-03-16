@@ -1,0 +1,5 @@
+{
+  expectCalls(10,20,50,150);
+  control.replay();
+  assertResults(10,30,100);
+}

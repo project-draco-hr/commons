@@ -1,0 +1,5 @@
+{
+  Preconditions.checkState(!valueApplied,"A value cannot be applied twice to an argument.");
+  valueApplied=true;
+  this.value=value;
+}

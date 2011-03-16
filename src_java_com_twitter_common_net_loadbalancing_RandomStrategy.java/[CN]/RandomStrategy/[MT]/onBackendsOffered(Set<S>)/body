@@ -1,0 +1,4 @@
+{
+  this.targets=ImmutableList.copyOf(targets);
+  return this.targets;
+}

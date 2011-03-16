@@ -1,0 +1,4 @@
+{
+  if (properties == null)   fetchProperties();
+  return properties;
+}

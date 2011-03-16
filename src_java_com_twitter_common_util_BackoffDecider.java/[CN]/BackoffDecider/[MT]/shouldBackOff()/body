@@ -1,0 +1,61 @@
+{
+  boolean preventRequest;
+switch (stateMachine.getState()) {
+case NORMAL:
+    preventRequest=false;
+  break;
+case BACKOFF:
+if (deciderGroup != null && allOthersBackingOff()) {
+  LOG.info("Backends in group with " + name + " down, forcing back up.");
+  stateMachine.transitionUnbounded(State.FORCED_NORMAL);
+  return false;
+}
+ else if (stateMachine.isStateExpired()) {
+  long recoveryPeriodNs=recoveryPeriod == null ? stateMachine.getStateDurationNs() : recoveryPeriod.as(Time.NANOSECONDS);
+  stateMachine.transition(State.RECOVERY,recoveryPeriodNs);
+  LOG.info(String.format("%s recovering for %s ms",name,Amount.of(recoveryPeriodNs,Time.NANOSECONDS).as(Time.MILLISECONDS)));
+}
+ else {
+  preventRequest=true;
+  break;
+}
+case RECOVERY:
+if (deciderGroup != null && allOthersBackingOff()) {
+return false;
+}
+ else if (stateMachine.isStateExpired()) {
+stateMachine.transitionUnbounded(State.NORMAL);
+previousBackoffPeriodNs=0;
+preventRequest=false;
+}
+ else {
+switch (recoveryType) {
+case RANDOM_LINEAR:
+  preventRequest=random.nextDouble() > stateMachine.getStateFractionComplete();
+break;
+case FULL_CAPACITY:
+preventRequest=false;
+break;
+default :
+throw new IllegalStateException("Unhandled recovery type " + recoveryType);
+}
+}
+break;
+case FORCED_NORMAL:
+if (!allOthersBackingOff()) {
+stateMachine.transition(State.RECOVERY,stateMachine.getStateDurationNs());
+preventRequest=false;
+}
+ else {
+preventRequest=true;
+}
+break;
+default :
+LOG.severe("Unrecognized state: " + stateMachine.getState());
+preventRequest=false;
+}
+if (preventRequest) {
+backoffs.incrementAndGet();
+}
+return preventRequest;
+}

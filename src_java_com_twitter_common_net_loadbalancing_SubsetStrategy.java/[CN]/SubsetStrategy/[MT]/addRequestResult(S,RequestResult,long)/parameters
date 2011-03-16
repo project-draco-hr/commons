@@ -1,0 +1,3 @@
+S requestKey
+RequestResult result
+long requestTimeNanos

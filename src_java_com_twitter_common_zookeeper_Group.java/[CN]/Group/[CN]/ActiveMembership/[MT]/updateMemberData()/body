@@ -1,0 +1,19 @@
+{
+  byte[] membershipData=memberData.get();
+  if (!ArrayUtils.isEquals(this.membershipData,membershipData)) {
+    try {
+      zkClient.get().setData(nodePath,membershipData,ZooKeeperUtils.ANY_VERSION);
+      this.membershipData=membershipData;
+    }
+ catch (    KeeperException e) {
+      throw new UpdateException("Problem updating membership data.",e);
+    }
+catch (    InterruptedException e) {
+      throw new UpdateException("Interrupted attempting to update membership data.",e);
+    }
+catch (    ZooKeeperConnectionException e) {
+      throw new UpdateException("Could not connect to the ZooKeeper cluster to update membership data.",e);
+    }
+  }
+  return membershipData;
+}

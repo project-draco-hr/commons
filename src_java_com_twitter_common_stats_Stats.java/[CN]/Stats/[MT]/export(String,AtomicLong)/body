@@ -1,0 +1,9 @@
+{
+  export(new StatImpl<Long>(name){
+    @Override public Long read(){
+      return longVar.get();
+    }
+  }
+);
+  return longVar;
+}

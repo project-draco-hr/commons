@@ -1,0 +1,11 @@
+{
+  assertEquals("www.twitter.com",UrlHelper.getDomainChecked("http://www.twitter.com"));
+  assertEquals("www.twitter.com",UrlHelper.getDomainChecked("https://www.twitter.com/?a=b"));
+  assertEquals(null,UrlHelper.getDomainChecked("http://?idonthaveadomain=true"));
+  try {
+    UrlHelper.getDomainChecked(":::<<<<<::IAMNOTAVALIDURI???");
+    fail();
+  }
+ catch (  URISyntaxException e) {
+  }
+}

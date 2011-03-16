@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(argument,message,args);
+  Preconditions.checkArgument(!Iterables.isEmpty(argument),message,args);
+  return argument;
+}

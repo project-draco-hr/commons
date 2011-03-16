@@ -1,0 +1,9 @@
+{
+  try {
+    backoffHelper.doUntilSuccess(tryWatchGroup);
+  }
+ catch (  InterruptedException e) {
+    Thread.currentThread().interrupt();
+    throw new RuntimeException(String.format("Interrupted while trying to re-watch group: %s, giving up",path),e);
+  }
+}

@@ -1,0 +1,2 @@
+Supplier<T> templateSupplier
+Function<TTransport,TProtocol> protocolFactory

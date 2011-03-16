@@ -1,0 +1,18 @@
+{
+  if (alreadyVisited.containsKey(obj)) {
+    return;
+  }
+  final Class<?> clazz=obj.getClass();
+  if (clazz == ArrayElementsVisitor.class) {
+    ((ArrayElementsVisitor)obj).visit(this);
+  }
+ else {
+    alreadyVisited.put(obj,obj);
+    if (clazz.isArray()) {
+      visitArray(obj);
+    }
+ else {
+      classSizeInfos.get(clazz).visit(obj,this);
+    }
+  }
+}

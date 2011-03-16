@@ -1,0 +1,4 @@
+{
+  percentiles.record(10);
+  checkPercentiles(10,10,10,10);
+}

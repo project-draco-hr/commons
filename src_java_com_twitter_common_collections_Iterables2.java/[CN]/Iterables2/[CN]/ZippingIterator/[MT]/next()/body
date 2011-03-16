@@ -1,0 +1,14 @@
+{
+  init();
+  List<T> data=new ArrayList<T>(iterators.size());
+  for (  Iterator<T> it : iterators) {
+    if (it.hasNext()) {
+      data.add(it.next());
+    }
+ else {
+      overflowing.put(it,true);
+      data.add(defaultValue);
+    }
+  }
+  return data;
+}

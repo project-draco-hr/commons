@@ -1,0 +1,4 @@
+{
+  strategy.addConnectResult(key,result,connectTimeNanos);
+  if (result == ConnectionResult.SUCCESS)   monitor.connected(key);
+}

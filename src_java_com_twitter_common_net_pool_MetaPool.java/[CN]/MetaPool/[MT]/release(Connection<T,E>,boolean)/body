@@ -1,0 +1,13 @@
+{
+  backendsWriteLock.lock();
+  try {
+    if (!(connection instanceof ManagedConnection)) {
+      throw new IllegalArgumentException("Connection not controlled by this connection pool: " + connection);
+    }
+    ((ManagedConnection)connection).release(remove);
+    loadBalancer.released(connection.getEndpoint());
+  }
+  finally {
+    backendsWriteLock.unlock();
+  }
+}

@@ -1,0 +1,3 @@
+ExecutorService executor
+Callable<Boolean> callable
+int maxRetries

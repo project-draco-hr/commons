@@ -1,0 +1,6 @@
+{
+  ImmutableMap<String,String> privateMap=ImmutableMap.of(KEY_HOST,host,KEY_PORT,"" + port);
+  List<Map<String,String>> list=Arrays.asList(privateMap,props);
+  Gson gson=new Gson();
+  return gson.toJson(list).getBytes(Charsets.UTF_8);
+}

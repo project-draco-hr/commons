@@ -1,0 +1,5 @@
+{
+  super.clear();
+  countedSet.clear();
+  totalFrequency=0;
+}

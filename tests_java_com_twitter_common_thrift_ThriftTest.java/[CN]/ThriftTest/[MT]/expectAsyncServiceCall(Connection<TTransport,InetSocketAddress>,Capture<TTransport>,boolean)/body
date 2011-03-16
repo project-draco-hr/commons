@@ -1,0 +1,14 @@
+{
+  TestServiceAsync testService=control.createMock(TestServiceAsync.class);
+  if (connection != null) {
+    IExpectationSetters<TestServiceAsync> expectApply=transportCapture == null ? expect(asyncClientFactory.apply(EasyMock.isA(TTransport.class))) : expect(asyncClientFactory.apply(EasyMock.capture(transportCapture)));
+    expectApply.andReturn(testService);
+    if (withFailure) {
+      connectionPool.remove(connection);
+    }
+ else {
+      connectionPool.release(connection);
+    }
+  }
+  return testService;
+}

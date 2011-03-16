@@ -1,0 +1,20 @@
+{
+  TestService testService=expectServiceCall(true);
+  NotFoundException notFoundException=new NotFoundException();
+  expect(testService.calculateMass("jake")).andThrow(notFoundException);
+  requestTracker.requestResult((InetSocketAddress)anyObject(),eq(RequestTracker.RequestResult.FAILED),anyLong());
+  Thrift<TestService> thrift=createThrift(expectUnusedExecutorService());
+  control.replay();
+  try {
+    thrift.builder().blocking().create().calculateMass("jake");
+    fail("Expected service custom exception to bubble unmodified");
+  }
+ catch (  NotFoundException e) {
+    assertSame(notFoundException,e);
+  }
+  assertRequestsTotal(thrift,1);
+  assertErrorsTotal(thrift,1);
+  assertReconnectsTotal(thrift,1);
+  assertTimeoutsTotal(thrift,0);
+  control.verify();
+}

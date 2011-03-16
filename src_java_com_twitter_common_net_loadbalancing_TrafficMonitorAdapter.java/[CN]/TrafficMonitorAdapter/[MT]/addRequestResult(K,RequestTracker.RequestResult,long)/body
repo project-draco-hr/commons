@@ -1,0 +1,4 @@
+{
+  strategy.addRequestResult(key,result,requestTimeNanos);
+  monitor.requestResult(key,result,requestTimeNanos);
+}

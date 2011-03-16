@@ -1,0 +1,23 @@
+{
+  if (!event.getPath().equals(watchedNode)) {
+    LOG.log(Level.INFO,"Ignoring call for node:" + watchedNode);
+    return;
+  }
+  if (event.getType() == Watcher.Event.EventType.None) {
+switch (event.getState()) {
+case SyncConnected:
+      LOG.info("Reconnected...");
+    break;
+case Expired:
+  LOG.log(Level.WARNING,String.format("Current ZK session expired![%s]",currentId));
+cancelAttempt();
+break;
+}
+}
+ else if (event.getType() == Event.EventType.NodeDeleted) {
+checkForLock();
+}
+ else {
+LOG.log(Level.WARNING,String.format("Unexpected ZK event: %s",event.getType().name()));
+}
+}

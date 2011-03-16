@@ -1,0 +1,33 @@
+{
+  TSocket socket=null;
+  if (transportType != TransportType.NONBLOCKING) {
+    if (timeoutMillis <= 0) {
+      return null;
+    }
+    socket=new TSocket(endpoint.getHostName(),endpoint.getPort(),timeoutMillis);
+  }
+  try {
+switch (transportType) {
+case BLOCKING:
+      socket.open();
+    setSocketTimeout(socket);
+  return socket;
+case FRAMED:
+TFramedTransport transport=new TFramedTransport(socket);
+transport.open();
+setSocketTimeout(socket);
+return transport;
+case NONBLOCKING:
+try {
+return new TNonblockingSocket(endpoint.getHostName(),endpoint.getPort());
+}
+ catch (IOException e) {
+throw new IOException("Failed to create non-blocking transport to " + endpoint,e);
+}
+}
+}
+ catch (TTransportException e) {
+throw new TTransportException("Failed to create transport to " + endpoint,e);
+}
+throw new IllegalArgumentException("unknown transport type " + transportType);
+}

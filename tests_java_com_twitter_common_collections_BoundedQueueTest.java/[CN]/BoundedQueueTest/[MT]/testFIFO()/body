@@ -1,0 +1,12 @@
+{
+  queue.add(0);
+  queue.add(1);
+  queue.add(2);
+  queue.add(3);
+  queue.add(4);
+  Iterator<Integer> it=queue.iterator();
+  assertThat(it.next(),is(1));
+  assertThat(it.next(),is(2));
+  assertThat(it.next(),is(3));
+  assertThat(it.next(),is(4));
+}

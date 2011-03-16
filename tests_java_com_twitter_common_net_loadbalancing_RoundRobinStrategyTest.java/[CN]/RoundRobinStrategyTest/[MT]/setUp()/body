@@ -1,0 +1,6 @@
+{
+  onBackendsChosen=createMock(new Clazz<Closure<Collection<String>>>(){
+  }
+);
+  roundRobin=new RoundRobinStrategy<String>();
+}

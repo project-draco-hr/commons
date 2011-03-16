@@ -1,0 +1,2 @@
+Amount<Integer,Time> sessionTimeout
+Iterable<InetSocketAddress> zooKeeperServers

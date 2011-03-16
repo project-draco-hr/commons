@@ -1,0 +1,19 @@
+{
+  Executor executor=createMockExecutor();
+  control.replay();
+  ConnectionPool<Connection<String,Integer>> connectionPool=createConnectionPool(executor);
+  connectionPool.close();
+  try {
+    connectionPool.get();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+  try {
+    connectionPool.get(Amount.of(1L,Time.MILLISECONDS));
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+  control.verify();
+}

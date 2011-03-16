@@ -1,0 +1,17 @@
+{
+  E key=null;
+  int removed=0;
+  long count;
+  Iterator<E> it=countedSet.keySet().iterator();
+  while (it.hasNext()) {
+    key=it.next();
+    count=countedSet.get(key)[0];
+    if (count < freq) {
+      it.remove();
+      super.remove(key);
+      removed++;
+      totalFrequency-=count;
+    }
+  }
+  return removed;
+}

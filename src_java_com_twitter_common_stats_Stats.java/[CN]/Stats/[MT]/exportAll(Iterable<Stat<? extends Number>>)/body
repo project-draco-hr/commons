@@ -1,0 +1,5 @@
+{
+  for (  Stat<? extends Number> var : vars) {
+    export(var);
+  }
+}

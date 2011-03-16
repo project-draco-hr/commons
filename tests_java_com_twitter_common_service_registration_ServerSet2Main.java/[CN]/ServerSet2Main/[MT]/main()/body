@@ -1,0 +1,44 @@
+{
+  ServerSet ss=null;
+  Map<String,String> props=new HashMap<String,String>();
+  props.put("shard-id","" + (int)(Math.random() * MAX_SHARDS));
+  props.put("time","" + new Date());
+  Server server=null;
+  System.out.println("Commands: ");
+  System.out.println("  j <port> - join");
+  System.out.println("  u - unjoin");
+  System.out.println("  l - set listener");
+  System.out.println("  c <path> - create serverset");
+  System.out.println("  r <port> - random join and unjoin");
+  System.out.println("  x - exit");
+  while (true) {
+    String[] cmd=stdin().split(" ");
+    if ("j".equals(cmd[0])) {
+      server=new Server(Integer.parseInt(cmd[1]),props);
+      ss.join(server);
+    }
+ else     if ("u".equals(cmd[0])) {
+      ss.unjoin(server);
+    }
+ else     if ("l".equals(cmd[0])) {
+      ss.setListener(new Listener());
+    }
+ else     if ("c".equals(cmd[0])) {
+      ss=new ZkServerSet("localhost",SERVERSET_PORT,cmd[1]);
+    }
+ else     if ("r".equals(cmd[0])) {
+      server=new Server(Integer.parseInt(cmd[1]),props);
+      while (true) {
+        System.out.println("----------- join " + server);
+        ss.join(server);
+        Thread.sleep((int)(Math.random() * MAX_SLEEP_MS));
+        System.out.println("----------- unjoin " + server);
+        ss.unjoin(server);
+        Thread.sleep((int)(Math.random() * MAX_SLEEP_MS));
+      }
+    }
+ else     if ("x".equals(cmd[0])) {
+      throw new IllegalStateException("exit");
+    }
+  }
+}

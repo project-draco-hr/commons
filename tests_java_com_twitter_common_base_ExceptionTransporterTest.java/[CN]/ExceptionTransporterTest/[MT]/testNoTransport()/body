@@ -1,0 +1,8 @@
+{
+  assertEquals("jake",ExceptionTransporter.guard(new Function<ExceptionTransporter<IOException>,String>(){
+    @Override public String apply(    ExceptionTransporter<IOException> exceptionTransporter){
+      return "jake";
+    }
+  }
+));
+}

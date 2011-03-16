@@ -1,0 +1,7 @@
+{
+  addSuccess(HOST_A);
+  monitor.connected(HOST_A);
+  verifyConnections(HOST_A,1);
+  verifyRequests(HOST_A,1);
+  verifyLifetimeRequests(1);
+}

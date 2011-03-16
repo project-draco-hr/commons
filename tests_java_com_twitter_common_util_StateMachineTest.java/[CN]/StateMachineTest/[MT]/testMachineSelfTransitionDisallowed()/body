@@ -1,0 +1,6 @@
+{
+  StateMachine<String> fsm=StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build();
+  assertThat(fsm.getState(),is(A));
+  changeStateFail(fsm,A);
+  changeStateFail(fsm,A);
+}

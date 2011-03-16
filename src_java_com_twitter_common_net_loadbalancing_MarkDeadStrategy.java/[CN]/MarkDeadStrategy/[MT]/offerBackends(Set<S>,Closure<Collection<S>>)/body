@@ -1,0 +1,10 @@
+{
+  this.onBackendsChosen=onBackendsChosen;
+  targets.keySet().retainAll(offeredBackends);
+  for (  S backend : offeredBackends) {
+    if (!targets.containsKey(backend)) {
+      targets.put(backend,backoffFactory.apply(backend));
+    }
+  }
+  adjustBackends();
+}

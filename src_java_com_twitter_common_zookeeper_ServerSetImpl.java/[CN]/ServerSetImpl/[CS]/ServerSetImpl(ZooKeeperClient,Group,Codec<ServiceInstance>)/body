@@ -1,0 +1,6 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.group=Preconditions.checkNotNull(group);
+  this.codec=codec;
+  backoffHelper=new BackoffHelper();
+}

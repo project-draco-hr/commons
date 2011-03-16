@@ -1,0 +1,12 @@
+{
+  if (_max < x) {
+    _max=x;
+  }
+  if (_min > x) {
+    _min=x;
+  }
+  _sum+=x;
+  _sumOfSq+=(x * x);
+  _number++;
+  return;
+}

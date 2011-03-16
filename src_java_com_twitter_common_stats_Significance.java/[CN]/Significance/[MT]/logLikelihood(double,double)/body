@@ -1,0 +1,13 @@
+{
+  if (observed == 0) {
+    return -expected;
+  }
+  if (expected == 0) {
+    return observed;
+  }
+  double score=-2 * observed * Math.log(observed / expected);
+  if (observed < expected) {
+    score*=-1;
+  }
+  return score;
+}

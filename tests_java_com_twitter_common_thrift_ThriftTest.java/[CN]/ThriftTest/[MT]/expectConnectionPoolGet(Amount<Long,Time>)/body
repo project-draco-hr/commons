@@ -1,0 +1,5 @@
+{
+  Connection<TTransport,InetSocketAddress> connection=createConnection();
+  expect(connectionPool.get(timeout)).andReturn(connection);
+  return connection;
+}

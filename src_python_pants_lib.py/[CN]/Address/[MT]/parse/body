@@ -1,0 +1,14 @@
+@classmethod
+def parse(cls, root_dir, pathish, is_relative=True):
+    "Parses pathish into an Address.  A pathish can be one of:\n    1.) the (relative) path of a BUILD file\n    2.) the (relative) path of a directory containing a BUILD file child\n    3.) either of 1 or 2 with a ':[module name]' suffix\n    4.) a bare ':[module name]' indicating the BUILD file to use is the one in the current directory\n\n    If the pathish does not have a module suffix the targeted module name is taken to be the same\n    name as the BUILD file's containing directory.  In this way the containing directory name\n    becomes the 'default' module target for pants.\n\n    If there is no BUILD file at the path pointed to, or if there is but the specified module target\n    is not defined in the BUILD file, an IOError is raised."
+    parts = (pathish.split(':') if (not pathish.startswith(':')) else ['.', pathish[1:]])
+    (path, is_meta) = Address._parse_meta(parts[0])
+    if is_relative:
+        path = os.path.relpath(os.path.abspath(path), root_dir)
+    buildfile = BuildFile(root_dir, path)
+    if (len(parts) == 1):
+        parent_name = os.path.basename(os.path.dirname(buildfile.relpath))
+        return Address(buildfile, parent_name, is_meta)
+    else:
+        (target_name, is_meta) = Address._parse_meta(':'.join(parts[1:]))
+        return Address(buildfile, target_name, is_meta)

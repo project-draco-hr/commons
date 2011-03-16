@@ -1,0 +1,17 @@
+{
+  Preconditions.checkNotNull(numerator);
+  Preconditions.checkNotNull(denominator);
+  Stats.export(numerator);
+  Stats.export(denominator);
+  return new Ratio(name,new Supplier<Number>(){
+    @Override public Number get(){
+      return numerator.read();
+    }
+  }
+,new Supplier<Number>(){
+    @Override public Number get(){
+      return denominator.read();
+    }
+  }
+);
+}

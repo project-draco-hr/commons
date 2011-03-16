@@ -1,0 +1,3 @@
+{
+  ThriftFactory.<BadService.Iface>create(BadService.Iface.class).build(endpoints);
+}

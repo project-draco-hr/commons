@@ -1,0 +1,8 @@
+String name
+int port
+TProcessor processor
+TProtocolFactory protoFactory
+int numThreads
+int queueSize
+Amount<Integer,Time> socketTimeout
+TrafficMonitor<InetSocketAddress> monitor

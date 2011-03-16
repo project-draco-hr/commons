@@ -1,0 +1,3 @@
+{
+  super("It is a usage error to see this message!",cause);
+}

@@ -1,0 +1,5 @@
+{
+  LOG.info("Shutting down thread pool, available permits: " + poolEntrySemaphore.availablePermits());
+  LOG.info("Queued threads? " + poolEntrySemaphore.hasQueuedThreads());
+  LOG.info("Queue length: " + poolEntrySemaphore.getQueueLength());
+}

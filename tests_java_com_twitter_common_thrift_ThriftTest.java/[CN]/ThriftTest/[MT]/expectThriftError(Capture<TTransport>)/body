@@ -1,0 +1,4 @@
+{
+  Connection<TTransport,InetSocketAddress> connection=expectConnectionPoolGet();
+  return expectServiceCall(connection,transportCapture,true);
+}

@@ -1,0 +1,12 @@
+{
+  byte[] data=cachedData.getData();
+  if (data == null || data.length == 0) {
+    return null;
+  }
+  try {
+    return codec.deserialize(new ByteArrayInputStream(data));
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Unable to decode data: " + data,e);
+  }
+}

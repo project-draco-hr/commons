@@ -1,0 +1,14 @@
+{
+  Capture<Set<String>> backendCapture=createCapture();
+  wrappedStrategy.offerBackends(capture(backendCapture),eq(onBackendsChosen));
+  wrappedStrategy.connectionReturned((String)anyObject());
+  control.replay();
+  Set<String> allBackends=Sets.newHashSet(BACKEND_1,BACKEND_2,BACKEND_3);
+  subsetStrategy.offerBackends(allBackends,onBackendsChosen);
+  Set<String> backends=backendCapture.getValue();
+  assertThat(backends.size(),is(2));
+  String unusedBackend=Iterables.getOnlyElement(Sets.difference(allBackends,backends));
+  subsetStrategy.addRequestResult(unusedBackend,RequestResult.SUCCESS,0L);
+  subsetStrategy.addConnectResult(unusedBackend,ConnectionResult.FAILED,0L);
+  subsetStrategy.connectionReturned(unusedBackend);
+}

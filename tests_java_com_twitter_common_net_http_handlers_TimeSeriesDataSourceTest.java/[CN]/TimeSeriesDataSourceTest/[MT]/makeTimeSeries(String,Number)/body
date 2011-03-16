@@ -1,0 +1,13 @@
+{
+  final List<Number> samples=Lists.newArrayList();
+  for (  Number value : values)   samples.add(value.doubleValue());
+  return new TimeSeries(){
+    @Override public String getName(){
+      return name;
+    }
+    @Override public Iterable<Number> getSamples(){
+      return samples;
+    }
+  }
+;
+}

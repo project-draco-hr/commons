@@ -1,0 +1,3 @@
+{
+  return CheckStyleUtils.getMessageBundle(JavadocMethodCheck.class);
+}

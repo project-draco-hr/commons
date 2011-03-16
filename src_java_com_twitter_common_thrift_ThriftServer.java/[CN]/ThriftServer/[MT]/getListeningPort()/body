@@ -1,0 +1,6 @@
+{
+  Preconditions.checkState(serverSetup != null);
+  Preconditions.checkState(status == Status.ALIVE);
+  Preconditions.checkState(serverSetup.getSocket() != null);
+  return serverSetup.getSocket().getLocalPort();
+}

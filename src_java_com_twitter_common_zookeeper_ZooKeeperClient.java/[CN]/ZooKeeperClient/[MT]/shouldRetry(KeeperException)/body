@@ -1,0 +1,6 @@
+{
+  if (e instanceof SessionExpiredException) {
+    close();
+  }
+  return ZooKeeperUtils.isRetryable(e);
+}

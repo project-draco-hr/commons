@@ -1,0 +1,4 @@
+{
+  T result=task.get();
+  return (result != null) ? result : retryWork(task);
+}

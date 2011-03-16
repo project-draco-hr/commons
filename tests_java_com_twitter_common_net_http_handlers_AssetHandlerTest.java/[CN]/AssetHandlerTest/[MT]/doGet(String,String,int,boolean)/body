@@ -1,0 +1,19 @@
+{
+  HttpServletRequest req=createMock(HttpServletRequest.class);
+  HttpServletResponse resp=createMock(HttpServletResponse.class);
+  if (expectRead) {
+    expect(inputSupplier.getInput()).andReturn(new ByteArrayInputStream(TEST_DATA.getBytes()));
+  }
+  expect(req.getHeader("If-None-Match")).andReturn(suppliedChecksum);
+  resp.setStatus(expectedResponseCode);
+  if (expectedResponseCode == SC_OK) {
+    expect(req.getHeader("Accept-Encoding")).andReturn(supportedEncodings);
+    resp.setHeader("Cache-Control","public,max-age=" + CACHE_CONTROL_MAX_AGE_SECS);
+    resp.setHeader("ETag",TEST_DATA_CHECKSUM);
+    resp.setContentType(CONTENT_TYPE);
+    if (supportedEncodings != null && supportedEncodings.contains("gzip")) {
+      resp.setHeader("Content-Encoding","gzip");
+    }
+  }
+  return new Request(req,resp,expectPayload(resp));
+}

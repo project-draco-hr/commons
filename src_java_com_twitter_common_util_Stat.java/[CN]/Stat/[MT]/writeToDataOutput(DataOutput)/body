@@ -1,0 +1,10 @@
+{
+  out.writeDouble(_max);
+  out.writeDouble(_min);
+  out.writeLong(_number);
+  out.writeDouble(_mean);
+  out.writeDouble(_stdDev);
+  out.writeDouble(_sum);
+  out.writeDouble(_sumOfSq);
+  return;
+}

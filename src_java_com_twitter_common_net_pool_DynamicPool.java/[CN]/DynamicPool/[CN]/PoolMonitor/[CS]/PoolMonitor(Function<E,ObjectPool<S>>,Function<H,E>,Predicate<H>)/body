@@ -1,0 +1,5 @@
+{
+  this.endpointPoolFactory=endpointPoolFactory;
+  this.endpointExtractor=endpointExtractor;
+  this.livenessTest=livenessTest;
+}

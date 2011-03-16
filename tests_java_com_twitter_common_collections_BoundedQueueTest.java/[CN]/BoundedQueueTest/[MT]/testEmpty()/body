@@ -1,0 +1,3 @@
+{
+  assertThat(queue.iterator().hasNext(),is(false));
+}

@@ -1,0 +1,7 @@
+def __getattr__(self, name):
+    ' For attributes not found in self, redirect\n        to the properties dictionary '
+    try:
+        return self.__dict__[name]
+    except KeyError:
+        if hasattr(self._props, name):
+            return getattr(self._props, name)

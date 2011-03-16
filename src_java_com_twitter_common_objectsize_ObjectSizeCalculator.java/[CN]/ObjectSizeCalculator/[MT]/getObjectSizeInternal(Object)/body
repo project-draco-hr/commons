@@ -1,0 +1,9 @@
+{
+  for (; ; ) {
+    visit(obj);
+    if (pending.isEmpty()) {
+      return size;
+    }
+    obj=pending.removeFirst();
+  }
+}

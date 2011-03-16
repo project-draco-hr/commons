@@ -1,0 +1,28 @@
+{
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  expectConnected(BACKEND_1,ConnectionResult.SUCCESS,10);
+  expectConnected(BACKEND_2,ConnectionResult.SUCCESS,4);
+  expectConnected(BACKEND_2,ConnectionResult.FAILED,4);
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1),onBackendsChosen);
+  expectConnected(BACKEND_1,ConnectionResult.SUCCESS,10);
+  expect(mockHostChecker.apply(BACKEND_2)).andReturn(false);
+  wrappedStrategy.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  expectConnected(BACKEND_1,ConnectionResult.SUCCESS,5);
+  expectConnected(BACKEND_2,ConnectionResult.SUCCESS,10);
+  expect(mockHostChecker.apply(BACKEND_2)).andReturn(true);
+  control.replay();
+  markDead.offerBackends(Sets.newHashSet(BACKEND_1,BACKEND_2),onBackendsChosen);
+  connect(BACKEND_1,ConnectionResult.SUCCESS,10);
+  connect(BACKEND_2,ConnectionResult.SUCCESS,4);
+  connect(BACKEND_2,ConnectionResult.FAILED,5);
+  connect(BACKEND_1,ConnectionResult.SUCCESS,5);
+  clock.advance(INITIAL_BACKOFF);
+  clock.waitFor(1);
+  clock.advance(INITIAL_BACKOFF);
+  connect(BACKEND_1,ConnectionResult.SUCCESS,5);
+  clock.advance(INITIAL_BACKOFF);
+  clock.waitFor(1);
+  clock.advance(INITIAL_BACKOFF);
+  connect(BACKEND_1,ConnectionResult.SUCCESS,5);
+  connect(BACKEND_2,ConnectionResult.SUCCESS,10);
+}

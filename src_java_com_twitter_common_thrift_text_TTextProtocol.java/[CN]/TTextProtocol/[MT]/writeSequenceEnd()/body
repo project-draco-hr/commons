@@ -1,0 +1,9 @@
+{
+  try {
+    writer.endArray();
+  }
+ catch (  IOException ex) {
+    throw new TTransportException(ex);
+  }
+  popContext();
+}

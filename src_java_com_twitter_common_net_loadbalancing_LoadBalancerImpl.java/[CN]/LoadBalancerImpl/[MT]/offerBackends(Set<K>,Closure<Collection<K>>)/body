@@ -1,0 +1,9 @@
+{
+  this.offeredBackends=ImmutableSet.copyOf(offeredBackends);
+  strategy.offerBackends(offeredBackends,new Closure<Collection<K>>(){
+    @Override public void execute(    Collection<K> chosenBackends){
+      onBackendsChosen.execute(chosenBackends);
+    }
+  }
+);
+}

@@ -1,0 +1,9 @@
+{
+  Class<? extends T> implementationClass=findImplementationClass(serviceInterface);
+  try {
+    return implementationClass.getConstructor(TProtocolFactory.class,TAsyncClientManager.class,TNonblockingTransport.class);
+  }
+ catch (  NoSuchMethodException e) {
+    throw new IllegalArgumentException("Failed to find expected constructor " + "in service client class: " + implementationClass);
+  }
+}

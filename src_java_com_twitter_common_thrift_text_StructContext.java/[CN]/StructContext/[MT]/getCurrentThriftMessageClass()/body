@@ -1,0 +1,17 @@
+{
+  StackTraceElement[] frames=Thread.currentThread().getStackTrace();
+  for (int i=0; i < frames.length; ++i) {
+    String className=frames[i].getClassName();
+    try {
+      Class clazz=Class.forName(className);
+      if (TBase.class.isAssignableFrom(clazz)) {
+        @SuppressWarnings("unchecked") Class<? extends TBase> asTBase=clazz.asSubclass(TBase.class);
+        return asTBase;
+      }
+    }
+ catch (    ClassNotFoundException ex) {
+      LOG.warning("Can't find class: " + className);
+    }
+  }
+  throw new RuntimeException("Must call (indirectly) from a TBase object.");
+}

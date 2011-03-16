@@ -1,0 +1,5 @@
+String host
+int port
+int maxConnections
+TransportType transportType
+Amount<Long,Time> socketTimeout

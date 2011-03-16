@@ -1,0 +1,3 @@
+def build(self, target, is_meta, args):
+    'Subclasses must implement a BUILD target executor.  The value returned should be an int,\n    0 indicating success and any other value indicating failure.\n\n    target: the parsed target to build\n    is_meta: True if the meta build flag is set\n    args: additional arguments to the builder backend'
+    pass

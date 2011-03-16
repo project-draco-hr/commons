@@ -1,0 +1,23 @@
+{
+  String canonicalName=scope.getCanonicalName() + "." + arg;
+  if (value.isEmpty()) {
+    testValidate(scope,validate,expectFails,String.format("-%s",arg));
+    testValidate(scope,validate,expectFails,String.format("-%s",canonicalName));
+  }
+ else {
+    testValidate(scope,validate,expectFails,String.format("-%s=%s",arg,value));
+    testValidate(scope,validate,expectFails,String.format("-%s=%s",canonicalName,value));
+    testValidate(scope,validate,expectFails,String.format("-%s='%s'",arg,value));
+    testValidate(scope,validate,expectFails,String.format("-%s='%s'",canonicalName,value));
+    testValidate(scope,validate,expectFails,String.format("-%s=\"%s\"",arg,value));
+    testValidate(scope,validate,expectFails,String.format("-%s=\"%s\"",canonicalName,value));
+    testValidate(scope,validate,expectFails,String.format("-%s",arg),value);
+    testValidate(scope,validate,expectFails,String.format("-%s",canonicalName),value);
+    testValidate(scope,validate,expectFails,String.format("-%s",arg),String.format("'%s'",value));
+    testValidate(scope,validate,expectFails,String.format("-%s",canonicalName),String.format("'%s'",value));
+    testValidate(scope,validate,expectFails,String.format("-%s \"%s\"",arg,value));
+    testValidate(scope,validate,expectFails,String.format("-%s \"%s\"",canonicalName,value));
+    testValidate(scope,validate,expectFails,String.format("-%s",arg),String.format("%s",value));
+    testValidate(scope,validate,expectFails,String.format("-%s",canonicalName),String.format("%s",value));
+  }
+}

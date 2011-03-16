@@ -1,0 +1,4 @@
+{
+  this.decoratedCaller=decoratedCaller;
+  this.async=async;
+}

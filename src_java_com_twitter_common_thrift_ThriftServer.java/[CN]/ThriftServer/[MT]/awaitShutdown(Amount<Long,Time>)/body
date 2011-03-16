@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(timeout);
+  shutdown();
+  if (listeningThread != null) {
+    listeningThread.join(timeout.as(Time.MILLISECONDS));
+  }
+}

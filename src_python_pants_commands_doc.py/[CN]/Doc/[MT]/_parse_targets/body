@@ -1,0 +1,15 @@
+def _parse_targets(self, root_dir):
+    targets = OrderedSet()
+    for spec in self.args:
+        try:
+            address = Address.parse(root_dir, spec)
+        except:
+            self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+        try:
+            target = Target.get(address)
+        except:
+            self.error(('Problem parsing target %s: %s' % (address, traceback.format_exc())))
+        if (not Doc._is_documentable(target)):
+            self.error(('Target: %s is not documentable' % address))
+        targets.add(target)
+    return targets

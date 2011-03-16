@@ -1,0 +1,17 @@
+{
+  AtomicLong value=new AtomicLong();
+  Rate<AtomicLong> rate=Rate.of("test",value).withClock(clock).build();
+  clock.waitFor(ONE_SEC);
+  value.set(10);
+  assertEquals(0d,rate.sample(),EPSILON);
+  clock.waitFor(ONE_SEC);
+  value.set(20);
+  assertEquals(10d,rate.sample(),EPSILON);
+  clock.waitFor(ONE_SEC);
+  value.set(50);
+  assertEquals(30d,rate.sample(),EPSILON);
+  clock.waitFor(ONE_SEC);
+  value.set(100);
+  assertEquals(50d,rate.sample(),EPSILON);
+  control.replay();
+}

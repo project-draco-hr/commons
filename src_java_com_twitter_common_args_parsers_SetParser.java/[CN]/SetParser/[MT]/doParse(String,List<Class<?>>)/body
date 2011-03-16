@@ -1,0 +1,9 @@
+{
+  final Parser parser=checkedGet(paramParsers.get(0));
+  return ImmutableSet.copyOf(Iterables.transform(Parsers.MULTI_VALUE_SPLITTER.split(raw),new Function<String,Object>(){
+    @Override public Object apply(    String raw){
+      return parser.parse(null,raw);
+    }
+  }
+));
+}

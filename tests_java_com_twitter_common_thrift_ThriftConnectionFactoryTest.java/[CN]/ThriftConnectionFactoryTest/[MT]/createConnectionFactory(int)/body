@@ -1,0 +1,10 @@
+{
+  return new ThriftConnectionFactory("foo",1234,maxConnections){
+    @Override TTransport createTransport(    int timeoutMillis) throws TTransportException {
+      TTransport transport=new MockTSocket();
+      transport.open();
+      return transport;
+    }
+  }
+;
+}

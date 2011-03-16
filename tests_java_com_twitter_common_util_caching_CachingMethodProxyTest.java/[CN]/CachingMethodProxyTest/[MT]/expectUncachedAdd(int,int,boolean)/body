@@ -1,0 +1,7 @@
+{
+  List<Integer> args=Arrays.asList(a,b);
+  expect(intCache.get(args)).andReturn(null);
+  expect(uncachedMath.sum(a,b)).andReturn(a + b);
+  expect(intFilter.apply(a + b)).andReturn(addToCache);
+  if (addToCache)   intCache.put(args,a + b);
+}

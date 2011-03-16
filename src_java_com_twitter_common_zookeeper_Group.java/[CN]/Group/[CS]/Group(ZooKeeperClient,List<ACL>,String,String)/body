@@ -1,0 +1,14 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.acl=Preconditions.checkNotNull(acl);
+  this.path=MorePreconditions.checkNotBlank(path);
+  this.nodeNamePrefix=MorePreconditions.checkNotBlank(nodeNamePrefix);
+  final Pattern groupNodeNamePattern=Pattern.compile("^" + Pattern.quote(nodeNamePrefix) + "[0-9]+$");
+  nodeNameFilter=new Predicate<String>(){
+    @Override public boolean apply(    String childNodeName){
+      return groupNodeNamePattern.matcher(childNodeName).matches();
+    }
+  }
+;
+  backoffHelper=new BackoffHelper();
+}

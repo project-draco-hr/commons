@@ -1,0 +1,10 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.nodePath=MorePreconditions.checkNotBlank(nodePath);
+  this.deserializer=Preconditions.checkNotNull(deserializer);
+  this.dataUpdateListener=Preconditions.checkNotNull(dataUpdateListener);
+  backoffHelper=new BackoffHelper();
+  safeToRewatchLock=new Object();
+  safeToRewatch=false;
+  nodeData=NO_DATA;
+}

@@ -1,0 +1,13 @@
+def __sub__(self, other):
+
+    def subtract():
+        if callable(other):
+            return (self() - other())
+        elif isinstance(other, set):
+            return (self() - other)
+        else:
+            try:
+                return (self() - set(iter(other)))
+            except:
+                return self().remove(other)
+    return Fileset(subtract)

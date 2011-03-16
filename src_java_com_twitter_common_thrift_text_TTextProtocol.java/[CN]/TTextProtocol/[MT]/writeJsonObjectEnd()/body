@@ -1,0 +1,12 @@
+{
+  try {
+    writer.endObject();
+    popContext();
+    if (1 == contextStack.size()) {
+      writer.flush();
+    }
+  }
+ catch (  IOException ex) {
+    throw new TException(ex);
+  }
+}

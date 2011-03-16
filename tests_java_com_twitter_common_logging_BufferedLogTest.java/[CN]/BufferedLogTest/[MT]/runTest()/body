@@ -1,0 +1,4 @@
+{
+  verify(wrappedLog);
+  assertThat(bufferedLog.getBacklog(),is(0));
+}

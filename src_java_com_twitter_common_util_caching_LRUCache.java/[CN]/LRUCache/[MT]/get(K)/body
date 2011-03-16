@@ -1,0 +1,8 @@
+{
+  accesses.incrementAndGet();
+  V value=map.get(key);
+  if (value == null) {
+    misses.incrementAndGet();
+  }
+  return value;
+}

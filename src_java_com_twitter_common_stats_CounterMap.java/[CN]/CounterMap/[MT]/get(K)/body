@@ -1,0 +1,6 @@
+{
+  if (!map.containsKey(key)) {
+    return 0;
+  }
+  return map.get(key);
+}

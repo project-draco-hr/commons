@@ -1,0 +1,7 @@
+{
+  String normalized=normalizeName(name);
+  if (!name.equals(normalized)) {
+    LOG.warning("Invalid stat name " + name + " exported as "+ normalized);
+  }
+  return normalized;
+}

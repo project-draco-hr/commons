@@ -1,0 +1,7 @@
+def __init__(self, props=None):
+    self._props = {}
+    self._origprops = {}
+    self._keymap = {}
+    self.othercharre = re.compile('(?<!\\\\)(\\s*\\=)|(?<!\\\\)(\\s*\\:)')
+    self.othercharre2 = re.compile('(\\s*\\=)|(\\s*\\:)')
+    self.bspacere = re.compile('\\\\(?!\\s$)')

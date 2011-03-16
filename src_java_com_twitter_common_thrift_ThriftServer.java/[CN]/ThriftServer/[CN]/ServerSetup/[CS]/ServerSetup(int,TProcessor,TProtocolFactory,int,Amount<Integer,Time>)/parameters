@@ -1,0 +1,5 @@
+int port
+TProcessor processor
+TProtocolFactory protoFactory
+int numThreads
+Amount<Integer,Time> socketTimeout

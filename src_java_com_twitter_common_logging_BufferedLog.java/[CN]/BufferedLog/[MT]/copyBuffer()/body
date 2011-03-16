@@ -1,0 +1,7 @@
+{
+synchronized (localBuffer) {
+    List<T> bufferCopy=ImmutableList.copyOf(localBuffer);
+    localBuffer.clear();
+    return bufferCopy;
+  }
+}

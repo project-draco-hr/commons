@@ -1,0 +1,10 @@
+{
+  assertThat(values.length,is(PERCENTILES.length));
+  for (int i=0; i < values.length; i++) {
+    checkPercentile(PERCENTILES[i],values[i]);
+  }
+  for (int i=0; i < values.length; i++) {
+    checkPercentile(PERCENTILES[i],0);
+  }
+  assertThat(percentiles.samples.isEmpty(),is(true));
+}

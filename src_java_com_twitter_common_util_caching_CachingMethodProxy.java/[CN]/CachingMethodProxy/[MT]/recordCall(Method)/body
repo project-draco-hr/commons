@@ -1,0 +1,8 @@
+{
+  Preconditions.checkArgument(method.getReturnType() != Void.TYPE,"Void return methods cannot be cached: " + method);
+  Preconditions.checkArgument(method.getParameterTypes().length > 0,"Methods with zero arguments cannot be cached: " + method);
+  Preconditions.checkState(lastMethodCall == null,"No cache instructions provided for call to: " + lastMethodCall);
+  lastMethodCall=method;
+  Class<?> returnType=method.getReturnType();
+  return returnType.isPrimitive() ? EMPTY_RETURN_VALUES.get(returnType) : null;
+}

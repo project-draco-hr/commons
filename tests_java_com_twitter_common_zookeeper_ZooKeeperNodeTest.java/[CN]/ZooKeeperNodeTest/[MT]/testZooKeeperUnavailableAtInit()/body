@@ -1,0 +1,5 @@
+{
+  ZooKeeperNode zkNode=makeUninitializedNode(nodePath,Closures.<String>noop());
+  shutdownNetwork();
+  zkNode.init();
+}

@@ -1,0 +1,26 @@
+{
+  if (cancelled) {
+    throw new CancelledException();
+  }
+  if (nodePath == null) {
+    zkClient.registerExpirationHandler(new Command(){
+      @Override public void execute(){
+        tryJoin();
+      }
+    }
+);
+  }
+  byte[] membershipData=memberData.get();
+  nodePath=zkClient.get().create(path + "/" + nodeNamePrefix,membershipData,acl,CreateMode.EPHEMERAL_SEQUENTIAL);
+  memberId=extractMemberId(nodePath);
+  this.membershipData=membershipData;
+  zkClient.get().exists(nodePath,new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == EventType.NodeDeleted) {
+        tryJoin();
+      }
+    }
+  }
+);
+  return this;
+}

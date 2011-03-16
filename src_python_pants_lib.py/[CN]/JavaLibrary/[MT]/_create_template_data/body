@@ -1,0 +1,9 @@
+def _create_template_data(self):
+    allsources = []
+    if self.sources:
+        allsources += list((os.path.join(JavaLibrary._SRC_DIR, source) for source in self.sources))
+    if self.resources:
+        allsources += list((os.path.join(_RESOURCES_BASE_DIR, res) for res in self.resources))
+    if self.binary_resources:
+        allsources += list((os.path.join(_RESOURCES_BASE_DIR, res) for res in self.binary_resources))
+    return ExportableJavaLibrary._create_template_data(self).extend(resources=self.resources, binary_resources=self.binary_resources, deploy_jar=self.deployjar, allsources=allsources)

@@ -1,0 +1,29 @@
+{
+  final Parser parser=checkedGet(paramParsers.get(0));
+  Matcher matcher=Pattern.compile("(\\d+)([A-Za-z]+)").matcher(raw);
+  checkArgument(matcher.matches(),"Value '" + raw + "' must be of the format 1ns, 4mb, etc.");
+  Number number=(Number)parser.parse(null,matcher.group(1));
+  String unitRaw=matcher.group(2);
+  Unit unit=(Unit)checkedGet(Unit.class).parse(null,unitRaw);
+  checkArgument(unit.getClass() == paramParsers.get(1),String.format("Unit type (%s) does not match argument type (%s).",unit.getClass(),paramParsers.get(1)));
+  Class numberClass=paramParsers.get(0);
+  if (numberClass == Integer.class) {
+    return Amount.of(number.intValue(),unit);
+  }
+ else   if (numberClass == Double.class) {
+    return Amount.of(number.doubleValue(),unit);
+  }
+ else   if (numberClass == Long.class) {
+    return Amount.of(number.longValue(),unit);
+  }
+ else   if (numberClass == Byte.class) {
+    return Amount.of(number.byteValue(),unit);
+  }
+ else   if (numberClass == Short.class) {
+    return Amount.of(number.shortValue(),unit);
+  }
+ else   if (numberClass == Float.class) {
+    return Amount.of(number.floatValue(),unit);
+  }
+  throw new IllegalArgumentException("Unrecognized number class " + numberClass.getCanonicalName());
+}

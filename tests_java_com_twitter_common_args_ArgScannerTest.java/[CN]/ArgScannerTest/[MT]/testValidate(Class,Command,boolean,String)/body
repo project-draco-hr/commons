@@ -1,0 +1,20 @@
+{
+  resetArgs(scope);
+  IllegalArgumentException exception=null;
+  try {
+    parse(scope,args);
+  }
+ catch (  IllegalArgumentException e) {
+    exception=e;
+  }
+  if (!expectFails && exception != null) {
+    throw exception;
+  }
+  if (expectFails && exception == null) {
+    fail("Expected exception.");
+  }
+  if (validate != null) {
+    validate.execute();
+  }
+  resetArgs(scope);
+}

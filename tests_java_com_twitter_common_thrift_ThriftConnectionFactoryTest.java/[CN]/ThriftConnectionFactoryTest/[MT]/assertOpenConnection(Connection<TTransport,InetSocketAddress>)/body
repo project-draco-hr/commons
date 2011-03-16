@@ -1,0 +1,5 @@
+{
+  assertNotNull(connection);
+  assertTrue(connection.isValid());
+  assertTrue(connection.get().isOpen());
+}

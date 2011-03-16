@@ -1,0 +1,10 @@
+{
+  Capture<Collection<String>> capture=createCapture();
+  onBackendsChosen.execute(capture(capture));
+  control.replay();
+  HashSet<String> backends=Sets.newHashSet(BACKEND_1,BACKEND_2,BACKEND_3);
+  randomStrategy.offerBackends(backends,onBackendsChosen);
+  assertThat(randomStrategy.nextBackend(),anyOf(is(BACKEND_1),is(BACKEND_2),is(BACKEND_3)));
+  assertTrue(capture.hasCaptured());
+  assertEquals(backends,Sets.newHashSet(capture.getValue()));
+}

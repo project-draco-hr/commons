@@ -1,0 +1,7 @@
+def _create_id(self):
+    'Generates a unique identifer for the BUILD target.  The generated id is safe for use as a\n    a path name on unix systems.'
+    buildfile_relpath = os.path.dirname(self.address.buildfile.relpath)
+    if (buildfile_relpath is '.'):
+        return self.name
+    else:
+        return ('%s.%s' % (buildfile_relpath.replace(os.sep, '.'), self.name))

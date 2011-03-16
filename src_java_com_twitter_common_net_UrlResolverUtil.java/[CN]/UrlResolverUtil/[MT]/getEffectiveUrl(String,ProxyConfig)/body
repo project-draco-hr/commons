@@ -1,0 +1,63 @@
+{
+  Preconditions.checkNotNull(url);
+  if (url.startsWith("https://")) {
+    url=url.replace("https://","http://");
+  }
+ else   if (!url.startsWith("http://")) {
+    url="http://" + url;
+  }
+  URL urlObj=new URL(url);
+  HttpURLConnection con;
+  if (proxyConfig != null) {
+    Proxy proxy=new Proxy(Type.HTTP,proxyConfig.getProxyAddress());
+    con=(HttpURLConnection)urlObj.openConnection(proxy);
+    ProxyAuthorizer.adapt(proxyConfig).authorize(con);
+  }
+ else {
+    con=(HttpURLConnection)urlObj.openConnection();
+  }
+  try {
+    con.setRequestMethod("HEAD");
+    con.setUseCaches(true);
+    con.setConnectTimeout(5000);
+    con.setReadTimeout(5000);
+    con.setInstanceFollowRedirects(false);
+    con.setRequestProperty("User-Agent",urlToUserAgent.apply(urlObj));
+    try {
+      con.connect();
+    }
+ catch (    StringIndexOutOfBoundsException e) {
+      LOG.info("Got StringIndexOutOfBoundsException when fetching headers for " + url);
+      return null;
+    }
+    int responseCode=con.getResponseCode();
+switch (responseCode / 100) {
+case 2:
+      return url;
+case 3:
+    String location=con.getHeaderField("Location");
+  if (location == null) {
+    if (responseCode != 304) {
+      LOG.info(String.format("[%d] Location header was null for URL: %s",responseCode,url));
+    }
+    return url;
+  }
+try {
+  String domain=UrlHelper.getDomainChecked(location);
+  if (domain == null || domain.isEmpty()) {
+    location="http://" + UrlHelper.getDomain(url) + location;
+  }
+}
+ catch (URISyntaxException e) {
+  LOG.info("location contained an invalid URI: " + location);
+}
+return location;
+default :
+LOG.info("Failed to resolve url: " + url + " with: "+ responseCode+ " -> "+ con.getResponseMessage());
+return null;
+}
+}
+  finally {
+con.disconnect();
+}
+}

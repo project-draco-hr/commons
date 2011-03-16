@@ -1,0 +1,24 @@
+{
+  requireBinding(Injector.class);
+  requireBinding(Key.get(ActionRegistry.class,StartupStage.class));
+  requireBinding(Key.get(ActionRegistry.class,ShutdownStage.class));
+  bind(Key.get(Runnable.class,Names.named(AbortHandler.ABORT_HANDLER_KEY))).toInstance(DEFAULT_ABORT_HANDLER);
+  bind(Runnable.class).annotatedWith(Names.named(QuitHandler.QUIT_HANDLER_KEY)).to(DefaultQuitHandler.class);
+  bind(DefaultQuitHandler.class).in(Singleton.class);
+  bind(new TypeLiteral<ExceptionalSupplier<Boolean,?>>(){
+  }
+).annotatedWith(Names.named(HealthHandler.HEALTH_CHECKER_KEY)).toInstance(DEFAULT_HEALTH_CHECKER);
+  bindConstant().annotatedWith(CacheTemplates.class).to(CACHE_TEMPLATES);
+  bind(HttpServerDispatch.class).in(Singleton.class);
+  Registration.registerServlet(binder(),"/abortabortabort",AbortHandler.class,true);
+  Registration.registerServlet(binder(),"/contention",ContentionPrinter.class,false);
+  Registration.registerServlet(binder(),"/graphdata",TimeSeriesDataSource.class,true);
+  Registration.registerServlet(binder(),"/health",HealthHandler.class,true);
+  Registration.registerServlet(binder(),"/logconfig",LogConfig.class,false);
+  Registration.registerServlet(binder(),"/logs",LogPrinter.class,false);
+  Registration.registerServlet(binder(),"/quitquitquit",QuitHandler.class,true);
+  Registration.registerServlet(binder(),"/threads",ThreadStackPrinter.class,false);
+  Registration.registerServlet(binder(),"/vars",VarsHandler.class,false);
+  GraphViewer.registerResources(binder());
+  requestStaticInjection(Init.class);
+}

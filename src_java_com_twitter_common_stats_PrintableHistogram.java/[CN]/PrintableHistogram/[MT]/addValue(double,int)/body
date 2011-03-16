@@ -1,0 +1,16 @@
+{
+  Preconditions.checkState(value >= 0);
+  Preconditions.checkState(count >= 0);
+  Preconditions.checkState(bucketBoundaries.length > 1);
+  int bucketId=-1;
+  for (  double boundary : bucketBoundaries) {
+    if (value <= boundary) {
+      break;
+    }
+    bucketId++;
+  }
+  bucketId=Math.max(0,bucketId);
+  bucketId=Math.min(bucketCounts.length - 1,bucketId);
+  bucketCounts[bucketId]+=count;
+  totalCount+=count;
+}
