@@ -1,0 +1,7 @@
+Caller decoratedCall
+boolean async
+StatsProvider statsProvider
+String serviceName
+int retries
+ImmutableSet<Class<? extends Exception>> retryableExceptions
+boolean debug
