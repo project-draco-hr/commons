@@ -1,8 +1,0 @@
-{
-  super(decoratedCall,async);
-  this.statsProvider=statsProvider;
-  this.serviceName=serviceName;
-  this.retries=retries;
-  this.retryableExceptions=retryableExceptions;
-  this.debug=debug;
-}

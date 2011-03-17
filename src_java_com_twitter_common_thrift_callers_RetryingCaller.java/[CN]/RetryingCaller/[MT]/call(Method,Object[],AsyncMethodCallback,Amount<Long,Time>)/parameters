@@ -1,4 +1,0 @@
-Method method
-Object[] args
-AsyncMethodCallback callback
-Amount<Long,Time> connectTimeoutOverride

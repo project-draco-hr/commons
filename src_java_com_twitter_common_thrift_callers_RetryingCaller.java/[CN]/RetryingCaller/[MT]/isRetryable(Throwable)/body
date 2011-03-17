@@ -1,3 +1,0 @@
-{
-  return isRetryable.get(throwable.getClass());
-}
