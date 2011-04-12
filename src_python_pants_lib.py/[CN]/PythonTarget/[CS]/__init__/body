@@ -1,4 +1,4 @@
 def __init__(self, target_base, name, sources, dependencies=None, is_meta=False):
     TargetWithSources.__init__(self, target_base, name, is_meta)
     self.sources = self._resolve_paths(target_base, sources)
-    self.dependecies = (dependencies if dependencies else OrderedSet())
+    self.dependencies = (dependencies if dependencies else OrderedSet())

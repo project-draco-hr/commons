@@ -1,30 +1,3 @@
 def sort(self):
     'Returns a list of targets this target depends on sorted from most dependent to least.'
-    roots = dict()
-    inverted_deps = collections.defaultdict(OrderedSet)
-    visited = set()
-
-    def invert(target):
-        if (target.address not in visited):
-            visited.add(target.address)
-            if target.internal_dependencies:
-                for internal_dependency in target.internal_dependencies:
-                    if isinstance(internal_dependency, InternalTarget):
-                        inverted_deps[internal_dependency.address].add(target)
-                        invert(internal_dependency)
-            else:
-                roots[target.address] = target
-    invert(self)
-    sorted = []
-    visited.clear()
-
-    def topological_sort(target):
-        if (target.address not in visited):
-            visited.add(target.address)
-            if (target.address in inverted_deps):
-                for dep in inverted_deps[target.address]:
-                    topological_sort(dep)
-                sorted.append(target)
-    for root in roots.values():
-        topological_sort(root)
-    return sorted
+    return InternalTarget.sort_targets([self])

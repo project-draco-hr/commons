@@ -1,0 +1,6 @@
+def _generate_to_tempfile(self, generator):
+    "Applies the specified generator to a temp file and returns the path to that file.\n    We generate into a temp file so that we don't lose any manual customizations on error."
+    (output_fd, output_path) = tempfile.mkstemp()
+    with os.fdopen(output_fd, 'w') as output:
+        generator.write(output)
+    return output_path

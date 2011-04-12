@@ -9,24 +9,27 @@ def _extract_target(meta_target, is_transitive):
     codegen_graph = deque([])
     codegen_graph.appendleft(root_target)
     jar_deps = OrderedSet()
+    visited = set()
 
     def sift_targets(target):
-        if target.is_codegen:
-            codegen_graph[0].internal_dependencies.add(target)
-        else:
-            for jar_dependency in target.jar_dependencies:
-                if jar_dependency.rev:
-                    if is_transitive(target):
-                        jar_deps.add(jar_dependency)
-                    else:
-                        jar_deps.add(copy(jar_dependency).intransitive())
-        if target.is_codegen:
-            codegen_graph.appendleft(target)
-        for internal_target in list(target.internal_dependencies):
-            target.internal_dependencies.discard(internal_target)
-            sift_targets(internal_target)
-        if target.is_codegen:
-            codegen_graph.popleft()
+        if (target not in visited):
+            visited.add(target)
+            if target.is_codegen:
+                codegen_graph[0].internal_dependencies.add(target)
+            else:
+                for jar_dependency in target.jar_dependencies:
+                    if jar_dependency.rev:
+                        if is_transitive(target):
+                            jar_deps.add(jar_dependency)
+                        else:
+                            jar_deps.add(copy(jar_dependency).intransitive())
+            if target.is_codegen:
+                codegen_graph.appendleft(target)
+            for internal_target in list(target.internal_dependencies):
+                target.internal_dependencies.discard(internal_target)
+                sift_targets(internal_target)
+            if target.is_codegen:
+                codegen_graph.popleft()
     sift_targets(meta_target)
     assert ((len(codegen_graph) == 1) and (codegen_graph[0] == root_target)), ('Unexpected walk: %s' % codegen_graph)
     return (codegen_graph.popleft().internal_dependencies, jar_deps)

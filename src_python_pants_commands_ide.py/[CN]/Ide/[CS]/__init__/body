@@ -1,0 +1,5 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    self.project_name = self.options.project_name
+    addresses = (self._parse_addresses() if self.args else scan_addresses(root_dir))
+    self.targets = [Target.get(address) for address in addresses]

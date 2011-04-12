@@ -1,0 +1,14 @@
+{
+  try {
+    if (!executor.awaitTermination(1,TimeUnit.SECONDS)) {
+      executor.shutdownNow();
+      if (!executor.awaitTermination(1,TimeUnit.SECONDS)) {
+        LOG.severe("Failed to stop stat exporter.");
+      }
+    }
+  }
+ catch (  InterruptedException e) {
+    executor.shutdownNow();
+    Thread.currentThread().interrupt();
+  }
+}

@@ -1,0 +1,4 @@
+@property
+def excludes(self):
+    'Paths relative to self.path that are excluded from this source set.'
+    return self._excludes

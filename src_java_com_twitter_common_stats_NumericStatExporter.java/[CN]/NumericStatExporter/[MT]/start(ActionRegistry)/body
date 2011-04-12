@@ -1,0 +1,10 @@
+{
+  long intervalSecs=exportInterval.as(Time.SECONDS);
+  executor.scheduleAtFixedRate(exporter,intervalSecs,intervalSecs,TimeUnit.SECONDS);
+  shutdownRegistry.addAction(new Command(){
+    @Override public void execute(){
+      stop();
+    }
+  }
+);
+}

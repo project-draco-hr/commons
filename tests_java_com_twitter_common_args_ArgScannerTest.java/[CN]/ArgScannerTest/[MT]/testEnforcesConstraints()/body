@@ -2,10 +2,12 @@
   test(VerifyArgs.class,new Command(){
     @Override public void execute(){
       assertThat(VerifyArgs.stringVal.get(),is("newstring"));
+      assertThat(VerifyArgs.optionalStringVal.get(),nullValue(String.class));
     }
   }
 ,"string","newstring");
   testFails(VerifyArgs.class,"string","");
+  testFails(VerifyArgs.class,"optional_string","");
   testFails(VerifyArgs.class,"int","0");
   testFails(VerifyArgs.class,"long","-1");
   test(VerifyArgs.class,new Command(){

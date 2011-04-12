@@ -1,4 +1,3 @@
 self
-target
-is_meta
+targets
 args

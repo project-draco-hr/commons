@@ -2,6 +2,11 @@
   configureInjection(application);
   LOG.info("Executing startup actions.");
   startupController.execute();
-  application.run();
-  LOG.info("Application run() exited.");
+  try {
+    application.run();
+  }
+  finally {
+    LOG.info("Application run() exited.");
+    lifecycle.shutdown();
+  }
 }

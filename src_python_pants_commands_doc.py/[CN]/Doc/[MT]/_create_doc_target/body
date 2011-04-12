@@ -2,7 +2,7 @@ def _create_doc_target(self):
     all_sources = []
     all_deps = OrderedSet()
     for target in self.targets:
-        if ((not self.only_provides) or (isinstance(target, ExportableJavaLibrary) and target.provides)):
+        if ((not self.only_provides) or is_exported(target)):
             for source in target.sources:
                 source_path = os.path.join(self.java_src_prefix, source)
                 if os.path.exists(source_path):

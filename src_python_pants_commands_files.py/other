@@ -1,4 +1,4 @@
-__author__ = 'John Sirios'
+__author__ = 'John Sirois'
 from . import Command
 from pants import Address, Target
 import traceback

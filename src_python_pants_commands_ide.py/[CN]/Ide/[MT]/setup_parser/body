@@ -1,0 +1,7 @@
+def setup_parser(self, parser):
+    parser.set_usage('%prog idea ([spec]...)')
+    parser.add_option('-d', '--directory', action='store_true', dest='is_directory_list', default=False, help='Specifies specs should be treated as plain paths, in which case all targets found in all BUILD files under the paths will be used to create the IDEA project configuration.')
+    parser.add_option('-c', '--clean', action='store_true', dest='clean', default=False, help='Triggers a clean build of any codegen targets.')
+    parser.add_option('-t', '--ide-transitivity', dest='ide_transitivity', type='choice', choices=_TRANSITIVITY_CHOICES, default=TRANSITIVITY_ALL, help=('[%%default] Specifies IDE dependencies should be transitive for one of: %s' % _TRANSITIVITY_CHOICES))
+    parser.add_option('-n', '--project-name', dest='project_name', default='project', help='[%default] Specifies the name to use for the generated project.')
+    parser.add_option('-p', '--python', action='store_true', dest='python', default=False, help='Adds python support to the generated project configuration.')

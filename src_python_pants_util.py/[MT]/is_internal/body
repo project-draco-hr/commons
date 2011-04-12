@@ -1,0 +1,3 @@
+def is_internal(target):
+    'Returns True if the target is internal to the repo (ie: it might have dependencies).'
+    return isinstance(target, InternalTarget)

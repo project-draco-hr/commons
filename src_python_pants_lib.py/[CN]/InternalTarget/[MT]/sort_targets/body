@@ -1,0 +1,32 @@
+@classmethod
+def sort_targets(cls, internal_targets):
+    'Returns a list of targets that internal_targets depend on sorted from most dependent to\n    least.'
+    roots = OrderedSet()
+    inverted_deps = collections.defaultdict(OrderedSet)
+    visited = set()
+
+    def invert(target):
+        if (target not in visited):
+            visited.add(target)
+            if target.internal_dependencies:
+                for internal_dependency in target.internal_dependencies:
+                    if isinstance(internal_dependency, InternalTarget):
+                        inverted_deps[internal_dependency].add(target)
+                        invert(internal_dependency)
+            else:
+                roots.add(target)
+    for internal_target in internal_targets:
+        invert(internal_target)
+    sorted = []
+    visited.clear()
+
+    def topological_sort(target):
+        if (target not in visited):
+            visited.add(target)
+            if (target in inverted_deps):
+                for dep in inverted_deps[target]:
+                    topological_sort(dep)
+            sorted.append(target)
+    for root in roots:
+        topological_sort(root)
+    return sorted

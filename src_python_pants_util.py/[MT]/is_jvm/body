@@ -1,0 +1,3 @@
+def is_jvm(target):
+    'Returns True if the target produces jvm bytecode.'
+    return isinstance(target, JvmTarget)

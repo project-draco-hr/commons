@@ -1,0 +1,5 @@
+{
+  String normalizedPath=path.replaceAll("//+","/").replaceFirst("(.+)/$","$1");
+  PathUtils.validatePath(normalizedPath);
+  return normalizedPath;
+}

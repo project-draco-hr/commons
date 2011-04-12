@@ -1,0 +1,5 @@
+{
+  for (  Annotation annotation : maybeFilterNullable(fieldClass,value,annotations)) {
+    verify(fieldClass,value,annotation);
+  }
+}

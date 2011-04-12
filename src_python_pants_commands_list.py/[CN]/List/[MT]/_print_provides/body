@@ -1,4 +1,4 @@
 def _print_provides(self, column_extractors, address):
     target = Target.get(address)
-    if (isinstance(target, ExportableJavaLibrary) and target.provides):
+    if is_exported(target):
         return ' '.join((extractor(target) for extractor in column_extractors))

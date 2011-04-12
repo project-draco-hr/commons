@@ -7,16 +7,17 @@ switch (event.getType()) {
 case None:
 switch (event.getState()) {
 case Expired:
-            close();
-          break;
+            LOG.info("Zookeeper session expired. Event: " + event);
+          close();
+        break;
 case SyncConnected:
-        connected.countDown();
-      break;
-  }
+      connected.countDown();
+    break;
+}
 }
 synchronized (watchers) {
 for (Watcher watcher : watchers) {
-  watcher.process(event);
+watcher.process(event);
 }
 }
 }

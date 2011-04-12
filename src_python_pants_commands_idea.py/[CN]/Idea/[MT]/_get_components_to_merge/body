@@ -1,0 +1,4 @@
+def _get_components_to_merge(self, mergable_components, path):
+    'Returns a list of the <component> fragments in mergable_components that are not\n    superceded by a <component> in the specified xml file.\n    mergable_components is a list of (name, xml_fragment) pairs.'
+    generated_component_names = set([name for (name, _) in self._parse_xml_component_elements(path)])
+    return [x[1] for x in mergable_components if (x[0] not in generated_component_names)]

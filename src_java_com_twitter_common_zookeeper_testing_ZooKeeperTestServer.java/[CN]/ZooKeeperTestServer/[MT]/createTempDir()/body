@@ -1,0 +1,10 @@
+{
+  final File tempDir=FileUtils.createTempDir();
+  shutdownRegistry.addAction(new ExceptionalCommand<IOException>(){
+    @Override public void execute() throws IOException {
+      org.apache.commons.io.FileUtils.deleteDirectory(tempDir);
+    }
+  }
+);
+  return tempDir;
+}

@@ -1,2 +1,2 @@
 def _as_jar_dependency(self):
-    return ExportableJavaLibrary._as_jar_dependency(self).withSources()
+    return ExportableJvmLibrary._as_jar_dependency(self).withSources()

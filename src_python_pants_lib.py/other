@@ -4,4 +4,4 @@ from common.collections import OrderedSet
 import collections
 import os
 import re
-_RESOURCES_BASE_DIR = 'src/resources'
+RESOURCES_BASE_DIR = 'src/resources'

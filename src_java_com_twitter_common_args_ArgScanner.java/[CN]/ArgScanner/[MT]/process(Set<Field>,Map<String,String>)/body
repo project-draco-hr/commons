@@ -39,18 +39,22 @@
     }
     setField(argField,assignmentValue);
   }
-  infoLog("-------------------------------------------------------------------------");
-  infoLog("Command line argument values");
+  Set<String> commandLineArgumentInfos=Sets.newTreeSet();
   for (  Pair<Field,CmdLine> argDef : argDefs) {
     Field argField=argDef.getFirst();
     Arg arg=getArg(argField);
-    infoLog(String.format("%s (%s.%s): %s",argDef.getSecond().name(),argField.getDeclaringClass().getName(),argField.getName(),arg.uncheckedGet()));
+    commandLineArgumentInfos.add(String.format("%s (%s.%s): %s",argDef.getSecond().name(),argField.getDeclaringClass().getName(),argField.getName(),arg.uncheckedGet()));
     try {
       checkConstraints(TypeUtil.getTypeParamClass(argField),arg.uncheckedGet(),argField.getAnnotations());
     }
  catch (    IllegalArgumentException e) {
       argsConstraintsFailed.add(argDef.getSecond().name() + " - " + e.getMessage());
     }
+  }
+  infoLog("-------------------------------------------------------------------------");
+  infoLog("Command line argument values");
+  for (  String commandLineArgumentInfo : commandLineArgumentInfos) {
+    infoLog(commandLineArgumentInfo);
   }
   infoLog("-------------------------------------------------------------------------");
   ImmutableMultimap<String,String> warningMessages=ImmutableMultimap.<String,String>builder().putAll("Unrecognized arguments",Sets.difference(args.keySet(),argsByName.keySet())).putAll("Failed to parse",argsFailedToParse).putAll("Value did not meet constraints",argsConstraintsFailed).build();

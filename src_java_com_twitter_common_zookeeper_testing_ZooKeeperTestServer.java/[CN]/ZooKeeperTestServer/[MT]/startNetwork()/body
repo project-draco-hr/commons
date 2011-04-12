@@ -1,0 +1,12 @@
+{
+  connectionFactory=new NIOServerCnxn.Factory(new InetSocketAddress(port));
+  connectionFactory.startup(zooKeeperServer);
+  shutdownRegistry.addAction(new Command(){
+    @Override public void execute(){
+      shutdownNetwork();
+    }
+  }
+);
+  port=zooKeeperServer.getClientPort();
+  return port;
+}

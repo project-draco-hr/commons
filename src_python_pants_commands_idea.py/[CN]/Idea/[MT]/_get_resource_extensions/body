@@ -1,0 +1,6 @@
+def _get_resource_extensions(self, project):
+    resource_extensions = set()
+    resource_extensions.update(project.resource_extensions)
+    for (_, _, files) in os.walk(os.path.join(self.root_dir, 'tests/resources')):
+        resource_extensions.update(Project.extract_resource_extensions(files))
+    return resource_extensions

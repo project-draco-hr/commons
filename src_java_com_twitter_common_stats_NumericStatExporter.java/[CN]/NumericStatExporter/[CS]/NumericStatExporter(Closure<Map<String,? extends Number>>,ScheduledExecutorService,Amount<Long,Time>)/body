@@ -1,0 +1,11 @@
+{
+  checkNotNull(exportSink);
+  this.executor=checkNotNull(executor);
+  this.exportInterval=checkNotNull(exportInterval);
+  exporter=new Runnable(){
+    @Override public void run(){
+      exportSink.execute(Maps.transformValues(Maps.uniqueIndex(Stats.getNumericVariables(),GET_NAME),READ_STAT));
+    }
+  }
+;
+}

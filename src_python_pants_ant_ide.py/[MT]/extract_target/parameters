@@ -1,2 +1,3 @@
-java_target
+java_targets
 is_transitive
+name

@@ -1,0 +1,6 @@
+def test_member_access(self):
+    try:
+        self.data.bip
+        self.fail('Access to undefined template data slots should raise')
+    except AttributeError:
+        pass

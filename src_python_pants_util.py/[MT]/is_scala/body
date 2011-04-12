@@ -1,0 +1,3 @@
+def is_scala(target):
+    'Returns True if the target has scala sources.'
+    return (isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests))

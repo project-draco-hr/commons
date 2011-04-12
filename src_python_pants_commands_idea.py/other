@@ -1,0 +1,9 @@
+__author__ = 'John Sirois'
+from ide import Ide, Project
+from pants import Generator, TemplateData
+import os
+import shutil
+import tempfile
+from xml.dom import minidom
+_TEMPLATE_BASEDIR = os.path.join(os.path.dirname(__file__), 'idea/templates')
+_VERSIONS = {'9': '10', '10': '10', }

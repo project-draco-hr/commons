@@ -1,5 +1,0 @@
-def _build(self, target):
-    if self.address.buildfile.relpath.startswith('tests/python'):
-        return self._python_build(target)
-    else:
-        return self._jvm_build(target)

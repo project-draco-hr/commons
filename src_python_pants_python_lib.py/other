@@ -1,4 +1,5 @@
-__author__ = 'John Sirios'
-from pants import Builder, PythonTarget, PythonTests
+__author__ = 'John Sirois'
+from common.collections import OrderedSet
+from pants import Builder, is_python, is_test
 import os
 import subprocess

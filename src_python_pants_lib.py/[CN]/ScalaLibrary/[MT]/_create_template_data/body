@@ -3,7 +3,7 @@ def _create_template_data(self):
     if self.sources:
         allsources += list((os.path.join(ScalaLibrary._SRC_DIR, source) for source in self.sources))
     if self.resources:
-        allsources += list((os.path.join(_RESOURCES_BASE_DIR, res) for res in self.resources))
+        allsources += list((os.path.join(RESOURCES_BASE_DIR, res) for res in self.resources))
     if self.binary_resources:
-        allsources += list((os.path.join(_RESOURCES_BASE_DIR, res) for res in self.binary_resources))
-    return ExportableJavaLibrary._create_template_data(self).extend(java_sources=self.java_sources, resources=self.resources, binary_resources=self.binary_resources, deploy_jar=self.deployjar, allsources=allsources)
+        allsources += list((os.path.join(RESOURCES_BASE_DIR, res) for res in self.binary_resources))
+    return ExportableJvmLibrary._create_template_data(self).extend(java_sources=self.java_sources, resources=self.resources, binary_resources=self.binary_resources, deploy_jar=self.deployjar, allsources=allsources)

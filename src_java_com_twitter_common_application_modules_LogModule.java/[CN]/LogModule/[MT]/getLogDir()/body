@@ -1,0 +1,8 @@
+{
+  File logDir=LOG_DIR.get();
+  if (logDir == null) {
+    logDir=LogUtil.getLogManagerLogDir();
+    LOG.info("From logging properties, parsed log directory " + logDir.getAbsolutePath());
+  }
+  return logDir;
+}

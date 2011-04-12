@@ -1,4 +1,4 @@
-from pants import Builder, Generator, JavaTarget, JavaTests, ScalaTests
+from pants import Builder, Generator, is_jvm, is_test
 import bang
 import ide
 import os
@@ -9,3 +9,4 @@ TRANSITIVITY_NONE = 'none'
 TRANSITIVITY_SOURCES = 'sources'
 TRANSITIVITY_TESTS = 'tests'
 TRANSITIVITY_ALL = 'all'
+_TEMPLATE_BASEDIR = os.path.join(os.path.dirname(__file__), 'templates')

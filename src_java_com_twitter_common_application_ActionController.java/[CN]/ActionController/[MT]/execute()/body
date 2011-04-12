@@ -11,4 +11,7 @@
       }
     }
   }
+ else {
+    LOG.info("Action controller has already completed, subsequent calls ignored.");
+  }
 }

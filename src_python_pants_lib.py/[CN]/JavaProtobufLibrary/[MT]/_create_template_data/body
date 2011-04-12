@@ -2,4 +2,4 @@ def _create_template_data(self):
     allsources = []
     if self.sources:
         allsources += list((os.path.join(JavaProtobufLibrary._SRC_DIR, src) for src in self.sources))
-    return ExportableJavaLibrary._create_template_data(self).extend(allsources=allsources)
+    return ExportableJvmLibrary._create_template_data(self).extend(allsources=allsources)

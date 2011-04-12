@@ -1,0 +1,10 @@
+{
+  final ZooKeeperClient client=new ZooKeeperClient(sessionTimeout,InetSocketAddress.createUnresolved("127.0.0.1",port));
+  shutdownRegistry.addAction(new ExceptionalCommand<InterruptedException>(){
+    @Override public void execute(){
+      client.close();
+    }
+  }
+);
+  return client;
+}

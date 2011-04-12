@@ -1,0 +1,12 @@
+__author__ = 'John Sirois'
+from . import Command
+from common.collections import OrderedSet
+from pants import Address, JavaLibrary, ScalaLibrary, Target, has_sources, is_jvm, is_scala, is_test
+from pants.lib import RESOURCES_BASE_DIR
+from pants.ant import AntBuilder
+from pants.ant.lib import TRANSITIVITY_NONE, TRANSITIVITY_SOURCES, TRANSITIVITY_TESTS, TRANSITIVITY_ALL
+from util import scan_addresses
+import os
+import traceback
+_TRANSITIVITY_CHOICES = [TRANSITIVITY_NONE, TRANSITIVITY_SOURCES, TRANSITIVITY_TESTS, TRANSITIVITY_ALL]
+_VALID_TRANSITIVITIES = set(_TRANSITIVITY_CHOICES)

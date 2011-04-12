@@ -1,4 +1,3 @@
-def __init__(self, template_path, root_dir, template_data):
+def __init__(self, template_path, **template_data):
     self._template = Template(filename=template_path, module_directory=Generator._module_directory)
-    self._root_dir = root_dir
-    self._template_data = template_data
+    self.template_data = template_data

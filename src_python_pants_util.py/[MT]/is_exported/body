@@ -1,0 +1,3 @@
+def is_exported(target):
+    'Returns True if the target provides an artifact exportable from the repo.'
+    return (isinstance(target, ExportableJvmLibrary) and target.provides)

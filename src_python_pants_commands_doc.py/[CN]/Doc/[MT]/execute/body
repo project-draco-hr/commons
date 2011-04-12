@@ -10,8 +10,8 @@ def execute(self):
     self._create_artifact_data()
     javadoc_result = subprocess.call((['javadoc', '-doctitle', self.options.title, '-use', '-linksource', '-top', '<script type="text/javascript">top.updateArtifact(window.location);</script>', '-classpath', ('@%s' % classpath_file), '-d', self.target_path] + doc_target.sources))
     if (self.options.ignore_failure or (javadoc_result == 0)):
-        for (root, dirs, files) in os.walk(_TEMPLATES_DIR):
-            newdir = os.path.join(self.target_path, os.path.relpath(root, _TEMPLATES_DIR))
+        for (root, dirs, files) in os.walk(_ASSETS_DIR):
+            newdir = os.path.join(self.target_path, os.path.relpath(root, _ASSETS_DIR))
             if (not os.path.exists(newdir)):
                 os.makedirs(os.path.dirname(newdir))
             for file in files:

@@ -1,1 +1,1 @@
-from pants import JavaLibrary, JavaProtobufLibrary, JavaTarget, JavaTests, JavaThriftLibrary, ScalaLibrary, ScalaTests
+from pants import InternalTarget, JavaLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, ScalaLibrary, ScalaTests, is_jvm

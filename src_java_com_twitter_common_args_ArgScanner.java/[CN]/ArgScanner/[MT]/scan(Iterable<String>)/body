@@ -1,9 +1,12 @@
 {
-  FilterBuilder filterBuilder=new FilterBuilder().add(new FilterBuilder.Exclude(".*Test"));
-  ImmutableSet.Builder<URL> urls=ImmutableSet.builder();
+  FilterBuilder filterBuilder=new FilterBuilder();
+  ImmutableSet.Builder<URL> urlsBuilder=ImmutableSet.builder();
   for (  String packagePrefix : scanPackagePrefixes) {
     filterBuilder.add(new FilterBuilder.Include(FilterBuilder.prefix(packagePrefix)));
-    urls.addAll(ClasspathHelper.getUrlsForPackagePrefix(packagePrefix));
+    urlsBuilder.addAll(ClasspathHelper.getUrlsForPackagePrefix(packagePrefix));
   }
-  return new Reflections(new ConfigurationBuilder().filterInputsBy(filterBuilder).setUrls(urls.build()).useParallelExecutor().setScanners(new FieldAnnotationsScanner())).getFieldsAnnotatedWith(CmdLine.class);
+  filterBuilder.add(new FilterBuilder.Exclude(".*Test"));
+  Set<URL> urls=urlsBuilder.build();
+  LOG.info("Scanning resource URLs: " + urls);
+  return new Reflections(new ConfigurationBuilder().filterInputsBy(filterBuilder).setUrls(urls).useParallelExecutor().setScanners(new FieldAnnotationsScanner())).getFieldsAnnotatedWith(CmdLine.class);
 }

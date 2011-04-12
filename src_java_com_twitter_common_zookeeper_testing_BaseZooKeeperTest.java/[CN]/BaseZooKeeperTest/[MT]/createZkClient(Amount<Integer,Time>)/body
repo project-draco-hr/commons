@@ -1,10 +1,3 @@
 {
-  final ZooKeeperClient client=new ZooKeeperClient(sessionTimeout,InetSocketAddress.createUnresolved("127.0.0.1",zkPort));
-  addTearDown(new TearDown(){
-    @Override public void tearDown() throws InterruptedException {
-      client.close();
-    }
-  }
-);
-  return client;
+  return zkTestServer.createClient(sessionTimeout);
 }

@@ -1,0 +1,3 @@
+def is_java(target):
+    'Returns True if the target has or generates java sources.'
+    return (isinstance(target, JavaLibrary) or isinstance(target, JavaProtobufLibrary) or isinstance(target, JavaTests) or isinstance(target, JavaThriftLibrary))

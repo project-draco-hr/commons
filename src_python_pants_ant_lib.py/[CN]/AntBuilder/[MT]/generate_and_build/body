@@ -1,0 +1,19 @@
+def generate_and_build(self, targets, args, name=None):
+    java_target = self._resolve_targets(targets, name)
+    extrabuildflags = set()
+    workspace_root = os.path.join(self.root_dir, '.pants.d')
+    if (not os.path.exists(workspace_root)):
+        os.makedirs(workspace_root)
+    (buildxml, ivyxml) = self.create_ant_builds(workspace_root, dict(), extrabuildflags, java_target)
+    buildflags = []
+    if extrabuildflags:
+        buildflags.extend(extrabuildflags)
+    if java_target.buildflags:
+        buildflags.extend(java_target.buildflags)
+    antargs = ['ant', '-f', ('"%s"' % buildxml)]
+    if buildflags:
+        antargs.extend(buildflags)
+    if args:
+        antargs.extend(args)
+    print ('AntBuilder executing (ANT_OPTS="%s") %s' % (os.environ['ANT_OPTS'], ' '.join(antargs)))
+    return (buildxml, ivyxml, subprocess.call(antargs))

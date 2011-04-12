@@ -3,4 +3,7 @@ def __init__(self, org, name, repo):
     self.org = org
     self.name = name
     self.rev = None
-    self.repo = repo.resolve()
+    repos = list(repo.resolve())
+    if (len(repos) != 1):
+        raise Exception(('An artifact must have exactly 1 repo, given: %s' % repos))
+    self.repo = repos[0]

@@ -2,4 +2,5 @@ def resolve(self):
     resolved = Target.get(self.address)
     if (not resolved):
         raise KeyError(('Failed to find target for: %s' % self.address))
-    return resolved
+    for dep in resolved.resolve():
+        yield dep

@@ -1,0 +1,11 @@
+{
+  ImmutableMap.Builder<String,String> argMap=ImmutableMap.builder();
+  for (  String arg : joinKeysToValues(args)) {
+    Matcher matcher=ARG_PATTERN.matcher(arg);
+    checkArgument(matcher.matches(),String.format("Argument '%s' does not match required format -arg_name=arg_value",arg));
+    String rawValue=matcher.group(2);
+    rawValue=rawValue == null ? "" : stripQuotes(rawValue);
+    argMap.put(matcher.group(1),rawValue);
+  }
+  return argMap.build();
+}

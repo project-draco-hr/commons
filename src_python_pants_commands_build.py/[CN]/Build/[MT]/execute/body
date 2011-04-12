@@ -1,9 +1,18 @@
 def execute(self):
-    print ('Build operating on address: %s' % self.address)
-    try:
-        target = Target.get(self.address)
-    except:
-        self.error(('Problem parsing BUILD target %s: %s' % (self.address, traceback.format_exc())))
-    if (not target):
-        self.error(('Target %s does not exist' % self.address))
-    return self._build(target)
+    print ('Build operating on targets: %s' % self.targets)
+    jvm_targets = OrderedSet()
+    python_targets = OrderedSet()
+    for target in self.targets:
+        if is_jvm(target):
+            jvm_targets.add(target)
+        elif is_python(target):
+            python_targets.add(target)
+        else:
+            self.error(('Cannot build target %s' % target))
+    if jvm_targets:
+        status = self._jvm_build(jvm_targets)
+        if (status != 0):
+            return status
+    if python_targets:
+        status = self._python_build(python_targets)
+    return status

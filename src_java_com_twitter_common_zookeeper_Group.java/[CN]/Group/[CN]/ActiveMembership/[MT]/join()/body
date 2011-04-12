@@ -13,10 +13,12 @@
   byte[] membershipData=memberData.get();
   nodePath=zkClient.get().create(path + "/" + nodeNamePrefix,membershipData,acl,CreateMode.EPHEMERAL_SEQUENTIAL);
   memberId=extractMemberId(nodePath);
+  LOG.info("Set group member ID to " + memberId);
   this.membershipData=membershipData;
   zkClient.get().exists(nodePath,new Watcher(){
     @Override public void process(    WatchedEvent event){
       if (event.getType() == EventType.NodeDeleted) {
+        LOG.info("Member ID deleted. Rejoining. Event: " + event);
         tryJoin();
       }
     }

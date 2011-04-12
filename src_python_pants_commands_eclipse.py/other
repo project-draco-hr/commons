@@ -1,0 +1,10 @@
+__author__ = 'John Sirois'
+from common.collections import OrderedSet
+from ide import Ide
+from pants import Generator, TemplateData
+import collections
+import os
+import shutil
+import urllib
+_TEMPLATE_BASEDIR = os.path.join(os.path.dirname(__file__), 'eclipse/templates')
+_VERSIONS = {'3.5': '3.5', '3.6': '3.5', }

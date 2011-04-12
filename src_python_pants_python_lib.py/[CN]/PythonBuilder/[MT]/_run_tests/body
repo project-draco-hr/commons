@@ -1,16 +1,18 @@
-def _run_tests(self, target, args):
-    template_data = target._create_template_data()
-    testargs = ['py.test']
+def _run_tests(self, targets, args):
+    testargs = OrderedSet(['py.test'])
     if args:
-        testargs.extend(args)
+        testargs.update(args)
 
     def add_tests(template_data):
         if template_data.sources:
             basedir = template_data.template_base
-            testargs.extend((os.path.join(basedir, test) for test in template_data.sources))
+            testargs.update((os.path.join(basedir, test) for test in template_data.sources))
         if template_data.dependencies:
             for dependency in template_data.dependencies:
-                add_tests(dependency.resolve()._create_template_data())
-    add_tests(template_data)
+                for dep in dependency.resolve():
+                    add_tests(dep._create_template_data())
+    for target in targets:
+        template_data = target._create_template_data()
+        add_tests(template_data)
     print ('PythonBuilder executing (PYTHONPATH="%s") %s' % (os.environ['PYTHONPATH'], ' '.join(testargs)))
     return subprocess.call(testargs, cwd=self.root_dir)

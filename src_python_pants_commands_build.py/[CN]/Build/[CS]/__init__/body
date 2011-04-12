@@ -2,20 +2,33 @@ def __init__(self, root_dir, parser, argv):
     Command.__init__(self, root_dir, parser, argv)
     if (not self.args):
         self.error('A spec argument is required')
-    spec = self.args[0]
     try:
-        self.address = Address.parse(root_dir, spec)
-    except:
-        self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
-    if (not self.address.is_meta):
-        self.address.is_meta = self.options.is_meta
+        specs_end = self.args.index('--')
+        if (len(self.args) > specs_end):
+            self.build_args = self.args.__getslice__((specs_end + 1), (len(self.args) + 1))
+        else:
+            self.build_args = []
+    except ValueError:
+        specs_end = 1
+        self.build_args = (self.args[1:] if (len(self.args) > 1) else [])
+    self.targets = OrderedSet()
+    for spec in self.args.__getslice__(0, specs_end):
+        try:
+            address = Address.parse(root_dir, spec)
+        except:
+            self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+        try:
+            target = Target.get(address)
+        except:
+            self.error(('Problem parsing BUILD target %s: %s' % (address, traceback.format_exc())))
+        try:
+            InternalTarget.check_cycles(target)
+        except CycleException as e:
+            self.error(('Target contains an internal dependency cycle: %s' % e))
+        if (not target):
+            self.error(('Target %s does not exist' % address))
+        if (not target.address.is_meta):
+            target.address.is_meta = (self.options.is_meta or address.is_meta)
+        self.targets.add(target)
     self.is_ide = self.options.is_ide
-    if self.options.ide_transitivity:
-        if (not self.is_ide):
-            self.error('--ide-transitivity only applies when using --ide')
-        elif (self.options.ide_transitivity not in _VALID_TRANSITIVITIES):
-            self.error(('%s is not a valid value for --ide-transitivity' % self.options.ide_transitivity))
-        self.ide_transitivity = self.options.ide_transitivity
-    else:
-        self.ide_transitivity = _DEFAULT_TRANSITIVITY
-    self.build_args = (self.args[1:] if (len(self.args) > 1) else [])
+    self.ide_transitivity = self.options.ide_transitivity

@@ -1,0 +1,3 @@
+Closure<Map<String,? extends Number>> statSink
+ActionRegistry startupRegistry
+ActionRegistry shutdownRegistry

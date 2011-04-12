@@ -1,0 +1,6 @@
+{
+  Preconditions.checkArgument(0 <= port && port <= 0xFFFF);
+  this.port=port;
+  this.shutdownRegistry=Preconditions.checkNotNull(shutdownRegistry);
+  zooKeeperServer=new ZooKeeperServer(new FileTxnSnapLog(createTempDir(),createTempDir()),new BasicDataTreeBuilder());
+}

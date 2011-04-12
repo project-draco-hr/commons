@@ -11,11 +11,15 @@
   group.watch(new GroupChangeListener(){
     @Override public void onGroupChange(    Iterable<String> memberIds){
       boolean noCandidates=Iterables.isEmpty(memberIds);
+      String memberId=membership.getMemberId();
       if (noCandidates) {
         LOG.warning("All candidates have temporarily left the group: " + group);
       }
+ else       if (!Iterables.contains(memberIds,memberId)) {
+        LOG.severe(String.format("Current member ID %s is not a candidate for leader, current voting: %s",memberId,memberIds));
+      }
  else {
-        boolean electedLeader=membership.getMemberId().equals(getLeader(memberIds));
+        boolean electedLeader=memberId.equals(getLeader(memberIds));
         boolean previouslyElected=elected.getAndSet(electedLeader);
         if (!previouslyElected && electedLeader) {
           LOG.info(String.format("Candidate %s is now leader of group: %s",membership.getMemberPath(),memberIds));

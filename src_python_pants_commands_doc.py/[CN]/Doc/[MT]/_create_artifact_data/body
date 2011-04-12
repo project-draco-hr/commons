@@ -11,7 +11,7 @@ def _create_artifact_data(self):
         return publish_properties
     data = {}
     for target in self.targets:
-        if (isinstance(target, ExportableJavaLibrary) and target.provides):
+        if is_exported(target):
             props = get_publish_properties(target)
             for source in target.sources:
                 source_path = os.path.join(self.java_src_prefix, source)

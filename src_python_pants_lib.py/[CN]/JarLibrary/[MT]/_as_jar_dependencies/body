@@ -1,3 +1,0 @@
-def _as_jar_dependencies(self):
-    for jar in self.jar_dependencies:
-        yield jar

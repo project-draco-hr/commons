@@ -1,6 +1,4 @@
 {
-  final File logDir=LogUtil.getLogManagerLogDir();
-  LOG.info("From logging properties, parsed log directory " + logDir.getAbsolutePath());
-  bind(File.class).annotatedWith(Names.named(LogPrinter.LOG_DIR_KEY)).toInstance(logDir);
+  bind(File.class).annotatedWith(Names.named(LogPrinter.LOG_DIR_KEY)).toInstance(getLogDir());
   requestStaticInjection(Init.class);
 }

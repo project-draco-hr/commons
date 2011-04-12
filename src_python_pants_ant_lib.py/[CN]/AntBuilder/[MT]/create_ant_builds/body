@@ -22,4 +22,4 @@ def create_ant_builds(self, workspace_root, targets, flags, target):
     targets[target._id] = buildxml
     for additional_library in target.internal_dependencies:
         self.create_ant_builds(workspace_root, targets, flags, additional_library)
-    return buildxml
+    return (buildxml, ivyxml)

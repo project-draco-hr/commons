@@ -1,3 +1,0 @@
-def __init__(self, target_base, name, sources, provides=None, dependencies=None, excludes=None, buildflags=None, is_meta=False):
-    self.provides = provides
-    JavaTarget.__init__(self, target_base, name, sources, dependencies, excludes, buildflags, is_meta)

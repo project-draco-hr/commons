@@ -6,5 +6,5 @@ def __init__(self, name, sources, provides=None, dependencies=None, excludes=Non
         if dependencies:
             all_deps.update(dependencies)
         return all_deps
-    ExportableJavaLibrary.__init__(self, JavaProtobufLibrary._SRC_DIR, name, sources, provides, get_all_deps(), excludes, buildflags, is_meta)
+    ExportableJvmLibrary.__init__(self, JavaProtobufLibrary._SRC_DIR, name, sources, provides, get_all_deps(), excludes, buildflags, is_meta)
     self.is_codegen = True

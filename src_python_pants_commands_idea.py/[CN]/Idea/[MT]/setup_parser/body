@@ -1,0 +1,11 @@
+def setup_parser(self, parser):
+    Ide.setup_parser(self, parser)
+    supported_versions = list(_VERSIONS.keys())
+    supported_versions.sort()
+    parser.add_option('-i', '--idea-version', dest='version', default='10', type='choice', choices=supported_versions, help=('[%%default] The IntelliJ IDEA version the project configuration should be generated for; can be one of: %s' % supported_versions))
+    parser.add_option('-o', '--idea-project-file-dir', dest='project_file_dir', default=self.root_dir, help='[%default] Specifies the directory to output the generated project files to.')
+    parser.add_option('-m', '--merge', action='store_true', dest='merge', default=False, help='Merges manual customizations from existing Intellij IDEA configuration into the generated configuration.')
+    parser.add_option('--idea-build-output-dir', dest='intellij_output_dir', default=os.path.join(self.root_dir, 'target/intellij/out'), help='[%default] Specifies the directory IntelliJ IDEA should use for its own build output.')
+    parser.add_option('-b', '--bash', action='store_true', dest='bash', default=False, help='Adds a bash facet to the generated project configuration.')
+    parser.add_option('-f', '--fsc', action='store_true', dest='fsc', default=False, help='If the project contains any scala targets this specifies the fsc compiler should be enabled.')
+    parser.epilog = 'Creates an IntelliJ IDEA project appropriate for editing, debugging and\n    testing the specified BUILD targets.'

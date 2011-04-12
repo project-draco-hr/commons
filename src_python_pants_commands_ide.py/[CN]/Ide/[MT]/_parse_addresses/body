@@ -1,0 +1,12 @@
+def _parse_addresses(self):
+    addresses = OrderedSet()
+    for spec in self.args:
+        try:
+            if self.options.is_directory_list:
+                for address in scan_addresses(self.root_dir, spec):
+                    addresses.add(address)
+            else:
+                addresses.add(Address.parse(self.root_dir, spec))
+        except:
+            self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+    return addresses

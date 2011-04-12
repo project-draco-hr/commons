@@ -1,11 +1,11 @@
 {
-  zooKeeperServer=new ZooKeeperServer(new FileTxnSnapLog(createTempDir(),createTempDir()),new BasicDataTreeBuilder());
-  startupNetwork(0);
+  final ActionController shutdownRegistry=new ActionController();
   addTearDown(new TearDown(){
     @Override public void tearDown(){
-      shutdownNetwork();
+      shutdownRegistry.execute();
     }
   }
 );
-  zkPort=zooKeeperServer.getClientPort();
+  zkTestServer=new ZooKeeperTestServer(0,shutdownRegistry);
+  zkTestServer.startNetwork();
 }

@@ -1,0 +1,11 @@
+def _prepend_default_options(command, args):
+    if (_DISABLE_PANTS_RC_OPTION not in args):
+        pantsrc = os.path.join(os.path.expanduser('~'), '.pantsrc')
+        if os.path.exists(pantsrc):
+            config = ConfigParser.SafeConfigParser()
+            config.read(pantsrc)
+            if config.has_option(command, 'options'):
+                expanded_options = (config.get(command, 'options').split() + args)
+                print ('(using ~/.pantsrc expansion: pants %s %s)' % (command, ' '.join(expanded_options)))
+                return expanded_options
+    return args
