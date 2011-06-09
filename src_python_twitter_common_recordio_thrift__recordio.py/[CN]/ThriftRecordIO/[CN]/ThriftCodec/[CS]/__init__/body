@@ -1,0 +1,4 @@
+def __init__(self, thrift_base=None):
+    self._base = thrift_base
+    if ((self._base is not None) and (not inspect.isclass(self._base))):
+        raise ThriftRecordIO.InvalidThriftException('ThriftCodec initialized with invalid Thrift base class')

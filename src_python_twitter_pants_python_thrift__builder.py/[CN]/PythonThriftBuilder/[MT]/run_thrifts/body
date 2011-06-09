@@ -1,0 +1,4 @@
+def run_thrifts(self):
+    for src in self.target.sources:
+        if (not self._run_thrift(src)):
+            raise PythonThriftBuilder.CodeGenerationException(('Could not generate .py from %s!' % src))

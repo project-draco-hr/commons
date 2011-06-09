@@ -5,4 +5,5 @@
   this.framedTransport=false;
   this.monitor=new TrafficMonitor<InetSocketAddress>(serviceInterface.getName());
   this.serviceName=serviceInterface.getEnclosingClass().getSimpleName();
+  this.sslTransport=false;
 }

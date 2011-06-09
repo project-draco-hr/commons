@@ -1,0 +1,5 @@
+def parse(**kwargs):
+    _Global.assert_not_parsed('Called options.parse() twice!')
+    (_Global.VALUES, left) = _Global.OPTIONS.parse_args(**kwargs)
+    _Global.PARSED = True
+    return (_Global.VALUES, left)

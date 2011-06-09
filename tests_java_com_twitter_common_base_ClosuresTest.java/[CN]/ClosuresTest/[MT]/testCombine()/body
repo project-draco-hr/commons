@@ -1,0 +1,12 @@
+{
+  Closure<Integer> work1=createMock(INT_CLOSURE_CLZ);
+  Closure<Integer> work2=createMock(INT_CLOSURE_CLZ);
+  Closure<Integer> wrapper=Closures.combine(work1,work2);
+  work1.execute(1);
+  work2.execute(1);
+  work1.execute(2);
+  work2.execute(2);
+  control.replay();
+  wrapper.execute(1);
+  wrapper.execute(2);
+}

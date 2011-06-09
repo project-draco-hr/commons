@@ -1,0 +1,3 @@
+{
+  return oneSideFilter(Transition.<T>from(),states);
+}

@@ -1,0 +1,15 @@
+{
+  final byte[] prefix=new byte[prefixLength];
+  int read=0;
+  do {
+    final int readNow=in.read(prefix,read,prefixLength - read);
+    if (readNow == -1) {
+      byte[] newprefix=new byte[read];
+      System.arraycopy(prefix,0,newprefix,0,read);
+      return newprefix;
+    }
+    read+=readNow;
+  }
+ while (read < prefixLength);
+  return prefix;
+}

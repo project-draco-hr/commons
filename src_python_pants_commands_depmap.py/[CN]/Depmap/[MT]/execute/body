@@ -1,6 +1,0 @@
-def execute(self):
-    target = Target.get(self.address)
-    if self.is_graph:
-        self._print_digraph(target)
-    else:
-        self._print_dependency_tree(target)

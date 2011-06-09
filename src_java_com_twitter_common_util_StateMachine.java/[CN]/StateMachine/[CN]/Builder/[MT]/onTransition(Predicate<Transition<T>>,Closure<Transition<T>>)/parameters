@@ -1,0 +1,2 @@
+Predicate<Transition<T>> transitionFilter
+Closure<Transition<T>> handler

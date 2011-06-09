@@ -1,0 +1,10 @@
+{
+  Closure<Transition<String>> aToBHandler=createMock(TRANSITION_CLOSURE_CLZ);
+  Closure<Transition<String>> impossibleHandler=createMock(TRANSITION_CLOSURE_CLZ);
+  aToBHandler.execute(new Transition<String>(A,B,true));
+  control.replay();
+  StateMachine<String> machine=StateMachine.<String>builder(NAME).initialState(A).addState(Closures.filter(Transition.to(B),aToBHandler),A,B,C).addState(Closures.filter(Transition.to(B),impossibleHandler),B,A).addState(C).build();
+  machine.transition(B);
+  machine.transition(A);
+  machine.transition(C);
+}

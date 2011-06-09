@@ -1,0 +1,9 @@
+{
+  DataInputStream in=new DataInputStream(source);
+  if (in.readByte() != firstByte) {
+    throw new IOException("Corrupted stream");
+  }
+  TestClass t=new TestClass();
+  t.data=in.readUTF();
+  return t;
+}

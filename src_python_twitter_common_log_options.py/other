@@ -1,0 +1,6 @@
+'\nGlog log system global options.\n\nExports module-level options such as --log_dir and --stdout_log_level, but may be\noverridden locally before calling log.init().\n'
+import logging
+from twitter.common import options
+options.add('--log_to_stdout', type='choice', choices=LogOptions._LOG_LEVELS.keys(), default='NONE', metavar='LEVEL', dest='glog_log_to_stdout', help='The level at which to log to stdout [default: %default], can be one of: DEBUG INFO WARN ERROR FATAL NONE')
+options.add('--log_to_disk', type='choice', choices=LogOptions._LOG_LEVELS.keys(), default='INFO', metavar='LEVEL', dest='glog_log_to_disk', help='The level at which to log to disk [default: %default], can be one of: DEBUG INFO WARN ERROR FATAL NONE')
+options.add('--log_dir', type='string', default='/var/tmp', metavar='DIR', dest='glog_log_dir', help='The directory into which log files will be generated [default: %default].')

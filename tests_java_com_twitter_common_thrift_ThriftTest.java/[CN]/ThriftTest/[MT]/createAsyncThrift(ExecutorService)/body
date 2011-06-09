@@ -1,3 +1,3 @@
 {
-  return new Thrift<TestServiceAsync>(executorService,connectionPool,requestTracker,"foo",TestServiceAsync.class,asyncClientFactory,true);
+  return new Thrift<TestServiceAsync>(executorService,connectionPool,requestTracker,"foo",TestServiceAsync.class,asyncClientFactory,true,false);
 }

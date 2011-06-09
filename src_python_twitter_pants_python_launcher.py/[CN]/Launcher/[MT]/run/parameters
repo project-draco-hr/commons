@@ -1,0 +1,6 @@
+self
+binary
+interpreter_args
+args
+extra_deps
+with_chroot

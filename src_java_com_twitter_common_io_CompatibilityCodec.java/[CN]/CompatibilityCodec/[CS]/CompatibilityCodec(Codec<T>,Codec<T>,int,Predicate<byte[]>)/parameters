@@ -1,0 +1,4 @@
+Codec<T> primaryCodec
+Codec<T> secondaryCodec
+int prefixLength
+Predicate<byte[]> discriminator

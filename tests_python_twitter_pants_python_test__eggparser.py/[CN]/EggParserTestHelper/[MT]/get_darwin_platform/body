@@ -1,0 +1,3 @@
+@staticmethod
+def get_darwin_platform(arch='i386', major=2, min=6):
+    return EggParserTestHelper._get_platform('Darwin', arch, major, min)

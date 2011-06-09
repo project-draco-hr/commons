@@ -1,0 +1,6 @@
+def _dump_setuptools(self):
+    SETUPTOOLS = 'setuptools-0.6c11-py2.6.egg'
+    print ('  Dumping setuptools: %s' % SETUPTOOLS)
+    data = pkgutil.get_data(__name__, os.path.join('bootstrap', SETUPTOOLS))
+    dst = os.path.join('.deps', SETUPTOOLS)
+    self.chroot.write(data, dst, 'resources')

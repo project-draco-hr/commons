@@ -1,0 +1,4 @@
+{
+  this.throwOnBadTransition=throwOnBadTransition;
+  return this;
+}

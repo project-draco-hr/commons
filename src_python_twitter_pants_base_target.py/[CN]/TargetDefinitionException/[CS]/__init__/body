@@ -1,0 +1,2 @@
+def __init__(self, target, msg):
+    Exception.__init__(self, ('Error in target %s: %s' % (target.address, msg)))

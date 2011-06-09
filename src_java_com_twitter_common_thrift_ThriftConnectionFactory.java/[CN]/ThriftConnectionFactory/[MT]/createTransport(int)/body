@@ -4,7 +4,15 @@
     if (timeoutMillis <= 0) {
       return null;
     }
-    socket=new TSocket(endpoint.getHostName(),endpoint.getPort(),timeoutMillis);
+    if (sslTransport) {
+      SSLSocketFactory factory=(SSLSocketFactory)SSLSocketFactory.getDefault();
+      SSLSocket ssl_socket=(SSLSocket)factory.createSocket(endpoint.getHostName(),endpoint.getPort());
+      ssl_socket.setSoTimeout(timeoutMillis);
+      return new TSocket(ssl_socket);
+    }
+ else {
+      socket=new TSocket(endpoint.getHostName(),endpoint.getPort(),timeoutMillis);
+    }
   }
   try {
 switch (transportType) {

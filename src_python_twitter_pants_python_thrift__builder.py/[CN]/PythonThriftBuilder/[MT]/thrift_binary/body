@@ -1,0 +1,7 @@
+@staticmethod
+def thrift_binary(root_dir):
+    PLATMAP = {'darwin': ['mac', '10.6', '0.5.0', 'thrift'], 'linux': ['linux', 'x86_64', '0.5.0', 'thrift'], }
+    platform = os.uname()[0].lower()
+    if (platform not in PLATMAP):
+        raise PythonThriftBuilder.UnknownPlatformException(platform)
+    return os.path.join(root_dir, 'build-support', 'bin', 'thrift', *PLATMAP[platform])

@@ -1,0 +1,25 @@
+def create_ant_builds(self, workspace_root, targets, flags, target):
+    if (target._id in targets):
+        return targets[target._id]
+    try:
+        library_template_data = target._create_template_data()
+    except:
+        self.ferror(('Problem creating template data for %s(%s): %s' % (type(target).__name__, target.address, traceback.format_exc())))
+    workspace = os.path.join(workspace_root, library_template_data.id)
+    if (not os.path.exists(workspace)):
+        os.makedirs(workspace)
+    ivyxml = os.path.join(workspace, 'ivy.xml')
+    AntBuilder._generate(self.root_dir, 'ivy', library_template_data, ivyxml)
+    buildxml = os.path.join(workspace, 'build.xml')
+    if target.custom_antxml_path:
+        shutil.copyfile(target.custom_antxml_path, buildxml)
+        pants_buildxml = os.path.join(workspace, 'pants-build.xml')
+        flags.add('-Dpants.build.file=pants-build.xml')
+    else:
+        pants_buildxml = buildxml
+    build_template = os.path.join(library_template_data.template_base, 'build')
+    AntBuilder._generate(self.root_dir, build_template, library_template_data, pants_buildxml)
+    targets[target._id] = buildxml
+    for additional_library in target.internal_dependencies:
+        self.create_ant_builds(workspace_root, targets, flags, additional_library)
+    return (buildxml, ivyxml)

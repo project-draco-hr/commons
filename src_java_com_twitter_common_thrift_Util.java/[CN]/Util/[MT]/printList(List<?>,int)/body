@@ -1,0 +1,7 @@
+{
+  List<String> entries=Lists.newArrayList();
+  for (int i=0; i < list.size(); i++) {
+    entries.add(String.format("%sItem[%d] = %s",tabs(depth),i,printValue(list.get(i),depth)));
+  }
+  return entries.isEmpty() ? "[]" : String.format("[\n%s\n%s]",Joiner.on(",\n").join(entries),tabs(depth - 1));
+}

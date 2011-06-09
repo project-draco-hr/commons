@@ -1,5 +1,5 @@
 {
-  Preconditions.checkState(instance.currentState != null);
-  Preconditions.checkState(!instance.stateTransitions.isEmpty());
-  return instance;
+  Preconditions.checkState(initialState != null,"Initial state must be specified.");
+  checkArgument(!stateTransitions.isEmpty(),"No state transitions were specified.");
+  return new StateMachine<T>(name,initialState,stateTransitions,Closures.combine(transitionCallbacks),throwOnBadTransition);
 }

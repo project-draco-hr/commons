@@ -1,0 +1,11 @@
+def test_paranoid_thrift_append_framing():
+    test_string_1 = StringType('hello world')
+    test_string_2 = StringType('ahoy ahoy, bonjour')
+    with EphemeralFile('w') as fp:
+        fn = fp.name
+        ThriftRecordWriter.append(fn, test_string_1)
+        ThriftRecordWriter.append(fn, test_string_2)
+        with open(fn) as fpr:
+            rr = ThriftRecordReader(fpr, StringType)
+            assert (rr.read() == test_string_1)
+            assert (rr.read() == test_string_2)

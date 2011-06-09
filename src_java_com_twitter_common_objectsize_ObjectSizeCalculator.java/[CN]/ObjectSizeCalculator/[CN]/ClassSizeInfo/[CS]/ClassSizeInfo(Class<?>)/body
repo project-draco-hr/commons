@@ -1,5 +1,5 @@
 {
-  long objectSize=0;
+  long fieldsSize=0;
   final List<Field> referenceFields=new LinkedList<Field>();
   for (  Field f : clazz.getDeclaredFields()) {
     if (Modifier.isStatic(f.getModifiers())) {
@@ -7,20 +7,21 @@
     }
     final Class<?> type=f.getType();
     if (type.isPrimitive()) {
-      objectSize+=getPrimitiveFieldSize(type);
+      fieldsSize+=getPrimitiveFieldSize(type);
     }
  else {
       f.setAccessible(true);
       referenceFields.add(f);
-      objectSize+=REFERENCE_FIELD_SIZE;
+      fieldsSize+=REFERENCE_SIZE;
     }
   }
   final Class<?> superClass=clazz.getSuperclass();
   if (superClass != null) {
     final ClassSizeInfo superClassInfo=classSizeInfos.get(superClass);
-    objectSize+=superClassInfo.objectSize - OBJECT_HEADER_SIZE;
+    fieldsSize+=roundTo(superClassInfo.fieldsSize,SUPERCLASS_FIELD_PADDING);
     referenceFields.addAll(Arrays.asList(superClassInfo.referenceFields));
   }
-  this.objectSize=OBJECT_HEADER_SIZE + roundToEight(objectSize);
+  this.fieldsSize=fieldsSize;
+  this.objectSize=roundTo(OBJECT_HEADER_SIZE + fieldsSize,OBJECT_PADDING);
   this.referenceFields=referenceFields.toArray(new Field[referenceFields.size()]);
 }

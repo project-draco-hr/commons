@@ -1,0 +1,24 @@
+def build(self, targets, args):
+    test_targets = []
+    binary_targets = []
+    for target in targets:
+        assert is_python(target), ('PythonBuilder can only build PythonTargets, given %s' % str(target))
+    if ('pylint' in args):
+        real_args = list(args)
+        real_args.remove('pylint')
+        for target in targets:
+            PythonLintBuilder([target], real_args, self.root_dir).run()
+        return 0
+    for target in targets:
+        if (isinstance(target, PythonTests) or isinstance(target, PythonTestSuite)):
+            test_targets.append(target)
+        elif isinstance(target, PythonBinary):
+            binary_targets.append(target)
+    rv = PythonTestBuilder(test_targets, args, self.root_dir).run()
+    if (rv != 0):
+        return rv
+    for binary_target in binary_targets:
+        rv = PythonBinaryBuilder(binary_target, args, self.root_dir).run()
+        if (rv != 0):
+            return rv
+    return 0

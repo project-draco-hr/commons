@@ -1,6 +1,0 @@
-def build(self, targets, args):
-    for target in targets:
-        assert is_python(target), ('PythonBuilder can only build PythonTargets, given %s' % str(target))
-        if (not is_test(target)):
-            raise Exception(('PythonBuilder cannot handle target: %s' % str(target)))
-    return self._run_tests(targets, args)

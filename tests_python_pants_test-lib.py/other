@@ -1,3 +1,0 @@
-__author__ = 'John Sirios'
-from pants import CycleException, InternalTarget
-import unittest

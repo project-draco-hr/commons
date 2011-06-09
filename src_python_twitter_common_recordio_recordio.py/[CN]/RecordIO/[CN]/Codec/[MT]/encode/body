@@ -1,0 +1,3 @@
+def encode(self, blob):
+    '\n        Given: blob in custom format\n        Return: serialized byte data\n      '
+    raise RecordIO.UnimplementedException('Codec.encode pure virtual.')

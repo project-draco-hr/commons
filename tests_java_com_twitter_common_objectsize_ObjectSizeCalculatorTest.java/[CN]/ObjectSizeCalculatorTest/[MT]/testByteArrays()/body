@@ -1,5 +1,5 @@
 {
-  assertSizeIs(32,new byte[1]);
-  assertSizeIs(32,new byte[8]);
-  assertSizeIs(40,new byte[9]);
+  assertSizeIs(A + 1,new byte[1]);
+  assertSizeIs(A + 8,new byte[8]);
+  assertSizeIs(A + 9,new byte[9]);
 }

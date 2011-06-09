@@ -1,0 +1,2 @@
+def records(self):
+    return self._records[:]

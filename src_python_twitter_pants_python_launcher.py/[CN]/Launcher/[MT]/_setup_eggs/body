@@ -1,0 +1,7 @@
+@staticmethod
+def _setup_eggs(path, eggs):
+    eggparser = EggParser()
+    for egg in eggs:
+        egg_file = os.path.basename(egg)
+        if eggparser.is_compatible(egg_file):
+            path.add(egg)

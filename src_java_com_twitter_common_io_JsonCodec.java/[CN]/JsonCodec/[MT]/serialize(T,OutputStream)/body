@@ -1,0 +1,5 @@
+{
+  final Writer w=new OutputStreamWriter(new UnflushableOutputStream(sink),ENCODING);
+  gson.toJson(item,clazz,w);
+  w.flush();
+}

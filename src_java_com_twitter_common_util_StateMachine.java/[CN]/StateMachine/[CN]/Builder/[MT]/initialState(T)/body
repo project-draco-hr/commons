@@ -1,5 +1,5 @@
 {
-  Preconditions.checkNotNull(state);
-  instance.currentState=state;
+  checkNotNull(state);
+  initialState=state;
   return this;
 }

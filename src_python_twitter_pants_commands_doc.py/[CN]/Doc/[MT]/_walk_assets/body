@@ -1,0 +1,13 @@
+@staticmethod
+def _walk_assets(directory):
+    assets = pkg_resources.resource_listdir(__name__, directory)
+    (files, dirs) = ([], [])
+    for f in assets:
+        if pkg_resources.resource_isdir(__name__, os.path.join(directory, f)):
+            dirs.append(f)
+        else:
+            files.append(f)
+    yield (directory, dirs, files)
+    for dir in dirs:
+        for (r, d, f) in Doc._walk_assets(os.path.join(directory, dir)):
+            yield (r, d, f)

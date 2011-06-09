@@ -1,0 +1,4 @@
+def _dump_bin(self, binary_name, base):
+    src = os.path.join(base, binary_name)
+    print ('  Dumping binary: %s' % binary_name)
+    self.chroot.copy(src, '__main__.py', 'sources')

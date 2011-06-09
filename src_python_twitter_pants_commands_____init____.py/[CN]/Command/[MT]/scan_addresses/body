@@ -1,0 +1,7 @@
+@staticmethod
+def scan_addresses(root_dir, base_path=None):
+    'Parses all targets available in BUILD files under base_path and returns their addresses.  If no\n    base_path is specified, root_dir is assumed to be the base_path'
+    addresses = OrderedSet()
+    for buildfile in BuildFile.scan_buildfiles(root_dir, base_path):
+        addresses.update(Target.get_all_addresses(buildfile))
+    return addresses

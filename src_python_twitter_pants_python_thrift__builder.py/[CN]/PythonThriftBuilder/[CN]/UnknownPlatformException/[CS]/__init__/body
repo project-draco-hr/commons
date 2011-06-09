@@ -1,0 +1,2 @@
+def __init__(self, platform):
+    Exception.__init__(self, ('Unknown platform: %s!' % platform))

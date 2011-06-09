@@ -1,0 +1,4 @@
+import unittest
+from twitter.pants.python.eggparser import EggParser
+if (__name__ == '__main__'):
+    unittest.main()

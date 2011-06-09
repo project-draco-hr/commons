@@ -1,0 +1,26 @@
+def _print_dependency_tree(self, target):
+
+    def print_dep(dep, indent):
+        print ('%s%s' % ((indent * '  '), dep))
+
+    def print_deps(printed, dep, indent=0):
+        (dep_id, _) = self._dep_id(dep)
+        if (dep_id in printed):
+            if (not self.is_minimal):
+                print_dep(('*%s' % dep_id), indent)
+        else:
+            if (not self.is_external_only):
+                print_dep(dep_id, indent)
+                printed.add(dep_id)
+                indent += 1
+            for internal_dep in dep.internal_dependencies:
+                print_deps(printed, internal_dep, indent)
+            if (not self.is_internal_only):
+                if is_java(self):
+                    for jar_dep in dep.jar_dependencies:
+                        (jar_dep_id, internal) = self._dep_id(jar_dep)
+                        if (not internal):
+                            if ((jar_dep_id not in printed) or ((not self.is_minimal) and (not self.is_external_only))):
+                                print_dep(jar_dep_id, indent)
+                                printed.add(jar_dep_id)
+    print_deps(set(), target)

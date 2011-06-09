@@ -1,0 +1,26 @@
+import os
+import sys
+import fnmatch
+import glob
+from twitter.pants.base import Fileset
+from twitter.pants.targets import *
+artifact = Artifact
+egg = PythonEgg
+exclude = Exclude
+fancy_pants = Pants
+jar = JarDependency
+jar_library = JarLibrary
+java_library = JavaLibrary
+java_protobuf_library = JavaProtobufLibrary
+java_tests = JavaTests
+java_thrift_library = JavaThriftLibrary
+python_binary = PythonBinary
+python_library = PythonLibrary
+python_thrift_library = PythonThriftLibrary
+python_tests = PythonTests
+python_test_suite = PythonTestSuite
+repo = Repository
+scala_library = ScalaLibrary
+scala_tests = ScalaTests
+pants = fancy_pants
+__all__ = ('artifact', 'exclude', 'egg', 'globs', 'jar', 'jar_library', 'java_library', 'java_protobuf_library', 'java_tests', 'java_thrift_library', 'pants', 'python_binary', 'python_library', 'python_tests', 'python_test_suite', 'python_thrift_library', 'repo', 'rglobs', 'scala_library', 'scala_tests')

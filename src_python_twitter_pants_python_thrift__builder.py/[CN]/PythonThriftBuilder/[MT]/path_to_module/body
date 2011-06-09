@@ -1,0 +1,3 @@
+@staticmethod
+def path_to_module(path):
+    return path.replace(os.path.sep, '.')

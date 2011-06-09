@@ -1,0 +1,7 @@
+def __init__(self, name, is_meta):
+    self.name = name
+    self.is_meta = is_meta
+    self.is_codegen = False
+    self.address = self.locate()
+    self._id = self._create_id()
+    self.register()

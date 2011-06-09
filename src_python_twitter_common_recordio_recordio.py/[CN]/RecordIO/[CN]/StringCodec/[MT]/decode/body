@@ -1,0 +1,2 @@
+def decode(self, blob):
+    return RecordIO.StringCodec.code(blob)

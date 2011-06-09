@@ -1,15 +1,5 @@
 {
-  Unit unit=null;
-  try {
-    unit=Time.valueOf(raw);
-  }
- catch (  IllegalArgumentException e) {
-    try {
-      unit=Data.valueOf(raw);
-    }
- catch (    IllegalArgumentException x) {
-    }
-  }
+  Unit unit=unitValues.get(raw);
   checkArgument(unit != null,String.format("No Units found matching %s, options: (Time): %s, (Data): %s",raw,EnumSet.allOf(Time.class),EnumSet.allOf(Data.class)));
   return unit;
 }

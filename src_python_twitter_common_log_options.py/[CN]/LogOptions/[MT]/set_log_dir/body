@@ -1,0 +1,4 @@
+@staticmethod
+def set_log_dir(dir):
+    '\n      Set the logging dir for disk logging.  Must be called before log.init() for\n      changes to take effect.\n    '
+    LogOptions._LOG_DIR = dir

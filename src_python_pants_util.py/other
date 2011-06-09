@@ -1,4 +1,0 @@
-import fnmatch
-import glob
-import os
-from pants import ExportableJvmLibrary, InternalTarget, JvmTarget, JavaLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, PythonTarget, PythonTests, ScalaLibrary, ScalaTests, TargetWithSources

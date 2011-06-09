@@ -1,0 +1,5 @@
+{
+  DataOutputStream out=new DataOutputStream(sink);
+  out.writeByte(firstByte);
+  out.writeUTF(item.data);
+}

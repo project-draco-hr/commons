@@ -1,0 +1,9 @@
+{
+  checkNotNull(callback);
+  checkNotNull(state);
+  Preconditions.checkArgument(Iterables.all(transitionStates,Predicates.notNull()));
+  stateTransitions.putAll(state,transitionStates);
+  @SuppressWarnings("unchecked") Predicate<Transition<T>> filter=Transition.from(state);
+  onTransition(filter,callback);
+  return this;
+}

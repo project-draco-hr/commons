@@ -1,0 +1,3 @@
+{
+  assertCanDeserialize(compatibilityCodec,secondaryCodec);
+}

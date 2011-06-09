@@ -1,0 +1,6 @@
+InetSocketAddress endpoint
+int maxConnections
+TransportType transportType
+Amount<Long,Time> socketTimeout
+Closure<Connection<TTransport,InetSocketAddress>> postCreateCallback
+boolean sslTransport

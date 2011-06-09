@@ -1,0 +1,2 @@
+Function<Transition<T>,T> extractor
+T states

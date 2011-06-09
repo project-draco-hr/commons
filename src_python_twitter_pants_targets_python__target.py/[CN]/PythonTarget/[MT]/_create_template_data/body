@@ -1,0 +1,2 @@
+def _create_template_data(self):
+    return TemplateData(name=self.name, template_base=self.target_base, sources=self.sources, resources=self.resources, dependencies=self.dependencies)

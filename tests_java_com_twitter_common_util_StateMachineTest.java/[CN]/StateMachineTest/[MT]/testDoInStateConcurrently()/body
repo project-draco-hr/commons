@@ -1,4 +1,5 @@
 {
+  control.replay();
   final StateMachine<String> stateMachine=StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build();
   final BlockingQueue<Integer> results=new LinkedBlockingQueue<Integer>();
   final CountDownLatch supplier1Proceed=new CountDownLatch(1);

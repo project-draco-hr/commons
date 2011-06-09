@@ -1,0 +1,4 @@
+def _run_lints(self, targets, args):
+    for target in targets:
+        self._run_lint(target, args)
+    return 0

@@ -1,3 +1,0 @@
-def is_python(target):
-    'Returns True if the target has python sources.'
-    return isinstance(target, PythonTarget)

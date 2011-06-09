@@ -1,0 +1,3 @@
+def __init__(self, zip, target_name):
+    self.zip = zip
+    self.target_name = target_name

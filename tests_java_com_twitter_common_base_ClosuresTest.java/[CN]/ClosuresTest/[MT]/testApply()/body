@@ -1,8 +1,7 @@
 {
-  ExceptionalClosure<Integer,IOException> work=createMock(ExceptionalClosure.class);
+  ExceptionalClosure<Integer,IOException> work=createMock(EXC_INT_CLOSURE_CLZ);
   work.execute(1);
   control.replay();
   Function<Integer,Void> workFunction=Closures.asFunction(work);
   workFunction.apply(1);
-  control.verify();
 }

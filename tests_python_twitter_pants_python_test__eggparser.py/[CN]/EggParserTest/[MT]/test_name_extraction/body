@@ -1,0 +1,9 @@
+def test_name_extraction(self):
+    (name, _, _, _) = self.parser.parse('Mako.egg')
+    self.assertEquals(name, 'Mako')
+    (name, _, _, _) = self.parser.parse('Thrift-0.7.0_dev.egg')
+    self.assertEquals(name, 'Thrift')
+    (name, _, _, _) = self.parser.parse('Bonkers-0.7.0-py2.6.egg')
+    self.assertEquals(name, 'Bonkers')
+    (name, _, _, _) = self.parser.parse('ZooKeeper-0.4-py2.6-linux-x86_64.egg')
+    self.assertEquals(name, 'ZooKeeper')

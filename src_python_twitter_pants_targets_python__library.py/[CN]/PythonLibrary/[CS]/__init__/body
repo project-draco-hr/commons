@@ -1,0 +1,5 @@
+def __init__(self, name, sources=None, resources=None, dependencies=None, module='', module_root='src/python'):
+    '\n      name = Name of library\n      sources = Python source files\n      resources = non-Python resources, e.g. templates, keys, other data (it is\n        recommended that your application uses the pkgutil package to access these\n        resources in a .zip-module friendly way.)\n      dependencies = other PythonLibraries, Eggs or internal Pants targets\n      module = everything beneath module_root is relative to this module name, None if root namespace\n      module_root = see above\n    '
+    context = ParseContext.locate()
+    self._module = module
+    PythonTarget.__init__(self, module_root, name, sources, resources, dependencies, False)

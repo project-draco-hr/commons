@@ -1,2 +1,0 @@
-def __init__(self, name, sources, dependencies=None, is_meta=False):
-    PythonTarget.__init__(self, 'tests/python', name, sources, dependencies, is_meta)

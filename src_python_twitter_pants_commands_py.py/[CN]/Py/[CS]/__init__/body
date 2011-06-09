@@ -1,0 +1,13 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    if (not self.args):
+        self.error('A spec argument is required')
+    try:
+        address = Address.parse(root_dir, self.args[0])
+        target = Target.get(address)
+    except:
+        self.error(('Invalid target in %s' % self.args[0]))
+    if (not target):
+        self.error(('Target %s does not exist' % address))
+    self.target = target
+    self.args.pop(0)

@@ -1,0 +1,12 @@
+def init(filebase):
+    '\n    Set up default logging using:\n      {--log_dir}/filebase.{INFO,WARNING,...}\n  '
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    for handler in _setup_logging_partitions(logging.FileHandler, filebase):
+        root_logger.addHandler(handler)
+    if LogOptions.stdout_log_level():
+        stdout_handler = logging.StreamHandler(sys.stdout)
+        stdout_handler.setFormatter(GlogFormatter())
+        stdout_handler.setLevel(LogOptions.stdout_log_level())
+        root_logger.addHandler(stdout_handler)
+    return root_logger

@@ -1,2 +1,0 @@
-def __init__(self, **kwargs):
-    self._props = kwargs.copy()

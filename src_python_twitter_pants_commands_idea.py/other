@@ -1,0 +1,10 @@
+__author__ = 'John Sirois'
+from ide import Ide, Project
+from twitter.pants.base.generator import Generator, TemplateData
+import os
+import shutil
+import tempfile
+import pkgutil
+from xml.dom import minidom
+_TEMPLATE_BASEDIR = 'idea/templates'
+_VERSIONS = {'9': '10', '10': '10', }

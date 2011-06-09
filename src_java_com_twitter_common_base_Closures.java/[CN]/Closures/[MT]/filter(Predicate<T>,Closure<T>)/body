@@ -1,0 +1,12 @@
+{
+  checkNotNull(filter);
+  checkNotNull(closure);
+  return new Closure<T>(){
+    @Override public void execute(    T item){
+      if (filter.apply(item)) {
+        closure.execute(item);
+      }
+    }
+  }
+;
+}

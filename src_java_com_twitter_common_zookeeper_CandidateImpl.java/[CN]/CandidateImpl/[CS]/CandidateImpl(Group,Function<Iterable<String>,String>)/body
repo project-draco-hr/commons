@@ -1,0 +1,4 @@
+{
+  this.group=Preconditions.checkNotNull(group);
+  this.judge=Preconditions.checkNotNull(judge);
+}

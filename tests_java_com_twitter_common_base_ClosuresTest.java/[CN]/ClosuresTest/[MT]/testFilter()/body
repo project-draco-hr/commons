@@ -1,0 +1,13 @@
+{
+  Predicate<Integer> filter=createMock(new Clazz<Predicate<Integer>>(){
+  }
+);
+  Closure<Integer> work=createMock(INT_CLOSURE_CLZ);
+  expect(filter.apply(1)).andReturn(true);
+  work.execute(1);
+  expect(filter.apply(2)).andReturn(false);
+  Closure<Integer> filtered=Closures.filter(filter,work);
+  control.replay();
+  filtered.execute(1);
+  filtered.execute(2);
+}

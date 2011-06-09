@@ -1,0 +1,6 @@
+def __init__(self, target, args, root_dir):
+    self.target = target
+    if (not isinstance(target, PythonBinary)):
+        raise PythonBinaryBuilder.NotABinaryTargetException(('Target %s is not a PythonBinary!' % target))
+    self.chroot = PythonChroot(target, root_dir)
+    self.distdir = os.path.join(root_dir, 'dist')

@@ -1,0 +1,3 @@
+@staticmethod
+def _construct_parser_with(output_uname, output_version):
+    return EggParser(uname=output_uname, version_info=output_version)

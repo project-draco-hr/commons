@@ -1,4 +1,5 @@
 {
+  control.replay();
   try {
     StateMachine.builder(NAME).build();
     fail();

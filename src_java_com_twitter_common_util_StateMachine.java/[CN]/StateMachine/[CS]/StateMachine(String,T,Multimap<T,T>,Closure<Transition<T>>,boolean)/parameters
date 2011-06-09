@@ -1,0 +1,5 @@
+String name
+T initialState
+Multimap<T,T> stateTransitions
+Closure<Transition<T>> transitionCallback
+boolean throwOnBadTransition

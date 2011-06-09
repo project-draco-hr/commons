@@ -1,0 +1,6 @@
+{
+  final PushbackInputStream in=new PushbackInputStream(source,prefixLength);
+  final byte[] prefix=readAtMostPrefix(in);
+  in.unread(prefix);
+  return (discriminator.apply(prefix) ? primaryCodec : secondaryCodec).deserialize(in);
+}

@@ -1,0 +1,4 @@
+__author__ = 'Brian Wickman'
+import os
+import glob
+from pkg_resources import Environment

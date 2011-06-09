@@ -1,0 +1,16 @@
+def _run_python_test_suite(self, target):
+    tests = OrderedSet([])
+
+    def _gather_deps(trg):
+        if isinstance(trg, PythonTests):
+            tests.add(trg)
+        elif isinstance(trg, PythonTestSuite):
+            for dependency in trg.dependencies:
+                for dep in dependency.resolve():
+                    _gather_deps(dep)
+    _gather_deps(target)
+    for test in tests:
+        rv = self._run_python_test(test)
+        if (rv != 0):
+            return rv
+    return 0

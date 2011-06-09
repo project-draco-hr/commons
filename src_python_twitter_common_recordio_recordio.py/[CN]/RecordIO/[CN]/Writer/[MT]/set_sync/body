@@ -1,0 +1,2 @@
+def set_sync(self, value):
+    self._sync = bool(value)

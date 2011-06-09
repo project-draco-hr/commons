@@ -1,0 +1,19 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    self.only_provides = self.options.only_provides
+    self.link_changelog = self.options.link_changelog
+    if self.args:
+        self.targets = self._parse_targets(root_dir)
+    else:
+
+        def get_targets():
+            for address in Command.scan_addresses(root_dir):
+                target = Target.get(address)
+                if Doc._is_documentable(target):
+                    yield target
+        self.targets = list(get_targets())
+    self.target_path = os.path.join(root_dir, 'target', 'pants.doc')
+    self.artifact_data_path = os.path.abspath(os.path.join(self.target_path, 'artifacts.js'))
+    self.java_src_prefix = os.path.join(root_dir, 'src', 'java')
+    self.ivy_jar = os.path.join(root_dir, 'build-support', 'ivy', 'lib', 'ivy-2.2.0.jar')
+    self.ivy_settings = os.path.join(root_dir, 'build-support', 'ivy', 'ivysettings.xml')

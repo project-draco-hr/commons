@@ -1,0 +1,4 @@
+def __init__(self, fp):
+    '\n      Supplying a file pointer, construct a ThriftRecordWriter.\n\n      May raise:\n        RecordIO.ThriftUnavailableException if thrift deserialization is unavailable.\n    '
+    ThriftRecordIO.assert_has_thrift()
+    RecordIO.Writer.__init__(self, fp, ThriftRecordIO.ThriftCodec())

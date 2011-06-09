@@ -1,7 +1,0 @@
-def execute(self):
-    for buildfile in BuildFile.scan_buildfiles(self.root_dir):
-        for address in Target.get_all_addresses(buildfile):
-            target = Target.get(address)
-            if hasattr(target, 'sources'):
-                for sourcefile in target.sources:
-                    print sourcefile, address

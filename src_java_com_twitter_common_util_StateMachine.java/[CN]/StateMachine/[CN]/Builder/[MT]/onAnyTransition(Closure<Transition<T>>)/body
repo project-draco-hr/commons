@@ -1,0 +1,4 @@
+{
+  transitionCallbacks.add(handler);
+  return this;
+}

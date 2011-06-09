@@ -1,0 +1,3 @@
+{
+  return ObjectSizeCalculator.roundTo(x,multiple);
+}

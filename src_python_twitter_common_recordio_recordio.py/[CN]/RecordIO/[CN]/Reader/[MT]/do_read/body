@@ -1,0 +1,15 @@
+@staticmethod
+def do_read(fp, decoder):
+    blob = fp.read(4)
+    if (len(blob) == 0):
+        log.debug(('%s has no data (cur offset = %d)' % (fp.name, fp.tell())))
+        return None
+    if (len(blob) != 4):
+        raise RecordIO.PrematureEndOfStream(('Expected 4 bytes, got %d' % len(blob)))
+    blob_len = struct.unpack('>L', blob)[0]
+    if (blob_len > RecordIO.SANITY_CHECK_BYTES):
+        raise RecordIO.RecordSizeExceeded()
+    read_blob = fp.read(blob_len)
+    if (len(read_blob) != blob_len):
+        raise RecordIO.PrematureEndOfStream()
+    return decoder.decode(read_blob)

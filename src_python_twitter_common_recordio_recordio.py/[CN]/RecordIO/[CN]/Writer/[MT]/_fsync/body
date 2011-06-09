@@ -1,0 +1,7 @@
+@staticmethod
+def _fsync(fp):
+    try:
+        fp.flush()
+        os.fsync(fp.fileno())
+    except:
+        log.error(('Failed to fsync on %s!  Continuing...' % fp.name))

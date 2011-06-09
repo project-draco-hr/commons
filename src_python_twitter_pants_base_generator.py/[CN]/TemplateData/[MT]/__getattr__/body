@@ -1,0 +1,5 @@
+def __getattr__(self, key):
+    if (key in self):
+        return self[key]
+    else:
+        return object.__getattr__(self, key)

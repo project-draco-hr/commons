@@ -1,0 +1,9 @@
+@staticmethod
+def _get_egg_version(components):
+    for k in range(len(components)):
+        if components[k].startswith('py'):
+            return ('-'.join(components[0:k]), components[k:])
+    if components:
+        return ('-'.join(components), [])
+    else:
+        return (None, [])

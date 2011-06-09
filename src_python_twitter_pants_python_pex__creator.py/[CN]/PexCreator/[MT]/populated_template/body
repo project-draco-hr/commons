@@ -1,0 +1,6 @@
+def populated_template(self):
+    template = PexCreator._read_template()
+    template = template.replace(PexCreator.EGG_PARSER_REPLACE_STRING, PexCreator._read_eggparser())
+    template = template.replace(PexCreator.PEX_REPLACE_ZIP, os.path.basename(self.zip))
+    template = template.replace(PexCreator.PEX_REPLACE_TARGET, self.target_name)
+    return template

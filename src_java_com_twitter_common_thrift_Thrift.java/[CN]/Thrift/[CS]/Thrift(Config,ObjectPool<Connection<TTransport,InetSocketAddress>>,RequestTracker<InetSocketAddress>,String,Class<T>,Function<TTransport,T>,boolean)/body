@@ -1,3 +1,0 @@
-{
-  this(config,Executors.newCachedThreadPool(new ThreadFactoryBuilder().setDaemon(true).setNameFormat("Thrift[" + serviceName + "][%d]").build()),connectionPool,requestTracker,serviceName,serviceInterface,clientFactory,async);
-}

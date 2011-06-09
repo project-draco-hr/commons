@@ -1,0 +1,10 @@
+import sys
+import inspect
+from .recordio import RecordIO
+try:
+    import thrift.TSerialization as _SER
+    _HAS_THRIFT = True
+except ImportError:
+    _SER = None
+    _HAS_THRIFT = False
+    print  >> sys.stderr, 'WARNING: Unable to load thrift in record_writer'

@@ -1,0 +1,16 @@
+{
+  if (rangeString == null)   return null;
+  String[] startEnd=rangeString.split("-");
+  Preconditions.checkState(startEnd.length == 2,"Shard range format: start-end (e.g. 1-4)");
+  int start;
+  int end;
+  try {
+    start=Integer.parseInt(startEnd[0].trim());
+    end=Integer.parseInt(startEnd[1].trim());
+  }
+ catch (  NumberFormatException e) {
+    throw new IllegalArgumentException("Failed to parse shard range.",e);
+  }
+  Preconditions.checkState(start <= end,"The left-hand side of a shard range must be <= the right-hand side.");
+  return Pair.of(start,end);
+}

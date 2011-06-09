@@ -1,6 +1,6 @@
 {
-  Preconditions.checkNotNull(expectedState);
-  Preconditions.checkNotNull(work);
+  checkNotNull(expectedState);
+  checkNotNull(work);
   readLock.lock();
   try {
     checkState(expectedState);

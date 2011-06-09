@@ -1,0 +1,4 @@
+def test_linux_arch(self):
+    parser = EggParserTestHelper.get_linux_platform()
+    arch = parser.get_architecture()
+    self.assertEquals(arch[0], 'linux')

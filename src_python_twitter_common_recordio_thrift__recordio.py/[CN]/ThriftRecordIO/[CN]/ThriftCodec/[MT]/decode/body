@@ -1,0 +1,9 @@
+def decode(self, input):
+    if (self._base is None):
+        raise ThriftRecordIO.ThriftUnsuppliedException('ThriftCodec cannot deserialize because no thrift_base supplied!')
+    base = self._base()
+    try:
+        _SER.deserialize(base, input)
+    except EOFError as e:
+        raise RecordIO.PrematureEndOfStream(e)
+    return base

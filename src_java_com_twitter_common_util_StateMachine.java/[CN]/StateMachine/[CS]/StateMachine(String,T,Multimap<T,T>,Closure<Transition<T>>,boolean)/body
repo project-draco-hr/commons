@@ -1,0 +1,10 @@
+{
+  this.name=name;
+  this.currentState=initialState;
+  this.stateTransitions=stateTransitions;
+  this.transitionCallback=transitionCallback;
+  this.throwOnBadTransition=throwOnBadTransition;
+  ReadWriteLock stateLock=new ReentrantReadWriteLock(true);
+  readLock=stateLock.readLock();
+  writeLock=stateLock.writeLock();
+}

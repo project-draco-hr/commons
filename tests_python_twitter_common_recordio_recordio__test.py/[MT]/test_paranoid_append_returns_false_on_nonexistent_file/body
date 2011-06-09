@@ -1,0 +1,3 @@
+def test_paranoid_append_returns_false_on_nonexistent_file():
+    fn = tempfile.mktemp()
+    assert (RecordWriter.append(fn, 'hello world!') == False)

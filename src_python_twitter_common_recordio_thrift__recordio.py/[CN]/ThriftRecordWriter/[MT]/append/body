@@ -1,0 +1,3 @@
+@staticmethod
+def append(filename, input, codec=ThriftRecordIO.ThriftCodec()):
+    return RecordIO.Writer.append(filename, input, codec)

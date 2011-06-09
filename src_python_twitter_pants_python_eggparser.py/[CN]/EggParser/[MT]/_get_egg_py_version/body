@@ -1,0 +1,10 @@
+@staticmethod
+def _get_egg_py_version(components):
+    if (components and components[0].startswith('py')):
+        try:
+            (maj, min) = components[0][2:].split('.')
+            (maj, min) = (int(maj), int(min))
+            return ((maj, min), components[1:])
+        except:
+            pass
+    return ((), components)

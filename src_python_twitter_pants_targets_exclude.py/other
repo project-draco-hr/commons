@@ -1,0 +1,1 @@
+from twitter.pants.base.generator import TemplateData

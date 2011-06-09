@@ -1,0 +1,3 @@
+from twitter.common.collections import OrderedSet
+from twitter.pants.base.generator import TemplateData
+from with_sources import TargetWithSources

@@ -1,0 +1,5 @@
+def __init__(self, fp, codec):
+    '\n        Initialize a Reader from the file pointer fp.\n      '
+    RecordIO.Stream.__init__(self, fp, codec)
+    if ((('w' in self._fp.mode) or ('a' in self._fp.mode)) and ('+' not in self._fp.mode)):
+        raise RecordIO.InvalidFileHandle('Filehandle supplied to RecordReader does not appear to be readable!')

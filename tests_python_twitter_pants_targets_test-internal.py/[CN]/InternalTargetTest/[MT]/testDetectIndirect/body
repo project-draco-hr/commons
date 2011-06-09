@@ -1,0 +1,11 @@
+def testDetectIndirect(self):
+    c = MockTarget('c')
+    b = MockTarget('b', c)
+    a = MockTarget('a', c, b)
+    InternalTarget.check_cycles(a)
+    c.internal_dependencies = [a]
+    try:
+        InternalTarget.check_cycles(a)
+        self.fail('Expected a cycle to be detected')
+    except InternalTarget_CycleException:
+        pass

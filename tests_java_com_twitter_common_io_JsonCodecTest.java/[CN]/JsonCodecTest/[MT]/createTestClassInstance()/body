@@ -1,0 +1,8 @@
+{
+  TestClass testOut=new TestClass();
+  testOut.data1="foo";
+  testOut.data2="bar";
+  testOut.data3=42;
+  testOut.data4=new String[]{"abc","def"};
+  return testOut;
+}

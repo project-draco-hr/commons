@@ -1,0 +1,6 @@
+def test_parser(self):
+    for egg in (EggParserTest.GOOD_EGGS + EggParserTest.BAD_EGGS):
+        try:
+            self.parser.parse(egg)
+        except:
+            self.fail(('Failed to parse valid Egg: %s' % egg))

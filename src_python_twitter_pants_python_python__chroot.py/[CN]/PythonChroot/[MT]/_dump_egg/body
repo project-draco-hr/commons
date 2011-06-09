@@ -1,0 +1,6 @@
+def _dump_egg(self, egg):
+    print ('  Dumping egg: %s' % egg)
+    for egg_path in egg.eggs:
+        src = egg_path
+        dst = os.path.join('.deps', os.path.basename(src))
+        self.chroot.copy(src, dst, 'resources')

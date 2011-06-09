@@ -1,5 +1,5 @@
 {
-  if (alreadyVisited.containsKey(obj)) {
+  if (alreadyVisited.contains(obj)) {
     return;
   }
   final Class<?> clazz=obj.getClass();
@@ -7,7 +7,7 @@
     ((ArrayElementsVisitor)obj).visit(this);
   }
  else {
-    alreadyVisited.put(obj,obj);
+    alreadyVisited.add(obj);
     if (clazz.isArray()) {
       visitArray(obj);
     }

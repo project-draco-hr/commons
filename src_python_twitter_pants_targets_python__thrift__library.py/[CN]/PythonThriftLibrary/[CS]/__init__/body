@@ -1,0 +1,10 @@
+def __init__(self, name, sources=None, resources=None, dependencies=None):
+    '\n      name = Name of library\n      source = thrift source file\n      resources = non-Python resources, e.g. templates, keys, other data (it is\n        recommended that your application uses the pkgutil package to access these\n        resources in a .zip-module friendly way.)\n      dependencies = other PythonLibraries, Eggs or internal Pants targets\n    '
+
+    def get_all_deps():
+        all_deps = OrderedSet()
+        all_deps.update(Pants('3rdparty/python:thrift-0.7').resolve())
+        if dependencies:
+            all_deps.update(dependencies)
+        return all_deps
+    PythonTarget.__init__(self, PythonThriftLibrary._SRC_DIR, name, sources, resources, get_all_deps(), False)

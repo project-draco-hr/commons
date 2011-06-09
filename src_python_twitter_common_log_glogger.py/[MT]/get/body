@@ -1,0 +1,3 @@
+def get():
+    '\n    Get root logger, synonymous with logging.getLogger()\n  '
+    return logging.getLogger()

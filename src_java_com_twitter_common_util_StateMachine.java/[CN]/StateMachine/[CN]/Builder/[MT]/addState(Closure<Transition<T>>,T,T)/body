@@ -1,0 +1,5 @@
+{
+  Set<T> states=ImmutableSet.copyOf(transitionStates);
+  Preconditions.checkArgument(Iterables.all(states,Predicates.notNull()));
+  return addState(callback,state,states);
+}

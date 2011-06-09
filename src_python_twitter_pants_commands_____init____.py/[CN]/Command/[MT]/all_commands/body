@@ -1,0 +1,3 @@
+@staticmethod
+def all_commands():
+    return Command._commands.keys()

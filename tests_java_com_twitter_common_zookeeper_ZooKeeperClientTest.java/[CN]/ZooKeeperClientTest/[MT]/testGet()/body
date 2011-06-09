@@ -6,6 +6,7 @@
     fail("Expected client connection to timeout while network down");
   }
  catch (  TimeoutException e) {
+    assertTrue(zkClient.isClosed());
   }
   final CountDownLatch blockingGetComplete=new CountDownLatch(1);
   final AtomicReference<ZooKeeper> client=new AtomicReference<ZooKeeper>();

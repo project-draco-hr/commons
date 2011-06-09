@@ -1,0 +1,25 @@
+{
+  Closure<Transition<String>> anyTransition=createMock(TRANSITION_CLOSURE_CLZ);
+  Closure<Transition<String>> fromA=createMock(TRANSITION_CLOSURE_CLZ);
+  Closure<Transition<String>> fromB=createMock(TRANSITION_CLOSURE_CLZ);
+  Transition<String> aToB=new Transition<String>(A,B,true);
+  anyTransition.execute(aToB);
+  fromA.execute(aToB);
+  Transition<String> bToB=new Transition<String>(B,B,false);
+  anyTransition.execute(bToB);
+  fromB.execute(bToB);
+  Transition<String> bToC=new Transition<String>(B,C,true);
+  anyTransition.execute(bToC);
+  fromB.execute(bToC);
+  anyTransition.execute(new Transition<String>(C,B,true));
+  Transition<String> bToD=new Transition<String>(B,D,true);
+  anyTransition.execute(bToD);
+  fromB.execute(bToD);
+  control.replay();
+  StateMachine<String> machine=StateMachine.<String>builder(NAME).initialState(A).addState(fromA,A,B).addState(fromB,B,C,D).addState(C,B).addState(D).onAnyTransition(anyTransition).throwOnBadTransition(false).build();
+  machine.transition(B);
+  machine.transition(B);
+  machine.transition(C);
+  machine.transition(B);
+  machine.transition(D);
+}

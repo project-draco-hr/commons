@@ -1,0 +1,5 @@
+{
+  @SuppressWarnings("unchecked") Predicate<Transition<T>> fromFilter=from(from);
+  @SuppressWarnings("unchecked") Predicate<Transition<T>> toFilter=to(to);
+  return Predicates.and(fromFilter,toFilter);
+}

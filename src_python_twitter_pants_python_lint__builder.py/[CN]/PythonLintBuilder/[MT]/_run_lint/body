@@ -1,0 +1,11 @@
+def _run_lint(self, target, args):
+    chroot = PythonChroot(target, self.root_dir)
+    chroot.dump()
+    launcher = Launcher(chroot.path())
+    interpreter_args = ['-m', 'pylint.lint', ('--rcfile=%s' % os.path.join(self.root_dir, 'build-support', 'pylint', 'pylint.rc'))]
+    if args:
+        interpreter_args.extend(args)
+    sources = OrderedSet([])
+    if (not isinstance(target, PythonEgg)):
+        target.walk((lambda trg: sources.update(trg.sources)), (lambda trg: (not isinstance(trg, PythonEgg))))
+    launcher.run(interpreter_args=interpreter_args, args=list(sources), with_chroot=True)

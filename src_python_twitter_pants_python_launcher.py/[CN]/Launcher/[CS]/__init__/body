@@ -1,0 +1,5 @@
+def __init__(self, dir, binary=None):
+    self._dir = dir
+    self._binary = binary
+    self._path = OrderedSet([os.path.abspath(self._dir)])
+    self._init()

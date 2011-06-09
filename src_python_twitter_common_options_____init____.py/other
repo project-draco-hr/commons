@@ -1,0 +1,8 @@
+'\n  Twitter\'s wrapper around the optparse module.\n\n  Typical usage (from module):\n    from twitter.common import options\n    options.add("-q", "--quiet",\n                action="store_false", dest="verbose", default=True,\n                help="don\'t print status messages to stdout")\n\n    def my_function():\n      opts = options.values()\n      if opts.verbose:\n        print \'LOOOOOOLLOLOLOL\'\n\n  From __main__ script:\n    from twitter.common import options\n    options.add(...)\n    options.add(...)\n\n    def main(argv):\n      options.parse()\n\n  All options are stored in a global options registry, and are grouped by\n  the module from which they were added (and displayed as such in --help.)\n\n  options.parse() must be called before modules can use options.values().\n  options.values() will raise an exception if called before options.parse()\n  by the __main__ module.  this is to prevent parsing before all options\n  have been registered.\n\n  For more help on options formatting, see the optparse module.\n'
+__author__ = 'Brian Wickman'
+import inspect
+from optparse import OptionParser, OptionValueError
+add_option = add
+parse_args = parse
+print_help = help
+__all__ = ['add', 'add_option', 'parse', 'parse_args', 'values', 'set_usage', 'help', 'print_help', 'OptionsHaveNotBeenParsedException', 'OptionsAreFrozenException', 'OptionsInternalErrorException', 'OptionValueError']

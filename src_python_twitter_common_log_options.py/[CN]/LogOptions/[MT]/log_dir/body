@@ -1,0 +1,6 @@
+@staticmethod
+def log_dir():
+    '\n      Get the current directory into which logs will be written.\n    '
+    if (LogOptions._LOG_DIR is None):
+        LogOptions._LOG_DIR = options.values().glog_log_dir
+    return LogOptions._LOG_DIR

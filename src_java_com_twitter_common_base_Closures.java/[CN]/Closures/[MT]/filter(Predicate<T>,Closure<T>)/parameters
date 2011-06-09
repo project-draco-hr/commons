@@ -1,0 +1,2 @@
+Predicate<T> filter
+Closure<T> closure

@@ -1,0 +1,4 @@
+def __init__(self, targets, args, root_dir):
+    self.targets = targets
+    self.args = args
+    self.root_dir = root_dir

@@ -1,0 +1,3 @@
+{
+  increaseSize(roundTo(ARRAY_HEADER_SIZE + length * elementSize,OBJECT_PADDING));
+}

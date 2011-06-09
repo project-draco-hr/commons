@@ -1,0 +1,7 @@
+{
+  ThriftTestClass2 test2=new ThriftTestClass2();
+  test2.data1="foo";
+  test2.__isset_bit_vector=new BitSet(1);
+  assertEquals("foo",roundTrip(test2).data1);
+  assertNull(roundTrip(test2).__isset_bit_vector);
+}

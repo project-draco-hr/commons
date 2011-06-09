@@ -1,0 +1,7 @@
+{
+  Codec<TestClass> codec=JsonCodec.create(TestClass.class);
+  TestClass item=createTestClassInstance();
+  JsonElement expectedElement=new JsonParser().parse("{\"data1\":\"foo\",\"data2\":\"bar\",\"data3\":42,\"data4\":[\"abc\",\"def\"]}");
+  JsonElement actualElement=new JsonParser().parse(new String(serialize(codec,item),"utf-8"));
+  assertEquals(expectedElement.toString(),actualElement.toString());
+}

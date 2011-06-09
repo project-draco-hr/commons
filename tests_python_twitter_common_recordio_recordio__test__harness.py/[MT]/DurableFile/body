@@ -1,0 +1,7 @@
+@contextmanager
+def DurableFile(mode):
+    fn = tempfile.mktemp()
+    with open(fn, 'w'):
+        pass
+    with open(fn, mode) as fp:
+        yield fp

@@ -1,0 +1,15 @@
+def test_recordwriter_framing():
+    test_string_1 = 'hello world'
+    test_string_2 = 'ahoy ahoy, bonjour'
+    with EphemeralFile('w') as fp:
+        fn = fp.name
+        rw = RecordWriter(fp)
+        rw.write(test_string_1)
+        rw.close()
+        with open(fn, 'a') as fpa:
+            rw = RecordWriter(fpa)
+            rw.write(test_string_2)
+        with open(fn) as fpr:
+            rr = RecordReader(fpr)
+            assert (rr.read() == test_string_1)
+            assert (rr.read() == test_string_2)

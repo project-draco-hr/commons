@@ -1,0 +1,2 @@
+def help(*args, **kwargs):
+    _Global.OPTIONS.print_help(*args, **kwargs)

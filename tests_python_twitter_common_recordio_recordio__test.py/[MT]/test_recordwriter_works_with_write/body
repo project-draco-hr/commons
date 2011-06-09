@@ -1,0 +1,6 @@
+def test_recordwriter_works_with_write():
+    with EphemeralFile('w') as fp:
+        try:
+            RecordWriter(fp)
+        except:
+            assert False, 'Failed to initialize RecordWriter in r+ mode'

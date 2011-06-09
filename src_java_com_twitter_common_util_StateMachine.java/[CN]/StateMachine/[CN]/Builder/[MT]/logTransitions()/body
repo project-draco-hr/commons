@@ -1,0 +1,8 @@
+{
+  return onAnyTransition(new Closure<Transition<T>>(){
+    @Override public void execute(    Transition<T> transition){
+      LOG.info(name + " state machine transition " + transition);
+    }
+  }
+);
+}

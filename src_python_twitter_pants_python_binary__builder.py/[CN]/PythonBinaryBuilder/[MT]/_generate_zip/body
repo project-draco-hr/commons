@@ -1,0 +1,10 @@
+def _generate_zip(self):
+    chroot = self.chroot.dump()
+    zp_path = os.path.join(self.distdir, ('%s.zip' % self.target.name))
+    zippy = zipfile.ZipFile(zp_path, 'w', compression=zipfile.ZIP_DEFLATED)
+    sorted_digest = list(chroot.files())
+    sorted_digest.sort()
+    for pth in sorted_digest:
+        zippy.write(os.path.join(chroot.path(), pth), pth)
+    zippy.close()
+    return zp_path

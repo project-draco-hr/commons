@@ -1,0 +1,3 @@
+def test_deprecated_raises_on_nil(self):
+    with pytest.raises(ValueError):
+        deprecated(None)

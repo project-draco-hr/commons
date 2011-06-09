@@ -1,5 +1,5 @@
 {
-  Preconditions.checkNotNull(closure);
+  checkNotNull(closure);
   return new Function<T,Void>(){
     @Override public Void apply(    T item){
       try {

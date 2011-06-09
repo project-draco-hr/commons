@@ -1,0 +1,4 @@
+@staticmethod
+def assert_has_thrift():
+    if (not _HAS_THRIFT):
+        raise ThriftRecordIO.ThriftUnavailableException('thrift module not available for serialization!')

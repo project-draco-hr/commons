@@ -1,3 +1,4 @@
 {
+  control.replay();
   Closures.asFunction(null);
 }

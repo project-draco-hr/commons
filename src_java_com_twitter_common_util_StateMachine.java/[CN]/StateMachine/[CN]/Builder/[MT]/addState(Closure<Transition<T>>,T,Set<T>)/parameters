@@ -1,0 +1,3 @@
+Closure<Transition<T>> callback
+T state
+Set<T> transitionStates

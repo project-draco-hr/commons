@@ -1,0 +1,3 @@
+{
+  return f.getDeclaredClass() == BitSet.class && f.getName().equals("__isset_bit_vector");
+}

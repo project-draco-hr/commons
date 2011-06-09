@@ -1,6 +1,0 @@
-{
-  this.name=MorePreconditions.checkNotBlank(name);
-  ReadWriteLock stateLock=new ReentrantReadWriteLock(true);
-  readLock=stateLock.readLock();
-  writeLock=stateLock.writeLock();
-}

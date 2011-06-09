@@ -1,0 +1,11 @@
+def test_deprecated_handles_args_and_kwargs(self):
+    warning_message = 'Use oreos() instead!'
+
+    @deprecated_with_warning(warning_message)
+    def chips_ahoy(a, b=4):
+        pass
+    chips_ahoy(15)
+    records = self._log_handler.records()
+    assert (len(records) == 1)
+    assert records[0].startswith('DEPRECATION WARNING:')
+    assert records[0].endswith(warning_message)

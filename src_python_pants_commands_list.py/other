@@ -1,5 +1,0 @@
-__author__ = 'John Sirois'
-from . import Command
-from common.collections import OrderedSet
-from pants import Address, BuildFile, Target, is_exported
-import traceback

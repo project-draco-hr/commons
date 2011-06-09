@@ -1,0 +1,14 @@
+@staticmethod
+def generate_junit_args(target):
+    args = []
+    xml_base = os.getenv('JUNIT_XML_BASE')
+    if xml_base:
+        xml_base = os.path.abspath(os.path.normpath(xml_base))
+        xml_path = os.path.join(xml_base, os.path.dirname(target.address.buildfile.relpath), (target.name + '.xml'))
+        try:
+            os.makedirs(os.path.dirname(xml_path))
+        except OSError as e:
+            if (e.errno != errno.EEXIST):
+                raise PythonTestBuilder.ChrootBuildingException(('Unable to establish JUnit target: %s!  %s' % (target, e)))
+        args.append(('--junitxml=%s' % xml_path))
+    return args

@@ -1,0 +1,24 @@
+def _generate_project_files(self, project, ivyfile, ivysettingsfile):
+
+    def create_content_root(source_set):
+        root_relative_path = os.path.join(source_set.source_base, source_set.path)
+        return TemplateData(path=root_relative_path, sources=[TemplateData(path=root_relative_path, package_prefix=source_set.path.replace('/', '.'), is_test=source_set.is_test)], exclude_paths=[os.path.join(source_set.source_base, x) for x in source_set.excludes])
+    configured_module = TemplateData(root_dir=self.root_dir, path=self.module_filename, content_roots=[create_content_root(source_set) for source_set in project.sources], has_bash=self.options.bash, has_python=project.has_python, has_scala=project.has_scala, has_tests=project.has_tests, has_ivy=True, ivyfile=ivyfile, ivysettingsfile=ivysettingsfile, extra_components=[])
+    outdir = os.path.abspath(self.options.intellij_output_dir)
+    if (not os.path.exists(outdir)):
+        os.makedirs(outdir)
+    configured_project = TemplateData(root_dir=self.root_dir, outdir=outdir, modules=[configured_module], java_encoding=self.options.java_encoding, resource_extensions=self._get_resource_extensions(project), has_scala=project.has_scala, scala=(TemplateData(fsc=self.options.fsc) if project.has_scala else None), extra_checkstyle_suppression_files=project.extra_checkstyle_suppression_files, extra_components=[])
+    if (not self.options.nomerge):
+        existing_project_components = self._parse_xml_component_elements(self.project_filename)
+        existing_module_components = self._parse_xml_component_elements(self.module_filename)
+    ipr = self._generate_to_tempfile(Generator(pkgutil.get_data(__name__, self.project_template), project=configured_project))
+    iml = self._generate_to_tempfile(Generator(pkgutil.get_data(__name__, self.module_template), module=configured_module))
+    if (not self.options.nomerge):
+        extra_project_components = self._get_components_to_merge(existing_project_components, ipr)
+        extra_module_components = self._get_components_to_merge(existing_module_components, iml)
+        os.remove(ipr)
+        os.remove(iml)
+        ipr = self._generate_to_tempfile(Generator(pkgutil.get_data(__name__, self.project_template), project=configured_project.extend(extra_components=extra_project_components)))
+        iml = self._generate_to_tempfile(Generator(pkgutil.get_data(__name__, self.module_template), module=configured_module.extend(extra_components=extra_module_components)))
+    shutil.move(ipr, self.project_filename)
+    shutil.move(iml, self.module_filename)

@@ -1,0 +1,8 @@
+{
+  Preconditions.checkNotNull(primaryCodec);
+  Preconditions.checkNotNull(secondaryCodec);
+  this.primaryCodec=primaryCodec;
+  this.secondaryCodec=secondaryCodec;
+  this.prefixLength=prefixLength;
+  this.discriminator=discriminator;
+}

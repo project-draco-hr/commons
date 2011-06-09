@@ -1,5 +1,5 @@
 {
-  return new Amount<Integer,U>(value,unit){
+  return new Amount<Integer,U>(number,unit){
     @Override protected Integer scale(    double multiplier){
       return (int)(getValue() * multiplier);
     }

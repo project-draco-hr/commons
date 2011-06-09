@@ -32,6 +32,9 @@
 );
         }
  else         if (!electedLeader) {
+          if (previouslyElected) {
+            leader.onDefeated();
+          }
           LOG.info(String.format("Candidate %s waiting for the next leader election, current voting: %s",membership.getMemberPath(),memberIds));
         }
       }

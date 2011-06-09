@@ -5,7 +5,7 @@
 );
   runnable.run();
   expectLastCall().andAnswer(new IAnswer<Void>(){
-    @Override public Void answer() throws Throwable {
+    @Override public Void answer(){
       ran.set(true);
       return null;
     }

@@ -1,0 +1,6 @@
+{
+  control.replay();
+  StateMachine<String> machine=StateMachine.<String>builder(NAME).initialState(A).addState(A,B).throwOnBadTransition(false).build();
+  machine.transition(C);
+  assertThat(machine.getState(),is(A));
+}

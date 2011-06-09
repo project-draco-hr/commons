@@ -1,4 +1,0 @@
-__author__ = 'John Sirios'
-from common.collections import OrderedSet
-from pants.ant.ide import _extract_target
-import unittest

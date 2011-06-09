@@ -1,6 +1,12 @@
 {
   test(StandardArgs.class,new Command(){
     @Override public void execute(){
+      assertThat(StandardArgs.enumVal.get(),is(Optimizations.ALL));
+    }
+  }
+,"enum","ALL");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
       assertThat(StandardArgs.stringVal.get(),is("newstring"));
     }
   }
@@ -71,4 +77,16 @@
     }
   }
 ,"no_bool","false");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.timeAmount.get(),is(Amount.of(100L,Time.SECONDS)));
+    }
+  }
+,"time_amount","100secs");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.dataAmount.get(),is(Amount.of(1L,Data.Gb)));
+    }
+  }
+,"data_amount","1Gb");
 }

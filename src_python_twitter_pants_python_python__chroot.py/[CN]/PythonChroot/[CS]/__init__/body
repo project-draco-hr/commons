@@ -1,0 +1,5 @@
+def __init__(self, target, root_dir):
+    self.target = target
+    self.root = root_dir
+    distdir = os.path.join(root_dir, 'dist')
+    self.chroot = Chroot(root_dir, distdir, target.name)

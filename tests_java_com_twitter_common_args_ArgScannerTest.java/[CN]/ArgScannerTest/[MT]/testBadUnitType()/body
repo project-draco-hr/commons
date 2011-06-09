@@ -1,0 +1,3 @@
+{
+  parse(ImmutableList.<Class>of(AmountContainer.class),"-time_amount=1Mb");
+}

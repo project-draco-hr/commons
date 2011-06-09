@@ -1,0 +1,10 @@
+{
+  assertEquals(0,roundTo(0,8));
+  assertEquals(8,roundTo(1,8));
+  assertEquals(8,roundTo(7,8));
+  assertEquals(8,roundTo(8,8));
+  assertEquals(16,roundTo(9,8));
+  assertEquals(16,roundTo(15,8));
+  assertEquals(16,roundTo(16,8));
+  assertEquals(24,roundTo(17,8));
+}

@@ -1,0 +1,13 @@
+import os
+import sys
+import subprocess
+from twitter.common.collections import OrderedSet
+from twitter.pants.base import Address, Target
+from twitter.pants.python.python_chroot import PythonChroot
+from twitter.pants.python.launcher import Launcher
+from twitter.pants.targets import PythonEgg, PythonLibrary, PythonBinary, PythonTests, Pants
+try:
+    import pylint
+    _HAS_PYLINT = True
+except ImportError:
+    _HAS_PYLINT = False

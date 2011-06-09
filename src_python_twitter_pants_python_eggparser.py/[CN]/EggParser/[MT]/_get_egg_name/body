@@ -1,0 +1,3 @@
+@staticmethod
+def _get_egg_name(components):
+    return (components[0], components[1:])

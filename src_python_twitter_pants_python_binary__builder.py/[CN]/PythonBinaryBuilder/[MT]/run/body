@@ -1,0 +1,8 @@
+def run(self):
+    print ('Building PythonBinary %s:' % self.target)
+    zp_path = self._generate_zip()
+    print ('generated zip binary in: %s' % zp_path)
+    pexer = PexCreator(zp_path, self.target.name)
+    pex = pexer.build(os.path.join(self.distdir, ('%s.pex' % self.target.name)))
+    print ('generated pex binary in: %s' % pex)
+    return 0

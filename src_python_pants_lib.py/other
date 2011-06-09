@@ -1,7 +1,0 @@
-from generator import TemplateData
-from glob import glob1
-from common.collections import OrderedSet
-import collections
-import os
-import re
-RESOURCES_BASE_DIR = 'src/resources'

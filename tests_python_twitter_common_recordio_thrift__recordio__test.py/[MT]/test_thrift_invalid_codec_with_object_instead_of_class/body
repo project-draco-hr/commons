@@ -1,0 +1,4 @@
+def test_thrift_invalid_codec_with_object_instead_of_class():
+    with EphemeralFile('w') as fp:
+        with pytest.raises(ThriftRecordIO.InvalidThriftException):
+            ThriftRecordReader(fp, StringType())

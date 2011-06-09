@@ -1,0 +1,9 @@
+def testDetectCycleDirect(self):
+    a = MockTarget('a')
+    InternalTarget.check_cycles(a)
+    a.internal_dependencies = [a]
+    try:
+        InternalTarget.check_cycles(a)
+        self.fail('Expected a cycle to be detected')
+    except InternalTarget_CycleException:
+        pass

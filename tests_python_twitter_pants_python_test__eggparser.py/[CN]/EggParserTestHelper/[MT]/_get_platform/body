@@ -1,0 +1,5 @@
+@staticmethod
+def _get_platform(platform, arch='i386', major=2, min=6):
+    uname = (platform, None, None, None, arch)
+    version = (major, min, 0, None, 0)
+    return EggParserTestHelper._construct_parser_with(uname, version)

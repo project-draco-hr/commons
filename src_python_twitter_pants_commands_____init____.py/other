@@ -1,0 +1,5 @@
+from twitter.common.collections import OrderedSet
+from twitter.pants.base import BuildFile, Target
+import inspect
+import sys
+Command._register_modules()

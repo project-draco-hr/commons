@@ -1,0 +1,3 @@
+{
+  assertEquals("foo",deserialize(reader,serialize(writer,t)).data);
+}

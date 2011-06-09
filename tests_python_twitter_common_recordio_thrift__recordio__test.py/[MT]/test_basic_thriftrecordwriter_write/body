@@ -1,0 +1,10 @@
+def test_basic_thriftrecordwriter_write():
+    test_string = StringType('hello world')
+    with EphemeralFile('w') as fp:
+        fn = fp.name
+        rw = ThriftRecordWriter(fp)
+        rw.write(test_string)
+        rw.close()
+        with open(fn) as fpr:
+            rr = ThriftRecordReader(fpr, StringType)
+            assert (rr.read() == test_string)

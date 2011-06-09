@@ -1,0 +1,2 @@
+def run(self):
+    return self._run_tests(self.targets)

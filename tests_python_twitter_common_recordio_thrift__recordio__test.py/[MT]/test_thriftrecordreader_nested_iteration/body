@@ -1,0 +1,17 @@
+def test_thriftrecordreader_nested_iteration():
+    test_string_1 = StringType('hello world')
+    test_string_2 = StringType('ahoy ahoy, bonjour')
+    with EphemeralFile('w') as fp:
+        fn = fp.name
+        rw = ThriftRecordWriter(fp)
+        rw.write(test_string_1)
+        rw.write(test_string_2)
+        rw.close()
+        with open(fn) as fpr:
+            rr = ThriftRecordReader(fpr, StringType)
+            records = []
+            for record in rr:
+                records.append(record)
+                for record2 in rr:
+                    records.append(record2)
+            assert (records == [test_string_1, test_string_1, test_string_2, test_string_2, test_string_1, test_string_2])

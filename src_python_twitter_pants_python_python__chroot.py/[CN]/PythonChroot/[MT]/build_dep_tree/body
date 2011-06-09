@@ -1,0 +1,25 @@
+def build_dep_tree(self, target):
+    libraries = set()
+    eggs = set()
+    binaries = set()
+    thrifts = set()
+
+    def add_dep(trg):
+        if isinstance(trg, PythonLibrary):
+            if trg.sources:
+                libraries.add(trg)
+            for egg in [dep for dep in trg.dependencies if isinstance(dep, PythonEgg)]:
+                eggs.add(egg)
+        elif isinstance(trg, PythonEgg):
+            eggs.add(trg)
+        elif isinstance(trg, PythonBinary):
+            binaries.add(trg)
+        elif isinstance(trg, PythonThriftLibrary):
+            thrifts.add(trg)
+        elif isinstance(trg, PythonTests):
+            pass
+        else:
+            raise PythonChroot.InvalidDependencyException(trg)
+        return [dep for dep in trg.dependencies if (not isinstance(dep, PythonEgg))]
+    target.walk((lambda t: add_dep(t)), (lambda typ: (not isinstance(typ, PythonEgg))))
+    return (libraries, eggs, binaries, thrifts)

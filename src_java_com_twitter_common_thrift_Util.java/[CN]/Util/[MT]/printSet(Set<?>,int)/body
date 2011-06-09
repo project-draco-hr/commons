@@ -1,0 +1,7 @@
+{
+  List<String> entries=Lists.newArrayList();
+  for (  Object item : set) {
+    entries.add(String.format("%sItem = %s",tabs(depth),printValue(item,depth)));
+  }
+  return entries.isEmpty() ? "{}" : String.format("{\n%s\n%s}",Joiner.on(",\n").join(entries),tabs(depth - 1));
+}

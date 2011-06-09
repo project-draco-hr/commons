@@ -1,0 +1,7 @@
+from recordio import *
+__all__ = ['RecordIO', 'RecordWriter', 'RecordReader']
+try:
+    from thrift_recordio import *
+    __all__ += ['ThriftRecordReader', 'ThriftRecordWriter']
+except ImportError:
+    pass

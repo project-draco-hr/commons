@@ -1,0 +1,8 @@
+{
+  return new Function<Transition<T>,T>(){
+    @Override public T apply(    Transition<T> transition){
+      return transition.from;
+    }
+  }
+;
+}

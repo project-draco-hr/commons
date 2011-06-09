@@ -1,0 +1,5 @@
+{
+  ByteArrayOutputStream out=new ByteArrayOutputStream();
+  codec.serialize(item,out);
+  return out.toByteArray();
+}

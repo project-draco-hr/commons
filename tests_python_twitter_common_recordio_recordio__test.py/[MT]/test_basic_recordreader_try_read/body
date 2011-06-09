@@ -1,0 +1,13 @@
+def test_basic_recordreader_try_read():
+    test_string = 'hello world'
+    with EphemeralFile('r') as fp:
+        fn = fp.name
+        rr = RecordReader(fp)
+        assert (rr.try_read() is None)
+        rr.close()
+        with open(fn, 'w') as fpw:
+            rw = RecordWriter(fpw)
+            rw.write(test_string)
+        with open(fn) as fpr:
+            rr = RecordReader(fpr)
+            assert (rr.try_read() == test_string)

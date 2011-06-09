@@ -1,0 +1,4 @@
+{
+  checkArgument(Iterables.all(Arrays.asList(states),Predicates.notNull()));
+  return Predicates.compose(Predicates.in(ImmutableSet.copyOf(states)),extractor);
+}

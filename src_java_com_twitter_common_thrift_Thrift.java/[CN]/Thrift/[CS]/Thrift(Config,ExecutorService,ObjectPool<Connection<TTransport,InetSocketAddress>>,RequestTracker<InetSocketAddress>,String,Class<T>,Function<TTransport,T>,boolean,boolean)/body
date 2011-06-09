@@ -1,0 +1,11 @@
+{
+  defaultConfig=Preconditions.checkNotNull(config);
+  this.executorService=Preconditions.checkNotNull(executorService);
+  this.connectionPool=Preconditions.checkNotNull(connectionPool);
+  this.requestTracker=Preconditions.checkNotNull(requestTracker);
+  this.serviceName=MorePreconditions.checkNotBlank(serviceName);
+  this.serviceInterface=checkServiceInterface(serviceInterface);
+  this.clientFactory=Preconditions.checkNotNull(clientFactory);
+  this.async=async;
+  this.withSsl=ssl;
+}

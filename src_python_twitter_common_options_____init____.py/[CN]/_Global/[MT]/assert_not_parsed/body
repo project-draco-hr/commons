@@ -1,0 +1,4 @@
+@staticmethod
+def assert_not_parsed(msg=''):
+    if _Global.PARSED:
+        raise OptionsAreFrozenException(msg)

@@ -1,5 +1,0 @@
-__author__ = 'John Sirois'
-from common.collections import OrderedSet
-from pants import Builder, is_python, is_test
-import os
-import subprocess

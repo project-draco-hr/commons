@@ -1,0 +1,7 @@
+{
+  String str=from.toString() + " -> " + to.toString();
+  if (!isAllowed()) {
+    str+=" (not allowed)";
+  }
+  return str;
+}

@@ -1,0 +1,9 @@
+{
+  TestClass testOut=createTestClassInstance();
+  Codec<TestClass> codec=JsonCodec.create(TestClass.class);
+  TestClass testIn=CodecTestUtilities.roundTrip(codec,testOut);
+  assertEquals(testOut.data1,testIn.data1);
+  assertEquals(testOut.data2,testIn.data2);
+  assertEquals(testOut.data3,testIn.data3);
+  assertTrue(Arrays.equals(testOut.data4,testIn.data4));
+}

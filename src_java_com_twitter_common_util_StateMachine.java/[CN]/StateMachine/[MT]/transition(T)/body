@@ -1,15 +1,19 @@
 {
+  boolean transitionAllowed=false;
+  T currentCopy=currentState;
   writeLock.lock();
   try {
     if (stateTransitions.containsEntry(currentState,nextState)) {
-      LOG.info(String.format("%s state machine transition %s -> %s",name,currentState,nextState));
       currentState=nextState;
+      transitionAllowed=true;
     }
- else {
+ else     if (throwOnBadTransition) {
       throw new IllegalStateTransitionException(String.format("State transition from %s to %s is not allowed.",currentState,nextState));
     }
   }
   finally {
     writeLock.unlock();
   }
+  transitionCallback.execute(new Transition<T>(currentCopy,nextState,transitionAllowed));
+  return transitionAllowed;
 }

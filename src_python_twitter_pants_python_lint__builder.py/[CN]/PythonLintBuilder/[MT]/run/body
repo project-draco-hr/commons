@@ -1,0 +1,5 @@
+def run(self):
+    if (not _HAS_PYLINT):
+        print  >> sys.stderr, 'ERROR: Pylint not found!  Skipping.'
+        return 1
+    return self._run_lints(self.targets, self.args)

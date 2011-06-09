@@ -1,5 +1,5 @@
 {
-  Closure<Integer> work=createMock(Closure.class);
+  Closure<Integer> work=createMock(INT_CLOSURE_CLZ);
   work.execute(1);
   RuntimeException runtimeException=new IllegalArgumentException();
   EasyMock.expectLastCall().andThrow(runtimeException);
@@ -11,5 +11,4 @@
  catch (  RuntimeException e) {
     assertSame(runtimeException,e);
   }
-  control.verify();
 }

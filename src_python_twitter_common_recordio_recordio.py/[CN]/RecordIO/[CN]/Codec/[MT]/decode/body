@@ -1,0 +1,3 @@
+def decode(self, blob):
+    '\n        Given: deserialized byte data\n        Return: blob in custom format\n      '
+    raise RecordIO.UnimplementedException('Codec.decode pure virtual.')

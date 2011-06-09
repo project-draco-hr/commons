@@ -1,0 +1,8 @@
+__author__ = 'Brian Wickman'
+import os
+import shutil
+import zipfile
+import pkgutil
+from twitter.pants.targets import PythonLibrary, PythonEgg, PythonBinary
+from twitter.pants.python.python_chroot import PythonChroot
+from twitter.pants.python.pex_creator import PexCreator

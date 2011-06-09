@@ -1,0 +1,10 @@
+__author__ = 'John Sirois'
+from twitter.common.collections import OrderedSet
+from ide import Ide
+from twitter.pants.base.generator import Generator, TemplateData
+import collections
+import os
+import urllib
+import pkgutil
+_TEMPLATE_BASEDIR = 'eclipse/templates'
+_VERSIONS = {'3.5': '3.5', '3.6': '3.5', }

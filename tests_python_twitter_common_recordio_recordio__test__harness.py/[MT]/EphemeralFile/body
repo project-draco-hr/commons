@@ -1,0 +1,6 @@
+@contextmanager
+def EphemeralFile(mode):
+    with DurableFile(mode) as fp:
+        fn = fp.name
+        yield fp
+    os.remove(fn)

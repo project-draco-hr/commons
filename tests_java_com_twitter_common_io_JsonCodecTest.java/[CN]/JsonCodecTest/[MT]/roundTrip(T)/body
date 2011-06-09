@@ -1,0 +1,4 @@
+{
+  @SuppressWarnings("unchecked") Class<T> itemType=(Class<T>)item.getClass();
+  return CodecTestUtilities.roundTrip(JsonCodec.create(itemType,new GsonBuilder().setExclusionStrategies(JsonCodec.getThriftExclusionStrategy()).create()),item);
+}

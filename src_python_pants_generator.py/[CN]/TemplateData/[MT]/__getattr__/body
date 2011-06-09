@@ -1,5 +1,0 @@
-def __getattr__(self, key):
-    try:
-        return self._props[key]
-    except KeyError:
-        raise AttributeError(('Attribute %s not defined' % key))

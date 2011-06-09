@@ -1,0 +1,2 @@
+def __call__(self, function):
+    return _deprecated_wrap_fn(function, self._msg)

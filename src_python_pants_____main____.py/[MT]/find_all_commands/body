@@ -1,7 +1,0 @@
-def find_all_commands():
-
-    def is_command(cls):
-        return (inspect.isclass(cls) and issubclass(cls, Command) and (cls != Command))
-    for (name, cls) in inspect.getmembers(commands):
-        if is_command(cls):
-            yield ('%s\t%s' % (name.lower(), cls.__doc__))

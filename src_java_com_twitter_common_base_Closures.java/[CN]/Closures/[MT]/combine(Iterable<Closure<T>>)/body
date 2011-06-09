@@ -1,0 +1,13 @@
+{
+  checkNotNull(closures);
+  checkArgument(Iterables.all(closures,Predicates.notNull()));
+  final Iterable<Closure<T>> closuresCopy=ImmutableList.copyOf(closures);
+  return new Closure<T>(){
+    @Override public void execute(    T item){
+      for (      Closure<T> closure : closuresCopy) {
+        closure.execute(item);
+      }
+    }
+  }
+;
+}

@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(clazz);
+  Preconditions.checkNotNull(gson);
+  this.clazz=clazz;
+  this.gson=gson;
+}

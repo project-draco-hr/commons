@@ -1,0 +1,3 @@
+{
+  return gson.fromJson(new InputStreamReader(source,ENCODING),clazz);
+}

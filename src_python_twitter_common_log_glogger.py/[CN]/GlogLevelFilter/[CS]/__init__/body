@@ -1,0 +1,3 @@
+def __init__(self, levelno):
+    self._levelno = levelno
+    logging.Filter.__init__(self)

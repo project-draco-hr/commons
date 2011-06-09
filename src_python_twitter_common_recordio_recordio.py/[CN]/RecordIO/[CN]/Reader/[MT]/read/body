@@ -1,0 +1,3 @@
+def read(self):
+    '\n        Read a single record from this stream.  Updates the file position on both\n        success and failure (unless no data is available, in which case the file\n        position is unchanged and None is returned.)\n\n        Returns string blob or None if no data available.\n\n        May raise:\n          RecordIO.PrematureEndOfStream if the stream is truncated in the middle of\n            and expected message\n          RecordIO.RecordSizeExceeded if the message exceeds RecordIO.SANITY_CHECK_BYTES\n      '
+    return RecordIO.Reader.do_read(self._fp, self._codec)

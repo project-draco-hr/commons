@@ -1,0 +1,4 @@
+def test_darwin_arch(self):
+    parser = EggParserTestHelper.get_darwin_platform()
+    arch = parser.get_architecture()
+    self.assertEquals(arch[0], 'macosx')

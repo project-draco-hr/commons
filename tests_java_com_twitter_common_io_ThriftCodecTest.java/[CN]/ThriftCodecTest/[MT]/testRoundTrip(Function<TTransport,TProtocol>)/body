@@ -1,8 +1,6 @@
 {
-  Codec<Struct> codec=new ThriftCodec<Struct>(Struct.class,protocolFactory);
-  ByteArrayOutputStream sink=new ByteArrayOutputStream();
-  codec.serialize(new Struct("jake","jones"),sink);
-  Struct struct=codec.deserialize(new ByteArrayInputStream(sink.toByteArray()));
+  Codec<Struct> codec=ThriftCodec.create(Struct.class,protocolFactory);
+  Struct struct=roundTrip(codec,new Struct("jake","jones"));
   assertEquals("jake",struct.getName());
   assertEquals("jones",struct.getValue());
 }

@@ -1,0 +1,11 @@
+def _run_tests(self, targets):
+    for target in targets:
+        if isinstance(target, PythonTests):
+            rv = self._run_python_test(target)
+        elif isinstance(target, PythonTestSuite):
+            rv = self._run_python_test_suite(target)
+        else:
+            raise PythonTestBuilder.InvalidDependencyException(('Invalid dependency in python test target: %s' % target))
+        if (rv != 0):
+            return rv
+    return 0

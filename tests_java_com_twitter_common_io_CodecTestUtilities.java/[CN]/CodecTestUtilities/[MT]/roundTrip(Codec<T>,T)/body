@@ -1,0 +1,3 @@
+{
+  return deserialize(codec,serialize(codec,item));
+}
