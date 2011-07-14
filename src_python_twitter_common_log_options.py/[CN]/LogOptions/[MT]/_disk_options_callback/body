@@ -1,0 +1,6 @@
+@staticmethod
+def _disk_options_callback(option, opt, value, parser):
+    try:
+        LogOptions.set_disk_log_level(value)
+    except LogOptionsException as e:
+        raise optparse.OptionValueError(('Failed to parse option: %s' % e))

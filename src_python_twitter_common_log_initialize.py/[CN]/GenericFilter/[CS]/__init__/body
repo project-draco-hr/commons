@@ -1,0 +1,3 @@
+def __init__(self, levelfn=(lambda record_level: True)):
+    self._levelfn = levelfn
+    logging.Filter.__init__(self)

@@ -1,0 +1,22 @@
+@staticmethod
+def _main():
+    "\n      If called from __main__ module, run script's main() method.\n    "
+    (main_method, main_module) = (Inspection._find_main_from_caller(), Inspection._find_main_module())
+    if (main_module != '__main__'):
+        return
+    if (main_method is None):
+        print  >> sys.stderr, 'No main() defined!  Application must define main function.'
+        sys.exit(1)
+    Methods._run_registry()
+    try:
+        argspec = inspect.getargspec(main_method)
+    except TypeError as e:
+        print  >> sys.stderr, ('Malformed main(): %s' % e)
+        sys.exit(1)
+    if ((len(argspec.args) == 1) or (argspec.varargs is not None)):
+        main_method(options.arguments())
+    else:
+        if (len(options.arguments()) != 0):
+            print  >> sys.stderr, ('main() takes no arguments but got leftover arguments %s!' % ' '.join(options.arguments()))
+            sys.exit(1)
+        main_method()

@@ -1,4 +1,4 @@
 def values():
     if (not _Global.PARSED):
-        raise OptionsHaveNotBeenParsedException('Must call options.parse() from __main__ module!')
+        raise OptionsHaveNotBeenParsedException('options.parse() has not been called!')
     return _Global.VALUES

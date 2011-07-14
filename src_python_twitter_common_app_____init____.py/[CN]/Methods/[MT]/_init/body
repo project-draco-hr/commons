@@ -1,0 +1,4 @@
+@staticmethod
+def _init():
+    '\n      Initialize twitter.common.app without calling main().  This is not particularly\n      advisable in practice, but could come in handy for debugging.\n    '
+    Methods._run_registry()

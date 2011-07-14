@@ -1,7 +1,4 @@
 @staticmethod
 def set_stdout_log_level(log_level):
-    "\n      Set the log level for stdout. It must be one of:\n        'NONE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'\n    "
-    if (log_level in LogOptions._LOG_LEVELS):
-        LogOptions._STDOUT_LOG_LEVEL = LogOptions._LOG_LEVELS[log_level]
-    else:
-        raise LogOptionsException(('Invalid log level: %s' % log_level))
+    '\n      Set the log level for stdout.\n    '
+    (LogOptions._STDOUT_LOG_SCHEME, LogOptions._STDOUT_LOG_LEVEL) = LogOptions._parse_loglevel(log_level, scheme='plain')

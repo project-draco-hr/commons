@@ -1,0 +1,16 @@
+def _setup_disk_logging(filename):
+    handlers = []
+    logroot = LogOptions.log_dir()
+
+    def gen_filter(level):
+        return GenericFilter((lambda record_level: ((record_level == level) and (level >= LogOptions.disk_log_level()))))
+    for filter_type in _FILTER_TYPES:
+        formatter = ProxyFormatter(LogOptions.disk_log_scheme)
+        filter = gen_filter(filter_type)
+        logfile = os.path.join(logroot, filename)
+        logfile = '.'.join([logfile, getpass.getuser(), logging.getLevelName(filter_type)])
+        file_handler = logging.FileHandler(logfile)
+        file_handler.setFormatter(formatter)
+        file_handler.addFilter(filter)
+        handlers.append(file_handler)
+    return handlers

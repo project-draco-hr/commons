@@ -1,8 +1,0 @@
-"\nInterface to Glog-stlye formatter.\n\nimport twitter.common.log\n\nfor __main__:\n  log = twitter.common.log.init('my_binary_name')\n\nfor library/endpoint:\n  log = twitter.common.log.get()\n\nlog.info('info baby')\nlog.debug('debug baby')\nlog.fatal('oops fatal!')\n\nWill log to my_binary_name.{INFO,WARNING,ERROR,...} into log_dir using the\nGoogle logging format.\n\nSee twitter.com.log.options for customizations.\n"
-import os
-import sys
-import time
-import logging
-import getpass
-from glog import GlogFormatter
-from .options import LogOptions

@@ -1,0 +1,7 @@
+@staticmethod
+def _valid_loglevel(log_level):
+    try:
+        LogOptions._parse_loglevel(log_level)
+        return True
+    except:
+        return False

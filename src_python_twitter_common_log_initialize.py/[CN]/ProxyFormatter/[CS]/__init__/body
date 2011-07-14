@@ -1,0 +1,3 @@
+def __init__(self, scheme_fn):
+    logging.Formatter.__init__(self)
+    self._scheme_fn = scheme_fn

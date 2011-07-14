@@ -1,0 +1,2 @@
+def _long_help(option, opt, value, parser):
+    _Global.OPTIONS_LONG.print_help()

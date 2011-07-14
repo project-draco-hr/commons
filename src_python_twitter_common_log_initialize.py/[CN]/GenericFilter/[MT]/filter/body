@@ -1,0 +1,4 @@
+def filter(self, record):
+    if self._levelfn(record.levelno):
+        return 1
+    return 0

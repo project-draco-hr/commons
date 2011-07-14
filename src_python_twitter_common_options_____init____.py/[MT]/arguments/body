@@ -1,0 +1,4 @@
+def arguments():
+    if (not _Global.PARSED):
+        raise OptionsHaveNotBeenParsedException('options.parse() has not been called!')
+    return _Global.ARGUMENTS

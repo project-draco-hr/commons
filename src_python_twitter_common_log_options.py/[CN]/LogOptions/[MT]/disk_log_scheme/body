@@ -1,0 +1,6 @@
+@staticmethod
+def disk_log_scheme():
+    '\n      Get the current disk log scheme.\n    '
+    if (LogOptions._DISK_LOG_SCHEME is None):
+        LogOptions.set_disk_log_level(options.values().twitter_common_log_stdout_log_level)
+    return LogOptions._DISK_LOG_SCHEME

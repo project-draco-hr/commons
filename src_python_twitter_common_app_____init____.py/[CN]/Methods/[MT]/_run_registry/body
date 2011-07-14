@@ -1,0 +1,14 @@
+@staticmethod
+def _run_registry():
+    global _APP_INITIALIZED
+    if _APP_INITIALIZED:
+        raise AppException('Attempted to initialize application more than once!')
+    options.parse()
+    environment = options.values().twitter_common_app_environment
+    for runlevel in sorted(_APP_REGISTRY.keys()):
+        for (fn, env, description) in _APP_REGISTRY[runlevel]:
+            if ((env is None) or (environment == env)):
+                if (options.values().twitter_common_app_debug and description):
+                    print  >> sys.stderr, ('twitter.common.app runlevel %s, running initializer: %s' % (runlevel, description))
+                fn()
+    _APP_INITIALIZED = True

@@ -1,0 +1,9 @@
+def init(filebase):
+    '\n    Set up default logging using:\n      {--log_dir}/filebase.{INFO,WARNING,...}\n  '
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.DEBUG)
+    for handler in _setup_disk_logging(filebase):
+        root_logger.addHandler(handler)
+    for handler in _setup_stdout_logging():
+        root_logger.addHandler(handler)
+    return root_logger

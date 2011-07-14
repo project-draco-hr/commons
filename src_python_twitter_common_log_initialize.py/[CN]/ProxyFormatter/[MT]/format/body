@@ -1,0 +1,5 @@
+def format(self, record):
+    scheme = self._scheme_fn()
+    if (scheme not in ProxyFormatter._SCHEME_TO_FORMATTER):
+        raise ProxyFormatter.UnknownSchemeException(('Unknown logging scheme: %s' % scheme))
+    return ProxyFormatter._SCHEME_TO_FORMATTER[scheme].format(record)

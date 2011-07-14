@@ -3,8 +3,9 @@ def add(*args, **kwargs):
     adding_module = _find_calling_module()
     if (adding_module == '__main__'):
         _Global.OPTIONS.add_option(*args, **kwargs)
+        _Global.OPTIONS_LONG.add_option(*args, **kwargs)
     else:
         adding_module = ('From module %s' % adding_module)
         if (adding_module not in _Global.GROUPS):
-            _Global.GROUPS[adding_module] = _Global.OPTIONS.add_option_group(adding_module)
+            _Global.GROUPS[adding_module] = _Global.OPTIONS_LONG.add_option_group(adding_module)
         _Global.GROUPS[adding_module].add_option(*args, **kwargs)

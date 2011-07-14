@@ -1,0 +1,17 @@
+@staticmethod
+def _parse_loglevel(log_level, scheme='google'):
+    level = None
+    components = log_level.split(':')
+    if (len(components) == 1):
+        level = components[0]
+    elif (len(components) == 2):
+        (scheme, level) = (components[0], components[1])
+    else:
+        raise LogOptionsException(('Malformed log level: %s' % log_level))
+    if (level in LogOptions._LOG_LEVELS):
+        level = LogOptions._LOG_LEVELS[level]
+    else:
+        raise LogOptionsException(('Unknown log level: %s' % level))
+    if (scheme not in LogOptions._LOG_SCHEMES):
+        raise LogOptionsException(('Unknown log scheme: %s' % scheme))
+    return (scheme, level)

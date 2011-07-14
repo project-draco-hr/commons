@@ -1,0 +1,4 @@
+@staticmethod
+def warn_if_parsed(msg=''):
+    if _Global.PARSED:
+        print  >> sys.stderr, 'Warning: calling options.parse multiple times!'

@@ -1,0 +1,5 @@
+@staticmethod
+def _option_parser(option, opt, value, parser):
+    if (value.upper() not in _Env._str_to_id):
+        raise OptionValueError(('Invalid environment: %s, should be one of: %s' % (value, ' '.join(_Env._str_to_id.keys()))))
+    setattr(parser.values, option.dest, _Env.to_id(value.upper()))

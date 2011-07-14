@@ -1,0 +1,5 @@
+def name():
+    if (_APP_NAME is not None):
+        return _APP_NAME
+    else:
+        return Inspection._find_main_module()

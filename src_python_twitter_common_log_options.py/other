@@ -1,6 +1,8 @@
 '\nGlog log system global options.\n\nExports module-level options such as --log_dir and --stdout_log_level, but may be\noverridden locally before calling log.init().\n'
 import logging
+import optparse
 from twitter.common import options
-options.add('--log_to_stdout', type='choice', choices=LogOptions._LOG_LEVELS.keys(), default='NONE', metavar='LEVEL', dest='glog_log_to_stdout', help='The level at which to log to stdout [default: %default], can be one of: DEBUG INFO WARN ERROR FATAL NONE')
-options.add('--log_to_disk', type='choice', choices=LogOptions._LOG_LEVELS.keys(), default='INFO', metavar='LEVEL', dest='glog_log_to_disk', help='The level at which to log to disk [default: %default], can be one of: DEBUG INFO WARN ERROR FATAL NONE')
-options.add('--log_dir', type='string', default='/var/tmp', metavar='DIR', dest='glog_log_dir', help='The directory into which log files will be generated [default: %default].')
+_LOGGING_HELP = ('The level at which to log to %%s [default: %%%%default].\nTakes either LEVEL or scheme:LEVEL, where LEVEL is one\nof %s and scheme is one of %s.\n' % (repr(LogOptions._LOG_LEVELS.keys()), repr(LogOptions._LOG_SCHEMES)))
+options.add('--log_to_stdout', callback=LogOptions._stdout_options_callback, default='NONE', type='string', action='callback', metavar='[scheme:]LEVEL', dest='twitter_common_log_stdout_log_level', help=(_LOGGING_HELP % 'stdout'))
+options.add('--log_to_disk', callback=LogOptions._disk_options_callback, default='INFO', type='string', action='callback', metavar='[scheme:]LEVEL', dest='twitter_common_log_disk_log_level', help=(_LOGGING_HELP % 'disk'))
+options.add('--log_dir', type='string', default='/var/tmp', metavar='DIR', dest='twitter_common_log_log_dir', help='The directory into which log files will be generated [default: %default].')

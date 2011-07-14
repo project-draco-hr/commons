@@ -1,0 +1,7 @@
+@staticmethod
+def _find_main_from_caller():
+    stack = inspect.stack()[1:]
+    for fr_n in range(len(stack)):
+        if ('main' in stack[fr_n][0].f_locals):
+            return stack[fr_n][0].f_locals['main']
+    return None

@@ -1,0 +1,13 @@
+def on_initialization(function, environment=None, runlevel=0, description=''):
+    '\n    Run function on initialization of the application.  (Or run immediately, once,\n    if the application has already been initialized.)\n\n    Parameters:\n      function:\n        The function to run.\n      environment (optional of type app.Environment):\n        If specified, only run this function when running the supplied\n        environment.  If None, always run.\n      runlevel (optional of type Integer):\n        Used to supply a temporal ordering of when to run initialization\n        functions.  Default: 0.\n      description (optional string):\n        Description of this initialization function, useful for debugging.\n  '
+    if (type(runlevel) is not types.IntType):
+        raise AppException(('Invalid runlevel: %s, must be an integer.' % runlevel))
+    if (type(function) is not types.FunctionType):
+        raise AppException(('Supplied function does not appear to be callable: %s' % function))
+    if ((type(environment) is not types.NoneType) and (not isinstance(environment, Environment))):
+        raise AppException(('Supplied environment must be None or of type app.Environment: %s' % environment))
+    if (runlevel not in _APP_REGISTRY):
+        _APP_REGISTRY[runlevel] = []
+    _APP_REGISTRY[runlevel].append((function, environment, description))
+    if _APP_INITIALIZED:
+        function()

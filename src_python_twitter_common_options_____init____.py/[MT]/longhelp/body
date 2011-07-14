@@ -1,0 +1,2 @@
+def longhelp(*args, **kwargs):
+    _Global.OPTIONS_LONG.print_help(*args, **kwargs)

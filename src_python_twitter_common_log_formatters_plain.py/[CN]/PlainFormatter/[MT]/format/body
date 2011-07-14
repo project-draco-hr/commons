@@ -1,0 +1,8 @@
+def format(self, record):
+    try:
+        level = PlainFormatter.LEVEL_MAP[record.levelno]
+    except:
+        level = '?????'
+    record_message = ('%s] %s' % (level, record.msg))
+    record.getMessage = (lambda : record_message)
+    return logging.Formatter.format(self, record)

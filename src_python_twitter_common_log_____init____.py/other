@@ -1,3 +1,13 @@
-from glog import GlogFormatter
-from glogger import *
-__all__ = (GlogFormatter, init, get)
+import logging
+from initialize import init
+try:
+    from twitter.common import app
+    app.on_initialization((lambda : init(app.name())), description='Logging subsystem.')
+except ImportError:
+    pass
+debug = logging.debug
+info = logging.info
+warning = logging.warning
+error = logging.error
+fatal = logging.fatal
+__all__ = ['debug', 'info', 'warning', 'error', 'fatal', 'init', 'formatters']
