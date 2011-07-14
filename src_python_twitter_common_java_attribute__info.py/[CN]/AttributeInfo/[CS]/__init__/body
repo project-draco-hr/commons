@@ -1,0 +1,2 @@
+def __init__(self, data, constants):
+    self._parse_header(data, constants)

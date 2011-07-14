@@ -1,0 +1,2 @@
+def test_parsed(self):
+    assert (self._class_file is not None)

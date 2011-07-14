@@ -1,0 +1,13 @@
+def _dump_built_library(self, builder):
+    egg_file = builder.build_egg()
+    if egg_file:
+        egg_file = os.path.relpath(egg_file, self.root)
+        for pkg in builder.packages():
+            print ('    found namespace: %s' % pkg)
+        randstr = (''.join(map(chr, random.sample(range(ord('a'), ord('z')), 8))) + '_')
+        print '    copying...',
+        self.chroot.copy(egg_file, os.path.join('.deps', (randstr + os.path.basename(egg_file))), 'resources')
+        print 'done.'
+    else:
+        print '   Failed!'
+        raise PythonChroot.BuildFailureException(('Failed to build %s!' % library))

@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(type);
+  detector.setType(type);
+  return self();
+}

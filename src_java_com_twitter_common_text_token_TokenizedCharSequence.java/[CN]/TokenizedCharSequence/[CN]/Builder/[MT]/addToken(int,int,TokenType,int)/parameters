@@ -1,0 +1,4 @@
+int offset
+int length
+TokenType type
+int pos

@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(input);
+  TokenStream tokenizer=getDefaultTokenStream();
+  tokenizer.reset(input);
+  return tokenizer.toStringList();
+}

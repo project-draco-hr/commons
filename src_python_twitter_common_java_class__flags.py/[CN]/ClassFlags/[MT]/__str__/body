@@ -1,0 +1,13 @@
+def __str__(self):
+    verbs = []
+    if self.public():
+        verbs.append('public')
+    if self.final():
+        verbs.append('final')
+    if self.super_():
+        verbs.append('super')
+    if self.interface():
+        verbs.append('interface')
+    if self.abstract():
+        verbs.append('abstract')
+    return ' '.join(verbs)

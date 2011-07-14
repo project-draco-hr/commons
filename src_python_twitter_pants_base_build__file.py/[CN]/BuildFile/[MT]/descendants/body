@@ -1,0 +1,6 @@
+def descendants(self):
+    "Returns all BUILD files in descendant directories of this BUILD file's parent directory."
+    descendants = BuildFile.scan_buildfiles(self.root_dir, self.parent_path)
+    for sibling in self.family():
+        descendants.discard(sibling)
+    return descendants

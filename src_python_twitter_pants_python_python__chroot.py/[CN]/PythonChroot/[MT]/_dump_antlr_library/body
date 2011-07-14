@@ -1,0 +1,3 @@
+def _dump_antlr_library(self, library):
+    print ('  Generating %s...' % library)
+    self._dump_built_library(PythonAntlrBuilder(library, self.root))

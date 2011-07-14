@@ -1,0 +1,2 @@
+def size(self):
+    return sum(map((lambda typ: typ.size()), self.__class__.TYPES))

@@ -1,0 +1,4 @@
+def __init__(self, identifier, class_bound, interface_bound=None):
+    self._identifier = identifier
+    self._class_bound = class_bound
+    self._interface_bound = _list_if_none(interface_bound)

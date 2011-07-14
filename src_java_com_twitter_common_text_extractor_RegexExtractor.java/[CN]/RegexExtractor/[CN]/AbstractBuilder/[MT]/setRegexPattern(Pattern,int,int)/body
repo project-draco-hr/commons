@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(pattern);
+  Preconditions.checkArgument(startGroup >= 0);
+  Preconditions.checkArgument(endGroup >= 0);
+  extractor.setRegexPattern(pattern,startGroup,endGroup);
+  return self();
+}

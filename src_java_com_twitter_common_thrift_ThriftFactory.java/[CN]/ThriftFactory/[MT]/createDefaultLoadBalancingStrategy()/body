@@ -6,5 +6,5 @@
     }
   }
 ;
-  return new MarkDeadStrategy<InetSocketAddress>(new LeastConnectedStrategy<InetSocketAddress>(),backoffFactory);
+  return new MarkDeadStrategyWithHostCheck<InetSocketAddress>(new LeastConnectedStrategy<InetSocketAddress>(),backoffFactory);
 }

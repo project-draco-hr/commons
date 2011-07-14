@@ -1,0 +1,5 @@
+{
+  DuplicatedTokenStream duplicate=new DuplicatedTokenStream(inputStream);
+  duplicatedStreams.add(duplicate);
+  return duplicate;
+}

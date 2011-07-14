@@ -1,0 +1,7 @@
+def test_invalid_field_identifier():
+    test_data = '\n    struct Foo {\n      0: i32 foo\n    }\n  '
+    _parse_with_expected_error(test_data, 'line 3, col 6: Field identifier for foo must be >= 1: 0')
+    test_data = '\n    struct Foo {\n      32768: i32 foo\n    }\n  '
+    _parse_with_expected_error(test_data, 'line 3, col 6: Field identifier for foo must be < 2^15: 32768')
+    test_data = '\n    struct Foo {\n      123: required i32 foo,\n      123: optional string bar\n    }\n  '
+    _parse_with_expected_error(test_data, 'line 4, col 6: Field identifier 123 for bar already used for foo')

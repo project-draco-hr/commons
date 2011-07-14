@@ -6,6 +6,6 @@
     }
   }
 );
-  zkTestServer=new ZooKeeperTestServer(0,shutdownRegistry);
+  zkTestServer=new ZooKeeperTestServer(0,shutdownRegistry,defaultSessionTimeout);
   zkTestServer.startNetwork();
 }

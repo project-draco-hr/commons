@@ -1,0 +1,30 @@
+@staticmethod
+def match(data):
+    (formal_type, offset) = FormalTypeParameters.match(data)
+    if (data[offset] != '('):
+        return _UNPARSED
+    offset += 1
+    type_sigs = []
+    while True:
+        (type_sig, bytes_read) = TypeSignature.match(data[offset:])
+        if (type_sig is not None):
+            type_sigs.append(type_sig)
+            offset += bytes_read
+            continue
+        elif (data[offset] != ')'):
+            return _UNPARSED
+        else:
+            break
+    offset += 1
+    (return_type, bytes_read) = ReturnType.match(data[offset:])
+    if (return_type is None):
+        return _UNPARSED
+    offset += bytes_read
+    throws = []
+    while (offset < len(data)):
+        (throw_sig, bytes_read) = ThrowsSignature.match(data[offset:])
+        if (throw_sig is None):
+            break
+        throws.append(throw_sig)
+        offset += bytes_read
+    return (MethodTypeSignature(formal_type, type_sigs, return_type, throws), offset)

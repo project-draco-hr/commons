@@ -1,0 +1,16 @@
+@staticmethod
+def parse(data, *type_args):
+    offset = 0
+    parsed_types = []
+    total_size = 0
+    for t in type_args:
+        if (not issubclass(t, JavaNativeType)):
+            raise JavaNativeType.ParseException(('Not a valid JavaNativeType: %s' % t))
+        total_size += t.size()
+    if (total_size > len(data)):
+        raise JavaNativeType.ParseException(('Not enough data to deserialize %s' % repr(type_args)))
+    for t in type_args:
+        parsed_type = t(data.__getslice__(offset, (offset + t.size()))).value()
+        parsed_types.append(parsed_type)
+        offset += t.size()
+    return (parsed_types, data[total_size:])

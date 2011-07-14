@@ -1,5 +1,3 @@
 {
-  Iterable<String> members=membershipChanges.take();
-  assertEquals(1,Iterables.size(members));
-  assertEquals(expectedMemberId,Iterables.getOnlyElement(members));
+  assertMembershipObserved(listener,expectedMemberId);
 }

@@ -1,0 +1,5 @@
+{
+  this.regexPattern=pattern;
+  this.startGroup=startGroup;
+  this.endGroup=endGroup;
+}

@@ -1,0 +1,3 @@
+{
+  return (obj instanceof TokenGroupAttributeImpl) && ((TokenGroupAttributeImpl)obj).states.equals(states);
+}

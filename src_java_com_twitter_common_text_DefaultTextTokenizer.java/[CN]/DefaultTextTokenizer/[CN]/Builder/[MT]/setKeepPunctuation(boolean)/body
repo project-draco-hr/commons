@@ -1,0 +1,4 @@
+{
+  this.keepPunctuation=keepPunctuation;
+  return this;
+}

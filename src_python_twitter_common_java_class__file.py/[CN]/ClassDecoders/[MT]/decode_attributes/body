@@ -1,0 +1,9 @@
+@staticmethod
+def decode_attributes(data, count, constants):
+    attributes = []
+    offset = 0
+    for k in range(count):
+        attribute = Attribute.parse(data[offset:], constants)
+        offset += attribute.size()
+        attributes.append(attribute)
+    return (attributes, data[offset:])

@@ -1,0 +1,24 @@
+{
+  if (nextState != null) {
+    restoreState(nextState);
+    nextState=null;
+    return true;
+  }
+  if (!getInputStream().incrementToken()) {
+    return false;
+  }
+  restoreState(getInputStream().captureState());
+  if (canBeCombinedWithNextToken(inputTermAttr.getTermCharSequence())) {
+    if (getInputStream().incrementToken()) {
+      nextState=getInputStream().captureState();
+      CharSequence term=inputTermAttr.getTermCharSequence();
+      if (canBeCombinedWithPreviousToken(term)) {
+        termAttr.setLength(termAttr.getLength() + term.length());
+        offsetAttr.setOffset(offsetAttr.startOffset(),offsetAttr.endOffset() + term.length());
+        typeAttr.setType(type);
+        nextState=null;
+      }
+    }
+  }
+  return true;
+}

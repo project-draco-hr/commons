@@ -1,0 +1,7 @@
+{
+  Preconditions.checkArgument(offset >= 0);
+  Preconditions.checkArgument(length >= 0);
+  Preconditions.checkNotNull(type);
+  tokens.add(new Token(CharBuffer.wrap(origText,offset,offset + length),type,pos));
+  return this;
+}

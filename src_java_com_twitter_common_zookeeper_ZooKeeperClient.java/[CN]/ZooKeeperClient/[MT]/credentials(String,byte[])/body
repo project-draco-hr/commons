@@ -1,0 +1,10 @@
+{
+  MorePreconditions.checkNotBlank(scheme);
+  Preconditions.checkNotNull(auth);
+  return new Credentials(){
+    @Override public void authenticate(    ZooKeeper zooKeeper){
+      zooKeeper.addAuthInfo(scheme,auth);
+    }
+  }
+;
+}

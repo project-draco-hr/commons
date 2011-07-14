@@ -1,0 +1,5 @@
+def __init__(self, wildcard_indicator=None, sig=None):
+    self._wildcard = wildcard_indicator
+    self._signature = sig
+    if (self._wildcard == '*'):
+        assert (self._signature is None)

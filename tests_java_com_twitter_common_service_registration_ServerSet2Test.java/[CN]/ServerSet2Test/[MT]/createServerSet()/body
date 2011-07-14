@@ -1,3 +1,0 @@
-{
-  return new ZkServerSet("localhost",getPort(),"/test/science/serverset");
-}

@@ -1,0 +1,5 @@
+{
+  super(inputStream);
+  setExtractor(new HashtagExtractor());
+  setType(TokenType.HASHTAG);
+}

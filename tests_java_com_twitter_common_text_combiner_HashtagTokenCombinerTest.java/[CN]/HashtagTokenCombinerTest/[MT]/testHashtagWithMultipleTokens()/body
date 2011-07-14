@@ -1,0 +1,5 @@
+{
+  String text="#hash_tag_123";
+  stream.reset(text);
+  verify(ImmutableList.of("#hash_tag_123"),new boolean[]{true});
+}

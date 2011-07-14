@@ -1,0 +1,4 @@
+{
+  List<String> tokens=tokenizer.tokenizeToStrings(text);
+  assertEquals(expected,tokens);
+}

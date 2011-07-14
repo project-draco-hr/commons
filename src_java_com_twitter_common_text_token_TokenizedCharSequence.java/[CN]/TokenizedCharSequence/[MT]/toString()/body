@@ -1,0 +1,6 @@
+{
+  if (strValue == null) {
+    strValue=term.toString();
+  }
+  return strValue;
+}

@@ -1,0 +1,4 @@
+{
+  stream.reset(text);
+  assertEquals(Lists.newArrayList(tokens),stream.toStringList());
+}

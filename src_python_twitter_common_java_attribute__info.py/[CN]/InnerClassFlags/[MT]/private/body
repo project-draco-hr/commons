@@ -1,0 +1,2 @@
+def private(self):
+    return (self._flags & InnerClassFlags.ACC_PRIVATE)

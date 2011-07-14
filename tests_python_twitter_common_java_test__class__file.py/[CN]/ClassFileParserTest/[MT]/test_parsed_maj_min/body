@@ -1,0 +1,4 @@
+def test_parsed_maj_min(self):
+    (maj, min) = self._class_file.version()
+    assert (maj == 50)
+    assert (min == 0)

@@ -1,0 +1,6 @@
+{
+  stream=new HashtagTokenCombiner(new RegexExtractor.Builder().setRegexPattern(Pattern.compile("([0-9]+|[a-zA-Z]+|\\p{InKatakana}+|#|_)")).build());
+  termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
+  offsetAttr=stream.getAttribute(OffsetAttribute.class);
+  typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+}

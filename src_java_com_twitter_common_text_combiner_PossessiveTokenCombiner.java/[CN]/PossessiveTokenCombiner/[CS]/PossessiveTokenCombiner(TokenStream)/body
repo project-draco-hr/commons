@@ -1,0 +1,4 @@
+{
+  super(inputStream);
+  setExtractor(new RegexExtractor.Builder().setRegexPattern(APOSTROPHE_S,1,1).setTriggeringChar('\'').build());
+}

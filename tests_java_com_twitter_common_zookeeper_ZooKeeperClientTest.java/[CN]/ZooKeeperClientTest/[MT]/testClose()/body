@@ -1,5 +1,5 @@
 {
-  ZooKeeperClient zkClient=createZkClient(Amount.of(1,Time.MINUTES));
+  ZooKeeperClient zkClient=createZkClient();
   zkClient.close();
   zkClient.close();
   long firstSessionId=zkClient.get().getSessionId();

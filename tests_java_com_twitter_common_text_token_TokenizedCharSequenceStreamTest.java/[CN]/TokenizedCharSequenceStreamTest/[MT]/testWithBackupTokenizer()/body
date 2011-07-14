@@ -1,0 +1,9 @@
+{
+  TokenStream stream=new TokenizedCharSequenceStream(tokenizer);
+  String text="This is a test #hashtag";
+  TokenizedCharSequence tokenized=TokenizedCharSequence.createFrom(text,tokenizer);
+  stream.reset(text);
+  assertEquals(ImmutableList.of("This","is","a","test","#hashtag"),stream.toStringList());
+  stream.reset(tokenized);
+  assertEquals(ImmutableList.of("This","is","a","test","#hashtag"),stream.toStringList());
+}

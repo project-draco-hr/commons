@@ -38,6 +38,7 @@ throw new TimeoutException("Timed out waiting for a ZK connection after " + conn
  else {
 connected.await();
 }
+credentials.authenticate(zooKeeper);
 sessionState=new SessionState(zooKeeper.getSessionId(),zooKeeper.getSessionPasswd());
 closed=false;
 }

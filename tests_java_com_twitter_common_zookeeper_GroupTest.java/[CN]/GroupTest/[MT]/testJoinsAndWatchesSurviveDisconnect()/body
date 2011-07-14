@@ -11,7 +11,7 @@
   membership.cancel();
   assertEmptyMembershipObserved();
   assertEmptyMembershipObserved();
-  assertTrue(membershipChanges.isEmpty());
+  assertTrue(listener.isEmpty());
   verify(onLoseMembership);
   reset(onLoseMembership);
 }

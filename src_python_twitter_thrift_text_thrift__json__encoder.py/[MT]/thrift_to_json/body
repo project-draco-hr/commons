@@ -1,0 +1,3 @@
+def thrift_to_json(o):
+    'A utility shortcut function to return a pretty-printed JSON thrift object.\n\n  Map keys will be sorted, making the returned string suitable for use in test comparisons.'
+    return json.dumps(o, sort_keys=True, cls=ThriftJSONEncoder, indent=2, separators=(',', ': '))

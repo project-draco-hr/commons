@@ -1,0 +1,3 @@
+{
+  return Iterables.transform(infos,INFO_TO_FIELD);
+}

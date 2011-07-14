@@ -1,0 +1,7 @@
+@staticmethod
+def match(data):
+    if (data[0] == '['):
+        (component, offset) = ComponentType.match(data[1:])
+        return ((component + '[]'), (offset + 1))
+    else:
+        return _UNPARSED

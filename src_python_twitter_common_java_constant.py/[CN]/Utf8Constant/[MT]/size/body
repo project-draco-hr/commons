@@ -1,0 +1,2 @@
+def size(self):
+    return ((u1.size() + u2.size()) + self._length)

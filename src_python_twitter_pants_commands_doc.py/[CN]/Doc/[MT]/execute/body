@@ -8,7 +8,18 @@ def execute(self):
         print 'Failed to generate javadoc classpath.'
         return classpath_result
     self._create_artifact_data()
-    javadoc_result = subprocess.call((['javadoc', '-encoding', 'UTF-8', '-notimestamp', '-doctitle', self.options.title, '-use', '-linksource', '-top', '<script type="text/javascript">top.updateArtifact(window.location);</script>', '-classpath', ('@%s' % classpath_file), '-d', self.target_path] + doc_target.sources))
+    sources_file = self._create_sources_file(doc_target)
+    command = ['javadoc', '-encoding', 'UTF-8', '-notimestamp', '-doctitle', self.options.title, '-use', '-linksource', '-top', '<script type="text/javascript">top.updateArtifact(window.location);</script>', '-classpath', ('@%s' % classpath_file), '-d', self.target_path, ('@%s' % sources_file)]
+    offlinelinks = set(['http://download.oracle.com/javase/6/docs/api/'])
+
+    def link(target):
+        for jar in target.jar_dependencies:
+            if jar.apidocs:
+                offlinelinks.add(jar.apidocs)
+    doc_target.walk(link, is_jvm)
+    for link in offlinelinks:
+        command.extend(['-linkoffline', link, link])
+    javadoc_result = subprocess.call(command)
     if (self.options.ignore_failure or (javadoc_result == 0)):
         for (root, _, files) in self._walk_assets(_ASSETS_DIR):
             newdir = os.path.join(self.target_path, os.path.relpath(root, _ASSETS_DIR))

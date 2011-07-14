@@ -1,2 +1,2 @@
-from twitter.pants.targets import InternalTarget, JavaLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, ScalaLibrary, ScalaTests
+from twitter.pants.targets import AnnotationProcessor, InternalTarget, JavaLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, ScalaLibrary, ScalaTests
 from twitter.pants import is_jvm

@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('AttributeInfo(name:%s, size=%d)' % (self._attribute_name, self.size()))

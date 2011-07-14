@@ -1,3 +1,0 @@
-{
-  this(zkClient,new Group(zkClient,acl,path),DEFAULT_CODEC);
-}

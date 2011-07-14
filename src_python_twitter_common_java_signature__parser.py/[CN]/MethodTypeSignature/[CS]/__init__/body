@@ -1,0 +1,5 @@
+def __init__(self, formal_type=None, type_sigs=None, return_type=None, throws=None):
+    self._formal_type = _list_if_none(formal_type)
+    self._type_signatures = _list_if_none(type_sigs)
+    self._return_type = return_type
+    self._throws = _list_if_none(throws)

@@ -1,0 +1,15 @@
+{
+  clearAttributes();
+  try {
+    if (!tokenizer.incrementToken()) {
+      return false;
+    }
+    restoreState(tokenizer.captureState());
+    termAttr.setOffset(inputOffsetAttr.startOffset());
+    termAttr.setLength(inputOffsetAttr.endOffset() - inputOffsetAttr.startOffset());
+    return true;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,9 @@
+{
+  Preconditions.checkNotNull(emoticon);
+  Preconditions.checkArgument(emoticon.length() > 0);
+  char lastChar=emoticon.charAt(emoticon.length() - 1);
+  if (lastChar == '(' || lastChar == '<') {
+    return Polarity.SAD;
+  }
+  return Polarity.HAPPY;
+}

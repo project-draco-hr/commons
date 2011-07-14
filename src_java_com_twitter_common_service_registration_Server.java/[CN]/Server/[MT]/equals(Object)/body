@@ -1,7 +1,0 @@
-{
-  if (o instanceof Server) {
-    Server s=(Server)o;
-    return s.hostPort.equals(hostPort);
-  }
-  return false;
-}

@@ -1,0 +1,17 @@
+{
+  TypeElement cmdLineAnnotation=processingEnv.getElementUtils().getTypeElement(CMD_LINE_ANNOTATION_CLASS_NAME);
+  processCmdLineArgs(roundEnv.getElementsAnnotatedWith(cmdLineAnnotation));
+  if (roundEnv.processingOver() && !configBuilder.isEmpty()) {
+    Configuration configuration=configBuilder.build();
+    Writer cmdLinePropertiesResource=openCmdLinePropertiesResource();
+    if (cmdLinePropertiesResource != null) {
+      try {
+        configuration.store(cmdLinePropertiesResource,"Generated via apt by " + getClass().getName());
+      }
+  finally {
+        Closeables.closeQuietly(cmdLinePropertiesResource);
+      }
+    }
+  }
+  return true;
+}

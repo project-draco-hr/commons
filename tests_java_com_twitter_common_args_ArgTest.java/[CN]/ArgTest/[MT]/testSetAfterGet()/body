@@ -1,0 +1,10 @@
+{
+  Arg<Boolean> arg=new Arg<Boolean>(false);
+  arg.get();
+  try {
+    arg.set(true);
+    Assert.fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

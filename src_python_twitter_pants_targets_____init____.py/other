@@ -1,3 +1,4 @@
+from annotation_processor import AnnotationProcessor
 from artifact import Artifact
 from exclude import Exclude
 from exportable_jvm_library import ExportableJvmLibrary
@@ -13,6 +14,7 @@ from pants_target import Pants
 from python_binary import PythonBinary
 from python_egg import PythonEgg
 from python_library import PythonLibrary
+from python_antlr_library import PythonAntlrLibrary
 from python_thrift_library import PythonThriftLibrary
 from python_target import PythonTarget
 from python_tests import PythonTests, PythonTestSuite
@@ -20,4 +22,4 @@ from repository import Repository
 from scala_library import ScalaLibrary
 from scala_tests import ScalaTests
 from with_sources import TargetWithSources
-__all__ = ['Artifact', 'Exclude', 'ExportableJvmLibrary', 'InternalTarget', 'InternalTarget_CycleException', 'JarDependency', 'JarLibrary', 'JavaLibrary', 'JavaThriftLibrary', 'JavaProtobufLibrary', 'JavaTests', 'JvmTarget', 'Pants', 'PythonBinary', 'PythonEgg', 'PythonLibrary', 'PythonTarget', 'PythonThriftLibrary', 'PythonTests', 'PythonTestSuite', 'Repository', 'ScalaLibrary', 'ScalaTests', 'TargetWithSources']
+__all__ = ['AnnotationProcessor', 'Artifact', 'Exclude', 'ExportableJvmLibrary', 'InternalTarget', 'InternalTarget_CycleException', 'JarDependency', 'JarLibrary', 'JavaLibrary', 'JavaThriftLibrary', 'JavaProtobufLibrary', 'JavaTests', 'JvmTarget', 'Pants', 'PythonBinary', 'PythonEgg', 'PythonLibrary', 'PythonTarget', 'PythonAntlrLibrary', 'PythonThriftLibrary', 'PythonTests', 'PythonTestSuite', 'Repository', 'ScalaLibrary', 'ScalaTests', 'TargetWithSources']

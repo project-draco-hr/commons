@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(types);
+  for (  TokenType type : types) {
+    Preconditions.checkNotNull(type);
+    this.types.add(type);
+  }
+}

@@ -1,3 +1,7 @@
 {
-  return REGISTRY.get(cls);
+  Parser parser;
+  while (((parser=REGISTRY.get(cls)) == null) && (cls != null)) {
+    cls=cls.getSuperclass();
+  }
+  return parser;
 }

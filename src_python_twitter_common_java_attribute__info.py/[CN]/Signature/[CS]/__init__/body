@@ -1,0 +1,7 @@
+def __init__(self, data, constants):
+    AttributeInfo.__init__(self, data, constants)
+    bytes = self.bytes()
+    self._signature_index = u2(bytes[0:2]).get()
+    self._signature = constants[self._signature_index]
+    self._parsed = None
+    self._parse_signature()

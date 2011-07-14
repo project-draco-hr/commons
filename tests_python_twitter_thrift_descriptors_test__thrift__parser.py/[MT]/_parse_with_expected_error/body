@@ -1,0 +1,5 @@
+def _parse_with_expected_error(test_data, expected_error_msg):
+    parser = ThriftParser()
+    with pytest.raises(ThriftParserError) as exception_info:
+        program = parser.parse_string(test_data)
+    assert (str(exception_info.value) == expected_error_msg)

@@ -1,0 +1,2 @@
+def testAncestors(self):
+    self.assertEquals(OrderedSet([BuildFileTest.buildfile('BUILD'), BuildFileTest.buildfile('BUILD.twitter')]), self.buildfile.ancestors())

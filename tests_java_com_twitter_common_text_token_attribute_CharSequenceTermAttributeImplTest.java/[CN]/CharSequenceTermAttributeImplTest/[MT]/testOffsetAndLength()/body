@@ -1,0 +1,47 @@
+{
+  att.setTermBuffer("test");
+  assertTerm("test",0,4);
+  att.setLength(3);
+  assertTerm("tes",0,3);
+  att.setOffset(1);
+  assertTerm("est",1,3);
+  att.setTermLength(4);
+  assertTerm("est",1,3);
+  att.setTermLength(2);
+  assertTerm("es",1,2);
+  att.clear();
+  assertTerm("",0,0);
+  try {
+    att.setOffset(-1);
+    fail("Expected an IndexOutOfBoundsException");
+  }
+ catch (  IndexOutOfBoundsException e) {
+  }
+  try {
+    att.setOffset(5);
+    fail("Expected an IndexOutOfBoundsException");
+  }
+ catch (  IndexOutOfBoundsException e) {
+  }
+  try {
+    att.setLength(-1);
+    fail("Expected an IndexOutOfBoundsException");
+  }
+ catch (  IndexOutOfBoundsException e) {
+  }
+  try {
+    att.setLength(5);
+    fail("Expected an IndexOutOfBoundsException");
+  }
+ catch (  IndexOutOfBoundsException e) {
+  }
+  att.setOffset(1);
+  att.setLength(4);
+  assertEquals(4,att.getLength());
+  try {
+    att.term();
+    fail("Expected a StringIndexOutOfBoundsException");
+  }
+ catch (  StringIndexOutOfBoundsException e) {
+  }
+}

@@ -1,9 +1,0 @@
-{
-  Gson gson=new Gson();
-  List<Map<String,String>> list=gson.fromJson(new String(ser,Charsets.UTF_8),new TypeToken<List<Map<String,String>>>(){
-  }
-.getType());
-  Map<String,String> privateMap=list.get(0);
-  Map<String,String> props=list.get(1);
-  return new Server(privateMap.get(KEY_HOST),Integer.parseInt(privateMap.get(KEY_PORT)),props);
-}

@@ -1,0 +1,4 @@
+{
+  assertFalse(att.equals(otherAtt));
+  assertFalse(att.hashCode() == otherAtt.hashCode());
+}

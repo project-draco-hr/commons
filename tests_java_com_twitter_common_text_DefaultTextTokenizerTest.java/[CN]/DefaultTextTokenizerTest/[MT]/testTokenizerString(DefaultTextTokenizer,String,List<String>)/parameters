@@ -1,0 +1,3 @@
+DefaultTextTokenizer tokenizer
+String text
+List<String> expected

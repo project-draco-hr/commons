@@ -1,0 +1,3 @@
+def size(self):
+    'Total size of the attribute_info blob.'
+    return self._size

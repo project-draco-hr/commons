@@ -1,0 +1,7 @@
+def test_invalid_enum_value():
+    test_data = '\n    enum Foo {\n      BAR = -1\n      BAZ = 1\n    }\n  '
+    _parse_with_expected_error(test_data, 'line 3, col 6: Enum value for BAR must be >= 0: -1')
+    test_data = '\n    enum Foo {\n      BAR = 1\n      BAZ = 2147483648\n    }\n  '
+    _parse_with_expected_error(test_data, 'line 4, col 6: Enum value for BAZ must be < 2^31: 2147483648')
+    test_data = '\n    enum Foo {\n      BAR = 3\n      BAZ = 3\n    }\n  '
+    _parse_with_expected_error(test_data, 'line 4, col 6: Enum value for BAZ must be >= 4: 3')

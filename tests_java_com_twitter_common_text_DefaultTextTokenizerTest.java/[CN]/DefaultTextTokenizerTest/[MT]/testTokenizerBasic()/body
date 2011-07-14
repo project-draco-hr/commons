@@ -1,0 +1,4 @@
+{
+  testTokenizerString(tokenizerWithoutPunctuation,"two words",ImmutableList.of("two","words"));
+  testTokenizerString(tokenizerWithoutPunctuation,"two, words.",ImmutableList.of("two","words"));
+}

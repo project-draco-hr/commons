@@ -1,0 +1,5 @@
+{
+  MorePreconditions.checkNotBlank(username);
+  Preconditions.checkNotNull(password);
+  return credentials("digest",(username + ":" + password).getBytes());
+}

@@ -1,0 +1,2 @@
+def public(self):
+    return (self._flags & FieldInfoFlags.ACC_PUBLIC)

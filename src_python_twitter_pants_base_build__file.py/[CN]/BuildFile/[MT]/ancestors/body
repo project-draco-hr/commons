@@ -1,0 +1,17 @@
+def ancestors(self):
+    "Returns all BUILD files in ancestor directories of this BUILD file's parent directory."
+
+    def find_parent(dir):
+        parent = os.path.dirname(dir)
+        buildfile = os.path.join(parent, BuildFile._CANONICAL_NAME)
+        if os.path.exists(buildfile):
+            return (parent, BuildFile(self.root_dir, os.path.relpath(buildfile, self.root_dir)))
+        else:
+            return (parent, None)
+    parent_buildfiles = OrderedSet()
+    parentdir = os.path.dirname(self.full_path)
+    while (parentdir != self.root_dir):
+        (parentdir, buildfile) = find_parent(parentdir)
+        if buildfile:
+            parent_buildfiles.update(buildfile.family())
+    return parent_buildfiles

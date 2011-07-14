@@ -1,0 +1,3 @@
+{
+  return CharStreams.readLines(input,new ConfigurationParser());
+}

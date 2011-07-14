@@ -1,0 +1,15 @@
+def default(self, o):
+    if isinstance(o, set):
+        ret = list(o)
+        ret.sort()
+        return ret
+    if (not hasattr(o, ThriftJSONEncoder.THRIFT_SPEC)):
+        return super(ThriftJSONEncoder, self).default(o)
+    spec = getattr(o, ThriftJSONEncoder.THRIFT_SPEC)
+    ret = {}
+    for (field_number, type, name, type_info, default) in [field_spec for field_spec in spec if (field_spec is not None)]:
+        if (name in o.__dict__):
+            val = o.__dict__[name]
+            if (val != default):
+                ret[name] = val
+    return ret

@@ -1,3 +1,0 @@
-{
-  return countedSet.keySet().iterator();
-}

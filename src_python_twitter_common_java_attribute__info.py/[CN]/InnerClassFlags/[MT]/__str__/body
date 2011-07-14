@@ -1,0 +1,23 @@
+def __str__(self):
+    verbs = []
+    if self.public():
+        verbs.append('public')
+    if self.private():
+        verbs.append('private')
+    if self.protected():
+        verbs.append('protected')
+    if self.static():
+        verbs.append('static')
+    if self.final():
+        verbs.append('final')
+    if self.interface():
+        verbs.append('interface')
+    if self.abstract():
+        verbs.append('abstract')
+    if self.synthetic():
+        verbs.append('synthetic')
+    if self.annotation():
+        verbs.append('annotation')
+    if self.enum():
+        verbs.append('enum')
+    return ' '.join(verbs)

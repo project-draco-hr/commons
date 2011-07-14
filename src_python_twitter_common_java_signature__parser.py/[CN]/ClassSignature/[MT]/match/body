@@ -1,0 +1,17 @@
+@staticmethod
+def match(data):
+    offset = 0
+    (ftp, bytes_read) = FormalTypeParameters.match(data[offset:])
+    offset += bytes_read
+    (scs, bytes_read) = ClassTypeSignature.match(data[offset:])
+    if (scs is None):
+        return _UNPARSED
+    offset += bytes_read
+    super_sigs = []
+    while (offset < len(data)):
+        (sis, bytes_read) = ClassTypeSignature.match(data[offset:])
+        if (sis is None):
+            break
+        offset += bytes_read
+        super_sigs.append(sis)
+    return (ClassSignature(ftp, scs, super_sigs), offset)

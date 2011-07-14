@@ -1,0 +1,3 @@
+@staticmethod
+def match(data):
+    return FieldType.match(data)

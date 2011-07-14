@@ -1,6 +1,5 @@
 def family(self):
-    'Returns an iterator over all the BUILD files co-located with this BUILD file.  The family\n    forms a single logical BUILD file composed of the canonical BUILD file and optional sibling\n    build files each with their own extension, eg: BUILD.extras.'
+    'Returns an iterator over all the BUILD files co-located with this BUILD file including this\n    BUILD file itself.  The family forms a single logical BUILD file composed of the canonical BUILD\n    file and optional sibling build files each with their own extension, eg: BUILD.extras.'
     yield self
-    for build in glob1(self.parent_path, 'BUILD.*'):
-        if ((self.name != build) and BuildFile._is_buildfile_name(build)):
-            yield BuildFile(self.root_dir, os.path.join(os.path.dirname(self.relpath), build))
+    for sibling in self.siblings():
+        yield sibling

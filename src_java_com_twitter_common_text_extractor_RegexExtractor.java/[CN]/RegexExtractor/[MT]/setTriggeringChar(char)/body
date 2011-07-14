@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(triggeringChar);
+  this.triggeringChar=triggeringChar;
+}

@@ -1,0 +1,12 @@
+@staticmethod
+def match(data):
+    (base_type, offset) = BaseType.match(data)
+    if offset:
+        return (base_type, offset)
+    (object_type, offset) = ObjectType.match(data)
+    if offset:
+        return (object_type, offset)
+    (array_type, offset) = ArrayType.match(data)
+    if offset:
+        return (array_type, offset)
+    return _UNPARSED

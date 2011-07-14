@@ -1,0 +1,5 @@
+{
+  String text="this is also not#hashtag";
+  stream.reset(text);
+  verify(ImmutableList.of("this","is","also","not","#","hashtag"),new boolean[]{false,false,false,false,false,false});
+}

@@ -3,6 +3,7 @@ def build_dep_tree(self, target):
     eggs = set()
     binaries = set()
     thrifts = set()
+    antlrs = set()
 
     def add_dep(trg):
         if isinstance(trg, PythonLibrary):
@@ -16,10 +17,12 @@ def build_dep_tree(self, target):
             binaries.add(trg)
         elif isinstance(trg, PythonThriftLibrary):
             thrifts.add(trg)
+        elif isinstance(trg, PythonAntlrLibrary):
+            antlrs.add(trg)
         elif isinstance(trg, PythonTests):
             pass
         else:
             raise PythonChroot.InvalidDependencyException(trg)
         return [dep for dep in trg.dependencies if (not isinstance(dep, PythonEgg))]
     target.walk((lambda t: add_dep(t)), (lambda typ: (not isinstance(typ, PythonEgg))))
-    return (libraries, eggs, binaries, thrifts)
+    return (libraries, eggs, binaries, thrifts, antlrs)

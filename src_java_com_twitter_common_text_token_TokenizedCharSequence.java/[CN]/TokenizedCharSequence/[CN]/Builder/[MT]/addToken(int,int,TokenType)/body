@@ -1,0 +1,4 @@
+{
+  addToken(offset,length,type,PartOfSpeechAttribute.UNKNOWN);
+  return this;
+}

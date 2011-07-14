@@ -1,0 +1,7 @@
+{
+  TokenStream stream1=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  TokenStream stream2=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile("_")).build();
+  TokenStream aggregator=TokenStreamAggregator.of(stream1,stream2);
+  aggregator.reset("aa bb_cc dd ee_ff_gg");
+  assertEquals(ImmutableList.of("aa","bb_cc","dd","ee_ff_gg","aa bb","cc dd ee","ff","gg"),aggregator.toStringList());
+}

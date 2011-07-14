@@ -1,0 +1,3 @@
+{
+  testTokenizerString(tokenizerWithoutPunctuation,"smiley :) :D :P haha",ImmutableList.of("smiley",":)",":D",":P","haha"));
+}

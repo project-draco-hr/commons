@@ -1,0 +1,2 @@
+def pytest_addoption(parser):
+    parser.addoption('--generate_golden_data', action='store', default=None, help="If specified, write the generated output to this path.  Use this only when you're convinced that the generated data is correct and the old golden data is not.")

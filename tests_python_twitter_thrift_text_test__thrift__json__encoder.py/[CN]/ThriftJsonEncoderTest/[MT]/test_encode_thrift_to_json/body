@@ -1,0 +1,20 @@
+def test_encode_thrift_to_json(self):
+    x = structs_for_testing.TestStruct()
+    x.field2 = True
+    x.field4 = [2, 4, 6, 8]
+    x.field7 = 1.2
+    expected1 = '{\n  "field2": true,\n  "field4": [\n    2,\n    4,\n    6,\n    8\n  ],\n  "field7": 1.2\n}'
+    json_str1 = thrift_json_encoder.thrift_to_json(x)
+    assert (expected1 == json_str1)
+    x.field1 = 42
+    x.field2 = False
+    x.field3 = '"not default"'
+    x.field4.append(10)
+    x.field5 = set(['b', 'c', 'a'])
+    x.field6 = structs_for_testing.InnerTestStruct()
+    x.field6.foo = 'bar'
+    x.field6.color = structs_for_testing.Color.BLUE
+    expected2 = '{\n  "field1": 42,\n  "field2": false,\n  "field3": "\\"not default\\"",\n  "field4": [\n    2,\n    4,\n    6,\n    8,\n    10\n  ],\n  "field5": [\n    "a",\n    "b",\n    "c"\n  ],\n  "field6": {\n    "color": 3,\n    "foo": "bar"\n  },\n  "field7": 1.2\n}'
+    json_str2 = thrift_json_encoder.thrift_to_json(x)
+    print json_str2
+    assert (expected2 == json_str2)

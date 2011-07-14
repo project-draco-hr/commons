@@ -1,0 +1,12 @@
+def test_decode_json_to_thrift(self):
+    json_str = '{\n  "field1": 7,\n  "field2": true,\n  "field3": "Hello, World",\n  "field4": [\n    2,\n    4,\n    6,\n    8\n  ],\n  "field5": [\n    "yes",\n    "maybe",\n    "no"\n  ],\n  "field6": {\n    "foo": "bar",\n    "color": 3,\n    "numbers": {\n      "1": "one",\n      "2": "two",\n      "3": "three"\n    }\n  },\n  "field7": 1.2\n}'
+    res = thrift_json_decoder.json_to_thrift(json_str, structs_for_testing.TestStruct)
+    assert (res.field1 == 7)
+    assert (res.field2 == True)
+    assert (res.field3 == 'Hello, World')
+    assert (res.field4 == [2, 4, 6, 8])
+    assert (res.field5 == set(['no', 'yes', 'maybe']))
+    assert (res.field6.foo == 'bar')
+    assert (res.field6.color == 3)
+    assert (res.field6.numbers == {1: 'one', 2: 'two', 3: 'three', })
+    assert (res.field7 == 1.2)

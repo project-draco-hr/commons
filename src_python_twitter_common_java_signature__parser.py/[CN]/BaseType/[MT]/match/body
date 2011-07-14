@@ -1,0 +1,6 @@
+@staticmethod
+def match(data):
+    if (data[0] in BaseType._CHAR_MAP):
+        return (BaseType._CHAR_MAP[data[0]], 1)
+    else:
+        return _UNPARSED

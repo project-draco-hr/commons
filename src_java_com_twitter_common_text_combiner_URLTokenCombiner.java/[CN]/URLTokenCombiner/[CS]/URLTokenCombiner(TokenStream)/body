@@ -1,0 +1,5 @@
+{
+  super(inputStream);
+  setExtractor(new URLExtractor());
+  setType(TokenType.URL);
+}

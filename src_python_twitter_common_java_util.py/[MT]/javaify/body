@@ -1,0 +1,2 @@
+def javaify(klz):
+    return klz.replace('/', '.')

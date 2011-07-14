@@ -1,0 +1,17 @@
+def __str__(self):
+    verbs = []
+    if self.public():
+        verbs.append('public')
+    if self.private():
+        verbs.append('private')
+    if self.protected():
+        verbs.append('protected')
+    if self.static():
+        verbs.append('static')
+    if self.final():
+        verbs.append('final')
+    if self.volatile():
+        verbs.append('volatile')
+    if self.transient():
+        verbs.append('transient')
+    return ' '.join(verbs)

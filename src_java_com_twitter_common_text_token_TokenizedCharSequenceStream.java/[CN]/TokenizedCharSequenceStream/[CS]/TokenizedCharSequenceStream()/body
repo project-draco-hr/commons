@@ -1,0 +1,7 @@
+{
+  this.inputStream=null;
+  termAttr=addAttribute(CharSequenceTermAttribute.class);
+  offsetAttr=addAttribute(OffsetAttribute.class);
+  typeAttr=addAttribute(TokenTypeAttribute.class);
+  posAttr=addAttribute(PartOfSpeechAttribute.class);
+}

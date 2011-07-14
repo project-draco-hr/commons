@@ -1,0 +1,32 @@
+{
+  DefaultTextTokenizer tokenizer=new DefaultTextTokenizer.Builder().setKeepPunctuation(true).build();
+  TokenStream stream=tokenizer.getDefaultTokenStream();
+  System.out.println("Attributes available:");
+  Iterator<Class<? extends Attribute>> iter=stream.getAttributeClassesIterator();
+  while (iter.hasNext()) {
+    Class<? extends Attribute> c=iter.next();
+    System.out.println(" - " + c.getCanonicalName());
+  }
+  System.out.println("");
+  for (  String tweet : famousTweets) {
+    System.out.println("Processing: " + tweet);
+    stream.reset(tweet);
+    int tokenCnt=0;
+    while (stream.incrementToken()) {
+      CharSequenceTermAttribute termAttribute=stream.getAttribute(CharSequenceTermAttribute.class);
+      OffsetAttribute offsetAttribute=stream.getAttribute(OffsetAttribute.class);
+      TokenTypeAttribute typeAttribute=stream.getAttribute(TokenTypeAttribute.class);
+      System.out.println(String.format("token %2d (%3d, %3d) type: %12s, token: '%s'",tokenCnt,offsetAttribute.startOffset(),offsetAttribute.endOffset(),typeAttribute.getType().name,termAttribute.getTermCharSequence()));
+      tokenCnt++;
+    }
+    System.out.println("");
+    tokenCnt=0;
+    System.out.println("Processing: " + tweet);
+    TokenizedCharSequence tokSeq=tokenizer.tokenize(tweet);
+    for (    Token tok : tokSeq.getTokens()) {
+      System.out.println(String.format("token %2d (%3d, %3d) type: %12s, token: '%s'",tokenCnt,tok.getOffset(),tok.getOffset() + tok.getLength(),tok.getType().name,tok.getTerm()));
+      tokenCnt++;
+    }
+    System.out.println("");
+  }
+}

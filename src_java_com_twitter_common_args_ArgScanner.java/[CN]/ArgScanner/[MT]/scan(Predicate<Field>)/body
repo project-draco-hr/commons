@@ -1,0 +1,9 @@
+{
+  try {
+    Configuration configuration=Configuration.load();
+    return Iterables.filter(configuration.fields(),filter);
+  }
+ catch (  IOException e) {
+    throw new ArgScanException(e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  String text="test, #hashtag, @username.";
+  TokenizedCharSequence tokenized=new TokenizedCharSequence.Builder(text).addToken(0,4,TokenType.TOKEN).addToken(4,1,TokenType.PUNCTUATION).addToken(6,8,TokenType.HASHTAG).addToken(14,1,TokenType.PUNCTUATION).addToken(16,9,TokenType.USERNAME).addToken(25,1,TokenType.PUNCTUATION).build();
+  assertEquals(3,tokenized.getTokensOf(TokenType.TOKEN,TokenType.HASHTAG,TokenType.USERNAME).size());
+  assertEquals(3,tokenized.getTokensOf(TokenType.PUNCTUATION).size());
+  List<String> hashtags=tokenized.getTokenStringsOf(TokenType.HASHTAG);
+  assertEquals(ImmutableList.of("#hashtag"),hashtags);
+  List<String> hash_user=tokenized.getTokenStringsOf(TokenType.HASHTAG,TokenType.USERNAME);
+  assertEquals(ImmutableList.of("#hashtag","@username"),hash_user);
+}

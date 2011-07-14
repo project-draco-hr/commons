@@ -1,0 +1,10 @@
+def __str__(self):
+    output = [('%s' % self._package)]
+    if self._arguments:
+        output.append('<')
+        output.append(', '.join((('%s' % s) for s in self._arguments)))
+        output.append('>')
+    if self._suffixes:
+        output.append('suffixes')
+        output.extend(self._suffixes)
+    return ('%s' % ''.join((('%s' % s) for s in output)))

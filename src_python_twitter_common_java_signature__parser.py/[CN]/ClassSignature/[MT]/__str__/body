@@ -1,0 +1,8 @@
+def __str__(self):
+    output = []
+    if self._formal_type_parameters:
+        output.append(('<%s>' % ', '.join((('%s' % s) for s in self._formal_type_parameters))))
+    output.append(('CLASS extends %s' % self._superclass_signature))
+    if self._superinterface_signatures:
+        output.append(('implements %s' % ', '.join((('%s' % s) for s in self._superinterface_signatures))))
+    return ('ClassSignature(%s)' % ' '.join(output))

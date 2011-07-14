@@ -1,0 +1,4 @@
+{
+  filter.setMode(mode);
+  return this;
+}

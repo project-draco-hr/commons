@@ -1,0 +1,3 @@
+def is_apt(target):
+    'Returns True if the target produces annotation processors.'
+    return isinstance(target, AnnotationProcessor)

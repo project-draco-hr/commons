@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(input);
+  StringWriter writer=new StringWriter();
+  IOUtils.copy(input,writer);
+  stream.reset(writer.toString());
+}

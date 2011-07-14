@@ -1,0 +1,4 @@
+def __init__(self, data):
+    self._data = data
+    self._decode()
+    self._track_dependencies()

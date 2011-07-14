@@ -8,6 +8,8 @@ from twitter.pants.base import Chroot
 from twitter.pants.targets import PythonBinary
 from twitter.pants.targets import PythonEgg
 from twitter.pants.targets import PythonLibrary
+from twitter.pants.targets import PythonAntlrLibrary
 from twitter.pants.targets import PythonThriftLibrary
 from twitter.pants.targets import PythonTests
+from twitter.pants.python.antlr_builder import PythonAntlrBuilder
 from twitter.pants.python.thrift_builder import PythonThriftBuilder

@@ -6,14 +6,14 @@
   String originalMemberId=membership.getMemberId();
   assertMembershipObserved(originalMemberId);
   expireSession(zkClient);
-  Iterable<String> members=membershipChanges.take();
+  Iterable<String> members=listener.take();
   if (Iterables.isEmpty(members)) {
-    members=membershipChanges.take();
+    members=listener.take();
   }
   assertEquals(1,Iterables.size(members));
   assertNotEqual(originalMemberId,Iterables.getOnlyElement(members));
   assertNotEqual(originalMemberId,membership.getMemberId());
-  assertTrue(membershipChanges.isEmpty());
+  assertTrue(listener.isEmpty());
   verify(onLoseMembership);
   reset(onLoseMembership);
 }

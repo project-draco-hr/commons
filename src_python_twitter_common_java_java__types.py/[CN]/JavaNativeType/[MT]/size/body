@@ -1,0 +1,3 @@
+@staticmethod
+def size():
+    raise Exception('Unimplemented!')

@@ -1,0 +1,8 @@
+{
+  tokenizer.reset(test);
+  List<String> tokens=tokenizer.toStringList();
+  assertEquals(expected.length,tokens.size());
+  for (int i=0; i < expected.length; i++) {
+    assertEquals(expected[i],tokens.get(i).toString());
+  }
+}

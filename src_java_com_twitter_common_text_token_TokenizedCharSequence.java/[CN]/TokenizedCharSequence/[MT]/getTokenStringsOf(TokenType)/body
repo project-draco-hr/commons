@@ -1,0 +1,7 @@
+{
+  List<String> strSubtokens=Lists.newArrayListWithCapacity(tokens.size());
+  for (  Token token : getTokensOf(types)) {
+    strSubtokens.add(token.getTerm().toString());
+  }
+  return strSubtokens;
+}

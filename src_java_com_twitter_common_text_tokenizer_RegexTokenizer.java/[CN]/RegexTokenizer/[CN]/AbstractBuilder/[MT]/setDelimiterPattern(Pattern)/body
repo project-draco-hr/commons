@@ -1,0 +1,4 @@
+{
+  tokenizer.setDelimiterPattern(delimiterPattern);
+  return self();
+}

@@ -1,0 +1,17 @@
+def test_thrift_parser(generate_golden_data):
+    'Tests that we can parse a complex file that tickles as many cases and corner cases\n  as we can think of. We verify the result against golden data.'
+    TEST_DATA_FILE = 'test_data/test_data.thrift'
+    GOLDEN_DATA_FILE = (TEST_DATA_FILE + '.golden')
+    TEST_DATA_PATH = __name__
+    test_data = pkgutil.get_data(TEST_DATA_PATH, TEST_DATA_FILE)
+    golden_data = pkgutil.get_data(TEST_DATA_PATH, GOLDEN_DATA_FILE)
+    parser = ThriftParser()
+    print ('Parsing file %s...' % TEST_DATA_FILE),
+    program = parser.parse_string(test_data)
+    print 'OK.'
+    res = thrift_json_encoder.thrift_to_json(program)
+    if (golden_data is not None):
+        if (generate_golden_data is not None):
+            with open(generate_golden_data, 'w') as fd:
+                fd.write(res)
+        assert (golden_data == res)

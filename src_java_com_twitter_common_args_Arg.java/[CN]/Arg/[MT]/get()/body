@@ -1,4 +1,5 @@
 {
   Preconditions.checkState(valueApplied || hasDefault,"A value may only be retrieved from a variable that has a default or has been set.");
+  valueObserved=true;
   return uncheckedGet();
 }

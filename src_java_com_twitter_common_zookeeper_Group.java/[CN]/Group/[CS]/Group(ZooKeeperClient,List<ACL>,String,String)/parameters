@@ -1,4 +1,0 @@
-ZooKeeperClient zkClient
-List<ACL> acl
-String path
-String nodeNamePrefix

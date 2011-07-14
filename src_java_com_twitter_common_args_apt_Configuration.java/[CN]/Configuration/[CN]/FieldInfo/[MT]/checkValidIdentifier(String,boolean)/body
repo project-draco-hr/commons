@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(identifier);
+  String trimmed=identifier.trim();
+  Preconditions.checkArgument(!trimmed.isEmpty(),"Invalid identifier: '%s'",identifier);
+  String[] parts=compound ? trimmed.split("\\.") : new String[]{trimmed};
+  for (  String part : parts) {
+    Preconditions.checkArgument(IDENTIFIER_REST.matchesAllOf(IDENTIFIER_START.trimLeadingFrom(part)),"Invalid identifier: '%s'",identifier);
+  }
+  return trimmed;
+}

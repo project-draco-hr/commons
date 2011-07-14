@@ -1,0 +1,4 @@
+import pkgutil
+import unittest
+from twitter.common.java.class_file import ClassFile
+_EXAMPLE_RESOURCE = 'example_class'

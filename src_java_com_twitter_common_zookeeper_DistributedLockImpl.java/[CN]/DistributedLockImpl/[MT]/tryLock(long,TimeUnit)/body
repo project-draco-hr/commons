@@ -9,7 +9,7 @@
     if (!success) {
       return false;
     }
-    if (!holdsLock && !success) {
+    if (!holdsLock) {
       throw new LockingException("Error, couldn't acquire the lock!");
     }
   }

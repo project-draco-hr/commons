@@ -1,0 +1,11 @@
+{
+  String input="This is a test";
+  spaceTokenizer.reset(input);
+  assertEquals(ImmutableList.of("This","is","a","test"),spaceTokenizer.toStringList());
+  input="This is a test   ";
+  spaceTokenizer.reset(input);
+  assertEquals(ImmutableList.of("This","is","a","test"),spaceTokenizer.toStringList());
+  input="  This is a test   ";
+  spaceTokenizer.reset(input);
+  assertEquals(ImmutableList.of("This","is","a","test"),spaceTokenizer.toStringList());
+}

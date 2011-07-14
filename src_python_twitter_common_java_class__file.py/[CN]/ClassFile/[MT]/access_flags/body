@@ -1,0 +1,2 @@
+def access_flags(self):
+    return self._access_flags

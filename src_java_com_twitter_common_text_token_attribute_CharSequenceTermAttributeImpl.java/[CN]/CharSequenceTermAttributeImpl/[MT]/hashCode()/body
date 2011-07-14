@@ -1,0 +1,8 @@
+{
+  if (hashCode == 0) {
+    for (int i=offset; i < offset + length; i++) {
+      hashCode=hashCode * 31 + charSequence.charAt(i);
+    }
+  }
+  return hashCode;
+}

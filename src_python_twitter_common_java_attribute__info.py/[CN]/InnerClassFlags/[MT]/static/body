@@ -1,0 +1,2 @@
+def static(self):
+    return (self._flags & InnerClassFlags.ACC_STATIC)

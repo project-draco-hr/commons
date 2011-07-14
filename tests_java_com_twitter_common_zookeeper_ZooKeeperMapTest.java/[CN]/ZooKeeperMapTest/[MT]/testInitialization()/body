@@ -5,7 +5,7 @@
   final String data="abcdefg";
   ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
   zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
-  ZooKeeperMap zkMap=makeUninitializedMap(parentPath);
+  ZooKeeperMap<String> zkMap=makeUninitializedMap(parentPath);
   assertTrue(zkMap.isEmpty());
   zkMap.init();
   assertFalse(zkMap.isEmpty());

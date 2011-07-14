@@ -1,0 +1,14 @@
+@staticmethod
+def match(data):
+    _BAD_CHARACTERS = ('.', ';', '[', '/', '<', '>', ':')
+    if data.startswith('<init>'):
+        return (Identifier('<init>'), len('<init>'))
+    elif data.startswith('<clinit>'):
+        return (Identifier('<clinit>'), len('<clinit>'))
+    offset = 0
+    while (data[offset] not in _BAD_CHARACTERS):
+        offset += 1
+    if (offset > 0):
+        return (Identifier(data[0:offset]), offset)
+    else:
+        return _UNPARSED

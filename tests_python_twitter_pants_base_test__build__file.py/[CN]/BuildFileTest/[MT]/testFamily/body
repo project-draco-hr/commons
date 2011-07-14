@@ -1,0 +1,4 @@
+def testFamily(self):
+    self.assertEquals(OrderedSet([BuildFileTest.buildfile('grandparent/parent/BUILD'), BuildFileTest.buildfile('grandparent/parent/BUILD.twitter')]), self.buildfile.family())
+    buildfile = BuildFileTest.buildfile('grandparent/parent/child2/child3/BUILD')
+    self.assertEquals(OrderedSet([buildfile]), buildfile.family())

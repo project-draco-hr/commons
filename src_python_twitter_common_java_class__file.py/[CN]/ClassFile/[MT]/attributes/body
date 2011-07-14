@@ -1,0 +1,2 @@
+def attributes(self):
+    return self._attributes

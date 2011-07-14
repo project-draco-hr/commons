@@ -1,7 +1,3 @@
 {
-  this.sessionTimeoutMs=Preconditions.checkNotNull(sessionTimeout).as(Time.MILLISECONDS);
-  Preconditions.checkNotNull(zooKeeperServers);
-  Preconditions.checkArgument(!Iterables.isEmpty(zooKeeperServers),"Must present at least 1 ZK server");
-  Iterable<String> servers=Iterables.transform(ImmutableSet.copyOf(zooKeeperServers),InetSocketAddressHelper.INET_TO_STR);
-  this.zooKeeperServers=Joiner.on(',').join(servers);
+  this(sessionTimeout,Credentials.NONE,zooKeeperServers);
 }

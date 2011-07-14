@@ -1,0 +1,5 @@
+def __init__(self, data, constants):
+    AttributeInfo.__init__(self, data, constants)
+    bytes = self.bytes()
+    self._sourcefile_index = u2(bytes[0:2]).get()
+    self._sourcefile = constants[self._sourcefile_index]

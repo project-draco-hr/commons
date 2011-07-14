@@ -1,0 +1,3 @@
+def __init__(self, data):
+    self._tag = u1(data[0:1]).get()
+    self._name_index = u2(data[1:3]).get()

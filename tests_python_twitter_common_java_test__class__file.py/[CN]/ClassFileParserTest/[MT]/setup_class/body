@@ -1,0 +1,3 @@
+@classmethod
+def setup_class(cls):
+    cls._class_file = ClassFile(pkgutil.get_data(__name__, _EXAMPLE_RESOURCE))

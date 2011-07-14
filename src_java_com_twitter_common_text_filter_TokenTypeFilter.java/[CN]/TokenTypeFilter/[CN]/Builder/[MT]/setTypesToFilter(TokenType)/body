@@ -1,0 +1,4 @@
+{
+  filter.setTypesToFilter(types);
+  return this;
+}

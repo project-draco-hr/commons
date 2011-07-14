@@ -1,0 +1,14 @@
+{
+  assertNotNull(Parsers.get(String.class));
+class Credentials extends Pair<String,String> {
+    public Credentials(    String first,    String second){
+      super(first,second);
+    }
+  }
+  Parser parser=Parsers.get(Credentials.class);
+  assertNotNull(parser);
+  assertSame(parser,Parsers.get(Pair.class));
+class NoParserForMe {
+  }
+  assertNull(Parsers.get(NoParserForMe.class));
+}

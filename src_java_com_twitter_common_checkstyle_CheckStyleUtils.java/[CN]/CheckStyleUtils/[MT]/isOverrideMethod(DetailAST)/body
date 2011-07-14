@@ -1,0 +1,13 @@
+{
+  if ((TokenTypes.METHOD_DEF != aAST.getType()) || (TokenTypes.MODIFIERS != aAST.getFirstChild().getType())) {
+    return false;
+  }
+  DetailAST node=aAST.getFirstChild().getFirstChild();
+  while ((null != node) && (TokenTypes.ANNOTATION == node.getType())) {
+    if ((node.getFirstChild().getType() == TokenTypes.AT) && (node.getFirstChild().getNextSibling().getType() == TokenTypes.IDENT) && ("Override".equals(node.getFirstChild().getNextSibling().getText()))) {
+      return true;
+    }
+    node=node.getNextSibling();
+  }
+  return false;
+}

@@ -1,0 +1,3 @@
+{
+  stream=new DotContractedTokenCombiner(new LatinTokenizer.Builder().setKeepPunctuation(true).build());
+}

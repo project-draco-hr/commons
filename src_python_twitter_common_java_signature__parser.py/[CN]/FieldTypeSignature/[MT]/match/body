@@ -1,0 +1,12 @@
+@staticmethod
+def match(data):
+    (cls, offset) = ClassTypeSignature.match(data)
+    if (cls is not None):
+        return (cls, offset)
+    (array, offset) = ArrayTypeSignature.match(data)
+    if (array is not None):
+        return (array, offset)
+    (typev, offset) = TypeVariableSignature.match(data)
+    if (typev is not None):
+        return (typev, offset)
+    return _UNPARSED

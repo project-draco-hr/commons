@@ -1,0 +1,13 @@
+{
+  checkNotNull(allowedStates);
+  checkArgument(!allowedStates.isEmpty(),"At least one possible state must be provided.");
+  readLock.lock();
+  try {
+    if (!allowedStates.contains(currentState)) {
+      throw new IllegalStateException(String.format("In state %s, expected to be in %s.",allowedStates,currentState));
+    }
+  }
+  finally {
+    readLock.unlock();
+  }
+}

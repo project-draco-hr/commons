@@ -1,0 +1,6 @@
+{
+  TokenStream stream=tokenizer.getDefaultTokenStream();
+  TokenStreamDuplicator original=new TokenStreamDuplicator(stream);
+  tokenOnly=new TokenTypeFilter.Builder(original).setMode(Mode.ACCEPT).setTypesToFilter(TokenType.TOKEN).build();
+  punctOnly=new TokenTypeFilter.Builder(original.duplicate()).setMode(Mode.ACCEPT).setTypesToFilter(TokenType.PUNCTUATION).build();
+}

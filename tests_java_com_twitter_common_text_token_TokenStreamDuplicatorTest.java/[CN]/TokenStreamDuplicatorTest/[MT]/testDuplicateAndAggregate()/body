@@ -1,0 +1,5 @@
+{
+  TokenStream aggregate=TokenStreamAggregator.of(tokenOnly,punctOnly);
+  aggregate.reset("a b, c d e.");
+  assertEquals(ImmutableList.of("a","b","c","d","e",",","."),aggregate.toStringList());
+}

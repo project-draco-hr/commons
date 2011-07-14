@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(seq);
+  charSequence=seq;
+  setOffset(0);
+  setLength(seq.length());
+  hashCode=0;
+}

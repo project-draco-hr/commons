@@ -1,0 +1,10 @@
+{
+  for (  TokenStream stream : aggregatedStreams) {
+    if (!stream.incrementToken()) {
+      continue;
+    }
+    restoreState(stream.captureState());
+    return true;
+  }
+  return false;
+}

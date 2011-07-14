@@ -1,0 +1,2 @@
+def constant(self, index):
+    return self._constant_pool[index](self._constant_pool)

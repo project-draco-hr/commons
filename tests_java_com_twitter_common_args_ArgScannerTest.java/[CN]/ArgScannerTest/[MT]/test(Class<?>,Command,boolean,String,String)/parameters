@@ -1,0 +1,5 @@
+Class<?> scope
+Command validate
+boolean expectFails
+String arg
+String value

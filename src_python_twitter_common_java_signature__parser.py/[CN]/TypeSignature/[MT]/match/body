@@ -1,0 +1,10 @@
+@staticmethod
+def match(data):
+    offset = 0
+    (sig, bytes_read) = FieldTypeSignature.match(data[offset:])
+    if sig:
+        return (TypeSignature(sig), (offset + bytes_read))
+    (base, bytes_read) = BaseType.match(data[offset:])
+    if base:
+        return (TypeSignature(base), (offset + bytes_read))
+    return _UNPARSED

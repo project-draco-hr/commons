@@ -1,0 +1,3 @@
+def __init__(self, identifier, type_args=None):
+    self._identifier = identifier
+    self._type_arguments = _list_if_none(type_args)

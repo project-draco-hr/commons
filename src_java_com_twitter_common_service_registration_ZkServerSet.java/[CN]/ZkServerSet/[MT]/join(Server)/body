@@ -1,8 +1,0 @@
-{
-  if (joinThread != null) {
-    throw new IllegalStateException("join() cannot be called again until unjoin() is called.");
-  }
-  joinThread=new JoinThread(server);
-  joinThread.setDaemon(true);
-  joinThread.start();
-}

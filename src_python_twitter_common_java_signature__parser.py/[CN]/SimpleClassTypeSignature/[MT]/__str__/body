@@ -1,0 +1,5 @@
+def __str__(self):
+    appendix = ''
+    if self._type_arguments:
+        appendix = ('<%s>' % ', '.join((('%s' % s) for s in self._type_arguments)))
+    return ('SimpleClassTypeSignature(%s%s)' % (self._identifier, appendix))

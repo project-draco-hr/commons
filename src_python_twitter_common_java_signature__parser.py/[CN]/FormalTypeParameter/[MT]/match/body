@@ -1,0 +1,21 @@
+@staticmethod
+def match(data):
+    offset = 0
+    (identifier, bytes_read) = Identifier.match(data[offset:])
+    if (identifier is None):
+        return _UNPARSED
+    else:
+        pass
+    offset += bytes_read
+    (class_bound, bytes_read) = ClassBound.match(data[offset:])
+    if (class_bound is None):
+        return _UNPARSED
+    offset += bytes_read
+    interfaces = []
+    while True:
+        (interface, bytes_read) = InterfaceBound.match(data[offset:])
+        if (interface is None):
+            break
+        offset += bytes_read
+        interfaces.append(interface)
+    return (FormalTypeParameter(identifier, class_bound, interfaces), offset)

@@ -1,0 +1,3 @@
+{
+  stateIt=ImmutableList.copyOf(states).iterator();
+}

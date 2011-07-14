@@ -1,3 +1,0 @@
-{
-  return new Server(port,new HashMap<String,String>());
-}

@@ -1,0 +1,5 @@
+@classmethod
+def makedirs(cls, path):
+    while (not os.path.exists(path)):
+        os.makedirs(path)
+        path = os.path.dirname(path)

@@ -1,0 +1,5 @@
+@staticmethod
+def match(data):
+    if ((data[0] == '+') or (data[0] == '-')):
+        return (data[0], 1)
+    return _UNPARSED

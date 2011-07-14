@@ -1,0 +1,4 @@
+def __init__(self, *args, **kwargs):
+    self.root_thrift_class = kwargs[ThriftJSONDecoder.ROOT_THRIFT_CLASS]
+    del kwargs[ThriftJSONDecoder.ROOT_THRIFT_CLASS]
+    super(ThriftJSONDecoder, self).__init__(*args, **kwargs)

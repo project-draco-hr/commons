@@ -1,0 +1,3 @@
+{
+  return (obj instanceof PartOfSpeechAttributeImpl) && ((PartOfSpeechAttributeImpl)obj).getPOS() == this.pos;
+}

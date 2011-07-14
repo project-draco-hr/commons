@@ -1,0 +1,9 @@
+@staticmethod
+def match(data):
+    if (data[0] != '['):
+        return _UNPARSED
+    offset = 1
+    (sig, bytes_read) = TypeSignature.match(data[offset:])
+    if (sig is None):
+        return _UNPARSED
+    return (ArrayTypeSignature(sig), (offset + bytes_read))

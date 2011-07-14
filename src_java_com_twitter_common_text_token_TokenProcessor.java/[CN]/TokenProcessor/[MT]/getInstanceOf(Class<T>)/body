@@ -1,0 +1,6 @@
+{
+  if (cls.isInstance(this)) {
+    return cls.cast(this);
+  }
+  return inputStream.getInstanceOf(cls);
+}

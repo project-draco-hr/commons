@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(pattern);
+  extractor.regexPattern=pattern;
+  return self();
+}

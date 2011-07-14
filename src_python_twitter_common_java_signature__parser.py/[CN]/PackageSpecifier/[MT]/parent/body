@@ -1,0 +1,2 @@
+def parent(self):
+    return PackageSpecifier(self._package[0:(-1)])

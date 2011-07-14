@@ -1,0 +1,3 @@
+{
+  return term.length() == 1 && term.charAt(0) == '.';
+}

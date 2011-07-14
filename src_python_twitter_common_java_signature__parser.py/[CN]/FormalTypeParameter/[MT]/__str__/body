@@ -1,0 +1,5 @@
+def __str__(self):
+    appendix = ''
+    if self._interface_bound:
+        appendix = ('interfaces:%s' % self._interface_bound)
+    return ('%s extends %s%s' % (self._identifier, self._class_bound, appendix))

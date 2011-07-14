@@ -1,0 +1,3 @@
+{
+  setTermBuffer((CharSequence)str,offset,length);
+}

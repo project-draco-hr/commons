@@ -1,0 +1,8 @@
+@staticmethod
+def match(data):
+    if (data[0] != '.'):
+        return _UNPARSED
+    (scts, bytes_read) = SimpleClassTypeSignature.match(data[1:])
+    if (scts is None):
+        return _UNPARSED
+    return (ClassTypeSignatureSuffix(scts), (bytes_read + 1))

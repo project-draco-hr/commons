@@ -1,0 +1,8 @@
+{
+  stream.reset("this is a #hashtag");
+  assertEquals(ImmutableList.of("#hashtag"),stream.toStringList());
+  stream.reset("this is a #hashtag.");
+  assertEquals(ImmutableList.of("#hashtag"),stream.toStringList());
+  stream.reset("#thatswhatshesaid haha... #funny");
+  assertEquals(ImmutableList.of("#thatswhatshesaid","#funny"),stream.toStringList());
+}

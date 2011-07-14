@@ -1,0 +1,3 @@
+{
+  this(ZooKeeperTestServer.DEFAULT_SESSION_TIMEOUT);
+}

@@ -1,0 +1,4 @@
+{
+  setRegexPattern(Regex.AUTO_LINK_HASHTAGS,Regex.AUTO_LINK_HASHTAGS_GROUP_HASH,Regex.AUTO_LINK_HASHTAGS_GROUP_TAG);
+  setTriggeringChar('#');
+}

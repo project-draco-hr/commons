@@ -1,0 +1,9 @@
+@staticmethod
+def decode_fields(data, count, constants):
+    fields = []
+    offset = 0
+    for k in range(count):
+        field = FieldInfo(data[offset:], constants)
+        offset += field.size()
+        fields.append(field)
+    return (fields, data[offset:])

@@ -1,0 +1,6 @@
+{
+  charSequence=seq;
+  setOffset(offset);
+  setLength(length);
+  hashCode=0;
+}

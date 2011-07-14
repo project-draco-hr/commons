@@ -1,0 +1,3 @@
+def parse_string(self, data):
+    'Parse from a string.'
+    return self._parse(antlr3.ANTLRStringStream(data))

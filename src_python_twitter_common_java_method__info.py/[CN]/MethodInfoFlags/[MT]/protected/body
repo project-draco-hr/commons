@@ -1,0 +1,2 @@
+def protected(self):
+    return (self._flags & MethodInfoFlags.ACC_PROTECTED)

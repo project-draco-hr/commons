@@ -1,0 +1,21 @@
+def __str__(self):
+    verbs = []
+    if self.public():
+        verbs.append('public')
+    if self.private():
+        verbs.append('private')
+    if self.protected():
+        verbs.append('protected')
+    if self.static():
+        verbs.append('static')
+    if self.final():
+        verbs.append('final')
+    if self.synchronized():
+        verbs.append('synchronized')
+    if self.native():
+        verbs.append('native')
+    if self.abstract():
+        verbs.append('abstract')
+    if self.strict():
+        verbs.append('strict')
+    return ' '.join(verbs)

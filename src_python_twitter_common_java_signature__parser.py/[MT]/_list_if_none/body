@@ -1,0 +1,5 @@
+def _list_if_none(variable):
+    if (variable is not None):
+        return variable
+    else:
+        return []

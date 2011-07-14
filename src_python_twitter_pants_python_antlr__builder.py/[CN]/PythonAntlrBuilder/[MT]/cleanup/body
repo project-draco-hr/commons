@@ -1,0 +1,2 @@
+def cleanup(self):
+    shutil.rmtree(self.chroot.path())

@@ -1,0 +1,13 @@
+@staticmethod
+def match(data):
+    offset = 0
+    if (data[offset] != '^'):
+        return _UNPARSED
+    offset += 1
+    (cls_sig, bytes_read) = ClassTypeSignature.match(data[offset:])
+    if cls_sig:
+        return (cls_sig, bytes_read)
+    (type_sig, bytes_read) = TypeVariableSignature.match(data[offset:])
+    if type_sig:
+        return (type_sig, bytes_read)
+    return _UNPARSED

@@ -1,0 +1,4 @@
+def __init__(self, ftp=None, scs=None, sis=None):
+    self._formal_type_parameters = _list_if_none(ftp)
+    self._superclass_signature = scs
+    self._superinterface_signatures = _list_if_none(sis)

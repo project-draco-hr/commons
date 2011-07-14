@@ -1,3 +1,3 @@
 {
-  this(new ServerSetImpl(zkClient,new Group(zkClient,ZooDefs.Ids.OPEN_ACL_UNSAFE,servicePath)),new CandidateImpl(new Group(zkClient,ZooDefs.Ids.OPEN_ACL_UNSAFE,servicePath,LEADER_ELECT_NODE_PREFIX)));
+  this(zkClient,servicePath,ZooDefs.Ids.OPEN_ACL_UNSAFE);
 }

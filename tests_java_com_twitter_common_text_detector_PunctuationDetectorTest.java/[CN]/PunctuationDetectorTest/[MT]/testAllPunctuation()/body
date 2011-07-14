@@ -1,0 +1,13 @@
+{
+  TokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  mockStream.reset("When I was young , I liked insects .");
+  PunctuationDetector stream=new PunctuationDetector(mockStream);
+  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+  stream.reset("?? ?? ??? ??? ??? ??? ??? ??? ??? ???");
+  int cnt=0;
+  while (stream.incrementToken()) {
+    assertEquals(TokenType.PUNCTUATION,typeAttr.getType());
+    cnt++;
+  }
+  assertEquals(10,cnt);
+}

@@ -1,20 +1,17 @@
 {
   Map<String,String> argumentMap=Maps.newHashMap(ArgScanner.mapArguments(args));
-  ImmutableList.Builder<String> scanPackages=ImmutableList.<String>builder().add(AppLauncher.class.getPackage().getName());
   String argSpecifiedPackages=argumentMap.remove(SCAN_PACKAGES_ARG);
   if (argSpecifiedPackages != null) {
-    @SuppressWarnings("unchecked") List<String> argScanPackages=(List<String>)SCAN_PACKAGES_PARSER.parse(new TypeLiteral<List<String>>(){
-    }
-.getType(),argSpecifiedPackages);
-    scanPackages.addAll(argScanPackages);
+    LOG.warning(String.format("Ignoring deprecated flag -%s=%s , scanning is now automatic",SCAN_PACKAGES_ARG,argSpecifiedPackages));
   }
-  LOG.info("Scanning arguments in packages: " + scanPackages);
   try {
-    ArgScanner.parse(scanPackages.build(),argumentMap);
+    ArgScanner.parse(argumentMap);
   }
- catch (  IllegalArgumentException e) {
-    LOG.log(Level.SEVERE,"Failed to apply arguments:\n" + e.getMessage());
-    System.exit(1);
+ catch (  ArgScanException e) {
+    exit("Failed to scan arguments",e);
+  }
+catch (  IllegalArgumentException e) {
+    exit("Failed to apply arguments",e);
   }
   new AppLauncher().run(APP_CLASS.get().newInstance());
 }

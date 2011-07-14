@@ -1,3 +1,0 @@
-{
-  assertChangeFired(new HashSet<Server>());
-}

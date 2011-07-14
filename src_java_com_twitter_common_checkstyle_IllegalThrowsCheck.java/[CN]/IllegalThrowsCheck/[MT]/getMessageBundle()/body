@@ -1,0 +1,3 @@
+{
+  return CheckStyleUtils.getMessageBundle(com.puppycrawl.tools.checkstyle.checks.coding.IllegalThrowsCheck.class);
+}

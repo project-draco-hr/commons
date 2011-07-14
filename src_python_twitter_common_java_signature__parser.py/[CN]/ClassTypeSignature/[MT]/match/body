@@ -1,0 +1,19 @@
+@staticmethod
+def match(data):
+    if (data[0] != 'L'):
+        return _UNPARSED
+    offset = 1
+    (package_class, bytes_read) = PackageSpecifier.match(data[offset:])
+    if (package_class is None):
+        return _UNPARSED
+    offset += bytes_read
+    (package_arguments, bytes_read) = TypeArguments.match(data[offset:])
+    offset += bytes_read
+    suffixes = []
+    while (data[offset] != ';'):
+        (suffix, bytes_read) = ClassTypeSignatureSuffix.match(data[offset:])
+        if (not suffix):
+            return _UNPARSED
+        suffixes.append(suffix)
+        offset += bytes_read
+    return (ClassTypeSignature(package_class, package_arguments, suffixes), (offset + 1))

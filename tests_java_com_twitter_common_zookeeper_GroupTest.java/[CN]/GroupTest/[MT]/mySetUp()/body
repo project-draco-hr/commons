@@ -1,8 +1,7 @@
 {
   onLoseMembership=createMock(Command.class);
-  zkClient=createZkClient(Amount.of(1,Time.MINUTES));
-  group=new Group(zkClient,ACL,"/a/group");
-  membershipChanges=new LinkedBlockingQueue<Iterable<String>>();
+  zkClient=createZkClient("group","test");
+  group=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group");
   listener=new RecordingListener();
   group.watch(listener);
 }

@@ -1,0 +1,6 @@
+def test_thrift_namespaces(self):
+    "The 'test' here is the very fact that we can successfully import the generated thrift code\n    with a shared package prefix (twitter.birds) from two different eggs.\n    However there's no harm in also exercising the thrift objects, just to be sure we can."
+    myDuck = Duck()
+    myDuck.quack = 'QUACKQUACKQUACK'
+    myGoose = Goose()
+    myGoose.laysGoldenEggs = True

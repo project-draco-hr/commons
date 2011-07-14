@@ -1,0 +1,9 @@
+@staticmethod
+def decode_methods(data, count, constants):
+    methods = []
+    offset = 0
+    for k in range(count):
+        method = MethodInfo(data[offset:], constants)
+        offset += method.size()
+        methods.append(method)
+    return (methods, data[offset:])

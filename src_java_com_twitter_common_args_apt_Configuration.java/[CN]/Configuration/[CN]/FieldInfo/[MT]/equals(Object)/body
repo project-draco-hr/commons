@@ -1,0 +1,10 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!(obj instanceof FieldInfo)) {
+    return false;
+  }
+  FieldInfo other=(FieldInfo)obj;
+  return new EqualsBuilder().append(className,other.className).append(fieldName,other.fieldName).isEquals();
+}

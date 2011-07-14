@@ -1,0 +1,4 @@
+{
+  addToken(offset,length,TokenType.TOKEN);
+  return this;
+}

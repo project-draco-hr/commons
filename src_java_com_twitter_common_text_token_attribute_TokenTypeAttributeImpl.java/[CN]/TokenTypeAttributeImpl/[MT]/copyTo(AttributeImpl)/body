@@ -1,0 +1,5 @@
+{
+  if (target instanceof TokenTypeAttributeImpl) {
+    ((TokenTypeAttributeImpl)target).setType(getType());
+  }
+}

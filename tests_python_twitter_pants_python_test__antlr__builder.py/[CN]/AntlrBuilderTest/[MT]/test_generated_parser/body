@@ -1,0 +1,12 @@
+def test_generated_parser(self):
+    "The 'test' here is the very fact that we can successfully import the generated antlr code.\n    However there's no harm in also exercising it. This code is modified from the canonical example\n    at http://www.antlr.org/wiki/display/ANTLR3/Example ."
+    char_stream = antlr3.ANTLRStringStream('4 + 5\n')
+    lexer = ExprLexer(char_stream)
+    tokens = antlr3.CommonTokenStream(lexer)
+    parser = ExprParser(tokens)
+    r = parser.prog()
+    root = r.tree
+    nodes = antlr3.tree.CommonTreeNodeStream(root)
+    nodes.setTokenStream(tokens)
+    eval = Eval(nodes)
+    eval.prog()

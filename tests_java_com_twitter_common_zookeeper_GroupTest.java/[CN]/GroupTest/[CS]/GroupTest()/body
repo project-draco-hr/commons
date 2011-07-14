@@ -1,0 +1,3 @@
+{
+  super(Amount.of(1,Time.DAYS));
+}

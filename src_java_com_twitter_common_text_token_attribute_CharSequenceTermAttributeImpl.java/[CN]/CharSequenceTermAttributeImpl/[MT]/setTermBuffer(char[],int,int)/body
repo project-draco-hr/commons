@@ -1,0 +1,3 @@
+{
+  setTermBuffer(CharBuffer.wrap(array),offset,length);
+}

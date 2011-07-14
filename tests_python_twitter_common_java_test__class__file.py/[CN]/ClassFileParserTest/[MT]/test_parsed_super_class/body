@@ -1,0 +1,2 @@
+def test_parsed_super_class(self):
+    assert (self._class_file.super_class() == 'java.lang.Object')

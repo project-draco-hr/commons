@@ -1,0 +1,7 @@
+@staticmethod
+def match(data):
+    if (data[0] != ':'):
+        return _UNPARSED
+    offset = 1
+    (fieldsig, bytes_read) = FieldTypeSignature.match(data[offset:])
+    return (ClassBound(fieldsig), (offset + bytes_read))

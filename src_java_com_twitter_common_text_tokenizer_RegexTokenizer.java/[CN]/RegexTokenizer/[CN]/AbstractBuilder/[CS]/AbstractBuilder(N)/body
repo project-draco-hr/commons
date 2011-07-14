@@ -1,0 +1,3 @@
+{
+  this.tokenizer=Preconditions.checkNotNull(tokenizer);
+}

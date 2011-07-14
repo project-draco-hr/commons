@@ -1,0 +1,4 @@
+{
+  this.tokens=Collections.unmodifiableList(tokens);
+  this.term=text;
+}

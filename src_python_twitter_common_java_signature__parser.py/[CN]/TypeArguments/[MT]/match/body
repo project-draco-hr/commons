@@ -1,0 +1,15 @@
+@staticmethod
+def match(data):
+    if (data[0] != '<'):
+        return _UNPARSED
+    offset = 1
+    type_args = []
+    while (data[offset] != '>'):
+        (type_arg, bytes_read) = TypeArgument.match(data[offset:])
+        if (type_arg is None):
+            break
+        type_args.append(type_arg)
+        offset += bytes_read
+    if (len(type_args) == 0):
+        return _UNPARSED
+    return (type_args, (offset + 1))

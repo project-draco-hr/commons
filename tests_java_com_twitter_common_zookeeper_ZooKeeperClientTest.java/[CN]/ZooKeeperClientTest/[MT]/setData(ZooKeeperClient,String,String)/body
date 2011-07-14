@@ -1,0 +1,3 @@
+{
+  zkClient.get().setData(path,data.getBytes(),ZooKeeperUtils.ANY_VERSION);
+}

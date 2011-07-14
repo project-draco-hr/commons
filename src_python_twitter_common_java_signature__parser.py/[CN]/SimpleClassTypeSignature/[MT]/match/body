@@ -1,0 +1,7 @@
+@staticmethod
+def match(data):
+    (ident, offset) = Identifier.match(data)
+    if (ident is None):
+        return _UNPARSED
+    (type_args, bytes_read) = TypeArguments.match(data[offset:])
+    return (SimpleClassTypeSignature(ident, type_args), (offset + bytes_read))

@@ -1,0 +1,13 @@
+{
+  super(inputStream.cloneAttributes());
+  this.inputStream=inputStream;
+  termAttr=addAttribute(CharSequenceTermAttribute.class);
+  offsetAttr=addAttribute(OffsetAttribute.class);
+  typeAttr=addAttribute(TokenTypeAttribute.class);
+  if (hasAttribute(PartOfSpeechAttribute.class)) {
+    posAttr=getAttribute(PartOfSpeechAttribute.class);
+  }
+ else {
+    posAttr=null;
+  }
+}

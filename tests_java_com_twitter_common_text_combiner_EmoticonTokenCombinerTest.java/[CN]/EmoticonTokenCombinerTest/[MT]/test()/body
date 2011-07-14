@@ -1,0 +1,10 @@
+{
+  stream.reset("this is a smiley :)");
+  verify(ImmutableList.of("this","is","a","smiley",":)"),TokenType.TOKEN,TokenType.TOKEN,TokenType.TOKEN,TokenType.TOKEN,TokenType.EMOTICON);
+  stream.reset("sad smiley :-(");
+  verify(ImmutableList.of("sad","smiley",":-("),TokenType.TOKEN,TokenType.TOKEN,TokenType.EMOTICON);
+  stream.reset("smiley with space : )");
+  verify(ImmutableList.of("smiley","with","space",": )"),TokenType.TOKEN,TokenType.TOKEN,TokenType.TOKEN,TokenType.EMOTICON);
+  stream.reset("First smiley. :p Second smiley :D False smiley :((");
+  verify(ImmutableList.of("First","smiley",".",":p","Second","smiley",":D","False","smiley",":","(","("),TokenType.TOKEN,TokenType.TOKEN,TokenType.PUNCTUATION,TokenType.EMOTICON,TokenType.TOKEN,TokenType.TOKEN,TokenType.EMOTICON,TokenType.TOKEN,TokenType.TOKEN,TokenType.PUNCTUATION,TokenType.PUNCTUATION,TokenType.PUNCTUATION);
+}

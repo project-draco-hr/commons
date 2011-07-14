@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(regex);
+  detector.setRegexPattern(regex);
+  return self();
+}

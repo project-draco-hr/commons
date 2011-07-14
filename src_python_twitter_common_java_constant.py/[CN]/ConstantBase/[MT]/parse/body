@@ -1,0 +1,3 @@
+def parse(self, data):
+    (elements, _) = JavaNativeType.parse(data, *self.__class__.TYPES)
+    return elements

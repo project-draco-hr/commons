@@ -1,0 +1,8 @@
+def _track_dependencies(self):
+    self._external_references = set()
+    this = self._this_class(self._constant_pool)
+    for constant in self._constant_pool:
+        if isinstance(constant, ClassConstant):
+            name = constant(self._constant_pool)
+            if ((name != this) and (not name.startswith('java.lang.'))):
+                self._external_references.add(name)

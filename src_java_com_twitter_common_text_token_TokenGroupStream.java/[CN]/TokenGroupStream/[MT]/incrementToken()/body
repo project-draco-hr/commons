@@ -1,0 +1,8 @@
+{
+  if (currentIndex >= states.size()) {
+    return false;
+  }
+  restoreState(states.get(currentIndex));
+  currentIndex++;
+  return true;
+}

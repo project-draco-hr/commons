@@ -1,0 +1,2 @@
+def __init__(self, arguments):
+    self._arguments = arguments

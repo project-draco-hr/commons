@@ -1,0 +1,3 @@
+def __init__(self, data):
+    JavaNativeType.__init__(self, data)
+    self._value = struct.unpack('>h', data[0:2])[0]

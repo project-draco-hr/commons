@@ -1,0 +1,3 @@
+@staticmethod
+def from_fp(fp):
+    return ClassFile(fp.read())

@@ -1,0 +1,6 @@
+def _parse_header(self, data, constants):
+    self._attribute_name_index = u2(data[0:2]).get()
+    self._attribute_name = constants[self._attribute_name_index]
+    self._attribute_length = u4(data[2:6]).get()
+    self._size = (6 + self._attribute_length)
+    self._info_data = data[6:self._size]

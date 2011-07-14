@@ -1,0 +1,16 @@
+@staticmethod
+def match(data):
+    offset = 0
+    if (data[offset] != '<'):
+        return _UNPARSED
+    offset += 1
+    parameters = []
+    while (data[offset] != '>'):
+        (parameter, bytes_read) = FormalTypeParameter.match(data[offset:])
+        if (parameter is None):
+            return _UNPARSED
+        parameters.append(parameter)
+        offset += bytes_read
+    if (len(parameters) == 0):
+        raise ParseException('FormalTypeParameters requires >= 1 FormalTypeParameter')
+    return (parameters, (offset + 1))

@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(originalText);
+  this.origText=originalText;
+  tokens=Lists.newArrayList();
+}

@@ -1,0 +1,3 @@
+def parse_input(self, input):
+    'Parse from a file-like object.'
+    return self._parse(antlr3.ANTLRInputStream(input))

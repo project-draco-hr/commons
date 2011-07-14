@@ -1,0 +1,8 @@
+def __init__(self, data, constants):
+    AttributeInfo.__init__(self, data, constants)
+    bytes = self.bytes()
+    self._number_of_exceptions = u2(bytes[0:2]).get()
+    self._exceptions = []
+    for index in range(self._number_of_exceptions):
+        constant_index = u2(bytes[(2 * (index + 1)):]).get()
+        self._exceptions.append(constants[constant_index](constants))

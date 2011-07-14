@@ -1,0 +1,2 @@
+def super_class(self):
+    return self._super_class(self._constant_pool)

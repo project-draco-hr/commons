@@ -1,0 +1,11 @@
+@staticmethod
+def match(data):
+    if (data[0] == '*'):
+        return (TypeArgument(data[0], sig=None), 1)
+    offset = 0
+    (wildcard, bytes_read) = WildcardIndicator.match(data[offset:])
+    offset += bytes_read
+    (field_signature, bytes_read) = FieldTypeSignature.match(data[offset:])
+    if (field_signature is None):
+        return _UNPARSED
+    return (TypeArgument(wildcard, field_signature), (offset + bytes_read))

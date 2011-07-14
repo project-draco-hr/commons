@@ -1,0 +1,9 @@
+{
+  if (strTokens == null) {
+    strTokens=Lists.newArrayListWithCapacity(tokens.size());
+    for (    Token token : tokens) {
+      strTokens.add(token.getTerm().toString());
+    }
+  }
+  return strTokens;
+}

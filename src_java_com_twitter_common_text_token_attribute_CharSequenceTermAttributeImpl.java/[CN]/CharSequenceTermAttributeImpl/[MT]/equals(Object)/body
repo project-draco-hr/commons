@@ -1,0 +1,21 @@
+{
+  if (other == this) {
+    return true;
+  }
+  if (other instanceof CharSequenceTermAttribute) {
+    CharSequenceTermAttributeImpl otherImpl=(CharSequenceTermAttributeImpl)other;
+    if (otherImpl.charSequence == charSequence && otherImpl.length == length && otherImpl.offset == offset) {
+      return true;
+    }
+    if (otherImpl.length != length) {
+      return false;
+    }
+    for (int i=0; i < otherImpl.length; i++) {
+      if (otherImpl.charSequence.charAt(otherImpl.offset + i) != charSequence.charAt(offset + i)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
+}

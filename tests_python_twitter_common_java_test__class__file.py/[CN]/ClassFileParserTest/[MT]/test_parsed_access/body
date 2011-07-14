@@ -1,0 +1,7 @@
+def test_parsed_access(self):
+    access_flags = self._class_file.access_flags()
+    assert access_flags.public()
+    assert access_flags.final()
+    assert access_flags.super_()
+    assert (not access_flags.interface())
+    assert (not access_flags.abstract())

@@ -1,0 +1,2 @@
+def __init__(self, data):
+    (self._tag, self._class_index, self._name_and_type_index) = self.parse(data)

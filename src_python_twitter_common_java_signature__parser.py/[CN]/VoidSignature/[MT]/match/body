@@ -1,0 +1,5 @@
+@staticmethod
+def match(data):
+    if (data[0] == 'V'):
+        return (VoidSignature(), 1)
+    return _UNPARSED

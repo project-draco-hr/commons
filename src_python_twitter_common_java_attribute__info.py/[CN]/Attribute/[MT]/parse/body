@@ -1,0 +1,10 @@
+@staticmethod
+def parse(data, constants):
+    'Parse the Attribute_info\n\n      @data: The data stream from which to deserialize the blob\n      @constants: The constant pool of the class file.\n    '
+    attribute_name_index = u2(data[0:2]).get()
+    attribute_name = constants[attribute_name_index]
+    attribute_class = Attribute._KNOWN_ATTRIBUTE_MAP.get(attribute_name.bytes(), None)
+    if (attribute_class is not None):
+        return attribute_class(data, constants)
+    else:
+        return AttributeInfo(data, constants)

@@ -1,0 +1,3 @@
+{
+  stream=new StockTokenCombiner(new LatinTokenizer.Builder().setKeepPunctuation(true).build());
+}

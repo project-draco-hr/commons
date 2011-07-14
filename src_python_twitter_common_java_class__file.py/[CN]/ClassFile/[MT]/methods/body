@@ -1,0 +1,2 @@
+def methods(self):
+    return self._methods

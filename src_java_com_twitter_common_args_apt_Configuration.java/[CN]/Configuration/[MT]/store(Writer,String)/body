@@ -1,0 +1,9 @@
+{
+  PrintWriter writer=new PrintWriter(output);
+  writer.printf("# %s\n",new Date());
+  writer.printf("# %s\n ",message);
+  writer.println();
+  for (  FieldInfo info : infos) {
+    writer.printf("%s%s%s\n",info.className,FIELD_NAME_SEPARATOR,info.fieldName);
+  }
+}

@@ -1,0 +1,21 @@
+def run_antlrs(self, output_dir):
+    args = ['java', '-jar', os.path.join(self.root, 'build-support/ivy/lib/ivy-2.2.0.jar'), '-settings', os.path.join(self.root, 'build-support/ivy/ivysettings.xml'), '-dependency', 'org.antlr', 'antlr', self.target.antlr_version, '-types', 'jar', '-main', 'org.antlr.Tool', '--', '-fo', output_dir]
+    for source in self.target.sources:
+        abs_path = os.path.abspath(os.path.join(self.root, self.target.target_base, source))
+        args.append(abs_path)
+    cwd = os.getcwd()
+    os.chdir(self.chroot.path())
+    print ('PythonAntlrBuilder executing: %s' % ' '.join(args))
+    try:
+        po = subprocess.Popen(args)
+    finally:
+        os.chdir(cwd)
+    rv = po.wait()
+    if (rv != 0):
+        comm = po.communicate()
+        print  >> sys.stderr, 'ANTLR generation failed!'
+        print  >> sys.stderr, 'STDOUT'
+        print  >> sys.stderr, comm[0]
+        print  >> sys.stderr, 'STDERR'
+        print  >> sys.stderr, comm[1]
+    return (rv == 0)

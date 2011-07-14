@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('{\n%s\n}' % '\n  '.join((('%s' % s) for s in self._classes)))

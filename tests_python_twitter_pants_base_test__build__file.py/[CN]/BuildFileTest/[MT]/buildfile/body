@@ -1,0 +1,3 @@
+@classmethod
+def buildfile(cls, path):
+    return BuildFile(BuildFileTest.root_dir, path)

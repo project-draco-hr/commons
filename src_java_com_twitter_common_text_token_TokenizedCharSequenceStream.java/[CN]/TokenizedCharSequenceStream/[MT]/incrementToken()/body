@@ -1,0 +1,22 @@
+{
+  if (tokenized == null) {
+    if (!inputStream.incrementToken()) {
+      return false;
+    }
+    restoreState(inputStream.captureState());
+    return true;
+  }
+  if (currentIndex >= tokenized.getTokens().size()) {
+    return false;
+  }
+  TokenizedCharSequence.Token token=tokenized.getTokens().get(currentIndex);
+  termAttr.setOffset(token.getOffset());
+  termAttr.setLength(token.getLength());
+  offsetAttr.setOffset(token.getOffset(),token.getOffset() + token.getLength());
+  typeAttr.setType(token.getType());
+  if (posAttr != null) {
+    posAttr.setPOS(token.getPartOfSpeech());
+  }
+  currentIndex++;
+  return true;
+}

@@ -1,0 +1,15 @@
+{
+  TokenStream stream=new TokenizedCharSequenceStream(new TokenStream(){
+    @Override public boolean incrementToken(){
+      throw new IllegalArgumentException("this should not be called!");
+    }
+    @Override public void reset(    CharSequence input){
+      throw new IllegalArgumentException("this should not be called!");
+    }
+  }
+);
+  String text="This is a test #hashtag";
+  TokenizedCharSequence tokenized=TokenizedCharSequence.createFrom(text,tokenizer);
+  stream.reset(tokenized);
+  assertEquals(ImmutableList.of("This","is","a","test","#hashtag"),stream.toStringList());
+}

@@ -1,0 +1,11 @@
+{
+  TokenStream stream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  stream.reset("When I was young , I liked insects .");
+  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+  int cnt=0;
+  while (stream.incrementToken()) {
+    assertFalse(TokenType.PUNCTUATION.equals(typeAttr.getType()));
+    cnt++;
+  }
+  assertEquals(9,cnt);
+}

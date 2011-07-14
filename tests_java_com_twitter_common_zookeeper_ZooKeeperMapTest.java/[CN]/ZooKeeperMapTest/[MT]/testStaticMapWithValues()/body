@@ -14,7 +14,7 @@
   assertTrue(zkMap.containsKey(node2));
   assertTrue(zkMap.containsValue(data1));
   assertTrue(zkMap.containsValue(data2));
-  assertEquals(ImmutableSet.of(new SimpleEntry(node1,data1),new SimpleEntry(node2,data2)),zkMap.entrySet());
+  assertEquals(ImmutableSet.of(new SimpleEntry<String,String>(node1,data1),new SimpleEntry<String,String>(node2,data2)),zkMap.entrySet());
   assertEquals(data1,zkMap.get(node1));
   assertEquals(data2,zkMap.get(node2));
   assertFalse(zkMap.isEmpty());

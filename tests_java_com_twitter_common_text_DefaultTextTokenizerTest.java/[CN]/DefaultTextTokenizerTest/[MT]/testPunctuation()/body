@@ -1,0 +1,4 @@
+{
+  testTokenizerString(tokenizerWithoutPunctuation,"This has a comma, and also period.",ImmutableList.of("This","has","a","comma","and","also","period"));
+  testTokenizerString(tokenizerWithPunctuation,"This has a comma, and also period.",ImmutableList.of("This","has","a","comma",",","and","also","period","."));
+}

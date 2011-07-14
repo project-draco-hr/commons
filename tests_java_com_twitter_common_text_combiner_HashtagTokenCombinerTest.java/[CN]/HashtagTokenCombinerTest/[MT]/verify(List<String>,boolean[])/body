@@ -1,0 +1,10 @@
+{
+  for (int i=0; i < tokens.size(); i++) {
+    assertTrue(stream.incrementToken());
+    assertEquals(tokens.get(i),termAttr.term());
+    assertEquals(termAttr.getOffset(),offsetAttr.startOffset());
+    assertEquals(termAttr.getOffset() + termAttr.getLength(),offsetAttr.endOffset());
+    assertEquals(isHashtag[i],TokenType.HASHTAG.equals(typeAttr.getType()));
+  }
+  assertFalse(stream.incrementToken());
+}

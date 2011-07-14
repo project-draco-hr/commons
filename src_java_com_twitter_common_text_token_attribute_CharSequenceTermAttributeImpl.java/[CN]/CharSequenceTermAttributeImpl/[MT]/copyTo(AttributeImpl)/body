@@ -1,0 +1,10 @@
+{
+  if (target instanceof CharSequenceTermAttribute) {
+    CharSequenceTermAttribute attr=(CharSequenceTermAttribute)target;
+    attr.setTermBuffer(charSequence,offset,length);
+  }
+ else {
+    TermAttribute attr=(TermAttribute)target;
+    attr.setTermBuffer(charSequence.toString());
+  }
+}

@@ -1,7 +1,0 @@
-{
-  ImmutableSet.Builder<Field> fields=ImmutableSet.builder();
-  for (  Class cls : scope) {
-    fields.addAll(ImmutableSet.copyOf(cls.getDeclaredFields()));
-  }
-  ArgScanner.process(fields.build(),ArgScanner.mapArguments(args));
-}

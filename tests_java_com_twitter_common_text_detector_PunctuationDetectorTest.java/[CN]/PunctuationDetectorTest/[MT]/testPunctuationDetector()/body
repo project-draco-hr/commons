@@ -1,0 +1,30 @@
+{
+  TokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  mockStream.reset("When I was young , I liked insects .");
+  PunctuationDetector stream=new PunctuationDetector(mockStream);
+  TermAttribute termAttr=stream.getAttribute(TermAttribute.class);
+  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+  int cnt=0;
+  while (stream.incrementToken()) {
+    if (",".equals(termAttr.term()) || ".".equals(termAttr.term())) {
+      assertEquals(typeAttr.getType(),TokenType.PUNCTUATION);
+    }
+ else {
+      assertFalse(TokenType.PUNCTUATION.equals(typeAttr.getType()));
+    }
+    cnt++;
+  }
+  assertEquals(9,cnt);
+  stream.reset("???????????? ??? ?????? ?????? ??? ?????? ??? ?????? ?????? ??? ???");
+  cnt=0;
+  while (stream.incrementToken()) {
+    if (ImmutableSet.of("[","???","???","???").contains(termAttr.term())) {
+      assertEquals(typeAttr.getType(),TokenType.PUNCTUATION);
+    }
+ else {
+      assertFalse(TokenType.PUNCTUATION.equals(typeAttr.getType()));
+    }
+    cnt++;
+  }
+  assertEquals(11,cnt);
+}

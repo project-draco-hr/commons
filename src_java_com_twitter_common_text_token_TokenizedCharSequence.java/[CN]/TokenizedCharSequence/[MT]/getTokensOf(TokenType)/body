@@ -1,0 +1,23 @@
+{
+  if (typeToTokensMap == null) {
+    typeToTokensMap=Maps.newHashMap();
+    for (    Token token : tokens) {
+      List<Token> subtokens=typeToTokensMap.get(token.getType());
+      if (subtokens == null) {
+        subtokens=Lists.newArrayList(token);
+        typeToTokensMap.put(token.getType(),subtokens);
+      }
+ else {
+        subtokens.add(token);
+      }
+    }
+  }
+  if (types.length == 1) {
+    return typeToTokensMap.get(types[0]);
+  }
+  List<Token> subtokens=Lists.newArrayList();
+  for (  TokenType type : types) {
+    subtokens.addAll(typeToTokensMap.get(type));
+  }
+  return subtokens;
+}

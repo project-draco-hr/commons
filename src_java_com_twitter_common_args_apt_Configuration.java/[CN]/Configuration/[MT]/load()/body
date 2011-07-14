@@ -1,0 +1,5 @@
+{
+  List<URL> configs=ImmutableList.copyOf(Iterators.forEnumeration(Configuration.class.getClassLoader().getResources(DEFAULT_RESOURCE_PATH)));
+  LOG.info("Loading @CmdLine config from :" + configs);
+  return load(CharStreams.join(Iterables.transform(configs,URL_TO_READER)));
+}

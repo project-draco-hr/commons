@@ -1,0 +1,3 @@
+{
+  return term.subSequence(fromIndex,toIndex);
+}

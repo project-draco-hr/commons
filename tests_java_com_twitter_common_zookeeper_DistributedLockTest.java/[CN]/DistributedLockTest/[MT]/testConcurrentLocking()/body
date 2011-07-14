@@ -5,7 +5,7 @@
   final DistributedLock lock1=new DistributedLockImpl(zk1,LOCK_PATH);
   final DistributedLock lock2=new DistributedLockImpl(zk2,LOCK_PATH);
   final DistributedLock lock3=new DistributedLockImpl(zk3,LOCK_PATH);
-  Callable<Object> t1=new Callable(){
+  Callable<Object> t1=new Callable<Object>(){
     @Override public Object call() throws InterruptedException {
       lock1.lock();
       try {
@@ -18,7 +18,7 @@
     }
   }
 ;
-  Callable<Object> t2=new Callable(){
+  Callable<Object> t2=new Callable<Object>(){
     @Override public Object call() throws InterruptedException {
       lock2.lock();
       try {
@@ -31,7 +31,7 @@
     }
   }
 ;
-  Callable<Object> t3=new Callable(){
+  Callable<Object> t3=new Callable<Object>(){
     @Override public Object call() throws InterruptedException {
       lock3.lock();
       try {
@@ -45,6 +45,7 @@
   }
 ;
   ExecutorService ex=Executors.newCachedThreadPool();
-  ex.invokeAll(Arrays.asList(t1,t2,t3));
+  @SuppressWarnings("unchecked") List<Callable<Object>> tlist=Arrays.asList(t1,t2,t3);
+  ex.invokeAll(tlist);
   assertTrue("No Children left!",expectZkNodes(LOCK_PATH).size() == 0);
 }

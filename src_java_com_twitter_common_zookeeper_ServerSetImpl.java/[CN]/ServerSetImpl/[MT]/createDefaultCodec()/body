@@ -1,0 +1,3 @@
+{
+  return createCodec(ENCODE_JSON.get());
+}

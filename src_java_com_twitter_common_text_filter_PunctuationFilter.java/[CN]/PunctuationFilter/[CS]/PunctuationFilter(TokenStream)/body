@@ -1,0 +1,5 @@
+{
+  super(inputStream);
+  setTypesToFilter(TokenType.PUNCTUATION);
+  setMode(TokenTypeFilter.Mode.REJECT);
+}

@@ -1,0 +1,5 @@
+{
+  termAttr=addAttribute(CharSequenceTermAttribute.class);
+  offsetAttr=addAttribute(OffsetAttribute.class);
+  typeAttr=addAttribute(TokenTypeAttribute.class);
+}

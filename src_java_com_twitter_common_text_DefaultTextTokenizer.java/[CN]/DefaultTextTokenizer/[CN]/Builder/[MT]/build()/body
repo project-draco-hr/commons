@@ -1,0 +1,6 @@
+{
+  if (!keepPunctuation) {
+    tokenizer.tokenizationStream=new PunctuationFilter(tokenizer.tokenizationStream);
+  }
+  return tokenizer;
+}

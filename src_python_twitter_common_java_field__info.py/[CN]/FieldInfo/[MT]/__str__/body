@@ -1,0 +1,7 @@
+def __str__(self):
+    base = ('%s %s %s' % (self._access_flags, util.javaify(self._parsed_descriptor), self._name))
+    if self._attributes:
+        for attr in self._attributes:
+            base += ('\n    %s: %s' % (attr.name(), attr))
+        base += '\n'
+    return base

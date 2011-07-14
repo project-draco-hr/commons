@@ -1,0 +1,4 @@
+def __init__(self, package=None, package_arguments=None, suffixes=None):
+    self._package = package
+    self._arguments = _list_if_none(package_arguments)
+    self._suffixes = _list_if_none(suffixes)

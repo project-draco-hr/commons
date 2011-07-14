@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(triggeringChar > 0);
+  extractor.setTriggeringChar(triggeringChar);
+  return self();
+}

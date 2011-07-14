@@ -1,0 +1,7 @@
+@staticmethod
+def match(data):
+    if (data[0] == 'L'):
+        eof = data.find(';')
+        return (data[1:eof], (eof + 1))
+    else:
+        return _UNPARSED

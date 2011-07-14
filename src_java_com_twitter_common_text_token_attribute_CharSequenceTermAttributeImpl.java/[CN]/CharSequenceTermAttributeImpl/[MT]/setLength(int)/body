@@ -1,0 +1,6 @@
+{
+  if (length < 0 || length > charSequence.length()) {
+    throw new IndexOutOfBoundsException("Length " + length + " must be >= 0 and <= "+ charSequence.length()+ ", which is the length of the underlying CharSequence.");
+  }
+  this.length=length;
+}

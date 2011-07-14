@@ -1,0 +1,7 @@
+{
+  boolean match=types.contains(typeAttr.getType());
+  if (mode == Mode.REJECT) {
+    match=!match;
+  }
+  return match;
+}

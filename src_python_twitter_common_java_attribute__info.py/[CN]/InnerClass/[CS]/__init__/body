@@ -1,0 +1,23 @@
+def __init__(self, data, constants):
+    ((inner_class_info_index, outer_class_info_index, inner_name_index, inner_class_flags), data) = JavaNativeType.parse(data, u2, u2, u2, u2)
+    debug = "\n    print 'constant pool size, inner, outer, name, flags = %s, %s, %s, %s, %s => %s' % (\n      len(constants),\n      inner_class_info_index,\n      outer_class_info_index,\n      inner_name_index,\n      inner_class_flags,\n      InnerClassFlags(inner_class_flags))\n    "
+    self._inner_class = constants[inner_class_info_index]
+    if (outer_class_info_index < len(constants)):
+        self._outer_class = constants[outer_class_info_index]
+    else:
+        print  >> sys.stderr, 'WARNING: Malformed InnerClass(outer_class_info_index)!'
+        self._outer_class = None
+    if (inner_name_index < len(constants)):
+        self._inner_name = constants[inner_name_index]
+    else:
+        print  >> sys.stderr, 'WARNING: Malformed InnerClass(inner_name)!'
+        self._inner_name = None
+    self._inner_class_access_flags = InnerClassFlags(inner_class_flags)
+    if (self._inner_class is not None):
+        self._inner_class = self._inner_class(constants)
+    if (self._outer_class is not None):
+        self._outer_class = self._outer_class(constants)
+    if (self._inner_name is not None):
+        self._inner_name = self._inner_name(constants)
+    else:
+        self._inner_name = 'Anonymous'

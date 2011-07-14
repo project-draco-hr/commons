@@ -1,0 +1,11 @@
+def __str__(self):
+    output = ''
+    if self._formal_type:
+        output += ('<%s> ' % ', '.join((('%s' % s) for s in self._formal_type)))
+    output += ('%s' % self._return_type)
+    output += ' METHOD'
+    if self._type_signatures:
+        output += ('(%s)' % ', '.join((('%s' % s) for s in self._type_signatures)))
+    if self._throws:
+        output += (' throws %s' % ', '.join((('%s' % s) for s in self._throws)))
+    return ('MethodTypeSignature(%s)' % output)

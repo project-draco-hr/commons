@@ -1,0 +1,2 @@
+def protected(self):
+    return (self._flags & InnerClassFlags.ACC_PROTECTED)

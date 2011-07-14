@@ -1,0 +1,4 @@
+def __init__(self, flags):
+    self._flags = flags
+    if ((flags ^ (flags & InnerClassFlags.MASK)) != 0):
+        print  >> sys.stderr, ('Invalid InnerClassFlags mask!! Extra bits: %s' % (flags ^ (flags & InnerClassFlags.MASK)))

@@ -1,0 +1,8 @@
+def _parse_signature(self):
+    (class_signature, _) = signature_parser.ClassSignature.match(self._signature.bytes())
+    if class_signature:
+        self._parsed = class_signature
+        return
+    (method_signature, _) = signature_parser.MethodTypeSignature.match(self._signature.bytes())
+    if method_signature:
+        self._parsed = method_signature

@@ -1,0 +1,14 @@
+@staticmethod
+def match(data):
+    parameters = []
+    assert (data[0] == '(')
+    index = 1
+    while True:
+        (descriptor, offset) = ParameterDescriptor.match(data[index:])
+        if (offset == 0):
+            break
+        parameters.append(descriptor)
+        index += offset
+    assert (data[index] == ')'), ('data[%s] is actually: %s, full: %s' % (index, data[index], data))
+    (return_descriptor, offset) = ReturnDescriptor.match(data[(index + 1):])
+    return (('%s %%s(%s)' % (javaify(return_descriptor), (', '.join((javaify(p) for p in parameters)) if parameters else 'void'))), ((index + 1) + offset))

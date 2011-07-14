@@ -1,0 +1,4 @@
+{
+  setRegexPattern(EMOTICON_REGEX_PATTERN,1,1);
+  setTriggeringChar(':');
+}

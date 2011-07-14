@@ -1,0 +1,3 @@
+{
+  return other != null && other instanceof TokenTypeAttributeImpl && ((TokenTypeAttributeImpl)other).type == this.type;
+}

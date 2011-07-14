@@ -1,0 +1,6 @@
+{
+  test("Dr. Fujii works at Twitter Inc.","Dr.","Fujii","works","at","Twitter","Inc.");
+  test("Mr. Fujii and Mrs. Fujii are married.","Mr.","Fujii","and","Mrs.","Fujii","are","married",".");
+  test("no contracted word.","no","contracted","word",".");
+  test("Mr Fujii and Mrs Fujii are married.","Mr","Fujii","and","Mrs","Fujii","are","married",".");
+}

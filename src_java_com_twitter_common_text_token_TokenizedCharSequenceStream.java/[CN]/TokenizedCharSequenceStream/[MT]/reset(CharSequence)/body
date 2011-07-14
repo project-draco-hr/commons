@@ -1,0 +1,14 @@
+{
+  if (input instanceof TokenizedCharSequence) {
+    tokenized=(TokenizedCharSequence)input;
+    currentIndex=0;
+    termAttr.setCharSequence(tokenized);
+  }
+ else   if (inputStream == null) {
+    throw new IllegalArgumentException("Input must be an instance of TokenizedCharSequence" + " because there is no TokenStream in the downstream to tokenized a text.");
+  }
+ else {
+    inputStream.reset(input);
+    tokenized=null;
+  }
+}

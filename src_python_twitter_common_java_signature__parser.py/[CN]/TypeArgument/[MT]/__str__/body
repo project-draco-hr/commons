@@ -1,0 +1,10 @@
+def __str__(self):
+    if (self._wildcard == '*'):
+        return '?'
+    elif self._wildcard:
+        if (self._wildcard == '+'):
+            return ('? extends %s' % self._signature)
+        else:
+            return ('%s extends ?' % self._signature)
+    else:
+        return ('%s' % self._signature)

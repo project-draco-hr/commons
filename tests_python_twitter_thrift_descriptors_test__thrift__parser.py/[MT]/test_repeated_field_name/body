@@ -1,0 +1,3 @@
+def test_repeated_field_name():
+    test_data = '\n    struct Foo {\n      1: required i32 foo,\n      2: optional string foo\n    }\n  '
+    _parse_with_expected_error(test_data, ('line 4, col 25: Field name foo for identifier 2' + ' already used for identifier 1'))

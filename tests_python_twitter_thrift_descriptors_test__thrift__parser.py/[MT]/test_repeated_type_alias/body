@@ -1,0 +1,3 @@
+def test_repeated_type_alias():
+    test_data = '\n    typedef i32 Foo\n    typedef string Foo\n  '
+    _parse_with_expected_error(test_data, 'line 3, col 19: Type alias already exists: Foo')

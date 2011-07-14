@@ -1,0 +1,13 @@
+def __str__(self):
+    output = []
+    sig = ''
+    if self._access_flags:
+        sig += ('%s ' % self._access_flags)
+    sig += (self._parsed_descriptor % self._name)
+    output.append(sig)
+    for attr in self._attributes:
+        if (attr.name() == 'Signature'):
+            output.append(('    %s: %s' % (attr.name(), attr._parsed)))
+        else:
+            output.append(('    %s: %s' % (attr.name(), attr)))
+    return '\n'.join((('%s' % o) for o in output))

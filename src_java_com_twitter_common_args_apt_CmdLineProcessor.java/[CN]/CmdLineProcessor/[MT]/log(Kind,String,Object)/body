@@ -1,0 +1,3 @@
+{
+  processingEnv.getMessager().printMessage(kind,String.format(message,args));
+}

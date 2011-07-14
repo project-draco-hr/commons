@@ -1,0 +1,2 @@
+def enum(self):
+    return (self._flags & InnerClassFlags.ACC_ENUM)

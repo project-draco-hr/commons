@@ -1,0 +1,16 @@
+@staticmethod
+def match(data):
+    package_sequence = []
+    offset = 0
+    while True:
+        (ident, bytes_read) = Identifier.match(data[offset:])
+        if (ident is None):
+            if (len(package_sequence) == 0):
+                return _UNPARSED
+        else:
+            offset += bytes_read
+            package_sequence.append(ident)
+        if (data[offset] != '/'):
+            return (PackageSpecifier(package_sequence), offset)
+        else:
+            offset += 1

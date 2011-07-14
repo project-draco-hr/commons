@@ -1,0 +1,4 @@
+{
+  tokenizerWithoutPunctuation=new DefaultTextTokenizer.Builder().build();
+  tokenizerWithPunctuation=new DefaultTextTokenizer.Builder().setKeepPunctuation(true).build();
+}

@@ -1,0 +1,4 @@
+{
+  this.className=checkValidIdentifier(className,true);
+  this.fieldName=checkValidIdentifier(fieldName,false);
+}

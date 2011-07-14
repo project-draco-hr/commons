@@ -1,0 +1,7 @@
+{
+  if (obj instanceof TokenGroupAttributeImpl) {
+    TokenGroupAttributeImpl attr=(TokenGroupAttributeImpl)obj;
+    attr.setAttributeSource(attributeSource);
+    attr.setStates(Lists.newArrayList(states));
+  }
+}

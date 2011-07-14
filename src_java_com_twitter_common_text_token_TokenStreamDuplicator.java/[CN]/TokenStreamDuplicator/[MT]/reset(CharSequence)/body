@@ -1,0 +1,12 @@
+{
+  Preconditions.checkNotNull(input);
+  inputStream.reset(input);
+  states.clear();
+  while (inputStream.incrementToken()) {
+    states.add(inputStream.captureState());
+  }
+  stateIt=states.iterator();
+  for (  DuplicatedTokenStream stream : duplicatedStreams) {
+    stream.resetStates(states);
+  }
+}

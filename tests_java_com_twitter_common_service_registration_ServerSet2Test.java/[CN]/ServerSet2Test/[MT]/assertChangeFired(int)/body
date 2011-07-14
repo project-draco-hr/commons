@@ -1,7 +1,0 @@
-{
-  Set<Server> set=new HashSet<Server>();
-  for (  int p : ports) {
-    set.add(createServer(p));
-  }
-  assertChangeFired(set);
-}

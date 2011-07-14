@@ -1,0 +1,7 @@
+{
+  CharSequence attrSequence=att.getCharSequence();
+  assertEquals(attrSequence.length(),sequence.length());
+  for (int i=0; i < sequence.length(); i++) {
+    assertEquals(attrSequence.charAt(i),sequence.charAt(i));
+  }
+}

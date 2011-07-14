@@ -1,3 +1,0 @@
-{
-  ArgScanner.process(ImmutableSet.copyOf(scope.getDeclaredFields()),ArgScanner.mapArguments(args));
-}

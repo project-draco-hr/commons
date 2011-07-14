@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(writer);
+  writer.append(charSequence,offset,offset + length);
+}

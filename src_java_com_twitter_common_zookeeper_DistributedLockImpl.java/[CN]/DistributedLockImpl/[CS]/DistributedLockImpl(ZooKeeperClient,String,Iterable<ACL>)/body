@@ -1,0 +1,6 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.lockPath=MorePreconditions.checkNotBlank(lockPath);
+  this.acl=ImmutableList.copyOf(acl);
+  this.syncPoint=new CountDownLatch(1);
+}

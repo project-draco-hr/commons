@@ -1,0 +1,2 @@
+def abstract(self):
+    return (self._flags & InnerClassFlags.ACC_ABSTRACT)

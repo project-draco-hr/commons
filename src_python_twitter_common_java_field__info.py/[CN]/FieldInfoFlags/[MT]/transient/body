@@ -1,0 +1,2 @@
+def transient(self):
+    return (self._flags & FieldInfoFlags.ACC_TRANSIENT)

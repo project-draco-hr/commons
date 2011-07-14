@@ -1,0 +1,2 @@
+def __init__(self, sig):
+    self._signature = sig

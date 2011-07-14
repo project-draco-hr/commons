@@ -1,0 +1,13 @@
+def __init__(self, data, constants):
+    self._access_flags = FieldInfoFlags(data[0:2])
+    ((self._name_index, self._descriptor_index, self._attributes_count), data) = JavaNativeType.parse(data[2:], u2, u2, u2)
+    self._name = constants[self._name_index]
+    self._descriptor = constants[self._descriptor_index]
+    (self._parsed_descriptor, _) = FieldDescriptor.match(self._descriptor.bytes())
+    self._attributes = []
+    offset = 0
+    for k in range(self._attributes_count):
+        attribute = Attribute.parse(data[offset:], constants)
+        offset += attribute.size()
+        self._attributes.append(attribute)
+    self._size = (offset + 8)

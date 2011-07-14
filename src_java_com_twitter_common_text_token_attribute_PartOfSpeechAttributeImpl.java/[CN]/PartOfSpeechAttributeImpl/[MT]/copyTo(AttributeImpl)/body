@@ -1,0 +1,5 @@
+{
+  if (obj instanceof PartOfSpeechAttributeImpl) {
+    ((PartOfSpeechAttributeImpl)obj).setPOS(this.pos);
+  }
+}

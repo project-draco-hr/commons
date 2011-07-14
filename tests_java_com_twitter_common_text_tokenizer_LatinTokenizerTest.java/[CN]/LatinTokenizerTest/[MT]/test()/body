@@ -1,0 +1,5 @@
+{
+  String text="This is test, and it must pass.";
+  testTokenizer(tokenizer,text,"This","is","test","and","it","must","pass");
+  testTokenizer(tokenizerWithPunct,text,"This","is","test",",","and","it","must","pass",".");
+}

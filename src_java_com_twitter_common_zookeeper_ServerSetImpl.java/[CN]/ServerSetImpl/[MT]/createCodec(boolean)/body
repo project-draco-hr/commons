@@ -1,0 +1,14 @@
+{
+  final Codec<ServiceInstance> json=JsonCodec.create(ServiceInstance.class,new GsonBuilder().setExclusionStrategies(JsonCodec.getThriftExclusionStrategy()).create());
+  final Codec<ServiceInstance> thrift=ThriftCodec.create(ServiceInstance.class,ThriftCodec.BINARY_PROTOCOL);
+  final Predicate<byte[]> recognizer=new Predicate<byte[]>(){
+    public boolean apply(    byte[] input){
+      return (input.length > 1 && input[0] == '{' && input[1] == '\"') == useJsonEncoding;
+    }
+  }
+;
+  if (useJsonEncoding) {
+    return CompatibilityCodec.create(json,thrift,2,recognizer);
+  }
+  return CompatibilityCodec.create(thrift,json,2,recognizer);
+}

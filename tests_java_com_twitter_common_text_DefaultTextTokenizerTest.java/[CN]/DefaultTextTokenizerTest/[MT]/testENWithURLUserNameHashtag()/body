@@ -1,0 +1,3 @@
+{
+  testTokenizerString(tokenizerWithoutPunctuation,"This test has @username and #hashtag and http://twitter.com .",ImmutableList.of("This","test","has","@username","and","#hashtag","and","http://twitter.com"));
+}

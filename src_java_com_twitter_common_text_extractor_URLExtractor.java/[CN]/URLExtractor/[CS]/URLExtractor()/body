@@ -1,0 +1,4 @@
+{
+  setRegexPattern(Regex.VALID_URL,Regex.VALID_URL_GROUP_URL,Regex.VALID_URL_GROUP_URL);
+  setTriggeringChar(':');
+}

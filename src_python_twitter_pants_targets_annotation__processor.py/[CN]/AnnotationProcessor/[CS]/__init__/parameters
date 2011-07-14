@@ -1,0 +1,10 @@
+self
+name
+sources
+provides
+dependencies
+excludes
+resources
+binary_resources
+processors
+is_meta

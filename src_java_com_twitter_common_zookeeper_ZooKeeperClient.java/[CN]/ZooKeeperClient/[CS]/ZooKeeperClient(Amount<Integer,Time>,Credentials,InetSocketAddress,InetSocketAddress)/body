@@ -1,0 +1,3 @@
+{
+  this(sessionTimeout,credentials,combine(zooKeeperServer,zooKeeperServers));
+}

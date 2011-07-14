@@ -1,0 +1,40 @@
+{
+  clearAttributes();
+  if (state != null) {
+    restoreState(state);
+    state=null;
+  }
+ else {
+    if (!getInputStream().incrementToken()) {
+      return false;
+    }
+    restoreState(getInputStream().captureState());
+  }
+  if (offsetMap.containsKey(termAttr.getOffset())) {
+    int startOffset=termAttr.getOffset();
+    int endOffset=offsetMap.get(startOffset);
+    if (endOffset == inputTermAttr.getOffset() + inputTermAttr.getLength()) {
+      if (type != null) {
+        typeAttr.setType(type);
+      }
+      return true;
+    }
+    while (getInputStream().incrementToken()) {
+      state=getInputStream().captureState();
+      int currentEndOffset=inputTermAttr.getOffset() + inputTermAttr.getLength();
+      if (currentEndOffset == endOffset) {
+        termAttr.setLength(endOffset - startOffset);
+        offsetAttr.setOffset(startOffset,endOffset);
+        if (type != null) {
+          typeAttr.setType(type);
+        }
+        state=null;
+        break;
+      }
+ else       if (currentEndOffset > endOffset) {
+        break;
+      }
+    }
+  }
+  return true;
+}

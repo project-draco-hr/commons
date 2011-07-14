@@ -1,0 +1,5 @@
+@staticmethod
+def decode_interfaces(data, count, constants):
+    (interfaces, data) = JavaNativeType.parse(data, *([u2] * count))
+    interfaces = map((lambda offset: constants[offset]), interfaces)
+    return (interfaces, data)

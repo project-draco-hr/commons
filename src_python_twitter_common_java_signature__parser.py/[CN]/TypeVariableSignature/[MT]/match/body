@@ -1,0 +1,10 @@
+@staticmethod
+def match(data):
+    if (data[0] != 'T'):
+        return _UNPARSED
+    offset = 1
+    (ident, bytes_read) = Identifier.match(data[offset:])
+    offset += bytes_read
+    if (data[offset] != ';'):
+        return _UNPARSED
+    return (TypeVariableSignature(ident), (offset + 1))

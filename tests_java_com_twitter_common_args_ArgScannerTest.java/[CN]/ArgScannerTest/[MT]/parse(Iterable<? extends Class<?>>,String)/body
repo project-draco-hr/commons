@@ -1,0 +1,4 @@
+{
+  Predicate<Field> filter=Predicates.or(Iterables.transform(scopes,TO_SCOPE_PREDICATE));
+  ArgScanner.parse(filter,args);
+}

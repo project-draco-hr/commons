@@ -10,5 +10,6 @@
   assertClosedConnection(connection1);
   Connection<TTransport,InetSocketAddress> connection3=thriftConnectionFactory.create(ObjectPool.NO_TIMEOUT);
   assertOpenConnection(connection3);
-  assertThat(connection3,allOf(not(sameInstance(connection1)),not(sameInstance(connection2))));
+  @SuppressWarnings("unchecked") Matcher<Connection<TTransport,InetSocketAddress>> matcher=allOf(not(sameInstance(connection1)),not(sameInstance(connection2)));
+  assertThat(connection3,matcher);
 }

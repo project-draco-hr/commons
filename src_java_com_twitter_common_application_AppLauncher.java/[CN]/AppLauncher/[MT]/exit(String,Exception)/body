@@ -1,0 +1,4 @@
+{
+  LOG.log(Level.SEVERE,message,error);
+  System.exit(1);
+}

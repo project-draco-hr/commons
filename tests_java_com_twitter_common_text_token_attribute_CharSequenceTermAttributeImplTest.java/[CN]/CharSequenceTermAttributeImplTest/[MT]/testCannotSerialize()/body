@@ -1,0 +1,5 @@
+{
+  ObjectOutputStream oos=new ObjectOutputStream(new ByteArrayOutputStream());
+  oos.writeObject(new CharSequenceTermAttributeImpl());
+  oos.close();
+}

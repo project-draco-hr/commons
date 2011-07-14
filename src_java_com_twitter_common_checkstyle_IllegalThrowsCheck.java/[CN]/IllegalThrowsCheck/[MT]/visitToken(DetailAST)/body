@@ -1,0 +1,8 @@
+{
+  if (!CheckStyleUtils.isOverrideMethod(aDetailAST)) {
+    DetailAST token=aDetailAST.findFirstToken(TokenTypes.LITERAL_THROWS);
+    if (token != null) {
+      checkThrows(token);
+    }
+  }
+}

@@ -1,0 +1,4 @@
+@staticmethod
+def from_file(filename):
+    with open(filename) as fp:
+        return ClassFile.from_fp(fp)

@@ -1,0 +1,10 @@
+@staticmethod
+def match(data):
+    offset = 0
+    (type_sig, bytes_read) = TypeSignature.match(data)
+    if type_sig:
+        return (ReturnType(type_sig), bytes_read)
+    (void_sig, bytes_read) = VoidSignature.match(data)
+    if void_sig:
+        return (ReturnType(void_sig), bytes_read)
+    return _UNPARSED

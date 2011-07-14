@@ -1,0 +1,9 @@
+def __str__(self):
+    output = ('Code(length:%s)' % self._code_length)
+    if self._attributes:
+        output += '\n'
+        attrs = []
+        for attr in self._attributes:
+            attrs.append(('        %s: %s' % (attr.name(), attr)))
+        output += '\n'.join(attrs)
+    return output

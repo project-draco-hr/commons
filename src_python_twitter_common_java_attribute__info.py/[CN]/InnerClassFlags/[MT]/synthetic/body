@@ -1,0 +1,2 @@
+def synthetic(self):
+    return (self._flags & InnerClassFlags.ACC_SYNTHETIC)

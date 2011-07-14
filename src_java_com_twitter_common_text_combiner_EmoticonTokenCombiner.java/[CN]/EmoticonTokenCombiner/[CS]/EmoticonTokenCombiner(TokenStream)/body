@@ -1,0 +1,5 @@
+{
+  super(inputStream);
+  setExtractor(new EmoticonExtractor());
+  setType(TokenType.EMOTICON);
+}

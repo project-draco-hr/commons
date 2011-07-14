@@ -1,0 +1,8 @@
+{
+  if (!stream.incrementToken()) {
+    return false;
+  }
+  clearAttributes();
+  restoreState(stream.captureState());
+  return true;
+}

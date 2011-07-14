@@ -1,0 +1,20 @@
+{
+  String text="test test";
+  TokenizedCharSequence text1=new TokenizedCharSequence.Builder(text).addToken(0,4).addToken(5,4).build();
+  TokenizedCharSequence text2=new TokenizedCharSequence.Builder(text).addToken(0,4).addToken(5,4).build();
+  assertTrue(text1 != text2);
+  assertEquals(text1,text2);
+  assertEquals(text1.toString(),text2.toString());
+  assertEquals(text1.hashCode(),text2.hashCode());
+  text="test test test";
+  TokenizedCharSequence text3=new TokenizedCharSequence.Builder(text).addToken(0,4).addToken(5,4).addToken(10,4).build();
+  assertFalse(text1.equals(text3));
+  assertFalse(text1.toString().equals(text3.toString()));
+  assertFalse(text1.hashCode() == text3.hashCode());
+  StringBuffer buf=new StringBuffer("test test");
+  TokenizedCharSequence text4=new TokenizedCharSequence.Builder(buf).addToken(0,4).addToken(5,4).build();
+  assertTrue(text1 != text4);
+  assertEquals(text1,text4);
+  assertEquals(text1.toString(),text4.toString());
+  assertEquals(text1.hashCode(),text4.hashCode());
+}

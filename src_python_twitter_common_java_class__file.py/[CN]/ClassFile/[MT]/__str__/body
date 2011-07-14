@@ -1,0 +1,28 @@
+def __str__(self):
+    const = self._constant_pool
+    output = []
+    output.append(('class version: (%d, %d)' % (self._major_version, self._minor_version)))
+    output.append(('this: %s' % self._this_class(const)))
+    output.append(('super: %s' % self._super_class(const)))
+    output.append(('access flags: %s' % self._access_flags))
+    if self._interfaces:
+        output.append('interfaces: ')
+        for interface in self._interfaces:
+            output.append(('  %s' % interface(const)))
+    if self._fields:
+        output.append('fields: ')
+        for field in self._fields:
+            output.append(('  %s' % field))
+    if self._methods:
+        output.append('methods: ')
+        for method in self._methods:
+            output.append(('  %s' % method))
+    if self._attributes:
+        output.append('attributes: ')
+        for attribute in self._attributes:
+            output.append(('  %s' % attribute))
+    if self._external_references:
+        output.append('external references: ')
+        for ref in self._external_references:
+            output.append(('  %s' % ref))
+    return '\n'.join(output)

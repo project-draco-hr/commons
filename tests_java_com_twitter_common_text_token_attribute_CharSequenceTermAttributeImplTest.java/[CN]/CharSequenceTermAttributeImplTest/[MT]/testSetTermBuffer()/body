@@ -1,0 +1,10 @@
+{
+  String test="this is a test";
+  CharSequence testSeq=(CharSequence)test;
+  att.setTermBuffer(testSeq);
+  assertCharSequence(test);
+  assertTerm(test,0,test.length());
+  att.setTermBuffer(testSeq,1,3);
+  assertCharSequence(test);
+  assertTerm("his",1,3);
+}

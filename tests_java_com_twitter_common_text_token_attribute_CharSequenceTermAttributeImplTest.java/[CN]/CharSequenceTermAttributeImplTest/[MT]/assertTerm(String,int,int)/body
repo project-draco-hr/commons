@@ -1,0 +1,5 @@
+{
+  assertEquals(term,att.term());
+  assertEquals(offset,att.getOffset());
+  assertEquals(length,att.getLength());
+}

@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(cls);
+  if (cls.isInstance(this)) {
+    return cls.cast(this);
+  }
+  return null;
+}

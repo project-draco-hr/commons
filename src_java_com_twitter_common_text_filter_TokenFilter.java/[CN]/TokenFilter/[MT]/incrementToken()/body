@@ -1,0 +1,10 @@
+{
+  TokenStream inputStream=getInputStream();
+  while (inputStream.incrementToken()) {
+    if (acceptToken()) {
+      restoreState(inputStream.captureState());
+      return true;
+    }
+  }
+  return false;
+}

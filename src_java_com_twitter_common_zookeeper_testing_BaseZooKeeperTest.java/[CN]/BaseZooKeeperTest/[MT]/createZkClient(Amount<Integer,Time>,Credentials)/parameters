@@ -1,0 +1,2 @@
+Amount<Integer,Time> sessionTimeout
+Credentials credentials

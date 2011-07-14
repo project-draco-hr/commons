@@ -1,0 +1,7 @@
+{
+  if (stateIt == null || !stateIt.hasNext()) {
+    return false;
+  }
+  restoreState(stateIt.next());
+  return true;
+}

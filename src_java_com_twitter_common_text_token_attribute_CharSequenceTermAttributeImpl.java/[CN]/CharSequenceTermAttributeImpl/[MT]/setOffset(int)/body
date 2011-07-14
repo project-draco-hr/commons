@@ -1,0 +1,6 @@
+{
+  if (offset < 0 || offset > charSequence.length()) {
+    throw new IndexOutOfBoundsException("Offset " + offset + " must be >= 0 and < "+ charSequence.length()+ ", which is the length of the underlying CharSequence.");
+  }
+  this.offset=offset;
+}

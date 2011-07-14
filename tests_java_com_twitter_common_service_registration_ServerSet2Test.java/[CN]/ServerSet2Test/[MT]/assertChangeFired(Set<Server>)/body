@@ -1,6 +1,0 @@
-{
-  Object o=eventQ.poll(90,TimeUnit.SECONDS);
-  assertThat(o,instanceOf(Set.class));
-  Set<Server> ss=(Set<Server>)o;
-  assertEquals(serverSet,ss);
-}

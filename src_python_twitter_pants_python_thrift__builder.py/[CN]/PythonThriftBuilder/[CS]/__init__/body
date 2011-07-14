@@ -6,3 +6,4 @@ def __init__(self, target, root_dir):
     codegen_root = tempfile.mkdtemp(dir=self.chroot.path(), prefix='codegen.')
     self.codegen_root = os.path.relpath(codegen_root, self.chroot.path())
     self.detected_packages = set()
+    self.detected_namespace_packages = set()

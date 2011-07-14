@@ -1,0 +1,2 @@
+def volatile(self):
+    return (self._flags & FieldInfoFlags.ACC_VOLATILE)

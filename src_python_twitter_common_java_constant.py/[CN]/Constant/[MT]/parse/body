@@ -1,0 +1,5 @@
+@staticmethod
+def parse(data):
+    tag = u1(data[0]).get()
+    constant = Constant._BASE_TYPES[tag](data)
+    return constant

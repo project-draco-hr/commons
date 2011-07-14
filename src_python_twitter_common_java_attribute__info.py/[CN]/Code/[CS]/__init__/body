@@ -1,0 +1,18 @@
+def __init__(self, data, constants):
+    AttributeInfo.__init__(self, data, constants)
+    bytes = self.bytes()
+    ((max_stack, max_locals, code_length), bytes) = JavaNativeType.parse(bytes, u2, u2, u4)
+    self._code_length = code_length
+    bytecode = bytes[0:code_length]
+    bytes = bytes[code_length:]
+    ((exception_table_length,), bytes) = JavaNativeType.parse(bytes, u2)
+    for k in range(exception_table_length):
+        (_, bytes) = JavaNativeType.parse(bytes, u2, u2, u2, u2)
+    ((attributes_count,), bytes) = JavaNativeType.parse(bytes, u2)
+    attributes = []
+    offset = 0
+    for k in range(attributes_count):
+        attribute = Attribute.parse(bytes[offset:], constants)
+        offset += attribute.size()
+        attributes.append(attribute)
+    self._attributes = attributes

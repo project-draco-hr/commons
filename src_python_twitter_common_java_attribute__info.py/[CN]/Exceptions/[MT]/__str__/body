@@ -1,0 +1,5 @@
+def __str__(self):
+    if self._exceptions:
+        return ('throws %s' % ' '.join((('%s' % s) for s in self._exceptions)))
+    else:
+        return ''

@@ -1,0 +1,14 @@
+{
+  if (matcher != null && matcher.find()) {
+    int start=matcher.start(startGroup);
+    int end=matcher.end(endGroup);
+    clearAttributes();
+    charSeqTermAtt.setOffset(start);
+    charSeqTermAtt.setLength(end - start);
+    offsetAtt.setOffset(start,end);
+    return true;
+  }
+ else {
+    return false;
+  }
+}

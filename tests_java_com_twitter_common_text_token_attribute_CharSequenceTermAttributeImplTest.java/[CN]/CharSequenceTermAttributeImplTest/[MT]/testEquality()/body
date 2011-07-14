@@ -1,0 +1,18 @@
+{
+  CharSequence test="test";
+  att.setTermBuffer(test);
+  CharSequenceTermAttributeImpl otherAtt=new CharSequenceTermAttributeImpl();
+  otherAtt.setTermBuffer(test);
+  assertEquality(otherAtt);
+  otherAtt.setTermBuffer("test");
+  assertEquality(otherAtt);
+  otherAtt.setTermBuffer("test_",0,4);
+  assertEquality(otherAtt);
+  otherAtt.setTermBuffer(test,0,3);
+  assertInequality(otherAtt);
+  otherAtt.setTermBuffer(test,1,3);
+  assertInequality(otherAtt);
+  assertInequality(new TermAttributeImpl());
+  assertFalse(att.equals(null));
+  assertEquality(att);
+}

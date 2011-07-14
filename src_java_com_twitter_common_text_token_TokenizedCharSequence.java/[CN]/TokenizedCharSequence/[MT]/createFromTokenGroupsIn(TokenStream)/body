@@ -1,0 +1,17 @@
+{
+  OffsetAttribute offsetAttr=stream.getAttribute(OffsetAttribute.class);
+  CharSequenceTermAttribute termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
+  TokenGroupAttribute groupAttr=stream.getAttribute(TokenGroupAttribute.class);
+  List<TokenizedCharSequence> groups=Lists.newArrayList();
+  while (stream.incrementToken()) {
+    Builder builder=new Builder(termAttr.getTermCharSequence());
+    TokenStream groupStream=groupAttr.getTokenGroupStream();
+    OffsetAttribute groupOffsetAttr=groupStream.getAttribute(OffsetAttribute.class);
+    TokenTypeAttribute typeAttr=groupStream.getAttribute(TokenTypeAttribute.class);
+    while (groupStream.incrementToken()) {
+      builder.addToken(groupOffsetAttr.startOffset() - offsetAttr.startOffset(),groupOffsetAttr.endOffset() - groupOffsetAttr.startOffset(),typeAttr.getType());
+    }
+    groups.add(builder.build());
+  }
+  return groups;
+}

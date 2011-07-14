@@ -1,0 +1,8 @@
+@staticmethod
+def match(data):
+    (field_type, offset) = FieldType.match(data)
+    if offset:
+        return (field_type, offset)
+    if (data[0] == 'V'):
+        return ('void', 1)
+    return (None, 0)

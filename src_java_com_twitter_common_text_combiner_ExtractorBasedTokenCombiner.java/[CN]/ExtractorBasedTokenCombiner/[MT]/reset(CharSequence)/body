@@ -1,0 +1,9 @@
+{
+  super.reset(input);
+  Preconditions.checkNotNull(extractor);
+  offsetMap.clear();
+  extractor.reset(input);
+  while (extractor.incrementToken()) {
+    offsetMap.put(extractorTermAttr.getOffset(),extractorTermAttr.getOffset() + extractorTermAttr.getLength());
+  }
+}

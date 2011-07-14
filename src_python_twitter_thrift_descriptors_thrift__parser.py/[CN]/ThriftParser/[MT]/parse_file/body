@@ -1,0 +1,3 @@
+def parse_file(self, path):
+    'Parse from a file specififed by path.'
+    return self._parse(antlr3.ANTLRFileStream(path))

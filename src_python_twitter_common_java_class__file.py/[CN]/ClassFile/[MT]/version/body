@@ -1,0 +1,2 @@
+def version(self):
+    return (self._major_version, self._minor_version)

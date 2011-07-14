@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('%s %s::%s %s' % (self._inner_class_access_flags, self._outer_class, self._inner_class, self._inner_name))

@@ -1,0 +1,3 @@
+@staticmethod
+def size():
+    return 4

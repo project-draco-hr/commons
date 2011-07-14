@@ -1,0 +1,10 @@
+def __init__(self, data, constants):
+    AttributeInfo.__init__(self, data, constants)
+    bytes = self.bytes()
+    self._number_of_classes = u2(bytes[0:2]).get()
+    self._classes = []
+    offset = 2
+    for index in range(self._number_of_classes):
+        klass = InnerClass(data[offset:], constants)
+        self._classes.append(klass)
+        offset += (4 * u2.size())

@@ -1,0 +1,6 @@
+{
+  tokenOnly.reset("This stream has the original tokenizer, so this must be used.");
+  punctOnly.reset("This stream has a duplicate, so this is ignored.");
+  assertEquals(ImmutableList.of("This","stream","has","the","original","tokenizer","so","this","must","be","used"),tokenOnly.toStringList());
+  assertEquals(ImmutableList.of(",","."),punctOnly.toStringList());
+}

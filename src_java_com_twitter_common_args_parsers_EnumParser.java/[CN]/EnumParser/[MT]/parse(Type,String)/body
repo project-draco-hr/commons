@@ -1,4 +1,4 @@
 {
-  @SuppressWarnings("unchecked") Class<Enum> enumClass=(Class<Enum>)type;
+  @SuppressWarnings("unchecked") Class<T> enumClass=(Class<T>)type;
   return Enum.valueOf(enumClass,raw);
 }

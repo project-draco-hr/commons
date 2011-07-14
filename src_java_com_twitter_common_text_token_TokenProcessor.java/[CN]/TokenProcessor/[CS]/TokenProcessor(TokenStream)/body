@@ -1,0 +1,4 @@
+{
+  super(inputStream.cloneAttributes());
+  this.inputStream=inputStream;
+}

@@ -1,0 +1,2 @@
+def parsed_name(self):
+    return self._attribute_name
