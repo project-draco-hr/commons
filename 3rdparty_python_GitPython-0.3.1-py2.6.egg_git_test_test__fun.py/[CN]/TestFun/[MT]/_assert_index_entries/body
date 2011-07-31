@@ -1,0 +1,6 @@
+def _assert_index_entries(self, entries, trees):
+    index = IndexFile.from_tree(self.rorepo, *[self.rorepo.tree(bin_to_hex(t)) for t in trees])
+    assert entries
+    assert (len(index.entries) == len(entries))
+    for entry in entries:
+        assert ((entry.path, entry.stage) in index.entries)

@@ -1,0 +1,9 @@
+def set_dirty_and_flush_changes(non_const_func):
+    'Return method that checks whether given non constant function may be called.\n\tIf so, the instance will be set dirty.\n\tAdditionally, we flush the changes right to disk'
+
+    def flush_changes(self, *args, **kwargs):
+        rval = non_const_func(self, *args, **kwargs)
+        self.write()
+        return rval
+    flush_changes.__name__ = non_const_func.__name__
+    return flush_changes

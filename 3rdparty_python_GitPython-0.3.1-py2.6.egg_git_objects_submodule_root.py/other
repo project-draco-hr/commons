@@ -1,0 +1,12 @@
+from base import Submodule, UpdateProgress
+from util import find_first_remote_branch
+from git.exc import InvalidGitRepositoryError
+import git
+import sys
+__all__ = ['RootModule', 'RootUpdateProgress']
+BEGIN = RootUpdateProgress.BEGIN
+END = RootUpdateProgress.END
+REMOVE = RootUpdateProgress.REMOVE
+BRANCHCHANGE = RootUpdateProgress.BRANCHCHANGE
+URLCHANGE = RootUpdateProgress.URLCHANGE
+PATHCHANGE = RootUpdateProgress.PATHCHANGE

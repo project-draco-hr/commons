@@ -1,0 +1,4 @@
+def __del__(self):
+    bytes_left = (self._size - self._nbr)
+    if bytes_left:
+        self._stream.read((bytes_left + 1))

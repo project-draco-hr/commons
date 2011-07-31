@@ -1,0 +1,3 @@
+def touch(filename):
+    fp = open(filename, 'a')
+    fp.close()

@@ -1,0 +1,2 @@
+def reverse(self):
+    self._main._sequence.reverse()

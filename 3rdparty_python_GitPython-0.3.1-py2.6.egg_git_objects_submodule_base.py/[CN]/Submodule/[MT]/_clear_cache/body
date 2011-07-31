@@ -1,0 +1,6 @@
+def _clear_cache(self):
+    for name in self._cache_attrs:
+        try:
+            delattr(self, name)
+        except AttributeError:
+            pass

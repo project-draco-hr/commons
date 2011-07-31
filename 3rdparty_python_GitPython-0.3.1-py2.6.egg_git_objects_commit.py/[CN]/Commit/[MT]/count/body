@@ -1,0 +1,6 @@
+def count(self, paths='', **kwargs):
+    'Count the number of commits reachable from this commit\n\n\t\t:param paths:\n\t\t\tis an optinal path or a list of paths restricting the return value \n\t\t\tto commits actually containing the paths\n\n\t\t:param kwargs:\n\t\t\tAdditional options to be passed to git-rev-list. They must not alter\n\t\t\tthe ouput style of the command, or parsing will yield incorrect results\n\t\t:return: int defining the number of reachable commits'
+    if paths:
+        return len(self.repo.git.rev_list(self.hexsha, '--', paths, **kwargs).splitlines())
+    else:
+        return len(self.repo.git.rev_list(self.hexsha, **kwargs).splitlines())

@@ -1,0 +1,2 @@
+def __str__(self):
+    return (Exception.__str__(self) + (':%s' % self.failed_files))

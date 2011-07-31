@@ -1,4 +1,5 @@
 {
-  control=createControl();
-  input=control.createMock(Stat.class);
+  input=createMock(new Clazz<Stat<Integer>>(){
+  }
+);
 }

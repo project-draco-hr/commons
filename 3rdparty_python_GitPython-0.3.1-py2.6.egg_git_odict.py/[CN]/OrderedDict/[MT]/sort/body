@@ -1,0 +1,3 @@
+def sort(self, *args, **kwargs):
+    '\n        Sort the key order in the OrderedDict.\n        \n        This method takes the same arguments as the ``list.sort`` method on\n        your version of Python.\n        \n        >>> d = OrderedDict(((4, 1), (2, 2), (3, 3), (1, 4)))\n        >>> d.sort()\n        >>> d\n        OrderedDict([(1, 4), (2, 2), (3, 3), (4, 1)])\n        '
+    self._sequence.sort(*args, **kwargs)

@@ -1,0 +1,7 @@
+def __getattr__(self, name):
+    '\n        Implemented so that access to ``sequence`` raises a warning.\n        \n        >>> d = OrderedDict()\n        >>> d.sequence\n        []\n        '
+    if (name == 'sequence'):
+        warnings.warn('Use of the sequence attribute is deprecated. Use the keys method instead.', DeprecationWarning)
+        return self._sequence
+    else:
+        raise AttributeError(("OrderedDict has no '%s' attribute" % name))

@@ -1,0 +1,12 @@
+def _get_alternates(self):
+    'The list of alternates for this repo from which objects can be retrieved\n\n\t\t:return: list of strings being pathnames of alternates'
+    alternates_path = join(self.git_dir, 'objects', 'info', 'alternates')
+    if os.path.exists(alternates_path):
+        try:
+            f = open(alternates_path)
+            alts = f.read()
+        finally:
+            f.close()
+        return alts.strip().splitlines()
+    else:
+        return list()

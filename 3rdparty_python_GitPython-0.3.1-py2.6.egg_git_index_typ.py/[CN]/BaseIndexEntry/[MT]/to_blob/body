@@ -1,0 +1,3 @@
+def to_blob(self, repo):
+    ':return: Blob using the information of this index entry'
+    return Blob(repo, self.binsha, self.mode, self.path)

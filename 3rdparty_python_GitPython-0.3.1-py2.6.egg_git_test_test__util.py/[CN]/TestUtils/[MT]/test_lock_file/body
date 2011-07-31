@@ -1,0 +1,17 @@
+def test_lock_file(self):
+    my_file = tempfile.mktemp()
+    lock_file = LockFile(my_file)
+    assert (not lock_file._has_lock())
+    lock_file._release_lock()
+    lock_file._obtain_lock_or_raise()
+    assert lock_file._has_lock()
+    other_lock_file = LockFile(my_file)
+    assert (not other_lock_file._has_lock())
+    self.failUnlessRaises(IOError, other_lock_file._obtain_lock_or_raise)
+    lock_file._release_lock()
+    assert (not lock_file._has_lock())
+    other_lock_file._obtain_lock_or_raise()
+    self.failUnlessRaises(IOError, lock_file._obtain_lock_or_raise)
+    del other_lock_file
+    lock_file._obtain_lock_or_raise()
+    lock_file._release_lock()

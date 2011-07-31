@@ -1,0 +1,7 @@
+def module_exists(self):
+    ':return: True if our module exists and is a valid git repository. See module() method'
+    try:
+        self.module()
+        return True
+    except Exception:
+        return False

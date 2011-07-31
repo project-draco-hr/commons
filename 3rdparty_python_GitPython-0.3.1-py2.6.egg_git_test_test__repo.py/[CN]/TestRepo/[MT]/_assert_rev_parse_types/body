@@ -1,0 +1,9 @@
+def _assert_rev_parse_types(self, name, rev_obj):
+    rev_parse = self.rorepo.rev_parse
+    if (rev_obj.type == 'tag'):
+        rev_obj = rev_obj.object
+    obj = rev_parse((name + '^{tree}'))
+    assert (obj == rev_obj.tree)
+    obj = rev_parse((name + ':CHANGES'))
+    assert ((obj.type == 'blob') and (obj.path == 'CHANGES'))
+    assert (rev_obj.tree['CHANGES'] == obj)

@@ -1,0 +1,3 @@
+def log_append(self, oldbinsha, message, newbinsha=None):
+    'Append a logentry to the logfile of this ref\n\t\t\n\t\t:param oldbinsha: binary sha this ref used to point to\n\t\t:param message: A message describing the change\n\t\t:param newbinsha: The sha the ref points to now. If None, our current commit sha\n\t\t\twill be used\n\t\t:return: added RefLogEntry instance'
+    return RefLog.append_entry(self.repo.config_reader(), RefLog.path(self), oldbinsha, (((newbinsha is None) and self.commit.binsha) or newbinsha), message)

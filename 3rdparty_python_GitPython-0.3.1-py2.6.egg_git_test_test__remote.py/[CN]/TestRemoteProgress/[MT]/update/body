@@ -1,0 +1,8 @@
+def update(self, op_code, cur_count, max_count=None, message=''):
+    op_id = (op_code & self.OP_MASK)
+    assert (op_id in (self.COUNTING, self.COMPRESSING, self.WRITING))
+    self._stages_per_op.setdefault(op_id, 0)
+    self._stages_per_op[op_id] = (self._stages_per_op[op_id] | (op_code & self.STAGE_MASK))
+    if ((op_code & (self.WRITING | self.END)) == (self.WRITING | self.END)):
+        assert message
+    self._num_progress_messages += 1

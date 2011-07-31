@@ -1,0 +1,7 @@
+def __init__(self, repo, binsha, mode=None, path=None):
+    'Initialize a newly instanced IndexObject\n\t\t:param repo: is the Repo we are located in\n\t\t:param binsha: 20 byte sha1\n\t\t:param mode: is the stat compatible file mode as int, use the stat module\n\t\t\tto evaluate the infomration\n\t\t:param path:\n\t\t\tis the path to the file in the file system, relative to the git repository root, i.e.\n\t\t\tfile.ext or folder/other.ext\n\t\t:note:\n\t\t\tPath may not be set of the index object has been created directly as it cannot\n\t\t\tbe retrieved without knowing the parent tree.'
+    super(IndexObject, self).__init__(repo, binsha)
+    if (mode is not None):
+        self.mode = mode
+    if (path is not None):
+        self.path = path

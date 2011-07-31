@@ -1,0 +1,28 @@
+def diff(self, other=Index, paths=None, create_patch=False, **kwargs):
+    "Creates diffs between two items being trees, trees and index or an \n\t\tindex and the working tree.\n\n\t\t:param other:\n\t\t\tIs the item to compare us with. \n\t\t\tIf None, we will be compared to the working tree.\n\t\t\tIf Treeish, it will be compared against the respective tree\n\t\t\tIf Index ( type ), it will be compared against the index.\n\t\t\tIt defaults to Index to assure the method will not by-default fail\n\t\t\ton bare repositories.\n\n\t\t:param paths:\n\t\t\tis a list of paths or a single path to limit the diff to.\n\t\t\tIt will only include at least one of the givne path or paths.\n\n\t\t:param create_patch:\n\t\t\tIf True, the returned Diff contains a detailed patch that if applied\n\t\t\tmakes the self to other. Patches are somwhat costly as blobs have to be read\n\t\t\tand diffed.\n\n\t\t:param kwargs:\n\t\t\tAdditional arguments passed to git-diff, such as \n\t\t\tR=True to swap both sides of the diff.\n\n\t\t:return: git.DiffIndex\n\t\t\t\n\t\t:note:\n\t\t\tRename detection will only work if create_patch is True.\n\t\t\t\n\t\t\tOn a bare repository, 'other' needs to be provided as Index or as \n\t\t\tas Tree/Commit, or a git command error will occour"
+    args = list()
+    args.append('--abbrev=40')
+    args.append('--full-index')
+    if create_patch:
+        args.append('-p')
+        args.append('-M')
+    else:
+        args.append('--raw')
+    if ((paths is not None) and (not isinstance(paths, (tuple, list)))):
+        paths = [paths]
+    if ((other is not None) and (other is not self.Index)):
+        args.insert(0, other)
+    if (other is self.Index):
+        args.insert(0, '--cached')
+    args.insert(0, self)
+    if paths:
+        args.append('--')
+        args.extend(paths)
+    kwargs['as_process'] = True
+    proc = self.repo.git.diff(*self._process_diff_args(args), **kwargs)
+    diff_method = Diff._index_from_raw_format
+    if create_patch:
+        diff_method = Diff._index_from_patch_format
+    index = diff_method(self.repo, proc.stdout)
+    status = proc.wait()
+    return index

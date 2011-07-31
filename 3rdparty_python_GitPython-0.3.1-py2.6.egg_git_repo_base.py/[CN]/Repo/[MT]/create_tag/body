@@ -1,0 +1,3 @@
+def create_tag(self, path, ref='HEAD', message=None, force=False, **kwargs):
+    'Create a new tag reference.\n\t\tFor more documentation, please see the TagReference.create method.\n\t\t\n\t\t:return: TagReference object '
+    return TagReference.create(self, path, ref, message, force, **kwargs)

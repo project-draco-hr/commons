@@ -1,0 +1,7 @@
+self
+predicate
+prune
+depth
+branch_first
+visit_once
+ignore_self

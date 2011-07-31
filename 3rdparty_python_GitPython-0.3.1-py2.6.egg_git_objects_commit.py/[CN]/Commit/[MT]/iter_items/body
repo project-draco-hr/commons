@@ -1,0 +1,10 @@
+@classmethod
+def iter_items(cls, repo, rev, paths='', **kwargs):
+    "Find all commits matching the given criteria.\n\n\t\t:param repo: is the Repo\n\t\t:param rev: revision specifier, see git-rev-parse for viable options\n\t\t:param paths:\n\t\t\tis an optinal path or list of paths, if set only Commits that include the path \n\t\t\tor paths will be considered\n\t\t:param kwargs:\n\t\t\toptional keyword arguments to git rev-list where\n\t\t\t``max_count`` is the maximum number of commits to fetch\n\t\t\t``skip`` is the number of commits to skip\n\t\t\t``since`` all commits since i.e. '1970-01-01'\n\t\t:return: iterator yielding Commit items"
+    if ('pretty' in kwargs):
+        raise ValueError("--pretty cannot be used as parsing expects single sha's only")
+    args = list()
+    if paths:
+        args.extend(('--', paths))
+    proc = repo.git.rev_list(rev, args, as_process=True, **kwargs)
+    return cls._iter_from_process_or_stream(repo, proc)

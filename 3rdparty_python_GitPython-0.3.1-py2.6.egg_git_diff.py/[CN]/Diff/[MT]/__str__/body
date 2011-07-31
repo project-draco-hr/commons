@@ -1,0 +1,30 @@
+def __str__(self):
+    h = '%s'
+    if self.a_blob:
+        h %= self.a_blob.path
+    elif self.b_blob:
+        h %= self.b_blob.path
+    msg = ''
+    l = None
+    ll = 0
+    for (b, n) in zip((self.a_blob, self.b_blob), ('lhs', 'rhs')):
+        if b:
+            l = ('\n%s: %o | %s' % (n, b.mode, b.hexsha))
+        else:
+            l = ('\n%s: None' % n)
+        ll = max(len(l), ll)
+        msg += l
+    h += ('\n' + ('=' * ll))
+    if self.deleted_file:
+        msg += '\nfile deleted in rhs'
+    if self.new_file:
+        msg += '\nfile added in rhs'
+    if self.rename_from:
+        msg += ('\nfile renamed from %r' % self.rename_from)
+    if self.rename_to:
+        msg += ('\nfile renamed to %r' % self.rename_to)
+    if self.diff:
+        msg += '\n---'
+        msg += self.diff
+        msg += '\n---'
+    return (h + msg)

@@ -1,0 +1,5 @@
+def test_is_dirty_with_bare_repository(self):
+    orig_value = self.rorepo._bare
+    self.rorepo._bare = True
+    assert_false(self.rorepo.is_dirty())
+    self.rorepo._bare = orig_value

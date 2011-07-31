@@ -1,0 +1,4 @@
+@property
+def ctime(self):
+    "\n\t\t:return:\n\t\t\tTuple(int_time_seconds_since_epoch, int_nano_seconds) of the\n\t\t\tfile's creation time"
+    return unpack('>LL', self[4])

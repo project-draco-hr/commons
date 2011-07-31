@@ -1,0 +1,46 @@
+def execute(self, command, istream=None, with_keep_cwd=False, with_extended_output=False, with_exceptions=True, as_process=False, output_stream=None, **subprocess_kwargs):
+    'Handles executing the command on the shell and consumes and returns\n\t\tthe returned information (stdout)\n\n\t\t:param command:\n\t\t\tThe command argument list to execute.\n\t\t\tIt should be a string, or a sequence of program arguments. The\n\t\t\tprogram to execute is the first item in the args sequence or string.\n\n\t\t:param istream:\n\t\t\tStandard input filehandle passed to subprocess.Popen.\n\n\t\t:param with_keep_cwd:\n\t\t\tWhether to use the current working directory from os.getcwd().\n\t\t\tThe cmd otherwise uses its own working_dir that it has been initialized\n\t\t\twith if possible.\n\n\t\t:param with_extended_output:\n\t\t\tWhether to return a (status, stdout, stderr) tuple.\n\n\t\t:param with_exceptions:\n\t\t\tWhether to raise an exception when git returns a non-zero status.\n\n\t\t:param as_process:\n\t\t\tWhether to return the created process instance directly from which \n\t\t\tstreams can be read on demand. This will render with_extended_output and \n\t\t\twith_exceptions ineffective - the caller will have \n\t\t\tto deal with the details himself.\n\t\t\tIt is important to note that the process will be placed into an AutoInterrupt\n\t\t\twrapper that will interrupt the process once it goes out of scope. If you \n\t\t\tuse the command in iterators, you should pass the whole process instance \n\t\t\tinstead of a single stream.\n\t\t\t\n\t\t:param output_stream:\n\t\t\tIf set to a file-like object, data produced by the git command will be \n\t\t\toutput to the given stream directly.\n\t\t\tThis feature only has any effect if as_process is False. Processes will\n\t\t\talways be created with a pipe due to issues with subprocess.\n\t\t\tThis merely is a workaround as data will be copied from the \n\t\t\toutput pipe to the given output stream directly.\n\t\t\t\n\t\t:param subprocess_kwargs:\n\t\t\tKeyword arguments to be passed to subprocess.Popen. Please note that \n\t\t\tsome of the valid kwargs are already set by this method, the ones you \n\t\t\tspecify may not be the same ones.\n\t\t\t\n\t\t:return:\n\t\t\t* str(output) if extended_output = False (Default)\n\t\t\t* tuple(int(status), str(stdout), str(stderr)) if extended_output = True\n\t\t\t \n\t\t\tif ouput_stream is True, the stdout value will be your output stream:\n\t\t\t* output_stream if extended_output = False\n\t\t\t* tuple(int(status), output_stream, str(stderr)) if extended_output = True\n\t\t\t\n\t\t:raise GitCommandError:\n\t\t\n\t\t:note:\n\t\t   If you add additional keyword arguments to the signature of this method, \n\t\t   you must update the execute_kwargs tuple housed in this module.'
+    if (GIT_PYTHON_TRACE and (not (GIT_PYTHON_TRACE == 'full'))):
+        print ' '.join(command)
+    if (with_keep_cwd or (self._working_dir is None)):
+        cwd = os.getcwd()
+    else:
+        cwd = self._working_dir
+    proc = Popen(command, cwd=cwd, stdin=istream, stderr=PIPE, stdout=PIPE, close_fds=(os.name == 'posix'), **subprocess_kwargs)
+    if as_process:
+        return self.AutoInterrupt(proc, command)
+    status = 0
+    stdout_value = ''
+    stderr_value = ''
+    try:
+        if (output_stream is None):
+            (stdout_value, stderr_value) = proc.communicate()
+            if stdout_value.endswith('\n'):
+                stdout_value = stdout_value[:(-1)]
+            if stderr_value.endswith('\n'):
+                stderr_value = stderr_value[:(-1)]
+            status = proc.returncode
+        else:
+            stream_copy(proc.stdout, output_stream, self.max_chunk_size)
+            stdout_value = output_stream
+            stderr_value = proc.stderr.read()
+            if stderr_value.endswith('\n'):
+                stderr_value = stderr_value[:(-1)]
+            status = proc.wait()
+    finally:
+        proc.stdout.close()
+        proc.stderr.close()
+    if (GIT_PYTHON_TRACE == 'full'):
+        cmdstr = ' '.join(command)
+        if stderr_value:
+            print ("%s -> %d; stdout: '%s'; stderr: '%s'" % (cmdstr, status, stdout_value, stderr_value))
+        elif stdout_value:
+            print ("%s -> %d; stdout: '%s'" % (cmdstr, status, stdout_value))
+        else:
+            print ('%s -> %d' % (cmdstr, status))
+    if (with_exceptions and (status != 0)):
+        raise GitCommandError(command, status, stderr_value)
+    if with_extended_output:
+        return (status, stdout_value, stderr_value)
+    else:
+        return stdout_value

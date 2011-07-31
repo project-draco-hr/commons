@@ -1,0 +1,6 @@
+{
+  MovingWindowDelta<AtomicLong> movingWindowDelta=MovingWindowDelta.of("test",getSupplier(),DEFAULT_WINDOW_SIZE);
+  externalValue.getAndSet(7l);
+  externalValue.getAndSet(11l);
+  assertEquals(11l,movingWindowDelta.doSample().longValue());
+}

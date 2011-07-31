@@ -1,0 +1,18 @@
+@needs_values
+def write(self):
+    'Write changes to our file, if there are changes at all\n\t\t\n\t\t:raise IOError: if this is a read-only writer instance or if we could not obtain \n\t\t\ta file lock'
+    self._assure_writable('write')
+    fp = self._file_or_files
+    close_fp = False
+    if isinstance(fp, (basestring, file)):
+        self._lock._obtain_lock()
+    if (not hasattr(fp, 'seek')):
+        fp = open(self._file_or_files, 'w')
+        close_fp = True
+    else:
+        fp.seek(0)
+    try:
+        self._write(fp)
+    finally:
+        if close_fp:
+            fp.close()

@@ -1,0 +1,6 @@
+def write(self):
+    "Write this instance's data to the file we are originating from\n\t\t:return: self"
+    if (self._path is None):
+        raise ValueError('Instance was not initialized with a path, use to_file(...) instead')
+    self.to_file(self._path)
+    return self

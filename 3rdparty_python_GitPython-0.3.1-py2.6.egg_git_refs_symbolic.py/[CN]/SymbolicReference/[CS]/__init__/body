@@ -1,0 +1,3 @@
+def __init__(self, repo, path):
+    self.repo = repo
+    self.path = path

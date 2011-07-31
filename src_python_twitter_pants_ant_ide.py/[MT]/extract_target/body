@@ -5,4 +5,9 @@ def extract_target(java_targets, is_transitive, name=None):
     all_deps = OrderedSet()
     all_deps.update(internal_deps)
     all_deps.update(jar_deps)
-    return JavaLibrary('ide', sources, dependencies=all_deps, excludes=meta_target.excludes, is_meta=True)
+    if is_java(meta_target):
+        return JavaLibrary('ide', sources, dependencies=all_deps, excludes=meta_target.excludes, is_meta=True)
+    elif is_scala(meta_target):
+        return ScalaLibrary('ide', sources, dependencies=all_deps, excludes=meta_target.excludes, is_meta=True)
+    else:
+        raise TypeError(('Cannot generate IDE configuration for targets: %s' % java_targets))

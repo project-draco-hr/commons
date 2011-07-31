@@ -1,0 +1,6 @@
+def __init__(self, repo, binsha):
+    'Initialize an object by identifying it by its binary sha. \n\t\tAll keyword arguments will be set on demand if None.\n\t\t\n\t\t:param repo: repository this object is located in\n\t\t\t\n\t\t:param binsha: 20 byte SHA1'
+    super(Object, self).__init__()
+    self.repo = repo
+    self.binsha = binsha
+    assert (len(binsha) == 20), ('Require 20 byte binary sha, got %r, len = %i' % (binsha, len(binsha)))

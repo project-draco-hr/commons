@@ -1,0 +1,18 @@
+@classmethod
+def from_line(cls, line):
+    ':return: New RefLogEntry instance from the given revlog line.\n\t\t:param line: line without trailing newline\n\t\t:raise ValueError: If line could not be parsed'
+    try:
+        (info, msg) = line.split('\t', 2)
+    except ValueError:
+        raise ValueError('line is missing tab separator')
+    oldhexsha = info[:40]
+    newhexsha = info[41:81]
+    for hexsha in (oldhexsha, newhexsha):
+        if (not cls._re_hexsha_only.match(hexsha)):
+            raise ValueError(('Invalid hexsha: %s' % hexsha))
+    email_end = info.find('>', 82)
+    if (email_end == (-1)):
+        raise ValueError('Missing token: >')
+    actor = Actor._from_string(info[82:(email_end + 1)])
+    (time, tz_offset) = parse_date(info[(email_end + 2):])
+    return RefLogEntry((oldhexsha, newhexsha, actor, (time, tz_offset), msg))

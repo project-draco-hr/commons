@@ -1,0 +1,6 @@
+def __getitem__(self, index):
+    'Fetch the value at position i.'
+    if isinstance(index, types.SliceType):
+        return [self._main[key] for key in self._main._sequence[index]]
+    else:
+        return self._main[self._main._sequence[index]]

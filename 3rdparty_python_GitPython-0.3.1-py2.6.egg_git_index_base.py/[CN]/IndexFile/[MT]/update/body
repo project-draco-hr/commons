@@ -1,0 +1,4 @@
+def update(self):
+    'Reread the contents of our index file, discarding all cached information\n\t\twe might have.\n\n\t\t:note: This is a possibly dangerious operations as it will discard your changes\n\t\t\tto index.entries\n\t\t:return: self'
+    self._delete_entries_cache()
+    return self

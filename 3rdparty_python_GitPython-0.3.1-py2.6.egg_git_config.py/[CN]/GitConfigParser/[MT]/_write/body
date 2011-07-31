@@ -1,0 +1,11 @@
+def _write(self, fp):
+    'Write an .ini-format representation of the configuration state in \n\t\tgit compatible format'
+
+    def write_section(name, section_dict):
+        fp.write(('[%s]\n' % name))
+        for (key, value) in section_dict.items():
+            if (key != '__name__'):
+                fp.write(('\t%s = %s\n' % (key, str(value).replace('\n', '\n\t'))))
+    if self._defaults:
+        write_section(cp.DEFAULTSECT, self._defaults)
+    map((lambda t: write_section(t[0], t[1])), self._sections.items())

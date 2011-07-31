@@ -1,0 +1,7 @@
+def __getitem__(self, index):
+    if isinstance(index, int):
+        return list.__getitem__(self, index)
+    try:
+        return getattr(self, index)
+    except AttributeError:
+        raise IndexError(('No item found with id %r' % (self._prefix + index)))

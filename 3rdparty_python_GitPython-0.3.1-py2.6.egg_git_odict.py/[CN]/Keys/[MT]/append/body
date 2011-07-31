@@ -1,0 +1,2 @@
+def append(self, item):
+    raise TypeError("Can't append items to keys")

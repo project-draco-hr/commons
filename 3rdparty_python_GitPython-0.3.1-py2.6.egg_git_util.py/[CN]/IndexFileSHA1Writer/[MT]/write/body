@@ -1,0 +1,3 @@
+def write(self, data):
+    self.sha1.update(data)
+    return self.f.write(data)

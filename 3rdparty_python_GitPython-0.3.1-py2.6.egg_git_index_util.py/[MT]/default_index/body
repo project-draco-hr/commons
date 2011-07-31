@@ -1,0 +1,9 @@
+def default_index(func):
+    'Decorator assuring the wrapped method may only run if we are the default\n\trepository index. This is as we rely on git commands that operate\n\ton that index only. '
+
+    def check_default_index(self, *args, **kwargs):
+        if (self._file_path != self._index_path()):
+            raise AssertionError(('Cannot call %r on indices that do not represent the default git index' % func.__name__))
+        return func(self, *args, **kwargs)
+    check_default_index.__name__ = func.__name__
+    return check_default_index

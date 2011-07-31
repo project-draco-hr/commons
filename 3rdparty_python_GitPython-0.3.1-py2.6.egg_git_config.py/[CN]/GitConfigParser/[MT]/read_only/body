@@ -1,0 +1,4 @@
+@property
+def read_only(self):
+    ':return: True if this instance may change the configuration file'
+    return self._read_only

@@ -1,0 +1,3 @@
+def items(self):
+    '\n        ``items`` returns a list of tuples representing all the \n        ``(key, value)`` pairs in the dictionary.\n        \n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d.items()\n        [(1, 3), (3, 2), (2, 1)]\n        >>> d.clear()\n        >>> d.items()\n        []\n        '
+    return zip(self._sequence, self.values())

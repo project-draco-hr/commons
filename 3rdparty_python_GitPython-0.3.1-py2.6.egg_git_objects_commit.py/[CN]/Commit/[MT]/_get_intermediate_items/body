@@ -1,0 +1,3 @@
+@classmethod
+def _get_intermediate_items(cls, commit):
+    return commit.parents

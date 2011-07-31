@@ -1,0 +1,4 @@
+@property
+def path(self):
+    ' :return: Path to the index file we are representing '
+    return self._file_path

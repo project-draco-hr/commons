@@ -1,0 +1,7 @@
+def _set_cache_(self, attr):
+    'Retrieve object information'
+    if (attr == 'size'):
+        oinfo = self.repo.odb.info(self.binsha)
+        self.size = oinfo.size
+    else:
+        super(Object, self)._set_cache_(attr)

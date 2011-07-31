@@ -1,0 +1,3 @@
+def line_dropped(self, line):
+    'Called whenever a line could not be understood and was therefore dropped.'
+    pass

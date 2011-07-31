@@ -1,0 +1,5 @@
+def __delitem__(self, name):
+    'Deletes an item with the given name if it exists'
+    index = self._index_by_name(name)
+    if (index > (-1)):
+        del self._cache[index]

@@ -1,0 +1,4 @@
+@property
+def data_stream(self):
+    ' :return:  File Object compatible stream to the uncompressed raw data of the object\n\t\t:note: returned streams must be read in order'
+    return self.repo.odb.stream(self.binsha)

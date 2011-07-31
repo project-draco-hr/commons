@@ -1,0 +1,11 @@
+def _do_test_fetch_result(self, results, remote):
+    assert ((len(results) > 0) and isinstance(results[0], FetchInfo))
+    for info in results:
+        assert isinstance(info.note, basestring)
+        if isinstance(info.ref, Reference):
+            assert (info.flags != 0)
+        assert isinstance(info.ref, (SymbolicReference, Reference))
+        if (info.flags & (info.FORCED_UPDATE | info.FAST_FORWARD)):
+            assert isinstance(info.old_commit, Commit)
+        else:
+            assert (info.old_commit is None)

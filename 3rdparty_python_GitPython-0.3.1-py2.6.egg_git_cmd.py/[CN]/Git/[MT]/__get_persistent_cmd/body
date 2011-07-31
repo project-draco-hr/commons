@@ -1,0 +1,9 @@
+def __get_persistent_cmd(self, attr_name, cmd_name, *args, **kwargs):
+    cur_val = getattr(self, attr_name)
+    if (cur_val is not None):
+        return cur_val
+    options = {'istream': PIPE, 'as_process': True, }
+    options.update(kwargs)
+    cmd = self._call_process(cmd_name, *args, **options)
+    setattr(self, attr_name, cmd)
+    return cmd

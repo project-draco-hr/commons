@@ -1,0 +1,4 @@
+@property
+def mode(self):
+    ' File Mode, compatible to stat module constants '
+    return self[0]

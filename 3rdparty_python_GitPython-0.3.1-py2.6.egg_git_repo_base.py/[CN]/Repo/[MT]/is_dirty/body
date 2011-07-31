@@ -1,0 +1,15 @@
+def is_dirty(self, index=True, working_tree=True, untracked_files=False):
+    '\n\t\t:return:\n\t\t\t``True``, the repository is considered dirty. By default it will react\n\t\t\tlike a git-status without untracked files, hence it is dirty if the \n\t\t\tindex or the working copy have changes.'
+    if self._bare:
+        return False
+    default_args = ('--abbrev=40', '--full-index', '--raw')
+    if index:
+        if (isfile(self.index.path) and self.head.is_valid() and len(self.git.diff('HEAD', '--cached', *default_args))):
+            return True
+    if working_tree:
+        if len(self.git.diff(*default_args)):
+            return True
+    if untracked_files:
+        if len(self.untracked_files):
+            return True
+    return False

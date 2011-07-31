@@ -1,3 +1,0 @@
-{
-  parse(Predicates.<Field>alwaysTrue(),args);
-}

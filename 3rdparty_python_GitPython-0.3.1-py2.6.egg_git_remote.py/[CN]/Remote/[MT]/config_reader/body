@@ -1,0 +1,4 @@
+@property
+def config_reader(self):
+    '\n\t\t:return:\n\t\t\tGitConfigParser compatible object able to read options for only our remote.\n\t\t\tHence you may simple type config.get("pushurl") to obtain the information'
+    return self._config_reader

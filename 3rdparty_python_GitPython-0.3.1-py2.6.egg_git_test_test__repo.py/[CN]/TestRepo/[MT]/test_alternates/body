@@ -1,0 +1,8 @@
+def test_alternates(self):
+    cur_alternates = self.rorepo.alternates
+    self.rorepo.alternates = []
+    assert (self.rorepo.alternates == [])
+    alts = ['other/location', 'this/location']
+    self.rorepo.alternates = alts
+    assert (alts == self.rorepo.alternates)
+    self.rorepo.alternates = cur_alternates

@@ -1,0 +1,5 @@
+def _has_lock(self):
+    ':return: True if we have a lock and if the lockfile still exists\n\t\t:raise AssertionError: if our lock-file does not exist'
+    if (not self._owns_lock):
+        return False
+    return True

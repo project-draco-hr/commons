@@ -1,6 +1,7 @@
 {
-  for (int i=0; i < 100; i++) {
+  for (int i=0; i < 10000; i++) {
     percentiles.record(i + 1);
   }
-  checkPercentiles(10,50,90,99);
+  checkPercentiles(percentiles,1000,5000,9000,9900,9990,9999);
+  checkValuesAreFlushed(percentiles);
 }

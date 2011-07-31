@@ -1,0 +1,5 @@
+def __del__(self):
+    if os.path.isfile(self.tmp_file_path):
+        if ((os.name == 'nt') and os.path.exists(self.file_path)):
+            os.remove(self.file_path)
+        os.rename(self.tmp_file_path, self.file_path)

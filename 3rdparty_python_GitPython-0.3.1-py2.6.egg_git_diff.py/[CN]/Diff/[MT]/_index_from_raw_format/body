@@ -1,0 +1,22 @@
+@classmethod
+def _index_from_raw_format(cls, repo, stream):
+    'Create a new DiffIndex from the given stream which must be in raw format.\n\t\t:note: \n\t\t\tThis format is inherently incapable of detecting renames, hence we only \n\t\t\tmodify, delete and add files\n\t\t:return: git.DiffIndex'
+    index = DiffIndex()
+    for line in stream:
+        if (not line.startswith(':')):
+            continue
+        (old_mode, new_mode, a_blob_id, b_blob_id, change_type, path) = line[1:].split(None, 5)
+        path = path.strip()
+        a_path = path
+        b_path = path
+        deleted_file = False
+        new_file = False
+        if (change_type == 'D'):
+            b_blob_id = None
+            deleted_file = True
+        elif (change_type == 'A'):
+            a_blob_id = None
+            new_file = True
+        diff = Diff(repo, a_path, b_path, a_blob_id, b_blob_id, old_mode, new_mode, new_file, deleted_file, None, None, '')
+        index.append(diff)
+    return index

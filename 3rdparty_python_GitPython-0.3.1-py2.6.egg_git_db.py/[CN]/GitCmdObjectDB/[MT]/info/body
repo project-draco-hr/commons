@@ -1,0 +1,3 @@
+def info(self, sha):
+    (hexsha, typename, size) = self._git.get_object_header(bin_to_hex(sha))
+    return OInfo(hex_to_bin(hexsha), typename, size)

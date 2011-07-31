@@ -1,0 +1,12 @@
+{
+  long lastDelta=0l;
+  if (deltaSeries.remainingCapacity() == 0) {
+    lastDelta=deltaSeries.removeFirst();
+  }
+  long newInput=inputAccessor.get().longValue();
+  long newDelta=newInput - lastInput;
+  lastInput=newInput;
+  deltaSeries.addLast(newDelta);
+  sumDelta+=newDelta - lastDelta;
+  return sumDelta;
+}

@@ -1,0 +1,3 @@
+def test_base(self):
+    name_rev = self.rorepo.head.commit.name_rev
+    assert isinstance(name_rev, basestring)

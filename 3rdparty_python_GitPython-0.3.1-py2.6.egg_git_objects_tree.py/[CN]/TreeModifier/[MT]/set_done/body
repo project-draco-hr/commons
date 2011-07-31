@@ -1,0 +1,4 @@
+def set_done(self):
+    'Call this method once you are done modifying the tree information.\n\t\tIt may be called several times, but be aware that each call will cause \n\t\ta sort operation\n\t\t:return self:'
+    self._cache.sort(key=(lambda t: t[2]))
+    return self

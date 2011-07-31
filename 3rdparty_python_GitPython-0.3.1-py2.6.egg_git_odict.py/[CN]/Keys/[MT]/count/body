@@ -1,0 +1,2 @@
+def count(self, item):
+    return self._main._sequence.count(item)

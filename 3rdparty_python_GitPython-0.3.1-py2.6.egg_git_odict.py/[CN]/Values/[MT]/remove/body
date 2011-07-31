@@ -1,0 +1,2 @@
+def remove(self, item):
+    raise TypeError("Can't remove items from values")

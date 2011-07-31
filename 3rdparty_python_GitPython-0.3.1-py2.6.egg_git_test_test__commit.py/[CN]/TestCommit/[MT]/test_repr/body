@@ -1,0 +1,3 @@
+def test_repr(self):
+    commit = Commit(self.rorepo, Commit.NULL_BIN_SHA)
+    assert_equal(('<git.Commit "%s">' % Commit.NULL_HEX_SHA), repr(commit))

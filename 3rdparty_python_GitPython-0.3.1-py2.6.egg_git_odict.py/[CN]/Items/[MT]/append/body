@@ -1,0 +1,4 @@
+def append(self, item):
+    'Add an item to the end.'
+    (key, value) = item
+    self._main[key] = value

@@ -1,0 +1,16 @@
+def __init__(self, file_or_files, read_only=True):
+    'Initialize a configuration reader to read the given file_or_files and to \n\t\tpossibly allow changes to it by setting read_only False\n\t\t\n\t\t:param file_or_files:\n\t\t\tA single file path or file objects or multiple of these\n\t\t\n\t\t:param read_only:\n\t\t\tIf True, the ConfigParser may only read the data , but not change it.\n\t\t\tIf False, only a single file path or file object may be given.'
+    super(GitConfigParser, self).__init__()
+    self._sections = OrderedDict()
+    self._defaults = OrderedDict()
+    self._file_or_files = file_or_files
+    self._read_only = read_only
+    self._is_initialized = False
+    self._lock = None
+    if (not read_only):
+        if isinstance(file_or_files, (tuple, list)):
+            raise ValueError('Write-ConfigParsers can operate on a single file only, multiple files have been passed')
+        if (not isinstance(file_or_files, basestring)):
+            file_or_files = file_or_files.name
+        self._lock = self.t_lock(file_or_files)
+        self._lock._obtain_lock()

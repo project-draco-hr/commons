@@ -1,0 +1,4 @@
+@property
+def trees(self):
+    ':return: list(Tree, ...) list of trees directly below this tree'
+    return [i for i in self if (i.type == 'tree')]

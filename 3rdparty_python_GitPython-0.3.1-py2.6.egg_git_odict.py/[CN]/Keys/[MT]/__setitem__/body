@@ -1,0 +1,22 @@
+def __setitem__(self, index, name):
+    '\n        You cannot assign to keys, but you can do slice assignment to re-order\n        them.\n        \n        You can only do slice assignment if the new set of keys is a reordering\n        of the original set.\n        '
+    if isinstance(index, types.SliceType):
+        indexes = range(len(self._main._sequence))[index]
+        if (len(indexes) != len(name)):
+            raise ValueError(('attempt to assign sequence of size %s to slice of size %s' % (len(name), len(indexes))))
+        old_keys = self._main._sequence[index]
+        new_keys = list(name)
+        old_keys.sort()
+        new_keys.sort()
+        if (old_keys != new_keys):
+            raise KeyError('Keylist is not the same as current keylist.')
+        orig_vals = [self._main[k] for k in name]
+        del self._main[index]
+        vals = zip(indexes, name, orig_vals)
+        vals.sort()
+        for (i, k, v) in vals:
+            if (self._main.strict and (k in self._main)):
+                raise ValueError('slice assignment must be from unique keys')
+            self._main.insert(i, k, v)
+    else:
+        raise ValueError('Cannot assign to keys')

@@ -1,0 +1,45 @@
+@classmethod
+def create_from_tree(cls, repo, tree, message, parent_commits=None, head=False):
+    'Commit the given tree, creating a commit object.\n\t\t\n\t\t:param repo: Repo object the commit should be part of \n\t\t:param tree: Tree object or hex or bin sha \n\t\t\tthe tree of the new commit\n\t\t:param message: Commit message. It may be an empty string if no message is provided.\n\t\t\tIt will be converted to a string in any case.\n\t\t:param parent_commits:\n\t\t\tOptional Commit objects to use as parents for the new commit.\n\t\t\tIf empty list, the commit will have no parents at all and become \n\t\t\ta root commit.\n\t\t\tIf None , the current head commit will be the parent of the \n\t\t\tnew commit object\n\t\t:param head:\n\t\t\tIf True, the HEAD will be advanced to the new commit automatically.\n\t\t\tElse the HEAD will remain pointing on the previous commit. This could \n\t\t\tlead to undesired results when diffing files.\n\t\t\t\n\t\t:return: Commit object representing the new commit\n\t\t\t\n\t\t:note:\n\t\t\tAdditional information about the committer and Author are taken from the\n\t\t\tenvironment or from the git configuration, see git-commit-tree for \n\t\t\tmore information'
+    parents = parent_commits
+    if (parent_commits is None):
+        try:
+            parent_commits = [repo.head.commit]
+        except ValueError:
+            parent_commits = list()
+    cr = repo.config_reader()
+    env = os.environ
+    committer = Actor.committer(cr)
+    author = Actor.author(cr)
+    unix_time = int(time())
+    offset = altzone
+    author_date_str = env.get(cls.env_author_date, '')
+    if author_date_str:
+        (author_time, author_offset) = parse_date(author_date_str)
+    else:
+        (author_time, author_offset) = (unix_time, offset)
+    committer_date_str = env.get(cls.env_committer_date, '')
+    if committer_date_str:
+        (committer_time, committer_offset) = parse_date(committer_date_str)
+    else:
+        (committer_time, committer_offset) = (unix_time, offset)
+    (enc_section, enc_option) = cls.conf_encoding.split('.')
+    conf_encoding = cr.get_value(enc_section, enc_option, cls.default_encoding)
+    if isinstance(tree, str):
+        tree = repo.tree(tree)
+    new_commit = cls(repo, cls.NULL_BIN_SHA, tree, author, author_time, author_offset, committer, committer_time, committer_offset, message, parent_commits, conf_encoding)
+    stream = StringIO()
+    new_commit._serialize(stream)
+    streamlen = stream.tell()
+    stream.seek(0)
+    istream = repo.odb.store(IStream(cls.type, streamlen, stream))
+    new_commit.binsha = istream.binsha
+    if head:
+        import git.refs
+        try:
+            repo.head.set_commit(new_commit, logmsg=('commit: %s' % message))
+        except ValueError:
+            import git.refs
+            master = git.refs.Head.create(repo, repo.head.ref, new_commit, logmsg=('commit (initial): %s' % message))
+            repo.head.set_reference(master, logmsg=('commit: Switching to %s' % master))
+    return new_commit

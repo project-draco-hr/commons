@@ -9,5 +9,6 @@
   for (  int sample : values) {
     percentiles.record(sample);
   }
-  checkPercentiles(-900,-500,-100,-10);
+  checkPercentiles(percentiles,-900,-500,-100,-10,-1,0);
+  checkValuesAreFlushed(percentiles);
 }

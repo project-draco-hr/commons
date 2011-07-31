@@ -1,0 +1,6 @@
+def _process_diff_args(self, args):
+    try:
+        args.pop(args.index(self))
+    except IndexError:
+        pass
+    return args

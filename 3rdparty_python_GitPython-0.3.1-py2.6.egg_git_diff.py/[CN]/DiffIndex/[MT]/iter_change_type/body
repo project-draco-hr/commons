@@ -1,0 +1,13 @@
+def iter_change_type(self, change_type):
+    "\n\t\t:return:\n\t\t\titerator yieling Diff instances that match the given change_type\n\t\t\n\t\t:param change_type:\n\t\t\tMember of DiffIndex.change_type, namely:\n\t\t\t\n\t\t\t* 'A' for added paths\n\t\t\t* 'D' for deleted paths\n\t\t\t* 'R' for renamed paths\n\t\t\t* 'M' for paths with modified data"
+    if (change_type not in self.change_type):
+        raise ValueError(('Invalid change type: %s' % change_type))
+    for diff in self:
+        if ((change_type == 'A') and diff.new_file):
+            yield diff
+        elif ((change_type == 'D') and diff.deleted_file):
+            yield diff
+        elif ((change_type == 'R') and diff.renamed):
+            yield diff
+        elif ((change_type == 'M') and diff.a_blob and diff.b_blob and (diff.a_blob != diff.b_blob)):
+            yield diff

@@ -1,0 +1,4 @@
+String name
+boolean allowFlushAfterSample
+Sampler sampler
+double percentiles

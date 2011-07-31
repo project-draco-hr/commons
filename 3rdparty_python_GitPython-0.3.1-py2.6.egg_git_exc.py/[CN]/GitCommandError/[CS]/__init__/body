@@ -1,0 +1,4 @@
+def __init__(self, command, status, stderr=None):
+    self.stderr = stderr
+    self.status = status
+    self.command = command

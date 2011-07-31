@@ -1,0 +1,3 @@
+def insert(self, i, item):
+    (key, value) = item
+    self._main.insert(i, key, value)

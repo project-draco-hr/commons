@@ -1,0 +1,5 @@
+@property
+def remote_head(self):
+    ':return: Name of the remote head itself, i.e. master.\n\t\t:note: The returned name is usually not qualified enough to uniquely identify\n\t\t\ta branch'
+    tokens = self.path.split('/')
+    return '/'.join(tokens[3:])

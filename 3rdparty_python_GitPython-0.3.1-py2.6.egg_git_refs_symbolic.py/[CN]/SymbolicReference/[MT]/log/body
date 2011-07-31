@@ -1,0 +1,3 @@
+def log(self):
+    '\n\t\t:return: RefLog for this reference. Its last entry reflects the latest change\n\t\t\tapplied to this reference\n\t\t\t\n\t\t.. note:: As the log is parsed every time, its recommended to cache it for use\n\t\t\tinstead of calling this method repeatedly. It should be considered read-only.'
+    return RefLog.from_file(RefLog.path(self))

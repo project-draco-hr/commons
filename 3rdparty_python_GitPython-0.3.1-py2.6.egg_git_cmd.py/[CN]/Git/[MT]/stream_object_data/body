@@ -1,0 +1,5 @@
+def stream_object_data(self, ref):
+    'As get_object_header, but returns the data as a stream\n\t\t:return: (hexsha, type_string, size_as_int, stream)\n\t\t:note: This method is not threadsafe, you need one independent\tCommand instance\n\t\t\tper thread to be safe !'
+    cmd = self.__get_persistent_cmd('cat_file_all', 'cat_file', batch=True)
+    (hexsha, typename, size) = self.__get_object_header(cmd, ref)
+    return (hexsha, typename, size, self.CatFileContentStream(size, cmd.stdout))

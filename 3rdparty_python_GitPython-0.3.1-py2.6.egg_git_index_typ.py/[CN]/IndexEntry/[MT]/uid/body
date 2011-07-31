@@ -1,0 +1,4 @@
+@property
+def uid(self):
+    ' User ID '
+    return self[8]

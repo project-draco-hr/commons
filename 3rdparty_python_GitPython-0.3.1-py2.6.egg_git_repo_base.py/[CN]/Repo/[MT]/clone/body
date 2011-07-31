@@ -1,0 +1,3 @@
+def clone(self, path, **kwargs):
+    'Create a clone from this repository.\n\t\t:param path:\n\t\t\tis the full path of the new repo (traditionally ends with ./<name>.git).\n\n\t\t:param kwargs:\n\t\t\todbt = ObjectDatabase Type, allowing to determine the object database\n\t\t\timplementation used by the returned Repo instance\n\t\t\t\n\t\t\tAll remaining keyword arguments are given to the git-clone command\n\t\t\t\n\t\t:return: ``git.Repo`` (the newly cloned repo)'
+    return self._clone(self.git, self.git_dir, path, type(self.odb), **kwargs)

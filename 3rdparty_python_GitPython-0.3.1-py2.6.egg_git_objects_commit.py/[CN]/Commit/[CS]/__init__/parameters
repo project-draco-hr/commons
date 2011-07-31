@@ -1,0 +1,13 @@
+self
+repo
+binsha
+tree
+author
+authored_date
+author_tz_offset
+committer
+committed_date
+committer_tz_offset
+message
+parents
+encoding

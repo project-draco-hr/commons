@@ -1,0 +1,3 @@
+from reference import Reference
+__all__ = ['TagReference', 'Tag']
+Tag = TagReference

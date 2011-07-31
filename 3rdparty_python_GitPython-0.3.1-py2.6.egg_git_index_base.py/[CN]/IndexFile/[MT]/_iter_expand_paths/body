@@ -1,0 +1,21 @@
+def _iter_expand_paths(self, paths):
+    'Expand the directories in list of paths to the corresponding paths accordingly,\n\n\t\tNote: git will add items multiple times even if a glob overlapped\n\t\twith manually specified paths or if paths where specified multiple\n\t\ttimes - we respect that and do not prune'
+
+    def raise_exc(e):
+        raise e
+    r = self.repo.working_tree_dir
+    rs = (r + os.sep)
+    for path in paths:
+        abs_path = path
+        if (not os.path.isabs(abs_path)):
+            abs_path = os.path.join(r, path)
+        if (('?' in path) or ('*' in path) or ('[' in path)):
+            for f in self._iter_expand_paths(glob.glob(abs_path)):
+                yield f.replace(rs, '')
+            continue
+        try:
+            for (root, dirs, files) in os.walk(abs_path, onerror=raise_exc):
+                for rela_file in files:
+                    yield os.path.join(root.replace(rs, ''), rela_file)
+        except OSError:
+            yield path.replace(rs, '')

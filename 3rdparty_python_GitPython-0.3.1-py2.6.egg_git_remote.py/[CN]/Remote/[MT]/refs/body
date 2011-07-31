@@ -1,0 +1,7 @@
+@property
+def refs(self):
+    "\n\t\t:return:\n\t\t\tIterableList of RemoteReference objects. It is prefixed, allowing \n\t\t\tyou to omit the remote path portion, i.e.::\n\t\t\t remote.refs.master # yields RemoteReference('/refs/remotes/origin/master')"
+    out_refs = IterableList(RemoteReference._id_attribute_, ('%s/' % self.name))
+    out_refs.extend(RemoteReference.list_items(self.repo, remote=self.name))
+    assert out_refs, ('Remote %s did not have any references' % self.name)
+    return out_refs

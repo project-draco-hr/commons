@@ -1,0 +1,7 @@
+def _set_daemon_export(self, value):
+    filename = join(self.git_dir, self.DAEMON_EXPORT_FILE)
+    fileexists = os.path.exists(filename)
+    if (value and (not fileexists)):
+        touch(filename)
+    elif ((not value) and fileexists):
+        os.unlink(filename)

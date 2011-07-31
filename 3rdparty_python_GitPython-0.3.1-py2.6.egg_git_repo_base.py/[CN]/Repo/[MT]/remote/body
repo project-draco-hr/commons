@@ -1,0 +1,3 @@
+def remote(self, name='origin'):
+    ':return: Remote with the specified name\n\t\t:raise ValueError:  if no remote with such a name exists'
+    return Remote(self, name)

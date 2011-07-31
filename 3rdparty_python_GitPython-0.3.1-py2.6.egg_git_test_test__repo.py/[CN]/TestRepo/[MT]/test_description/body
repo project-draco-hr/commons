@@ -1,0 +1,4 @@
+def test_description(self):
+    txt = 'Test repository'
+    self.rorepo.description = txt
+    assert_equal(self.rorepo.description, txt)

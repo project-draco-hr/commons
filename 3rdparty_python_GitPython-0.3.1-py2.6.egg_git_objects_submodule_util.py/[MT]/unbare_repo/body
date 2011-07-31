@@ -1,0 +1,9 @@
+def unbare_repo(func):
+    'Methods with this decorator raise InvalidGitRepositoryError if they \n\tencounter a bare repository'
+
+    def wrapper(self, *args, **kwargs):
+        if self.repo.bare:
+            raise InvalidGitRepositoryError(("Method '%s' cannot operate on bare repositories" % func.__name__))
+        return func(self, *args, **kwargs)
+    wrapper.__name__ = func.__name__
+    return wrapper

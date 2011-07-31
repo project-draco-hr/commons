@@ -1,0 +1,6 @@
+def _get_intermediate_items(self, item):
+    ':return: all the submodules of our module repository'
+    try:
+        return type(self).list_items(item.module())
+    except InvalidGitRepositoryError:
+        return list()

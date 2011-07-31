@@ -1,0 +1,32 @@
+@with_rw_repo('0.1.6')
+def test_index_file_from_tree(self, rw_repo):
+    common_ancestor_sha = '5117c9c8a4d3af19a9958677e45cda9269de1541'
+    cur_sha = '4b43ca7ff72d5f535134241e7c797ddc9c7a3573'
+    other_sha = '39f85c4358b7346fee22169da9cad93901ea9eb9'
+    base_index = IndexFile.from_tree(rw_repo, common_ancestor_sha)
+    assert base_index.entries
+    self._cmp_tree_index(common_ancestor_sha, base_index)
+    two_way_index = IndexFile.from_tree(rw_repo, common_ancestor_sha, cur_sha)
+    assert two_way_index.entries
+    self._cmp_tree_index(cur_sha, two_way_index)
+    three_way_index = IndexFile.from_tree(rw_repo, common_ancestor_sha, cur_sha, other_sha)
+    assert len(list((e for e in three_way_index.entries.values() if (e.stage != 0))))
+    merge_required = (lambda t: (t[0] != 0))
+    merge_blobs = list(three_way_index.iter_blobs(merge_required))
+    assert merge_blobs
+    assert (merge_blobs[0][0] in (1, 2, 3))
+    assert isinstance(merge_blobs[0][1], Blob)
+    prefix = 'lib/git'
+    for (stage, blob) in base_index.iter_blobs(BlobFilter([prefix])):
+        assert blob.path.startswith(prefix)
+    self.failUnlessRaises(UnmergedEntriesError, three_way_index.write_tree)
+    unmerged_blob_map = three_way_index.unmerged_blobs()
+    assert unmerged_blob_map
+    three_way_index.resolve_blobs((l[0][1] for l in unmerged_blob_map.itervalues()))
+    tree = three_way_index.write_tree()
+    assert isinstance(tree, Tree)
+    num_blobs = 0
+    for blob in tree.traverse(predicate=(lambda item, d: (item.type == 'blob'))):
+        assert ((blob.path, 0) in three_way_index.entries)
+        num_blobs += 1
+    assert (num_blobs == len(three_way_index.entries))

@@ -1,0 +1,22 @@
+def name_to_object(repo, name, return_ref=False):
+    '\n\t:return: object specified by the given name, hexshas ( short and long )\n\t\tas well as references are supported\n\t:param return_ref: if name specifies a reference, we will return the reference\n\t\tinstead of the object. Otherwise it will raise BadObject\n\t'
+    hexsha = None
+    if repo.re_hexsha_shortened.match(name):
+        if (len(name) != 40):
+            hexsha = short_to_long(repo.odb, name)
+        else:
+            hexsha = name
+    else:
+        for base in ('%s', 'refs/%s', 'refs/tags/%s', 'refs/heads/%s', 'refs/remotes/%s', 'refs/remotes/%s/HEAD'):
+            try:
+                hexsha = SymbolicReference.dereference_recursive(repo, (base % name))
+                if return_ref:
+                    return SymbolicReference(repo, (base % name))
+                break
+            except ValueError:
+                pass
+    if return_ref:
+        raise BadObject(("Couldn't find reference named %r" % name))
+    if (hexsha is None):
+        raise BadObject(name)
+    return Object.new_from_sha(repo, hex_to_bin(hexsha))

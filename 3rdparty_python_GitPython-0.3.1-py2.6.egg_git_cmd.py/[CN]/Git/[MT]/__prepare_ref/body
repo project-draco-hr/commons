@@ -1,0 +1,5 @@
+def __prepare_ref(self, ref):
+    refstr = str(ref)
+    if refstr.endswith('\n'):
+        return refstr
+    return (refstr + '\n')

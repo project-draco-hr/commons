@@ -1,0 +1,5 @@
+def _serialize(self, stream):
+    lm1 = (len(self) - 1)
+    write = stream.write
+    for e in self:
+        write(repr(e))

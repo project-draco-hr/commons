@@ -1,0 +1,9 @@
+def iter_blobs(self, predicate=(lambda t: True)):
+    '\n\t\t:return: Iterator yielding tuples of Blob objects and stages, tuple(stage, Blob)\n\n\t\t:param predicate:\n\t\t\tFunction(t) returning True if tuple(stage, Blob) should be yielded by the\n\t\t\titerator. A default filter, the BlobFilter, allows you to yield blobs\n\t\t\tonly if they match a given list of paths. '
+    for entry in self.entries.itervalues():
+        mode = stat_mode_to_index_mode(entry.mode)
+        blob = entry.to_blob(self.repo)
+        blob.size = entry.size
+        output = (entry.stage, blob)
+        if predicate(output):
+            yield output

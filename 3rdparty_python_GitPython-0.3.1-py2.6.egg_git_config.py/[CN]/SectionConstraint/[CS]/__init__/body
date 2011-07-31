@@ -1,0 +1,3 @@
+def __init__(self, config, section):
+    self._config = config
+    self._section_name = section

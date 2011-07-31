@@ -1,0 +1,12 @@
+def _set_alternates(self, alts):
+    'Sets the alternates\n\n\t\t:parm alts:\n\t\t\tis the array of string paths representing the alternates at which \n\t\t\tgit should look for objects, i.e. /home/user/repo/.git/objects\n\n\t\t:raise NoSuchPathError:\n\t\t:note:\n\t\t\tThe method does not check for the existance of the paths in alts\n\t\t\tas the caller is responsible.'
+    alternates_path = join(self.git_dir, 'objects', 'info', 'alternates')
+    if (not alts):
+        if isfile(alternates_path):
+            os.remove(alternates_path)
+    else:
+        try:
+            f = open(alternates_path, 'w')
+            f.write('\n'.join(alts))
+        finally:
+            f.close()

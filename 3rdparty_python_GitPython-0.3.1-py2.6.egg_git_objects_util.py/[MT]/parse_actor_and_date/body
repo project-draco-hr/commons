@@ -1,0 +1,5 @@
+def parse_actor_and_date(line):
+    'Parse out the actor (author or committer) info from a line like::\n\t\n\t\tauthor Tom Preston-Werner <tom@mojombo.com> 1191999972 -0700\n\t\n\t:return: [Actor, int_seconds_since_epoch, int_timezone_offset]'
+    m = _re_actor_epoch.search(line)
+    (actor, epoch, offset) = m.groups()
+    return (Actor._from_string(actor), int(epoch), utctz_to_altz(offset))

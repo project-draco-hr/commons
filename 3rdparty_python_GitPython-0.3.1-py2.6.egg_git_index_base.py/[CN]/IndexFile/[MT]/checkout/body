@@ -1,0 +1,80 @@
+@default_index
+def checkout(self, paths=None, force=False, fprogress=(lambda *args: None), **kwargs):
+    'Checkout the given paths or all files from the version known to the index into\n\t\tthe working tree.\n\t\t\n\t\t:note: Be sure you have written pending changes using the ``write`` method\n\t\t\tin case you have altered the enties dictionary directly\n\n\t\t:param paths:\n\t\t\tIf None, all paths in the index will be checked out. Otherwise an iterable\n\t\t\tof relative or absolute paths or a single path pointing to files or directories\n\t\t\tin the index is expected.\n\n\t\t:param force:\n\t\t\tIf True, existing files will be overwritten even if they contain local modifications.\n\t\t\tIf False, these will trigger a CheckoutError.\n\n\t\t:param fprogress:\n\t\t\tsee Index.add_ for signature and explanation.\n\t\t\tThe provided progress information will contain None as path and item if no\n\t\t\texplicit paths are given. Otherwise progress information will be send\n\t\t\tprior and after a file has been checked out\n\n\t\t:param kwargs:\n\t\t\tAdditional arguments to be pasesd to git-checkout-index\n\n\t\t:return:\n\t\t\titerable yielding paths to files which have been checked out and are\n\t\t\tguaranteed to match the version stored in the index\n\n\t\t:raise CheckoutError:\n\t\t\tIf at least one file failed to be checked out. This is a summary,\n\t\t\thence it will checkout as many files as it can anyway.\n\t\t\tIf one of files or directories do not exist in the index\n\t\t\t( as opposed to the\t original git command who ignores them ).\n\t\t\tRaise GitCommandError if error lines could not be parsed - this truly is\n\t\t\tan exceptional state\n\t\t\t\n\t\t.. note:: The checkout is limited to checking out the files in the \n\t\t\tindex. Files which are not in the index anymore and exist in \n\t\t\tthe working tree will not be deleted. This behaviour is fundamentally\n\t\t\tdifferent to *head.checkout*, i.e. if you want git-checkout like behaviour, \n\t\t\tuse head.checkout instead of index.checkout.\n\t\t\t'
+    args = ['--index']
+    if force:
+        args.append('--force')
+
+    def handle_stderr(proc, iter_checked_out_files):
+        stderr = proc.stderr.read()
+        if (not stderr):
+            return
+        failed_files = list()
+        failed_reasons = list()
+        unknown_lines = list()
+        endings = (' already exists', ' is not in the cache', ' does not exist at stage', ' is unmerged')
+        for line in stderr.splitlines():
+            if ((not line.startswith('git checkout-index: ')) and (not line.startswith('git-checkout-index: '))):
+                is_a_dir = ' is a directory'
+                unlink_issue = "unable to unlink old '"
+                if line.endswith(is_a_dir):
+                    failed_files.append(line[:(- len(is_a_dir))])
+                    failed_reasons.append(is_a_dir)
+                elif line.startswith(unlink_issue):
+                    failed_files.append(line[len(unlink_issue):line.rfind("'")])
+                    failed_reasons.append(unlink_issue)
+                else:
+                    unknown_lines.append(line)
+                continue
+            for e in endings:
+                if line.endswith(e):
+                    failed_files.append(line[20:(- len(e))])
+                    failed_reasons.append(e)
+                    break
+        if unknown_lines:
+            raise GitCommandError(('git-checkout-index',), 128, stderr)
+        if failed_files:
+            valid_files = list((set(iter_checked_out_files) - set(failed_files)))
+            raise CheckoutError('Some files could not be checked out from the index due to local modifications', failed_files, valid_files, failed_reasons)
+    if (paths is None):
+        args.append('--all')
+        kwargs['as_process'] = 1
+        fprogress(None, False, None)
+        proc = self.repo.git.checkout_index(*args, **kwargs)
+        proc.wait()
+        fprogress(None, True, None)
+        rval_iter = (e.path for e in self.entries.itervalues())
+        handle_stderr(proc, rval_iter)
+        return rval_iter
+    else:
+        if isinstance(paths, basestring):
+            paths = [paths]
+        self.entries
+        args.append('--stdin')
+        kwargs['as_process'] = True
+        kwargs['istream'] = subprocess.PIPE
+        proc = self.repo.git.checkout_index(args, **kwargs)
+        make_exc = (lambda : GitCommandError((('git-checkout-index',) + tuple(args)), 128, proc.stderr.read()))
+        checked_out_files = list()
+        for path in paths:
+            co_path = to_native_path_linux(self._to_relative_path(path))
+            path_is_directory = False
+            try:
+                self.entries[(co_path, 0)]
+            except KeyError:
+                dir = co_path
+                if (not dir.endswith('/')):
+                    dir += '/'
+                for entry in self.entries.itervalues():
+                    if entry.path.startswith(dir):
+                        p = entry.path
+                        self._write_path_to_stdin(proc, p, p, make_exc, fprogress, read_from_stdout=False)
+                        checked_out_files.append(p)
+                        path_is_directory = True
+            if (not path_is_directory):
+                self._write_path_to_stdin(proc, co_path, path, make_exc, fprogress, read_from_stdout=False)
+                checked_out_files.append(co_path)
+        self._flush_stdin_and_wait(proc, ignore_stdout=True)
+        handle_stderr(proc, checked_out_files)
+        return checked_out_files
+    assert 'Should not reach this point'

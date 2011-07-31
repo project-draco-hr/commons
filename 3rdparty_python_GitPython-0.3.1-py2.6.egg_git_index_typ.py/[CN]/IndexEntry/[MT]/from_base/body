@@ -1,0 +1,5 @@
+@classmethod
+def from_base(cls, base):
+    ' \n\t\t:return:\n\t\t\tMinimal entry as created from the given BaseIndexEntry instance.\n\t\t\tMissing values will be set to null-like values\n\n\t\t:param base: Instance of type BaseIndexEntry'
+    time = pack('>LL', 0, 0)
+    return IndexEntry((base.mode, base.binsha, base.flags, base.path, time, time, 0, 0, 0, 0, 0))

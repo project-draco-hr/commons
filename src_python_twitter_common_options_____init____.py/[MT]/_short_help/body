@@ -1,2 +1,3 @@
 def _short_help(option, opt, value, parser):
     _Global.OPTIONS.print_help()
+    sys.exit(1)

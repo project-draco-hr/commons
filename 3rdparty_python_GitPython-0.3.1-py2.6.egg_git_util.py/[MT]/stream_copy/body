@@ -1,0 +1,10 @@
+def stream_copy(source, destination, chunk_size=(512 * 1024)):
+    'Copy all data from the source stream into the destination stream in chunks\n\tof size chunk_size\n\t\n\t:return: amount of bytes written'
+    br = 0
+    while True:
+        chunk = source.read(chunk_size)
+        destination.write(chunk)
+        br += len(chunk)
+        if (len(chunk) < chunk_size):
+            break
+    return br

@@ -1,0 +1,6 @@
+def __init__(self, working_dir=None):
+    'Initialize this instance with:\n\t\t\n\t\t:param working_dir:\n\t\t   Git directory we should work in. If None, we always work in the current \n\t\t   directory as returned by os.getcwd().\n\t\t   It is meant to be the working tree directory if available, or the \n\t\t   .git directory in case of bare repositories.'
+    super(Git, self).__init__()
+    self._working_dir = working_dir
+    self.cat_file_header = None
+    self.cat_file_all = None

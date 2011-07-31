@@ -1,0 +1,6 @@
+def test_repo_creation_from_different_paths(self):
+    r_from_gitdir = Repo(self.rorepo.git_dir)
+    assert (r_from_gitdir.git_dir == self.rorepo.git_dir)
+    assert r_from_gitdir.git_dir.endswith('.git')
+    assert (not self.rorepo.git.working_dir.endswith('.git'))
+    assert (r_from_gitdir.git.working_dir == self.rorepo.git.working_dir)

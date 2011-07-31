@@ -1,0 +1,12 @@
+def _release_lock(self):
+    'Release our lock if we have one'
+    if (not self._has_lock()):
+        return
+    lfp = self._lock_file_path()
+    try:
+        if (os.name == 'nt'):
+            os.chmod(lfp, 511)
+        os.remove(lfp)
+    except OSError:
+        pass
+    self._owns_lock = False

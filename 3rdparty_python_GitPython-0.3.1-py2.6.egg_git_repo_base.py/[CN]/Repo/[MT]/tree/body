@@ -1,0 +1,6 @@
+def tree(self, rev=None):
+    'The Tree object for the given treeish revision\n\t\tExamples::\n\t\n\t\t\t  repo.tree(repo.heads[0])\n\n\t\t:param rev: is a revision pointing to a Treeish ( being a commit or tree )\n\t\t:return: ``git.Tree``\n\t\t\t\n\t\t:note:\n\t\t\tIf you need a non-root level tree, find it by iterating the root tree. Otherwise\n\t\t\tit cannot know about its path relative to the repository root and subsequent \n\t\t\toperations might have unexpected results.'
+    if (rev is None):
+        return self.head.commit.tree
+    else:
+        return self.rev_parse((str(rev) + '^{tree}'))

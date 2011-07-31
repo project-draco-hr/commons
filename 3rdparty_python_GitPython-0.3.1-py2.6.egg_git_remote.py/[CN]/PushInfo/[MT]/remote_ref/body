@@ -1,0 +1,10 @@
+@property
+def remote_ref(self):
+    '\n\t\t:return:\n\t\t\tRemote Reference or TagReference in the local repository corresponding \n\t\t\tto the remote_ref_string kept in this instance.'
+    if self.remote_ref_string.startswith('refs/tags'):
+        return TagReference(self._remote.repo, self.remote_ref_string)
+    elif self.remote_ref_string.startswith('refs/heads'):
+        remote_ref = Reference(self._remote.repo, self.remote_ref_string)
+        return RemoteReference(self._remote.repo, ('refs/remotes/%s/%s' % (str(self._remote), remote_ref.name)))
+    else:
+        raise ValueError(('Could not handle remote ref: %r' % self.remote_ref_string))

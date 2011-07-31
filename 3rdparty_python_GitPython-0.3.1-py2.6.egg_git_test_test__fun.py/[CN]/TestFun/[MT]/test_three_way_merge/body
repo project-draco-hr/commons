@@ -1,0 +1,84 @@
+@with_rw_repo('0.1.6')
+def test_three_way_merge(self, rwrepo):
+
+    def mkfile(name, sha, executable=0):
+        return (sha, ((S_IFREG | 420) | (executable * 73)), name)
+
+    def mkcommit(name, sha):
+        return (sha, (S_IFDIR | S_IFLNK), name)
+
+    def assert_entries(entries, num_entries, has_conflict=False):
+        assert (len(entries) == num_entries)
+        assert (has_conflict == (len([e for e in entries if (e.stage != 0)]) > 0))
+    mktree = self.mktree
+    shaa = ('\x01' * 20)
+    shab = ('\x02' * 20)
+    shac = ('\x03' * 20)
+    odb = rwrepo.odb
+    bfn = 'basefile'
+    fbase = mkfile(bfn, shaa)
+    tb = mktree(odb, [fbase])
+    fa = mkfile('1', shab)
+    th = mktree(odb, [fbase, fa])
+    fb = mkfile('2', shac)
+    tm = mktree(odb, [fbase, fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 3)
+    fa = mkfile('1', shab)
+    th = mktree(odb, [fa])
+    fb = mkfile('2', shac)
+    tm = mktree(odb, [fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 2)
+    fa = mkfile('1', shab)
+    th = mktree(odb, [fa])
+    fb = mkfile('1', shac)
+    tm = mktree(odb, [fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 2, True)
+    fa = mkfile('1', shab)
+    th = mktree(odb, [fa])
+    fb = mkcommit('1', shab)
+    tm = mktree(odb, [fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 2, True)
+    fa = mkfile('1', shab)
+    th = mktree(odb, [fa])
+    fb = mkfile('1', shab)
+    tm = mktree(odb, [fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 1)
+    fa = mkfile(bfn, shab)
+    th = mktree(odb, [fa])
+    fb = mkfile(bfn, shac)
+    tm = mktree(odb, [fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 3, True)
+    fa = mkcommit(bfn, shaa)
+    th = mktree(odb, [fa])
+    fb = mkfile(bfn, shaa, executable=1)
+    tm = mktree(odb, [fb])
+    trees = [tb, th, tm]
+    assert_entries(aggressive_tree_merge(odb, trees), 3, True)
+    for is_them in range(2):
+        fa = mkfile(bfn, shab)
+        th = mktree(odb, [fa])
+        trees = [tb, th, tb]
+        if is_them:
+            trees = [tb, tb, th]
+        entries = aggressive_tree_merge(odb, trees)
+        assert ((len(entries) == 1) and (entries[0].binsha == shab))
+        fa = mkcommit(bfn, shaa)
+        th = mktree(odb, [fa])
+        trees = [tb, th, tb]
+        if is_them:
+            trees = [tb, tb, th]
+        entries = aggressive_tree_merge(odb, trees)
+        assert ((len(entries) == 1) and (entries[0].binsha == shaa) and (entries[0].mode == fa[1]))
+        fa = mkfile(bfn, shab)
+        th = mktree(odb, [fa])
+        tm = mktree(odb, [])
+        trees = [tb, th, tm]
+        if is_them:
+            trees = [tb, tm, th]
+        assert_entries(aggressive_tree_merge(odb, trees), 2, True)

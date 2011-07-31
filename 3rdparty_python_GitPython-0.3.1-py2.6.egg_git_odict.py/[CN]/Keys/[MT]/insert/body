@@ -1,0 +1,2 @@
+def insert(self, i, item):
+    raise TypeError("Can't insert items into keys")

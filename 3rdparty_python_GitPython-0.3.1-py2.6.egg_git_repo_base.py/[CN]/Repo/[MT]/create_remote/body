@@ -1,0 +1,3 @@
+def create_remote(self, name, url, **kwargs):
+    'Create a new remote.\n\t\t\n\t\tFor more information, please see the documentation of the Remote.create \n\t\tmethods \n\t\t\n\t\t:return: Remote reference'
+    return Remote.create(self, name, url, **kwargs)

@@ -1,0 +1,9 @@
+{
+  MovingWindowDelta<AtomicLong> movingWindowDelta=MovingWindowDelta.of("test",getSupplier(),5);
+  long ret=0l;
+  for (long i=0; i < 10; ++i) {
+    externalValue.getAndSet(i * i);
+    ret=movingWindowDelta.doSample();
+  }
+  assertEquals(65l,ret);
+}

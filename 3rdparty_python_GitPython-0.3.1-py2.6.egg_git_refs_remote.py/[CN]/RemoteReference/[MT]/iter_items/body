@@ -1,0 +1,7 @@
+@classmethod
+def iter_items(cls, repo, common_path=None, remote=None):
+    'Iterate remote references, and if given, constrain them to the given remote'
+    common_path = (common_path or cls._common_path_default)
+    if (remote is not None):
+        common_path = join_path(common_path, str(remote))
+    return super(RemoteReference, cls).iter_items(repo, common_path)

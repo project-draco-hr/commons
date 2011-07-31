@@ -1,0 +1,2 @@
+def __reversed__(self):
+    return reversed(self._iter_convert_to_object(self._cache))

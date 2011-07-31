@@ -1,0 +1,10 @@
+@classmethod
+def _flush_stdin_and_wait(cls, proc, ignore_stdout=False):
+    proc.stdin.flush()
+    proc.stdin.close()
+    stdout = ''
+    if (not ignore_stdout):
+        stdout = proc.stdout.read()
+    proc.stdout.close()
+    proc.wait()
+    return stdout

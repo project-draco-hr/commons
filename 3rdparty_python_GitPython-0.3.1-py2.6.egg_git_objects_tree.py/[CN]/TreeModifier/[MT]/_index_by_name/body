@@ -1,0 +1,6 @@
+def _index_by_name(self, name):
+    ':return: index of an item with name, or -1 if not found'
+    for (i, t) in enumerate(self._cache):
+        if (t[2] == name):
+            return i
+    return (-1)

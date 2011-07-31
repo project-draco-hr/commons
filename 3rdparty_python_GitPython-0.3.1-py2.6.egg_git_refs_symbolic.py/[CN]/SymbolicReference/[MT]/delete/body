@@ -1,0 +1,30 @@
+@classmethod
+def delete(cls, repo, path):
+    'Delete the reference at the given path\n\t\t\n\t\t:param repo:\n\t\t\tRepository to delete the reference from\n\t\t\n\t\t:param path:\n\t\t\tShort or full path pointing to the reference, i.e. refs/myreference\n\t\t\tor just "myreference", hence \'refs/\' is implied.\n\t\t\tAlternatively the symbolic reference to be deleted'
+    full_ref_path = cls.to_full_path(path)
+    abs_path = join(repo.git_dir, full_ref_path)
+    if exists(abs_path):
+        os.remove(abs_path)
+    else:
+        pack_file_path = cls._get_packed_refs_path(repo)
+        try:
+            reader = open(pack_file_path)
+        except (OSError, IOError):
+            pass
+        else:
+            new_lines = list()
+            made_change = False
+            dropped_last_line = False
+            for line in reader:
+                if ((line.startswith('#') or (full_ref_path not in line)) and ((not dropped_last_line) or (dropped_last_line and (not line.startswith('^'))))):
+                    new_lines.append(line)
+                    dropped_last_line = False
+                    continue
+                made_change = True
+                dropped_last_line = True
+            reader.close()
+            if made_change:
+                open(pack_file_path, 'w').writelines(new_lines)
+    reflog_path = RefLog.path(cls(repo, full_ref_path))
+    if os.path.isfile(reflog_path):
+        os.remove(reflog_path)

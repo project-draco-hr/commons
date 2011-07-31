@@ -1,0 +1,13 @@
+def resolve_blobs(self, iter_blobs):
+    'Resolve the blobs given in blob iterator. This will effectively remove the\n\t\tindex entries of the respective path at all non-null stages and add the given\n\t\tblob as new stage null blob.\n\n\t\tFor each path there may only be one blob, otherwise a ValueError will be raised\n\t\tclaiming the path is already at stage 0.\n\n\t\t:raise ValueError: if one of the blobs already existed at stage 0\n\t\t:return: self\n\n\t\t:note:\n\t\t\tYou will have to write the index manually once you are done, i.e.\n\t\t\tindex.resolve_blobs(blobs).write()\n\t\t'
+    for blob in iter_blobs:
+        stage_null_key = (blob.path, 0)
+        if (stage_null_key in self.entries):
+            raise ValueError(('Path %r already exists at stage 0' % blob.path))
+        for stage in (1, 2, 3):
+            try:
+                del self.entries[(blob.path, stage)]
+            except KeyError:
+                pass
+        self.entries[stage_null_key] = IndexEntry.from_blob(blob)
+    return self

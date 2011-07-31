@@ -1,0 +1,4 @@
+@property
+def time(self):
+    'time as tuple:\n\t\t\n\t\t* [0] = int(time)\n\t\t* [1] = int(timezone_offset) in time.altzone format '
+    return self[3]

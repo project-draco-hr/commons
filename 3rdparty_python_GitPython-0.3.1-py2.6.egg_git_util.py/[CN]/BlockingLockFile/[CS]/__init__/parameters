@@ -1,0 +1,4 @@
+self
+file_path
+check_interval_s
+max_block_time_s

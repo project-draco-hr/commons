@@ -1,0 +1,8 @@
+def test_creation_deletion(self):
+    head = self.rorepo.create_head('new_head', 'HEAD~1')
+    self.rorepo.delete_head(head)
+    tag = self.rorepo.create_tag('new_tag', 'HEAD~2')
+    self.rorepo.delete_tag(tag)
+    self.rorepo.config_writer()
+    remote = self.rorepo.create_remote('new_remote', 'git@server:repo.git')
+    self.rorepo.delete_remote(remote)

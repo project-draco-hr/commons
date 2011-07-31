@@ -1,0 +1,18 @@
+def _obtain_lock(self):
+    'This method blocks until it obtained the lock, or raises IOError if \n\t\tit ran out of time or if the parent directory was not available anymore.\n\t\tIf this method returns, you are guranteed to own the lock'
+    starttime = time.time()
+    maxtime = (starttime + float(self._max_block_time))
+    while True:
+        try:
+            super(BlockingLockFile, self)._obtain_lock()
+        except IOError:
+            curtime = time.time()
+            if (not os.path.isdir(os.path.dirname(self._lock_file_path()))):
+                msg = ('Directory containing the lockfile %r was not readable anymore after waiting %g seconds' % (self._lock_file_path(), (curtime - starttime)))
+                raise IOError(msg)
+            if (curtime >= maxtime):
+                msg = ('Waited %g seconds for lock at %r' % ((maxtime - starttime), self._lock_file_path()))
+                raise IOError(msg)
+            time.sleep(self._check_interval)
+        else:
+            break

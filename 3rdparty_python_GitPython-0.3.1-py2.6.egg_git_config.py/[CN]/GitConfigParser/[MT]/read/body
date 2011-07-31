@@ -1,0 +1,22 @@
+def read(self):
+    'Reads the data stored in the files we have been initialized with. It will \n\t\tignore files that cannot be read, possibly leaving an empty configuration\n\t\t\n\t\t:return: Nothing\n\t\t:raise IOError: if a file cannot be handled'
+    if self._is_initialized:
+        return
+    files_to_read = self._file_or_files
+    if (not isinstance(files_to_read, (tuple, list))):
+        files_to_read = [files_to_read]
+    for file_object in files_to_read:
+        fp = file_object
+        close_fp = False
+        if (not hasattr(file_object, 'seek')):
+            try:
+                fp = open(file_object)
+                close_fp = True
+            except IOError as e:
+                continue
+        try:
+            self._read(fp, fp.name)
+        finally:
+            if close_fp:
+                fp.close()
+    self._is_initialized = True

@@ -1,0 +1,6 @@
+def _mktemp(*args):
+    'Wrapper around default tempfile.mktemp to fix an osx issue'
+    tdir = tempfile.mktemp(*args)
+    if (sys.platform == 'darwin'):
+        tdir = ('/private' + tdir)
+    return tdir

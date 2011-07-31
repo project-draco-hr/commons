@@ -1,0 +1,19 @@
+import util
+from util import mkhead, sm_name, sm_section, unbare_repo, SubmoduleConfigParser, find_first_remote_branch
+from git.objects.util import Traversable
+from StringIO import StringIO
+from git.util import Iterable, join_path_native, to_native_path_linux, RemoteProgress
+from git.config import SectionConstraint
+from git.exc import InvalidGitRepositoryError, NoSuchPathError
+import stat
+import git
+import os
+import sys
+import time
+import shutil
+__all__ = ['Submodule', 'UpdateProgress']
+BEGIN = UpdateProgress.BEGIN
+END = UpdateProgress.END
+CLONE = UpdateProgress.CLONE
+FETCH = UpdateProgress.FETCH
+UPDWKTREE = UpdateProgress.UPDWKTREE

@@ -1,0 +1,3 @@
+'Module with functions which are supposed to be as fast as possible'
+from stat import S_ISDIR
+__all__ = ('tree_to_stream', 'tree_entries_from_data', 'traverse_trees_recursive', 'traverse_tree_recursive')

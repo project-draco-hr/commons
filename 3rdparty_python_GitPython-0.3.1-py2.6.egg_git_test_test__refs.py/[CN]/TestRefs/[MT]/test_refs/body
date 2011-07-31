@@ -1,0 +1,5 @@
+def test_refs(self):
+    types_found = set()
+    for ref in self.rorepo.refs:
+        types_found.add(type(ref))
+    assert (len(types_found) >= 3)

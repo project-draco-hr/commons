@@ -1,0 +1,16 @@
+@classmethod
+def _iter_from_process_or_stream(cls, repo, proc_or_stream):
+    'Parse out commit information into a list of Commit objects\n\t\tWe expect one-line per commit, and parse the actual commit information directly\n\t\tfrom our lighting fast object database\n\n\t\t:param proc: git-rev-list process instance - one sha per line\n\t\t:return: iterator returning Commit objects'
+    stream = proc_or_stream
+    if (not hasattr(stream, 'readline')):
+        stream = proc_or_stream.stdout
+    readline = stream.readline
+    while True:
+        line = readline()
+        if (not line):
+            break
+        hexsha = line.strip()
+        if (len(hexsha) > 40):
+            (hexsha, rest) = line.split(None, 1)
+        assert (len(hexsha) == 40), ('Invalid line: %s' % hexsha)
+        yield Commit(repo, hex_to_bin(hexsha))

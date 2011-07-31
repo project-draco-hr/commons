@@ -1,0 +1,3 @@
+@classmethod
+def _get_packed_refs_path(cls, repo):
+    return join(repo.git_dir, 'packed-refs')

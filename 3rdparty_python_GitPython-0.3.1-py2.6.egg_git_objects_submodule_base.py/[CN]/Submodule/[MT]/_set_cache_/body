@@ -1,0 +1,12 @@
+def _set_cache_(self, attr):
+    if (attr == '_parent_commit'):
+        self._parent_commit = self.repo.commit()
+    elif (attr in ('path', '_url', '_branch_path')):
+        reader = self.config_reader()
+        self.path = reader.get_value('path')
+        self._url = reader.get_value('url')
+        self._branch_path = reader.get_value(self.k_head_option, git.Head.to_full_path(self.k_head_default))
+    elif (attr == '_name'):
+        raise AttributeError('Cannot retrieve the name of a submodule if it was not set initially')
+    else:
+        super(Submodule, self)._set_cache_(attr)

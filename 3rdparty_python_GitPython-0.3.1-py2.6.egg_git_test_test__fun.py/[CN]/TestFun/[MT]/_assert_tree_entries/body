@@ -1,0 +1,5 @@
+def _assert_tree_entries(self, entries, num_trees):
+    for entry in entries:
+        assert (len(entry) == num_trees)
+        paths = set((e[2] for e in entry if e))
+        assert (len(paths) == 1)

@@ -1,0 +1,4 @@
+@classmethod
+def from_blob(cls, blob, stage=0):
+    ':return: Fully equipped BaseIndexEntry at the given stage'
+    return cls((blob.mode, blob.binsha, (stage << CE_STAGESHIFT), blob.path))

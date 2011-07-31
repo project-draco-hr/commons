@@ -1,0 +1,8 @@
+def read_header(stream):
+    'Return tuple(version_long, num_entries) from the given stream'
+    type_id = stream.read(4)
+    if (type_id != 'DIRC'):
+        raise AssertionError(('Invalid index file header: %r' % type_id))
+    (version, num_entries) = unpack('>LL', stream.read((4 * 2)))
+    assert (version in (1, 2))
+    return (version, num_entries)

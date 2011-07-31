@@ -1,0 +1,4 @@
+@property
+def branch(self):
+    ':return: The branch instance that we are to checkout\n\t\t:raise InvalidGitRepositoryError: if our module is not yet checked out'
+    return mkhead(self.module(), self._branch_path)

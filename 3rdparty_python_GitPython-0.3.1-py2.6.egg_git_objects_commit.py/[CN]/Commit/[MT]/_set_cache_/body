@@ -1,0 +1,6 @@
+def _set_cache_(self, attr):
+    if (attr in Commit.__slots__):
+        (binsha, typename, self.size, stream) = self.repo.odb.stream(self.binsha)
+        self._deserialize(StringIO(stream.read()))
+    else:
+        super(Commit, self)._set_cache_(attr)

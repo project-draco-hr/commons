@@ -1,0 +1,4 @@
+def test_get_object_type_by_name(self):
+    for tname in base.Object.TYPES:
+        assert (base.Object in get_object_type_by_name(tname).mro())
+    assert_raises(ValueError, get_object_type_by_name, 'doesntexist')

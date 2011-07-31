@@ -1,0 +1,4 @@
+@property
+def mtime(self):
+    'See ctime property, but returns modification time '
+    return unpack('>LL', self[5])

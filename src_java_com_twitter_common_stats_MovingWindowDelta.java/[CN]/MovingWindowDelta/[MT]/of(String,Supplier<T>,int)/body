@@ -1,0 +1,3 @@
+{
+  return new MovingWindowDelta<T>(name,inputAccessor,windowSize);
+}

@@ -1,0 +1,2 @@
+def _reset_progress(self):
+    self._fprogress_map = dict()

@@ -1,0 +1,8 @@
+def __delitem__(self, i):
+    'Delete the item at position i.'
+    key = self._main._sequence[i]
+    if isinstance(i, types.SliceType):
+        for k in key:
+            del self._main[k]
+    else:
+        del self._main[key]

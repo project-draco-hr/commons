@@ -1,0 +1,2 @@
+def __iter__(self):
+    return self._iter_convert_to_object(self._cache)

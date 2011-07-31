@@ -1,0 +1,4 @@
+@property
+def renamed(self):
+    ':returns: True if the blob of our diff has been renamed'
+    return (self.rename_from != self.rename_to)

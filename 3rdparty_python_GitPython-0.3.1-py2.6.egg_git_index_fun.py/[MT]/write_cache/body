@@ -1,0 +1,23 @@
+def write_cache(entries, stream, extension_data=None, ShaStreamCls=IndexFileSHA1Writer):
+    'Write the cache represented by entries to a stream\n\t\n\t:param entries: **sorted** list of entries\n\t:param stream: stream to wrap into the AdapterStreamCls - it is used for\n\t\tfinal output.\n\t\t\n\t:param ShaStreamCls: Type to use when writing to the stream. It produces a sha\n\t\twhile writing to it, before the data is passed on to the wrapped stream\n\t\t\n\t:param extension_data: any kind of data to write as a trailer, it must begin\n\t\ta 4 byte identifier, followed by its size ( 4 bytes )'
+    stream = ShaStreamCls(stream)
+    tell = stream.tell
+    write = stream.write
+    version = 2
+    write('DIRC')
+    write(pack('>LL', version, len(entries)))
+    for entry in entries:
+        beginoffset = tell()
+        write(entry[4])
+        write(entry[5])
+        path = entry[3]
+        plen = (len(path) & CE_NAMEMASK)
+        assert (plen == len(path)), ('Path %s too long to fit into index' % entry[3])
+        flags = (plen | (entry[2] & CE_NAMEMASK_INV))
+        write(pack('>LLLLLL20sH', entry[6], entry[7], entry[0], entry[8], entry[9], entry[10], entry[1], flags))
+        write(path)
+        real_size = (((tell() - beginoffset) + 8) & (~ 7))
+        write(('\x00' * ((beginoffset + real_size) - tell())))
+    if (extension_data is not None):
+        stream.write(extension_data)
+    stream.write_sha()

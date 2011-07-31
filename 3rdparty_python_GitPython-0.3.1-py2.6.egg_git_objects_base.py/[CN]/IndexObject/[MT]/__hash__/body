@@ -1,0 +1,3 @@
+def __hash__(self):
+    ':return:\n\t\t\tHash of our path as index items are uniquely identifyable by path, not \n\t\t\tby their data !'
+    return hash(self.path)

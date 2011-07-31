@@ -1,0 +1,3 @@
+@raises(NoSuchPathError)
+def test_new_should_raise_on_non_existant_path(self):
+    Repo('repos/foobar')

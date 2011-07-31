@@ -1,0 +1,3 @@
+def module(self):
+    ':return: the actual repository containing the submodules'
+    return self.repo

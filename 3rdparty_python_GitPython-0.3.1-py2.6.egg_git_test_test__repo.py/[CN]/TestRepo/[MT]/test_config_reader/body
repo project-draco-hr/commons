@@ -1,0 +1,5 @@
+def test_config_reader(self):
+    reader = self.rorepo.config_reader()
+    assert reader.read_only
+    reader = self.rorepo.config_reader('repository')
+    assert reader.read_only

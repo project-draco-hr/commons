@@ -1,0 +1,13 @@
+@classmethod
+def _from_string(cls, string):
+    'Create an Actor from a string.\n\t\t:param string: is the string, which is expected to be in regular git format\n\n\t\t\t\tJohn Doe <jdoe@example.com>\n\t\t\t\t\n\t\t:return: Actor '
+    m = cls.name_email_regex.search(string)
+    if m:
+        (name, email) = m.groups()
+        return Actor(name, email)
+    else:
+        m = cls.name_only_regex.search(string)
+        if m:
+            return Actor(m.group(1), None)
+        else:
+            return Actor(string, None)

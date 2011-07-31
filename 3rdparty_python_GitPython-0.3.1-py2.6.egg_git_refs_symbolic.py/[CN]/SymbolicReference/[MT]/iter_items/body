@@ -1,0 +1,4 @@
+@classmethod
+def iter_items(cls, repo, common_path=None):
+    'Find all refs in the repository\n\n\t\t:param repo: is the Repo\n\n\t\t:param common_path:\n\t\t\tOptional keyword argument to the path which is to be shared by all\n\t\t\treturned Ref objects.\n\t\t\tDefaults to class specific portion if None assuring that only \n\t\t\trefs suitable for the actual class are returned.\n\n\t\t:return:\n\t\t\tgit.SymbolicReference[], each of them is guaranteed to be a symbolic\n\t\t\tref which is not detached.\n\t\t\t\n\t\t\tList is lexigraphically sorted\n\t\t\tThe returned objects represent actual subclasses, such as Head or TagReference'
+    return (r for r in cls._iter_items(repo, common_path) if ((r.__class__ == SymbolicReference) or (not r.is_detached)))

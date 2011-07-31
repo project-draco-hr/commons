@@ -1,0 +1,25 @@
+def test_traversal(self):
+    start = self.rorepo.commit('a4d06724202afccd2b5c54f81bcf2bf26dea7fff')
+    first = self.rorepo.commit('33ebe7acec14b25c5f84f35a664803fcab2f7781')
+    p0 = start.parents[0]
+    p1 = start.parents[1]
+    p00 = p0.parents[0]
+    p10 = p1.parents[0]
+    dfirst = start.traverse(branch_first=False)
+    bfirst = start.traverse(branch_first=True)
+    assert (dfirst.next() == p0)
+    assert (dfirst.next() == p00)
+    assert (bfirst.next() == p0)
+    assert (bfirst.next() == p1)
+    assert (bfirst.next() == p00)
+    assert (bfirst.next() == p10)
+    assert (list(bfirst)[(-1)] == first)
+    stoptraverse = self.rorepo.commit('254d04aa3180eb8b8daf7b7ff25f010cd69b4e7d').traverse(as_edge=True)
+    l = list(stoptraverse)
+    assert (len(l[0]) == 2)
+    assert (start.traverse(ignore_self=False).next() == start)
+    assert (len(list(start.traverse(ignore_self=False, depth=0))) == 1)
+    assert (start.traverse(branch_first=1, prune=(lambda i, d: (i == p0))).next() == p1)
+    assert (start.traverse(branch_first=1, predicate=(lambda i, d: (i == p1))).next() == p1)
+    self.failUnlessRaises(StopIteration, first.traverse().next)
+    assert (len(first.parents) == 0)

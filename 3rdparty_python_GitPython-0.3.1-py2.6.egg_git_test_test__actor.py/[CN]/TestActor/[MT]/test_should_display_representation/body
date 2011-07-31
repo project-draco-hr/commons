@@ -1,0 +1,3 @@
+def test_should_display_representation(self):
+    a = Actor._from_string('Michael Trier <mtrier@example.com>')
+    assert_equal('<git.Actor "Michael Trier <mtrier@example.com>">', repr(a))

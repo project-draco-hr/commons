@@ -1,0 +1,4 @@
+def write_sha(self):
+    sha = self.sha1.digest()
+    self.f.write(sha)
+    return sha

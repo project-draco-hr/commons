@@ -1,0 +1,4 @@
+@property
+def actor(self):
+    'Actor instance, providing access'
+    return self[2]

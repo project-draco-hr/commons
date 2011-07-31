@@ -1,0 +1,5 @@
+def __init__(self, repo, path):
+    'Initialize this instance\n\t\t:param repo: Our parent repository\n\t\t\n\t\t:param path:\n\t\t\tPath relative to the .git/ directory pointing to the ref in question, i.e.\n\t\t\trefs/heads/master'
+    if (not path.startswith((self._common_path_default + '/'))):
+        raise ValueError(('Cannot instantiate %r from path %s' % (self.__class__.__name__, path)))
+    super(Reference, self).__init__(repo, path)

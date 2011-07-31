@@ -1,0 +1,10 @@
+def set_object(self, object, logmsg=None):
+    'Special version which checks if the head-log needs an update as well'
+    oldbinsha = None
+    if (logmsg is not None):
+        head = self.repo.head
+        if ((not head.is_detached) and (head.ref == self)):
+            oldbinsha = self.commit.binsha
+    super(Reference, self).set_object(object, logmsg)
+    if (oldbinsha is not None):
+        self.repo.head.log_append(oldbinsha, logmsg)

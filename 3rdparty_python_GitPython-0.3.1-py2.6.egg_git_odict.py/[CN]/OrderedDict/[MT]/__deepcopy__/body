@@ -1,0 +1,4 @@
+def __deepcopy__(self, memo):
+    "\n        To allow deepcopy to work with OrderedDict.\n        \n        >>> from copy import deepcopy\n        >>> a = OrderedDict([(1, 1), (2, 2), (3, 3)])\n        >>> a['test'] = {}\n        >>> b = deepcopy(a)\n        >>> b == a\n        True\n        >>> b is a\n        False\n        >>> a['test'] is b['test']\n        False\n        "
+    from copy import deepcopy
+    return self.__class__(deepcopy(self.items(), memo), self.strict)

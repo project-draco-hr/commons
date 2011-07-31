@@ -1,0 +1,13 @@
+def test_tags(self):
+    s = set()
+    ref_count = 0
+    for ref in chain(self.rorepo.tags, self.rorepo.heads):
+        ref_count += 1
+        assert isinstance(ref, refs.Reference)
+        assert (str(ref) == ref.name)
+        assert repr(ref)
+        assert (ref == ref)
+        assert (not (ref != ref))
+        s.add(ref)
+    assert (len(s) == ref_count)
+    assert (len((s | s)) == ref_count)

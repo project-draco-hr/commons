@@ -1,0 +1,10 @@
+@property
+def commit(self):
+    ':return: Commit object the tag ref points to'
+    obj = self.object
+    if (obj.type == 'commit'):
+        return obj
+    elif (obj.type == 'tag'):
+        return obj.object
+    else:
+        raise ValueError(('Tag %s points to a Blob or Tree - have never seen that before' % self))

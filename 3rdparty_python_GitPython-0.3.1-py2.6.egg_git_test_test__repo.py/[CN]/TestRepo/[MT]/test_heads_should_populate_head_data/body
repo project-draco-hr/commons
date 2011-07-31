@@ -1,0 +1,6 @@
+def test_heads_should_populate_head_data(self):
+    for head in self.rorepo.heads:
+        assert head.name
+        assert isinstance(head.commit, Commit)
+    assert isinstance(self.rorepo.heads.master, Head)
+    assert isinstance(self.rorepo.heads['master'], Head)

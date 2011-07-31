@@ -1,21 +1,21 @@
 @classmethod
-def coalesce_targets(cls, internal_targets):
-    'Returns a list of targets internal_targets depend on sorted from most dependent to least and\n    grouped where possible by target type.'
+def coalesce_targets(cls, internal_targets, discriminator):
+    'Returns a list of targets internal_targets depend on sorted from most dependent to least and\n    grouped where possible by target type as categorized by the given discriminator.'
     sorted_targets = InternalTarget.sort_targets(internal_targets)
     if (len(sorted_targets) <= 2):
         return sorted_targets
     current_type = None
     for i in range((len(sorted_targets) - 1)):
         current_target = sorted_targets[i]
-        if (current_type != type(current_target)):
+        if (current_type != discriminator(current_target)):
             scanned_back = False
             for j in range((i + 1), len(sorted_targets)):
                 look_ahead_target = sorted_targets[j]
-                if (current_type == type(look_ahead_target)):
+                if (current_type == discriminator(look_ahead_target)):
                     scanned_back = True
                     for k in range(j, i, (-1)):
                         previous_target = sorted_targets[(k - 1)]
-                        mismatching_types = (current_type != type(previous_target))
+                        mismatching_types = (current_type != discriminator(previous_target))
                         not_a_dependency = (look_ahead_target not in previous_target.internal_dependencies)
                         if (mismatching_types and not_a_dependency):
                             sorted_targets[k] = sorted_targets[(k - 1)]
@@ -24,5 +24,5 @@ def coalesce_targets(cls, internal_targets):
                             break
                     break
             if (not scanned_back):
-                current_type = type(current_target)
+                current_type = discriminator(current_target)
     return sorted_targets

@@ -1,0 +1,8 @@
+{
+  return new Supplier<AtomicLong>(){
+    @Override public AtomicLong get(){
+      return externalValue;
+    }
+  }
+;
+}

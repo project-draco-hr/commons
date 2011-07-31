@@ -1,0 +1,5 @@
+def __init__(self, message, failed_files, valid_files, failed_reasons):
+    Exception.__init__(self, message)
+    self.failed_files = failed_files
+    self.failed_reasons = failed_reasons
+    self.valid_files = valid_files

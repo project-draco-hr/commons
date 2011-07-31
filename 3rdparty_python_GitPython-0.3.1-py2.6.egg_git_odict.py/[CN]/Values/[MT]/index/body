@@ -1,0 +1,2 @@
+def index(self, item, *args):
+    return self._main.values().index(item, *args)

@@ -1,6 +1,7 @@
 self
 name
 sources
+target_base
 provides
 dependencies
 excludes

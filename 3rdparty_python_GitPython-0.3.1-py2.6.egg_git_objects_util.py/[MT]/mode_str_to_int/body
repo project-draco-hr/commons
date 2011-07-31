@@ -1,0 +1,6 @@
+def mode_str_to_int(modestr):
+    '\n\t:param modestr: string like 755 or 644 or 100644 - only the last 6 chars will be used\n\t:return:\n\t\tString identifying a mode compatible to the mode methods ids of the \n\t\tstat module regarding the rwx permissions for user, group and other, \n\t\tspecial flags and file system flags, i.e. whether it is a symlink\n\t\tfor example.'
+    mode = 0
+    for (iteration, char) in enumerate(reversed(modestr[(-6):])):
+        mode += (int(char) << (iteration * 3))
+    return mode

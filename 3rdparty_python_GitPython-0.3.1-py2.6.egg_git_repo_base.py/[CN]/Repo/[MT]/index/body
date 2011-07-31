@@ -1,0 +1,4 @@
+@property
+def index(self):
+    ":return: IndexFile representing this repository's index."
+    return IndexFile(self)

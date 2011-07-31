@@ -1,0 +1,6 @@
+@classmethod
+def list_items(cls, repo, *args, **kwargs):
+    '\n\t\tFind all items of this type - subclasses can specify args and kwargs differently.\n\t\tIf no args are given, subclasses are obliged to return all items if no additional \n\t\targuments arg given.\n\t\t\n\t\t:note: Favor the iter_items method as it will\n\t\t\n\t\t:return:list(Item,...) list of item instances'
+    out_list = IterableList(cls._id_attribute_)
+    out_list.extend(cls.iter_items(repo, *args, **kwargs))
+    return out_list

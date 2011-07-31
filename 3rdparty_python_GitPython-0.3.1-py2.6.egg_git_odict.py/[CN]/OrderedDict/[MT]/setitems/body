@@ -1,0 +1,4 @@
+def setitems(self, items):
+    '\n        This method allows you to set the items in the dict.\n        \n        It takes a list of tuples - of the same sort returned by the ``items``\n        method.\n        \n        >>> d = OrderedDict()\n        >>> d.setitems(((3, 1), (2, 3), (1, 2)))\n        >>> d\n        OrderedDict([(3, 1), (2, 3), (1, 2)])\n        '
+    self.clear()
+    self.update(items)

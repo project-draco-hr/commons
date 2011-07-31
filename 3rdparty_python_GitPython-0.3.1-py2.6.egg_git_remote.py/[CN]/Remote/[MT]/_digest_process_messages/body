@@ -1,0 +1,14 @@
+def _digest_process_messages(self, fh, progress):
+    'Read progress messages from file-like object fh, supplying the respective\n\t\tprogress messages to the progress instance.\n\t\t\n\t\t:return: list(line, ...) list of lines without linebreaks that did \n\t\t\tnot contain progress information'
+    line_so_far = ''
+    dropped_lines = list()
+    while True:
+        char = fh.read(1)
+        if (not char):
+            break
+        if (char in ('\r', '\n')):
+            dropped_lines.extend(progress._parse_progress_line(line_so_far))
+            line_so_far = ''
+        else:
+            line_so_far += char
+    return dropped_lines

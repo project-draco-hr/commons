@@ -1,0 +1,3 @@
+def __call__(self):
+    'Pretend to be the items method.'
+    return self._main._items()

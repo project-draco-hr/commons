@@ -1,0 +1,95 @@
+@with_rw_repo(k_subm_current, bare=False)
+def test_root_module(self, rwrepo):
+    rm = RootModule(self.rorepo)
+    assert (rm.module() is self.rorepo)
+    rm.binsha
+    rm.mode
+    rm.path
+    assert (rm.name == rm.k_root_name)
+    assert (rm.parent_commit == self.rorepo.head.commit)
+    rm.url
+    rm.branch
+    assert (len(rm.list_items(rm.module())) == 1)
+    rm.config_reader()
+    rm.config_writer()
+    rsmsp = [sm.path for sm in rm.traverse()]
+    assert (len(rsmsp) == 2)
+    self.failUnlessRaises(ValueError, rm.set_parent_commit, 'HEAD')
+    rm = RootModule(rwrepo)
+    assert (len(rm.children()) == 1)
+    sm = rm.children()[0]
+    pp = 'path/prefix'
+    fp = join_path_native(pp, sm.path)
+    prep = sm.path
+    assert (not sm.module_exists())
+    sm.config_writer().set_value('url', to_native_path_linux(join_path_native(self.rorepo.working_tree_dir, sm.path)))
+    sm.update(recursive=False, dry_run=True, progress=prog)
+    assert (not sm.module_exists())
+    sm.update(recursive=False)
+    assert sm.module_exists()
+    sm.config_writer().set_value('path', fp)
+    self.failUnlessRaises(InvalidGitRepositoryError, rm.update, recursive=False)
+    self.failUnlessRaises(InvalidGitRepositoryError, sm.move, pp)
+    sm.path = prep
+    sm.move(fp, module=False)
+    assert (not sm.module_exists())
+    cpathchange = rwrepo.index.commit('changed sm path')
+    rm.update(recursive=False, progress=prog)
+    sm.set_parent_commit(cpathchange)
+    assert sm.module_exists()
+    nsmn = 'newsubmodule'
+    nsmp = 'submrepo'
+    async_url = to_native_path_linux(join_path_native(self.rorepo.working_tree_dir, rsmsp[0], rsmsp[1]))
+    nsm = Submodule.add(rwrepo, nsmn, nsmp, url=async_url)
+    csmadded = rwrepo.index.commit('Added submodule').hexsha
+    nsm.set_parent_commit(csmadded)
+    assert nsm.module_exists()
+    nsm.remove(configuration=False, module=True)
+    assert ((not nsm.module_exists()) and nsm.exists())
+    rm.update(recursive=False, dry_run=True, progress=prog)
+    rm.update(recursive=False, progress=prog)
+    assert nsm.module_exists()
+    sm.set_parent_commit(csmadded)
+    smp = sm.abspath
+    assert (not sm.remove(module=False).exists())
+    assert os.path.isdir(smp)
+    csmremoved = rwrepo.index.commit('Removed submodule')
+    rm.update(recursive=False, dry_run=True)
+    assert os.path.isdir(smp)
+    rm.update(recursive=False)
+    assert (not os.path.isdir(smp))
+    nsm.set_parent_commit(csmremoved)
+    nsmurl = to_native_path_linux(join_path_native(self.rorepo.working_tree_dir, rsmsp[0]))
+    nsm.config_writer().set_value('url', nsmurl)
+    csmpathchange = rwrepo.index.commit('changed url')
+    nsm.set_parent_commit(csmpathchange)
+    prev_commit = nsm.module().head.commit
+    rm.update(recursive=False, dry_run=True, progress=prog)
+    assert (nsm.module().remotes.origin.url != nsmurl)
+    rm.update(recursive=False, progress=prog)
+    assert (nsm.module().remotes.origin.url == nsmurl)
+    assert (prev_commit != nsm.module().head.commit)
+    nsm.binsha = nsm.module().head.commit.binsha
+    rwrepo.index.add([nsm])
+    cur_branch = nsm.branch
+    nsmm = nsm.module()
+    prev_commit = nsmm.head.commit
+    for branch in ('some_virtual_branch', cur_branch.name):
+        nsm.config_writer().set_value(Submodule.k_head_option, git.Head.to_full_path(branch))
+        csmbranchchange = rwrepo.index.commit(('changed branch to %s' % branch))
+        nsm.set_parent_commit(csmbranchchange)
+    nsmmh = nsmm.head
+    assert (nsmmh.ref.tracking_branch() is None)
+    assert (not nsmmh.is_detached)
+    rm.update(recursive=False, dry_run=True, progress=prog)
+    assert (nsmmh.ref.tracking_branch() is None)
+    rm.update(recursive=False, progress=prog)
+    assert (nsmmh.ref.tracking_branch() is not None)
+    assert (not nsmmh.is_detached)
+    assert (len(nsm.children()) == 1)
+    assert (nsm.exists() and nsm.module_exists() and (len(nsm.children()) == 1))
+    nsmc = nsm.children()[0]
+    nsmc.config_writer().set_value('url', async_url)
+    rm.update(recursive=True, progress=prog, dry_run=True)
+    rm.update(recursive=True, progress=prog)
+    assert ((len(nsm.children()) == 1) and nsmc.module_exists())

@@ -1,0 +1,3 @@
+{
+  return of(name,inputAccessor,DEFAULT_WINDOW_SIZE);
+}

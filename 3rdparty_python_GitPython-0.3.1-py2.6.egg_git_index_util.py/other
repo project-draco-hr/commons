@@ -1,0 +1,7 @@
+'Module containing index utilities'
+import struct
+import tempfile
+import os
+__all__ = ('TemporaryFileSwap', 'post_clear_cache', 'default_index', 'git_working_dir')
+pack = struct.pack
+unpack = struct.unpack

@@ -1,0 +1,4 @@
+@property
+def name(self):
+    '\n\t\t:return:\n\t\t\tIn case of symbolic references, the shortest assumable name \n\t\t\tis the path itself.'
+    return self.path

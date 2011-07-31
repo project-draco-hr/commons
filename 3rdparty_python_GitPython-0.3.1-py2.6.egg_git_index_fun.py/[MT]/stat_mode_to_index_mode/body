@@ -1,0 +1,7 @@
+def stat_mode_to_index_mode(mode):
+    'Convert the given mode from a stat call to the corresponding index mode\n\tand return it'
+    if S_ISLNK(mode):
+        return S_IFLNK
+    if (S_ISDIR(mode) or (S_IFMT(mode) == S_IFGITLINK)):
+        return S_IFGITLINK
+    return ((S_IFREG | 420) | (mode & 64))

@@ -1,0 +1,3 @@
+def find_target_base(self):
+    "Finds the directory relative to the repo root directory that houses this target's sources\n    in the native packaging scheme.  For Java projects, this would typically be the relative path\n    to the root of a package hierarchy - currently src/java, tests/java, etc.  For C for example\n    this might be different: src/c/src and src/c/includes.\n\n    The default implementation assumes all source roots are 2 levels deep from the root directory.\n    "
+    return os.path.sep.join(self.address.buildfile.relpath.split(os.path.sep)[:2])

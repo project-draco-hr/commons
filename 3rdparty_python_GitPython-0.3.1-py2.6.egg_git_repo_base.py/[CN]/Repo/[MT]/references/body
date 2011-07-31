@@ -1,0 +1,4 @@
+@property
+def references(self):
+    'A list of Reference objects representing tags, heads and remote references.\n\t\t\n\t\t:return: IterableList(Reference, ...)'
+    return Reference.list_items(self)

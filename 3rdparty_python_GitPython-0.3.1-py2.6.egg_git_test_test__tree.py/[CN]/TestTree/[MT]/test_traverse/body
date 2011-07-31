@@ -1,0 +1,31 @@
+def test_traverse(self):
+    root = self.rorepo.tree('0.1.6')
+    num_recursive = 0
+    all_items = list()
+    for obj in root.traverse():
+        if ('/' in obj.path):
+            num_recursive += 1
+        assert isinstance(obj, (Blob, Tree))
+        all_items.append(obj)
+    assert (all_items == root.list_traverse())
+    assert all_items
+    assert ('CHANGES' in root)
+    assert (len(list(root)) == len(list(root.traverse(depth=1))))
+    trees_only = (lambda i, d: (i.type == 'tree'))
+    trees = list(root.traverse(predicate=trees_only))
+    assert (len(trees) == len(list((i for i in root.traverse() if trees_only(i, 0)))))
+    lib_folder = (lambda t, d: (t.path == 'lib'))
+    pruned_trees = list(root.traverse(predicate=trees_only, prune=lib_folder))
+    assert (len(pruned_trees) < len(trees))
+    assert (len((set(trees) | set(root.trees))) == len(trees))
+    assert (len((set((b for b in root if isinstance(b, Blob))) | set(root.blobs))) == len(root.blobs))
+    subitem = trees[0][0]
+    assert ('/' in subitem.path)
+    assert (subitem.name == os.path.basename(subitem.path))
+    found_slash = False
+    for item in root.traverse():
+        assert os.path.isabs(item.abspath)
+        if ('/' in item.path):
+            found_slash = True
+        assert (root[item.path] == item == (root / item.path))
+    assert found_slash

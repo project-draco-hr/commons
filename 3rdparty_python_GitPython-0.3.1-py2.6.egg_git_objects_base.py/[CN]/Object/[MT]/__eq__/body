@@ -1,0 +1,3 @@
+def __eq__(self, other):
+    ':return: True if the objects have the same SHA1'
+    return (self.binsha == other.binsha)

@@ -1,11 +1,6 @@
 {
-  Map<String,String> argumentMap=Maps.newHashMap(ArgScanner.mapArguments(args));
-  String argSpecifiedPackages=argumentMap.remove(SCAN_PACKAGES_ARG);
-  if (argSpecifiedPackages != null) {
-    LOG.warning(String.format("Ignoring deprecated flag -%s=%s , scanning is now automatic",SCAN_PACKAGES_ARG,argSpecifiedPackages));
-  }
   try {
-    ArgScanner.parse(argumentMap);
+    ArgScanner.parse(args);
   }
  catch (  ArgScanException e) {
     exit("Failed to scan arguments",e);

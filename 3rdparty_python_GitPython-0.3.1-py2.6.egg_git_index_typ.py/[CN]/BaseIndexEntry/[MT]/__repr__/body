@@ -1,0 +1,2 @@
+def __repr__(self):
+    return ('(%o, %s, %i, %s)' % (self.mode, self.hexsha, self.stage, self.path))

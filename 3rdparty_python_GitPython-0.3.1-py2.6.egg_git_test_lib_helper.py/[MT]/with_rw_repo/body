@@ -1,0 +1,32 @@
+def with_rw_repo(working_tree_ref, bare=False):
+    '\n\tSame as with_bare_repo, but clones the rorepo as non-bare repository, checking \n\tout the working tree at the given working_tree_ref.\n\t\n\tThis repository type is more costly due to the working copy checkout.\n\t\n\tTo make working with relative paths easier, the cwd will be set to the working \n\tdir of the repository.\n\t'
+    assert isinstance(working_tree_ref, basestring), 'Decorator requires ref name for working tree checkout'
+
+    def argument_passer(func):
+
+        def repo_creator(self):
+            prefix = 'non_'
+            if bare:
+                prefix = ''
+            repo_dir = _mktemp(('%sbare_%s' % (prefix, func.__name__)))
+            rw_repo = self.rorepo.clone(repo_dir, shared=True, bare=bare, n=True)
+            rw_repo.head.commit = rw_repo.commit(working_tree_ref)
+            if (not bare):
+                rw_repo.head.reference.checkout()
+            prev_cwd = os.getcwd()
+            os.chdir(rw_repo.working_dir)
+            try:
+                try:
+                    return func(self, rw_repo)
+                except:
+                    print  >> sys.stderr, ('Keeping repo after failure: %s' % repo_dir)
+                    repo_dir = None
+                    raise
+            finally:
+                os.chdir(prev_cwd)
+                rw_repo.git.clear_cache()
+                if (repo_dir is not None):
+                    shutil.rmtree(repo_dir, onerror=_rmtree_onerror)
+        repo_creator.__name__ = func.__name__
+        return repo_creator
+    return argument_passer

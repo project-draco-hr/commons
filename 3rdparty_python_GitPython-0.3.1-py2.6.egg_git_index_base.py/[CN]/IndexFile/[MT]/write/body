@@ -1,0 +1,9 @@
+def write(self, file_path=None, ignore_tree_extension_data=False):
+    'Write the current state to our file path or to the given one\n\n\t\t:param file_path:\n\t\t\tIf None, we will write to our stored file path from which we have\n\t\t\tbeen initialized. Otherwise we write to the given file path.\n\t\t\tPlease note that this will change the file_path of this index to\n\t\t\tthe one you gave.\n\n\t\t:param ignore_tree_extension_data:\n\t\t\tIf True, the TREE type extension data read in the index will not\n\t\t\tbe written to disk. Use this if you have altered the index and\n\t\t\twould like to use git-write-tree afterwards to create a tree\n\t\t\trepresenting your written changes.\n\t\t\tIf this data is present in the written index, git-write-tree\n\t\t\twill instead write the stored/cached tree.\n\t\t\tAlternatively, use IndexFile.write_tree() to handle this case\n\t\t\tautomatically\n\n\t\t:return: self'
+    self.entries
+    lfd = LockedFD((file_path or self._file_path))
+    stream = lfd.open(write=True, stream=True)
+    self._serialize(stream, ignore_tree_extension_data)
+    lfd.commit()
+    if (file_path is not None):
+        self._file_path = file_path

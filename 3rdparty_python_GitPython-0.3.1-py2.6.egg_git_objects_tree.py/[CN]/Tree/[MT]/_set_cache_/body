@@ -1,0 +1,6 @@
+def _set_cache_(self, attr):
+    if (attr == '_cache'):
+        ostream = self.repo.odb.stream(self.binsha)
+        self._cache = tree_entries_from_data(ostream.read())
+    else:
+        super(Tree, self)._set_cache_(attr)

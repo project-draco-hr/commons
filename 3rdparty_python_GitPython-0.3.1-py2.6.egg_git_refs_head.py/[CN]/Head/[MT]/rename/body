@@ -1,0 +1,8 @@
+def rename(self, new_path, force=False):
+    'Rename self to a new path\n\t\t\n\t\t:param new_path:\n\t\t\tEither a simple name or a path, i.e. new_name or features/new_name.\n\t\t\tThe prefix refs/heads is implied\n\t\t\t\n\t\t:param force:\n\t\t\tIf True, the rename will succeed even if a head with the target name\n\t\t\talready exists.\n\t\t\t\n\t\t:return: self\n\t\t:note: respects the ref log as git commands are used'
+    flag = '-m'
+    if force:
+        flag = '-M'
+    self.repo.git.branch(flag, self, new_path)
+    self.path = ('%s/%s' % (self._common_path_default, new_path))
+    return self

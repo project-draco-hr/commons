@@ -1,0 +1,11 @@
+def _parse_object_header(self, header_line):
+    '\n\t\t:param header_line:\n\t\t\t<hex_sha> type_string size_as_int\n\t\t\t\n\t\t:return: (hex_sha, type_string, size_as_int)\n\t\t\t\n\t\t:raise ValueError: if the header contains indication for an error due to \n\t\t\tincorrect input sha'
+    tokens = header_line.split()
+    if (len(tokens) != 3):
+        if (not tokens):
+            raise ValueError(('SHA could not be resolved, git returned: %r' % header_line.strip()))
+        else:
+            raise ValueError(('SHA %s could not be resolved, git returned: %r' % (tokens[0], header_line.strip())))
+    if (len(tokens[0]) != 40):
+        raise ValueError(('Failed to parse header: %r' % header_line))
+    return (tokens[0], tokens[1], int(tokens[2]))

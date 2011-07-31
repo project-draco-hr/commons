@@ -1,0 +1,7 @@
+def __getitem__(self, item):
+    if isinstance(item, int):
+        info = self._cache[item]
+        return self._map_id_to_type[(info[1] >> 12)](self.repo, info[0], info[1], join_path(self.path, info[2]))
+    if isinstance(item, basestring):
+        return self.__div__(item)
+    raise TypeError(('Invalid index type: %r' % item))

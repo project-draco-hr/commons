@@ -1,0 +1,6 @@
+def _config_parser(self, read_only):
+    if read_only:
+        parser = self.repo.config_reader()
+    else:
+        parser = self.repo.config_writer()
+    return SectionConstraint(parser, ('branch "%s"' % self.name))

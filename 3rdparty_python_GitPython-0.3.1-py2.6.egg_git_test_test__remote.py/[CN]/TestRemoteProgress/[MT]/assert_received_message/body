@@ -1,0 +1,2 @@
+def assert_received_message(self):
+    assert self._num_progress_messages

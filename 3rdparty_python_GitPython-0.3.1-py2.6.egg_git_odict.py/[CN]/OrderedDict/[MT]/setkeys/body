@@ -1,0 +1,8 @@
+def setkeys(self, keys):
+    "\n        ``setkeys`` all ows you to pass in a new list of keys which will\n        replace the current set. This must contain the same set of keys, but\n        need not be in the same order.\n        \n        If you pass in new keys that don't match, a ``KeyError`` will be\n        raised.\n        \n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d.keys()\n        [1, 3, 2]\n        >>> d.setkeys((1, 2, 3))\n        >>> d\n        OrderedDict([(1, 3), (2, 1), (3, 2)])\n        >>> d.setkeys(['a', 'b', 'c'])\n        Traceback (most recent call last):\n        KeyError: 'Keylist is not the same as current keylist.'\n        "
+    kcopy = list(keys)
+    kcopy.sort()
+    self._sequence.sort()
+    if (kcopy != self._sequence):
+        raise KeyError('Keylist is not the same as current keylist.')
+    self._sequence = list(keys)

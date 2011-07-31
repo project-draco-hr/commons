@@ -1,0 +1,12 @@
+def set_object(self, object, logmsg=None):
+    'Set the object we point to, possibly dereference our symbolic reference first.\n\t\tIf the reference does not exist, it will be created\n\t\t\n\t\t:param object: a refspec, a SymbolicReference or an Object instance. SymbolicReferences\n\t\t\twill be dereferenced beforehand to obtain the object they point to\n\t\t:param logmsg: If not None, the message will be used in the reflog entry to be \n\t\t\twritten. Otherwise the reflog is not altered\n\t\t:note: plain SymbolicReferences may not actually point to objects by convention\n\t\t:return: self'
+    if isinstance(object, SymbolicReference):
+        object = object.object
+    is_detached = True
+    try:
+        is_detached = self.is_detached
+    except ValueError:
+        pass
+    if is_detached:
+        return self.set_reference(object, logmsg)
+    return self._get_reference().set_object(object, logmsg)

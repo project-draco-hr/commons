@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('%o %s %i\t%s' % (self.mode, self.hexsha, self.stage, self.path))

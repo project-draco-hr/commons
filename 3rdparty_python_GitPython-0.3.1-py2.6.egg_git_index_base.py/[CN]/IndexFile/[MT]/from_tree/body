@@ -1,0 +1,22 @@
+@classmethod
+def from_tree(cls, repo, *treeish, **kwargs):
+    "Merge the given treeish revisions into a new index which is returned.\n\t\tThe original index will remain unaltered\n\n\t\t:param repo:\n\t\t\tThe repository treeish are located in.\n\n\t\t:param treeish:\n\t\t\tOne, two or three Tree Objects, Commits or 40 byte hexshas. The result\n\t\t\tchanges according to the amount of trees.\n\t\t\tIf 1 Tree is given, it will just be read into a new index\n\t\t\tIf 2 Trees are given, they will be merged into a new index using a\n\t\t\t two way merge algorithm. Tree 1 is the 'current' tree, tree 2 is the 'other'\n\t\t\t one. It behaves like a fast-forward.\n\t\t\t If 3 Trees are given, a 3-way merge will be performed with the first tree\n\t\t\t being the common ancestor of tree 2 and tree 3. Tree 2 is the 'current' tree,\n\t\t\t tree 3 is the 'other' one\n\n\t\t:param kwargs:\n\t\t\tAdditional arguments passed to git-read-tree\n\n\t\t:return:\n\t\t\tNew IndexFile instance. It will point to a temporary index location which\n\t\t\tdoes not exist anymore. If you intend to write such a merged Index, supply\n\t\t\tan alternate file_path to its 'write' method.\n\n\t\t:note:\n\t\t\tIn the three-way merge case, --aggressive will be specified to automatically\n\t\t\tresolve more cases in a commonly correct manner. Specify trivial=True as kwarg\n\t\t\tto override that.\n\n\t\t\tAs the underlying git-read-tree command takes into account the current index,\n\t\t\tit will be temporarily moved out of the way to assure there are no unsuspected\n\t\t\tinterferences."
+    if ((len(treeish) == 0) or (len(treeish) > 3)):
+        raise ValueError(('Please specify between 1 and 3 treeish, got %i' % len(treeish)))
+    arg_list = list()
+    if (len(treeish) > 1):
+        arg_list.append('--reset')
+        arg_list.append('--aggressive')
+    tmp_index = tempfile.mktemp('', '', repo.git_dir)
+    arg_list.append(('--index-output=%s' % tmp_index))
+    arg_list.extend(treeish)
+    index_handler = TemporaryFileSwap(join_path_native(repo.git_dir, 'index'))
+    try:
+        repo.git.read_tree(*arg_list, **kwargs)
+        index = cls(repo, tmp_index)
+        index.entries
+        del index_handler
+    finally:
+        if os.path.exists(tmp_index):
+            os.remove(tmp_index)
+    return index

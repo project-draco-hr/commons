@@ -1,0 +1,4 @@
+@property
+def remotes(self):
+    'A list of Remote objects allowing to access and manipulate remotes\n\t\t:return: ``git.IterableList(Remote, ...)``'
+    return Remote.list_items(self)

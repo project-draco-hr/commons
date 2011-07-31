@@ -1,0 +1,3 @@
+def __init__(self, input_string):
+    self.stdout = cStringIO.StringIO(input_string)
+    self.stderr = cStringIO.StringIO()

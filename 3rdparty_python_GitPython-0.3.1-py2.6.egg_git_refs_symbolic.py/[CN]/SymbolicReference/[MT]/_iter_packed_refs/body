@@ -1,0 +1,18 @@
+@classmethod
+def _iter_packed_refs(cls, repo):
+    'Returns an iterator yielding pairs of sha1/path pairs for the corresponding refs.\n\t\t:note: The packed refs file will be kept open as long as we iterate'
+    try:
+        fp = open(cls._get_packed_refs_path(repo), 'r')
+        for line in fp:
+            line = line.strip()
+            if (not line):
+                continue
+            if line.startswith('#'):
+                if (line.startswith('# pack-refs with:') and (not line.endswith('peeled'))):
+                    raise TypeError(('PackingType of packed-Refs not understood: %r' % line))
+                continue
+            if (line[0] == '^'):
+                continue
+            yield tuple(line.split(' ', 1))
+    except (OSError, IOError):
+        raise StopIteration

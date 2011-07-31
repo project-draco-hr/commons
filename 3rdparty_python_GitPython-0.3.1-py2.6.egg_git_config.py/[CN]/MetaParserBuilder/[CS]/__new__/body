@@ -1,0 +1,16 @@
+def __new__(metacls, name, bases, clsdict):
+    '\n\t\tEquip all base-class methods with a needs_values decorator, and all non-const methods\n\t\twith a set_dirty_and_flush_changes decorator in addition to that.'
+    kmm = '_mutating_methods_'
+    if (kmm in clsdict):
+        mutating_methods = clsdict[kmm]
+        for base in bases:
+            methods = (t for t in inspect.getmembers(base, inspect.ismethod) if (not t[0].startswith('_')))
+            for (name, method) in methods:
+                if (name in clsdict):
+                    continue
+                method_with_values = needs_values(method)
+                if (name in mutating_methods):
+                    method_with_values = set_dirty_and_flush_changes(method_with_values)
+                clsdict[name] = method_with_values
+    new_type = super(MetaParserBuilder, metacls).__new__(metacls, name, bases, clsdict)
+    return new_type

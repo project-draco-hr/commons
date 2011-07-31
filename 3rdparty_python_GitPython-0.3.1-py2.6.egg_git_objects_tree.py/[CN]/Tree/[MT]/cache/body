@@ -1,0 +1,4 @@
+@property
+def cache(self):
+    "\n\t\t:return: An object allowing to modify the internal cache. This can be used\n\t\t\tto change the tree's contents. When done, make sure you call ``set_done``\n\t\t\ton the tree modifier, or serialization behaviour will be incorrect.\n\t\t\tSee the ``TreeModifier`` for more information on how to alter the cache"
+    return TreeModifier(self._cache)

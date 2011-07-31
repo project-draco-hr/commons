@@ -1,0 +1,3 @@
+def test_str(self):
+    commit = Commit(self.rorepo, Commit.NULL_BIN_SHA)
+    assert_equal(Commit.NULL_HEX_SHA, str(commit))

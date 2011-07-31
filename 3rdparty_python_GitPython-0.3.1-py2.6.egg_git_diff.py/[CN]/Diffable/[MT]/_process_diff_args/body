@@ -1,0 +1,3 @@
+def _process_diff_args(self, args):
+    '\n\t\t:return:\n\t\t\tpossibly altered version of the given args list.\n\t\t\tMethod is called right before git command execution.\n\t\t\tSubclasses can use it to alter the behaviour of the superclass'
+    return args

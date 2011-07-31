@@ -1,0 +1,14 @@
+@default_index
+def diff(self, other=diff.Diffable.Index, paths=None, create_patch=False, **kwargs):
+    'Diff this index against the working copy or a Tree or Commit object\n\n\t\tFor a documentation of the parameters and return values, see\n\t\tDiffable.diff\n\n\t\t:note:\n\t\t\tWill only work with indices that represent the default git index as\n\t\t\tthey have not been initialized with a stream.\n\t\t'
+    if (other is self.Index):
+        return diff.DiffIndex()
+    if isinstance(other, basestring):
+        other = self.repo.rev_parse(other)
+    if isinstance(other, Object):
+        cur_val = kwargs.get('R', False)
+        kwargs['R'] = (not cur_val)
+        return other.diff(self.Index, paths, create_patch, **kwargs)
+    if (other is not None):
+        raise ValueError(('other must be None, Diffable.Index, a Tree or Commit, was %r' % other))
+    return super(IndexFile, self).diff(other, paths, create_patch, **kwargs)

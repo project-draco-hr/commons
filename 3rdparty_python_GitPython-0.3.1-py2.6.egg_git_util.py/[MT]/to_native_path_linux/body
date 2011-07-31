@@ -1,0 +1,2 @@
+def to_native_path_linux(path):
+    return path.replace('\\', '/')

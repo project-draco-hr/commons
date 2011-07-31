@@ -1,0 +1,4 @@
+String name
+double percentile
+boolean sortFirst
+boolean flushAfterSampling

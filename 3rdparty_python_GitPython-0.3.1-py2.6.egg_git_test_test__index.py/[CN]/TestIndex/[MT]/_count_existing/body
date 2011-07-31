@@ -1,0 +1,7 @@
+def _count_existing(self, repo, files):
+    '\n\t\tReturns count of files that actually exist in the repository directory.\n\t\t'
+    existing = 0
+    basedir = repo.working_tree_dir
+    for f in files:
+        existing += os.path.isfile(os.path.join(basedir, f))
+    return existing

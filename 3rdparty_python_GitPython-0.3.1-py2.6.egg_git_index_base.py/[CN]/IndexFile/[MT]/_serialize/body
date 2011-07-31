@@ -1,0 +1,4 @@
+def _serialize(self, stream, ignore_tree_extension_data=False):
+    entries = self._entries_sorted()
+    write_cache(entries, stream, ((ignore_tree_extension_data and None) or self._extension_data))
+    return self

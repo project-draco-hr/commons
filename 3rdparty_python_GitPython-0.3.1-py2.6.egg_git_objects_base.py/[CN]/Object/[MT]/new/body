@@ -1,0 +1,4 @@
+@classmethod
+def new(cls, repo, id):
+    '\n\t\t:return: New Object instance of a type appropriate to the object type behind \n\t\t\tid. The id of the newly created object will be a binsha even though \n\t\t\tthe input id may have been a Reference or Rev-Spec\n\t\t\t\n\t\t:param id: reference, rev-spec, or hexsha\n\t\t\t\n\t\t:note: This cannot be a __new__ method as it would always call __init__\n\t\t\twith the input id which is not necessarily a binsha.'
+    return repo.rev_parse(str(id))

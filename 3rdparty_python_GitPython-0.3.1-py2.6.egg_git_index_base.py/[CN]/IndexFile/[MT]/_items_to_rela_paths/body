@@ -1,0 +1,11 @@
+def _items_to_rela_paths(self, items):
+    'Returns a list of repo-relative paths from the given items which\n\t\tmay be absolute or relative paths, entries or blobs'
+    paths = list()
+    for item in items:
+        if isinstance(item, (BaseIndexEntry, (Blob, Submodule))):
+            paths.append(self._to_relative_path(item.path))
+        elif isinstance(item, basestring):
+            paths.append(self._to_relative_path(item))
+        else:
+            raise TypeError(('Invalid item type: %r' % item))
+    return paths

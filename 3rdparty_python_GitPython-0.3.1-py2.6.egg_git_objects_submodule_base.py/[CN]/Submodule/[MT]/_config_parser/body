@@ -1,0 +1,18 @@
+@classmethod
+def _config_parser(cls, repo, parent_commit, read_only):
+    ':return: Config Parser constrained to our submodule in read or write mode\n\t\t:raise IOError: If the .gitmodules file cannot be found, either locally or in the repository\n\t\t\tat the given parent commit. Otherwise the exception would be delayed until the first \n\t\t\taccess of the config parser'
+    parent_matches_head = (repo.head.commit == parent_commit)
+    if ((not repo.bare) and parent_matches_head):
+        fp_module = cls.k_modules_file
+        fp_module_path = os.path.join(repo.working_tree_dir, fp_module)
+        if (not os.path.isfile(fp_module_path)):
+            raise IOError(('%s file was not accessible' % fp_module_path))
+        fp_module = fp_module_path
+    else:
+        try:
+            fp_module = cls._sio_modules(parent_commit)
+        except KeyError:
+            raise IOError(('Could not find %s file in the tree of parent commit %s' % (cls.k_modules_file, parent_commit)))
+    if ((not read_only) and (repo.bare or (not parent_matches_head))):
+        raise ValueError("Cannot write blobs of 'historical' submodule configurations")
+    return SubmoduleConfigParser(fp_module, read_only=read_only)

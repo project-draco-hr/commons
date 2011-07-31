@@ -1,0 +1,8 @@
+@classmethod
+def new(cls, repo, *tree_sha):
+    " Merge the given treeish revisions into a new index which is returned.\n\t\tThis method behaves like git-read-tree --aggressive when doing the merge.\n\n\t\t:param repo: The repository treeish are located in.\n\n\t\t:param tree_sha:\n\t\t\t20 byte or 40 byte tree sha or tree objects \n\n\t\t:return:\n\t\t\tNew IndexFile instance. Its path will be undefined. \n\t\t\tIf you intend to write such a merged Index, supply an alternate file_path \n\t\t\tto its 'write' method."
+    base_entries = aggressive_tree_merge(repo.odb, [to_bin_sha(str(t)) for t in tree_sha])
+    inst = cls(repo)
+    entries = dict(izip(((e.path, e.stage) for e in base_entries), (IndexEntry.from_base(e) for e in base_entries)))
+    inst.entries = entries
+    return inst

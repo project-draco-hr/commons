@@ -1,0 +1,10 @@
+def __setitem__(self, index, value):
+    '\n        Set the value at position i to value.\n        \n        You can only do slice assignment to values if you supply a sequence of\n        equal length to the slice you are replacing.\n        '
+    if isinstance(index, types.SliceType):
+        keys = self._main._sequence[index]
+        if (len(keys) != len(value)):
+            raise ValueError(('attempt to assign sequence of size %s to slice of size %s' % (len(name), len(keys))))
+        for (key, val) in zip(keys, value):
+            self._main[key] = val
+    else:
+        self._main[self._main._sequence[index]] = value

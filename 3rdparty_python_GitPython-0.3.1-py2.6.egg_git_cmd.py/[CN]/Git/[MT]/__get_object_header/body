@@ -1,0 +1,4 @@
+def __get_object_header(self, cmd, ref):
+    cmd.stdin.write(self.__prepare_ref(ref))
+    cmd.stdin.flush()
+    return self._parse_object_header(cmd.stdout.readline())

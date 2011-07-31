@@ -1,0 +1,8 @@
+self
+previous_commit
+recursive
+force_remove
+init
+to_latest_revision
+progress
+dry_run

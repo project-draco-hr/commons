@@ -1,0 +1,20 @@
+def test_index_file_base(self):
+    index = IndexFile(self.rorepo, fixture_path('index'))
+    assert index.entries
+    assert (index.version > 0)
+    last_val = None
+    entry = index.entries.itervalues().next()
+    for attr in ('path', 'ctime', 'mtime', 'dev', 'inode', 'mode', 'uid', 'gid', 'size', 'binsha', 'hexsha', 'stage'):
+        val = getattr(entry, attr)
+    entries = index.entries
+    assert isinstance(index.update(), IndexFile)
+    assert (entries is not index.entries)
+    index_merge = IndexFile(self.rorepo, fixture_path('index_merge'))
+    assert (len(index_merge.entries) == 106)
+    assert len(list((e for e in index_merge.entries.itervalues() if (e.stage != 0))))
+    tmpfile = tempfile.mktemp()
+    index_merge.write(tmpfile)
+    fp = open(tmpfile, 'rb')
+    assert (fp.read() == fixture('index_merge'))
+    fp.close()
+    os.remove(tmpfile)

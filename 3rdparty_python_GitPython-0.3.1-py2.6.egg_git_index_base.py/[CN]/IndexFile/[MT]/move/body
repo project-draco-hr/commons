@@ -1,0 +1,23 @@
+@post_clear_cache
+@default_index
+def move(self, items, skip_errors=False, **kwargs):
+    "Rename/move the items, whereas the last item is considered the destination of\n\t\tthe move operation. If the destination is a file, the first item ( of two )\n\t\tmust be a file as well. If the destination is a directory, it may be preceeded\n\t\tby one or more directories or files.\n\n\t\tThe working tree will be affected in non-bare repositories.\n\n\t\t:parma items:\n\t\t\tMultiple types of items are supported, please see the 'remove' method\n\t\t\tfor reference.\n\t\t:param skip_errors:\n\t\t\tIf True, errors such as ones resulting from missing source files will\n\t\t\tbe skpped.\n\t\t:param kwargs:\n\t\t\tAdditional arguments you would like to pass to git-mv, such as dry_run\n\t\t\tor force.\n\n\t\t:return:List(tuple(source_path_string, destination_path_string), ...)\n\t\t\tA list of pairs, containing the source file moved as well as its\n\t\t\tactual destination. Relative to the repository root.\n\n\t\t:raise ValueErorr: If only one item was given\n\t\t\tGitCommandError: If git could not handle your request"
+    args = list()
+    if skip_errors:
+        args.append('-k')
+    paths = self._items_to_rela_paths(items)
+    if (len(paths) < 2):
+        raise ValueError('Please provide at least one source and one destination of the move operation')
+    was_dry_run = kwargs.pop('dry_run', kwargs.pop('n', None))
+    kwargs['dry_run'] = True
+    out = list()
+    mvlines = self.repo.git.mv(args, paths, **kwargs).splitlines()
+    for ln in xrange((len(mvlines) / 2), len(mvlines)):
+        tokens = mvlines[ln].split(' to ')
+        assert (len(tokens) == 2), ('Too many tokens in %s' % mvlines[ln])
+        out.append((tokens[0][9:], tokens[1]))
+    if was_dry_run:
+        return out
+    kwargs.pop('dry_run')
+    self.repo.git.mv(args, paths, **kwargs)
+    return out

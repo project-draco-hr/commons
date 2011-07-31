@@ -1,0 +1,9 @@
+{
+  MovingWindowDelta<AtomicLong> movingWindowDelta=MovingWindowDelta.of("test",getSupplier(),DEFAULT_WINDOW_SIZE);
+  long expectedDelta;
+  for (long i=0; i < 100; ++i) {
+    expectedDelta=i < DEFAULT_WINDOW_SIZE ? i + 1 : DEFAULT_WINDOW_SIZE;
+    externalValue.getAndSet(i + 1);
+    assertEquals(expectedDelta,movingWindowDelta.doSample().longValue());
+  }
+}

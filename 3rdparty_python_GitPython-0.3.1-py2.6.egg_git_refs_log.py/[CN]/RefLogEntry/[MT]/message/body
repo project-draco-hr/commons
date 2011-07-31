@@ -1,0 +1,4 @@
+@property
+def message(self):
+    'Message describing the operation that acted on the reference'
+    return self[4]

@@ -1,0 +1,5 @@
+def _to_full_path(item, path_prefix):
+    'Rebuild entry with given path prefix'
+    if (not item):
+        return item
+    return (item[0], item[1], (path_prefix + item[2]))

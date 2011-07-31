@@ -4,3 +4,4 @@ provides
 deployjar
 buildflags
 scala_libs
+target_base

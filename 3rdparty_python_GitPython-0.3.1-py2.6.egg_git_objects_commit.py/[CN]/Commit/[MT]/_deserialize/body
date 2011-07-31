@@ -1,0 +1,35 @@
+def _deserialize(self, stream):
+    ':param from_rev_list: if true, the stream format is coming from the rev-list command\n\t\tOtherwise it is assumed to be a plain data stream from our object'
+    readline = stream.readline
+    self.tree = Tree(self.repo, hex_to_bin(readline().split()[1]), (Tree.tree_id << 12), '')
+    self.parents = list()
+    next_line = None
+    while True:
+        parent_line = readline()
+        if (not parent_line.startswith('parent')):
+            next_line = parent_line
+            break
+        self.parents.append(type(self)(self.repo, hex_to_bin(parent_line.split()[(-1)])))
+    self.parents = tuple(self.parents)
+    (self.author, self.authored_date, self.author_tz_offset) = parse_actor_and_date(next_line)
+    (self.committer, self.committed_date, self.committer_tz_offset) = parse_actor_and_date(readline())
+    self.encoding = self.default_encoding
+    enc = readline()
+    enc = enc.strip()
+    if enc:
+        self.encoding = enc[(enc.find(' ') + 1):]
+        readline()
+    try:
+        self.author.name = self.author.name.decode(self.encoding)
+    except UnicodeDecodeError:
+        print  >> sys.stderr, ("Failed to decode author name '%s' using encoding %s" % (self.author.name, self.encoding))
+    try:
+        self.committer.name = self.committer.name.decode(self.encoding)
+    except UnicodeDecodeError:
+        print  >> sys.stderr, ("Failed to decode committer name '%s' using encoding %s" % (self.committer.name, self.encoding))
+    self.message = stream.read()
+    try:
+        self.message = self.message.decode(self.encoding)
+    except UnicodeDecodeError:
+        print  >> sys.stderr, ("Failed to decode message '%s' using encoding %s" % (self.message, self.encoding))
+    return self

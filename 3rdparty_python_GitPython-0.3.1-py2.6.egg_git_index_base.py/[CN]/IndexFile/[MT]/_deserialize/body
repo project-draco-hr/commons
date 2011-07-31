@@ -1,0 +1,4 @@
+def _deserialize(self, stream):
+    'Initialize this instance with index values read from the given stream'
+    (self.version, self.entries, self._extension_data, conten_sha) = read_cache(stream)
+    return self

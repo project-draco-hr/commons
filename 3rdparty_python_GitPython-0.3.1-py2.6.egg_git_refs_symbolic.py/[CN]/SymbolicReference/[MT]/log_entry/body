@@ -1,0 +1,3 @@
+def log_entry(self, index):
+    ':return: RefLogEntry at the given index\n\t\t:param index: python list compatible positive or negative index\n\t\t\n\t\t.. note:: This method must read part of the reflog during execution, hence \n\t\t\tit should be used sparringly, or only if you need just one index.\n\t\t\tIn that case, it will be faster than the ``log()`` method'
+    return RefLog.entry_at(RefLog.path(self), index)

@@ -1,0 +1,29 @@
+def test_read_write(self):
+    for filename in ('git_config', 'git_config_global'):
+        file_obj = self._to_memcache(fixture_path(filename))
+        file_obj_orig = copy(file_obj)
+        w_config = GitConfigParser(file_obj, read_only=False)
+        w_config.read()
+        assert w_config._sections
+        w_config.write()
+        assert (file_obj.getvalue() == file_obj_orig.getvalue())
+        self.failUnlessRaises(IOError, GitConfigParser, file_obj, read_only=False)
+        assert w_config._lock._has_lock()
+        sname = 'my_section'
+        oname = 'mykey'
+        val = 'myvalue'
+        w_config.add_section(sname)
+        assert w_config.has_section(sname)
+        w_config.set(sname, oname, val)
+        assert w_config.has_option(sname, oname)
+        assert (w_config.get(sname, oname) == val)
+        sname_new = 'new_section'
+        oname_new = 'new_key'
+        ival = 10
+        w_config.set_value(sname_new, oname_new, ival)
+        assert (w_config.get_value(sname_new, oname_new) == ival)
+        file_obj.seek(0)
+        r_config = GitConfigParser(file_obj, read_only=True)
+        assert r_config.has_section(sname)
+        assert r_config.has_option(sname, oname)
+        assert (r_config.get(sname, oname) == val)

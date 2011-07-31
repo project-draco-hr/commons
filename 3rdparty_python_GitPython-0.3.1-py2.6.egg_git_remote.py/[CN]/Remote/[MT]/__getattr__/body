@@ -1,0 +1,8 @@
+def __getattr__(self, attr):
+    'Allows to call this instance like \n\t\tremote.special( *args, **kwargs) to call git-remote special self.name'
+    if (attr == '_config_reader'):
+        return super(Remote, self).__getattr__(attr)
+    try:
+        return self._config_reader.get(attr)
+    except NoOptionError:
+        return super(Remote, self).__getattr__(attr)

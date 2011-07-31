@@ -1,0 +1,48 @@
+def test_serializable(self):
+    roottree = self.rorepo.tree('6c1faef799095f3990e9970bc2cb10aa0221cf9c')
+    for item in roottree.traverse(ignore_self=False):
+        if (item.type != Tree.type):
+            continue
+        tree = item
+        self.failUnlessRaises(AttributeError, setattr, tree, 'someattr', 1)
+        orig_data = tree.data_stream.read()
+        orig_cache = tree._cache
+        stream = StringIO()
+        tree._serialize(stream)
+        assert (stream.getvalue() == orig_data)
+        stream.seek(0)
+        testtree = Tree(self.rorepo, Tree.NULL_BIN_SHA, 0, '')
+        testtree._deserialize(stream)
+        assert (testtree._cache == orig_cache)
+        mod = testtree.cache
+        self.failUnlessRaises(ValueError, mod.add, 'invalid sha', 0, 'name')
+        self.failUnlessRaises(ValueError, mod.add, Tree.NULL_HEX_SHA, 0, 'invalid mode')
+        self.failUnlessRaises(ValueError, mod.add, Tree.NULL_HEX_SHA, tree.mode, 'invalid/name')
+        name = 'fake_dir'
+        mod.add(testtree.NULL_HEX_SHA, tree.mode, name)
+        assert (name in testtree)
+        assert isinstance(testtree[name], Tree)
+        cur_count = len(testtree)
+        mod.add(testtree.NULL_HEX_SHA, tree.mode, name)
+        assert (len(testtree) == cur_count)
+        hexsha = ('1' * 40)
+        self.failUnlessRaises(ValueError, mod.add, hexsha, tree.mode, name)
+        mod.add(hexsha, tree.mode, name, force=True)
+        assert (testtree[name].hexsha == hexsha)
+        assert (len(testtree) == cur_count)
+        invalid_name = 'hi/there'
+        mod.add_unchecked(hexsha, 0, invalid_name)
+        assert (len(testtree) == (cur_count + 1))
+        del mod[invalid_name]
+        assert (len(testtree) == cur_count)
+        del mod[invalid_name]
+        mod.set_done()
+        mod.set_done()
+        stream = StringIO()
+        testtree._serialize(stream)
+        stream.seek(0)
+        assert (stream.getvalue() != orig_data)
+        del testtree._cache
+        testtree._deserialize(stream)
+        assert (name in testtree)
+        assert (invalid_name not in testtree)

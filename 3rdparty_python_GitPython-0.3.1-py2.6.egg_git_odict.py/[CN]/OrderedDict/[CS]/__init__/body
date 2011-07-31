@@ -1,0 +1,12 @@
+def __init__(self, init_val=(), strict=False):
+    '\n        Create a new ordered dictionary. Cannot init from a normal dict,\n        nor from kwargs, since items order is undefined in those cases.\n        \n        If the ``strict`` keyword argument is ``True`` (``False`` is the\n        default) then when doing slice assignment - the ``OrderedDict`` you are\n        assigning from *must not* contain any keys in the remaining dict.\n        \n        >>> OrderedDict()\n        OrderedDict([])\n        >>> OrderedDict({1: 1})\n        Traceback (most recent call last):\n        TypeError: undefined order, cannot get items from dict\n        >>> OrderedDict({1: 1}.items())\n        OrderedDict([(1, 1)])\n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d\n        OrderedDict([(1, 3), (3, 2), (2, 1)])\n        >>> OrderedDict(d)\n        OrderedDict([(1, 3), (3, 2), (2, 1)])\n        '
+    self.strict = strict
+    dict.__init__(self)
+    if isinstance(init_val, OrderedDict):
+        self._sequence = init_val.keys()
+        dict.update(self, init_val)
+    elif isinstance(init_val, dict):
+        raise TypeError('undefined order, cannot get items from dict')
+    else:
+        self._sequence = []
+        self.update(init_val)

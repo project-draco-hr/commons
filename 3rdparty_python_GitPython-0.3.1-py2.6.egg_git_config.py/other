@@ -1,0 +1,9 @@
+'Module containing module parser implementation able to properly read and write\nconfiguration files'
+import re
+import os
+import ConfigParser as cp
+import inspect
+import cStringIO
+from git.odict import OrderedDict
+from git.util import LockFile
+__all__ = ('GitConfigParser', 'SectionConstraint')

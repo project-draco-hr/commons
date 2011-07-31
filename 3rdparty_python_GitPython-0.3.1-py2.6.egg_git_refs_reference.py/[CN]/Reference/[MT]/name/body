@@ -1,0 +1,7 @@
+@property
+def name(self):
+    ':return: (shortest) Name of this reference - it may contain path components'
+    tokens = self.path.split('/')
+    if (len(tokens) < 3):
+        return self.path
+    return '/'.join(tokens[2:])

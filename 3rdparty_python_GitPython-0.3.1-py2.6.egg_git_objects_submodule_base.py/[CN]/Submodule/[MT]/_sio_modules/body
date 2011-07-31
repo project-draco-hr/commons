@@ -1,0 +1,6 @@
+@classmethod
+def _sio_modules(cls, parent_commit):
+    ":return: Configuration file as StringIO - we only access it through the respective blob's data"
+    sio = StringIO(parent_commit.tree[cls.k_modules_file].data_stream.read())
+    sio.name = cls.k_modules_file
+    return sio

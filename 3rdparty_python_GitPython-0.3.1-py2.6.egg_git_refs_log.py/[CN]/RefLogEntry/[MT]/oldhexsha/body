@@ -1,0 +1,4 @@
+@property
+def oldhexsha(self):
+    'The hexsha to the commit the ref pointed to before the change'
+    return self[0]

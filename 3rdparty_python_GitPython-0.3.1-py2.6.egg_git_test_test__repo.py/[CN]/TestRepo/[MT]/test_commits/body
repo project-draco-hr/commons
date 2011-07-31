@@ -1,0 +1,19 @@
+def test_commits(self):
+    mc = 10
+    commits = list(self.rorepo.iter_commits('0.1.6', max_count=mc))
+    assert (len(commits) == mc)
+    c = commits[0]
+    assert_equal('9a4b1d4d11eee3c5362a4152216376e634bd14cf', c.hexsha)
+    assert_equal(['c76852d0bff115720af3f27acdb084c59361e5f6'], [p.hexsha for p in c.parents])
+    assert_equal('ce41fc29549042f1aa09cc03174896cf23f112e3', c.tree.hexsha)
+    assert_equal('Michael Trier', c.author.name)
+    assert_equal('mtrier@gmail.com', c.author.email)
+    assert_equal(1232829715, c.authored_date)
+    assert_equal((5 * 3600), c.author_tz_offset)
+    assert_equal('Michael Trier', c.committer.name)
+    assert_equal('mtrier@gmail.com', c.committer.email)
+    assert_equal(1232829715, c.committed_date)
+    assert_equal((5 * 3600), c.committer_tz_offset)
+    assert_equal('Bumped version 0.1.6\n', c.message)
+    c = commits[1]
+    assert isinstance(c.parents, tuple)

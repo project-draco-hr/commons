@@ -1,0 +1,3 @@
+def __str__(self):
+    ':return: string of our SHA1 as understood by all git commands'
+    return bin_to_hex(self.binsha)

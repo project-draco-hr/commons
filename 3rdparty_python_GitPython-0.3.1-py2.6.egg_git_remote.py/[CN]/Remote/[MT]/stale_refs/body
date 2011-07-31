@@ -1,0 +1,11 @@
+@property
+def stale_refs(self):
+    "\n\t\t:return:\n\t\t\tIterableList RemoteReference objects that do not have a corresponding \n\t\t\thead in the remote reference anymore as they have been deleted on the \n\t\t\tremote side, but are still available locally.\n\t\t\t\n\t\t\tThe IterableList is prefixed, hence the 'origin' must be omitted. See\n\t\t\t'refs' property for an example."
+    out_refs = IterableList(RemoteReference._id_attribute_, ('%s/' % self.name))
+    for line in self.repo.git.remote('prune', '--dry-run', self).splitlines()[2:]:
+        token = ' * [would prune] '
+        if (not line.startswith(token)):
+            raise ValueError(('Could not parse git-remote prune result: %r' % line))
+        fqhn = ('%s/%s' % (RemoteReference._common_path_default, line.replace(token, '')))
+        out_refs.append(RemoteReference(self.repo, fqhn))
+    return out_refs

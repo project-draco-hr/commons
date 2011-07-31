@@ -1,0 +1,2 @@
+def test_bare_property(self):
+    self.rorepo.bare

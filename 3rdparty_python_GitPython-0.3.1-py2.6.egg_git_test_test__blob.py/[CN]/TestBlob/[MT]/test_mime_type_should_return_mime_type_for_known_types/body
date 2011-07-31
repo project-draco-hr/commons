@@ -1,0 +1,3 @@
+def test_mime_type_should_return_mime_type_for_known_types(self):
+    blob = Blob(self.rorepo, **{'binsha': Blob.NULL_BIN_SHA, 'path': 'foo.png', })
+    assert_equal('image/png', blob.mime_type)

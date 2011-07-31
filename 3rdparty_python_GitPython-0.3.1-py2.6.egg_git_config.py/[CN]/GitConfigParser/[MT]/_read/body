@@ -1,0 +1,48 @@
+def _read(self, fp, fpname):
+    "A direct copy of the py2.4 version of the super class's _read method\n\t\tto assure it uses ordered dicts. Had to change one line to make it work.\n\t\t\n\t\tFuture versions have this fixed, but in fact its quite embarassing for the \n\t\tguys not to have done it right in the first place !\n\t\t\n\t\tRemoved big comments to make it more compact.\n\t\t\n\t\tMade sure it ignores initial whitespace as git uses tabs"
+    cursect = None
+    optname = None
+    lineno = 0
+    e = None
+    while True:
+        line = fp.readline()
+        if (not line):
+            break
+        lineno = (lineno + 1)
+        if ((line.strip() == '') or (line[0] in '#;')):
+            continue
+        if ((line.split(None, 1)[0].lower() == 'rem') and (line[0] in 'rR')):
+            continue
+        else:
+            mo = self.SECTCRE.match(line)
+            if mo:
+                sectname = mo.group('header')
+                if (sectname in self._sections):
+                    cursect = self._sections[sectname]
+                elif (sectname == cp.DEFAULTSECT):
+                    cursect = self._defaults
+                else:
+                    cursect = OrderedDict((('__name__', sectname),))
+                    self._sections[sectname] = cursect
+                optname = None
+            elif (cursect is None):
+                raise cp.MissingSectionHeaderError(fpname, lineno, line)
+            else:
+                mo = self.OPTCRE.match(line)
+                if mo:
+                    (optname, vi, optval) = mo.group('option', 'vi', 'value')
+                    if ((vi in ('=', ':')) and (';' in optval)):
+                        pos = optval.find(';')
+                        if ((pos != (-1)) and optval[(pos - 1)].isspace()):
+                            optval = optval[:pos]
+                    optval = optval.strip()
+                    if (optval == '""'):
+                        optval = ''
+                    optname = self.optionxform(optname.rstrip())
+                    cursect[optname] = optval
+                else:
+                    if (not e):
+                        e = cp.ParsingError(fpname)
+                    e.append(lineno, repr(line))
+    if e:
+        raise e

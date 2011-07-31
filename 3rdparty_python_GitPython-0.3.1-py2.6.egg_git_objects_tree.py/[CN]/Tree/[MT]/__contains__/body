@@ -1,0 +1,10 @@
+def __contains__(self, item):
+    if isinstance(item, IndexObject):
+        for info in self._cache:
+            if (item.binsha == info[0]):
+                return True
+    path = self.path
+    for info in self._cache:
+        if (item == join_path(path, info[2])):
+            return True
+    return False

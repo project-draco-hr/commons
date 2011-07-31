@@ -1,5 +1,5 @@
 @classmethod
-def _aggregate(cls, name, provides, deployjar, buildflags, java_libs):
+def _aggregate(cls, name, provides, deployjar, buildflags, java_libs, target_base):
     all_deps = OrderedSet()
     all_excludes = OrderedSet()
     all_sources = []
@@ -16,4 +16,4 @@ def _aggregate(cls, name, provides, deployjar, buildflags, java_libs):
             all_resources.extend(java_lib.resources)
         if java_lib.binary_resources:
             all_binary_resources.extend(java_lib.binary_resources)
-    return JavaLibrary(name, all_sources, provides=provides, dependencies=all_deps, excludes=all_excludes, resources=all_resources, binary_resources=all_binary_resources, deployjar=deployjar, buildflags=buildflags, is_meta=True)
+    return JavaLibrary(name, all_sources, target_base=target_base, provides=provides, dependencies=all_deps, excludes=all_excludes, resources=all_resources, binary_resources=all_binary_resources, deployjar=deployjar, buildflags=buildflags, is_meta=True)

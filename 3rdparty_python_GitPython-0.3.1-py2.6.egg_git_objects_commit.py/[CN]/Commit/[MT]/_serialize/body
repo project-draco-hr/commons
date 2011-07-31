@@ -1,0 +1,24 @@
+def _serialize(self, stream):
+    write = stream.write
+    write(('tree %s\n' % self.tree))
+    for p in self.parents:
+        write(('parent %s\n' % p))
+    a = self.author
+    aname = a.name
+    if isinstance(aname, unicode):
+        aname = aname.encode(self.encoding)
+    c = self.committer
+    fmt = '%s %s <%s> %s %s\n'
+    write((fmt % ('author', aname, a.email, self.authored_date, altz_to_utctz_str(self.author_tz_offset))))
+    aname = c.name
+    if isinstance(aname, unicode):
+        aname = aname.encode(self.encoding)
+    write((fmt % ('committer', aname, c.email, self.committed_date, altz_to_utctz_str(self.committer_tz_offset))))
+    if (self.encoding != self.default_encoding):
+        write(('encoding %s\n' % self.encoding))
+    write('\n')
+    if isinstance(self.message, unicode):
+        write(self.message.encode(self.encoding))
+    else:
+        write(self.message)
+    return self

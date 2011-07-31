@@ -1,0 +1,4 @@
+@property
+def commit(self):
+    ':return: Commit of our remote ref'
+    return self.ref.commit

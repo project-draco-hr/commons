@@ -1,0 +1,8 @@
+@classmethod
+def init(cls, path=None, mkdir=True, **kwargs):
+    "Initialize a git repository at the given path if specified\n\n\t\t:param path:\n\t\t\tis the full path to the repo (traditionally ends with /<name>.git)\n\t\t\tor None in which case the repository will be created in the current \n\t\t\tworking directory\n\n\t\t:parm mkdir:\n\t\t\tif specified will create the repository directory if it doesn't\n\t\t\talready exists. Creates the directory with a mode=0755. \n\t\t\tOnly effective if a path is explicitly given\n\n\t\t:parm kwargs:\n\t\t\tkeyword arguments serving as additional options to the git-init command\n\n\t\t:return: ``git.Repo`` (the newly created repo)"
+    if (mkdir and path and (not os.path.exists(path))):
+        os.makedirs(path, 493)
+    git = Git(path)
+    output = git.init(**kwargs)
+    return Repo(path)

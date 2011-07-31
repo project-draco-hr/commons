@@ -1,0 +1,25 @@
+@with_rw_repo('0.1.6')
+def test_index_merge_tree(self, rw_repo):
+    assert ((self.rorepo != rw_repo) and (not (self.rorepo == rw_repo)))
+    assert (len(set((self.rorepo, self.rorepo, rw_repo, rw_repo))) == 2)
+    next_commit = '4c39f9da792792d4e73fc3a5effde66576ae128c'
+    parent_commit = rw_repo.head.commit.parents[0]
+    manifest_key = IndexFile.entry_key('MANIFEST.in', 0)
+    manifest_entry = rw_repo.index.entries[manifest_key]
+    rw_repo.index.merge_tree(next_commit)
+    assert (manifest_entry.binsha != rw_repo.index.entries[manifest_key].binsha)
+    rw_repo.index.reset(rw_repo.head)
+    assert (rw_repo.index.entries[manifest_key].binsha == manifest_entry.binsha)
+    manifest_fake_entry = BaseIndexEntry((manifest_entry[0], ('\x00' * 20), 0, manifest_entry[3]))
+    self._assert_entries(rw_repo.index.add([manifest_fake_entry], write=False))
+    assert (rw_repo.index.entries[manifest_key].binsha != Object.NULL_BIN_SHA)
+    index = rw_repo.index
+    index.entries[manifest_key] = IndexEntry.from_base(manifest_fake_entry)
+    index.write()
+    assert (rw_repo.index.entries[manifest_key].hexsha == Diff.NULL_HEX_SHA)
+    rw_repo.index.write()
+    self.failUnlessRaises(GitCommandError, index.merge_tree, next_commit, base=parent_commit)
+    tree = index.write_tree()
+    unmerged_tree = IndexFile.from_tree(rw_repo, parent_commit, tree, next_commit)
+    unmerged_blobs = unmerged_tree.unmerged_blobs()
+    assert ((len(unmerged_blobs) == 1) and (unmerged_blobs.keys()[0] == manifest_key[0]))

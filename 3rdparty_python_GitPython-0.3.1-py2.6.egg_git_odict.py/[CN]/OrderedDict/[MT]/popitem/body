@@ -1,0 +1,9 @@
+def popitem(self, i=(-1)):
+    "\n        Delete and return an item specified by index, not a random one as in\n        dict. The index is -1 by default (the last item).\n        \n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d.popitem()\n        (2, 1)\n        >>> d\n        OrderedDict([(1, 3), (3, 2)])\n        >>> d.popitem(0)\n        (1, 3)\n        >>> OrderedDict().popitem()\n        Traceback (most recent call last):\n        KeyError: 'popitem(): dictionary is empty'\n        >>> d.popitem(2)\n        Traceback (most recent call last):\n        IndexError: popitem(): index 2 not valid\n        "
+    if (not self._sequence):
+        raise KeyError('popitem(): dictionary is empty')
+    try:
+        key = self._sequence[i]
+    except IndexError:
+        raise IndexError(('popitem(): index %s not valid' % i))
+    return (key, self.pop(key))

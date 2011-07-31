@@ -4,3 +4,4 @@ provides
 deployjar
 buildflags
 java_libs
+target_base

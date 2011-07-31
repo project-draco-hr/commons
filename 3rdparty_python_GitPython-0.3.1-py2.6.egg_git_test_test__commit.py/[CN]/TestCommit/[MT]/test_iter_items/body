@@ -1,0 +1,2 @@
+def test_iter_items(self):
+    self.failUnlessRaises(ValueError, Commit.iter_items, self.rorepo, 'master', pretty='raw')

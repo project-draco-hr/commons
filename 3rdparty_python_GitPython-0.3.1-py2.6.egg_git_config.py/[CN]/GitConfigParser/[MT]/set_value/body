@@ -1,0 +1,7 @@
+@needs_values
+@set_dirty_and_flush_changes
+def set_value(self, section, option, value):
+    "Sets the given option in section to the given value.\n\t\tIt will create the section if required, and will not throw as opposed to the default \n\t\tConfigParser 'set' method.\n\t\t\n\t\t:param section: Name of the section in which the option resides or should reside\n\t\t:param option: Name of the options whose value to set\n\t\t\t\n\t\t:param value: Value to set the option to. It must be a string or convertible \n\t\t\tto a string"
+    if (not self.has_section(section)):
+        self.add_section(section)
+    self.set(section, option, str(value))

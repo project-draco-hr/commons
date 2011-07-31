@@ -1,0 +1,3 @@
+@raises(GitCommandError)
+def test_it_raises_errors(self):
+    self.git.this_does_not_exist()

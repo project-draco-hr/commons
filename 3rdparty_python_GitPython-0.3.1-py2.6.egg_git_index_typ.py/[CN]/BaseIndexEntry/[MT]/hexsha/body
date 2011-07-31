@@ -1,0 +1,4 @@
+@property
+def hexsha(self):
+    'hex version of our sha'
+    return b2a_hex(self[1])

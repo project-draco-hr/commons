@@ -1,0 +1,2 @@
+def _config_section_name(self):
+    return ('remote "%s"' % self.name)

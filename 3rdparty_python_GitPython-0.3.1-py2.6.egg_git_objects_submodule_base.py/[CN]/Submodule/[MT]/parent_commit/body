@@ -1,0 +1,4 @@
+@property
+def parent_commit(self):
+    ":return: Commit instance with the tree containing the .gitmodules file\n\t\t:note: will always point to the current head's commit if it was not set explicitly"
+    return self._parent_commit

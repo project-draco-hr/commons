@@ -1,0 +1,3 @@
+def mkhead(repo, path):
+    ':return: New branch/head instance'
+    return git.Head(repo, git.Head.to_full_path(path))

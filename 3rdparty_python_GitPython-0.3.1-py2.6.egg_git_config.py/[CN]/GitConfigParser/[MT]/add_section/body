@@ -1,0 +1,6 @@
+@needs_values
+@set_dirty_and_flush_changes
+def add_section(self, section):
+    'Assures added options will stay in order'
+    super(GitConfigParser, self).add_section(section)
+    self._sections[section] = OrderedDict()

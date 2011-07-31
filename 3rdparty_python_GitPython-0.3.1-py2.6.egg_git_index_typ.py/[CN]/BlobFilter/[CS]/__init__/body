@@ -1,0 +1,3 @@
+def __init__(self, paths):
+    ':param paths:\n\t\t\ttuple or list of paths which are either pointing to directories or\n\t\t\tto files relative to the current repository\n\t\t'
+    self.paths = paths

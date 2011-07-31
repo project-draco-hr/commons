@@ -1,3 +1,4 @@
 {
-  checkPercentiles(0,0,0,0);
+  checkPercentiles(percentiles,0,0,0,0,0,0);
+  checkValuesAreFlushed(percentiles);
 }

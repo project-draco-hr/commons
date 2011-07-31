@@ -1,0 +1,3 @@
+def _print_fetchhead(self, repo):
+    fp = open(os.path.join(repo.git_dir, 'FETCH_HEAD'))
+    fp.close()

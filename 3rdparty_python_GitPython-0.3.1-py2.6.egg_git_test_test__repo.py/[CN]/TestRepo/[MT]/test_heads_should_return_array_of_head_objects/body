@@ -1,0 +1,3 @@
+def test_heads_should_return_array_of_head_objects(self):
+    for head in self.rorepo.heads:
+        assert_equal(Head, head.__class__)

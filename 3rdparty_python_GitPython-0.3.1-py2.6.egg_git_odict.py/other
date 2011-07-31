@@ -1,0 +1,21 @@
+'A dict that keeps keys in insertion order'
+from __future__ import generators
+__author__ = 'Nicola Larosa <nico-NoSp@m-tekNico.net>,Michael Foord <fuzzyman AT voidspace DOT org DOT uk>'
+__docformat__ = 'restructuredtext en'
+__revision__ = '$Id: odict.py 129 2005-09-12 18:15:28Z teknico $'
+__version__ = '0.2.2'
+__all__ = ['OrderedDict', 'SequenceOrderedDict']
+import sys
+INTP_VER = sys.version_info[:2]
+if (INTP_VER < (2, 2)):
+    raise RuntimeError('Python v.2.2 or later required')
+import types, warnings
+if (__name__ == '__main__'):
+    if (INTP_VER < (2, 3)):
+        raise RuntimeError('Tests require Python v.2.3 or later')
+    warnings.filterwarnings('ignore')
+    import doctest
+    m = sys.modules.get('__main__')
+    globs = m.__dict__.copy()
+    globs.update({'INTP_VER': INTP_VER, })
+    doctest.testmod(m, globs=globs)

@@ -1,0 +1,30 @@
+def _assert_rev_parse(self, name):
+    'tries multiple different rev-parse syntaxes with the given name\n\t\t:return: parsed object'
+    rev_parse = self.rorepo.rev_parse
+    orig_obj = rev_parse(name)
+    if (orig_obj.type == 'tag'):
+        obj = orig_obj.object
+    else:
+        obj = orig_obj
+    rev = (name + '~')
+    obj2 = rev_parse(rev)
+    assert (obj2 == obj.parents[0])
+    self._assert_rev_parse_types(rev, obj2)
+    ni = 11
+    history = [obj.parents[0]]
+    for pn in range(ni):
+        history.append(history[(-1)].parents[0])
+    for pn in range(11):
+        rev = (name + ('~%i' % (pn + 1)))
+        obj2 = rev_parse(rev)
+        assert (obj2 == history[pn])
+        self._assert_rev_parse_types(rev, obj2)
+    rev = (name + '^')
+    obj2 = rev_parse(rev)
+    assert (obj2 == obj.parents[0])
+    self._assert_rev_parse_types(rev, obj2)
+    for (pn, parent) in enumerate(obj.parents):
+        rev = (name + ('^%i' % (pn + 1)))
+        assert (rev_parse(rev) == parent)
+        self._assert_rev_parse_types(rev, parent)
+    return orig_obj

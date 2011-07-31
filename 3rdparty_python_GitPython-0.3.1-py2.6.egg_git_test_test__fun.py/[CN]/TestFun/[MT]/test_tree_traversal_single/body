@@ -1,0 +1,10 @@
+def test_tree_traversal_single(self):
+    max_count = 50
+    count = 0
+    odb = self.rorepo.odb
+    for commit in self.rorepo.commit('29eb123beb1c55e5db4aa652d843adccbd09ae18').traverse():
+        if (count >= max_count):
+            break
+        count += 1
+        entries = traverse_tree_recursive(odb, commit.tree.binsha, '')
+        assert entries

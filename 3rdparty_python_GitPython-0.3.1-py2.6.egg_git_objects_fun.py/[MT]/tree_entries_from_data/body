@@ -1,0 +1,24 @@
+def tree_entries_from_data(data):
+    'Reads the binary representation of a tree and returns tuples of Tree items\n\t:param data: data block with tree data\n\t:return: list(tuple(binsha, mode, tree_relative_path), ...)'
+    ord_zero = ord('0')
+    len_data = len(data)
+    i = 0
+    out = list()
+    while (i < len_data):
+        mode = 0
+        while (data[i] != ' '):
+            mode = ((mode << 3) + (ord(data[i]) - ord_zero))
+            i += 1
+        i += 1
+        ns = i
+        while (data[i] != '\x00'):
+            i += 1
+        name = data[ns:i]
+        name_enc = name.decode('utf-8')
+        if (len(name) > len(name_enc)):
+            name = name_enc
+        i += 1
+        sha = data[i:(i + 20)]
+        i = (i + 20)
+        out.append((sha, mode, name))
+    return out

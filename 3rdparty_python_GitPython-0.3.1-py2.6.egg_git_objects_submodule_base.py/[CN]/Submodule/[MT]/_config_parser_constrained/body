@@ -1,0 +1,5 @@
+def _config_parser_constrained(self, read_only):
+    ':return: Config Parser constrained to our submodule in read or write mode'
+    parser = self._config_parser(self.repo, self._parent_commit, read_only)
+    parser.set_submodule(self)
+    return SectionConstraint(parser, sm_section(self.name))

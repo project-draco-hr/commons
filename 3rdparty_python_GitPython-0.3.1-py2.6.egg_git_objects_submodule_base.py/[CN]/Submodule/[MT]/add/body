@@ -1,0 +1,53 @@
+@classmethod
+def add(cls, repo, name, path, url=None, branch=None, no_checkout=False):
+    "Add a new submodule to the given repository. This will alter the index\n\t\tas well as the .gitmodules file, but will not create a new commit.\n\t\tIf the submodule already exists, no matter if the configuration differs\n\t\tfrom the one provided, the existing submodule will be returned.\n\t\t\n\t\t:param repo: Repository instance which should receive the submodule\n\t\t:param name: The name/identifier for the submodule\n\t\t:param path: repository-relative or absolute path at which the submodule \n\t\t\tshould be located\n\t\t\tIt will be created as required during the repository initialization.\n\t\t:param url: git-clone compatible URL, see git-clone reference for more information\n\t\t\tIf None, the repository is assumed to exist, and the url of the first\n\t\t\tremote is taken instead. This is useful if you want to make an existing\n\t\t\trepository a submodule of anotherone.\n\t\t:param branch: name of branch at which the submodule should (later) be checked out.\n\t\t\tThe given branch must exist in the remote repository, and will be checked\n\t\t\tout locally as a tracking branch.\n\t\t\tIt will only be written into the configuration if it not None, which is\n\t\t\twhen the checked out branch will be the one the remote HEAD pointed to.\n\t\t\tThe result you get in these situation is somewhat fuzzy, and it is recommended\n\t\t\tto specify at least 'master' here.\n\t\t\tExamples are 'master' or 'feature/new'\n\t\t:param no_checkout: if True, and if the repository has to be cloned manually, \n\t\t\tno checkout will be performed\n\t\t:return: The newly created submodule instance\n\t\t:note: works atomically, such that no change will be done if the repository\n\t\t\tupdate fails for instance"
+    if repo.bare:
+        raise InvalidGitRepositoryError('Cannot add submodules to bare repositories')
+    path = to_native_path_linux(path)
+    if path.endswith('/'):
+        path = path[:(-1)]
+    if (url != None):
+        url = to_native_path_linux(url)
+    sm = cls(repo, cls.NULL_BIN_SHA, cls.k_default_mode, path, name)
+    if sm.exists():
+        try:
+            return repo.head.commit.tree[path]
+        except KeyError:
+            index = repo.index
+            entry = index.entries[index.entry_key(path, 0)]
+            sm.binsha = entry.binsha
+            return sm
+    br = git.Head(repo, git.Head.to_full_path((str(branch) or cls.k_head_default)))
+    has_module = sm.module_exists()
+    branch_is_default = (branch is None)
+    if (has_module and (url is not None)):
+        if (url not in [r.url for r in sm.module().remotes]):
+            raise ValueError(("Specified URL '%s' does not match any remote url of the repository at '%s'" % (url, sm.abspath)))
+    mrepo = None
+    if (url is None):
+        if (not has_module):
+            raise ValueError(('A URL was not given and existing repository did not exsit at %s' % path))
+        mrepo = sm.module()
+        urls = [r.url for r in mrepo.remotes]
+        if (not urls):
+            raise ValueError(("Didn't find any remote url in repository at %s" % sm.abspath))
+        url = urls[0]
+    else:
+        kwargs = {'n': no_checkout, }
+        if (not branch_is_default):
+            kwargs['b'] = br.name
+        mrepo = git.Repo.clone_from(url, path, **kwargs)
+    index = sm.repo.index
+    writer = sm.config_writer(index=index, write=False)
+    writer.set_value('url', url)
+    writer.set_value('path', path)
+    sm._url = url
+    if (not branch_is_default):
+        writer.set_value(cls.k_head_option, br.path)
+        sm._branch_path = br.path
+    del writer
+    pcommit = repo.head.commit
+    sm._parent_commit = pcommit
+    sm.binsha = mrepo.head.commit.binsha
+    index.add([sm], write=True)
+    return sm

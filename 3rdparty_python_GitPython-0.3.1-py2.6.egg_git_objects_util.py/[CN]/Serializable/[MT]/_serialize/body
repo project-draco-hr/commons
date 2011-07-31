@@ -1,0 +1,3 @@
+def _serialize(self, stream):
+    'Serialize the data of this object into the given data stream\n\t\t:note: a serialized object would ``_deserialize`` into the same objet\n\t\t:param stream: a file-like object\n\t\t:return: self'
+    raise NotImplementedError('To be implemented in subclass')

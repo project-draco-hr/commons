@@ -1,0 +1,10 @@
+def test_iteration(self):
+    all_commits = Commit.list_items(self.rorepo, self.rorepo.head)
+    assert all_commits
+    assert (all_commits == list(self.rorepo.iter_commits()))
+    mcomit = self.rorepo.commit('d884adc80c80300b4cc05321494713904ef1df2d')
+    assert (mcomit in all_commits)
+    ltd_commits = list(self.rorepo.iter_commits(paths='CHANGES'))
+    assert (ltd_commits and (len(ltd_commits) < len(all_commits)))
+    less_ltd_commits = list(Commit.iter_items(self.rorepo, 'master', paths=('CHANGES', 'AUTHORS')))
+    assert (len(ltd_commits) < len(less_ltd_commits))

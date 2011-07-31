@@ -1,0 +1,3 @@
+def traverse(self, predicate=(lambda i, d: True), prune=(lambda i, d: False), depth=(-1), branch_first=True, visit_once=False, ignore_self=1):
+    'For documentation, see util.Traversable.traverse\n\t\tTrees are set to visit_once = False to gain more performance in the traversal'
+    return super(Tree, self).traverse(predicate, prune, depth, branch_first, visit_once, ignore_self)

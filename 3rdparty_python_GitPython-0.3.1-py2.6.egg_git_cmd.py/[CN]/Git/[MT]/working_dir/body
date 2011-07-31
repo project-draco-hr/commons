@@ -1,0 +1,4 @@
+@property
+def working_dir(self):
+    ':return: Git directory we are working on'
+    return self._working_dir

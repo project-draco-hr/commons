@@ -1,0 +1,3 @@
+def copy(self):
+    '\n        >>> OrderedDict(((1, 3), (3, 2), (2, 1))).copy()\n        OrderedDict([(1, 3), (3, 2), (2, 1)])\n        '
+    return OrderedDict(self)

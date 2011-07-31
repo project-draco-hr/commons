@@ -1,0 +1,4 @@
+@property
+def name(self):
+    ':return: The name of this submodule. It is used to identify it within the \n\t\t\t.gitmodules file.\n\t\t:note: by default, the name is the path at which to find the submodule, but\n\t\t\tin git-python it should be a unique identifier similar to the identifiers\n\t\t\tused for remotes, which allows to change the path of the submodule\n\t\t\teasily\n\t\t'
+    return self._name

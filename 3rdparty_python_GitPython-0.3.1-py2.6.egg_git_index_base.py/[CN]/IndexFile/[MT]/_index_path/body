@@ -1,0 +1,2 @@
+def _index_path(self):
+    return join_path_native(self.repo.git_dir, 'index')

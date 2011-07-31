@@ -1,0 +1,11 @@
+def __setattr__(self, name, value):
+    'Protect keys, items, and values.'
+    if (not ('_att_dict' in self.__dict__)):
+        object.__setattr__(self, name, value)
+    else:
+        try:
+            fun = self._att_dict[name]
+        except KeyError:
+            OrderedDict.__setattr__(self, name, value)
+        else:
+            fun(value)

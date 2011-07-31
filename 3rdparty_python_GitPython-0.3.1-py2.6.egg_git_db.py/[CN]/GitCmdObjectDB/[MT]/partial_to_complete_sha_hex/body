@@ -1,0 +1,7 @@
+def partial_to_complete_sha_hex(self, partial_hexsha):
+    ':return: Full binary 20 byte sha from the given partial hexsha\n\t\t:raise AmbiguousObjectName:\n\t\t:raise BadObject:\n\t\t:note: currently we only raise BadObject as git does not communicate \n\t\t\tAmbiguousObjects separately'
+    try:
+        (hexsha, typename, size) = self._git.get_object_header(partial_hexsha)
+        return hex_to_bin(hexsha)
+    except (GitCommandError, ValueError):
+        raise BadObject(partial_hexsha)

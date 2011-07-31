@@ -1,0 +1,4 @@
+@property
+def submodules(self):
+    '\n\t\t:return: git.IterableList(Submodule, ...) of direct submodules\n\t\t\tavailable from the current head'
+    return Submodule.list_items(self)

@@ -1,0 +1,8 @@
+def deref_tag(tag):
+    'Recursively dereerence a tag and return the resulting object'
+    while True:
+        try:
+            tag = tag.object
+        except AttributeError:
+            break
+    return tag

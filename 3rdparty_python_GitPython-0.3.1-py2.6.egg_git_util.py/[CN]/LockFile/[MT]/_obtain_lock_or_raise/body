@@ -1,0 +1,13 @@
+def _obtain_lock_or_raise(self):
+    'Create a lock file as flag for other instances, mark our instance as lock-holder\n\t\t\n\t\t:raise IOError: if a lock was already present or a lock file could not be written'
+    if self._has_lock():
+        return
+    lock_file = self._lock_file_path()
+    if os.path.isfile(lock_file):
+        raise IOError(('Lock for file %r did already exist, delete %r in case the lock is illegal' % (self._file_path, lock_file)))
+    try:
+        fd = os.open(lock_file, ((os.O_WRONLY | os.O_CREAT) | os.O_EXCL), 0)
+        os.close(fd)
+    except OSError as e:
+        raise IOError(str(e))
+    self._owns_lock = True

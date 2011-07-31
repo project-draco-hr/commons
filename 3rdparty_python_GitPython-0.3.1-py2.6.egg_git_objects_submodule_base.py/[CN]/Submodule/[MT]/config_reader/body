@@ -1,0 +1,3 @@
+def config_reader(self):
+    '\n\t\t:return: ConfigReader instance which allows you to qurey the configuration values\n\t\t\tof this submodule, as provided by the .gitmodules file\n\t\t:note: The config reader will actually read the data directly from the repository\n\t\t\tand thus does not need nor care about your working tree.\n\t\t:note: Should be cached by the caller and only kept as long as needed\n\t\t:raise IOError: If the .gitmodules file/blob could not be read'
+    return self._config_parser_constrained(read_only=True)

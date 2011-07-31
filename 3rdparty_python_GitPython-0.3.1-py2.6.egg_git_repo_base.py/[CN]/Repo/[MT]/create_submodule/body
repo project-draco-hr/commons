@@ -1,0 +1,3 @@
+def create_submodule(self, *args, **kwargs):
+    'Create a new submodule\n\t\t\n\t\t:note: See the documentation of Submodule.add for a description of the \n\t\t\tapplicable parameters\n\t\t:return: created submodules'
+    return Submodule.add(self, *args, **kwargs)

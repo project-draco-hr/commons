@@ -1,4 +1,5 @@
 {
   percentiles.record(10);
-  checkPercentiles(10,10,10,10);
+  checkPercentiles(percentiles,10,10,10,10,10,10);
+  checkValuesAreFlushed(percentiles);
 }

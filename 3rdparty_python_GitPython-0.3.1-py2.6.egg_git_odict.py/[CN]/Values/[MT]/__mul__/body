@@ -1,0 +1,2 @@
+def __mul__(self, n):
+    return (self._main.values() * n)
