@@ -1,3 +1,4 @@
 {
   localMap.put(key,value);
+  if (mapListener != null)   mapListener.nodeChanged(key,value);
 }

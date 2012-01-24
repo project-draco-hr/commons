@@ -1,14 +1,3 @@
 {
-  super();
-  this.zkClient=Preconditions.checkNotNull(zkClient);
-  this.nodePath=MorePreconditions.checkNotBlank(nodePath);
-  this.deserializer=Preconditions.checkNotNull(deserializer);
-  localMap=new ConcurrentHashMap<String,V>();
-  unmodifiableLocalMap=Collections.unmodifiableMap(localMap);
-  backoffHelper=new BackoffHelper();
-  safeToRewatchLock=new Object();
-  safeToRewatch=false;
-  if (zkClient.get().exists(nodePath,null) == null) {
-    throw new KeeperException.NoNodeException();
-  }
+  this(zkClient,nodePath,deserializer,null);
 }
