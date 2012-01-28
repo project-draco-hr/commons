@@ -1,0 +1,9 @@
+{
+  Preconditions.checkNotNull(pkg);
+  return new Predicate<Field>(){
+    @Override public boolean apply(    Field field){
+      return field.getDeclaringClass().getPackage().equals(pkg);
+    }
+  }
+;
+}

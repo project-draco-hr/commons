@@ -1,0 +1,33 @@
+def test_singleton_mixin_inheritance():
+
+
+    class Named(object):
+
+        def __init__(self, name):
+            self._name = name
+
+
+    class John(Named, Singleton):
+
+        def __init__(self):
+            Named.__init__(self, 'John')
+
+
+    class Brian(Named, Singleton):
+
+        def __init__(self):
+            Named.__init__(self, 'Brian')
+    assert_factories_consistent(John, Brian)
+
+
+    class John(Singleton, Named):
+
+        def __init__(self):
+            Named.__init__(self, 'John')
+
+
+    class Brian(Singleton, Named):
+
+        def __init__(self):
+            Named.__init__(self, 'Brian')
+    assert_factories_consistent(John, Brian)

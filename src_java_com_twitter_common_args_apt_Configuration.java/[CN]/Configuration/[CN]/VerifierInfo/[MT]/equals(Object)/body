@@ -1,0 +1,10 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!(obj instanceof VerifierInfo)) {
+    return false;
+  }
+  VerifierInfo other=(VerifierInfo)obj;
+  return new EqualsBuilder().append(verifiedType,other.verifiedType).append(verifyingAnnotation,other.verifyingAnnotation).append(verifierClass,other.verifierClass).isEquals();
+}

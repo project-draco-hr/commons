@@ -1,0 +1,4 @@
+def test_temporary_file_within_other_dir():
+    with temporary_dir() as path:
+        with temporary_file(root_dir=path) as f:
+            assert os.path.realpath(f.name).startswith(os.path.realpath(path)), 'file should be created in root_dir if specified.'

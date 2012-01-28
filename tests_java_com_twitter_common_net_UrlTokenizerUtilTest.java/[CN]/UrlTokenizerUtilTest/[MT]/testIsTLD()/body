@@ -1,0 +1,10 @@
+{
+  assertTrue(UrlTokenizerUtil.isTLD("com.cn",false));
+  assertTrue(UrlTokenizerUtil.isTLD("com",false));
+  assertTrue(UrlTokenizerUtil.isTLD("co.jp",false));
+  assertTrue(UrlTokenizerUtil.isTLD("co.uk",false));
+  assertTrue(UrlTokenizerUtil.isTLD("uk.co",true));
+  assertTrue(UrlTokenizerUtil.isTLD("cn.com",true));
+  assertFalse(UrlTokenizerUtil.isTLD("google.co.uk",false));
+  assertFalse(UrlTokenizerUtil.isTLD("google.jp",false));
+}

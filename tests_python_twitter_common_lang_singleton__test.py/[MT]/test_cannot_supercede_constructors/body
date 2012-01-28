@@ -1,0 +1,23 @@
+def test_cannot_supercede_constructors():
+
+
+    class CountingSingleton(object):
+        __metaclass__ = SingletonMetaclass
+        VALUE = 0
+
+        @staticmethod
+        def increment():
+            CountingSingleton.VALUE += 1
+
+        def __init__(self, value):
+            self._value = value
+            CountingSingleton.increment()
+
+        def value(self):
+            return self._value
+    s1 = CountingSingleton('a')
+    assert (CountingSingleton.VALUE == 1), 'singleton constructor should be called on first invocation'
+    s2 = CountingSingleton('b')
+    assert (s1.value() == s2.value())
+    assert (s2.value() == 'a')
+    assert (CountingSingleton.VALUE == 1), 'the constructor of a singleton should never be called twice'

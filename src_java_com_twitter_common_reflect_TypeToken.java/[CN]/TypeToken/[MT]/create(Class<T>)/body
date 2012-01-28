@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(cls);
+  return new TypeToken<T>(cls){
+  }
+;
+}

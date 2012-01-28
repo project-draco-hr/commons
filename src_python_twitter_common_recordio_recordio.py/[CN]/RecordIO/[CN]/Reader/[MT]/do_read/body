@@ -3,6 +3,7 @@ def do_read(fp, decoder):
     blob = fp.read(4)
     if (len(blob) == 0):
         log.debug(('%s has no data (cur offset = %d)' % (fp.name, fp.tell())))
+        fp.seek(fp.tell())
         return None
     if (len(blob) != 4):
         raise RecordIO.PrematureEndOfStream(('Expected 4 bytes, got %d' % len(blob)))

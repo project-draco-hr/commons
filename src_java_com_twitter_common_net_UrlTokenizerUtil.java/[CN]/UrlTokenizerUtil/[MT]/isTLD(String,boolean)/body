@@ -1,0 +1,11 @@
+{
+  if (url == null)   return false;
+  String[] domainParts=url.split("\\.");
+  if (domainParts.length == 1) {
+    return true;
+  }
+ else   if (domainParts.length == 2) {
+    return TWO_PART_TLDS.contains(Pair.of(domainParts[reversed ? 1 : 0],domainParts[reversed ? 0 : 1]));
+  }
+  return false;
+}

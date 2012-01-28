@@ -1,3 +1,3 @@
-def __init__(self, name, sources, dependencies=None, excludes=None, buildflags=None, is_meta=False):
+def __init__(self, name, sources=None, dependencies=None, excludes=None, buildflags=None, is_meta=False):
     "name: The name of this module target, addressable via pants via the portion of the spec\n        following the colon\n    sources: A list of paths containing the scala source files this modules tests are compiled from\n    provides: An optional Dependency object indicating the The ivy artifact to export\n    dependencies: An optional list of Dependency objects specifying the binary (jar) dependencies of\n        this module.\n    excludes: An optional list of dependency exclude patterns to filter all of this module's\n        transitive dependencies against.\n    buildflags: A list of additional command line arguments to pass to the underlying build system\n        for this target"
-    JvmTarget.__init__(self, 'tests/scala', name, sources, dependencies, excludes, buildflags, is_meta)
+    JvmTarget.__init__(self, name, sources, dependencies, excludes, buildflags, is_meta)

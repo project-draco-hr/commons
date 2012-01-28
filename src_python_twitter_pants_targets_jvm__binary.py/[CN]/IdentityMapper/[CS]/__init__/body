@@ -1,0 +1,3 @@
+def __init__(self, base):
+    'The base directory files should be mapped from.'
+    self.base = base

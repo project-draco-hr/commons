@@ -1,0 +1,5 @@
+{
+  Type secondParamClass=paramParsers.get(1);
+  Preconditions.checkArgument(secondParamClass == Time.class,String.format("Expected %s for " + "second type parameter, but got got %s",Time.class.getName(),secondParamClass));
+  return parse(raw);
+}

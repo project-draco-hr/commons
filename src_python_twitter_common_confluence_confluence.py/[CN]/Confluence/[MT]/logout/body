@@ -1,0 +1,3 @@
+def logout(self):
+    'Terminates the session and connection to the server.\n\n    Upon completion, the invoking instance is no longer usable to communicate with confluence.\n    '
+    self._server.confluence1.logout(self._session_token)

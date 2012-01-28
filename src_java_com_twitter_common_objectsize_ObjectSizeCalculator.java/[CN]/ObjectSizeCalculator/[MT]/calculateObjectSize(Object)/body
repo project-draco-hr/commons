@@ -1,0 +1,16 @@
+{
+  try {
+    for (; ; ) {
+      visit(obj);
+      if (pending.isEmpty()) {
+        return size;
+      }
+      obj=pending.removeFirst();
+    }
+  }
+  finally {
+    alreadyVisited.clear();
+    pending.clear();
+    size=0;
+  }
+}

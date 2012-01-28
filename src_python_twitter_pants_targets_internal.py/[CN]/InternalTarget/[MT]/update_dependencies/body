@@ -2,7 +2,7 @@ def update_dependencies(self, dependencies):
     if dependencies:
         for dependency in dependencies:
             for resolved_dependency in dependency.resolve():
-                self.resolved_dependencies.add(resolved_dependency)
+                self.dependencies.add(resolved_dependency)
                 if isinstance(resolved_dependency, InternalTarget):
                     self.internal_dependencies.add(resolved_dependency)
                 self.jar_dependencies.update(resolved_dependency._as_jar_dependencies())

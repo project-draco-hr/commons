@@ -1,0 +1,5 @@
+{
+  registry.announce(A,1,true);
+  registry.announce(B,2,false);
+  registry.getPrimaryPort();
+}

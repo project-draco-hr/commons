@@ -4,6 +4,4 @@ def _create_template_data(self):
         allsources += list((os.path.join(self.target_base, source) for source in self.sources))
     if self.resources:
         allsources += list((os.path.join(self.sibling_resources_base, res) for res in self.resources))
-    if self.binary_resources:
-        allsources += list((os.path.join(self.sibling_resources_base, res) for res in self.binary_resources))
-    return ExportableJvmLibrary._create_template_data(self).extend(java_sources=self.java_sources, resources=self.resources, binary_resources=self.binary_resources, deploy_jar=self.deployjar, allsources=allsources)
+    return ExportableJvmLibrary._create_template_data(self).extend(java_sources=self.java_sources, resources=self.resources, deploy_jar=self.deployjar, allsources=allsources)

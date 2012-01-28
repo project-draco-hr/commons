@@ -1,0 +1,8 @@
+def _mapjars(self, genmap, target):
+    ivyxml = os.path.join(self._classpath_dir, ('%s.ivy.xml' % target.id))
+    classpathfile = os.path.join(self._classpath_dir, ('%s.classpath' % target.id))
+    self._ivycachepath(ivyxml, classpathfile, target)
+    with self._cachepath(classpathfile) as classpath:
+        for path in classpath:
+            (dir, jar) = os.path.split(path.strip())
+            genmap.add(target, dir).append(jar)

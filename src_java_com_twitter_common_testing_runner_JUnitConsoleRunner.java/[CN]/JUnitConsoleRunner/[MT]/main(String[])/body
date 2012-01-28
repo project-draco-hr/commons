@@ -1,0 +1,5 @@
+{
+  System.setOut(new PrintStream(SWAPPABLE_OUT));
+  System.setErr(new PrintStream(SWAPPABLE_ERR));
+  AppLauncher.launch(JUnitConsoleRunner.class,ArgFilters.selectClass(JUnitConsoleRunner.class),args);
+}

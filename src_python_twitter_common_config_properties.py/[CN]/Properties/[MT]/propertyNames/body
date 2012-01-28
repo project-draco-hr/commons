@@ -1,3 +1,0 @@
-def propertyNames(self):
-    ' Return an iterator over all the keys of the property\n        dictionary, i.e the names of the properties '
-    return self._props.keys()

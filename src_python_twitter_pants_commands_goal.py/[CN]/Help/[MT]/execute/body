@@ -1,0 +1,12 @@
+def execute(self, targets):
+    goal = self.context.options.help_goal
+    if (goal is None):
+        return self.list_goals('You must supply a goal name to provide help for.')
+    phase = Phase(goal)
+    if (not phase.goals()):
+        return self.list_goals(('Goal %s is unknown.' % goal))
+    parser = Help.parser()
+    parser.set_usage(('%s goal %s ([target]...)' % (sys.argv[0], goal)))
+    parser.epilog = phase.description
+    Phase.setup_parser(parser, [], [phase])
+    parser.parse_args(['--help'])

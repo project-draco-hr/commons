@@ -1,0 +1,5 @@
+{
+  AppLauncher.launch(TestApp2.class,Predicates.<Field>alwaysFalse());
+  assertTrue(TestApp2.hasRun);
+  assertNull(TestApp2.user.get());
+}

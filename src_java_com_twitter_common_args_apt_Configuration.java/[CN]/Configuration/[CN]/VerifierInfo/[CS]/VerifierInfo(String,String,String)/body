@@ -1,0 +1,5 @@
+{
+  this.verifiedType=checkValidIdentifier(verifiedType,true);
+  this.verifyingAnnotation=checkValidIdentifier(verifyingAnnotation,true);
+  this.verifierClass=checkValidIdentifier(verifierClass,true);
+}

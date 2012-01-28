@@ -1,5 +1,7 @@
 {
   Preconditions.checkState(connections.size() == connectionStats.size());
-  if (connectionStats.isEmpty())   throw new ResourceExhaustedException("No backends.");
+  if (connectionStats.isEmpty()) {
+    throw new ResourceExhaustedException("No backends.");
+  }
   return connectionStats.first().connectionKey;
 }

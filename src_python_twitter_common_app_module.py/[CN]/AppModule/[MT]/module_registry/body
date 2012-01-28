@@ -1,0 +1,3 @@
+@staticmethod
+def module_registry():
+    return AppModule._MODULE_REGISTRY

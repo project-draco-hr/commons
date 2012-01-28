@@ -1,0 +1,3 @@
+def viewkeys(self):
+    "od.viewkeys() -> a set-like object providing a view on od's keys"
+    return KeysView(self)

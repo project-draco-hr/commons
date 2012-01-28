@@ -1,0 +1,13 @@
+{
+  BackendOfferExpectation backendOfferExpectation=new BackendOfferExpectation();
+  control.replay();
+  backendOfferExpectation.offerBackends(BACKEND_1,BACKEND_2,BACKEND_3,BACKEND_4);
+  connect(BACKEND_1,ConnectionResult.FAILED,1);
+  assertThat(leastCon.nextBackend(),is(BACKEND_2));
+  connect(BACKEND_2,ConnectionResult.FAILED,1);
+  assertThat(leastCon.nextBackend(),is(BACKEND_3));
+  connect(BACKEND_3,1);
+  assertThat(leastCon.nextBackend(),is(BACKEND_4));
+  connect(BACKEND_4,1);
+  assertThat(leastCon.nextBackend(),is(BACKEND_1));
+}

@@ -1,0 +1,5 @@
+def setUp(self):
+    with temporary_file() as ini:
+        ini.write("\n[DEFAULT]\nanswer: 42\nscale: 1.2\npath: /a/b/%(answer)s\nembed: %(path)s::foo\ndisclaimer:\n  Let it be known\n  that.\n\n[a]\nfast: True\nlist: [1, 2, 3, %(answer)s]\n\n[b]\npreempt: False\ndict: {\n    'a': 1,\n    'b': %(answer)s,\n    'c': ['%(answer)s', %(answer)s]\n  }\n")
+        ini.close()
+        self.config = Config.load(configpath=ini.name)

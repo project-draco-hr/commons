@@ -1,0 +1,10 @@
+def user(self):
+    try:
+        stat = os.stat(('/proc/%s' % self.pid()))
+        try:
+            pwd_entry = pwd.getpwuid(stat[4])
+        except KeyError:
+            return None
+        return pwd_entry[0]
+    except OSError:
+        return None

@@ -1,0 +1,5 @@
+def __init__(self, server, server_url, session_token):
+    'Initialize with an established confluence connection.'
+    self._server = server
+    self._server_url = server_url
+    self._session_token = session_token

@@ -1,0 +1,13 @@
+{
+  Preconditions.checkNotNull(item);
+  if (reservoir.size() < numSamples) {
+    reservoir.add(item);
+  }
+ else {
+    int rIndex=random.nextInt(numItemsSeen + 1);
+    if (rIndex < numSamples) {
+      reservoir.set(rIndex,item);
+    }
+  }
+  numItemsSeen++;
+}

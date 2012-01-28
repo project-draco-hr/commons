@@ -1,9 +1,0 @@
-def parse(args=None):
-    _Global.warn_if_parsed()
-    args_to_parse = []
-    if (args is None):
-        args_to_parse.extend(sys.argv[1:])
-    args_to_parse.extend((('--%s=%s' % (k, v)) for (k, v) in _Global.OVERRIDES.items()))
-    (_Global.VALUES, _Global.ARGUMENTS) = _Global.OPTIONS_LONG.parse_args(args=args_to_parse, values=_Global.VALUES)
-    _Global.PARSED = True
-    return (_Global.VALUES, _Global.ARGUMENTS)

@@ -1,0 +1,4 @@
+@staticmethod
+def get_url(server_url, wiki_space, page_title):
+    ' return the url for a confluence page in a given space and with a given\n    title. '
+    return ('%s/display/%s/%s' % (server_url, wiki_space, urllib.quote_plus(page_title)))

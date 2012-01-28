@@ -1,0 +1,4 @@
+@staticmethod
+def handle_start_time(key, value):
+    seconds = ProcessHandlersProcfs.handle_time(key, value)
+    return (ProcessHandlersProcfs.boot_time() + seconds)

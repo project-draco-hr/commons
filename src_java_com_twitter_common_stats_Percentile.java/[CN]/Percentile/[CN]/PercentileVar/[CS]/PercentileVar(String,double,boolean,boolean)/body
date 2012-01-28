@@ -1,6 +1,0 @@
-{
-  super(name,0d);
-  this.percentile=percentile;
-  this.sortFirst=sortFirst;
-  this.flushAfterSampling=flushAfterSampling;
-}

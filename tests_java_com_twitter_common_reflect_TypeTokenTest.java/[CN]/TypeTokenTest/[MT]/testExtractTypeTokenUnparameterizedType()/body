@@ -1,0 +1,3 @@
+{
+  TypeToken.extractTypeToken(String.class);
+}

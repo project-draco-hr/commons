@@ -1,0 +1,7 @@
+{
+  while ((value & ~0x7F) != 0) {
+    writeByte((byte)((value & 0x7f) | 0x80));
+    value>>>=7;
+  }
+  writeByte((byte)value);
+}

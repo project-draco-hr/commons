@@ -1,0 +1,7 @@
+def test_comparison_mixed_units():
+    assert (Amount(1, Time.MINUTES) > Amount(59, Time.SECONDS))
+    assert (Amount(1, Time.MINUTES) == Amount(60, Time.SECONDS))
+    assert (Amount(1, Time.MINUTES) < Amount(61, Time.SECONDS))
+    assert (Amount(59, Time.SECONDS) < Amount(1, Time.MINUTES))
+    assert (Amount(60, Time.SECONDS) == Amount(1, Time.MINUTES))
+    assert (Amount(61, Time.SECONDS) > Amount(1, Time.MINUTES))

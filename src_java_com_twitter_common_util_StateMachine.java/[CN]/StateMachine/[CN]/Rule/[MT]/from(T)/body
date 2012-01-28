@@ -1,0 +1,3 @@
+{
+  return new AllowedTransition<T>(new Rule<T>(state));
+}

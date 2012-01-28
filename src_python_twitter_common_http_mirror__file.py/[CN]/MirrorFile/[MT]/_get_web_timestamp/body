@@ -1,0 +1,19 @@
+def _get_web_timestamp(self):
+    conn = self._connection_class(self._http_host)
+    try:
+        conn.request('HEAD', self._http_path)
+    except httplib.CannotSendRequest:
+        return None
+    try:
+        res = conn.getresponse()
+    except (httplib.ResponseNotReady, httplib.BadStatusLine):
+        return None
+    if (res is not None):
+        last_modified = res.getheader('last-modified')
+        if (last_modified is not None):
+            try:
+                last_modified = time.strptime(last_modified, '%a, %d %b %Y %H:%M:%S %Z')
+            except ValueError:
+                return None
+            return int(time.mktime(last_modified))
+    return None

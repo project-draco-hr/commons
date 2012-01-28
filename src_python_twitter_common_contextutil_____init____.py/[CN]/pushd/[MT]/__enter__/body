@@ -1,0 +1,4 @@
+def __enter__(self):
+    self.cwd = os.getcwd()
+    os.chdir(self.directory)
+    return self.directory

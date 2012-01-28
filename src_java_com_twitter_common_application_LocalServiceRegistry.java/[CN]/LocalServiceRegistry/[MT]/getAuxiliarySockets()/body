@@ -1,0 +1,3 @@
+{
+  return ImmutableMap.copyOf(Maps.transformValues(Maps.filterKeys(getAllAnnouncedPorts(),Predicates.not(isPrimaryPort)),InetSocketAddressHelper.INT_TO_INET));
+}

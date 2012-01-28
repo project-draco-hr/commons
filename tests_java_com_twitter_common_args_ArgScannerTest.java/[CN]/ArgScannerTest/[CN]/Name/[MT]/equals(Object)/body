@@ -1,0 +1,3 @@
+{
+  return (obj instanceof Name) && name.equals(((Name)obj).name);
+}

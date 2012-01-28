@@ -1,3 +1,0 @@
-{
-  this.healthHandler=Preconditions.checkNotNull(healthHandler);
-}

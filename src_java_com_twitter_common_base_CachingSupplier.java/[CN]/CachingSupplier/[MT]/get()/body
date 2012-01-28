@@ -1,0 +1,7 @@
+{
+  if ((lastFetchNanos == -1) || (clock.nowNanos() - lastFetchNanos > expirationNanos)) {
+    cachedValue=wrapped.get();
+    lastFetchNanos=clock.nowNanos();
+  }
+  return cachedValue;
+}

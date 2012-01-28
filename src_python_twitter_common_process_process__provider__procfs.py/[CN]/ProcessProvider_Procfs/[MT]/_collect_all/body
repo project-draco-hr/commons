@@ -1,0 +1,8 @@
+def _collect_all(self):
+
+    def try_int(value):
+        try:
+            return int(value)
+        except ValueError:
+            return None
+    return self._collect_set(filter_map(try_int, os.listdir('/proc')))

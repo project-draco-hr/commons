@@ -1,0 +1,11 @@
+def _safe_setup_link(link_filename, real_filename):
+    '\n    Create a symlink from link_filename to real_filename.\n  '
+    if os.path.exists(link_filename):
+        try:
+            os.unlink(link_filename)
+        except OSError:
+            pass
+    try:
+        os.symlink(real_filename, link_filename)
+    except OSError:
+        pass

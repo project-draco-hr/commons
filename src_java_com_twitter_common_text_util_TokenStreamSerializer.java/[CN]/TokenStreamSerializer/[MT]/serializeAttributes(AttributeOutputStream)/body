@@ -1,0 +1,5 @@
+{
+  for (  AttributeSerializer serializer : attributeSerializers) {
+    serializer.serialize(output);
+  }
+}

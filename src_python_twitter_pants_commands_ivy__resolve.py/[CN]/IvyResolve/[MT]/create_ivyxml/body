@@ -1,0 +1,4 @@
+def create_ivyxml(self, target):
+    builder = AntBuilder(self.error, self.workspace_root, False, False)
+    (buildxml, ivyxml) = builder.create_ant_builds(self.workspace_root, dict(), set(), target)
+    return ivyxml

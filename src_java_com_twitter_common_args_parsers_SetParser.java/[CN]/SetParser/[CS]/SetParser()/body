@@ -1,3 +1,3 @@
 {
-  super(Set.class,1);
+  super(1);
 }

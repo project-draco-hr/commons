@@ -1,0 +1,2 @@
+def _translate_line_to_handle(self, line):
+    return ProcessHandlePs.from_line(line)

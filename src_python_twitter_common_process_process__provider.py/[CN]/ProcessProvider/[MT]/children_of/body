@@ -1,0 +1,9 @@
+def children_of(self, pid, all=False):
+    '\n      By default returns set of pids of direct descendents of pid based upon\n      last collection.  If all=True is set, then get all descendents of pid\n      recursively.\n    '
+    self._raise_unless_has_pid(pid)
+    if all:
+        all_children = set()
+        self._calculate_children(pid, all_children)
+        return all_children
+    else:
+        return copy(self._pid_to_children[pid])

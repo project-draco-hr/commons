@@ -1,0 +1,19 @@
+{
+  for (  Map.Entry<? extends ExecutableElement,? extends AnnotationValue> entry : annotationMirror.getElementValues().entrySet()) {
+    if (entry.getKey().getSimpleName().equals(elementUtils.getName(methodName))) {
+      TypeElement classType=entry.getValue().accept(new SimpleAnnotationValueVisitor6<TypeElement,Void>(){
+        @Override public TypeElement visitType(        TypeMirror t,        Void unused){
+          return (TypeElement)processingEnv.getTypeUtils().asElement(t);
+        }
+      }
+,null);
+      if (classType != null) {
+        return classType;
+      }
+    }
+  }
+  if (defaultClassType == null) {
+    error("Could not find a class type for %s.%s",annotationMirror,methodName);
+  }
+  return defaultClassType;
+}

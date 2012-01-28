@@ -7,6 +7,13 @@ def execute(self):
         extractors = dict(address=(lambda target: str(target.address)), artifact_id=extract_artifact_id, repo_name=(lambda target: target.provides.repo.name), repo_url=(lambda target: target.provides.repo.url), repo_db=(lambda target: target.provides.repo.push_db))
         column_extractors = [extractors[col] for col in self.options.provides_columns.split(',')]
         print_fn = (lambda address: self._print_provides(column_extractors, address))
+    elif self.options.documented:
+
+        def print_documented(address):
+            target = Target.get(address)
+            if target.description:
+                return ('%s\n  %s' % (address, '\n  '.join(target.description.strip().split('\n'))))
+        print_fn = print_documented
     else:
         print_fn = (lambda address: str(address))
     for buildfile in self.buildfiles:

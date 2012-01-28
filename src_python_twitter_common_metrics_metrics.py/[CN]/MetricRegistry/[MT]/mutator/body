@@ -1,0 +1,3 @@
+def mutator(self, name):
+    '\n      Return a mutator function of the gauge associated with name.\n    '
+    raise NotImplementedError

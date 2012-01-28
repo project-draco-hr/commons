@@ -1,0 +1,12 @@
+def _calculate_classpath(self, targets):
+    jars = set()
+    excludes = set()
+
+    def collect_jars(target):
+        if target.jar_dependencies:
+            jars.update((jar for jar in target.jar_dependencies if jar.rev))
+        if target.excludes:
+            excludes.update(target.excludes)
+    for target in targets:
+        target.walk(collect_jars, is_jvm)
+    return (jars, excludes)

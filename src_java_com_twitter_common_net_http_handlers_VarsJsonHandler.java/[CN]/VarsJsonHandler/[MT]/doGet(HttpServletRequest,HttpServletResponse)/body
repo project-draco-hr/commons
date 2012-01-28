@@ -1,0 +1,11 @@
+{
+  resp.setContentType("application/json");
+  resp.setStatus(HttpServletResponse.SC_OK);
+  PrintWriter responseBody=resp.getWriter();
+  try {
+    responseBody.print(getBody(req.getParameter("pretty") != null));
+  }
+  finally {
+    responseBody.close();
+  }
+}

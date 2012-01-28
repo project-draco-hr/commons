@@ -2,5 +2,5 @@
   requireBinding(Key.get(new TypeLiteral<Closure<Map<String,? extends Number>>>(){
   }
 ));
-  requestStaticInjection(Init.class);
+  LifecycleModule.bindStartupAction(binder(),StartCuckooExporter.class);
 }

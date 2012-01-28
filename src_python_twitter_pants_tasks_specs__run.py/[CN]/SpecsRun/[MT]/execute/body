@@ -1,0 +1,20 @@
+def execute(self, targets):
+    if (not self.skip):
+        args = []
+        if self.tests:
+            args.append('--classes')
+            args.append(','.join(self.tests))
+        else:
+            tests = self.calculate_tests(targets)
+            if tests:
+                args.append(('--specs-files=%s' % ','.join(tests)))
+        if args:
+            if self.color:
+                args.append('--color')
+            classpath = profile_classpath(self.profile)
+            classpath.extend((os.path.join(get_buildroot(), path) for path in ('src/resources', 'tests/resources')))
+            with self.context.state('classpath', []) as cp:
+                classpath.extend((jar for (conf, jar) in cp if (conf in self.confs)))
+            result = runjava(jvmargs=self.java_args, classpath=classpath, main=('run' if self.tests else 'com.twitter.common.testing.ExplicitSpecsRunnerMain'), args=args)
+            if (result != 0):
+                raise TaskError()

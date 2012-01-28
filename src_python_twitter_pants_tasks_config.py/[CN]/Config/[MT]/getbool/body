@@ -1,0 +1,3 @@
+def getbool(self, section, option, default=None):
+    'Equivalent to calling get with expected type string'
+    return self.get(section, option, type=bool, default=default)

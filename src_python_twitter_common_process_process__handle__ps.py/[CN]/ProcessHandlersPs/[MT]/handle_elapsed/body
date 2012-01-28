@@ -1,0 +1,15 @@
+@staticmethod
+def handle_elapsed(key, value):
+    seconds = 0
+    unpack = value.split('-')
+    if (len(unpack) == 2):
+        seconds += (int(unpack[0]) * 86400)
+        unpack = unpack[1]
+    else:
+        unpack = unpack[0]
+    unpack = unpack.split(':')
+    mult = 1.0
+    for k in range(len(unpack), 0, (-1)):
+        seconds += (float(unpack[(k - 1)]) * mult)
+        mult *= 60
+    return seconds

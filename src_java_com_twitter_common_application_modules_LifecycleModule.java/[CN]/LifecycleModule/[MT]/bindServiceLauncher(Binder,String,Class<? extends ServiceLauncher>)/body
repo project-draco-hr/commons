@@ -1,0 +1,6 @@
+{
+  Multibinder.newSetBinder(binder,String.class,Port.class).addBinding().toInstance(portName);
+  bindStartupAction(binder,launcher);
+  Multibinder.newSetBinder(binder,ServiceLauncher.class).addBinding().to(launcher);
+  binder.bind(launcher).in(Singleton.class);
+}

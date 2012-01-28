@@ -1,0 +1,15 @@
+def _fetch(self):
+    conn = self._connection_class(self._http_host)
+    try:
+        conn.request('GET', self._http_path)
+    except httplib.CannotSendRequest:
+        return None
+    try:
+        res = conn.getresponse()
+    except httplib.ResponseNotReady as httplib.BadStatusLine:
+        return None
+    if (res is not None):
+        with open(self._local_filename, 'w') as fp:
+            fp.write(res.read())
+        os.utime(self._local_filename, (self._web_mtime, self._web_mtime))
+        return True

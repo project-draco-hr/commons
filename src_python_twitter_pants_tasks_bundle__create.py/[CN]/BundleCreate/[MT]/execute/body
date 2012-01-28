@@ -1,0 +1,10 @@
+def execute(self, targets):
+
+    def is_app(target):
+        return isinstance(target, JvmApp)
+    archiver = (ARCHIVER_BY_TYPE[self.archiver] if self.archiver else None)
+    for app in filter(is_app, targets):
+        basedir = self.bundle(app)
+        if archiver:
+            archivepath = archiver.archive(basedir, self.outdir, app.name)
+            self.context.log.info(('created %s' % os.path.relpath(archivepath, get_buildroot())))

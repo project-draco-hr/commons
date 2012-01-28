@@ -1,0 +1,5 @@
+def __init__(self, name, value=None):
+    if (not isinstance(name, str)):
+        raise TypeError(('NamedGauge must be named by a string, got %s' % type(name)))
+    self._name = name
+    Gauge.__init__(self, value)

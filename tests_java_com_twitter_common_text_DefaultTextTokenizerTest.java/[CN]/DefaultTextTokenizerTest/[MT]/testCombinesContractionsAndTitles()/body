@@ -1,0 +1,3 @@
+{
+  testTokenizerString(tokenizerWithoutPunctuation,"Sam's first Penguin test, thanks to Mr. Fujii",ImmutableList.of("Sam's","first","Penguin","test","thanks","to","Mr.","Fujii"));
+}

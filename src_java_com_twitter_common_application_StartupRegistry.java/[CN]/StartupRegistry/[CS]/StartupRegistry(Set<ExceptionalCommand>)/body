@@ -1,0 +1,3 @@
+{
+  this.startupActions=Preconditions.checkNotNull(startupActions);
+}

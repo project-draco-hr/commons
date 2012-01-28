@@ -1,0 +1,4 @@
+{
+  this.connectionKey=connectionKey;
+  this.connectionId=connectionId;
+}

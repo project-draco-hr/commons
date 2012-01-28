@@ -1,3 +1,4 @@
 self
 root_dir
 relpath
+must_exist

@@ -1,7 +1,7 @@
 {
   init();
   for (  Iterator<T> it : iterators) {
-    if (!overflowing.get(it)) {
+    if (!overflowing.getUnchecked(it)) {
       it.remove();
     }
   }

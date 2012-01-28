@@ -2,13 +2,14 @@
   List<Integer> values=Lists.newArrayList();
   for (int i=0; i < 1000; i++) {
     for (int j=0; j < 10; j++) {
-      values.add(i + 1);
+      values.add(i);
     }
   }
+  values.add(2000);
   Collections.shuffle(values);
   for (  int sample : values) {
     percentiles.record(sample);
   }
-  checkPercentiles(percentiles,100,500,900,990,999,1000);
+  checkPercentiles(percentiles,0,100,500,900,990,999,999,2000);
   checkValuesAreFlushed(percentiles);
 }

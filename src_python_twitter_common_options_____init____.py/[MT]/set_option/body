@@ -1,7 +1,0 @@
-def set_option(option_name, option_value):
-    if (isinstance(option_value, types.StringTypes) and isinstance(option_name, types.StringTypes)):
-        if (option_name in _Global.OVERRIDES):
-            print  >> sys.stderr, ('WARNING: Calling set_option(%s) multiple times!' % option_name)
-        _Global.OVERRIDES[option_name] = option_value
-    else:
-        raise OptionValueError('set_option values must be strings!')

@@ -1,0 +1,2 @@
+def invalidate_for(self):
+    return self.context.options.ivy_resolve_overrides

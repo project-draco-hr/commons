@@ -1,2 +1,0 @@
-def __str__(self):
-    return ('Chroot(%s => %s:%s {fs:%s})' % (self.root, self.name, self.chroot, ' '.join((('%s' % foo) for foo in self.filesets.keys()))))

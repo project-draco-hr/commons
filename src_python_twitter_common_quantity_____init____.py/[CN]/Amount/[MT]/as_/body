@@ -1,0 +1,4 @@
+def as_(self, unit):
+    if (type(self._unit) != type(unit)):
+        raise TypeError(('Cannot convert from disparate base units: %s vs %s' % (type(self._unit), type(unit))))
+    return (((self._amount * 1.0) * self._unit.multiplier()) / unit.multiplier())

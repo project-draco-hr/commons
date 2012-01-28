@@ -1,0 +1,19 @@
+{
+  long time=0L;
+  final List<Object> tokens=Collections.list(new StringTokenizer(spec,SUFFIXES,true));
+  Preconditions.checkArgument(tokens.size() > 1);
+  for (int i=1; i < tokens.size(); i+=2) {
+    final String token=(String)tokens.get(i);
+    Preconditions.checkArgument(token.length() == 1,"Too long suffix '%s'",token);
+    final int suffixIndex=SUFFIXES.indexOf(token.charAt(0));
+    Preconditions.checkArgument(suffixIndex != -1,"Unrecognized suffix '%s'",token);
+    try {
+      final int value=Integer.parseInt((String)tokens.get(i - 1));
+      time+=Amount.of(value,TIME_UNITS[suffixIndex]).as(Time.SECONDS);
+    }
+ catch (    NumberFormatException e) {
+      Preconditions.checkArgument(false,"Invalid number %s",tokens.get(i - 1));
+    }
+  }
+  return Amount.of(time,Time.SECONDS);
+}

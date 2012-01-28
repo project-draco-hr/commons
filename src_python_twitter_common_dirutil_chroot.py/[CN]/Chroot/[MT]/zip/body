@@ -1,0 +1,5 @@
+def zip(self, filename):
+    zf = zipfile.ZipFile(filename, 'w')
+    for f in sorted(self.files()):
+        zf.write(os.path.join(self.chroot, f), arcname=f, compress_type=zipfile.ZIP_DEFLATED)
+    zf.close()

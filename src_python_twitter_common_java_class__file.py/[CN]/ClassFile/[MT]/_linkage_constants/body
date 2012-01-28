@@ -1,0 +1,2 @@
+def _linkage_constants(self):
+    return [c for c in self._constant_pool if isinstance(c, self._LINKAGE_CONSTANT_TYPES)]

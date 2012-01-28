@@ -1,0 +1,2 @@
+def setup_function(self):
+    sys.excepthook = AppExceptionHandler.handle_error

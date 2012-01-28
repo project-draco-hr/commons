@@ -1,0 +1,7 @@
+def test_mixed_types(self):
+    deps = {1: 'bob', 2: 'frank', 'frank': 'esther', 'esther': set(['brian', 3]), }
+    iter = topological_sort(deps)
+    assert (iter.next() == set(['bob', 'brian', 3]))
+    assert (iter.next() == set([1, 'esther']))
+    assert (iter.next() == set(['frank']))
+    assert (iter.next() == set([2]))

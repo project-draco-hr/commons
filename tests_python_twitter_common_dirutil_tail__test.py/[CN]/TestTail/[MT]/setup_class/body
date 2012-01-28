@@ -1,0 +1,5 @@
+@classmethod
+def setup_class(cls):
+    cls._fp = open(tempfile.mktemp(), 'w')
+    cls._thread = TailThread(cls._fp.name)
+    cls._thread.start()

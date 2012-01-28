@@ -1,0 +1,6 @@
+def test_multiple_option_inheritance(self):
+    option_a = options.Option('-a', dest='a')
+    option_b = options.Option('-b', dest='b')
+    (values, leftovers) = options.parser().options([option_a]).options([option_b]).parse(['-a', 'value_a', '-b', 'value_b'])
+    assert (values.a == 'value_a')
+    assert (values.b == 'value_b')

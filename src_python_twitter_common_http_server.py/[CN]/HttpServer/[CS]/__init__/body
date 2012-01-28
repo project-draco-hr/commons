@@ -1,0 +1,9 @@
+def __init__(self):
+    self._app = bottle.Bottle()
+    self._request = bottle.request
+    self._response = bottle.response
+    self._hostname = None
+    self._server = None
+    self._port = None
+    self._mounts = set()
+    self.mount_routes(self)

@@ -1,0 +1,3 @@
+{
+  return of(numerator.getName() + "_per_" + denominator.getName(),numerator,denominator);
+}

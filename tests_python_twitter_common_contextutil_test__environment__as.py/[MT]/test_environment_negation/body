@@ -1,0 +1,7 @@
+def test_environment_negation():
+    with temporary_file() as output:
+        with environment_as(HORK='BORK'):
+            with environment_as(HORK=None):
+                subprocess.Popen([sys.executable, '-c', 'import os; print os.environ.has_key("HORK")'], stdout=output).wait()
+                output.seek(0)
+                assert (output.read() == 'False\n')

@@ -1,0 +1,7 @@
+{
+  Map<String,Object> vars=Maps.newHashMap();
+  for (  Stat<?> var : statSupplier.get()) {
+    vars.put(var.getName(),var.read());
+  }
+  return getGson(pretty).toJson(vars);
+}

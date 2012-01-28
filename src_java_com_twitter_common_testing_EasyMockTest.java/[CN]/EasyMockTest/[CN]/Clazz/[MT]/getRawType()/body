@@ -1,6 +1,4 @@
 {
-  ParameterizedType clazz=(ParameterizedType)this.getClass().getGenericSuperclass();
-  Type capturedType=clazz.getActualTypeArguments()[0];
-  @SuppressWarnings("unchecked") Class<T> rawType=(Class<T>)getRawType(capturedType);
+  @SuppressWarnings("unchecked") Class<T> rawType=(Class<T>)findRawType();
   return rawType;
 }

@@ -1,0 +1,24 @@
+{
+  expect(valueSupplier.get()).andReturn(100);
+  expect(valueSupplier.get()).andReturn(0);
+  expect(valueSupplier.get()).andReturn(50);
+  expect(valueSupplier.get()).andReturn(100);
+  expect(valueSupplier.get()).andReturn(150);
+  expect(valueSupplier.get()).andReturn(100);
+  expect(valueSupplier.get()).andReturn(50);
+  control.replay();
+  Rate rate=makeRate("foo",THIRTY_SECONDS);
+  assertEquals(rate.read(),0d,EPS);
+  clock.advance(TEN_SECONDS);
+  assertEquals(-100d / 10,rate.read(),EPS);
+  clock.advance(TEN_SECONDS);
+  assertEquals(-50d / 20,rate.read(),EPS);
+  clock.advance(TEN_SECONDS);
+  assertEquals(0d,rate.read(),EPS);
+  clock.advance(TEN_SECONDS);
+  assertEquals(150d / 30,rate.read(),EPS);
+  clock.advance(TEN_SECONDS);
+  assertEquals(50d / 30,rate.read(),EPS);
+  clock.advance(TEN_SECONDS);
+  assertEquals(-50d / 30,rate.read(),EPS);
+}

@@ -1,0 +1,2 @@
+def invalidate(self, all=False):
+    safe_rmtree((self._build_cache if all else self._basedir))

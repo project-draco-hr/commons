@@ -1,0 +1,23 @@
+{
+  ServerSet serverSet=new ServerSetImpl(zkClient,SERVERSET_PATH.get());
+  final EndpointStatus status;
+  try {
+    status=serverSet.join(serviceRegistry.getPrimarySocket(),serviceRegistry.getAuxiliarySockets(),Status.ALIVE);
+  }
+ catch (  JoinException e) {
+    LOG.log(Level.WARNING,"Failed to join ServerSet.",e);
+    throw new RuntimeException(e);
+  }
+catch (  InterruptedException e) {
+    LOG.log(Level.WARNING,"Interrupted while joining ServerSet.",e);
+    Thread.currentThread().interrupt();
+    throw new RuntimeException(e);
+  }
+  shutdownRegistry.addAction(new ExceptionalCommand<UpdateException>(){
+    @Override public void execute() throws UpdateException {
+      LOG.info("Leaving ServerSet.");
+      status.update(Status.DEAD);
+    }
+  }
+);
+}

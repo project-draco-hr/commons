@@ -1,0 +1,4 @@
+def __init__(self, root, chroot_base, name=None):
+    "\n      root = source directory for files\n      chroot_base = directory for the creation of the target chroot.\n      name = if specified, create the chroot in a temporary directory underneath\n        chroot_base with 'name' as the prefix, otherwise create the chroot directly\n        into chroot_base\n    "
+    Chroot.__init__(self, chroot_base, name)
+    self.set_relative_root(root)

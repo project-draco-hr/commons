@@ -1,5 +1,5 @@
-@classmethod
-def scan_buildfiles(cls, root_dir, base_path=None):
+@staticmethod
+def scan_buildfiles(root_dir, base_path=None):
     'Looks for all BUILD files under base_path'
     buildfiles = OrderedSet()
     for (root, dirs, files) in os.walk((base_path if base_path else root_dir)):

@@ -1,5 +1,0 @@
-@staticmethod
-def _environment():
-    if (not _APP_INITIALIZED):
-        raise AppException('Cannot get environment until twitter.common.app has been initialized!')
-    return options.values().twitter_common_app_environment

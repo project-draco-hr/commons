@@ -1,2 +1,2 @@
 def error(self, message=None):
-    self.parser.error(message)
+    'Reports the error message followed by pants help and then exits.'

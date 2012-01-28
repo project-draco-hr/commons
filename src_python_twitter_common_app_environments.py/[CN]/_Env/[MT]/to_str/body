@@ -1,4 +1,0 @@
-@staticmethod
-def to_str(id):
-    assert (id in _Env._id_to_str)
-    return _Env._id_to_str[id]

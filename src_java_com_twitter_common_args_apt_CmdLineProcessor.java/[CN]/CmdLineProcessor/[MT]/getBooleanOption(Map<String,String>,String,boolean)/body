@@ -1,0 +1,10 @@
+{
+  if (!options.containsKey(name)) {
+    return defaultValue;
+  }
+  String isOption=options.get(name);
+  if (isOption == null) {
+    return defaultValue;
+  }
+  return Boolean.parseBoolean(isOption);
+}

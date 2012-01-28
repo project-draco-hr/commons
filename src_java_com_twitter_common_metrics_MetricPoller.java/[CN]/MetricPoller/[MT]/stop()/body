@@ -1,0 +1,8 @@
+{
+  if (stopped.compareAndSet(false,true)) {
+    new ExecutorServiceShutdown(executor,SHUTDOWN_GRACE_PERIOD).execute();
+  }
+ else {
+    LOG.warning("Poller is already stopped, subsequent calls ignored.");
+  }
+}

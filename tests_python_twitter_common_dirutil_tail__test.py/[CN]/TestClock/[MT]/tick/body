@@ -1,0 +1,4 @@
+def tick(self, ticks=1):
+    for k in range(ticks):
+        with self._cond:
+            self._cond.notifyAll()

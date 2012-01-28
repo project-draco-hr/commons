@@ -1,0 +1,3 @@
+{
+  return String.format("TypeToken<%s>",type instanceof Class ? ((Class<?>)type).getName() : type.toString());
+}

@@ -1,0 +1,9 @@
+def __init__(self, cache, targets, only_buildfiles):
+    self._cache = cache
+    self._only_buildfiles = only_buildfiles
+    self._targets = set(targets)
+    self.changed_files = 0
+    self.invalidated_files = 0
+    self.invalidated_targets = 0
+    self.foreign_invalidated_targets = 0
+    self.changed = defaultdict(list)

@@ -1,0 +1,7 @@
+def groups(self, merge_groups=None):
+    ' Get/add groups. '
+    if (merge_groups is None):
+        return self._groups
+    me = self._copy()
+    me._groups.extend(merge_groups)
+    return me

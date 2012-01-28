@@ -1,0 +1,33 @@
+{
+  PrintStream out=SWAPPABLE_OUT.getOriginal();
+  List<Request> requests=parseRequests(out,TESTS.get());
+  final JUnitCore core=new JUnitCore();
+  ListenerRegistry listenerRegistry=new ListenerRegistry(){
+    @Override public void addListener(    RunListener listener){
+      core.addListener(listener);
+    }
+  }
+;
+  if (ANT_JUNIT_XML.get() || SUPPRESS_OUTPUT.get()) {
+    File outdir=OUTDIR.get();
+    if (!outdir.exists()) {
+      if (!outdir.mkdirs()) {
+        throw new IllegalStateException("Failed to create output directory: " + outdir);
+      }
+    }
+    StreamCapturingListener streamCapturingListener=new StreamCapturingListener(outdir);
+    listenerRegistry.addListener(streamCapturingListener);
+    listenerRegistry=streamCapturingListener;
+    if (ANT_JUNIT_XML.get()) {
+      AntJunitXmlReportListener xmlReportListener=new AntJunitXmlReportListener(outdir,streamCapturingListener);
+      listenerRegistry.addListener(xmlReportListener);
+    }
+  }
+  listenerRegistry.addListener(new ConsoleListener(out));
+  int failures=0;
+  for (  Request request : requests) {
+    Result result=core.run(request);
+    failures+=result.getFailureCount();
+  }
+  exit(failures);
+}

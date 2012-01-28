@@ -1,0 +1,10 @@
+{
+  assertEquals(primary,registry.getPrimaryPort());
+  assertEquals(expected,registry.getAllAnnouncedPorts());
+  Map<String,Integer> auxPorts=Maps.newHashMap(expected);
+  if (primary != null) {
+    assertEquals(InetSocketAddressHelper.getLocalAddress(expected.get(primary)),registry.getPrimarySocket());
+    auxPorts.remove(primary);
+  }
+  assertEquals(Maps.transformValues(auxPorts,InetSocketAddressHelper.INT_TO_INET),registry.getAuxiliarySockets());
+}

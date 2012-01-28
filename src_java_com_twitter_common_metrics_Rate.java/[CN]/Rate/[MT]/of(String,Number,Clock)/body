@@ -1,0 +1,3 @@
+{
+  return new Rate(name,Suppliers.ofInstance(number),ONE_SECOND,clock);
+}

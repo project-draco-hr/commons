@@ -1,3 +1,2 @@
 def _dump_thrift_library(self, library):
-    print ('  Generating %s...' % library)
-    self._dump_built_library(PythonThriftBuilder(library, self.root))
+    self._dump_built_library(library, PythonThriftBuilder(library, self._root))

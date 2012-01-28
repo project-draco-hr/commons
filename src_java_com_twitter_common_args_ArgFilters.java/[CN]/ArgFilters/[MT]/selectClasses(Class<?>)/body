@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(cls);
+  final Set<Class<?>> listOfClasses=ImmutableSet.copyOf(cls);
+  return new Predicate<Field>(){
+    @Override public boolean apply(    Field field){
+      return listOfClasses.contains(field.getDeclaringClass());
+    }
+  }
+;
+}

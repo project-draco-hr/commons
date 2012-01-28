@@ -1,0 +1,5 @@
+def __init__(self, *args, **kwargs):
+    bottle.ServerAdapter.__init__(self, *args, **kwargs)
+    self._srv = None
+    self._lock = threading.Condition()
+    self._run = False

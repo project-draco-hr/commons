@@ -1,0 +1,2 @@
+def gaugelike(obj):
+    return (hasattr(obj, 'read') and callable(obj.read))

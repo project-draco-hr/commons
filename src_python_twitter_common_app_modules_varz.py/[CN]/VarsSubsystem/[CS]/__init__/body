@@ -1,0 +1,2 @@
+def __init__(self):
+    app.Module.__init__(self, __name__, description='Vars subsystem', dependencies='twitter.common.app.modules.http')

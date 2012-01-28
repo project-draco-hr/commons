@@ -1,0 +1,3 @@
+{
+  return compose(ImmutableList.<ExceptionalFunction<T,T,E>>builder().add(function).add(functions).build());
+}

@@ -1,0 +1,8 @@
+def __init__(self, context):
+    Task.__init__(self, context)
+    self.outdir = (context.options.binary_create_outdir or context.config.get('binary-create', 'outdir'))
+    self.compression = (ZIP_DEFLATED if context.options.binary_create_compressed else ZIP_STORED)
+    self.deployjar = context.options.binary_create_deployjar
+    context.products.require('jars')
+    if self.deployjar:
+        context.products.require('jar_dependencies', predicate=is_binary)

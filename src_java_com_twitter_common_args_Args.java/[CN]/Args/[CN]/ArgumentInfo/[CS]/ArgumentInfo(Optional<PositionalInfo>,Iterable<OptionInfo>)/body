@@ -1,0 +1,4 @@
+{
+  this.positionalInfo=Preconditions.checkNotNull(positionalInfo);
+  this.optionInfos=Preconditions.checkNotNull(optionInfos);
+}

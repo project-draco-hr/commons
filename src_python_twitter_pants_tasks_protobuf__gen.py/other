@@ -1,0 +1,15 @@
+__author__ = 'John Sirois'
+import re
+import os
+import subprocess
+from collections import defaultdict
+from twitter.common import log
+from twitter.common.collections import OrderedSet
+from twitter.common.dirutil import safe_mkdir
+from twitter.pants import is_jvm, is_python
+from twitter.pants.targets import JavaLibrary, JavaProtobufLibrary, PythonLibrary
+from twitter.pants.tasks import Task, TaskError
+from twitter.pants.tasks.binary_utils import select_binary
+DEFAULT_PACKAGE_PARSER = re.compile('^\\s*package\\s+([^;]+)\\s*;\\s*$')
+OPTION_PARSER = re.compile('^\\s*option\\s+([^=]+)\\s*=\\s*([^\\s]+);\\s*$')
+TYPE_PARSER = re.compile('^\\s*(enum|message)\\s+([^\\s{]+).*')

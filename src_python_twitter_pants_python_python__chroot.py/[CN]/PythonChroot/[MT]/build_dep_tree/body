@@ -1,4 +1,8 @@
-def build_dep_tree(self, target):
+def build_dep_tree(self, input_target):
+    target = copy.deepcopy(input_target)
+    common_python = self._get_common_python()
+    if (common_python not in target.dependencies):
+        target.dependencies.add(common_python)
     libraries = set()
     eggs = set()
     binaries = set()

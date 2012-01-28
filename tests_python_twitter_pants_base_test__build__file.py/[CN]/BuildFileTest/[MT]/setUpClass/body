@@ -3,6 +3,8 @@ def setUpClass(cls):
     BuildFileTest.root_dir = tempfile.mkdtemp()
     BuildFileTest.touch('grandparent/parent/BUILD')
     BuildFileTest.touch('grandparent/parent/BUILD.twitter')
+    BuildFileTest.touch('grandparent/BUILD')
+    BuildFileTest.touch('grandparent/BUILD.foo')
     BuildFileTest.touch('BUILD')
     BuildFileTest.touch('BUILD.twitter')
     BuildFileTest.touch('grandparent/parent/child1/BUILD')

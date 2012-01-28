@@ -1,2 +1,2 @@
 def __init__(self, name, dependencies=None):
-    PythonTarget.__init__(self, 'tests/python', name, [], [], dependencies, False)
+    PythonTarget.__init__(self, name, (), (), dependencies)

@@ -1,4 +1,2 @@
-def __init__(self, ferror, root_dir, is_ide, ide_transitivity):
+def __init__(self, ferror, root_dir):
     Builder.__init__(self, ferror, root_dir)
-    self.is_ide = is_ide
-    self.ide_transitivity = ide_transitivity

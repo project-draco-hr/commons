@@ -5,9 +5,9 @@ def _synthesize_command(root_dir, args):
         subcommand_args = (args[1:] if (len(args) > 1) else [])
         return (command, _prepend_default_options(command, subcommand_args))
     if command.startswith('-'):
-        exit(('Invalid command: %s' % command))
+        exit_and_fail(('Invalid command: %s' % command))
     try:
         Address.parse(root_dir, command)
         return (_BUILD_COMMAND, _prepend_default_options(_BUILD_COMMAND, args))
     except:
-        exit(('Failed to execute pants build: %s' % traceback.format_exc()))
+        exit_and_fail(('Failed to execute pants build: %s' % traceback.format_exc()))

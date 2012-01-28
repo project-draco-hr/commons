@@ -1,6 +1,0 @@
-ActionRegistry startupRegistry
-ActionRegistry shutdownRegistry
-HttpServerDispatch httpServerDispatch
-Set<HttpServletConfig> httpServlets
-Set<HttpAssetConfig> httpAssets
-Injector injector

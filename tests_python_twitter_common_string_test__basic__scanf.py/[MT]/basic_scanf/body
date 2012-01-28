@@ -1,0 +1,5 @@
+def basic_scanf(fmt, string, extra=False):
+    formatter = ScanfParser(fmt)
+    result = formatter.parse(string, extra)
+    assert (len(result.ungrouped()) == 1)
+    return result.ungrouped()[0]

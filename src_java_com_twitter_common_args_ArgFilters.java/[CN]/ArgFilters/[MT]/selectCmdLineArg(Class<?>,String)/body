@@ -1,0 +1,9 @@
+{
+  MorePreconditions.checkNotBlank(name);
+  return Predicates.and(selectClass(clazz),new Predicate<Field>(){
+    @Override public boolean apply(    Field field){
+      return field.getAnnotation(CmdLine.class).name().equals(name);
+    }
+  }
+);
+}

@@ -1,0 +1,3 @@
+def __init__(self, id, *dependencies):
+    self.id = id
+    self.dependencies = (dependencies or [])

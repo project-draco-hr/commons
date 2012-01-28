@@ -1,6 +1,5 @@
 {
-  requireBinding(Key.get(ActionRegistry.class,StartupStage.class));
-  requireBinding(Key.get(ActionRegistry.class,ShutdownStage.class));
+  requireBinding(ShutdownRegistry.class);
   requireBinding(BuildInfo.class);
   bind(new TypeLiteral<Amount<Long,Time>>(){
   }
@@ -9,5 +8,13 @@
   }
 ).annotatedWith(Names.named(TimeSeriesRepositoryImpl.SAMPLE_PERIOD)).toInstance(SAMPLING_INTERVAL.get());
   bind(TimeSeriesRepository.class).to(TimeSeriesRepositoryImpl.class).in(Singleton.class);
-  requestStaticInjection(Init.class);
+  bind(new TypeLiteral<Supplier<Iterable<Stat>>>(){
+  }
+).toInstance(new Supplier<Iterable<Stat>>(){
+    @Override public Iterable<Stat> get(){
+      return Stats.getVariables();
+    }
+  }
+);
+  LifecycleModule.bindStartupAction(binder(),StartStatPoller.class);
 }

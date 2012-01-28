@@ -1,5 +1,11 @@
 {
-  List<URL> configs=ImmutableList.copyOf(Iterators.forEnumeration(Configuration.class.getClassLoader().getResources(DEFAULT_RESOURCE_PATH)));
-  LOG.info("Loading @CmdLine config from :" + configs);
-  return load(CharStreams.join(Iterables.transform(configs,URL_TO_READER)));
+  ConfigurationResources allResources=getAllResources();
+  List<URL> configs=ImmutableList.copyOf(allResources.resources);
+  if (configs.isEmpty()) {
+    LOG.info("No @CmdLine arg configs found on the classpath");
+  }
+ else {
+    LOG.info("Loading @CmdLine config from: " + configs);
+  }
+  return load(allResources.nextResourceIndex,configs);
 }

@@ -1,0 +1,4 @@
+{
+  termAtt=attributeSource.addAttribute(CharSequenceTermAttribute.class);
+  this.encodingVersion=version;
+}

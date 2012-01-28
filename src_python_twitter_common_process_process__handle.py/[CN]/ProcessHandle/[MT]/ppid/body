@@ -1,0 +1,3 @@
+def ppid(self):
+    '\n      Parent PID of the process.\n    '
+    raise NotImplementedError

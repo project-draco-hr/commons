@@ -1,0 +1,4 @@
+def test_getmap(self):
+    self.assertEquals(dict(a=1, b=42, c=['42', 42]), self.config.getdict('b', 'dict'))
+    self.checkDefaults(self.config.get, {})
+    self.checkDefaults(self.config.get, dict(a=42))

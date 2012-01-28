@@ -1,0 +1,5 @@
+def filter(self, newer_than=None):
+    '\n      Filter the samples to only contain elements in the window.\n    '
+    if (newer_than is None):
+        newer_than = (self._clock.time() - self._window.as_(Time.SECONDS))
+    self._samples = filter((lambda sample: (sample[0] >= newer_than)), self._samples)

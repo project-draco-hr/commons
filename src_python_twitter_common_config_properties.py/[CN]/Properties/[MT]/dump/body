@@ -1,0 +1,17 @@
+@staticmethod
+def dump(props, output):
+    'Dumps a dict of properties to the specified open stream or file path.'
+
+    def escape(token):
+        return re.sub('([=:\\s])', '\\\\\\1', token)
+
+    def write(out):
+        for (k, v) in props.items():
+            out.write(('%s=%s\n' % (escape(str(k)), escape(str(v)))))
+    if (hasattr(output, 'write') and callable(output.write)):
+        write(output)
+    elif isinstance(output, basestring):
+        with open(output, 'w+a') as out:
+            write(out)
+    else:
+        raise TypeError(('Can only dump data to a path or a writable object, given: %s' % output))

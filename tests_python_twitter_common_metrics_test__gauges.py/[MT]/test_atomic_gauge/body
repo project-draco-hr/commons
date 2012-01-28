@@ -1,0 +1,7 @@
+def test_atomic_gauge():
+    ag = AtomicGauge('a')
+    assert (ag.name() == 'a')
+    assert (ag.read() == 0)
+    assert (ag.add((-2)) == (-2))
+    ag = AtomicGauge('a')
+    assert (ag.decrement() == (-1))

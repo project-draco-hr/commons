@@ -1,0 +1,3 @@
+Set<String> parsedTypes
+Element annotationElement
+Class<? extends Annotation> annotationType

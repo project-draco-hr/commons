@@ -1,2 +1,2 @@
 def __call__(self, constants):
-    return ('%s' % javaify(constants[self._name_index].bytes()))
+    return str(constants[self._name_index].bytes())

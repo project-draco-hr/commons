@@ -1,0 +1,9 @@
+def __init__(self, context, classpath=None, workdir=None, nailgun_jar=None, args=None):
+    Task.__init__(self, context)
+    self._classpath = classpath
+    self._nailgun_jar = (nailgun_jar or context.config.get('nailgun', 'jar'))
+    self._ng_server_args = (args or context.config.getlist('nailgun', 'args'))
+    workdir = (workdir or context.config.get('nailgun', 'workdir'))
+    self._pidfile = os.path.join(workdir, 'pid')
+    self._ng_out = os.path.join(workdir, 'stdout')
+    self._ng_err = os.path.join(workdir, 'stderr')

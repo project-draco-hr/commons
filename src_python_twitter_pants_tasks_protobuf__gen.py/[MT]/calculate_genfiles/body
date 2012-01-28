@@ -1,0 +1,37 @@
+def calculate_genfiles(path, source):
+    with open(path, 'r') as protobuf:
+        lines = protobuf.readlines()
+        package = ''
+        filename = re.sub('\\.proto$', '', os.path.basename(source))
+        outer_class_name = camelcase(filename)
+        multiple_files = False
+        types = set()
+        for line in lines:
+            match = DEFAULT_PACKAGE_PARSER.match(line)
+            if match:
+                package = match.group(1)
+            else:
+                match = OPTION_PARSER.match(line)
+                if match:
+                    name = match.group(1)
+                    value = match.group(2)
+
+                    def string():
+                        return value.lstrip('"').rstrip('"')
+
+                    def bool():
+                        return (value == 'true')
+                    if ('java_package' == name):
+                        package = string()
+                    elif ('java_outer_classname' == name):
+                        outer_class_name = string()
+                    elif ('java_multiple_files' == name):
+                        multiple_files = bool()
+                else:
+                    match = TYPE_PARSER.match(line)
+                    if match:
+                        types.add(match.group(1))
+        genfiles = defaultdict(set)
+        genfiles['py'].update(calculate_python_genfiles(source))
+        genfiles['java'].update(calculate_java_genfiles(package, outer_class_name, (types if multiple_files else [])))
+        return genfiles

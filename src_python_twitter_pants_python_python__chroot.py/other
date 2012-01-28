@@ -1,15 +1,18 @@
 __author__ = 'Brian Wickman'
+import copy
+import errno
 import os
+import pkgutil
+import random
 import shutil
 import sys
-import random
-import pkgutil
-from twitter.pants.base import Chroot
-from twitter.pants.targets import PythonBinary
-from twitter.pants.targets import PythonEgg
-from twitter.pants.targets import PythonLibrary
-from twitter.pants.targets import PythonAntlrLibrary
-from twitter.pants.targets import PythonThriftLibrary
-from twitter.pants.targets import PythonTests
+import tempfile
+from twitter.common.python.dependency import PythonDependency
+from twitter.common.python.environment import PythonEnvironment
+from twitter.common.contextutil import temporary_dir
+from twitter.pants.base import Target, Address
+from twitter.pants.targets import PythonBinary, PythonEgg, PythonLibrary, PythonAntlrLibrary, PythonThriftLibrary, PythonTests
+from twitter.pants.base.build_cache import BuildCache
 from twitter.pants.python.antlr_builder import PythonAntlrBuilder
 from twitter.pants.python.thrift_builder import PythonThriftBuilder
+from twitter.pants.targets.with_sources import TargetWithSources

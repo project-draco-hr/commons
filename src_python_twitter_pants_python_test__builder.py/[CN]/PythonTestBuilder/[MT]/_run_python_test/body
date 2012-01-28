@@ -1,10 +1,9 @@
 def _run_python_test(self, target):
     chroot = PythonChroot(target, self.root_dir)
-    chroot.dump()
-    launcher = Launcher(chroot.path())
+    launcher = PythonLauncher(chroot.dump().path())
     extra_deps = PythonTestBuilder.get_pytest_eggs(self.root_dir)
     test_args = ['-m', 'pytest']
     test_args.extend(PythonTestBuilder.generate_junit_args(target))
     test_args.extend(self.args)
     sources = [os.path.join(target.target_base, source) for source in target.sources]
-    return launcher.run(interpreter_args=test_args, args=list(sources), extra_deps=extra_deps)
+    return launcher.run(interpreter_args=test_args, args=list(sources), extra_deps=extra_deps, kill_orphans=True)

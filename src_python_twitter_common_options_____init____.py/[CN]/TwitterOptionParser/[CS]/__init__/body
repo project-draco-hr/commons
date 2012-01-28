@@ -1,0 +1,6 @@
+def __init__(self):
+    self._interspersed_arguments = False
+    self._usage = ''
+    self._options = []
+    self._groups = []
+    self._values = Values()

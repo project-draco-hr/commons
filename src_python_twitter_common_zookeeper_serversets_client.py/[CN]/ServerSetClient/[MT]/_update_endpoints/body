@@ -1,0 +1,28 @@
+def _update_endpoints(self):
+    'Update endpoints from ZK.\n\n    This function will block until the ZK servers respond or retry limit is hit.\n\n    :raises ReconnectFailed: If reconnection fails.\n    '
+    try:
+        endpoints = []
+        endpoint_names = self._zk.get_children(self._endpoint, (lambda *args: self._update_endpoints()))
+        endpoint_names.sort()
+        for endpoint in endpoint_names:
+            data = self._zk.get(posixpath.join(self._endpoint, endpoint))
+            service_endpoint = serverset_types.ServiceInstance()
+            endpoints.append(codec.deserialize(service_endpoint, data[0]))
+        old = set(map(_format_endpoint, self._endpoints))
+        new = set(map(_format_endpoint, endpoints))
+        log.debug(('ServerSet endpoints at %r changed to: %s' % (self._endpoint, ', '.join(new))))
+        log.debug(('  Added: %s' % ', '.join((new - old))))
+        log.debug(('  Removed: %s' % ', '.join((old - new))))
+        with self._lock:
+            if self._watcher:
+                self._watcher(self._endpoint, self._endpoints, endpoints)
+            self._endpoints = endpoints
+    except zookeeper.ConnectionLossException:
+        log.error('Lost connection to ZooKeeper, reestablishing.')
+        self._reconnect()
+    except zookeeper.ZooKeeperException as e:
+        log.error(('Error updating endpoints, marking bad: %s' % e))
+        self._endpoints = []
+        self._error = str(e)
+        self._zk = None
+        raise

@@ -1,0 +1,3 @@
+{
+  this.shutdownCommand=Preconditions.checkNotNull(shutdownCommand);
+}

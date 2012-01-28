@@ -1,0 +1,31 @@
+{
+  Set<Class<?>> classes=Sets.newLinkedHashSet();
+  Set<Pair<Class<?>,String>> methods=Sets.newLinkedHashSet();
+  for (  String spec : specs) {
+    Matcher matcher=METHOD_PARSER.matcher(spec);
+    try {
+      if (matcher.matches()) {
+        Class<?> testClass=Class.forName(matcher.group(1));
+        String method=matcher.group(2);
+        methods.add(Pair.<Class<?>,String>of(testClass,method));
+      }
+ else {
+        Class<?> testClass=Class.forName(spec);
+        classes.add(testClass);
+      }
+    }
+ catch (    ClassNotFoundException e) {
+      out.printf("WARNING: Skipping %s: %s\n",spec,e);
+    }
+  }
+  List<Request> requests=Lists.newArrayList();
+  if (!classes.isEmpty()) {
+    requests.add(Request.classes(classes.toArray(new Class<?>[classes.size()])));
+  }
+  for (  Pair<Class<?>,String> method : methods) {
+    Class<?> testClass=method.getFirst();
+    String testMethod=method.getSecond();
+    requests.add(Request.method(testClass,testMethod));
+  }
+  return requests;
+}

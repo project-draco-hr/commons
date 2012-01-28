@@ -1,0 +1,4 @@
+def test_root_metrics_singleton():
+    rm = RootMetrics()
+    rm2 = RootMetrics()
+    assert (id(rm) == id(rm2))

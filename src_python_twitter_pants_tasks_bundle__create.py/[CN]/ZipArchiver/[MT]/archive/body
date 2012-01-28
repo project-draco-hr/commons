@@ -1,0 +1,9 @@
+def archive(self, basedir, outdir, name):
+    zippath = os.path.join(outdir, ('%s.zip' % name))
+    with open_zip(zippath, 'w', compression=ZIP_DEFLATED) as zip:
+        for (root, dirs, files) in os.walk(basedir):
+            for file in files:
+                full_path = os.path.join(root, file)
+                relpath = os.path.relpath(full_path, basedir)
+                zip.write(full_path, relpath)
+    return zippath

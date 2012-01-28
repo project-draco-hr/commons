@@ -1,0 +1,4 @@
+def test_getlist(self):
+    self.assertEquals([1, 2, 3, 42], self.config.getlist('a', 'list'))
+    self.checkDefaults(self.config.get, [])
+    self.checkDefaults(self.config.get, [42])

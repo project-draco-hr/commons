@@ -1,0 +1,3 @@
+{
+  Multibinder.newSetBinder(binder,ExceptionalCommand.class,StartupStage.class).addBinding().to(actionClass);
+}

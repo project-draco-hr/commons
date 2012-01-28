@@ -1,9 +1,5 @@
-import os
 from . import Command
-from twitter.common.collections import OrderedSet
-from twitter.pants import is_python
+from twitter.common.python import PythonLauncher
 from twitter.pants.base import Address, Target
 from twitter.pants.targets import PythonBinary
 from twitter.pants.python import PythonChroot
-from twitter.pants.python.launcher import Launcher
-import traceback

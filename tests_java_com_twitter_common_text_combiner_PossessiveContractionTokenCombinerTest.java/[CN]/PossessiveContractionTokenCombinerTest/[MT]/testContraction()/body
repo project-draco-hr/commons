@@ -1,0 +1,6 @@
+{
+  stream.reset("Don't try while I'm out");
+  assertEquals(ImmutableList.of("Don't","try","while","I'm","out"),stream.toStringList());
+  stream.reset("Let's ask what we should've done");
+  assertEquals(ImmutableList.of("Let's","ask","what","we","should've","done"),stream.toStringList());
+}

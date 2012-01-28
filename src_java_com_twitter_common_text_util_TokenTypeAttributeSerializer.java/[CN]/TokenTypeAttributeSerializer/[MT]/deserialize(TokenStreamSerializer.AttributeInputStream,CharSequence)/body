@@ -1,0 +1,3 @@
+{
+  tokenTypeAttribute.setType(TokenType.valueOf(input.readUTF()));
+}

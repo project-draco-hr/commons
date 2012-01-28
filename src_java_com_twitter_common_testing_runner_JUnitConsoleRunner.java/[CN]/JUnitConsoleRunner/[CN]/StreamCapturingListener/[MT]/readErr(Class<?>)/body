@@ -1,0 +1,3 @@
+{
+  return captures.get(testClass).readErr();
+}

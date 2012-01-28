@@ -1,0 +1,12 @@
+def test_on_context_exit(self):
+    with temporary_dir() as root_dir:
+        parse_context = ParseContext(create_buildfile(root_dir, 'a'))
+        with pytest.raises(ContextError):
+            parse_context.on_context_exit((lambda : 37))
+    with temporary_dir() as root_dir:
+        buildfile = create_buildfile(root_dir, 'a', "\nimport os\nfrom twitter.pants.base import ParseContext\ndef leave_a_trail(file, contents=''):\n  with open(file, 'w') as b:\n    b.write(contents)\nb_file = os.path.join(os.path.dirname(__file__), 'b')\nParseContext.locate().on_context_exit(leave_a_trail, b_file, contents='42')\nassert not os.path.exists(b_file), 'Expected context exit action to be delayed.'\n      ".strip())
+        b_file = os.path.join(root_dir, 'a', 'b')
+        self.assertFalse(os.path.exists(b_file))
+        ParseContext(buildfile).parse()
+        with open(b_file, 'r') as b:
+            self.assertEquals('42', b.read())

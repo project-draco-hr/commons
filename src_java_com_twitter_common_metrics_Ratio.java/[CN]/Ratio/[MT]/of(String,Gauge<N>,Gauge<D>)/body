@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(numerator);
+  Preconditions.checkNotNull(denominator);
+  return new Ratio(name,Gauges.asSupplier(numerator),Gauges.asSupplier(denominator));
+}

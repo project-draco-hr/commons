@@ -1,0 +1,7 @@
+def test_sorting():
+    elements = [1, 2, 3, 4]
+    elements_unsorted = [2, 4, 1, 3]
+
+    def map_to_amount(amtlist):
+        return [Amount(x, Time.MILLISECONDS) for x in amtlist]
+    assert (map_to_amount(elements) == sorted(map_to_amount(elements_unsorted)))

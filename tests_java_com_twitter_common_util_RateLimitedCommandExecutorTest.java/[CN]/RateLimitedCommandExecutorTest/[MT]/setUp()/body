@@ -1,0 +1,9 @@
+{
+  exceptionalCommand=createMock(ExceptionalCommand.class);
+  taskExecutor=createMock(ScheduledExecutorService.class);
+  queue=createMock(new Clazz<BlockingQueue<RetryingRunnable>>(){
+  }
+);
+  queueDrainer=createMock(Runnable.class);
+  intervalBetweenRequests=Amount.of(100L,Time.MILLISECONDS);
+}

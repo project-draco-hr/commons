@@ -1,0 +1,3 @@
+@staticmethod
+def abort(*args, **kwargs):
+    return bottle.abort(*args, **kwargs)

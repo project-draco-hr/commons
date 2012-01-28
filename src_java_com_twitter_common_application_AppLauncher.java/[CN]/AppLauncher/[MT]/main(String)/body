@@ -1,0 +1,4 @@
+{
+  parseArgs(ArgFilters.SELECT_ALL,Arrays.asList(args));
+  new AppLauncher().run(APP_CLASS.get().newInstance());
+}

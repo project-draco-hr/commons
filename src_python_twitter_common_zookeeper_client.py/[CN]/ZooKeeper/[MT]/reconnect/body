@@ -1,0 +1,20 @@
+def reconnect(self):
+    'Attempt to reconnect to ZK.'
+    if (self._zh is not None):
+        zh = self._zh
+        self._zh = None
+        zookeeper.close(zh)
+    ready = threading.Event()
+
+    def on_ready(handle, type, state, path):
+        if (state == zookeeper.CONNECTED_STATE):
+            ready.set()
+    timeout = self._timeout
+    timeout_ms = Amount(timeout, Time.SECONDS).as_(Time.MILLISECONDS)
+    servers = _expand_server_port_list(self._servers)
+    log.info(('Connecting to ZK hosts at %s' % servers))
+    self._zh = zookeeper.init(servers, on_ready, int(timeout_ms))
+    ready.wait((timeout + 1))
+    if (not ready.is_set()):
+        raise ZooKeeper.ConnectionTimeout(('Timed out waiting for ZK connection to %s' % servers))
+    log.info(('Successfully connected to ZK at %s' % servers))

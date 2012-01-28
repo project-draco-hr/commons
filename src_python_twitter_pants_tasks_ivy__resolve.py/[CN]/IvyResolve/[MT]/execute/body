@@ -1,0 +1,18 @@
+def execute(self, targets):
+    '\n      Resolves the specified confs for the configured targets and returns an iterator over tuples\n      of (conf, jar path).\n    '
+
+    def is_classpath(t):
+        return (is_internal(t) and any((jar for jar in t.jar_dependencies if jar.rev)))
+    with self.changed(filter(is_classpath, targets), only_buildfiles=True) as changed_deps:
+        if changed_deps:
+            self._ivycachepath(self._ivy_xml, self._classpath_file, *targets)
+    with self._cachepath(self._classpath_file) as classpath:
+        with self.context.state('classpath', []) as cp:
+            for path in classpath:
+                for conf in self._confs:
+                    cp.append((conf, path.strip()))
+    create_jardeps_for = self.context.products.isrequired('jar_dependencies')
+    if create_jardeps_for:
+        genmap = self.context.products.get('jar_dependencies')
+        for target in filter(create_jardeps_for, targets):
+            self._mapjars(genmap, target)

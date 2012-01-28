@@ -1,0 +1,5 @@
+{
+  expectVarScrape(ImmutableMap.<String,Object>of("str","foobar","int",5,"float",4.16126));
+  control.replay();
+  assertEquals("{\"str\":\"foobar\",\"int\":5,\"float\":4.16126}",varsJson.getBody(false));
+}

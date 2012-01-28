@@ -1,0 +1,8 @@
+{
+  super(serviceRegistry);
+  this.httpServer=checkNotNull(httpServer);
+  this.httpServlets=checkNotNull(httpServlets);
+  this.httpAssets=checkNotNull(httpAssets);
+  this.injector=checkNotNull(injector);
+  this.shutdownRegistry=checkNotNull(shutdownRegistry);
+}

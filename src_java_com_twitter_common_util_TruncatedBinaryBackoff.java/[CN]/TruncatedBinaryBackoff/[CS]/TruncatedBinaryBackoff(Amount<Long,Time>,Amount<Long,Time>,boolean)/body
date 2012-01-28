@@ -1,0 +1,9 @@
+{
+  Preconditions.checkNotNull(initialBackoff);
+  Preconditions.checkNotNull(maxBackoff);
+  Preconditions.checkArgument(initialBackoff.getValue() > 0);
+  Preconditions.checkArgument(maxBackoff.compareTo(initialBackoff) >= 0);
+  initialBackoffMs=initialBackoff.as(Time.MILLISECONDS);
+  maxBackoffIntervalMs=maxBackoff.as(Time.MILLISECONDS);
+  this.stopAtMax=stopAtMax;
+}

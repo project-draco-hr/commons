@@ -1,0 +1,8 @@
+{
+  Preconditions.checkNotNull(memoryLayoutSpecification);
+  arrayHeaderSize=memoryLayoutSpecification.getArrayHeaderSize();
+  objectHeaderSize=memoryLayoutSpecification.getObjectHeaderSize();
+  objectPadding=memoryLayoutSpecification.getObjectPadding();
+  referenceSize=memoryLayoutSpecification.getReferenceSize();
+  superclassFieldPadding=memoryLayoutSpecification.getSuperclassFieldPadding();
+}

@@ -1,4 +1,0 @@
-{
-  this.shutdownController=shutdownController;
-  Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
-}

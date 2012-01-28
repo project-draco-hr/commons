@@ -1,0 +1,5 @@
+def get_commands_and_docstrings(self):
+    '\n      Generate all valid commands together with their docstrings\n    '
+    for (command, function) in self._commands.items():
+        if (command is not None):
+            yield (command, function.__doc__)

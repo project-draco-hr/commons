@@ -1,0 +1,4 @@
+{
+  File tmpDir=temporary.createDir();
+  assertEmptyDir(tmpDir);
+}

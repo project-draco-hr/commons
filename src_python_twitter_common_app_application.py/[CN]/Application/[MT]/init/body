@@ -1,0 +1,6 @@
+def init(self, force_args=None):
+    "\n      Initialize the state necessary to run the application's main() function but\n      without actually invoking main.  Mostly useful for testing.  If force_args\n      specified, use those arguments instead of sys.argv[1:].\n    "
+    self._raise_if_initialized('init cannot be called twice.  Use reinit if necessary.')
+    self._parse_options(force_args)
+    self._setup_modules()
+    self.initialized = True

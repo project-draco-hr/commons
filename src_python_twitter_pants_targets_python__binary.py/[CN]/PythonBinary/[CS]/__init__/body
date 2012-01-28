@@ -1,3 +1,3 @@
 def __init__(self, name, source, dependencies=None):
     "\n      name: target name\n      source: the python source file that becomes this binary's __main__\n      dependencies: a list of other PythonLibrary or Pants targets this binary depends upon\n    "
-    PythonTarget.__init__(self, 'src/python', name, [source], dependencies=dependencies)
+    PythonTarget.__init__(self, name, [source], dependencies=dependencies)

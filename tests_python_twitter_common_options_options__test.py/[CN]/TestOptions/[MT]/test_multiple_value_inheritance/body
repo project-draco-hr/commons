@@ -1,0 +1,10 @@
+def test_multiple_value_inheritance(self):
+    option_list = [options.Option('-a', dest='a'), options.Option('-b', dest='b')]
+    (values_with_a, _) = options.parser().options(option_list).parse(['-a', 'value_a'])
+    (values_with_b, _) = options.parser().options(option_list).parse(['-b', 'value_b'])
+    (values, leftovers) = options.parser().options(option_list).values(values_with_a).values(values_with_b).parse([])
+    assert (values.a == 'value_a')
+    assert (values.b == 'value_b')
+    (values, leftovers) = options.parser().options(option_list).values(values_with_a).values(values_with_b).parse(['-a', 'new_value_a'])
+    assert (values.a == 'new_value_a')
+    assert (values.b == 'value_b')

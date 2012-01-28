@@ -1,0 +1,4 @@
+{
+  this.positional=Preconditions.checkNotNull(positional);
+  this.field=Preconditions.checkNotNull(field);
+}

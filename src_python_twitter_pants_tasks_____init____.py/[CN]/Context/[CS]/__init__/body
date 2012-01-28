@@ -1,0 +1,11 @@
+def __init__(self, config, options, target_roots, log=None):
+    self.config = config
+    self.options = options
+    self.target_roots = target_roots
+    self.log = (log or Context.Log())
+    self._state = {}
+    self.products = Products()
+    self._targets = OrderedSet()
+    for target in self.target_roots:
+        target.walk(self._add_target)
+    self.id = self.identify(self._targets)

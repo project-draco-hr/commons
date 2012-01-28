@@ -1,0 +1,2 @@
+Iterable<ArgInfo> infos
+Predicate<Field> filter

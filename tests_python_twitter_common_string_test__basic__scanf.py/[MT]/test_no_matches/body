@@ -1,0 +1,10 @@
+def test_no_matches():
+    print ScanfParser('%%')._re_pattern
+    match = ScanfParser('%%').parse('%')
+    assert (len(match.groups()) == 0)
+    assert (len(match.ungrouped()) == 0)
+    test_strings = ['a', ' ', 'hello hello', '1.0 hello nothing to see here move along', '']
+    for t_s in test_strings:
+        match = ScanfParser(t_s).parse(t_s)
+        assert (len(match.groups()) == 0)
+        assert (len(match.ungrouped()) == 0)

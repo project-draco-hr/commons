@@ -1,0 +1,4 @@
+{
+  this.resources=resources;
+  this.nextIndex=nextIndex;
+}

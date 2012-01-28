@@ -1,0 +1,9 @@
+@classmethod
+def init_class(cls):
+    if (not hasattr(cls, 'PARSER')):
+        assert hasattr(cls, 'ATTRS')
+        assert hasattr(cls, 'TYPE_MAP')
+        assert hasattr(cls, 'HANDLERS')
+        setattr(cls, 'PARSER', ProcessHandleParser(cls.ATTRS, cls.TYPE_MAP, cls.HANDLERS))
+    if (not hasattr(cls, 'ALIASES')):
+        cls.ALIASES = {}

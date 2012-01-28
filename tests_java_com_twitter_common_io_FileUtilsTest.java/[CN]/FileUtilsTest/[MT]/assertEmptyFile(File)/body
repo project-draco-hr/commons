@@ -1,0 +1,6 @@
+{
+  assertNotNull(file);
+  assertTrue(file.exists());
+  assertTrue(file.isFile());
+  assertEquals(0,Files.toByteArray(file).length);
+}

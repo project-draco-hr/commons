@@ -1,0 +1,4 @@
+{
+  captures.get(description.getTestClass()).open();
+  super.testStarted(description);
+}

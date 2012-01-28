@@ -1,0 +1,4 @@
+def __init__(self, mode, extension):
+    Archiver.__init__(self)
+    self.mode = mode
+    self.extension = extension

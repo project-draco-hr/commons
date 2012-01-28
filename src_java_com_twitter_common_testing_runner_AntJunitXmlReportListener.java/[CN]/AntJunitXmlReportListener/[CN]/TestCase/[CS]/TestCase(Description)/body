@@ -1,0 +1,4 @@
+{
+  classname=test.getClassName();
+  name=test.getMethodName();
+}

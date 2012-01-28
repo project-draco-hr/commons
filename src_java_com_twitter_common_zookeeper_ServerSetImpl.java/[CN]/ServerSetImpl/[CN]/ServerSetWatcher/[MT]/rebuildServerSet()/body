@@ -1,5 +1,5 @@
 {
-  Set<String> memberIds=ImmutableSet.copyOf(servicesByMemberId.keySet());
-  servicesByMemberId.clear();
+  Set<String> memberIds=ImmutableSet.copyOf(servicesByMemberId.asMap().keySet());
+  servicesByMemberId.invalidateAll();
   notifyGroupChange(memberIds);
 }

@@ -1,0 +1,9 @@
+def test_scoped_registration_uses_references():
+    mg = MutatorGauge('name', 'brian')
+    rm = RootMetrics()
+    rm.scope('earth').register(mg)
+    rm.scope('pluto').register(mg)
+    assert (rm.sample() == {'earth.name': 'brian', 'pluto.name': 'brian', })
+    mg.write('zargon')
+    assert (rm.sample() == {'earth.name': 'zargon', 'pluto.name': 'zargon', })
+    rm.clear()

@@ -1,0 +1,4 @@
+@staticmethod
+def _platform_compatible():
+    'Returns true if this provider is compatible on the current platform.'
+    raise NotImplementedError

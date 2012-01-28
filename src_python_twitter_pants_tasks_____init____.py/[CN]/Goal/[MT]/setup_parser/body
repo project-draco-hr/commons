@@ -1,0 +1,17 @@
+def setup_parser(self, phase, parser, args):
+    'Allows a task to add its command line args to the global sepcification.'
+
+    def namespace(sep):
+        phase_leader = ((phase.goals() == [self]) or (self.name == phase.name))
+        return (self.name if phase_leader else ('%s%s%s' % (phase.name, sep, self.name)))
+    group = OptionGroup(parser, title=namespace(':'))
+
+    def mkflag(arg_name, negate=False):
+        return ('--%s%s-%s' % (('no-' if negate else ''), namespace('-'), arg_name))
+
+    def set_bool(option, opt_str, value, parser):
+        setattr(parser.values, option.dest, (not opt_str.startswith('--no')))
+    mkflag.set_bool = set_bool
+    self._task.setup_parser(group, args, mkflag)
+    if group.option_list:
+        parser.add_option_group(group)

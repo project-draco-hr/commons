@@ -1,11 +1,12 @@
-def __init__(self, org, name, rev=None, ext=None, url=None, apidocs=None):
+def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None):
     self.org = org
     self.name = name
     self.rev = rev
+    self.force = force
     self.excludes = []
     self.transitive = True
     self.ext = ext
     self.url = url
     self.apidocs = apidocs
-    self._id = None
+    self.id = None
     self._configurations = ['default']

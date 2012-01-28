@@ -1,0 +1,12 @@
+def test_client_handles_connection_recovery_gracefully():
+    cluster = ZookeeperClusterBootstrapper()
+    with cluster as port:
+        server = ('localhost:%d' % port)
+        zk = ZooKeeper(server)
+        service = ServerSet(zk, SERVICE_PATH)
+        service.register(INSTANCE1)
+        client = ServerSetClient(SERVICE_PATH, zk=zk)
+        assert (list(client) == [INSTANCE1])
+        threading.Timer(3.0, (lambda : cluster.start(1))).start()
+        cluster.stop(1)
+        assert (list(client) == [INSTANCE1])

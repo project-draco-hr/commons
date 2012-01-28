@@ -1,0 +1,14 @@
+def parse(self, argv=None):
+    ' Parse argv.  If argv=None, use sys.argv[1:]. '
+    parser = self._init_parser()
+    inherit_values = copy.deepcopy(self.values())
+    if isinstance(inherit_values, dict):
+        inherit_values = Values(inherit_values)
+    if (argv is None):
+        argv = sys.argv[1:]
+    (values, leftover) = parser.parse_args(args=argv)
+    for attr in copy.copy(values.__dict__):
+        if (getattr(values, attr) is None):
+            delattr(values, attr)
+    TwitterOptionParser._merge_values(inherit_values, values)
+    return (inherit_values, leftover)

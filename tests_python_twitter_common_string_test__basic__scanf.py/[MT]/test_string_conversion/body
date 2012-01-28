@@ -1,0 +1,4 @@
+def test_string_conversion():
+    for st in ('a', u'a', '123', u'123', 'a\x12#'):
+        assert (basic_scanf('%s', st) == st)
+    assert (basic_scanf('%s', '\x00') == '')

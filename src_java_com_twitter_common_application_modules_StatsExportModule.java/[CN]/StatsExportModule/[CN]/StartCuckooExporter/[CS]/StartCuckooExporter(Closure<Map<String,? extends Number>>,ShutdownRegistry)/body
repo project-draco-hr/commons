@@ -1,0 +1,4 @@
+{
+  this.statSink=Preconditions.checkNotNull(statSink);
+  this.shutdownRegistry=Preconditions.checkNotNull(shutdownRegistry);
+}

@@ -1,0 +1,3 @@
+{
+  return failure.getException() instanceof AssertionError;
+}

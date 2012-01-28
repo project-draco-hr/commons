@@ -1,0 +1,3 @@
+def values(self):
+    'od.values() -> list of values in od'
+    return [self[key] for key in self]

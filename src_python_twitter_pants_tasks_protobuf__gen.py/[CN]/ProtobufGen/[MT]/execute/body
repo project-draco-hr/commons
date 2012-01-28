@@ -1,0 +1,50 @@
+def execute(self, targets):
+    protobufs = [t for t in targets if ProtobufGen._is_protobuf(t)]
+    with self.changed(protobufs, invalidate_dependants=True) as changed_targets:
+        safe_mkdir(self.output_dir)
+
+        def forced(lang):
+            protobuf_targets = set()
+            if (lang in self.gen_langs):
+                for target in changed_targets:
+                    target.walk(protobuf_targets.add, ProtobufGen._is_protobuf)
+            return protobuf_targets
+        protobufs_by_dependee = self.context.dependants(ProtobufGen._is_protobuf)
+        dependees_by_protobuf = defaultdict(set)
+        for (dependee, protobufs) in protobufs_by_dependee.items():
+            for protobuf in protobufs:
+                dependees_by_protobuf[protobuf].add(dependee)
+
+        def find_protobuf_targets(predicate):
+            protobuf_targets = set()
+            for dependee in protobufs_by_dependee.keys():
+                if predicate(dependee):
+                    tgts = protobufs_by_dependee.pop(dependee)
+                    for tgt in tgts:
+                        tgt.walk(protobuf_targets.add, ProtobufGen._is_protobuf)
+            return protobuf_targets.intersection(set(changed_targets))
+        changed = set(changed_targets)
+        protobuf_targets = (find_protobuf_targets(is_jvm) | forced('java'))
+        if protobuf_targets:
+            java_out = os.path.join(self.output_dir, 'gen-java')
+            safe_mkdir(java_out)
+            self._gen_protobuf(changed.intersection(protobuf_targets), ('--java_out=%s' % java_out))
+            java_target_by_protobuf = {}
+            for target in protobuf_targets:
+                java_target_by_protobuf[target] = self._create_java_target(target, dependees_by_protobuf.get(target, []))
+            for (protobuf_target, java_target) in java_target_by_protobuf.items():
+                for dep in protobuf_target.internal_dependencies:
+                    java_target.update_dependencies([java_target_by_protobuf[dep]])
+        protobuf_targets = (find_protobuf_targets(is_python) | forced('python'))
+        if protobuf_targets:
+            python_out = os.path.join(self.output_dir, 'gen-py')
+            safe_mkdir(python_out)
+            self._gen_protobuf(changed.intersection(protobuf_targets), ('--python_out=%s' % python_out))
+            python_target_by_protobuf = {}
+            for target in protobuf_targets:
+                python_target_by_protobuf[target] = self._create_python_target(target, dependees_by_protobuf.get(target, []))
+            for (protobuf_target, python_target) in python_target_by_protobuf.items():
+                for dep in protobuf_target.internal_dependencies:
+                    python_target.dependencies.add(python_target_by_protobuf[dep])
+        if protobufs_by_dependee:
+            raise TaskError

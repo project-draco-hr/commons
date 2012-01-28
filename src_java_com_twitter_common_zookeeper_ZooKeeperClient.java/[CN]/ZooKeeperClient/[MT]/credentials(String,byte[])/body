@@ -1,9 +1,15 @@
 {
   MorePreconditions.checkNotBlank(scheme);
-  Preconditions.checkNotNull(auth);
+  Preconditions.checkNotNull(authToken);
   return new Credentials(){
     @Override public void authenticate(    ZooKeeper zooKeeper){
-      zooKeeper.addAuthInfo(scheme,auth);
+      zooKeeper.addAuthInfo(scheme,authToken);
+    }
+    @Override public String scheme(){
+      return scheme;
+    }
+    @Override public byte[] authToken(){
+      return authToken;
     }
   }
 ;

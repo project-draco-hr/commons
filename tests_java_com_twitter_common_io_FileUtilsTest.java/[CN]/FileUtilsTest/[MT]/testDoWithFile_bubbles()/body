@@ -1,0 +1,8 @@
+{
+  temporary.doWithFile(new ExceptionalClosure<File,MarkerException>(){
+    @Override public void execute(    File dir) throws MarkerException {
+      throw new MarkerException();
+    }
+  }
+);
+}

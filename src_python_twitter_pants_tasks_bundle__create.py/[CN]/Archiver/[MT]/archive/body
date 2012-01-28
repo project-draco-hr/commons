@@ -1,0 +1,2 @@
+def archive(self, basedir, outdir, name):
+    '\n      Archivers should archive all files found under basedir to a file at outdir of the given name.\n    '

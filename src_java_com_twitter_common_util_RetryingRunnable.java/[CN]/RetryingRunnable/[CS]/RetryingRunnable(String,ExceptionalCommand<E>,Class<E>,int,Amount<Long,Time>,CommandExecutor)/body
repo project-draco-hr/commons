@@ -1,0 +1,3 @@
+{
+  this(name,task,exceptionClass,numTries,retryDelay,commandExecutor,1);
+}

@@ -1,0 +1,14 @@
+{
+  assertEquals(new TypeToken<String>(){
+  }
+,TypeToken.create(String.class));
+  assertEquals(new TypeToken<Supplier>(){
+  }
+,TypeToken.create(Supplier.class));
+  assertEquals(new TypeToken<Supplier>(){
+  }
+,TypeToken.create(stringSupplierField.getType()));
+  assertEquals(new TypeToken<Supplier<String>>(){
+  }
+,TypeToken.create(stringSupplierField.getGenericType()));
+}

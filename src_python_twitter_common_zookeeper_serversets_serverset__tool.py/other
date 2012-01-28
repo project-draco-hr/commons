@@ -1,0 +1,4 @@
+from twitter.common import app
+from twitter.common.zookeeper.serversets import ServerSetClient
+app.set_usage('%prog <endpoint> ...')
+app.main()

@@ -1,0 +1,5 @@
+def set_option(self, dest, value, force=True):
+    '\n      Set a global option value either pre- or post-initialization.\n\n      If force=False, do not set the default if already overridden by a manual call to\n      set_option.\n    '
+    if (hasattr(self._option_values, dest) and (not force)):
+        return
+    setattr(self._option_values, dest, value)

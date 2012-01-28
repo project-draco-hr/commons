@@ -1,0 +1,5 @@
+def get_init_line(self):
+    zookeepers = []
+    for server in self.servers.values():
+        zookeepers.append(('localhost:%s' % server.port))
+    return ','.join(zookeepers)

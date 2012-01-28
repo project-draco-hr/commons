@@ -20,7 +20,7 @@
       throw new TTimeoutException(e);
     }
 catch (    ExecutionException e) {
-      throw Throwables.throwCause(e,false);
+      throw e.getCause();
     }
   }
  catch (  RejectedExecutionException e) {

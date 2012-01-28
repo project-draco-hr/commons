@@ -1,0 +1,7 @@
+{
+  this.metricProvier=Preconditions.checkNotNull(metricProvider);
+  this.listeners=new CopyOnWriteArrayList<MetricListener>(ImmutableList.copyOf(listeners));
+  this.clock=Preconditions.checkNotNull(clock);
+  Preconditions.checkNotNull(registry);
+  this.events=new Events("metric_samples","metric_sample_delay",registry);
+}

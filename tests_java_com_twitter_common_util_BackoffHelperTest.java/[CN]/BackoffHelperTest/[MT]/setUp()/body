@@ -1,6 +1,5 @@
 {
-  control=createControl();
-  clock=control.createMock(Clock.class);
-  backoffStrategy=control.createMock(BackoffStrategy.class);
+  clock=createMock(Clock.class);
+  backoffStrategy=createMock(BackoffStrategy.class);
   backoffHelper=new BackoffHelper(clock,backoffStrategy);
 }

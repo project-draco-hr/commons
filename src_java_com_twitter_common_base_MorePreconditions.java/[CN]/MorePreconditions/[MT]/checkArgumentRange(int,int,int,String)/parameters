@@ -1,0 +1,4 @@
+int argument
+int minimum
+int maximum
+String message

@@ -1,0 +1,8 @@
+{
+  try {
+    return work.apply(file);
+  }
+  finally {
+    org.apache.commons.io.FileUtils.deleteQuietly(file);
+  }
+}

@@ -1,0 +1,4 @@
+def __init__(self):
+    self._thread = None
+    HttpServer.__init__(self)
+    app.Module.__init__(self, __name__, description='Http subsystem.')

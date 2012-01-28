@@ -1,7 +1,20 @@
-def setup_parser(self, parser):
-    parser.set_usage('%prog idea ([spec]...)')
+def setup_parser(self, parser, args):
+    parser.set_usage(('%%prog %s ([spec]...)' % self.__class__.__command__))
     parser.add_option('-d', '--directory', action='store_true', dest='is_directory_list', default=False, help='Specifies specs should be treated as plain paths, in which case all targets found in all BUILD files under the paths will be used to create the IDEA project configuration.')
     parser.add_option('-c', '--clean', action='store_true', dest='clean', default=False, help='Triggers a clean build of any codegen targets.')
-    parser.add_option('-t', '--ide-transitivity', dest='ide_transitivity', type='choice', choices=_TRANSITIVITY_CHOICES, default=TRANSITIVITY_ALL, help=('[%%default] Specifies IDE dependencies should be transitive for one of: %s' % _TRANSITIVITY_CHOICES))
     parser.add_option('-n', '--project-name', dest='project_name', default='project', help='[%default] Specifies the name to use for the generated project.')
-    parser.add_option('-p', '--python', action='store_true', dest='python', default=False, help='Adds python support to the generated project configuration.')
+
+    def set_bool(option, opt_str, value, parser):
+        setattr(parser.values, option.dest, (not opt_str.startswith('--no')))
+    parser.add_option('-p', '--python', '--no-python', action='callback', callback=set_bool, dest='python', default=False, help='[%default] Adds python support to the generated project configuration.')
+    parser.add_option('--java', '--no-java', action='callback', callback=set_bool, dest='java', default=True, help='[%default] Includes java sources in the project; otherwise compiles them and adds them to the project classpath.')
+    parser.add_option('--scala', '--no-scala', action='callback', callback=set_bool, dest='scala', default=True, help='[%default] Includes scala sources in the project; otherwise compiles them and adds them to the project classpath.')
+    profiles = os.listdir(Ide.PROFILE_DIR)
+    self.scala_compiler_profile_by_version = {}
+    for profile in profiles:
+        match = Ide.SCALA_PROFILE_PARSER.match(profile)
+        if match:
+            version = match.group(1)
+            self.scala_compiler_profile_by_version[version] = ('scala-compile-%s' % version)
+    supported_versions = sorted(self.scala_compiler_profile_by_version.keys())
+    parser.add_option('--scala-version', dest='scala_version', default='2.8.1', type='choice', choices=supported_versions, help='[%default] Sets the scala version.')

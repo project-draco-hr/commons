@@ -1,0 +1,3 @@
+{
+  return parse(ArgFilters.SELECT_ALL,args);
+}

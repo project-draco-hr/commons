@@ -1,7 +1,15 @@
 def do_in_context(self, work):
     'Executes the callable work in this parse context.'
+    if hasattr(self, '_on_context_exit'):
+        raise ContextError('Context actions registered outside this parse context being active')
+    if (not callable(work)):
+        raise TypeError('work must be a callable object')
     try:
         ParseContext._contexts.append(self)
+        self._on_context_exit = []
         return work()
     finally:
+        for (func, args, kwargs) in self._on_context_exit:
+            func(*args, **kwargs)
+        del self._on_context_exit
         ParseContext._contexts.pop()

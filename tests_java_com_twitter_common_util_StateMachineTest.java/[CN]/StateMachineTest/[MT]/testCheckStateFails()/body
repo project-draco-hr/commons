@@ -1,4 +1,4 @@
 {
   control.replay();
-  StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build().checkState(B);
+  StateMachine.<String>builder(NAME).initialState(A).addState(Rule.from(A).to(B)).build().checkState(B);
 }

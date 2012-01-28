@@ -1,5 +1,5 @@
 {
-  final ActionController shutdownRegistry=new ActionController();
+  final ShutdownRegistryImpl shutdownRegistry=new ShutdownRegistryImpl();
   addTearDown(new TearDown(){
     @Override public void tearDown(){
       shutdownRegistry.execute();

@@ -1,0 +1,4 @@
+@validate
+def set_watcher(self, watcher):
+    'Set watcher callback for this endpoint.'
+    self._watcher = watcher

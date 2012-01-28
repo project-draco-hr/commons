@@ -1,0 +1,4 @@
+@staticmethod
+def mako_view(*args, **kwargs):
+    kwargs.update(template_adapter=bottle.MakoTemplate)
+    return HttpServer.view(*args, **kwargs)

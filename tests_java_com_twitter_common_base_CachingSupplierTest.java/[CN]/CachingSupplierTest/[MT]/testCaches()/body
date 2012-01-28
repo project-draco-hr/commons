@@ -1,0 +1,13 @@
+{
+  expect(supplier.get()).andReturn("foo");
+  expect(supplier.get()).andReturn("bar");
+  control.replay();
+  assertEquals("foo",cache.get());
+  assertEquals("foo",cache.get());
+  clock.advance(Amount.of(999L,Time.MILLISECONDS));
+  assertEquals("foo",cache.get());
+  clock.advance(Amount.of(1L,Time.MILLISECONDS));
+  assertEquals("foo",cache.get());
+  clock.advance(Amount.of(1L,Time.MILLISECONDS));
+  assertEquals("bar",cache.get());
+}

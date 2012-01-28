@@ -1,0 +1,7 @@
+def stop(self, server_id):
+    if ((server_id not in self.servers) or (self.servers[server_id].handle is None)):
+        raise ZookeeperClusterBootstrapper.NotStarted('Server has not been started: server_id = %s', server_id)
+    server = self.servers[server_id]
+    server.handle.kill()
+    ZookeeperClusterBootstrapper._orphaned_pids.remove(server.handle.pid)
+    server.handle = None

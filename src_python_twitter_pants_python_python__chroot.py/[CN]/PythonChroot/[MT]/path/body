@@ -1,2 +1,2 @@
 def path(self):
-    return self.chroot.path()
+    return self.env.path()

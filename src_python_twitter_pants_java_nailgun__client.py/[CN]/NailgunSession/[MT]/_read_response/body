@@ -1,0 +1,16 @@
+def _read_response(self):
+    buffer = ''
+    while True:
+        (command, payload, buffer) = self._readchunk(buffer)
+        if (command == '1'):
+            self._out.write(payload)
+            self._out.flush()
+        elif (command == '2'):
+            self._err.write(payload)
+            self._err.flush()
+        elif (command == 'X'):
+            self._out.flush()
+            self._err.flush()
+            return int(payload)
+        else:
+            raise ProtocolError(('Received unexpected chunk %s -> %s' % (command, payload)))

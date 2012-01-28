@@ -1,0 +1,5 @@
+def test_client_connect_times_out():
+    ports = EphemeralPortAllocator()
+    port = ports.allocate_port('zk')
+    with pytest.raises(ZooKeeper.ConnectionTimeout):
+        ZooKeeper(('localhost:%d' % port), timeout=1.0)

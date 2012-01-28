@@ -1,0 +1,17 @@
+def __init__(self, context, output_dir=None, version=None, java_geninfo=None, python_geninfo=None, strict=None, verbose=None):
+    Task.__init__(self, context)
+    self.thrift_binary = select_binary(context.config.get('thrift-gen', 'supportdir'), (version or context.config.get('thrift-gen', 'version')), 'thrift')
+    self.output_dir = (output_dir or context.options.thrift_gen_create_outdir or context.config.get('thrift-gen', 'workdir'))
+    self.strict = (strict or context.config.getbool('thrift-gen', 'strict'))
+    self.verbose = (verbose or context.config.getbool('thrift-gen', 'verbose'))
+
+    def create_geninfo(key):
+        gen_info = context.config.getdict('thrift-gen', key)
+        gen = gen_info['gen']
+        deps = OrderedSet()
+        for dep in gen_info['deps']:
+            deps.update(context.resolve(dep))
+        return ThriftGen.GenInfo(gen, deps)
+    self.gen_java = (java_geninfo or create_geninfo('java'))
+    self.gen_python = (python_geninfo or create_geninfo('python'))
+    self.gen_langs = set(context.options.thrift_gen_langs)

@@ -1,0 +1,11 @@
+{
+  if (--useCount <= 0 && !closed) {
+    if (outstream != null) {
+      Closeables.closeQuietly(outstream);
+    }
+    if (errstream != null) {
+      Closeables.closeQuietly(errstream);
+    }
+    closed=true;
+  }
+}

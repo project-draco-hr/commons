@@ -1,0 +1,4 @@
+{
+  output.writeVInt(termAtt.getOffset());
+  output.writeVInt(termAtt.getLength());
+}

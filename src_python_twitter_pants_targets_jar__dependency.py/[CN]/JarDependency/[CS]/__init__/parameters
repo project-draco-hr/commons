@@ -2,6 +2,7 @@ self
 org
 name
 rev
+force
 ext
 url
 apidocs

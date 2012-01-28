@@ -1,8 +1,0 @@
-{
-  try {
-    return Class.forName(raw);
-  }
- catch (  ClassNotFoundException e) {
-    throw new IllegalArgumentException("Could not find class " + raw);
-  }
-}

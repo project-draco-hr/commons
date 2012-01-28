@@ -1,13 +1,24 @@
-def _dump_built_library(self, builder):
-    egg_file = builder.build_egg()
-    if egg_file:
-        egg_file = os.path.relpath(egg_file, self.root)
-        for pkg in builder.packages():
-            print ('    found namespace: %s' % pkg)
-        randstr = (''.join(map(chr, random.sample(range(ord('a'), ord('z')), 8))) + '_')
-        print '    copying...',
-        self.chroot.copy(egg_file, os.path.join('.deps', (randstr + os.path.basename(egg_file))), 'resources')
-        print 'done.'
+def _dump_built_library(self, library, builder):
+    absolute_sources = library.expand_files()
+    absolute_sources.sort()
+    cache_key = self._cache.key_for(library._create_id(), absolute_sources)
+    if (not self._cache.needs_update(cache_key)):
+        print ('  Generating (cached) %s...' % library)
+        self._cache.use_cached_files(cache_key, self.env.add_dependency_file)
     else:
-        print '   Failed!'
-        raise PythonChroot.BuildFailureException(('Failed to build %s!' % library))
+        print ('  Generating %s...' % library)
+        egg_file = builder.build_egg()
+        if egg_file:
+            src_egg_file = egg_file
+            dst_egg_file = os.path.join(os.path.dirname(egg_file), ((cache_key.hash + '_') + os.path.basename(egg_file)))
+            os.rename(src_egg_file, dst_egg_file)
+            self._cache.update(cache_key, [dst_egg_file])
+            egg_dep = PythonDependency.from_eggs(dst_egg_file)
+            for pkg in builder.packages():
+                print ('    found namespace: %s' % pkg)
+            print '    copying...',
+            self.env.add_dependency(egg_dep)
+            print 'done.'
+        else:
+            print '   Failed!'
+            raise PythonChroot.BuildFailureException(('Failed to build %s!' % library))

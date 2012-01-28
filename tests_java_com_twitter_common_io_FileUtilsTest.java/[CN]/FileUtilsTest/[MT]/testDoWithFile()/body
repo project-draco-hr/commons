@@ -1,0 +1,9 @@
+{
+  assertEquals("37",temporary.doWithFile(new ExceptionalFunction<File,String,IOException>(){
+    @Override public String apply(    File file) throws IOException {
+      assertEmptyFile(file);
+      return "37";
+    }
+  }
+));
+}

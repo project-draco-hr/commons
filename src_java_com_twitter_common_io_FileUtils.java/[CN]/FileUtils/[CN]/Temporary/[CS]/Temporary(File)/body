@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(basedir);
+  Preconditions.checkArgument(basedir.exists());
+  this.basedir=basedir;
+}

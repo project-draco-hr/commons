@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(pkg);
+  final String prefix=pkg.getName() + '.';
+  return Predicates.or(selectPackage(pkg),new Predicate<Field>(){
+    @Override public boolean apply(    Field field){
+      return field.getDeclaringClass().getPackage().getName().startsWith(prefix);
+    }
+  }
+);
+}

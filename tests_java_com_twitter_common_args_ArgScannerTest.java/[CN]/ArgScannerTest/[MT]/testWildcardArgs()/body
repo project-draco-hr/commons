@@ -1,0 +1,32 @@
+{
+  test(WildcardArgs.class,new Command(){
+    @Override public void execute(){
+      assertSame(Serializable2.class,WildcardArgs.clazz.get());
+    }
+  }
+,"class",Serializable2.class.getName());
+  test(WildcardArgs.class,new Command(){
+    @Override public void execute(){
+      WildcardArgs.clazz.get();
+    }
+  }
+,true,"class",Runnable.class.getName());
+  test(WildcardArgs.class,new Command(){
+    @Override public void execute(){
+      assertEquals(ImmutableList.of(Serializable1.class,Serializable2.class),WildcardArgs.classList1.get());
+    }
+  }
+,"classList1",Serializable1.class.getName() + "," + Serializable2.class.getName());
+  test(WildcardArgs.class,new Command(){
+    @Override public void execute(){
+      assertEquals(ImmutableList.of(Serializable2.class),WildcardArgs.classList2.get());
+    }
+  }
+,"classList2",Serializable2.class.getName());
+  test(WildcardArgs.class,new Command(){
+    @Override public void execute(){
+      WildcardArgs.classList2.get();
+    }
+  }
+,true,"classList2",Serializable1.class.getName() + "," + Runnable.class.getName());
+}

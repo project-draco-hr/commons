@@ -1,0 +1,9 @@
+{
+  Iterable<TypeMirror> allTypes=getAllTypes(type);
+  for (  TypeMirror t : allTypes) {
+    if (types.contains(typeUtils.erasure(t).toString())) {
+      return true;
+    }
+  }
+  return false;
+}

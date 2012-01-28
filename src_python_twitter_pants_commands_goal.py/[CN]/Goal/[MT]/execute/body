@@ -1,0 +1,51 @@
+def execute(self):
+
+    def add_targets(dir, buildfile):
+        try:
+            self.targets.extend((Target.get(addr) for addr in Target.get_all_addresses(buildfile)))
+        except (TypeError, ImportError):
+            error(dir, include_traceback=True)
+        except (IOError, SyntaxError):
+            error(dir)
+    if self.options.recursive_directory:
+        with self.check_errors('There was a problem scanning the following directories for targets:') as error:
+            for dir in self.options.recursive_directory:
+                for buildfile in BuildFile.scan_buildfiles(self.root_dir, dir):
+                    add_targets(dir, buildfile)
+    if self.options.target_directory:
+        with self.check_errors("There was a problem loading targets from the following directory's BUILD files") as error:
+            for dir in self.options.target_directory:
+                add_targets(dir, BuildFile(self.root_dir, dir))
+    timer = None
+    if self.options.time:
+
+
+        class Timer(object):
+
+            def now(self):
+                return time.time()
+
+            def log(self, message):
+                print message
+        timer = Timer()
+    logger = None
+    if (self.options.log or self.options.log_level):
+        from twitter.common.log import init
+        from twitter.common.log.options import LogOptions
+        LogOptions.set_stdout_log_level((self.options.log_level or 'info').upper())
+        logdir = self.config.get('goals', 'logdir')
+        if logdir:
+            safe_mkdir(logdir)
+            LogOptions.set_log_dir(logdir)
+        init('goals')
+        logger = log
+    context = Context(self.config, self.options, self.targets, log=logger)
+    unknown = []
+    for phase in self.phases:
+        if (not phase.goals()):
+            unknown.append(phase)
+    if unknown:
+        print ('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown)))
+        print 
+        return Phase.execute(context, 'goals')
+    return Phase.attempt(context, self.phases, timer=timer)

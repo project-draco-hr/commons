@@ -1,6 +1,0 @@
-{
-  String testFile="test-basedir-test.txt";
-  File file=new File(testFile);
-  assertTrue(file.exists());
-  assertEquals("i exist",Files.toString(file,Charsets.UTF_8).trim());
-}

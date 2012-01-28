@@ -1,0 +1,5 @@
+def test_consume_resources(self):
+    consumed = [self.pool.acquire() for _ in range(5)]
+    assert (self.pool._resources.qsize() == 5)
+    consumed.extend((self.pool.acquire() for _ in range(5)))
+    assert self.pool.empty()

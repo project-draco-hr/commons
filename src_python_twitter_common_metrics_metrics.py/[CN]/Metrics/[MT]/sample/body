@@ -1,0 +1,7 @@
+def sample(self, sample_prefix=''):
+    samples = {}
+    for (name, metric) in self._metrics.iteritems():
+        samples[(sample_prefix + name)] = str(metric.read())
+    for scope_name in self._children:
+        samples.update(self.scope(scope_name).sample(sample_prefix=((sample_prefix + scope_name) + '.')))
+    return samples

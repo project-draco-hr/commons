@@ -1,0 +1,6 @@
+{
+  Runnable command=blockingQueue.poll();
+  if (command != null) {
+    taskExecutor.execute(command);
+  }
+}

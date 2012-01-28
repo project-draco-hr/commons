@@ -1,5 +1,5 @@
 {
   String memberId=group.getMemberId(deletedPath);
-  servicesByMemberId.remove(memberId);
+  servicesByMemberId.invalidate(memberId);
   return memberId;
 }

@@ -1,0 +1,6 @@
+{
+  for (  StreamCapture capture : captures.values()) {
+    capture.dispose();
+  }
+  super.testRunFinished(result);
+}

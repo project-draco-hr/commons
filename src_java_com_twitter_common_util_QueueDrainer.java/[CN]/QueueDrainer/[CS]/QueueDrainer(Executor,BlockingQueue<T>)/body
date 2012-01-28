@@ -1,0 +1,4 @@
+{
+  this.taskExecutor=Preconditions.checkNotNull(taskExecutor);
+  this.blockingQueue=Preconditions.checkNotNull(blockingQueue);
+}

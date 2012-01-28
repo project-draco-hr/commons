@@ -1,0 +1,3 @@
+T from
+Set<T> to
+Closure<Transition<T>> callback

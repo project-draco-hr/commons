@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('outdir'), dest='bundle_create_outdir', help='Create bundles and archives in this directory.')
+    option_group.add_option(mkflag('archive'), dest='bundle_create_archive', type='choice', choices=list(ARCHIVER_BY_TYPE.keys()), help=('[%%default] Create an archive from the bundle. Choose from %s' % ARCHIVER_BY_TYPE.keys()))

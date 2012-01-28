@@ -1,0 +1,9 @@
+{
+  if (exceptionChars == null) {
+    exceptionChars=PUNCTUATION_EXCEPTIONS_CHARS + additionalChars;
+  }
+ else {
+    exceptionChars+=additionalChars;
+  }
+  return this;
+}

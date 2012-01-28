@@ -1,0 +1,4 @@
+{
+  this.cmdLine=Preconditions.checkNotNull(cmdLine);
+  this.field=Preconditions.checkNotNull(field);
+}

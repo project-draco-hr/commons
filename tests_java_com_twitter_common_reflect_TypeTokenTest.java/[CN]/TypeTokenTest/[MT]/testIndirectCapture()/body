@@ -1,0 +1,6 @@
+{
+  MyType<AtomicInteger> typeTokenSubclassInstance=new MyType<AtomicInteger>(){
+  }
+;
+  assertEquals(AtomicInteger.class,typeTokenSubclassInstance.getType());
+}

@@ -1,0 +1,2 @@
+def namablegauge(obj):
+    return (gaugelike(obj) and namable(obj))

@@ -1,3 +1,0 @@
-{
-  throw new UnsupportedOperationException("The term buffer is read-only: see getCharSequence");
-}

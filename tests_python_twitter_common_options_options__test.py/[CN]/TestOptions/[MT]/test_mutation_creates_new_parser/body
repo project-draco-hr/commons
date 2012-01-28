@@ -1,0 +1,13 @@
+def test_mutation_creates_new_parser(self):
+    parser1 = options.parser()
+    parser2 = parser1.interspersed_arguments(True)
+    parser3 = parser2.usage('foo')
+    assert (parser1 is not parser2)
+    assert (parser2 is not parser3)
+    assert (parser1 is not parser3)
+    assert (parser1.interspersed_arguments() is False)
+    assert (parser1.usage() == '')
+    assert (parser2.interspersed_arguments() is True)
+    assert (parser2.usage() == '')
+    assert (parser3.interspersed_arguments() is True)
+    assert (parser3.usage() == 'foo')

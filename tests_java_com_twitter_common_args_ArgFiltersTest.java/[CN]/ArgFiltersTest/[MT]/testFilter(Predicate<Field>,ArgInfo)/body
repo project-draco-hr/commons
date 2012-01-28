@@ -1,0 +1,9 @@
+{
+  Predicate<Optional<Field>> fieldFilter=new Predicate<Optional<Field>>(){
+    @Override public boolean apply(    Optional<Field> maybeField){
+      return maybeField.isPresent() && filter.apply(maybeField.get());
+    }
+  }
+;
+  assertEquals(ImmutableSet.copyOf(expected),ImmutableSet.copyOf(Iterables.filter(Configuration.load().optionInfo(),Predicates.compose(fieldFilter,Args.TO_FIELD))));
+}

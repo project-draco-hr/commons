@@ -1,12 +1,24 @@
 {
-  configureInjection(application);
-  LOG.info("Executing startup actions.");
-  startupController.execute();
   try {
-    application.run();
+    configureInjection(application);
+    LOG.info("Executing startup actions.");
+    try {
+      startupCommand.execute();
+    }
+ catch (    Exception e) {
+      LOG.log(Level.SEVERE,"Startup action failed, quitting.",e);
+      throw Throwables.propagate(e);
+    }
+    try {
+      application.run();
+    }
+  finally {
+      LOG.info("Application run() exited.");
+    }
   }
   finally {
-    LOG.info("Application run() exited.");
-    lifecycle.shutdown();
+    if (lifecycle != null) {
+      lifecycle.shutdown();
+    }
   }
 }

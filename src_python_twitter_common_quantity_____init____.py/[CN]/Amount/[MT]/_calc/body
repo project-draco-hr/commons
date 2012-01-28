@@ -1,0 +1,2 @@
+def _calc(self):
+    return (self._amount * self._unit.multiplier())

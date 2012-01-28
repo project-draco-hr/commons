@@ -1,9 +1,4 @@
 {
   this.name=name;
-  inputAccessor=new Supplier<T>(){
-    @Override public T get(){
-      return input;
-    }
-  }
-;
+  inputAccessor=Suppliers.ofInstance(input);
 }

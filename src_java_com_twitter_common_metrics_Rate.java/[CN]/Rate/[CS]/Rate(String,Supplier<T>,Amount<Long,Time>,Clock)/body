@@ -1,0 +1,6 @@
+{
+  super(name + "_per_" + windowLength.getValue()+ windowLength.getUnit().toString());
+  this.valueAccessor=Preconditions.checkNotNull(valueAccessor);
+  this.windowLengthMs=windowLength.as(Time.MILLISECONDS);
+  this.clock=Preconditions.checkNotNull(clock);
+}

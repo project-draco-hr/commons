@@ -1,0 +1,5 @@
+{
+  expectVarScrape(ImmutableMap.<String,Object>of());
+  control.replay();
+  checkOutput(Collections.<String>emptyList());
+}

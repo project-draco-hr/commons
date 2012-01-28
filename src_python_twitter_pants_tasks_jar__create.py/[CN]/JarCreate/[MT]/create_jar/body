@@ -1,0 +1,5 @@
+@contextmanager
+def create_jar(self, path):
+    zip = ZipFile(path, 'w', compression=self.compression)
+    yield zip
+    zip.close()

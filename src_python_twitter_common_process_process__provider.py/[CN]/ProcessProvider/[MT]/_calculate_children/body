@@ -1,0 +1,9 @@
+def _calculate_children(self, pid, current_set):
+    new_children = copy(self._pid_to_children[pid])
+    added = set()
+    for new_child in new_children:
+        if (new_child not in current_set):
+            added.add(new_child)
+            current_set.add(new_child)
+    for new_child in added:
+        self._calculate_children(new_child, current_set)

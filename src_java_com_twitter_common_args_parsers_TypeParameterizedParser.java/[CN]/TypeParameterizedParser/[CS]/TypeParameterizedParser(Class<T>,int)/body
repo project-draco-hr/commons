@@ -1,4 +1,0 @@
-{
-  super(parsedClass);
-  this.typeParamCount=typeParamCount;
-}

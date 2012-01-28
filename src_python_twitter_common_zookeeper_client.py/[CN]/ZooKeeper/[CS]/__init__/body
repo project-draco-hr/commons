@@ -1,0 +1,7 @@
+def __init__(self, servers=None, timeout=None):
+    'Create new ZooKeeper object.\n\n    Blocks until ZK negotation completes, or the timeout expires.\n    '
+    options = app.get_options()
+    self._servers = (servers or options.zookeeper)
+    self._timeout = (options.zookeeper_timeout if (timeout is None) else timeout)
+    self._zh = None
+    self.reconnect()

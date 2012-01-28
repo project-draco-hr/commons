@@ -1,0 +1,11 @@
+def test_bad_scope_names():
+    rm = RootMetrics()
+    my_scope = rm.scope('my_scope')
+    with pytest.raises(TypeError):
+        my_scope.scope(None)
+    with pytest.raises(TypeError):
+        my_scope.scope({})
+    with pytest.raises(TypeError):
+        my_scope.scope(123)
+    with pytest.raises(TypeError):
+        my_scope.scope(RootMetrics)

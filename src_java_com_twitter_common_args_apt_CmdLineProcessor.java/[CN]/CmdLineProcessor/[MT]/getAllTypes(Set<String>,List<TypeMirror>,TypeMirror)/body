@@ -1,0 +1,11 @@
+{
+  String typeName=typeUtils.erasure(type).toString();
+  if (!visitedTypes.contains(typeName)) {
+    types.add(type);
+    visitedTypes.add(typeName);
+    for (    TypeMirror superType : typeUtils.directSupertypes(type)) {
+      getAllTypes(visitedTypes,types,superType);
+    }
+  }
+  return types;
+}

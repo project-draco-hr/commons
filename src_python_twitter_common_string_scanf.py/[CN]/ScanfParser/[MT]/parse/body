@@ -1,0 +1,16 @@
+def parse(self, line, allow_extra=False):
+    '\n      Given a line of text, parse it and return a ScanfResult object.\n    '
+    if (not isinstance(line, basestring)):
+        raise TypeError(('Expected line to be a string, got %s' % type(line)))
+    sre_match = self._re.match(line)
+    if (sre_match is None):
+        raise ScanfParser.ParseError(('Failed to match pattern: %s against %s' % (self._re_pattern, line)))
+    groups = list(sre_match.groups())
+    if (len(groups) != len(self._applicators)):
+        raise ScanfParser.ParseError(('Did not parse all groups! Missing %d' % (len(self._applicators) - len(groups))))
+    if ((sre_match.end() != len(line)) and (not allow_extra)):
+        raise ScanfParser.ParseError(("Extra junk on the line! '%s'" % line[sre_match.end():]))
+    so = ScanfResult()
+    for (applicator, group) in zip(self._applicators, groups):
+        applicator(so, group)
+    return so

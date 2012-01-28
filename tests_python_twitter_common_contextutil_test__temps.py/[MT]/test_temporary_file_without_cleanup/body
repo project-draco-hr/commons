@@ -1,0 +1,5 @@
+def test_temporary_file_without_cleanup():
+    with temporary_file(cleanup=False) as fp:
+        assert os.path.exists(fp.name), 'temporary file should exist within the context.'
+    assert os.path.exists(fp.name), 'temporary file should exist outside of context if cleanup=False.'
+    os.unlink(fp.name)

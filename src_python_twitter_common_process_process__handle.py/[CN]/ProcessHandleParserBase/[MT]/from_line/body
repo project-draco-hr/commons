@@ -1,0 +1,5 @@
+@classmethod
+def from_line(cls, line):
+    proc = cls()
+    proc._realize_from_line(line)
+    return proc

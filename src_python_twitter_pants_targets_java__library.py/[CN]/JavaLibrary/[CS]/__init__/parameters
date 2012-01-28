@@ -1,12 +1,10 @@
 self
 name
 sources
-target_base
 provides
 dependencies
 excludes
 resources
-binary_resources
 deployjar
 buildflags
 is_meta

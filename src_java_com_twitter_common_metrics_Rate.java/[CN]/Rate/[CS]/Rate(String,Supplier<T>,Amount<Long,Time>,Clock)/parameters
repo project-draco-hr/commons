@@ -1,0 +1,4 @@
+String name
+Supplier<T> valueAccessor
+Amount<Long,Time> windowLength
+Clock clock

@@ -1,0 +1,7 @@
+def create_buildfile(root_dir, relpath, content=''):
+    path = os.path.join(root_dir, relpath)
+    os.makedirs(path)
+    buildfile = os.path.join(path, 'BUILD')
+    with open(buildfile, 'a') as f:
+        f.write(content)
+    return BuildFile(root_dir, relpath)

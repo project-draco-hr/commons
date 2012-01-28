@@ -1,0 +1,4 @@
+def test_app_cyclic_dependencies(self):
+    self.factory.new_module('first', dependencies='second')
+    with pytest.raises(app.Module.DependencyCycle):
+        self.factory.new_module('second', dependencies='first')

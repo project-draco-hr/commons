@@ -1,0 +1,11 @@
+def _invalidate(self, target, cache_key, indirect=False):
+    if (target in self._targets):
+        self.changed[target].append(cache_key)
+        if indirect:
+            self.invalidated_files += len(cache_key.sources)
+            self.invalidated_targets += 1
+        else:
+            self.changed_files += len(cache_key.sources)
+    else:
+        self._cache.invalidate(cache_key)
+        self.foreign_invalidated_targets += 1

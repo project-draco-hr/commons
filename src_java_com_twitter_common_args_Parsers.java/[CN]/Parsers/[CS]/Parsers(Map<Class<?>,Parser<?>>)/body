@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(parsers);
+  registry=ImmutableMap.copyOf(parsers);
+}

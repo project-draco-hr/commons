@@ -1,0 +1,13 @@
+def __init__(self, context, output_dir=None, version=None, javadeps=None, pythondeps=None):
+    Task.__init__(self, context)
+    self.protobuf_binary = select_binary(context.config.get('protobuf-gen', 'supportdir'), (version or context.config.get('protobuf-gen', 'version')), 'protoc')
+    self.output_dir = (output_dir or context.options.protobuf_gen_create_outdir or context.config.get('protobuf-gen', 'workdir'))
+
+    def resolve_deps(key):
+        deps = OrderedSet()
+        for dep in context.config.getlist('protobuf-gen', 'javadeps'):
+            deps.update(context.resolve(dep))
+        return deps
+    self.javadeps = (javadeps or resolve_deps('javadeps'))
+    self.pythondeps = (pythondeps or resolve_deps('pythondeps'))
+    self.gen_langs = set(context.options.protobuf_gen_langs)

@@ -1,0 +1,4 @@
+def use_cached_files(self, cache_key, copy_fn):
+    'Use cached files, typically by hard-linking them from the cache into a staging area.\n\n    :param cache_key: A CacheKey object (typically returned by BuildCache.key_for().\n    :param copy_fn: A function with the signature copy_fn(absolute_src_path, relative_dst_path) that\n        will copy cached files into the desired destination.\n    '
+    for (relative_filename, filename) in self._walk_paths([cache_key.filename]):
+        copy_fn(filename, relative_filename)

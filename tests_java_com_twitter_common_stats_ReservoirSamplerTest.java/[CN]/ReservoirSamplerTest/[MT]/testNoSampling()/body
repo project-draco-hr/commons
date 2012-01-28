@@ -1,0 +1,9 @@
+{
+  control.replay();
+  List<Integer> stream=ImmutableList.of(1,2,3);
+  ReservoirSampler<Integer> sampler=new ReservoirSampler<Integer>(20);
+  for (  int i : stream) {
+    sampler.sample(i);
+  }
+  assertEquals("The samples should be same as the stream",stream,ImmutableList.copyOf(sampler.getSamples()));
+}

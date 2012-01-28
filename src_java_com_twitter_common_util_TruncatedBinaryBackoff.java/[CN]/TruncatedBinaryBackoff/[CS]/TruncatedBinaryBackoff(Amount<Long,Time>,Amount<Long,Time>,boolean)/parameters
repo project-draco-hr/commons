@@ -1,0 +1,3 @@
+Amount<Long,Time> initialBackoff
+Amount<Long,Time> maxBackoff
+boolean stopAtMax

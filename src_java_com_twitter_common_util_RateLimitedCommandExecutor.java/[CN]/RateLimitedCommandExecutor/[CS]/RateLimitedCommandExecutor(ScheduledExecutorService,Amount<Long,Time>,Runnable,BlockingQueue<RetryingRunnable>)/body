@@ -1,0 +1,8 @@
+{
+  Preconditions.checkNotNull(taskExecutor);
+  Preconditions.checkNotNull(intervalBetweenRequests);
+  Preconditions.checkArgument(intervalBetweenRequests.as(Time.MILLISECONDS) > 0);
+  Preconditions.checkNotNull(queueDrainer);
+  this.blockingQueue=Preconditions.checkNotNull(blockingQueue);
+  taskExecutor.scheduleWithFixedDelay(getSafeRunner(queueDrainer),0,intervalBetweenRequests.as(Time.MILLISECONDS),TimeUnit.MILLISECONDS);
+}

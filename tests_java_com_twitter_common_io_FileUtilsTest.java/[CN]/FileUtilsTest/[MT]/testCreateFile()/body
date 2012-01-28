@@ -1,0 +1,5 @@
+{
+  File tmpFile=temporary.createFile(".jake");
+  assertEmptyFile(tmpFile);
+  JUnitAsserts.assertMatchesRegex(".+\\.jake$",tmpFile.getName());
+}

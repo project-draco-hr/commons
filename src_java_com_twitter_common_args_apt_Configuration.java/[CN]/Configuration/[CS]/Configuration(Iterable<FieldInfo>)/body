@@ -1,3 +1,0 @@
-{
-  this.infos=ImmutableSet.copyOf(infos);
-}

@@ -4,8 +4,4 @@
   otherAtt.copyTo(att);
   assertCharSequence("test");
   assertTerm("test",0,4);
-  TermAttributeImpl termAtt=new TermAttributeImpl();
-  otherAtt.copyTo(termAtt);
-  assertEquals("test",termAtt.term());
-  assertEquals(4,termAtt.termLength());
 }

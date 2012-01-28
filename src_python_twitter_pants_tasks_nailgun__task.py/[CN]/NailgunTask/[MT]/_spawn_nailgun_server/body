@@ -1,0 +1,23 @@
+def _spawn_nailgun_server(self):
+    log.info('No ng server found, spawning...')
+    with _safe_open(self._ng_out, 'w'):
+        pass
+    pid = os.fork()
+    if (pid != 0):
+        return self._await_nailgun_server()
+    os.setsid()
+    in_fd = open('/dev/null', 'w')
+    out_fd = safe_open(self._ng_out, 'w')
+    err_fd = safe_open(self._ng_err, 'w')
+    args = ['java']
+    if self._ng_server_args:
+        args.extend(self._ng_server_args)
+    args.append(NailgunTask.PANTS_NG_ARG)
+    args.append(('-Dpidfile=%s' % os.path.relpath(self._pidfile, get_buildroot())))
+    args.extend(['-jar', self._nailgun_jar, ':0'])
+    log.debug(('Executing: %s' % ' '.join(args)))
+    process = subprocess.Popen(args, stdin=in_fd, stdout=out_fd, stderr=err_fd, close_fds=True, cwd=get_buildroot())
+    with _safe_open(self._pidfile, 'w') as pidfile:
+        pidfile.write(('%d' % process.pid))
+    log.debug(('Spawned ng server @ %d' % process.pid))
+    sys.exit(0)

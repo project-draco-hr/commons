@@ -1,5 +1,0 @@
-{
-  Key<ActionController> controllerKey=Key.get(ActionController.class,annotationType);
-  binder.bind(controllerKey).to(ActionController.class).in(Singleton.class);
-  binder.bind(Key.get(ActionRegistry.class,annotationType)).to(controllerKey);
-}

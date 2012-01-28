@@ -1,0 +1,4 @@
+@staticmethod
+def from_req(requirement):
+    dists = ReqBuilder.install_requirement(requirement)
+    return PythonDependency.from_distributions(*list(dists))

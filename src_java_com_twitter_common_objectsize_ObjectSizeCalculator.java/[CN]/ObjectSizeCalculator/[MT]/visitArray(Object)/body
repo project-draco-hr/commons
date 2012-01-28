@@ -5,7 +5,7 @@
     increaseByArraySize(length,getPrimitiveFieldSize(componentType));
   }
  else {
-    increaseByArraySize(length,REFERENCE_SIZE);
+    increaseByArraySize(length,referenceSize);
 switch (length) {
 case 0:
 {

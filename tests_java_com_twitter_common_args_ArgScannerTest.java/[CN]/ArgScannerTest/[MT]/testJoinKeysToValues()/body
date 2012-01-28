@@ -1,6 +1,6 @@
 {
-  assertThat(ArgScanner.joinKeysToValues(""),is(Arrays.asList("")));
-  assertThat(ArgScanner.joinKeysToValues("-a","b","-c","-d"),is(Arrays.asList("-a=b","-c","-d")));
-  assertThat(ArgScanner.joinKeysToValues("-a='b'","-c","-d","'e'"),is(Arrays.asList("-a='b'","-c","-d='e'")));
-  assertThat(ArgScanner.joinKeysToValues("-a=-b","c","-d","\"e\""),is(Arrays.asList("-a=-b","c","-d=\"e\"")));
+  assertThat(ArgScanner.joinKeysToValues(Arrays.asList("")),is(Arrays.asList("")));
+  assertThat(ArgScanner.joinKeysToValues(Arrays.asList("-a","b","-c","-d")),is(Arrays.asList("-a=b","-c","-d")));
+  assertThat(ArgScanner.joinKeysToValues(Arrays.asList("-a='b'","-c","-d","'e'")),is(Arrays.asList("-a='b'","-c","-d='e'")));
+  assertThat(ArgScanner.joinKeysToValues(Arrays.asList("-a=-b","c","-d","\"e\"")),is(Arrays.asList("-a=-b","c","-d=\"e\"")));
 }

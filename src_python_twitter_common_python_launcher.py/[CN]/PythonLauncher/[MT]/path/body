@@ -1,0 +1,7 @@
+def path(self, extras=[]):
+    '\n      Return the sys.path necessary to run this environment.\n    '
+    p = OrderedSet(self._path)
+    p.update(self._cache.paths())
+    p.update(extras)
+    p.update(PythonLauncher.minimum_path())
+    return list(p)

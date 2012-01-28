@@ -1,0 +1,15 @@
+@staticmethod
+def of(gauge, name=None, window=None, clock=None):
+    kw = {}
+    if window:
+        kw.update(window=window)
+    if clock:
+        kw.update(clock=clock)
+    if name:
+        if (not gaugelike(gauge)):
+            raise TypeError(('Rate.of must take a Gauge-like object!  Got %s' % type(gauge)))
+        return Rate(name, gauge, **kw)
+    else:
+        if (not namablegauge(gauge)):
+            raise TypeError('Rate.of must take a namable Gauge-like object if no name specified!')
+        return Rate(gauge.name(), gauge, **kw)

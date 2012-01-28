@@ -1,0 +1,3 @@
+def register(self, gauge):
+    '\n      Register a gauge (mapper from name => sample) with this registry.\n    '
+    raise NotImplementedError

@@ -1,5 +1,7 @@
 def __init__(self, target, root_dir):
-    self.target = target
-    self.root = root_dir
+    self._target = target
+    self._root = root_dir
+    self._cache = BuildCache(os.path.join(root_dir, '.pants.d', 'py_artifact_cache'))
     distdir = os.path.join(root_dir, 'dist')
-    self.chroot = Chroot(root_dir, distdir, target.name)
+    distpath = tempfile.mktemp(dir=distdir, prefix=target.name)
+    self.env = PythonEnvironment(distpath)

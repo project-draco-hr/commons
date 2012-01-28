@@ -1,0 +1,3 @@
+def read(self):
+    with self._lock:
+        return self._value()

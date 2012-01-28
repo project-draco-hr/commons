@@ -1,5 +1,7 @@
 {
-  @SuppressWarnings("unchecked") Supplier<Boolean> task=control.createMock(Supplier.class);
+  Supplier<Boolean> task=createMock(new Clazz<Supplier<Boolean>>(){
+  }
+);
   IllegalArgumentException thrown=new IllegalArgumentException();
   expect(task.get()).andThrow(thrown);
   control.replay();

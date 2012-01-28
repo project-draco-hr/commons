@@ -1,0 +1,9 @@
+{
+  byte b=readByte();
+  int value=b & 0x7F;
+  for (int shift=7; (b & 0x80) != 0; shift+=7) {
+    b=readByte();
+    value|=(b & 0x7F) << shift;
+  }
+  return value;
+}

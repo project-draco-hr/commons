@@ -1,0 +1,4 @@
+def collect_set(self, pidset):
+    'Collect data from a subset of processes.'
+    self.clear(pidset)
+    self._process_lines(self._collect_set(pidset))

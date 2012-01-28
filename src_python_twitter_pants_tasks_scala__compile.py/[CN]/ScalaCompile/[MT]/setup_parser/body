@@ -1,0 +1,3 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('warnings'), mkflag('warnings', negate=True), dest='scala_compile_warnings', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Compile scala code with all configured warnings enabled.')

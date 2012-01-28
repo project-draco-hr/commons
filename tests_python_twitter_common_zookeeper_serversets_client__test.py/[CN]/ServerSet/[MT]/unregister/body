@@ -1,0 +1,2 @@
+def unregister(self, handle):
+    self._zk.delete(handle)

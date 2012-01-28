@@ -1,0 +1,7 @@
+@validate
+def __iter__(self):
+    'Iterate over registered endpoints.\n\n    :yields: ServiceInstance instances.\n    '
+    self._update_endpoints()
+    with self._lock:
+        snapshot = self._endpoints[:]
+    return iter(snapshot)

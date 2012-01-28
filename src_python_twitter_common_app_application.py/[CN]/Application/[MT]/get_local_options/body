@@ -1,0 +1,7 @@
+def get_local_options(self):
+    '\n      Return the options only defined by __main__.\n    '
+    new_values = options.Values()
+    for opt in self._main_options:
+        if opt.dest:
+            setattr(new_values, opt.dest, getattr(self._option_values, opt.dest))
+    return new_values

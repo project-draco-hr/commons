@@ -1,0 +1,18 @@
+@staticmethod
+def find_application_name():
+    __entry_point__ = None
+    locals = Inspection.get_main_locals()
+    if (locals.has_key('__file__') and (locals['__file__'] is not None)):
+        __entry_point__ = locals['__file__']
+    elif locals.has_key('__loader__'):
+        from zipimport import zipimporter
+        from pkgutil import ImpLoader
+        if isinstance(locals['__loader__'], zipimporter):
+            __entry_point__ = os.path.basename(locals['__loader__'].archive)
+            __entry_point__ = __entry_point__.split('-')[0].split('.')[0]
+        elif isinstance(locals['__loader__'], ImpLoader):
+            __entry_point__ = locals['__loader__'].get_filename()
+    else:
+        __entry_point__ = '__interpreter__'
+    app_name = os.path.basename(__entry_point__)
+    return app_name.split('.')[0]

@@ -1,0 +1,9 @@
+def ng(self, main_class, *args, **environment):
+    nailgun = self._get_nailgun_client()
+    try:
+        if self._classpath:
+            nailgun('ng-cp', *[os.path.relpath(jar, get_buildroot()) for jar in self._classpath])
+        return nailgun(main_class, *args, **environment)
+    except NailgunError as e:
+        self.ng_shutdown()
+        raise e

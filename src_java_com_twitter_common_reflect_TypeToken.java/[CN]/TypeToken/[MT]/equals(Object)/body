@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof TypeToken)) {
+    return false;
+  }
+  TypeToken other=(TypeToken)o;
+  return type.equals(other.type);
+}

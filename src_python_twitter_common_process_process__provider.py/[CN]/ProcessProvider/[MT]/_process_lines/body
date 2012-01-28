@@ -1,0 +1,9 @@
+def _process_lines(self, lines):
+    for line in lines:
+        (pid, ppid) = self._translate_line_to_pid_pair(line)
+        if (pid is None):
+            continue
+        self._pids.add(pid)
+        self._raw[pid] = line
+        self._pid_to_parent[pid] = ppid
+        self._pid_to_children[ppid].add(pid)

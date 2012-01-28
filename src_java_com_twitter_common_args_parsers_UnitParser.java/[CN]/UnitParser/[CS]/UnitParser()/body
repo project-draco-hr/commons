@@ -1,4 +1,3 @@
 {
-  super(Unit.class);
   unitValues=Maps.uniqueIndex(ImmutableList.<Unit>builder().add(Time.values()).add(Data.values()).build(),Functions.toStringFunction());
 }

@@ -1,0 +1,10 @@
+def __getattr__(self, function_name):
+    'Proxy to raw ZK functions, passing handle as the first argument.  '
+    if (function_name not in ZooKeeper._ZK_PROXY_METHODS):
+        raise AttributeError(('%r has no attribute %r' % (self, function_name)))
+    function = getattr(zookeeper, function_name)
+
+    @wraps(function)
+    def _curry(*args, **kwargs):
+        return function(self._zh, *args, **kwargs)
+    return _curry

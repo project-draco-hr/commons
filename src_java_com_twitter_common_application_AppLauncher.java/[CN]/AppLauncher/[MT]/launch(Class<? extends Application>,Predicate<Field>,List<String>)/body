@@ -1,0 +1,15 @@
+{
+  Preconditions.checkNotNull(appClass);
+  Preconditions.checkNotNull(argFilter);
+  Preconditions.checkNotNull(args);
+  parseArgs(Predicates.<Field>and(Predicates.not(SELECT_APP_CLASS),argFilter),args);
+  try {
+    new AppLauncher().run(appClass.newInstance());
+  }
+ catch (  InstantiationException e) {
+    throw new IllegalStateException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new IllegalStateException(e);
+  }
+}

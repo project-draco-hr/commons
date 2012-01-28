@@ -2,5 +2,5 @@
 def disk_log_level():
     '\n      Get the current disk_log_level (in logging units specified by logging module.)\n    '
     if (LogOptions._DISK_LOG_LEVEL is None):
-        LogOptions.set_disk_log_level(options.values().twitter_common_log_disk_log_level)
+        LogOptions.set_disk_log_level(app.get_options().twitter_common_log_disk_log_level)
     return LogOptions._DISK_LOG_LEVEL

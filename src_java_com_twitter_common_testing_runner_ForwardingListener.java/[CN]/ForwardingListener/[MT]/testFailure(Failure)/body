@@ -1,0 +1,8 @@
+{
+  fire(new ExceptionalClosure<RunListener,Exception>(){
+    @Override public void execute(    RunListener listener) throws Exception {
+      listener.testFailure(failure);
+    }
+  }
+);
+}

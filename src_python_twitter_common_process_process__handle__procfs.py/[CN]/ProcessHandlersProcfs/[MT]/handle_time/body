@@ -1,0 +1,3 @@
+@staticmethod
+def handle_time(key, value):
+    return ((1.0 * value) / os.sysconf('SC_CLK_TCK'))

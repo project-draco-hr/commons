@@ -1,0 +1,6 @@
+{
+  expect(blockingQueue.poll()).andReturn(null);
+  control.replay();
+  replay();
+  queueDrainer.run();
+}

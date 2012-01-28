@@ -1,3 +1,3 @@
-def __init__(self, target_base, name, is_meta=False):
+def __init__(self, name, is_meta=False):
     Target.__init__(self, name, is_meta)
-    self.target_base = (target_base if target_base else self.find_target_base())
+    self.target_base = SourceRoot.find(self)

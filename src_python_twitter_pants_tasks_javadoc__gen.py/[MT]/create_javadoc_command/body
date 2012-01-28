@@ -1,0 +1,15 @@
+def create_javadoc_command(classpath, gendir, *targets):
+    command = ['javadoc', '-quiet', '-encoding', 'UTF-8', '-notimestamp', '-use', '-classpath', ':'.join(classpath), '-d', gendir]
+    offlinelinks = set(['http://download.oracle.com/javase/6/docs/api/'])
+
+    def link(target):
+        for jar in target.jar_dependencies:
+            if jar.apidocs:
+                offlinelinks.add(jar.apidocs)
+    for target in targets:
+        target.walk(link, is_jvm)
+    for link in offlinelinks:
+        command.extend(['-linkoffline', link, link])
+    for target in targets:
+        command.extend((os.path.join(target.target_base, source) for source in target.sources))
+    return command

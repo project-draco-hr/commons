@@ -1,0 +1,8 @@
+def __init__(self, num_servers=1):
+    self.num_servers = num_servers
+    self.servers = {}
+    self.handles = {}
+    self.ivyfile = tempfile.mktemp()
+    with open(self.ivyfile, 'w') as ivyfile:
+        ivyfile.write(ZookeeperClusterBootstrapper.IVY)
+    self._generate_configs()

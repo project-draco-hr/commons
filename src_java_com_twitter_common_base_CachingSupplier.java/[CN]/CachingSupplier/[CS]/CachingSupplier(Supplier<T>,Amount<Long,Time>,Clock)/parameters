@@ -1,0 +1,3 @@
+Supplier<T> wrapped
+Amount<Long,Time> expiration
+Clock clock

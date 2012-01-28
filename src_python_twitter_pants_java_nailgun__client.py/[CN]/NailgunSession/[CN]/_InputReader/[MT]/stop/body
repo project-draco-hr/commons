@@ -1,0 +1,2 @@
+def stop(self):
+    self._stopping.set()

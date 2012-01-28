@@ -1,0 +1,4 @@
+@staticmethod
+def clear_registry():
+    AppModule._MODULE_REGISTRY = {}
+    AppModule._MODULE_DEPENDENCIES = {}

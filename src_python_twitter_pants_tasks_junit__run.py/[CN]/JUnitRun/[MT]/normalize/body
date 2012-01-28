@@ -1,0 +1,14 @@
+def normalize(self, classname_or_file, basedir=None):
+    components = classname_or_file.split('#', 2)
+    classname = components[0]
+    methodname = (('#' + components[1]) if (len(components) == 2) else '')
+    if (not classname.endswith('.java')):
+        return (classname + methodname)
+
+    def relpath_toclassname(path):
+        return path.replace('/', '.').replace('.java', '')
+    if basedir:
+        return (relpath_toclassname(classname) + methodname)
+    else:
+        basedir = calculate_basedir(classname)
+        return (relpath_toclassname(os.path.relpath(classname, basedir)) + methodname)

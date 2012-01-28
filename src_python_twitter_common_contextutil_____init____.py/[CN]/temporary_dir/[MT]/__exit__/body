@@ -1,0 +1,3 @@
+def __exit__(self, exctype, value, traceback):
+    if self.cleanup:
+        shutil.rmtree(self.path)

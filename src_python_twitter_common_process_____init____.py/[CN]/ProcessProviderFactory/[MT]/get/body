@@ -1,0 +1,6 @@
+@staticmethod
+def get():
+    '\n      Return a platform-specific ProcessProvider.\n    '
+    for provider in ProcessProviderFactory.PROVIDERS:
+        if provider._platform_compatible():
+            return provider()

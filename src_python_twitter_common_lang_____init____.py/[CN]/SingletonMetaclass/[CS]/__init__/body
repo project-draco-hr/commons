@@ -1,0 +1,3 @@
+def __init__(cls, name, bases, attrs):
+    super(SingletonMetaclass, cls).__init__(name, bases, attrs)
+    cls.instance = None

@@ -1,0 +1,5 @@
+def setup_parser(self, parser, args):
+    parser.set_usage('%prog ivy_resolve ([spec]...)')
+    parser.add_option('--clean', action='store_true', dest='clean', default=False, help='removes local libs directories')
+    parser.add_option('--intransitive', action='store_true', dest='intransitive', default=False, help='only resolve dependencies for given spec')
+    parser.epilog = 'Links ivy libs to a local directory, obviating the need for an explicit ivy resolve'

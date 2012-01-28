@@ -1,0 +1,19 @@
+def test_duck_typing():
+
+
+    class Anonymous(object):
+        pass
+    A = Anonymous()
+    A.name = (lambda : 'anonymous')
+    assert namable(A), 'any object with a name method should be considered namable'
+    A = Anonymous()
+    A.read = (lambda : 5)
+    assert gaugelike(A), 'any object with a read method should be considered gaugelike'
+    A.name = (lambda : 'anonymous')
+    assert namablegauge(A), 'any object with read/name method shoudl be considered namablegauge'
+    A.name = 'anonymous'
+    assert (not namablegauge(A))
+    assert (not namable(A))
+    assert gaugelike(A)
+    A.read = '5'
+    assert (not gaugelike(A))

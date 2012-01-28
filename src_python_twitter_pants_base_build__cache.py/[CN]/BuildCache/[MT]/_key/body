@@ -1,0 +1,2 @@
+def _key(self, key):
+    return key.replace(os.path.sep, '.')

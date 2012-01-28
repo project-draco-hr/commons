@@ -1,0 +1,7 @@
+def interspersed_arguments(self, i_a=None):
+    ' Enable/disable interspersed arguments. '
+    if (i_a is None):
+        return self._interspersed_arguments
+    me = self._copy()
+    me._interspersed_arguments = i_a
+    return me

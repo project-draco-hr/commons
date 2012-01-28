@@ -1,0 +1,3 @@
+def release(self, resource):
+    'Add a resource to the pool.'
+    self._resources.put(resource)

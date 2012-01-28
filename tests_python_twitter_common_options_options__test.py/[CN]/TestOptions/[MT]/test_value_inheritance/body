@@ -1,0 +1,18 @@
+def test_value_inheritance(self):
+    option_list = [options.Option('-a', dest='a'), options.Option('-b', dest='b')]
+    (values, leftovers) = options.parser().options(option_list).parse([])
+    assert (not hasattr(values, 'a'))
+    assert (not hasattr(values, 'b'))
+    (values, leftovers) = options.parser().options(option_list).parse(['-a', 'value_a'])
+    assert hasattr(values, 'a')
+    assert (values.a == 'value_a')
+    assert (not hasattr(values, 'b'))
+    (values, leftovers) = options.parser().values(values).options(option_list).parse(['-b', 'value_b'])
+    assert (values.a == 'value_a')
+    assert (values.b == 'value_b')
+    (values, leftovers) = options.parser().values(values).options(option_list).parse([])
+    assert (values.a == 'value_a')
+    assert (values.b == 'value_b')
+    (values, leftovers) = options.parser().values(values).options(option_list).parse(['-a', 'new_value_a'])
+    assert (values.a == 'new_value_a')
+    assert (values.b == 'value_b')

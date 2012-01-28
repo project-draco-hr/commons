@@ -1,8 +1,10 @@
 {
-  LOG.info("Shutting down application");
-  shutdownController.execute();
-  destroyed=true;
 synchronized (waitMonitor) {
-    waitMonitor.notifyAll();
+    if (!destroyed) {
+      destroyed=true;
+      LOG.info("Shutting down application");
+      shutdownRegistry.execute();
+      waitMonitor.notifyAll();
+    }
   }
 }

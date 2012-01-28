@@ -1,2 +1,2 @@
 def test_parsed_this_class(self):
-    assert (self._class_file.this_class() == 'com.google.protobuf.ByteString')
+    assert (self._class_file.this_class() == 'com/google/protobuf/ByteString')

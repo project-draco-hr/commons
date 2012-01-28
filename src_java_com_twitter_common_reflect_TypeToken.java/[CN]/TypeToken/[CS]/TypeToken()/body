@@ -1,0 +1,9 @@
+{
+  Type superclass=getClass().getGenericSuperclass();
+  try {
+    type=extractTypeToken(superclass);
+  }
+ catch (  IllegalArgumentException e) {
+    throw new IllegalStateException(e);
+  }
+}

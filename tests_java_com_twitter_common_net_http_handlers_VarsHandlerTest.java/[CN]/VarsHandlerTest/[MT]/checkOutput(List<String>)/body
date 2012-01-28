@@ -1,0 +1,3 @@
+{
+  assertEquals(expectedLines,ImmutableList.copyOf(vars.getLines(request)));
+}

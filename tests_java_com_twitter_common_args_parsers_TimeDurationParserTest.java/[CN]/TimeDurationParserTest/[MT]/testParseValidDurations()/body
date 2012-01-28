@@ -1,0 +1,4 @@
+{
+  Assert.assertEquals(11,parse("11secs").inSeconds());
+  Assert.assertEquals(21,parse("21days").inDays());
+}

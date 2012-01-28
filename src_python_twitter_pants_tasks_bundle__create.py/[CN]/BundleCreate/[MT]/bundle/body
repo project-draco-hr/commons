@@ -1,0 +1,38 @@
+def bundle(self, app):
+    bundledir = os.path.join(self.outdir, ('%s-bundle' % app.name))
+    self.context.log.info(('creating %s' % os.path.relpath(bundledir, get_buildroot())))
+    safe_mkdir(bundledir, clean=True)
+    libdir = os.path.join(bundledir, 'libs')
+    os.mkdir(libdir)
+    genmap = self.context.products.get('jar_dependencies')
+    classpath = OrderedSet()
+
+    def link_jar(target):
+        generated = genmap.get(target)
+        if generated:
+            for (basedir, jars) in generated.items():
+                for jar in jars:
+                    if (jar not in classpath):
+                        path = os.path.join(basedir, jar)
+                        os.symlink(path, os.path.join(libdir, jar))
+                        classpath.add(jar)
+    app.walk(link_jar, is_internal)
+    for (basedir, jars) in self.context.products.get('jars').get(app.binary).items():
+        if (len(jars) != 1):
+            raise TaskError(('Expected 1 mapped binary but found: %s' % jars))
+        binary = jars.pop()
+        with open_zip(os.path.join(basedir, binary), 'r') as src:
+            with open_zip(os.path.join(bundledir, binary), 'w', compression=ZIP_DEFLATED) as dest:
+                for item in src.infolist():
+                    buffer = src.read(item.filename)
+                    if (Manifest.PATH == item.filename):
+                        manifest = Manifest(buffer)
+                        manifest.addentry(Manifest.CLASS_PATH, ' '.join((os.path.join('libs', jar) for jar in classpath)))
+                        buffer = manifest.contents()
+                    dest.writestr(item, buffer)
+    for bundle in app.bundles:
+        for (path, relpath) in bundle.filemap.items():
+            bundlepath = os.path.join(bundledir, relpath)
+            safe_mkdir(os.path.dirname(bundlepath))
+            os.symlink(path, bundlepath)
+    return bundledir

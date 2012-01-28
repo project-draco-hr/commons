@@ -1,0 +1,6 @@
+{
+  expect(valueSupplier.get()).andReturn(100000);
+  control.replay();
+  Rate rate=makeRate("foo",THIRTY_SECONDS);
+  assertEquals(rate.read(),0d,EPS);
+}

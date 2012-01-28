@@ -5,13 +5,7 @@
   }
   clearAttributes();
   restoreState(inputStream.captureState());
-  CharSequence term;
-  if (inputCharSeqTermAttr != null) {
-    term=inputCharSeqTermAttr.getTermCharSequence();
-  }
- else {
-    term=inputTermAttr.term();
-  }
+  CharSequence term=inputCharSeqTermAttr.getTermCharSequence();
   if (regexPattern.matcher(term).matches()) {
     typeAttr.setType(type);
   }

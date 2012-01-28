@@ -1,0 +1,5 @@
+{
+  ThreadFactory threadFactory=new ThreadFactoryBuilder().setNameFormat("CuckooExporter-%d").setDaemon(true).build();
+  final NumericStatExporter exporter=new NumericStatExporter(statSink,Executors.newScheduledThreadPool(1,threadFactory),EXPORT_INTERVAL.get());
+  exporter.start(shutdownRegistry);
+}

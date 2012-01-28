@@ -1,1 +1,4 @@
 self
+targets
+all_sources
+all_deps

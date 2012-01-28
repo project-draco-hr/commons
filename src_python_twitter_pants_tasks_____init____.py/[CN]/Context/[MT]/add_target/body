@@ -1,0 +1,4 @@
+def add_target(self, build_dir, target_type, *args, **kwargs):
+    target = self._do_in_context((lambda : target_type(*args, **kwargs)), build_dir)
+    self._add_target(target)
+    return target

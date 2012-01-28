@@ -1,7 +1,6 @@
 import os
 from zipfile import ZipFile
-from twitter.common import app, log, options
+from twitter.common import app, log
 from twitter.common.java.class_file import ClassFile
-options.set_option('log_to_stdout', 'INFO')
-if (__name__ == '__main__'):
-    app.main()
+app.set_option('log_to_stdout', 'INFO')
+app.main()

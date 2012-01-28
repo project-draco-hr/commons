@@ -1,4 +1,0 @@
-ActionRegistry startupRegistry
-ActionRegistry shutdownRegistry
-BuildInfo buildInfo
-TimeSeriesRepository timeSeriesRepository

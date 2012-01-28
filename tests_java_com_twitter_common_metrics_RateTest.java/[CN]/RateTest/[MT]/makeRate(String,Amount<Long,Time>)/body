@@ -1,0 +1,3 @@
+{
+  return new Rate(name,valueSupplier,window,clock);
+}

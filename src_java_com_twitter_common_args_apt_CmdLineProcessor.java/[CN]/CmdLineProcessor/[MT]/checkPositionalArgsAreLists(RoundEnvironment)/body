@@ -1,0 +1,8 @@
+{
+  for (  Element positionalArg : getAnnotatedElements(roundEnv,Positional.class)) {
+    TypeMirror typeArgument=getTypeArgument(positionalArg.asType(),typeElement(Arg.class));
+    if (!typeUtils.isSubtype(typeElement(List.class).asType(),typeArgument)) {
+      error("Found @Positional %s %s.%s that is not a List",positionalArg.asType(),positionalArg.getEnclosingElement(),positionalArg);
+    }
+  }
+}

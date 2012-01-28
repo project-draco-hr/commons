@@ -1,0 +1,5 @@
+{
+  this.shutdownRegistry=checkNotNull(shutdownRegistry);
+  this.buildInfo=checkNotNull(buildInfo);
+  this.timeSeriesRepository=checkNotNull(timeSeriesRepository);
+}

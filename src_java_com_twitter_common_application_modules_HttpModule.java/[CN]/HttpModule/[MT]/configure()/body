@@ -1,7 +1,6 @@
 {
   requireBinding(Injector.class);
-  requireBinding(Key.get(ActionRegistry.class,StartupStage.class));
-  requireBinding(Key.get(ActionRegistry.class,ShutdownStage.class));
+  requireBinding(ShutdownRegistry.class);
   bind(Key.get(Runnable.class,Names.named(AbortHandler.ABORT_HANDLER_KEY))).toInstance(DEFAULT_ABORT_HANDLER);
   bind(Runnable.class).annotatedWith(Names.named(QuitHandler.QUIT_HANDLER_KEY)).to(DefaultQuitHandler.class);
   bind(DefaultQuitHandler.class).in(Singleton.class);
@@ -20,6 +19,7 @@
   Registration.registerServlet(binder(),"/quitquitquit",QuitHandler.class,true);
   Registration.registerServlet(binder(),"/threads",ThreadStackPrinter.class,false);
   Registration.registerServlet(binder(),"/vars",VarsHandler.class,false);
+  Registration.registerServlet(binder(),"/vars.json",VarsJsonHandler.class,false);
   GraphViewer.registerResources(binder());
-  requestStaticInjection(Init.class);
+  LifecycleModule.bindServiceLauncher(binder(),HttpServerLauncher.PORT_NAME,HttpServerLauncher.class);
 }

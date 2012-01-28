@@ -1,4 +1,0 @@
-{
-  control=createControl();
-  actionController=new ActionController();
-}

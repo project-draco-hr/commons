@@ -1,0 +1,8 @@
+def __init__(self, repos=[], cache=None):
+    '\n      Set up a Requirement fetcher.\n\n      If repos specified, it should be a list of Cheesebox repositories or\n      webservers exporting simple lists of Python .tar.gz/.egg packages.\n\n      If cache is specified, override the default req fetching cache location.\n    '
+    self._repos = (repos or ReqFetcher.REPOS)
+    if (not hasattr(self._repos, '__iter__')):
+        raise TypeError(('repos should be an iterable type!  got %s' % repr(self._repos)))
+    self._pis = [QuietPackageIndex(url) for url in self._repos]
+    self._cache = (cache or (ReqFetcher.DEFAULT_CACHE % {'user': getpass.getuser(), }))
+    safe_mkdir(self._cache)

@@ -1,0 +1,7 @@
+{
+  TokenStream stream=new PunctuationFilter(new PunctuationExceptionCombiner.Builder(tokenized).build());
+  stream.reset("I .. exceptions!! ");
+  assertEquals(ImmutableList.of("I","exceptions"),stream.toStringList());
+  stream.reset("I ?????? exceptions!!");
+  assertEquals(ImmutableList.of("I","??????","exceptions"),stream.toStringList());
+}

@@ -1,0 +1,4 @@
+def collect_all(self):
+    'Collect data from all processes.'
+    self.clear()
+    self._process_lines(self._collect_all())

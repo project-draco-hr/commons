@@ -1,0 +1,17 @@
+def run(self):
+    while self._should_run():
+        (readable, _, errored) = select.select([self._ins], [], [self._ins])
+        if (self._ins in errored):
+            self.stop()
+        if (self._should_run() and (self._ins in readable)):
+            data = os.read(self._ins.fileno(), BUFF_SIZE)
+            if self._should_run():
+                if data:
+                    self._send_chunk('0', data)
+                else:
+                    self._send_chunk('.')
+                    try:
+                        self._sock.shutdown(socket.SHUT_WR)
+                    except socket.error:
+                        pass
+                    self.stop()

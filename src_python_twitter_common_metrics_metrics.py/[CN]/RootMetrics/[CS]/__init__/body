@@ -1,0 +1,4 @@
+def __init__(self):
+    if (not RootMetrics._INIT):
+        Metrics.__init__(self)
+        RootMetrics._INIT = True

@@ -4,8 +4,8 @@
   Preconditions.checkNotNull(gcInterval);
   Preconditions.checkArgument(gcInterval.getValue() > 0,"GC interval must be > zero.");
   this.gcInterval=gcInterval;
-  trafficInfos=new MapMaker().makeComputingMap(new Function<K,TrafficInfo>(){
-    @Override public TrafficInfo apply(    K key){
+  trafficInfos=CacheBuilder.newBuilder().build(new CacheLoader<K,TrafficInfo>(){
+    @Override public TrafficInfo load(    K key){
       return new TrafficInfo(key);
     }
   }

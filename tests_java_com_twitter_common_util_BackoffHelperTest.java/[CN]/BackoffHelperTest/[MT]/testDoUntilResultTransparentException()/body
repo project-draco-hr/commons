@@ -1,5 +1,7 @@
 {
-  @SuppressWarnings("unchecked") ExceptionalSupplier<String,IOException> task=control.createMock(ExceptionalSupplier.class);
+  ExceptionalSupplier<String,IOException> task=createMock(new Clazz<ExceptionalSupplier<String,IOException>>(){
+  }
+);
   IOException thrown=new IOException();
   expect(task.get()).andThrow(thrown);
   control.replay();

@@ -5,7 +5,6 @@
     clearAttributes();
     charSeqTermAtt.setOffset(start);
     charSeqTermAtt.setLength(end - start);
-    offsetAtt.setOffset(start,end);
     return true;
   }
  else {

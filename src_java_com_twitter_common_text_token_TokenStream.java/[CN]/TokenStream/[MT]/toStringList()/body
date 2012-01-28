@@ -3,13 +3,7 @@
   if (hasAttribute(CharSequenceTermAttribute.class)) {
     CharSequenceTermAttribute termAttr=getAttribute(CharSequenceTermAttribute.class);
     while (incrementToken()) {
-      tokens.add(termAttr.term());
-    }
-  }
- else   if (hasAttribute(TermAttribute.class)) {
-    TermAttribute termAttr=getAttribute(TermAttribute.class);
-    while (incrementToken()) {
-      tokens.add(termAttr.term());
+      tokens.add(termAttr.getTermString());
     }
   }
  else {

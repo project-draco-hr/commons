@@ -1,0 +1,3 @@
+{
+  testFilter(ArgFilters.selectCmdLineArg(ArgFiltersTest.class,"b"),fieldInfo(ArgFiltersTest.class,"B"));
+}

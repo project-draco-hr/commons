@@ -1,0 +1,11 @@
+def test_many():
+    (d, l) = scanf('%(a)c %(b)c %(c)c %(d)c', 'a b c d')
+    assert (len(l) == 0)
+    assert (len(d) == 4)
+    for ch in 'abcd':
+        assert (d[ch] == ch)
+    (d, l) = scanf('%c%c%c %c', 'abc d')
+    assert (len(l) == 4)
+    assert (len(d) == 0)
+    for (val, idx) in zip('abcd', range(4)):
+        assert (l[idx] == val)

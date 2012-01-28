@@ -1,0 +1,17 @@
+def _gen_thrift(self, thrift_targets, gen):
+    (bases, sources) = self._calculate_sources(thrift_targets)
+    args = [self.thrift_binary, '--gen', gen, '-recurse', '-o', self.output_dir]
+    if self.strict:
+        args.append('-strict')
+    if self.verbose:
+        args.append('-verbose')
+    for base in bases:
+        args.extend(('-I', base))
+    processes = []
+    for source in sources:
+        cmd = args[:]
+        cmd.append(source)
+        log.debug(('Executing: %s' % ' '.join(cmd)))
+        processes.append(subprocess.Popen(cmd))
+    if (sum((p.wait() for p in processes)) != 0):
+        raise TaskError

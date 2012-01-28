@@ -1,3 +1,3 @@
 @staticmethod
 def _is_documentable(target):
-    return isinstance(target, JavaLibrary)
+    return (isinstance(target, JavaLibrary) or is_doc(target))

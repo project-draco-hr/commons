@@ -1,0 +1,3 @@
+{
+  setRegexPattern(NUMERIC_TOKEN_PATTERN);
+}

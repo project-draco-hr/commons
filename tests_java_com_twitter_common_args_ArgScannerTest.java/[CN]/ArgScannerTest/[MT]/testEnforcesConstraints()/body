@@ -6,6 +6,7 @@
     }
   }
 ,"string","newstring");
+  testFails(VerifyArgs.class,"custom","jane");
   testFails(VerifyArgs.class,"string","");
   testFails(VerifyArgs.class,"optional_string","");
   testFails(VerifyArgs.class,"int","0");

@@ -1,0 +1,11 @@
+def select_binary(base_path, version, name):
+    '\n    Selects a binary...\n    Raises TaskError if no binary of the given version and name could be found.\n  '
+    (sysname, _, release, _, machine) = os.uname()
+    os_id = _ID_BY_OS[sysname.lower()]
+    if os_id:
+        middle_path = _PATH_BY_ID[os_id(release, machine)]
+        if middle_path:
+            binary_path = os.path.join(base_path, *(middle_path + [version, name]))
+            log.debug(('Selected %s binary at: %s' % (name, binary_path)))
+            return binary_path
+    raise TaskError(('Cannot generate thrift code for: %s' % [sysname, release, machine]))

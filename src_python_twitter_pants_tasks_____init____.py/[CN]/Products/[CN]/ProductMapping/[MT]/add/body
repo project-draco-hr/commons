@@ -1,0 +1,6 @@
+def add(self, target, basedir, product_paths=None):
+    '\n        Adds a mapping of products for the given target, basedir pair.\n\n        If product_paths are specified, these will over-write any existing mapping for this target.\n\n        If product_paths is omitted, the current mutable list of mapped products for this target\n        and basedir is returned for appending.\n      '
+    if (product_paths is not None):
+        self.by_target[target][basedir].extend(product_paths)
+    else:
+        return self.by_target[target][basedir]

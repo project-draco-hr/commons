@@ -1,0 +1,37 @@
+def test_client_watcher():
+    with ZookeeperClusterBootstrapper() as port:
+        updated = threading.Event()
+        old_endpoints = ['init']
+        new_endpoints = ['init']
+
+        def watcher(service_path, old, new):
+            old_endpoints[:] = old
+            new_endpoints[:] = new
+            updated.set()
+        server = ('localhost:%d' % port)
+        zk = ZooKeeper(server, timeout=10)
+        service = ServerSet(zk, SERVICE_PATH)
+        client = ServerSetClient(SERVICE_PATH, zk=zk, watcher=watcher)
+        updated.wait(2.0)
+        assert updated.is_set()
+        assert (old_endpoints == [])
+        assert (new_endpoints == [])
+        updated.clear()
+        instance1 = service.register(INSTANCE1)
+        updated.wait(2.0)
+        assert updated.is_set()
+        assert (old_endpoints == [])
+        assert (new_endpoints == [INSTANCE1])
+        updated.clear()
+        service.register(INSTANCE2)
+        updated.wait(2.0)
+        assert updated.is_set()
+        assert (old_endpoints == [INSTANCE1])
+        assert (new_endpoints == [INSTANCE1, INSTANCE2])
+        updated.clear()
+        service.unregister(instance1)
+        updated.wait(2.0)
+        assert updated.is_set()
+        assert (old_endpoints == [INSTANCE1, INSTANCE2])
+        assert (new_endpoints == [INSTANCE2])
+        updated.clear()

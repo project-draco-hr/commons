@@ -1,0 +1,13 @@
+{
+  return new Runnable(){
+    @Override public void run(){
+      try {
+        runnable.run();
+      }
+ catch (      RuntimeException t) {
+        LOG.log(Level.INFO," error processing task " + runnable);
+      }
+    }
+  }
+;
+}

@@ -1,0 +1,3 @@
+{
+  return new ToStringBuilder(this).append("name",name).append("tryNum",tryNum).append("numTries",numTries).append("retryDelay",retryDelay).toString();
+}

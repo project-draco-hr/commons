@@ -1,0 +1,5 @@
+def _copy(self):
+    c = TwitterOptionParser()
+    for attr in TwitterOptionParser.ATTRS:
+        setattr(c, attr, copy.deepcopy(getattr(self, attr)))
+    return c

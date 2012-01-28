@@ -1,0 +1,6 @@
+def __exit__(self, exctype, value, traceback):
+    for attribute in self._sys_backup:
+        setattr(sys, attribute, self._sys_backup[attribute])
+    for attribute in self._sys_delete:
+        if hasattr(sys, attribute):
+            delattr(sys, attribute)

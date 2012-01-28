@@ -1,3 +1,0 @@
-{
-  infos.add(new FieldInfo(className,fieldName));
-}

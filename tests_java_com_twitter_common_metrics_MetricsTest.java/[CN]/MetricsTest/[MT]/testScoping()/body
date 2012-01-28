@@ -1,0 +1,13 @@
+{
+  AtomicLong foo=metrics.registerLong("foo");
+  foo.getAndSet(10);
+  checkSamples(ImmutableMap.<String,Number>of("foo",10L));
+  MetricRegistry barScope=metrics.scope("bar");
+  AtomicLong barFoo=barScope.registerLong("foo");
+  barFoo.getAndSet(2);
+  checkSamples(ImmutableMap.<String,Number>of("foo",10L,"bar.foo",2L));
+  MetricRegistry bazScope=barScope.scope("baz");
+  AtomicLong bazFoo=bazScope.registerLong("foo");
+  bazFoo.getAndSet(3);
+  checkSamples(ImmutableMap.<String,Number>of("foo",10L,"bar.foo",2L,"bar.baz.foo",3L));
+}

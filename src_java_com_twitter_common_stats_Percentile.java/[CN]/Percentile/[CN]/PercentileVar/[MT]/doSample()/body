@@ -1,13 +1,29 @@
 {
 synchronized (samples) {
-    if (samples.isEmpty())     return 0d;
-    if (sortFirst)     Collections.sort(samples,NUMBER_COMPARATOR);
-    int selectIndex=(int)((samples.size() * percentile) / 100) - 1;
-    selectIndex=selectIndex < 0 ? 0 : selectIndex;
-    boolean interpolate=((selectIndex + 1) * 100) / percentile < samples.size();
-    double value=samples.get(selectIndex).doubleValue();
-    if (interpolate)     value=(value + samples.get(selectIndex + 1).doubleValue()) / 2;
-    if (flushAfterSampling)     samples.clear();
-    return value;
+    if (sortFirst) {
+      if (sampleQueue.remainingCapacity() == 0) {
+        sampleQueue.removeFirst();
+      }
+      sampleQueue.addLast(new ArrayList<T>(samples));
+      samples.clear();
+      allSamples.clear();
+      for (      ArrayList<T> sample : sampleQueue) {
+        allSamples.addAll(sample);
+      }
+      Collections.sort(allSamples,Ordering.<T>natural());
+    }
+    if (allSamples.isEmpty()) {
+      return 0d;
+    }
+    int maxIndex=allSamples.size() - 1;
+    double selectIndex=maxIndex * percentile / 100;
+    selectIndex=selectIndex < 0d ? 0d : selectIndex;
+    selectIndex=selectIndex > maxIndex ? maxIndex : selectIndex;
+    int indexLeft=(int)selectIndex;
+    if (indexLeft == maxIndex) {
+      return allSamples.get(indexLeft).doubleValue();
+    }
+    double residue=selectIndex - indexLeft;
+    return allSamples.get(indexLeft).doubleValue() * (1 - residue) + allSamples.get(indexLeft + 1).doubleValue() * residue;
   }
 }

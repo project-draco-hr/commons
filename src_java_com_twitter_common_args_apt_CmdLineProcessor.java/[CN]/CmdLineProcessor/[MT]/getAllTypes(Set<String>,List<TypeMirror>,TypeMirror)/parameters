@@ -1,0 +1,3 @@
+Set<String> visitedTypes
+List<TypeMirror> types
+TypeMirror type

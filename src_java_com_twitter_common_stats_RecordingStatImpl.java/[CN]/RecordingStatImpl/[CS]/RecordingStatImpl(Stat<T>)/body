@@ -1,3 +1,4 @@
 {
-  this.recorded=recorded;
+  this.recorded=Preconditions.checkNotNull(recorded);
+  this.name=Stats.validateName(recorded.getName());
 }

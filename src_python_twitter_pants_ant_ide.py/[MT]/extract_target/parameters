@@ -1,3 +1,4 @@
 java_targets
 is_transitive
+is_classpath
 name

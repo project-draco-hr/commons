@@ -1,0 +1,6 @@
+def main(args):
+    for arg in args:
+        cf = ClassFile.from_file(arg)
+        print os.path.abspath(arg)
+        print cf
+        print 

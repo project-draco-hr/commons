@@ -1,0 +1,5 @@
+def __enter__(self):
+    (fh, self.path) = tempfile.mkstemp(dir=self.root_dir)
+    os.close(fh)
+    self.fd = open(self.path, 'w+')
+    return self.fd

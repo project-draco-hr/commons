@@ -1,0 +1,24 @@
+{
+  TypeToken<String> stringTypeToken=new TypeToken<String>(){
+  }
+;
+  assertEquals(stringTypeToken,stringTypeToken);
+  assertEquals(stringTypeToken,new TypeToken<String>(){
+  }
+);
+  JUnitAsserts.assertNotEqual(new TypeToken<Character>(){
+  }
+,new TypeToken<String>(){
+  }
+);
+  JUnitAsserts.assertNotEqual(new TypeToken<Supplier>(){
+  }
+,new TypeToken<Supplier<String>>(){
+  }
+);
+  JUnitAsserts.assertNotEqual(new TypeToken<Supplier>(){
+  }
+,new TypeToken<Supplier<?>>(){
+  }
+);
+}

@@ -1,14 +1,14 @@
 {
   ExceptionalClosure<Integer,IOException> work=createMock(EXC_INT_CLOSURE_CLZ);
   work.execute(1);
-  IOException ioException=new IOException();
-  EasyMock.expectLastCall().andThrow(ioException);
+  RuntimeException runtimeException=new Thrown();
+  EasyMock.expectLastCall().andThrow(runtimeException);
   control.replay();
   Function<Integer,Void> workFunction=Closures.asFunction(work);
   try {
     workFunction.apply(1);
   }
- catch (  RuntimeException e) {
-    assertSame(ioException,e.getCause());
+ catch (  Thrown e) {
+    assertSame(runtimeException,e);
   }
 }

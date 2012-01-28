@@ -1,0 +1,9 @@
+@staticmethod
+def route(*args, **kwargs):
+
+    def annotated(function):
+        if (not hasattr(function, HttpServer.ROUTES_ATTRIBUTE)):
+            setattr(function, HttpServer.ROUTES_ATTRIBUTE, [])
+        getattr(function, HttpServer.ROUTES_ATTRIBUTE).append((args, kwargs))
+        return function
+    return annotated

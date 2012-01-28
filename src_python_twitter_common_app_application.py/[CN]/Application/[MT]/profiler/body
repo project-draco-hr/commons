@@ -1,0 +1,11 @@
+def profiler(self):
+    if self._option_values.twitter_common_app_profiling:
+        if (self._profiler is None):
+            try:
+                import cProfile as profile
+            except ImportError:
+                import profile
+            self._profiler = profile.Profile()
+        return self._profiler
+    else:
+        return None

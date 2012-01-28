@@ -1,0 +1,8 @@
+{
+  Configuration configuration=load();
+  ArgumentInfo argumentInfo=Args.fromConfiguration(configuration,filter);
+  ParserOracle parserOracle=Parsers.fromConfiguration(configuration);
+  Verifiers verifiers=Verifiers.fromConfiguration(configuration);
+  Pair<ImmutableMap<String,String>,List<String>> results=mapArguments(args);
+  return process(parserOracle,verifiers,argumentInfo,results.getFirst(),results.getSecond());
+}

@@ -1,0 +1,9 @@
+@staticmethod
+def handle_error(exctype, value, tb):
+    ostr = StringIO()
+    ostr.write('Uncaught exception:\n')
+    ostr.write(''.join(traceback.format_exception(exctype, value, tb)))
+    ostr.write(AppExceptionHandler.synthesize_thread_stacks())
+    log_function(ostr.getvalue())
+    if app.get_options().twitter_common_internal_scribe_enable:
+        AppExceptionHandler.scribe_error(ostr.getvalue())

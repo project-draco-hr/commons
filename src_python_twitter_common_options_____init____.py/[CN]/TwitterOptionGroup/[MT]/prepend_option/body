@@ -1,0 +1,2 @@
+def prepend_option(self, *option):
+    self._option_list = (list(option) + self._option_list)

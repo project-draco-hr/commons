@@ -1,0 +1,9 @@
+@staticmethod
+def _generate_ports(num_servers):
+    port_allocator = EphemeralPortAllocator()
+    ports = {}
+    for server_id in range(1, (num_servers + 1)):
+        for port_id in range(3):
+            server_port_id = (server_id, port_id)
+            ports[server_port_id] = port_allocator.allocate_port(server_port_id)
+    return ports

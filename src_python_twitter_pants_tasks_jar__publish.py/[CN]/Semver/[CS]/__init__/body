@@ -1,0 +1,4 @@
+def __init__(self, major, minor, patch):
+    self.major = int(major)
+    self.minor = int(minor)
+    self.patch = int(patch)

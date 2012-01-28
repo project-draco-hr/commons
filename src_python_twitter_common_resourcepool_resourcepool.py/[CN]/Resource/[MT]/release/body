@@ -1,0 +1,4 @@
+def release(self):
+    'Release the underlying resource back into the pool.'
+    self._pool.release(self.resource)
+    self._pool = None

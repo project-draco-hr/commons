@@ -1,0 +1,9 @@
+def test_named_gauge_types():
+    with pytest.raises(TypeError):
+        ag = AtomicGauge(0)
+    with pytest.raises(TypeError):
+        ag = AtomicGauge(None)
+    with pytest.raises(TypeError):
+        lb = Label(None, 3)
+    with pytest.raises(TypeError):
+        mg = MutatorGauge({})

@@ -1,0 +1,3 @@
+def error(self, message):
+    parser = self._init_parser()
+    parser.error(message)

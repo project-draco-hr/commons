@@ -1,0 +1,10 @@
+def _init_parser(self):
+    parser = OptionParser(add_help_option=False, usage=self.usage())
+    parser.allow_interspersed_args = self.interspersed_arguments()
+    for op in self.options():
+        parser.add_option(copy.deepcopy(op))
+    for gr in self.groups():
+        real_group = parser.add_option_group(gr.name())
+        for op in gr.options():
+            real_group.add_option(copy.deepcopy(op))
+    return parser

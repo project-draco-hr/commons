@@ -1,6 +1,6 @@
 {
   tokenizer.reset(text);
-  OffsetAttribute offsetAttr=tokenizer.getAttribute(OffsetAttribute.class);
+  CharSequenceTermAttribute termAttr=tokenizer.getAttribute(CharSequenceTermAttribute.class);
   TokenTypeAttribute typeAttr=tokenizer.getAttribute(TokenTypeAttribute.class);
   PartOfSpeechAttribute posAttr=null;
   if (tokenizer.hasAttribute(PartOfSpeechAttribute.class)) {
@@ -8,7 +8,7 @@
   }
   TokenizedCharSequence.Builder builder=new TokenizedCharSequence.Builder(text);
   while (tokenizer.incrementToken()) {
-    builder.addToken(offsetAttr.startOffset(),offsetAttr.endOffset() - offsetAttr.startOffset(),typeAttr.getType(),posAttr == null ? Token.DEFAULT_PART_OF_SPEECH : posAttr.getPOS());
+    builder.addToken(termAttr.getOffset(),termAttr.getLength(),typeAttr.getType(),posAttr == null ? Token.DEFAULT_PART_OF_SPEECH : posAttr.getPOS());
   }
   return builder.build();
 }

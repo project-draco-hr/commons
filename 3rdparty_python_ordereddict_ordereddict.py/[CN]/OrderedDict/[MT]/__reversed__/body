@@ -1,0 +1,7 @@
+def __reversed__(self):
+    'od.__reversed__() <==> reversed(od)'
+    root = self.__root
+    curr = root[0]
+    while (curr is not root):
+        yield curr[2]
+        curr = curr[0]

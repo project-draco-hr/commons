@@ -1,11 +1,4 @@
 {
   bind(BuildInfo.class).in(Singleton.class);
-  UncaughtExceptionHandler exceptionHandler=new UncaughtExceptionHandler(){
-    @Override public void uncaughtException(    Thread t,    Throwable e){
-      LOG.log(Level.SEVERE,"Uncaught exception from " + t,e);
-    }
-  }
-;
-  bind(UncaughtExceptionHandler.class).toInstance(exceptionHandler);
-  requestStaticInjection(Init.class);
+  bind(UncaughtExceptionHandler.class).to(LoggingExceptionHandler.class);
 }

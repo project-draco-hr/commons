@@ -1,0 +1,7 @@
+def test_mixed_ignored():
+    pairs = {'%*f %(val1)c': '1.0 h', ' %*f %(val1)c': ' 1.0 h', '1%*f %(val1)c': '11.0 h', ' %*f3%(val1)c': ' 1.03h', }
+    for (pattern, value) in pairs.items():
+        (d, l) = scanf(pattern, value)
+        assert (len(d) == 1)
+        assert (len(l) == 0)
+        assert (d['val1'] == 'h')

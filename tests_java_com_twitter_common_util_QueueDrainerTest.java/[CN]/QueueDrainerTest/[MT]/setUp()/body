@@ -1,0 +1,7 @@
+{
+  taskExecutor=createMock(Executor.class);
+  blockingQueue=createMock(new Clazz<BlockingQueue<RetryingRunnable>>(){
+  }
+);
+  queueDrainer=new QueueDrainer(taskExecutor,blockingQueue);
+}

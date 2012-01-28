@@ -1,0 +1,10 @@
+def write(self, filename):
+    chroot = self._env.chroot().dup()
+    chroot.zip((filename + '~'))
+    with open(filename, 'w') as pexfile:
+        pexfile.write('#!/usr/bin/env python2.6\n')
+        with open((filename + '~')) as pexfile_zip:
+            pexfile.write(pexfile_zip.read())
+    chroot.delete()
+    os.unlink((filename + '~'))
+    chmod_plus_x(filename)

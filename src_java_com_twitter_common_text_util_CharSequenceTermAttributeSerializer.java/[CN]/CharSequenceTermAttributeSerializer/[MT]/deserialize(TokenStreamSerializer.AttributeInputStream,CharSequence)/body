@@ -1,0 +1,5 @@
+{
+  termAtt.setCharSequence(charSequence);
+  termAtt.setOffset(input.readVInt());
+  termAtt.setLength(input.readVInt());
+}

@@ -1,6 +1,6 @@
 {
   Circular c1=new Circular();
-  long size=ObjectSizeCalculator.getObjectSize(c1);
+  long size=objectSizeCalculator.calculateObjectSize(c1);
   c1.c=c1;
-  assertEquals(size,ObjectSizeCalculator.getObjectSize(c1));
+  assertEquals(size,objectSizeCalculator.calculateObjectSize(c1));
 }

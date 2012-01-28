@@ -1,0 +1,12 @@
+def wait_until_opened(filename, forever=True, clock=time):
+    while True:
+        try:
+            return open(filename, 'r')
+        except OSError as e:
+            if (e.errno == errno.ENOENT):
+                if forever:
+                    clock.sleep(1)
+                else:
+                    return None
+            else:
+                raise

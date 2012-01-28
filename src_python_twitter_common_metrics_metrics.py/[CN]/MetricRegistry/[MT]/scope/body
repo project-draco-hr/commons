@@ -1,0 +1,3 @@
+def scope(self, name):
+    '\n      Returns a (potentially memoized) child scope with a given name.\n    '
+    raise NotImplementedError

@@ -5,10 +5,11 @@
       values.add(-1 * i);
     }
   }
+  values.add(-2000);
   Collections.shuffle(values);
   for (  int sample : values) {
     percentiles.record(sample);
   }
-  checkPercentiles(percentiles,-900,-500,-100,-10,-1,0);
+  checkPercentiles(percentiles,-2000,-900,-500,-100,-10,-1,0,0);
   checkValuesAreFlushed(percentiles);
 }

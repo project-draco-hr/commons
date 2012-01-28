@@ -1,0 +1,6 @@
+@classmethod
+def reset_fp(cls):
+    filename = cls._fp.name
+    cls._fp.close()
+    os.unlink(filename)
+    cls._fp = open(filename, 'w')

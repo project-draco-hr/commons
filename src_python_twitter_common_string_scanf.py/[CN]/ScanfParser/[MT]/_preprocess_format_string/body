@@ -1,0 +1,53 @@
+def _preprocess_format_string(self, string):
+
+    def match_conversion(string, k):
+        MAX_CONVERSION_LENGTH = 3
+        for offset in range(MAX_CONVERSION_LENGTH, 0, (-1)):
+            k_offset = (k + offset)
+            if (string[k:k_offset] in ScanfParser.CONVERSIONS):
+                (re, converter) = ScanfParser.CONVERSIONS[string[k:k_offset]]
+                if (converter in ScanfParser.PRECONVERSIONS):
+                    return ((re, (lambda val: converter(ScanfParser.PRECONVERSIONS[converter](val)))), k_offset)
+                else:
+                    return ((re, converter), k_offset)
+        raise ScanfParser.ParseError(('%s is an invalid format specifier' % string[k]))
+
+    def extract_specifier(string, k):
+        if (string[k] == '%'):
+            return ('%', None, (k + 1))
+        if (string[k] == '*'):
+
+            def null_apply(scan_object, value):
+                pass
+            ((regex, preconversion), k) = match_conversion(string, (k + 1))
+            return (('(%s)' % regex), null_apply, k)
+        if (string[k] == '('):
+            offset = string[(k + 1):].find(')')
+            if (offset == (-1)):
+                raise ScanfParser.ParseError('Unmatched (')
+            if (offset == 0):
+                raise ScanfParser.ParseError('Empty label string')
+            name = string[(k + 1):((k + 1) + offset)]
+            ((regex, preconversion), k) = match_conversion(string, (((k + 1) + offset) + 1))
+
+            def dict_apply(scan_object, value):
+                scan_object._dict[name] = preconversion(value).value
+            return (('(%s)' % regex), dict_apply, k)
+        ((regex, preconversion), k) = match_conversion(string, k)
+
+        def list_apply(scan_object, value):
+            scan_object._list.append(preconversion(value).value)
+        return (('(%s)' % regex), list_apply, k)
+    re_str = ''
+    k = 0
+    applicators = []
+    while (k < len(string)):
+        if ((string[k] == '%') and (len(string) > (k + 1))):
+            (regex, applicator, k) = extract_specifier(string, (k + 1))
+            re_str += regex
+            if applicator:
+                applicators.append(applicator)
+        else:
+            re_str += re.escape(string[k])
+            k += 1
+    return (re_str, applicators)

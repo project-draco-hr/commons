@@ -1,0 +1,4 @@
+{
+  registry.announce(A,1,true);
+  registry.announce(B,2,true);
+}

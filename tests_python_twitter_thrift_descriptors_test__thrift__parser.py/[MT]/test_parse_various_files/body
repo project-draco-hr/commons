@@ -1,3 +1,4 @@
+@pytest.mark.xfail(reason='pytest 2.6')
 def test_parse_various_files():
     "Tests that we can parse, without choking, test files that are part of the original\n  thrift parser's test suite. We just check that parsing succeeds, and don't verify the\n  results."
     TEST_DATA_FILES = ['AnnotationTest.thrift', 'ConstantsDemo.thrift', 'DenseLinkingTest.thrift', 'OptionalRequiredTest.thrift', 'StressTest.thrift', 'DebugProtoTest.thrift', 'DocTest.thrift', 'ManyTypedefs.thrift', 'SmallTest.thrift', 'ThriftTest.thrift']

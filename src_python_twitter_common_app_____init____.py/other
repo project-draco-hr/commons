@@ -1,17 +1,14 @@
-'\n  Basic Twitter Python application framework.\n\n  Example usage:\n    from twitter.common import app\n    from twitter.common import options, log\n    options.add(\'--my_option\', dest=\'my_option\', help="my commandline argument!")\n\n    def main(args):\n      log.info(\'my options argument is: %s\' % option_values.my_option)\n      log.info(\'my argv is: %s\' % args)\n\n    app.main()\n\n  app.main() replaces the "if __name__ == \'__main__\': main()" idiom and runs any\n  initialization code by app-compatible libraries as many in twitter.common are.\n'
-import sys
-import runpy
+'\n  Basic Twitter Python application framework.\n\n  Example usage:\n    from twitter.common import app, log\n    app.add_option(\'--my_option\', dest=\'my_option\', help="my commandline argument!")\n\n    def main(args):\n      log.info(\'my_option was set to %s\' % app.get_options().my_option)\n      log.info(\'my argv is: %s\' % args)\n\n    app.main()\n\n  app.main() replaces the "if __name__ == \'__main__\': main()" idiom and runs any\n  initialization code by app-compatible libraries as many in twitter.common are.\n'
 import types
-import inspect
-from environments import Environment
-from inspection import Inspection
-from twitter.common import options
-options.add('--env', '--environment', action='callback', callback=Environment._option_parser, default='DEVELOPMENT', metavar='ENV', dest='twitter_common_app_environment', help=('The environment in which to run this Python application. Known environments: %s [default: %%default]' % ' '.join(Environment.names())))
-options.add('--app_debug', action='store_true', default=False, dest='twitter_common_app_debug', help='Print extra debugging information during application initialization.')
-_APP_REGISTRY = {}
-_APP_NAME = None
-_APP_INITIALIZED = False
-__all__ = ['AppException', 'on_initialization', 'main', 'init', 'name', 'environment']
-main = Methods._main
-init = Methods._init
-environment = Methods._environment
+from application import Application
+from module import AppModule as Module
+reset = Application.reset
+reset()
+ApplicationError = Application.Error
+__all__ = ['reset', 'ApplicationError', 'Module']
+for attribute in Application.__dict__:
+    if attribute.startswith('_'):
+        continue
+    if (type(Application.__dict__[attribute]) == types.FunctionType):
+        locals()[attribute] = _make_proxy_function(attribute)
+        __all__.append(attribute)

@@ -1,0 +1,5 @@
+def run(self):
+    for line in tail_f(self._filename, clock=self._clock):
+        self._lines.append(line)
+        if self._terminate.is_set():
+            break

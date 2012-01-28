@@ -1,0 +1,11 @@
+{
+  List<String> invalidDurationStrings=Arrays.asList("11.1secs","11secondi","1000","onesecs","secs");
+  for (  String testString : invalidDurationStrings) {
+    try {
+      parse(testString);
+      Assert.fail("[" + testString + "] is an invalid duration string.");
+    }
+ catch (    IllegalArgumentException e) {
+    }
+  }
+}

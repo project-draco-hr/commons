@@ -1,0 +1,6 @@
+def name(self):
+    '\n      Return the name of the application.  If set_name was never explicitly called,\n      the application framework will attempt to autodetect the name of the application\n      based upon the location of __main__.\n    '
+    if (self._name is not None):
+        return self._name
+    else:
+        return Inspection.find_application_name()

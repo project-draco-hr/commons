@@ -1,0 +1,15 @@
+{
+  executor.shutdown();
+  try {
+    if (!executor.awaitTermination(gracePeriod.as(Time.MILLISECONDS),TimeUnit.MILLISECONDS)) {
+      executor.shutdownNow();
+      if (!executor.awaitTermination(gracePeriod.as(Time.MILLISECONDS),TimeUnit.MILLISECONDS)) {
+        LOG.warning("Pool did not terminate");
+      }
+    }
+  }
+ catch (  InterruptedException ie) {
+    executor.shutdownNow();
+    Thread.currentThread().interrupt();
+  }
+}

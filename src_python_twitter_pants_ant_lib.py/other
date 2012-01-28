@@ -1,16 +1,17 @@
 from twitter.pants.base.generator import Generator
 from twitter.pants.base.builder import Builder
+from twitter.pants.targets import JarDependency
+from twitter.pants.targets import JavaProtobufLibrary
+from twitter.pants.targets import JavaThriftLibrary
+from twitter.pants.targets import JavaTests
 from twitter.pants.targets import Pants
-from twitter.pants import has_jvm_targets, is_test
+from twitter.pants.targets import ScalaLibrary
+from twitter.pants.targets import ScalaTests
+from twitter.pants import has_jvm_targets, is_jvm
 import bang
-import ide
 import os
 import shutil
 import subprocess
 import traceback
 import pkgutil
-TRANSITIVITY_NONE = 'none'
-TRANSITIVITY_SOURCES = 'sources'
-TRANSITIVITY_TESTS = 'tests'
-TRANSITIVITY_ALL = 'all'
 _TEMPLATE_BASEDIR = 'templates'

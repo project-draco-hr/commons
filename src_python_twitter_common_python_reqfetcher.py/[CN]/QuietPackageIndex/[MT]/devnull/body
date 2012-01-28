@@ -1,0 +1,2 @@
+def devnull(self, msg, *args):
+    pass

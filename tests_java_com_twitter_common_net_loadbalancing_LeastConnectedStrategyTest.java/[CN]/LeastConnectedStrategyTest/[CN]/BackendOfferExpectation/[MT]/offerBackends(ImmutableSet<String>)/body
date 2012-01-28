@@ -1,0 +1,5 @@
+{
+  leastCon.offerBackends(backends,onBackendsChosen);
+  assertTrue(chosenBackends.hasCaptured());
+  assertEquals(backends,ImmutableSet.copyOf(chosenBackends.getValue()));
+}

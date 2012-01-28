@@ -3,4 +3,5 @@
     throw new IndexOutOfBoundsException("Length " + length + " must be >= 0 and <= "+ charSequence.length()+ ", which is the length of the underlying CharSequence.");
   }
   this.length=length;
+  this.hashCode=0;
 }

@@ -1,0 +1,2 @@
+def multiplier(self):
+    return self._multiplier

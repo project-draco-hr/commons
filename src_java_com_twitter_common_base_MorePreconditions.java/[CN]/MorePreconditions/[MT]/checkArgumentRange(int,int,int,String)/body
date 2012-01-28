@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(minimum <= argument,message,argument);
+  Preconditions.checkArgument(argument <= maximum,message,argument);
+  return argument;
+}

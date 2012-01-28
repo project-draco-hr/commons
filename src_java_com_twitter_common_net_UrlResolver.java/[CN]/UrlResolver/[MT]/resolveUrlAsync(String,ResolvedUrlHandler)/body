@@ -7,7 +7,7 @@
     LOG.log(Level.SEVERE,"Interrupted while waiting for thread to resolve URL: " + url,e);
     return null;
   }
-  final ListenableFutureTask<ResolvedUrl> future=new ListenableFutureTask<ResolvedUrl>(new Callable<ResolvedUrl>(){
+  final ListenableFutureTask<ResolvedUrl> future=ListenableFutureTask.create(new Callable<ResolvedUrl>(){
     @Override public ResolvedUrl call(){
       return resolveUrl(url);
     }

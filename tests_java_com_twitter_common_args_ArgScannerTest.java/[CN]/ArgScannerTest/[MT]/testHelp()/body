@@ -1,0 +1,4 @@
+{
+  assertFalse(parse(StandardArgs.class,"-h"));
+  assertFalse(parse(StandardArgs.class,"-help"));
+}

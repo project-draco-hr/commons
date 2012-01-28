@@ -1,0 +1,7 @@
+def test_types(self):
+    with pytest.raises(TypeError):
+        list(topological_sort([1, 2, 3]))
+    with pytest.raises(TypeError):
+        list(topological_sort(None))
+    with pytest.raises(TypeError):
+        list(topological_sort((1, 2), (2, 3)))

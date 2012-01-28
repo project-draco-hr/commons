@@ -1,0 +1,8 @@
+{
+  super.init(processingEnv);
+  typeUtils=processingEnv.getTypeUtils();
+  elementUtils=processingEnv.getElementUtils();
+  Map<String,String> options=processingEnv.getOptions();
+  isMain=getBooleanOption(options,MAIN_OPTION,false);
+  isCheckLinkage=getBooleanOption(options,CHECK_LINKAGE_OPTION,true);
+}

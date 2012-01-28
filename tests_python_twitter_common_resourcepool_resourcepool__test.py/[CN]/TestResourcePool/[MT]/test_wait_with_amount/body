@@ -1,0 +1,8 @@
+def test_wait_with_amount(self):
+    pool = ResourcePool([])
+    now = time.time()
+    with pytest.raises(Empty):
+        with pool.acquire(timeout=Amount(1.01, Time.SECONDS)) as resource:
+            pass
+    elapsed = (time.time() - now)
+    assert (elapsed >= 1.0)

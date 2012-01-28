@@ -1,0 +1,29 @@
+@contextmanager
+def check_errors(self, banner):
+    errors = {}
+
+    def error(key, include_traceback=False):
+        (exc_type, exc_value, exc_traceback) = sys.exc_info()
+        msg = StringIO()
+        if include_traceback:
+            frame = inspect.trace()[(-1)]
+            filename = frame[1]
+            lineno = frame[2]
+            funcname = frame[3]
+            code = ''.join(frame[4])
+            traceback.print_list([(filename, lineno, funcname, code)], file=msg)
+        if exc_type:
+            msg.write(''.join(traceback.format_exception_only(exc_type, exc_value)))
+        errors[key] = msg.getvalue()
+        sys.exc_clear()
+    yield error
+    if errors:
+        msg = StringIO()
+        msg.write(banner)
+        invalid_keys = [key for (key, exc) in errors.items() if (not exc)]
+        if invalid_keys:
+            msg.write(('\n  %s' % '\n  '.join(invalid_keys)))
+        for (key, exc) in errors.items():
+            if exc:
+                msg.write(('\n  %s =>\n    %s' % (key, '\n      '.join(exc.splitlines()))))
+        self.error(msg.getvalue())

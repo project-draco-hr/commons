@@ -1,4 +1,0 @@
-{
-  LOG.warning("The /healthz HTTP endpoint is deprecated and will disappear, please use /health instead!");
-  healthHandler.doGet(req,resp);
-}

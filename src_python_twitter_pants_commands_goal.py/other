@@ -1,0 +1,67 @@
+__author__ = 'jsirois'
+import inspect
+import os
+import sys
+import time
+import traceback
+from contextlib import contextmanager
+from copy import copy
+from cStringIO import StringIO
+from . import Command
+from twitter.common import log
+from twitter.common.dirutil import safe_mkdir, safe_rmtree
+from twitter.pants import get_buildroot, goal, group, is_apt, is_scala
+from twitter.pants.base import Address, BuildFile, ParseContext, Target
+from twitter.pants.tasks import Context, Phase, Task
+from twitter.pants.tasks.config import Config
+goal(name='goals', action=List).install().with_description('List all documented goals.')
+goal(name='help', action=Help).install().with_description('Provide help for the specified goal.')
+from twitter.pants.targets import JavaLibrary, JavaTests
+from twitter.pants.tasks.binary_create import BinaryCreate
+from twitter.pants.tasks.bundle_create import BundleCreate
+from twitter.pants.tasks.checkstyle import Checkstyle
+from twitter.pants.tasks.ivy_resolve import IvyResolve
+from twitter.pants.tasks.jar_create import JarCreate
+from twitter.pants.tasks.jar_publish import JarPublish
+from twitter.pants.tasks.java_compile import JavaCompile
+from twitter.pants.tasks.javadoc_gen import JavadocGen
+from twitter.pants.tasks.junit_run import JUnitRun
+from twitter.pants.tasks.nailgun_task import NailgunTask
+from twitter.pants.tasks.protobuf_gen import ProtobufGen
+from twitter.pants.tasks.scala_compile import ScalaCompile
+from twitter.pants.tasks.specs_run import SpecsRun
+from twitter.pants.tasks.thrift_gen import ThriftGen
+goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all caches')
+goal(name='clean-all', action=CleanAll, dependencies=['invalidate']).install().with_description('Cleans all intermediate build output')
+if NailgunTask.killall:
+
+
+    class NailgunKillall(Task):
+
+        @classmethod
+        def setup_parser(cls, option_group, args, mkflag):
+            option_group.add_option(mkflag('everywhere'), dest='ng_killall_evywhere', default=False, action='store_true', help='[%default] Kill all nailguns servers launched by pants for all workspaces on the system.')
+
+        def execute(self, targets):
+            if NailgunTask.killall:
+                NailgunTask.killall(self.context.log, everywhere=self.context.options.ng_killall_evywhere)
+    ng_killall = goal(name='ng-killall', action=NailgunKillall)
+    ng_killall.install().with_description('Kill any running nailgun servers spawned by pants.')
+    ng_killall.install('clean-all', first=True)
+goal(name='ivy', action=IvyResolve).install('resolve')
+goal(name='thrift', action=ThriftGen).install('gen').with_description('Generate code.')
+goal(name='protoc', action=ProtobufGen).install('gen')
+checkstyle = goal(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve'])
+goal(name='javac', action=JavaCompile, group=group('gen', (lambda target: target.is_codegen)), dependencies=['gen', 'resolve']).install('checkstyle')
+checkstyle.install().with_description('Run checkstyle against java source code.')
+goal(name='scalac', action=ScalaCompile, group=group('jvm', is_scala), dependencies=['gen', 'resolve']).install('compile').with_description('Compile both generated and checked in code.')
+goal(name='apt', action=JavaCompile, group=group('jvm', is_apt), dependencies=['gen', 'resolve']).install('compile')
+goal(name='javac', action=JavaCompile, group=group('jvm', is_java), dependencies=['gen', 'resolve']).install('compile')
+checkstyle.install('compile')
+goal(name='javadoc', action=JavadocGen, dependencies=['compile']).install('javadoc').with_description('Create javadoc.')
+goal(name='jar', action=JarCreate, dependencies=['compile']).install('jar').with_description('Create one or more jars.')
+goal(name='publish', action=JarPublish, dependencies=['javadoc', 'jar']).install('publish').with_description('Publish one or more jars.')
+goal(name='junit', action=JUnitRun, dependencies=['compile']).install('test').with_description('Test compiled code.')
+goal(name='specs', action=SpecsRun, dependencies=['compile']).install('test')
+goal(name='binary', action=BinaryCreate, dependencies=['jar']).install().with_description('Create a jvm binary jar.')
+goal(name='bundle', action=BundleCreate, dependencies=['binary']).install().with_description('Create an application bundle from binary targets.')

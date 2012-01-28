@@ -1,0 +1,6 @@
+def __init__(self, name, fn):
+    import threading
+    if (not callable(fn)):
+        raise TypeError(('A LambdaGauge must be supplied with a callable, got %s' % type(fn)))
+    NamedGauge.__init__(self, name, fn)
+    self._lock = threading.Lock()

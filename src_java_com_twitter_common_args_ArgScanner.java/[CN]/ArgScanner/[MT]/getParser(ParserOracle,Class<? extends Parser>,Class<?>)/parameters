@@ -1,0 +1,3 @@
+ParserOracle parserOracle
+Class<? extends Parser> custom
+Class<?> cls

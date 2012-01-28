@@ -5,8 +5,8 @@
   Preconditions.checkArgument(retentionPeriod.getValue() > 0,"Sample retention period must be positive.");
   retainedSampleLimit=(int)(retentionPeriod.as(Time.SECONDS) / samplePeriod.as(Time.SECONDS));
   Preconditions.checkArgument(retainedSampleLimit > 0,"Sample retention period must be greater than sample period.");
-  timeSeries=new MapMaker().makeComputingMap(new Function<String,TimeSeriesImpl>(){
-    @Override public TimeSeriesImpl apply(    final String name){
+  timeSeries=CacheBuilder.newBuilder().build(new CacheLoader<String,TimeSeriesImpl>(){
+    @Override public TimeSeriesImpl load(    final String name){
       TimeSeriesImpl timeSeries=new TimeSeriesImpl(name);
       int numTimestamps=timestamps.size();
       if (numTimestamps != 0) {

@@ -1,0 +1,10 @@
+{
+  String name=isMain ? Configuration.mainResourceName() : configuration.nextResourceName();
+  try {
+    return processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT,Configuration.DEFAULT_RESOURCE_PACKAGE,name);
+  }
+ catch (  IOException e) {
+    error("Failed to create resource file to store %s/%s: %s",Configuration.DEFAULT_RESOURCE_PACKAGE,name,Throwables.getStackTraceAsString(e));
+    return null;
+  }
+}

@@ -1,0 +1,6 @@
+def get(self, key):
+    probe_key = (self.ALIASES[key] if (key in self.ALIASES) else key)
+    if (probe_key in self._attrs):
+        return self._attrs.get(probe_key)
+    else:
+        raise AttributeError(('%s not in ProcessHandle' % probe_key))

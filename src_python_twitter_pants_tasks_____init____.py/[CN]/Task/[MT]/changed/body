@@ -1,0 +1,39 @@
+@contextmanager
+def changed(self, targets, only_buildfiles=False, invalidate_dependants=False):
+    "\n      Yields an iterable over the targets that have changed since the last check to a with block.\n      If no exceptions are thrown by work in the block, the cache is updated for the targets,\n      otherwise if a TargetError is thrown by the work in the block all targets except those in the\n      TargetError are cached.\n\n      :targets The targets to check for changes.\n      :only_buildfiles If True, then just the target's BUILD files are checked for changes.\n      :invalidate_dependants If True then any targets depending on changed targets are invalidated\n      :returns: the subset of targets that have changed\n    "
+    safe_mkdir(self._basedir)
+    cache_manager = Task.CacheManager(BuildCache(self._basedir), targets, only_buildfiles)
+    check = self.invalidate_for()
+    if (check is not None):
+        with safe_open(self._extradata, 'w') as pickle:
+            cPickle.dump(check, pickle)
+        cache_key = cache_manager.check_content(Task.EXTRA_DATA, [self._extradata])
+        if cache_key:
+            self.context.log.debug(('invalidating all targets for %s' % self.__class__.__name__))
+            for target in targets:
+                cache_manager.invalidate(target, cache_key)
+    for target in targets:
+        cache_manager.check(target)
+    if (invalidate_dependants and cache_manager.changed):
+        for target in self.context.dependants((lambda t: (t in cache_manager.changed.keys()))).keys():
+            cache_manager.invalidate(target)
+    if invalidate_dependants:
+        if cache_manager.foreign_invalidated_targets:
+            self.context.log.info(('Invalidated %d dependant targets for the next round' % cache_manager.foreign_invalidated_targets))
+        if cache_manager.changed_files:
+            msg = ('Operating on %d files in %d changed targets' % (cache_manager.changed_files, (len(cache_manager.changed) - cache_manager.invalidated_targets)))
+            if cache_manager.invalidated_files:
+                msg += (' and %d files in %d invalidated dependant targets' % (cache_manager.invalidated_files, cache_manager.invalidated_targets))
+            self.context.log.info(msg)
+    elif cache_manager.changed_files:
+        self.context.log.info(('Operating on %d files in %d changed targets' % (cache_manager.changed_files, len(cache_manager.changed))))
+    try:
+        yield cache_manager.changed.keys()
+        for cache_keys in cache_manager.changed.values():
+            for cache_key in cache_keys:
+                cache_manager.update(cache_key)
+    except TargetError as e:
+        for (target, cache_keys) in cache_manager.changed.items():
+            if (target not in e.targets):
+                for cache_key in cache_keys:
+                    cache_manager.update(cache_key)

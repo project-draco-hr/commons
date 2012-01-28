@@ -1,0 +1,7 @@
+{
+  supplier=createMock(new Clazz<Supplier<String>>(){
+  }
+);
+  clock=new FakeClock();
+  cache=new CachingSupplier<String>(supplier,ONE_SECOND,clock);
+}

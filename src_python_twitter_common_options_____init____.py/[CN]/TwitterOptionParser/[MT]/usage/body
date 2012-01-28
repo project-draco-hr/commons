@@ -1,0 +1,7 @@
+def usage(self, new_usage=None):
+    ' Get/set usage. '
+    if (new_usage is None):
+        return self._usage
+    me = self._copy()
+    me._usage = new_usage
+    return me

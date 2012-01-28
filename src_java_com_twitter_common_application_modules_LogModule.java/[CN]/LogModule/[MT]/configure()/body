@@ -1,4 +1,4 @@
 {
   bind(File.class).annotatedWith(Names.named(LogPrinter.LOG_DIR_KEY)).toInstance(getLogDir());
-  requestStaticInjection(Init.class);
+  LifecycleModule.bindStartupAction(binder(),ExportLogDir.class);
 }

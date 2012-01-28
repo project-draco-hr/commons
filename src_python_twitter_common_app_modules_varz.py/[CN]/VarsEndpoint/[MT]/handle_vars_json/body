@@ -1,0 +1,3 @@
+@HttpServer.route('/vars.json')
+def handle_vars_json(self, var=None, value=None):
+    return self._monitor.sample()

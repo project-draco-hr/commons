@@ -1,0 +1,21 @@
+{
+  for (  TypeMirror type : getAllTypes(annotatedType)) {
+    TypeMirror typeArgument=type.accept(new SimpleTypeVisitor6<TypeMirror,Void>(){
+      @Override public TypeMirror visitDeclared(      DeclaredType t,      Void aVoid){
+        if (isAssignable(t,baseType)) {
+          List<? extends TypeMirror> typeArguments=t.getTypeArguments();
+          if (!typeArguments.isEmpty()) {
+            return typeUtils.erasure(typeArguments.get(0));
+          }
+        }
+        return null;
+      }
+    }
+,null);
+    if (typeArgument != null) {
+      return typeArgument;
+    }
+  }
+  error("Failed to find a type argument for %s in %s",baseType,annotatedType);
+  return null;
+}

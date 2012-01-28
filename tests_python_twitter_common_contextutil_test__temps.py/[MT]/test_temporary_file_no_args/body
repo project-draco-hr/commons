@@ -1,0 +1,4 @@
+def test_temporary_file_no_args():
+    with temporary_file() as fp:
+        assert os.path.exists(fp.name), 'temporary file should exist within the context.'
+    assert (os.path.exists(fp.name) == False), 'temporary file should not exist outside of the context.'

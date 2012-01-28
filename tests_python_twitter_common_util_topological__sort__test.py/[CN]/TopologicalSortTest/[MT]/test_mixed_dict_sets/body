@@ -1,0 +1,11 @@
+def test_mixed_dict_sets(self):
+
+    def run_asserts(output):
+        assert (output.pop(0) == set([1]))
+        assert (output.pop(0) == set([2]))
+        assert (output.pop(0) == set([3]))
+        assert (output.pop(0) == set([4]))
+    output = list(topological_sort([(1, 2), (2, 3), (2, 4), (3, 4)]))
+    run_asserts(output)
+    output = list(topological_sort({2: 1, 3: 2, 4: set([2, 3]), }))
+    run_asserts(output)

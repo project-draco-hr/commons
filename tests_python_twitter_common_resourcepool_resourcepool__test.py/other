@@ -1,0 +1,8 @@
+import gc
+import pytest
+import time
+from collections import namedtuple
+from Queue import Empty
+from twitter.common.resourcepool import ResourcePool
+from twitter.common.quantity import Amount, Time
+MyResource = namedtuple('MyResource', 'id')

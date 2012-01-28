@@ -1,11 +1,9 @@
 def dump(self):
-    print ('Building PythonBinary %s:' % self.target)
-    (libraries, eggs, binaries, thrifts, antlrs) = self.build_dep_tree(self.target)
+    print ('Building PythonBinary %s:' % self._target)
+    (libraries, eggs, binaries, thrifts, antlrs) = self.build_dep_tree(self._target)
     for lib in libraries:
         self._dump_library(lib)
-    self._dump_inits()
-    if eggs:
-        self._dump_setuptools()
+    self._dump_setuptools()
     for egg in eggs:
         self._dump_egg(egg)
     for thr in thrifts:
@@ -16,4 +14,5 @@ def dump(self):
         print  >> sys.stderr, 'WARNING: Target has multiple python_binary targets!'
     for binary in binaries:
         self._dump_bin(binary.sources[0], binary.target_base)
-    return self.chroot
+    self.env.freeze()
+    return self.env

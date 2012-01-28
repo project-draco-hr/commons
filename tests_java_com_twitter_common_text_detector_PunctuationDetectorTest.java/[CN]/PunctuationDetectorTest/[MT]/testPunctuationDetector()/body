@@ -2,11 +2,12 @@
   TokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
   mockStream.reset("When I was young , I liked insects .");
   PunctuationDetector stream=new PunctuationDetector(mockStream);
-  TermAttribute termAttr=stream.getAttribute(TermAttribute.class);
+  CharSequenceTermAttribute termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
   TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
   int cnt=0;
   while (stream.incrementToken()) {
-    if (",".equals(termAttr.term()) || ".".equals(termAttr.term())) {
+    String token=termAttr.getTermString();
+    if (",".equals(token) || ".".equals(token)) {
       assertEquals(typeAttr.getType(),TokenType.PUNCTUATION);
     }
  else {
@@ -18,7 +19,7 @@
   stream.reset("???????????? ??? ?????? ?????? ??? ?????? ??? ?????? ?????? ??? ???");
   cnt=0;
   while (stream.incrementToken()) {
-    if (ImmutableSet.of("[","???","???","???").contains(termAttr.term())) {
+    if (ImmutableSet.of("[","???","???","???").contains(termAttr.getTermString())) {
       assertEquals(typeAttr.getType(),TokenType.PUNCTUATION);
     }
  else {

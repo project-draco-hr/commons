@@ -4,31 +4,31 @@
   Closure<Integer> work3=createMock(INT_CLOSURE_CLZ);
   @SuppressWarnings("unchecked") Closure<Integer> wrapper=Closures.combine(work1,work2,work3);
   work1.execute(1);
-  expectLastCall().andThrow(new RuntimeException());
+  expectLastCall().andThrow(new Thrown());
   work1.execute(2);
   work2.execute(2);
-  expectLastCall().andThrow(new RuntimeException());
+  expectLastCall().andThrow(new Thrown());
   work1.execute(3);
   work2.execute(3);
   work3.execute(3);
-  expectLastCall().andThrow(new RuntimeException());
+  expectLastCall().andThrow(new Thrown());
   control.replay();
   try {
     wrapper.execute(1);
     fail("Should have thrown.");
   }
- catch (  RuntimeException e) {
+ catch (  Thrown e) {
   }
   try {
     wrapper.execute(2);
     fail("Should have thrown.");
   }
- catch (  RuntimeException e) {
+ catch (  Thrown e) {
   }
   try {
     wrapper.execute(3);
     fail("Should have thrown.");
   }
- catch (  RuntimeException e) {
+ catch (  Thrown e) {
   }
 }

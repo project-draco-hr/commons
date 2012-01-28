@@ -6,7 +6,7 @@ def get_all_addresses(cls, buildfile):
         if (buildfile in Target._addresses_by_buildfile):
             return Target._addresses_by_buildfile[buildfile]
         else:
-            return None
+            return OrderedSet()
     addresses = lookup()
     if addresses:
         return addresses

@@ -1,0 +1,2 @@
+def __call__(self, file):
+    return os.path.join(self.base, file)

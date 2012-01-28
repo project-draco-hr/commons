@@ -1,0 +1,18 @@
+{
+  ImmutableMap.Builder<Pair<Class<?>,Class<? extends Annotation>>,Verifier<?>> registry=ImmutableMap.builder();
+  for (  VerifierInfo info : configuration.verifierInfo()) {
+    Class<?> verifiedType=forName(info.verifiedType);
+    Class<? extends Annotation> verifyingAnnotation=forName(info.verifyingAnnotation);
+    Class<? extends Verifier<?>> verifierClass=forName(info.verifierClass);
+    try {
+      registry.put(Pair.<Class<?>,Class<? extends Annotation>>of(verifiedType,verifyingAnnotation),verifierClass.newInstance());
+    }
+ catch (    InstantiationException e) {
+      throw new ConfigurationException(e);
+    }
+catch (    IllegalAccessException e) {
+      throw new ConfigurationException(e);
+    }
+  }
+  return new Verifiers(registry.build());
+}

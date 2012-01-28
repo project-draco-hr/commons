@@ -1,0 +1,4 @@
+{
+  testFilter(ArgFilters.selectAllPackagesUnderHere(ArgsRoot.class.getPackage()),fieldInfo(ArgsRoot.class,"ARGS_ROOT"),fieldInfo(ArgsA.class,"ARGS_A"),fieldInfo(ArgsB.class,"ARGS_B"),fieldInfo(ArgsA1.class,"ARGS_A1"),fieldInfo(ArgsBWithSuffix.class,"ARGS_B_WITH_SUFFIX"));
+  testFilter(ArgFilters.selectAllPackagesUnderHere(ArgsB.class.getPackage()),fieldInfo(ArgsB.class,"ARGS_B"));
+}

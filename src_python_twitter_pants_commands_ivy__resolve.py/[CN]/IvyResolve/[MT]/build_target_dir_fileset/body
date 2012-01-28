@@ -1,0 +1,12 @@
+def build_target_dir_fileset(self, target, ivyxml):
+    print ('writing target_dir fileset for ' + target.name)
+    target_dirs = OrderedSet()
+
+    def add_targets(ttarget):
+        target_dirs.add(ttarget._create_template_data().id)
+    target.walk(add_targets)
+    target_dirs_file_name = os.path.join(os.path.dirname(ivyxml), 'dependency_target_dirs.txt')
+    target_dirs_file = open(target_dirs_file_name, 'w')
+    for target_dir in target_dirs:
+        target_dirs_file.write((target_dir + '/jvm\n'))
+    target_dirs_file.close

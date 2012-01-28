@@ -1,0 +1,2 @@
+def expected_hash(tf):
+    return hashlib.sha1((os.path.basename(tf.name) + TEST_CONTENT)).hexdigest()

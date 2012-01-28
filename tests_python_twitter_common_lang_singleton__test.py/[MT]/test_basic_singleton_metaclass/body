@@ -1,0 +1,11 @@
+def test_basic_singleton_metaclass():
+
+
+    class Hello(object):
+        __metaclass__ = SingletonMetaclass
+
+        def __init__(self):
+            pass
+    h1 = Hello()
+    h2 = Hello()
+    assert (id(h1) == id(h2)), 'singleton metaclass should memoize objects'

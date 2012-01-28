@@ -1,0 +1,3 @@
+def __init__(self, name, predicate):
+    self.name = name
+    self.predicate = predicate

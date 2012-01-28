@@ -1,0 +1,3 @@
+def sample(self):
+    '\n      Returns a dictionary\n        string (metric) => sample (number)\n    '
+    raise NotImplementedError

@@ -1,0 +1,9 @@
+def acquire(self, timeout=None):
+    'Acquire a resource.\n\n    This should generally be only accessed through the context-manager\n    interface:\n\n      >>> with pool.acquire() as resource:\n      ...   print resource.name\n\n    :param timeout: If provided, seconds (or Amount) to wait for a resource before raising\n        Queue.Empty. If not provided, blocks indefinitely.\n\n    :returns: Returns a Resource() wrapper object.\n    :raises Empty: No resources are available before timeout.\n    '
+    if (timeout is None):
+        resource = self._resources.get()
+    else:
+        if isinstance(timeout, Amount):
+            timeout = timeout.as_(Time.SECONDS)
+        resource = self._resources.get(True, timeout)
+    return Resource(self, resource)

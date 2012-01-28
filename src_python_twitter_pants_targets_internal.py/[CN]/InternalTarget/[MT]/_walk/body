@@ -1,6 +1,6 @@
 def _walk(self, walked, work, predicate=None):
     Target._walk(self, walked, work, predicate)
-    for dep in self.resolved_dependencies:
+    for dep in self.dependencies:
         if (isinstance(dep, Target) and (not (dep in walked))):
             walked.add(dep)
             if ((not predicate) or predicate(dep)):

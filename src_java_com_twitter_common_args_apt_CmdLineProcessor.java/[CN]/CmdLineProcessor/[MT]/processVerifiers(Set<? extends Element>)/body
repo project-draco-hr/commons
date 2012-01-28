@@ -1,0 +1,27 @@
+{
+  TypeElement verifierType=typeElement(Verifier.class);
+  TypeElement verifierForType=typeElement(VerifierFor.class);
+  for (  Element element : elements) {
+    if (element.getKind() != ElementKind.CLASS) {
+      error("Found a @VerifierFor annotation on a non-class %s",element);
+    }
+ else {
+      TypeElement verifier=(TypeElement)element;
+      if (!isAssignable(verifier,Verifier.class)) {
+        error("Found a @Verifier annotation on a non-Verifier %s",element);
+        return;
+      }
+      @Nullable AnnotationMirror verifierFor=getAnnotationMirror(verifier,verifierForType);
+      if (verifierFor != null) {
+        @Nullable TypeElement verifyAnnotationType=getClassType(verifierFor,"value",null);
+        if (verifyAnnotationType != null) {
+          @Nullable String verifiedType=getTypeArgument(verifier,verifierType);
+          if (verifiedType != null) {
+            String verifyAnnotationClassName=elementUtils.getBinaryName(verifyAnnotationType).toString();
+            configBuilder.addVerifier(verifiedType,verifyAnnotationClassName,getBinaryName(verifier));
+          }
+        }
+      }
+    }
+  }
+}

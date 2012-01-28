@@ -1,0 +1,8 @@
+{
+  if (!started.compareAndSet(false,true)) {
+    LOG.warning("Startup actions cannot be executed more than once, ignoring.");
+  }
+  for (  ExceptionalCommand startupAction : startupActions) {
+    startupAction.execute();
+  }
+}

@@ -1,0 +1,4 @@
+def test_zipsafe_egg(self):
+    chroot = create_eggdrop_chroot(PythonChrootEggsTest.ZIPSAFE_EGG)
+    launcher = PythonLauncher(chroot.dump().path())
+    assert (launcher.run() == 0)

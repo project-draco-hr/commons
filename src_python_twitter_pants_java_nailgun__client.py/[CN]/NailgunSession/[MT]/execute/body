@@ -1,0 +1,13 @@
+def execute(self, work_dir, main_class, *args, **environment):
+    log.debug(('work_dir: %s\nmain_class: %s\nargs: %s\nenvironment: %s' % (work_dir, main_class, args, environment)))
+    for arg in args:
+        self._send_chunk('A', arg)
+    for (k, v) in environment.items():
+        self._send_chunk('E', ('%s=%s' % (k, v)))
+    self._send_chunk('D', work_dir)
+    self._send_chunk('C', main_class)
+    self._input_reader.start()
+    try:
+        return self._read_response()
+    finally:
+        self._input_reader.stop()

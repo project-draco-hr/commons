@@ -1,0 +1,4 @@
+def key_for(self, target_name, sources):
+    'Get a key representing the given target name and its sources.'
+    filename = os.path.join(self._root, target_name.replace(os.path.sep, '.'))
+    return CacheKey(target_name, sources, self._sources_hash(sources), filename)

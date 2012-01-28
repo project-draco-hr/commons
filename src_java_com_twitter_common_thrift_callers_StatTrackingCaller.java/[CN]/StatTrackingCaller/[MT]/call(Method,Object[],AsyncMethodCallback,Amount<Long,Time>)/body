@@ -1,5 +1,5 @@
 {
-  final StatsProvider.RequestTimer requestStats=stats.get(method);
+  final RequestTimer requestStats=stats.get(method);
   final long startTime=System.nanoTime();
   ResultCapture capture=new ResultCapture(){
     @Override public void success(){

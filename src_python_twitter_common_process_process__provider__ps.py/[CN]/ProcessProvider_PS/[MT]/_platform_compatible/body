@@ -1,0 +1,3 @@
+@staticmethod
+def _platform_compatible():
+    return True

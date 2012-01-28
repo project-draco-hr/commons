@@ -1,7 +1,6 @@
 {
   Capture<Set<String>> backendCapture=createCapture();
   wrappedStrategy.offerBackends(capture(backendCapture),eq(onBackendsChosen));
-  wrappedStrategy.connectionReturned((String)anyObject());
   control.replay();
   Set<String> allBackends=Sets.newHashSet(BACKEND_1,BACKEND_2,BACKEND_3);
   subsetStrategy.offerBackends(allBackends,onBackendsChosen);

@@ -1,6 +1,6 @@
 __author__ = 'John Sirois'
 from . import Command
-from twitter.pants import is_java, is_python
+from twitter.pants import is_jvm, is_python
 from twitter.pants.base import Address, Target
 import sys
 import traceback

@@ -25,4 +25,5 @@ def __str__(self):
         output.append('external references: ')
         for ref in self._external_references:
             output.append(('  %s' % ref))
+    output.append(('linkage signature: \n  %s' % self.linkage_signature()))
     return '\n'.join(output)

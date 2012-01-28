@@ -4,6 +4,9 @@ import sys
 import time
 import logging
 import getpass
+import errno
+from socket import gethostname
 from formatters import glog, plain
 from .options import LogOptions
-_FILTER_TYPES = [logging.DEBUG, logging.INFO, logging.WARN, logging.ERROR, logging.FATAL]
+from twitter.common.dirutil import safe_mkdir
+_FILTER_TYPES = {logging.DEBUG: 'DEBUG', logging.INFO: 'INFO', logging.WARN: 'WARNING', logging.ERROR: 'ERROR', logging.FATAL: 'FATAL', }

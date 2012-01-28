@@ -1,0 +1,18 @@
+def install_activate(home_dir, bin_dir, prompt=None):
+    if ((sys.platform == 'win32') or (is_jython and (os._name == 'nt'))):
+        files = {'activate.bat': ACTIVATE_BAT, 'deactivate.bat': DEACTIVATE_BAT, }
+        if ((os.environ.get('OS') == 'Windows_NT') and (os.environ.get('OSTYPE') == 'cygwin')):
+            files['activate'] = ACTIVATE_SH
+    else:
+        files = {'activate': ACTIVATE_SH, }
+        files['activate.fish'] = ACTIVATE_FISH
+        files['activate.csh'] = ACTIVATE_CSH
+    files['activate_this.py'] = ACTIVATE_THIS
+    vname = os.path.basename(os.path.abspath(home_dir))
+    for (name, content) in files.items():
+        content = content.replace('__VIRTUAL_PROMPT__', (prompt or ''))
+        content = content.replace('__VIRTUAL_WINPROMPT__', (prompt or ('(%s)' % vname)))
+        content = content.replace('__VIRTUAL_ENV__', os.path.abspath(home_dir))
+        content = content.replace('__VIRTUAL_NAME__', vname)
+        content = content.replace('__BIN_NAME__', os.path.basename(bin_dir))
+        writefile(os.path.join(bin_dir, name), content)

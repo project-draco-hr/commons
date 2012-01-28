@@ -2,12 +2,30 @@ import logging
 from initialize import init
 try:
     from twitter.common import app
-    app.on_initialization((lambda : init(app.name())), description='Logging subsystem.')
+
+
+    class LoggingSubsystem(app.Module):
+
+        def __init__(self):
+            app.Module.__init__(self, __name__, description='Logging subsystem.')
+
+        def setup_function(self):
+            init(app.name())
+    app.register_module(LoggingSubsystem())
 except ImportError:
     pass
 debug = logging.debug
 info = logging.info
 warning = logging.warning
+warn = logging.warning
 error = logging.error
 fatal = logging.fatal
-__all__ = ['debug', 'info', 'warning', 'error', 'fatal', 'init', 'formatters']
+log = logging.log
+logger = logging.getLogger
+DEBUG = logging.DEBUG
+INFO = logging.INFO
+WARNING = logging.WARNING
+WARN = logging.WARN
+ERROR = logging.ERROR
+FATAL = logging.FATAL
+__all__ = ['debug', 'info', 'warning', 'warn', 'error', 'fatal', 'log', 'logger', 'DEBUG', 'INFO', 'WARNING', 'WARN', 'ERROR', 'FATAL', 'init', 'formatters']

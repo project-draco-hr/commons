@@ -1,0 +1,4 @@
+@contextmanager
+def _cachepath(self, file):
+    with safe_open(file, 'r') as cp:
+        yield (path.strip() for path in cp.read().split(os.pathsep) if path.strip())

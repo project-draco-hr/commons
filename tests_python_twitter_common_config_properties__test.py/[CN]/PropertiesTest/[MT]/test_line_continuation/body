@@ -1,0 +1,2 @@
+def test_line_continuation(self):
+    self.assertLoaded('\n    # A 3 line continuation\n    a\\\\\n        \\\n           \\b\n    c=    d\n    e:     f\n    g    :h\n    i    = j\n    ', {'a\\': '\\b', 'c': 'd', 'e': 'f', 'g': 'h', 'i': 'j', })

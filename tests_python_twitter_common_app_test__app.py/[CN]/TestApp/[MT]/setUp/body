@@ -1,0 +1,4 @@
+def setUp(self):
+    app.reset()
+    app.Module.clear_registry()
+    self.factory = ModuleFactory()

@@ -1,0 +1,17 @@
+def _get_nailgun_endpoint(self):
+    if os.path.exists(self._pidfile):
+        with _safe_open(self._pidfile, 'r') as pidfile:
+            contents = pidfile.read()
+
+            def invalid_pidfile():
+                log.warn(('Invalid ng pidfile %s contained: %s' % (self._pidfile, contents)))
+                return None
+            endpoint = contents.split(':')
+            if (len(endpoint) != 2):
+                return invalid_pidfile()
+            (pid, port) = endpoint
+            try:
+                return (int(pid), int(port))
+            except ValueError:
+                return invalid_pidfile()
+    return None

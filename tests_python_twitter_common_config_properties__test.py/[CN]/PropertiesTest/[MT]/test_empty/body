@@ -1,0 +1,5 @@
+def test_empty(self):
+    self.assertLoaded('', {})
+    self.assertLoaded(' ', {})
+    self.assertLoaded('\t', {})
+    self.assertLoaded('\n\n    ', {})

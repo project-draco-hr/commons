@@ -1,4 +1,0 @@
-{
-  Preconditions.checkState(!completed);
-  actions.add(action);
-}

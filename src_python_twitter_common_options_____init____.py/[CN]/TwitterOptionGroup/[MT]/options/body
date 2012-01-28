@@ -1,0 +1,2 @@
+def options(self):
+    return self._option_list

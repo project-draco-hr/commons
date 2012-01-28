@@ -1,0 +1,2 @@
+def _add_main_option(self, option):
+    self._main_options.append(option)

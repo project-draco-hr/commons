@@ -1,0 +1,3 @@
+def _long_help(self, option, opt, value, parser):
+    self._construct_full_parser().print_help()
+    sys.exit(1)

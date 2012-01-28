@@ -1,0 +1,3 @@
+def _load_checkstyle_suppressions(self):
+    with open(os.path.join(self.root_dir, 'build.properties')) as build_props:
+        return Ide._find_checkstyle_suppressions(build_props, self.root_dir)

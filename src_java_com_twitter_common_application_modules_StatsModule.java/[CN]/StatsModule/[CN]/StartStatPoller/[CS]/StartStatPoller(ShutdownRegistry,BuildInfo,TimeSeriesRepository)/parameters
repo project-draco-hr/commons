@@ -1,0 +1,3 @@
+ShutdownRegistry shutdownRegistry
+BuildInfo buildInfo
+TimeSeriesRepository timeSeriesRepository

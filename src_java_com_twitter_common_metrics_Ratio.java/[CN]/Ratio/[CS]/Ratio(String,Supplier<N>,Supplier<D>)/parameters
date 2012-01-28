@@ -1,0 +1,3 @@
+String name
+Supplier<N> numeratorAccessor
+Supplier<D> denominatorAccessor

@@ -1,0 +1,13 @@
+@staticmethod
+def setup_parser(parser, args, phases):
+
+    def do_setup_parser(phase, setup):
+        for goal in phase.goals():
+            if (goal not in setup):
+                setup.add(goal)
+                for dep in goal.dependencies:
+                    do_setup_parser(dep, setup)
+                goal.setup_parser(phase, parser, args)
+    setup = set()
+    for phase in phases:
+        do_setup_parser(phase, setup)

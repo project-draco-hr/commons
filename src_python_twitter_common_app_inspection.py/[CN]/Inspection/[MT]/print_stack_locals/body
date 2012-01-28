@@ -1,0 +1,7 @@
+@staticmethod
+def print_stack_locals(out=sys.stderr):
+    stack = inspect.stack()[1:]
+    for fr_n in range(len(stack)):
+        print  >> out, ('--- frame %s ---\n' % fr_n)
+        for key in stack[fr_n][0].f_locals:
+            print  >> out, ('  %s => %s' % (key, stack[fr_n][0].f_locals[key]))

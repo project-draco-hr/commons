@@ -1,0 +1,8 @@
+{
+  export(new StatImpl<Integer>(name){
+    @Override public Integer read(){
+      return collection.size();
+    }
+  }
+);
+}

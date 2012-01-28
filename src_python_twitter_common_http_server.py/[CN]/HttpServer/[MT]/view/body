@@ -1,0 +1,7 @@
+@staticmethod
+def view(*args, **kwargs):
+
+    def annotated(function):
+        setattr(function, HttpServer.VIEW_ATTRIBUTE, (args, kwargs))
+        return function
+    return annotated

@@ -1,0 +1,5 @@
+def test_garbage_formats():
+    garbage_input = [0, 1, None, dir, [], {}, (), type]
+    for garbage in garbage_input:
+        with pytest.raises(TypeError):
+            ScanfParser(garbage)

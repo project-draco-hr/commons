@@ -1,0 +1,2 @@
+def _collect_all(self):
+    return os.popen(('ps ax -o %s' % ','.join(ProcessHandlePs.ATTRS))).readlines()

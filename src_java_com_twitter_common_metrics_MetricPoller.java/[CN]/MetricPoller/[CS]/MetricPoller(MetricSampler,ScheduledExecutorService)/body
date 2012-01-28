@@ -1,0 +1,4 @@
+{
+  this.sampler=Preconditions.checkNotNull(sampler);
+  this.executor=Preconditions.checkNotNull(executor);
+}

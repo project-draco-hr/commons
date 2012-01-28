@@ -1,0 +1,8 @@
+def test_float_conversion():
+    factor_tests = {'': 1.0, 'e-0': 1.0, 'e-1': 0.1, 'e+1': 10.0, 'e1': 10.0, 'e0': 1.0, 'e5': 100000.0, }
+    for (exponent, xfactor) in factor_tests.items():
+        assert almost_equal(basic_scanf('%f', ('0' + exponent)), (0 * xfactor))
+        assert almost_equal(basic_scanf('%f', ('.1' + exponent)), (0.1 * xfactor))
+        assert almost_equal(basic_scanf('%f', ('2.' + exponent)), (2 * xfactor))
+        assert almost_equal(basic_scanf('%f', ('3.4' + exponent)), (3.4 * xfactor))
+        assert almost_equal(basic_scanf('%f', ('-.5' + exponent)), ((-0.5) * xfactor))

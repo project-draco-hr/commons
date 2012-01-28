@@ -1,0 +1,8 @@
+def test_app_name(self):
+    assert (app.name() == 'pytest')
+    ALTERNATE_NAME = 'not_test_app_but_something_else'
+    app.set_name(ALTERNATE_NAME)
+    assert (app.name() == ALTERNATE_NAME)
+    app.init(force_args=[])
+    with pytest.raises(app.ApplicationError):
+        app.set_name('anything')

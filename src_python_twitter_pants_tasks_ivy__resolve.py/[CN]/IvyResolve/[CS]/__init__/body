@@ -1,0 +1,36 @@
+def __init__(self, context, workdir=None, ivy_jar=None, ivy_settings=None, cache_dir=None, confs=None, transitive=None):
+    classpath = ([ivy_jar] if ivy_jar else context.config.getlist('ivy', 'classpath'))
+    nailgun_dir = context.config.get('ivy-resolve', 'nailgun_dir')
+    NailgunTask.__init__(self, context, classpath=classpath, workdir=nailgun_dir)
+    self._ivy_settings = (ivy_settings or context.config.get('ivy', 'ivy_settings'))
+    self._cachedir = (cache_dir or context.config.get('ivy-resolve', 'cache_dir'))
+    self._confs = (confs or context.config.getlist('ivy-resolve', 'confs'))
+    self._transitive = (transitive or context.config.getbool('ivy-resolve', 'transitive'))
+    self._args = (confs or context.config.getlist('ivy-resolve', 'args'))
+    self._template_path = os.path.join('ivy_resolve', 'ivy.mk')
+    work_dir = (workdir or context.config.get('ivy-resolve', 'workdir'))
+    self._ivy_xml = os.path.join(work_dir, 'ivy.xml')
+    self._classpath_file = os.path.join(work_dir, 'classpath')
+    self._classpath_dir = os.path.join(work_dir, 'mapped')
+
+    def parse_override(override):
+        match = re.match('^([^#]+)#([^=]+)=([^\\s]+)$', override)
+        if (not match):
+            raise TaskError(('Invalid dependency override: %s' % override))
+        (org, name, rev_or_url) = match.groups()
+
+        def fmt_message(message, template):
+            return (message % dict(overridden=('%s#%s;%s' % (template.org, template.module, template.version)), rev=rev_or_url, url=rev_or_url))
+
+        def replace_rev(template):
+            context.log.info(fmt_message('Overrode %(overridden)s with rev %(rev)s', template))
+            return template.extend(version=rev_or_url, url=None, force=True)
+
+        def replace_url(template):
+            context.log.info(fmt_message('Overrode %(overridden)s with snapshot at %(url)s', template))
+            return template.extend(version='SNAPSHOT', url=rev_or_url, force=True)
+        replace = (replace_url if re.match('^\\w+://.+', rev_or_url) else replace_rev)
+        return ((org, name), replace)
+    self._overrides = {}
+    if context.options.ivy_resolve_overrides:
+        self._overrides.update((parse_override(o) for o in context.options.ivy_resolve_overrides))

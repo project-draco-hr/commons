@@ -1,0 +1,15 @@
+def setup_function(self):
+    assert (self._thread is None), 'Attempting to call start() after server has been started!'
+    options = app.get_options()
+    parent = self
+    self.mount_routes(DiagnosticsEndpoints())
+
+
+    class RootServerThread(threading.Thread):
+
+        def run(self):
+            rs = parent
+            rs.run(options.twitter_common_http_root_server_host, options.twitter_common_http_root_server_port)
+    if options.twitter_common_http_root_server_enabled:
+        self._thread = RootServerThread()
+        self._thread.start()

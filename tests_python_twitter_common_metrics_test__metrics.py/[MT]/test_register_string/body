@@ -1,0 +1,7 @@
+def test_register_string():
+    rm = RootMetrics()
+    hello_gauge = rm.register('hello')
+    assert (rm.sample() == {'hello': 'None', })
+    hello_gauge.write('poop')
+    assert (rm.sample() == {'hello': 'poop', })
+    rm.clear()

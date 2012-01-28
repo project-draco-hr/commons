@@ -1,0 +1,10 @@
+def test_app_registry_dependencies_of_list(self):
+    self.factory.new_module('first')
+    self.factory.new_module('second', dependencies='first')
+    self.factory.new_module('third', dependencies=['first', 'second'])
+    app.init(force_args=[])
+    assert (self.factory.value('first') > 0), 'first callback should be called'
+    assert (self.factory.value('second') > 0), 'second callback should be called'
+    assert (self.factory.value('third') > 0), 'third callback should be called'
+    assert (self.factory.value('first') < self.factory.value('third')), 'third callback should be called after first'
+    assert (self.factory.value('second') < self.factory.value('third')), 'third callback should be called after first'

@@ -1,0 +1,3 @@
+{
+  return SAMPLING_INTERVAL.get();
+}

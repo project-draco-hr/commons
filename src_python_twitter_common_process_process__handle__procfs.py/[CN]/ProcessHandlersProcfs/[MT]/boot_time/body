@@ -1,0 +1,11 @@
+@staticmethod
+def boot_time():
+    if (ProcessHandlersProcfs.BOOT_TIME is None):
+        try:
+            with open('/proc/uptime') as fp:
+                (uptime, idle) = fp.read().split()
+            ProcessHandlersProcfs.BOOT_TIME = (time.time() - float(uptime))
+        except:
+            ProcessHandlersProcfs.BOOT_TIME = 0
+            pass
+    return ProcessHandlersProcfs.BOOT_TIME

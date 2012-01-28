@@ -1,0 +1,5 @@
+def _find_root_sources(self, bases, sources):
+    root_sources = set(sources)
+    for source in sources:
+        root_sources.difference_update(find_includes(bases, source))
+    return root_sources

@@ -1,0 +1,2 @@
+def _get_common_python(self):
+    return Target.get(Address.parse(self._root, 'src/python/twitter/common/python'))

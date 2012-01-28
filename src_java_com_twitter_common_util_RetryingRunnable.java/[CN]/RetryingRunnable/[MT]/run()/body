@@ -1,0 +1,19 @@
+{
+  try {
+    task.execute();
+  }
+ catch (  Exception e) {
+    if (e.getClass().isAssignableFrom(exceptionClass)) {
+      if (tryNum < numTries) {
+        commandExecutor.execute(name,task,exceptionClass,numTries - 1,retryDelay);
+      }
+ else {
+        LOG.log(Level.INFO,"Giving up on task: " + name + " "+ "after "+ "trying "+ numTries+ " times"+ ".",e);
+      }
+    }
+ else {
+      LOG.log(Level.INFO,"Giving up on task: " + name + " after trying "+ numTries+ " times. "+ "due to unhandled exception ",e);
+      throw Throwables.propagate(e);
+    }
+  }
+}

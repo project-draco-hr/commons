@@ -2,7 +2,7 @@
   timestamps.add(clock.nowMillis());
   long startNanos=clock.nowNanos();
   for (  RecordingStat<? extends Number> var : Stats.getNumericVariables()) {
-    timeSeries.get(var.getName()).addSample(var.sample());
+    timeSeries.getUnchecked(var.getName()).addSample(var.sample());
   }
   scrapeDuration.accumulate(Amount.of(clock.nowNanos() - startNanos,Time.NANOSECONDS).as(Time.MICROSECONDS));
 }

@@ -1,0 +1,3 @@
+{
+  varsJson=new VarsJsonHandler(statSupplier);
+}

@@ -1,0 +1,27 @@
+def _parse_targets(self, targets, root_dir):
+    for spec in self.args:
+        try:
+            address = Address.parse(root_dir, spec)
+        except:
+            self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+        try:
+            target = Target.get(address)
+        except:
+            self.error(('Problem parsing target %s: %s' % (address, traceback.format_exc())))
+        if address.is_meta:
+            print 'target is meta'
+            target = target.do_in_context((lambda : bang.extract_target([target], None)))
+        if (not IvyResolve._is_resolvable(target)):
+            self.error(('Target: %s is not resolvable' % address))
+        targets.add(target)
+    if (not self.intransitive):
+
+        def add_targets(ttarget):
+            if hasattr(ttarget, 'internal_dependencies'):
+                for dep in ttarget.internal_dependencies:
+                    if IvyResolve._is_resolvable(dep):
+                        targets.add(dep)
+                    else:
+                        print ("skipping %s as it's not ivy resolvable" % dep.name)
+        target.walk(add_targets)
+    return targets

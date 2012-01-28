@@ -1,0 +1,4 @@
+{
+  long actual=(Long)Stats.getVariable(NAME).read();
+  assertEquals(expected,actual);
+}

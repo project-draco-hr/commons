@@ -1,0 +1,6 @@
+def dump_profile(self):
+    if self._option_values.twitter_common_app_profiling:
+        if self._option_values.twitter_common_app_profile_output:
+            self.profiler().dump_stats(self._option_values.twitter_common_app_profile_output)
+        else:
+            self.profiler().print_stats(sort='time')

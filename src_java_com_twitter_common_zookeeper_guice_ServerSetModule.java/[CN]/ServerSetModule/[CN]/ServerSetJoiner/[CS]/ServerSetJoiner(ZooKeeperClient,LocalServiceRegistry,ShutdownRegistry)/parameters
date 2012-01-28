@@ -1,0 +1,3 @@
+ZooKeeperClient zkClient
+LocalServiceRegistry serviceRegistry
+ShutdownRegistry shutdownRegistry

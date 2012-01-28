@@ -1,0 +1,3 @@
+{
+  random=createMock(Random.class);
+}

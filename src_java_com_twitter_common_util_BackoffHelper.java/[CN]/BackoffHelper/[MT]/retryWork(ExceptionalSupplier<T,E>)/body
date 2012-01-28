@@ -1,6 +1,6 @@
 {
   long currentBackoffMs=0;
-  while (true) {
+  while (backoffStrategy.shouldContinue()) {
     currentBackoffMs=backoffStrategy.calculateBackoffMs(currentBackoffMs);
     LOG.fine("Operation failed, backing off for " + currentBackoffMs + "ms");
     clock.waitFor(currentBackoffMs);
@@ -9,4 +9,5 @@
       return result;
     }
   }
+  throw new BackoffStoppedException(String.format("Backoff stopped without succeeding."));
 }

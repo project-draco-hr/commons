@@ -1,0 +1,18 @@
+def clear(self, pids=None):
+    '\n      Clear pids from cached internal state.  If pids is None, clear everything.\n    '
+    if (pids is None):
+        self._raw = {}
+        self._pids = set()
+        self._pid_to_parent = {}
+        self._pid_to_children = defaultdict(set)
+        self._handles = {}
+    else:
+        for (pid, ppid) in self._pid_to_parent.items():
+            try:
+                self._pid_to_children[ppid].remove(pid)
+            except KeyError:
+                pass
+        for pid in pids:
+            self._raw.pop(pid, None)
+            self._handles.pop(pid, None)
+        self._pids = (self._pids - set(pids))

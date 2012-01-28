@@ -1,3 +1,0 @@
-{
-  this.varsHandler=Preconditions.checkNotNull(varsHandler);
-}

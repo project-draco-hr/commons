@@ -1,0 +1,14 @@
+def __call__(self, main_class, *args, **environment):
+    '\n      Executes the given main_class with any supplied args in the given environment.  Returns\n      the exit code of the main_class.\n    '
+    environment = dict((ENV_DEFAULTS.items() + environment.items()))
+    sock = self.try_connect()
+    if (not sock):
+        raise NailgunError(('Problem connecting to nailgun server %s:%d' % (self._host, self._port)))
+    session = NailgunSession(sock, self._ins, self._out, self._err)
+    try:
+        try:
+            return session.execute(self._work_dir, main_class, *args, **environment)
+        except socket.error as e:
+            raise NailgunError(('Problem contacting nailgun server %s:%d %s' % (self._host, self._port, e)))
+    finally:
+        sock.close()

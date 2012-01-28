@@ -1,0 +1,8 @@
+self
+context
+workdir
+ivy_jar
+ivy_settings
+cache_dir
+confs
+transitive

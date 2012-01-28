@@ -1,0 +1,2 @@
+def scanf(fmt_string, value_string):
+    return ScanfParser(fmt_string).parse(value_string)

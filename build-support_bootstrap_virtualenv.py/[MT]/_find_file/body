@@ -1,0 +1,5 @@
+def _find_file(filename, dirs):
+    for dir in dirs:
+        if os.path.exists(join(dir, filename)):
+            return join(dir, filename)
+    return filename

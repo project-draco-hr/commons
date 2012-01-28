@@ -1,0 +1,11 @@
+@HttpServer.route('/vars')
+@HttpServer.route('/vars/:var')
+def handle_vars(self, var=None):
+    samples = self._monitor.sample()
+    if (var is None):
+        body = '<br>'.join((('%s %s' % (key, val)) for (key, val) in samples.iteritems()))
+        return ('<html><body><pre>%s</pre></body></html>' % body)
+    elif (var in samples):
+        return samples[var]
+    else:
+        HttpServer.abort(404, 'Unknown exported variable')

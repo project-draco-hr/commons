@@ -1,0 +1,6 @@
+def test_stream(self):
+    with temporary_file() as props_out:
+        props_out.write("\n      it's a = file\n      ")
+        props_out.close()
+        with open(props_out.name, 'r') as props_in:
+            self.assertLoaded(props_in, {"it's a": 'file', })

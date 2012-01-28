@@ -1,6 +1,6 @@
 def execute(self):
     target = Target.get(self.address)
-    if is_java(target):
+    if all((is_jvm(t) for t in target.resolve())):
         if self.is_graph:
             self._print_digraph(target)
         else:

@@ -1,0 +1,2 @@
+def dependencies(self):
+    return (self._dependencies if self._dependencies else [])

@@ -1,0 +1,8 @@
+def install(self, goal, first=False, replace=False):
+    g = self.goals()
+    if replace:
+        del g[:]
+    if first:
+        g.insert(0, goal)
+    else:
+        g.append(goal)

@@ -1,0 +1,4 @@
+ScheduledExecutorService taskExecutor
+Amount<Long,Time> intervalBetweenRequests
+Runnable queueDrainer
+BlockingQueue<RetryingRunnable> blockingQueue

@@ -1,0 +1,8 @@
+{
+  long startNanos=clock.nowNanos();
+  Map<String,Number> metrics=metricProvier.sample();
+  events.accumulate(clock.nowNanos() - startNanos);
+  for (  MetricListener listener : listeners) {
+    listener.updateStats(metrics);
+  }
+}

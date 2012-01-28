@@ -1,0 +1,3 @@
+{
+  return String.format("%f",Amount.of(timespan,unit).as(Time.SECONDS));
+}

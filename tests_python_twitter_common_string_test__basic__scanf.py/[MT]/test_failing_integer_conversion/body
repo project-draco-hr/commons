@@ -1,0 +1,7 @@
+def test_failing_integer_conversion():
+    with pytest.raises(ScanfParser.ParseError):
+        basic_scanf('%d', '\x90')
+    with pytest.raises(ScanfParser.ParseError):
+        basic_scanf('%d', 'x')
+    with pytest.raises(ScanfParser.ParseError):
+        basic_scanf('%d', 'hello')

@@ -1,0 +1,11 @@
+def generate_combined(self, classpath, targets):
+    gendir = os.path.join(self._output_dir, 'combined')
+    safe_mkdir(gendir, clean=True)
+    command = create_javadoc_command(classpath, gendir, *targets)
+    if command:
+        create_javadoc(command, gendir)
+        if self.open:
+            if (os.uname()[0] != 'Darwin'):
+                print 'Sorry, open currently only supports OSX'
+            else:
+                subprocess.Popen(['open', os.path.join(gendir, 'index.html')])

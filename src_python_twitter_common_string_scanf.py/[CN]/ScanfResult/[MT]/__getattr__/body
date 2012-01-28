@@ -1,0 +1,5 @@
+def __getattr__(self, key):
+    if (key in self._dict):
+        return self._dict[key]
+    else:
+        raise AttributeError(('Could not find attribute: %s' % key))

@@ -1,0 +1,10 @@
+def test_atomic_gauge_types():
+    with pytest.raises(TypeError):
+        ag = AtomicGauge('a', None)
+    with pytest.raises(TypeError):
+        ag = AtomicGauge('a', 'hello')
+    ag = AtomicGauge('a', 23)
+    with pytest.raises(TypeError):
+        ag.add(None)
+    with pytest.raises(TypeError):
+        ag.add('hello')

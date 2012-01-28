@@ -1,0 +1,8 @@
+import posixpath
+import threading
+import thrift.TSerialization as codec
+import zookeeper
+from gen.twitter.thrift.endpoint import ttypes as serverset_types
+from twitter.common import app, log
+from twitter.common.zookeeper import ZooKeeper
+app.add_option('--serverset_retries', default=5, type=int, metavar='RETRIES', help='Number of retries when ZK connection is lost before giving up')

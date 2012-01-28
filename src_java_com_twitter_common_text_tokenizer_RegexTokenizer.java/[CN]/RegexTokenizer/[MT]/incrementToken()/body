@@ -5,7 +5,6 @@
   CharBuffer token=tokens.get(tokenIndex);
   termAttr.setOffset(token.position());
   termAttr.setLength(token.limit() - token.position());
-  offsetAttr.setOffset(token.position(),token.limit());
   typeAttr.setType(tokenTypes.get(tokenIndex));
   tokenIndex++;
   return true;

@@ -1,0 +1,5 @@
+{
+class NoParserForMe {
+  }
+  assertNull(defaultParsers.get(NoParserForMe.class));
+}

@@ -35,4 +35,8 @@
   assertEquals(list3,UrlTokenizerUtil.getReversedDomainParts(url3,4));
   list3.add("");
   assertEquals(list3,UrlTokenizerUtil.getReversedDomainParts(url3,5));
+  assertEquals(Arrays.asList("co.jp","google"),UrlTokenizerUtil.getReversedDomainParts("news.google.co.jp",2));
+  assertEquals(Arrays.asList("co.jp","google"),UrlTokenizerUtil.getReversedDomainParts("news.google.co.jp",2));
+  assertEquals(Arrays.asList("com","google"),UrlTokenizerUtil.getReversedDomainParts("news.google.com",2));
+  assertEquals(Arrays.asList("com","google","news"),UrlTokenizerUtil.getReversedDomainParts("news.google.com",3));
 }

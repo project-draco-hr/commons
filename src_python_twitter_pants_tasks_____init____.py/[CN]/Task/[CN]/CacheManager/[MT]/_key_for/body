@@ -1,0 +1,6 @@
+def _key_for(self, target):
+    if self._only_buildfiles:
+        absolute_sources = [target.address.buildfile.full_path]
+    else:
+        absolute_sources = sorted(target.expand_files(recursive=False))
+    return self._cache.key_for(target.id, absolute_sources)

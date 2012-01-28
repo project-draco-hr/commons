@@ -1,0 +1,2 @@
+from twitter.common.app import add_module_path
+add_module_path(__name__, __path__)

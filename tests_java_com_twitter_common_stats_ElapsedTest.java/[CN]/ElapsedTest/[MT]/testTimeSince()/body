@@ -1,0 +1,17 @@
+{
+  Elapsed elapsed=elapsed(Time.MILLISECONDS);
+  checkValue(0);
+  clock.advance(ONE_SECOND);
+  checkValue(1000);
+  elapsed.reset();
+  checkValue(0);
+  elapsed.reset();
+  clock.advance(ONE_SECOND);
+  checkValue(1000);
+  clock.advance(ONE_SECOND);
+  checkValue(2000);
+  clock.advance(ONE_SECOND);
+  checkValue(3000);
+  clock.advance(ONE_SECOND);
+  checkValue(4000);
+}

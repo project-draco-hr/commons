@@ -1,3 +1,0 @@
-@staticmethod
-def names():
-    return _Env._str_to_id.keys()

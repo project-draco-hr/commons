@@ -1,7 +1,9 @@
 {
   Parser parser;
-  while (((parser=REGISTRY.get(cls)) == null) && (cls != null)) {
-    cls=cls.getSuperclass();
+  Class<?> explicitClass=cls;
+  while (((parser=registry.get(explicitClass)) == null) && (explicitClass != null)) {
+    explicitClass=explicitClass.getSuperclass();
   }
+  checkArgument(parser != null,"No parser found for " + cls);
   return parser;
 }

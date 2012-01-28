@@ -1,10 +1,10 @@
-def configure(self):
+def configure(self, scala_compiler_profile):
     "Configures this project's source sets returning the full set of targets the project is\n    comprised of.  The full set can be larger than the initial set of targets when any of the\n    initial targets only has partial ownership of its source set's directories."
     analyzed = OrderedSet()
     targeted = set()
 
     def source_target(target):
-        return (has_sources(target) and (not target.is_codegen))
+        return (has_sources(target) and ((not target.is_codegen) and (not (self.skip_java and is_java(target))) and (not (self.skip_scala and is_scala(target)))))
 
     def configure_source_sets(relative_base, sources, is_test):
         absolute_base = os.path.join(self.root_dir, relative_base)
@@ -25,13 +25,11 @@ def configure(self):
     def configure_target(target):
         if (target not in analyzed):
             analyzed.add(target)
-            self.has_scala = (self.has_scala or is_scala(target))
+            self.has_scala = ((not self.skip_scala) and (self.has_scala or is_scala(target)))
             if (isinstance(target, JavaLibrary) or isinstance(target, ScalaLibrary)):
                 resources = set()
                 if target.resources:
                     resources.update(target.resources)
-                if target.binary_resources:
-                    resources.update(target.binary_resources)
                 if resources:
                     self.resource_extensions.update(Project.extract_resource_extensions(resources))
                     configure_source_sets(ExportableJvmLibrary.RESOURCES_BASE_DIR, resources, is_test=False)
@@ -53,6 +51,7 @@ def configure(self):
             return filter(is_sibling, [Target.get(a) for a in candidates if (a != target.address)])
     for target in self.targets:
         target.walk(configure_target, predicate=source_target)
+    self._configure_profiles(scala_compiler_profile)
     unexcludable_paths = set()
     for source_set in self.sources:
         parent = os.path.join(self.root_dir, source_set.source_base, source_set.path)

@@ -1,0 +1,8 @@
+{
+  RetryingRunnable task=createMock(RetryingRunnable.class);
+  expect(blockingQueue.poll()).andReturn(task);
+  taskExecutor.execute(task);
+  control.replay();
+  replay();
+  queueDrainer.run();
+}

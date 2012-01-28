@@ -1,0 +1,5 @@
+def sleep(self, amount):
+    with self._cond:
+        for k in range(amount):
+            self._cond.wait()
+            self._ticks += 1

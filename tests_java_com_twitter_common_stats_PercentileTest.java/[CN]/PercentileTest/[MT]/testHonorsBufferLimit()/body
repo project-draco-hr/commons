@@ -6,6 +6,6 @@
     percentiles.record(1);
   }
   assertThat(percentiles.samples.size(),is(Percentile.MAX_BUFFER_SIZE));
-  checkPercentiles(percentiles,1,1,1,1,1,1);
+  checkPercentiles(percentiles,1,1,1,1,1,1,1,1);
   checkValuesAreFlushed(percentiles);
 }

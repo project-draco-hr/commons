@@ -1,0 +1,6 @@
+def test_default_parsing(self):
+    option = options.Option('-m', '--my_option', default='specified', dest='my_option')
+    (values, leftovers) = options.parser().options([option]).parse([])
+    assert hasattr(values, 'my_option')
+    assert (leftovers == [])
+    assert (values.my_option == 'specified')

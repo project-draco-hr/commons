@@ -1,5 +1,5 @@
-def _create_sources_file(self, target):
-    sources_file = os.path.abspath(os.path.join(self.target_path, 'sources.txt'))
+def _create_sources_file(self, target, target_path):
+    sources_file = os.path.abspath(os.path.join(target_path, 'sources.txt'))
     with open(sources_file, 'w') as argfile:
         argfile.writelines([('%s\n' % s) for s in target.sources])
     return sources_file

@@ -1,0 +1,3 @@
+def add(self, *from_specs):
+    self.filemap.update(((self.mapper(from_spec), from_spec) for from_spec in from_specs))
+    return self

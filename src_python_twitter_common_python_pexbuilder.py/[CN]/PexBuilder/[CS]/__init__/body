@@ -1,0 +1,4 @@
+def __init__(self, environment):
+    if (not isinstance(environment, PythonEnvironment)):
+        raise ValueError(('Expected environment to be of type PythonEnvironment!  Got %s' % type(environment)))
+    self._env = environment

@@ -1,0 +1,4 @@
+{
+  checkFullyAnnounced();
+  return ImmutableMap.copyOf(announcedPorts);
+}

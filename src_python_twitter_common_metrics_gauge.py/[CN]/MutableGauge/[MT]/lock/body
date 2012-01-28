@@ -1,0 +1,2 @@
+def lock(self):
+    return self._lock

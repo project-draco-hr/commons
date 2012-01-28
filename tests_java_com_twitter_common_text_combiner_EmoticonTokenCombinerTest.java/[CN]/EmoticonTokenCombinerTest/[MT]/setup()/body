@@ -1,6 +1,5 @@
 {
   stream=new EmoticonTokenCombiner(new LatinTokenizer.Builder().setKeepPunctuation(true).build());
   termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
-  offsetAttr=stream.getAttribute(OffsetAttribute.class);
   typeAttr=stream.getAttribute(TokenTypeAttribute.class);
 }

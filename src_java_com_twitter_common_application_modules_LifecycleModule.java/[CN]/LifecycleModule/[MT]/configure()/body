@@ -1,6 +1,12 @@
 {
   bind(Lifecycle.class).in(Singleton.class);
-  bindController(StartupStage.class,binder());
-  bindController(ShutdownStage.class,binder());
-  requestStaticInjection(Init.class);
+  bind(Key.get(ExceptionalCommand.class,StartupStage.class)).to(StartupRegistry.class);
+  bind(StartupRegistry.class).in(Singleton.class);
+  bind(ShutdownRegistry.class).to(ShutdownRegistryImpl.class);
+  bind(Key.get(Command.class,ShutdownStage.class)).to(ShutdownRegistryImpl.class);
+  bind(ShutdownRegistryImpl.class).in(Singleton.class);
+  bindStartupAction(binder(),ShutdownHookRegistration.class);
+  bind(LocalServiceRegistry.class).in(Singleton.class);
+  Multibinder.newSetBinder(binder(),String.class,Port.class);
+  Multibinder.newSetBinder(binder(),ServiceLauncher.class);
 }

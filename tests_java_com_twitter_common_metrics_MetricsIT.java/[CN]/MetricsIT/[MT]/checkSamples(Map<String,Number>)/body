@@ -1,0 +1,9 @@
+{
+  Map<String,Number> samples=Maps.newHashMap(root.sample());
+  for (  Map.Entry<String,Number> expectedSample : expected.entrySet()) {
+    Number value=samples.remove(expectedSample.getKey());
+    assertNotNull("Missing metric " + expectedSample.getKey(),value);
+    assertEquals("Incorrect value for " + expectedSample.getKey(),expectedSample.getValue().doubleValue(),value.doubleValue(),EPS);
+  }
+  assertEquals("Unexpected metrics " + samples.keySet(),0,samples.size());
+}

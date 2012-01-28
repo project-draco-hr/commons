@@ -1,0 +1,5 @@
+{
+  registry.announce(A,1,false);
+  registry.announce(B,2,false);
+  registry.getAuxiliarySockets();
+}

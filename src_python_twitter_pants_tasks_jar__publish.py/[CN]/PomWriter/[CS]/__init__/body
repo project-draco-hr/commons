@@ -1,0 +1,2 @@
+def __init__(self, pushdb):
+    self.pushdb = pushdb

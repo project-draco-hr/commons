@@ -1,0 +1,3 @@
+{
+  return ImmutableMap.of(name,InetSocketAddress.createUnresolved("foo",port));
+}

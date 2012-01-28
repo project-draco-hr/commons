@@ -1,0 +1,19 @@
+{
+  ImmutableList<String> numbers=ImmutableList.copyOf(Splitter.on('-').omitEmptyStrings().split(raw));
+  try {
+    int from=Integer.parseInt(numbers.get(0));
+    int to=Integer.parseInt(numbers.get(1));
+    if (numbers.size() != 2) {
+      throw new IllegalArgumentException("Failed to parse the range:" + raw);
+    }
+    if (to < from) {
+      return Ranges.closed(to,from);
+    }
+ else {
+      return Ranges.closed(from,to);
+    }
+  }
+ catch (  NumberFormatException e) {
+    throw new IllegalArgumentException("Failed to parse the range:" + raw,e);
+  }
+}

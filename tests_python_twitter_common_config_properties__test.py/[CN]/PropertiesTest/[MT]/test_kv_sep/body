@@ -1,0 +1,2 @@
+def test_kv_sep(self):
+    self.assertLoaded('\n    a=b\n    c   d\\=\n    e\\: :f\n    jack spratt = \tbob barker\n    g\n    h=\n    i :\n    ', {'a': 'b', 'c': 'd=', 'e:': 'f', 'jack spratt': 'bob barker', 'g': '', 'h': '', 'i': '', })

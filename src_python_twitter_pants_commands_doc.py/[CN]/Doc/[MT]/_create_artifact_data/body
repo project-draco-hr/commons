@@ -1,31 +1,28 @@
-def _create_artifact_data(self):
-    props_by_repo = dict()
+def _create_artifact_data(self, targets, target_path):
+    props_by_repo = {}
 
     def get_publish_properties(target):
-        publish_properties = props_by_repo.get(target.provides.repo)
-        if (not publish_properties):
-            publish_properties = Properties()
+        if (target.provides.repo not in props_by_repo):
             with open(target.provides.repo.push_db) as props:
-                publish_properties.load(props)
-            props_by_repo[target.provides.repo] = publish_properties
-        return publish_properties
+                props_by_repo[target.provides.repo] = Properties.load(props)
+        return props_by_repo.get(target.provides.repo)
     data = {}
-    for target in self.targets:
+    for target in targets:
         if is_exported(target):
             props = get_publish_properties(target)
             for source in target.sources:
                 source_path = os.path.join(self.java_src_prefix, source)
                 key = ('%s%%%s' % (target.provides.org, target.provides.name))
                 if os.path.exists(source_path):
-                    if (('revision.major.%s' % key) in props.getPropertyDict()):
-                        major = props.getProperty(('revision.major.%s' % key))
-                        minor = props.getProperty(('revision.minor.%s' % key))
-                        patch = props.getProperty(('revision.patch.%s' % key))
+                    if (('revision.major.%s' % key) in props):
+                        major = props[('revision.major.%s' % key)]
+                        minor = props[('revision.minor.%s' % key)]
+                        patch = props[('revision.patch.%s' % key)]
                         revision = ('%s.%s.%s' % (major, minor, patch))
                     else:
                         revision = 'NOT-PUBLISHED-YET'
                     data[source] = dict(org=target.provides.org, name=target.provides.name, rev=revision, artifactBaseUrl=target.provides.repo.url)
-    with open(self.artifact_data_path, mode='w') as data_file:
+    with open(self._artifact_data_path(target_path), mode='w') as data_file:
         print  >> data_file, ('var artifacts = %s;' % json.dumps(data, sort_keys=True, indent=2))
         print  >> data_file, ("artifacts.title = '%s';" % self.options.title)
         print  >> data_file, ("artifacts.publishDate = '%s';" % datetime.now().strftime('%m/%d/%Y %I:%M %p'))

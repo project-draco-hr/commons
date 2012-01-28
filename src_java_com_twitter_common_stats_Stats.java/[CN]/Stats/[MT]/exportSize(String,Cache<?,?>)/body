@@ -1,0 +1,8 @@
+{
+  export(new StatImpl<Long>(name){
+    @Override public Long read(){
+      return cache.size();
+    }
+  }
+);
+}

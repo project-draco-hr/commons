@@ -1,0 +1,4 @@
+{
+  this.parsedType=checkValidIdentifier(parsedType,true);
+  this.parserClass=checkValidIdentifier(parserClass,true);
+}

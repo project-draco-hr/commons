@@ -1,0 +1,5 @@
+def entry(self):
+    '\n      Return the module spec of the entry point of this PythonEnvironment.  None if\n      there is no binary for this environment.\n    '
+    entry_point = self._manifest.get('entry', None)
+    if entry_point:
+        return str(entry_point)

@@ -1,0 +1,37 @@
+{
+  TypeElement parserType=typeElement(Parser.class);
+  if (annotationElement.getKind() != ElementKind.FIELD) {
+    error("Found a @%s annotation on a non-field %s",annotationType.getSimpleName(),annotationElement);
+    return null;
+  }
+ else {
+    TypeElement containingType=(TypeElement)annotationElement.getEnclosingElement();
+    if (!isAssignable(annotationElement.asType(),Arg.class)) {
+      error("Found a @%s annotation on a non-Arg %s.%s",annotationType.getSimpleName(),containingType,annotationElement);
+      return null;
+    }
+    if (!annotationElement.getModifiers().contains(Modifier.STATIC)) {
+      error("Found a @%s annotation on a non-static Arg field %s.%s",annotationType.getSimpleName(),containingType,annotationElement);
+      return null;
+    }
+    if (parsedTypes != null) {
+      TypeMirror typeArgument=getTypeArgument(annotationElement.asType(),typeElement(Arg.class));
+      @Nullable AnnotationMirror cmdLine=getAnnotationMirror(annotationElement,typeElement(annotationType));
+      if (cmdLine != null) {
+        TypeMirror customParserType=getClassType(cmdLine,"parser",parserType).asType();
+        if (typeUtils.isSameType(parserType.asType(),customParserType)) {
+          if (!checkTypePresent(parsedTypes,typeArgument)) {
+            error("No parser registered for %s, %s.%s is un-parseable",typeArgument,containingType,annotationElement);
+          }
+        }
+ else {
+          TypeMirror customParsedType=getTypeArgument(customParserType,parserType);
+          if (!isAssignable(typeArgument,customParsedType)) {
+            error("Custom parser %s parses %s but registered for %s.%s with Arg type %s",customParserType,customParsedType,containingType,annotationElement,typeArgument);
+          }
+        }
+      }
+    }
+    return containingType;
+  }
+}

@@ -1,13 +1,4 @@
 {
-  LOG.info(String.format("Received abort HTTP signal from %s (%s)",req.getRemoteAddr(),req.getRemoteHost()));
-  resp.setContentType("text/plain");
-  PrintWriter writer=resp.getWriter();
-  try {
-    writer.println("Aborting process NOW!");
-    writer.close();
-    abortListener.run();
-  }
- catch (  Exception e) {
-    LOG.log(Level.WARNING,"Abort failed.",e);
-  }
+  resp.getWriter().println("WARNING - aborting via HTTP GET is deprecated, please POST instead!");
+  doPost(req,resp);
 }

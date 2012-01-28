@@ -1,0 +1,7 @@
+{
+  Pattern exceptionsPattern=PUNCTUATION_EXCEPTIONS_PATTERN;
+  if (exceptionChars != null) {
+    exceptionsPattern=Pattern.compile("[" + exceptionChars + "]+");
+  }
+  return new PunctuationExceptionCombiner(inputStream,exceptionsPattern);
+}

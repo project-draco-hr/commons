@@ -1,0 +1,12 @@
+def test_use_cache():
+    with test_env() as (f, cache):
+        key = cache.key_for('test', [f.name])
+        cache.update(key, [f.name])
+        key = cache.key_for('test', [f.name])
+        with temporary_dir() as staging:
+            abs_fn = os.path.join(staging, os.path.basename(f.name))
+            assert (not os.path.exists(abs_fn))
+            cache.use_cached_files(key, (lambda s, d: shutil.copyfile(s, os.path.join(staging, d))))
+            assert os.path.exists(abs_fn)
+            with open(abs_fn) as fd:
+                assert (fd.read() == TEST_CONTENT)

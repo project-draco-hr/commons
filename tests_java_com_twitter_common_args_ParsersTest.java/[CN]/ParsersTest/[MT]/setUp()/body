@@ -1,0 +1,3 @@
+{
+  defaultParsers=new Parsers(ImmutableMap.<Class<?>,Parser<?>>of(String.class,new StringParser(),Pair.class,new PairParser()));
+}

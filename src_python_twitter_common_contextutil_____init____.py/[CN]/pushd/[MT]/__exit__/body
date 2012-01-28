@@ -1,0 +1,2 @@
+def __exit__(self, exctype, value, traceback):
+    os.chdir(self.cwd)

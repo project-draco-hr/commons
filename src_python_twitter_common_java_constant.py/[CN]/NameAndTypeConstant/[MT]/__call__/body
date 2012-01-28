@@ -1,0 +1,2 @@
+def __call__(self, constants):
+    return ('%s.%s' % (constants[self._name_index].bytes(), constants[self._descriptor_index].bytes()))

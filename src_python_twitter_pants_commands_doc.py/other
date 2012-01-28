@@ -1,18 +1,18 @@
 __author__ = 'John Sirois'
 from . import Command
-from twitter.common.collections import OrderedSet
-from twitter.common.config import Properties
-from copy import copy
-from datetime import datetime
-from twitter.pants import is_exported, is_jvm
-from twitter.pants.base import Address, Target
-from twitter.pants.targets import JavaLibrary
-from twitter.pants.ant import AntBuilder
 import json
 import os
 import shutil
 import subprocess
 import traceback
-import pkgutil
 import pkg_resources
+from copy import copy
+from datetime import datetime
+from twitter.common.collections import OrderedSet
+from twitter.common.config import Properties
+from twitter.pants import is_exported, is_jvm, is_doc
+from twitter.pants.base import Address, Target
+from twitter.pants.targets import JavaLibrary
+from twitter.pants.ant import AntBuilder
+from twitter.pants.pants_doc import DocBuilder
 _ASSETS_DIR = 'doc/assets'

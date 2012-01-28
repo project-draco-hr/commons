@@ -1,0 +1,2 @@
+def register(self, instance):
+    return self._zk.create(posixpath.join(self._path, 'member_'), codec.serialize(instance), [ZOO_OPEN_ACL_UNSAFE], zookeeper.SEQUENCE)

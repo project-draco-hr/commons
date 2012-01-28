@@ -1,0 +1,15 @@
+{
+  TokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  mockStream.reset("Newline \n as punctuation");
+  PunctuationDetector stream=new PunctuationDetector(mockStream);
+  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+  CharSequenceTermAttribute termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
+  int cnt=0;
+  while (stream.incrementToken()) {
+    if (termAttr.getTermString().equals("\n")) {
+      cnt++;
+      assertEquals(TokenType.PUNCTUATION,typeAttr.getType());
+    }
+  }
+  assertEquals(1,cnt);
+}

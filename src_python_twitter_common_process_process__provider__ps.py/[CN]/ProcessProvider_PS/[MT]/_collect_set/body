@@ -1,0 +1,2 @@
+def _collect_set(self, pidset):
+    return os.popen(('ps -p %s -o %s' % (','.join(map(str, pidset)), ','.join(ProcessHandlePs.ATTRS)))).readlines()

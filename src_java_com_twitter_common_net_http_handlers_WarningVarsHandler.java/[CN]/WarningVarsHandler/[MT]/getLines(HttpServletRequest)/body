@@ -1,4 +1,0 @@
-{
-  LOG.warning("The /varz HTTP endpoint is deprecated and will disappear, please use /vars instead!");
-  return varsHandler.getLines(request);
-}

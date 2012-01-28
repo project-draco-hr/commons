@@ -1,0 +1,2 @@
+def assertLoaded(self, contents, expected):
+    self.assertEquals(expected, Properties.load(contents))

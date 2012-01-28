@@ -1,0 +1,16 @@
+{
+  Range range=getRange(annotation);
+  Function<Number,Number> converter;
+  if (Float.class.isAssignableFrom(argType) || Double.class.isAssignableFrom(argType) || BigDecimal.class.isAssignableFrom(argType)) {
+    converter=Functions.identity();
+  }
+ else {
+    converter=new Function<Number,Number>(){
+      @Override public Number apply(      Number item){
+        return item.longValue();
+      }
+    }
+;
+  }
+  return String.format("must be >= %s and <= %s",converter.apply(range.lower()),converter.apply(range.upper()));
+}

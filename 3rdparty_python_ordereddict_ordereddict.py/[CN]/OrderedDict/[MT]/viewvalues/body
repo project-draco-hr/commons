@@ -1,0 +1,3 @@
+def viewvalues(self):
+    "od.viewvalues() -> an object providing a view on od's values"
+    return ValuesView(self)

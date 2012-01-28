@@ -1,0 +1,10 @@
+def test_basic_singleton():
+
+
+    class Hello(Singleton):
+
+        def __init__(self):
+            pass
+    h1 = Hello()
+    h2 = Hello()
+    assert (id(h1) == id(h2)), 'singleton mixin should memoize objects'

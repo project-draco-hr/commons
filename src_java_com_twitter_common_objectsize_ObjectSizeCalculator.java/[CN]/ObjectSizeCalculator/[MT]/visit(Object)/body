@@ -12,7 +12,7 @@
       visitArray(obj);
     }
  else {
-      classSizeInfos.get(clazz).visit(obj,this);
+      classSizeInfos.getUnchecked(clazz).visit(obj,this);
     }
   }
 }

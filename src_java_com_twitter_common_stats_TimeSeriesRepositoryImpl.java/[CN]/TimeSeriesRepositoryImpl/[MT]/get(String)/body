@@ -1,4 +1,4 @@
 {
-  if (!timeSeries.containsKey(name))   return null;
-  return timeSeries.get(name);
+  if (!timeSeries.asMap().containsKey(name))   return null;
+  return timeSeries.getUnchecked(name);
 }

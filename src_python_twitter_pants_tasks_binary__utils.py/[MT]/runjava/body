@@ -1,0 +1,13 @@
+def runjava(jvmargs=None, classpath=None, main=None, args=None):
+    'Spawns a java process with the supplied configuration and returns its exit code.'
+    cmd = ['java']
+    if jvmargs:
+        cmd.extend(jvmargs)
+    if classpath:
+        cmd.extend((('-cp' if main else '-jar'), os.pathsep.join(classpath)))
+    if main:
+        cmd.append(main)
+    if args:
+        cmd.extend(args)
+    log.debug(('Executing: %s' % ' '.join(cmd)))
+    return subprocess.call(cmd)

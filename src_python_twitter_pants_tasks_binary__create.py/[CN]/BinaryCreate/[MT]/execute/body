@@ -1,0 +1,3 @@
+def execute(self, targets):
+    for binary in filter(is_binary, targets):
+        self.create_binary(binary)

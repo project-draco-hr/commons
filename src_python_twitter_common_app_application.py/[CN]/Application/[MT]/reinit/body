@@ -1,0 +1,4 @@
+def reinit(self, force_args=None):
+    '\n      Reinitialize the application.  This clears the stateful parts of the application\n      framework and reruns init().  Mostly useful for testing.\n    '
+    self._reset()
+    self.init(force_args)

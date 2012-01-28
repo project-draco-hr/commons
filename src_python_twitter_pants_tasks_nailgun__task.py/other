@@ -1,0 +1,31 @@
+__author__ = 'John Sirois'
+import os
+import re
+import subprocess
+import sys
+import time
+from twitter.common import log
+from twitter.common.dirutil import safe_open
+from twitter.pants import get_buildroot
+from twitter.pants.java import NailgunClient, NailgunError
+from twitter.pants.tasks import Task
+try:
+    import psutil
+
+    def killall(log, everywhere=False):
+
+        def cmdline_matches(cmdline):
+            if everywhere:
+                return any(filter((lambda arg: arg.startswith(NailgunTask.PANTS_NG_ARG_PREFIX)), cmdline))
+            else:
+                return (NailgunTask.PANTS_NG_ARG in cmdline)
+        for proc in psutil.process_iter():
+            try:
+                if (('java' == proc.name) and cmdline_matches(proc.cmdline)):
+                    NailgunTask.log_kill(log, proc.pid)
+                    proc.kill()
+            except psutil.AccessDenied as psutil.NoSuchProcess:
+                pass
+    NailgunTask.killall = staticmethod(killall)
+except ImportError:
+    NailgunTask.killall = None

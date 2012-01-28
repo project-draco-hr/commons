@@ -1,3 +1,3 @@
 def execute(self):
-    'Subcommands should override to perform the command action.  The value returned should be an\n    int, 0 indicating success and any other value indicating failure.'
+    'Subcommands should override to perform the command action.  The value\n    returned should be an int, 0 indicating success and any other value\n    indicating failure.'
     pass

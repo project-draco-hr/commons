@@ -1,2 +1,0 @@
-from optparse import OptionValueError
-from types import IntType, StringTypes

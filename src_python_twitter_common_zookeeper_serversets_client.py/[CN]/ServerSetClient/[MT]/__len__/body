@@ -1,0 +1,5 @@
+@validate
+def __len__(self):
+    'Number of endpoints in ServerSet.'
+    with self._lock:
+        return len(self._endpoints)

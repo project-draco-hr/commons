@@ -1,0 +1,8 @@
+def test_simple_tail(self):
+    self.write_to_fp('hello')
+    self._thread.clock().tick()
+    assert (self._thread.clear() == ['hello\n'])
+    self.write_to_fp('hello 2')
+    assert (self._thread.clear() == [])
+    self._thread.clock().tick()
+    assert (self._thread.clear() == ['hello 2\n'])

@@ -1,0 +1,7 @@
+def test_basic_scoping():
+    lb = Label('ping', 'pong')
+    rm = RootMetrics()
+    rm.register(lb)
+    rm.scope('bing').register(lb)
+    assert (rm.sample() == {'ping': 'pong', 'bing.ping': 'pong', })
+    rm.clear()

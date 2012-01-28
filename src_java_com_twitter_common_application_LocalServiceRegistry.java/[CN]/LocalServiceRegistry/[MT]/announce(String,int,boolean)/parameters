@@ -1,0 +1,3 @@
+String portName
+int port
+boolean isPrimary

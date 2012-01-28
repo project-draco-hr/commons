@@ -1,0 +1,8 @@
+def add_dependency(self, dependency):
+    added_files = set()
+    if (not isinstance(dependency, PythonDependency)):
+        raise PythonEnvironment.InvalidDependency(('Input dependency (%s) is not a valid PythonDependency!' % repr(dependency)))
+    for (fn, content) in dependency.files():
+        added_files.add(os.path.join(self.path(), PythonEnvironment.DEPENDENCY_DIR, fn))
+        self._chroot.write(content, os.path.join(PythonEnvironment.DEPENDENCY_DIR, fn), 'dependency')
+    return (os.path.join(self.path(), PythonEnvironment.DEPENDENCY_DIR), added_files)

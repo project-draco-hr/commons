@@ -6,7 +6,7 @@
       data.add(it.next());
     }
  else {
-      overflowing.put(it,true);
+      overflowing.asMap().put(it,true);
       data.add(defaultValue);
     }
   }

@@ -1,0 +1,15 @@
+def _extract_java_sources_and_deps(self, targets):
+    all_sources = []
+    all_deps = OrderedSet()
+    for target in targets:
+        if (((not self.only_provides) or is_exported(target)) and (not is_doc(target))):
+            for source in target.sources:
+                source_path = os.path.join(self.java_src_prefix, source)
+                if os.path.exists(source_path):
+                    all_sources.append(source_path)
+                else:
+                    print ('skipping %s' % source_path)
+                for jar_dep in target.jar_dependencies:
+                    if jar_dep.rev:
+                        all_deps.add(copy(jar_dep).intransitive())
+    return (all_sources, all_deps)

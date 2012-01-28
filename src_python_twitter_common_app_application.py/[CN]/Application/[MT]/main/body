@@ -1,0 +1,34 @@
+def main(self):
+    "\n      If called from __main__ module, run script's main() method with arguments passed\n      and global options parsed.\n    "
+    main_module = Inspection.find_calling_module()
+    if (main_module != '__main__'):
+        return
+    if (not self._import_module('twitter.common.app.modules')):
+        print  >> sys.stderr, 'Unable to import twitter app modules!'
+        sys.exit(1)
+    self.init()
+    self._commands[None] = Inspection.find_main_from_caller()
+    main_method = self._commands[self._command]
+    if (main_method is None):
+        commands = sorted(self.get_commands())
+        if commands:
+            print  >> sys.stderr, 'Must supply one of the following commands:', ', '.join(commands)
+        else:
+            print  >> sys.stderr, 'No main() or command defined! Application must define one of these.'
+        sys.exit(1)
+    try:
+        argspec = inspect.getargspec(main_method)
+    except TypeError as e:
+        print  >> sys.stderr, ('Malformed main(): %s' % e)
+        sys.exit(1)
+    if (len(argspec.args) == 1):
+        args = [self._argv]
+    elif (len(argspec.args) == 2):
+        args = [self._argv, self._option_values]
+    else:
+        if (len(self._argv) != 0):
+            print  >> sys.stderr, ('main() takes no arguments but got leftover arguments: %s!' % ' '.join(self._argv))
+            sys.exit(1)
+        args = []
+    rc = self._run_main(main_method, *args)
+    self.quit(rc)

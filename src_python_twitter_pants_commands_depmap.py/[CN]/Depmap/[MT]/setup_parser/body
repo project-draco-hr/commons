@@ -1,4 +1,4 @@
-def setup_parser(self, parser):
+def setup_parser(self, parser, args):
     parser.set_usage('%prog depmap (options) [spec]')
     parser.add_option('-i', '--internal-only', action='store_true', dest='is_internal_only', default=False, help='Specifies that only internal dependencies should\n                      be included in the graph output (no external jars).')
     parser.add_option('-e', '--external-only', action='store_true', dest='is_external_only', default=False, help='Specifies that only external dependencies should\n                      be included in the graph output (only external jars).')

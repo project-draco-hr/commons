@@ -1,0 +1,5 @@
+@staticmethod
+def _merge_values(values1, values2):
+    for attr in values2.__dict__:
+        if (getattr(values2, attr) != NO_DEFAULT):
+            setattr(values1, attr, getattr(values2, attr))

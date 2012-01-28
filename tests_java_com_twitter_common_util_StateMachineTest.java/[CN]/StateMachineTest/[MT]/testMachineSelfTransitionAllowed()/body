@@ -1,6 +1,6 @@
 {
   control.replay();
-  StateMachine<String> fsm=StateMachine.<String>builder(NAME).initialState(A).addState(A,A).build();
+  StateMachine<String> fsm=StateMachine.<String>builder(NAME).initialState(A).addState(Rule.from(A).to(A)).build();
   assertThat(fsm.getState(),is(A));
   changeState(fsm,A);
   changeState(fsm,A);

@@ -14,9 +14,8 @@
     int tokenCnt=0;
     while (stream.incrementToken()) {
       CharSequenceTermAttribute termAttribute=stream.getAttribute(CharSequenceTermAttribute.class);
-      OffsetAttribute offsetAttribute=stream.getAttribute(OffsetAttribute.class);
       TokenTypeAttribute typeAttribute=stream.getAttribute(TokenTypeAttribute.class);
-      System.out.println(String.format("token %2d (%3d, %3d) type: %12s, token: '%s'",tokenCnt,offsetAttribute.startOffset(),offsetAttribute.endOffset(),typeAttribute.getType().name,termAttribute.getTermCharSequence()));
+      System.out.println(String.format("token %2d (%3d, %3d) type: %12s, token: '%s'",tokenCnt,termAttribute.getOffset(),termAttribute.getLength() - termAttribute.getOffset(),typeAttribute.getType().name,termAttribute.getTermCharSequence()));
       tokenCnt++;
     }
     System.out.println("");

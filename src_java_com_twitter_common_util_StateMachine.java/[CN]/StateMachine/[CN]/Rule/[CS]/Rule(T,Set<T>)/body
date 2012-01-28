@@ -1,0 +1,3 @@
+{
+  this(from,to,Closures.<Transition<T>>noop());
+}

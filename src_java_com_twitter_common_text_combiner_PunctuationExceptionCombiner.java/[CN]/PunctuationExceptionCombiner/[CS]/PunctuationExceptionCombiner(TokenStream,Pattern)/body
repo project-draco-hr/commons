@@ -1,0 +1,5 @@
+{
+  super(inputStream);
+  setExtractor(new RegexExtractor.Builder().setRegexPattern(exceptionsPattern,0,0).build());
+  setType(TokenType.TOKEN);
+}

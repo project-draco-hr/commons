@@ -1,0 +1,14 @@
+{
+  int mockValues[]={3,4,5,6,7};
+  for (  int value : mockValues) {
+    expect(random.nextInt(value + 1)).andReturn(value);
+  }
+  control.replay();
+  ReservoirSampler<Integer> sampler=new ReservoirSampler<Integer>(3,random);
+  List<Integer> stream=ImmutableList.of(1,2,3,4,5,6,7,8);
+  for (  int i : stream) {
+    sampler.sample(i);
+  }
+  List<Integer> expectedSamples=ImmutableList.of(1,2,3);
+  assertEquals("The samples should be 1, 2, 3",expectedSamples,ImmutableList.copyOf(sampler.getSamples()));
+}

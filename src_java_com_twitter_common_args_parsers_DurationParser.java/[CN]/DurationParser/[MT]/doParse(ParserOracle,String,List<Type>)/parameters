@@ -1,0 +1,3 @@
+ParserOracle parserOracle
+String raw
+List<Type> paramParsers

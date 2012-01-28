@@ -1,0 +1,4 @@
+{
+  this.executor=Preconditions.checkNotNull(executor);
+  this.gracePeriod=Preconditions.checkNotNull(gracePeriod);
+}

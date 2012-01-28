@@ -1,0 +1,3 @@
+def test_empty_environment():
+    with environment_as():
+        pass

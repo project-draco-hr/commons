@@ -1,0 +1,7 @@
+def getpage(self, wiki_space, page_title):
+    ' Fetches a page object.\n\n    Returns None if the page does not exist or otherwise could not be fetched.\n    '
+    try:
+        return self._server.confluence1.getPage(self._session_token, wiki_space, page_title)
+    except xmlrpclib.Fault as e:
+        log.warn(('Failed to fetch page %s: %s' % (page_title, e)))
+        return None

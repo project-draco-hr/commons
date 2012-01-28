@@ -1,0 +1,7 @@
+def executable(self):
+    '\n      Return the executable target of this environment if one is specified.  If not\n      specified, return None.\n    '
+    exe = self._chroot.get('executable')
+    if (len(exe) > 1):
+        raise PythonEnvironment.InvalidExecutableSpecification(('Expected one or zero executables, but instead got executables = %s' % repr(exe)))
+    if (len(exe) == 1):
+        return exe.copy().pop()

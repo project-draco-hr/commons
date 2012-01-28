@@ -1,0 +1,8 @@
+def test_context_manager(self):
+    with self.pool.acquire() as resource:
+        assert (self.pool._resources.qsize() == 9)
+        assert (resource.id == 0)
+        with self.pool.acquire() as r2:
+            assert (self.pool._resources.qsize() == 8)
+            assert (r2.id == 1)
+    assert (self.pool._resources.qsize() == 10)

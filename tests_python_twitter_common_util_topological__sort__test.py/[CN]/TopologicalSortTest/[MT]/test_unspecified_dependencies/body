@@ -1,0 +1,6 @@
+def test_unspecified_dependencies(self):
+    with pytest.raises(UnderspecifiedDependencies):
+        list(topological_sort([(1, 2)], require_fully_specified=True))
+    with pytest.raises(UnderspecifiedDependencies):
+        list(topological_sort({2: 1, }, require_fully_specified=True))
+    assert (list(topological_sort({1: None, 2: 1, }, require_fully_specified=True)) == [set([1]), set([2])])

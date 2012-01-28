@@ -1,0 +1,11 @@
+def read(self):
+    now = self._clock.time()
+    self.filter((now - self._window.as_(Time.SECONDS)))
+    new_sample = self._gauge.read()
+    self._samples.insert(0, (now, new_sample))
+    if (len(self._samples) == 1):
+        return 0
+    last_sample = self._samples[(-1)]
+    dy = (new_sample - last_sample[1])
+    dt = (now - last_sample[0])
+    return (0 if (dt == 0) else (dy / dt))

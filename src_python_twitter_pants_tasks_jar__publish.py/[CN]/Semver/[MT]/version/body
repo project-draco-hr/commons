@@ -1,0 +1,2 @@
+def version(self):
+    return ('%s.%s.%s' % (self.major, self.minor, self.patch))

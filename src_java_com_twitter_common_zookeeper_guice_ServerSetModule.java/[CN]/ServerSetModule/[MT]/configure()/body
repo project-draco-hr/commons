@@ -1,0 +1,6 @@
+{
+  requireBinding(ZooKeeperClient.class);
+  requireBinding(ShutdownRegistry.class);
+  requireBinding(LocalServiceRegistry.class);
+  LifecycleModule.bindStartupAction(binder(),ServerSetJoiner.class);
+}

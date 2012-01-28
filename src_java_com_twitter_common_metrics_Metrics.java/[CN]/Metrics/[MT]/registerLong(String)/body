@@ -1,0 +1,10 @@
+{
+  final AtomicLong gauge=new AtomicLong();
+  register(new AbstractGauge<Long>(name){
+    @Override public Long read(){
+      return gauge.get();
+    }
+  }
+);
+  return gauge;
+}

@@ -1,0 +1,7 @@
+def __init__(self, name, gauge, window=Amount(1, Time.SECONDS), clock=time):
+    '\n      Create a gauge using name as a base for a <name>_per_<window> sampling gauge.\n\n        name: The base name of the gauge.\n        gauge: The gauge to sample\n        window: The window over which the samples should be measured (default 1 second.)\n    '
+    self._clock = clock
+    self._gauge = gauge
+    self._samples = []
+    self._window = window
+    NamedGauge.__init__(self, ('%s_per_%s%s' % (name, window.amount(), window.unit())))

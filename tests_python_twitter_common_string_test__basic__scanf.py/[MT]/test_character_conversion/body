@@ -1,0 +1,4 @@
+def test_character_conversion():
+    assert (basic_scanf('%c', 'a') == 'a')
+    assert (basic_scanf('%c', u'a') == 'a')
+    assert (basic_scanf('%c', ' ') == ' ')

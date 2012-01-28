@@ -1,6 +1,9 @@
 {
-  @SuppressWarnings("unchecked") Supplier<Boolean> task=control.createMock(Supplier.class);
+  Supplier<Boolean> task=createMock(new Clazz<Supplier<Boolean>>(){
+  }
+);
   expect(task.get()).andReturn(false);
+  expect(backoffStrategy.shouldContinue()).andReturn(true);
   expect(backoffStrategy.calculateBackoffMs(0)).andReturn(42L);
   clock.waitFor(42L);
   expect(task.get()).andReturn(true);

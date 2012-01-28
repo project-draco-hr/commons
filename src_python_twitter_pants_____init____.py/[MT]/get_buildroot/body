@@ -1,0 +1,15 @@
+def get_buildroot():
+    global _BUILD_ROOT
+    if (not _BUILD_ROOT):
+        if ('PANTS_BUILD_ROOT' in os.environ):
+            _BUILD_ROOT = os.path.realpath(os.environ['PANTS_BUILD_ROOT'])
+        else:
+            build_root = os.path.abspath(os.getcwd())
+            while (not os.path.exists(os.path.join(build_root, '.git'))):
+                if (build_root != os.path.dirname(build_root)):
+                    build_root = os.path.dirname(build_root)
+                else:
+                    print  >> sys.stderr, 'Could not find .git root!'
+                    sys.exit(1)
+            _BUILD_ROOT = os.path.realpath(build_root)
+    return _BUILD_ROOT

@@ -1,0 +1,8 @@
+def __init__(self, basedir, *types):
+    '\n      :basedir The base directory to resolve sources relative to\n      :types The target types to register :basedir: as a source root for\n    '
+    basepath = os.path.abspath((basedir or os.path.curdir))
+    if (get_buildroot() != os.path.commonprefix((basepath, get_buildroot()))):
+        raise ValueError(('The supplied basedir %s is not a sub-path of the project root %s' % (basepath, get_buildroot())))
+    self.basedir = os.path.relpath(basepath, get_buildroot())
+    self.types = types
+    SourceRoot._register(self)

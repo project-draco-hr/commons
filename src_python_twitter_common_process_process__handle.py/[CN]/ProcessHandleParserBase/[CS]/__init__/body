@@ -1,0 +1,7 @@
+def __init__(self, pid=(-1)):
+    self.init_class()
+    self._exists = False
+    self._pid = pid
+    self._attrs = None
+    if (pid != (-1)):
+        self._realize()

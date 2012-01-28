@@ -1,0 +1,3 @@
+def is_doc(target):
+    'Returns True if the target is a documentation target.'
+    return isinstance(target, Doc)

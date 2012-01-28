@@ -89,4 +89,13 @@
     }
   }
 ,"data_amount","1Gb");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(StandardArgs.range.get(),is(Ranges.closed(1,5)));
+    }
+  }
+,"range","1-5");
+  resetArgs(StandardArgs.class);
+  assertTrue(parse(StandardArgs.class,"1mins","2secs"));
+  assertEquals(ImmutableList.builder().add(Amount.of(60L,Time.SECONDS)).add(Amount.of(2L,Time.SECONDS)).build(),StandardArgs.positional.get());
 }

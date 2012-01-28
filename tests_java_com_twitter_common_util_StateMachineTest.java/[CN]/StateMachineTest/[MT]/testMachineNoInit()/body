@@ -1,7 +1,7 @@
 {
   control.replay();
   try {
-    StateMachine.<String>builder(NAME).addState(A,B).build();
+    StateMachine.<String>builder(NAME).addState(Rule.from(A).to(B)).build();
     fail();
   }
  catch (  IllegalStateException e) {

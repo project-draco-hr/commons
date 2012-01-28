@@ -1,0 +1,8 @@
+def _sources_hash(self, paths):
+    'Generate SHA1 digest from the content of all files under the given paths.'
+    sha = hashlib.sha1()
+    for (relative_filename, filename) in self._walk_paths(paths):
+        with open(filename) as fd:
+            sha.update(relative_filename)
+            sha.update(fd.read())
+    return sha.hexdigest()

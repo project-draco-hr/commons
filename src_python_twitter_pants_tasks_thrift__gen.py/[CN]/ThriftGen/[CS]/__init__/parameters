@@ -1,0 +1,8 @@
+self
+context
+output_dir
+version
+java_geninfo
+python_geninfo
+strict
+verbose

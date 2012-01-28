@@ -1,0 +1,5 @@
+def test_temporary_dir_no_args():
+    with temporary_dir() as path:
+        assert os.path.exists(path), 'temporary dir should exist within the context.'
+        assert os.path.isdir(path), 'temporary dir should be a dir and not a file'
+    assert (os.path.exists(path) == False), 'temporary dir should not exist outside of the context.'

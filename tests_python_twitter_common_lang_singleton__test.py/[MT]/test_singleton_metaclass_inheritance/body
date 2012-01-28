@@ -1,0 +1,21 @@
+def test_singleton_metaclass_inheritance():
+
+
+    class Named(object):
+        __metaclass__ = SingletonMetaclass
+
+        def __init__(self, name):
+            self._name = name
+
+
+    class John(Named):
+
+        def __init__(self):
+            Named.__init__(self, 'John')
+
+
+    class Brian(Named):
+
+        def __init__(self):
+            Named.__init__(self, 'Brian')
+    assert_factories_consistent(John, Brian)

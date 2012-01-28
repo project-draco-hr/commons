@@ -1,0 +1,7 @@
+def test_equals():
+    assert (Amount(1, Time.DAYS) == Amount(1, Time.DAYS)), 'identical amounts should be equal'
+    assert (Amount(1, Time.DAYS) == Amount(24, Time.HOURS)), 'expected equality to be calculated from amounts converted to a common unit'
+    assert (Amount(25, Time.HOURS) != Amount(1, Time.DAYS)), 'expected unit conversions to not lose precision'
+    assert (Amount(1, Time.DAYS) != Amount(25, Time.HOURS)), 'expected unit conversions to not lose precision'
+    with pytest.raises(TypeError):
+        (Amount(1, Time.NANOSECONDS) == Amount(1, Data.BITS))

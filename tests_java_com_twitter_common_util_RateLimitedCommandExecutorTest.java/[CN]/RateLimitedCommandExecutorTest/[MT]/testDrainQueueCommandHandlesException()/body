@@ -1,0 +1,9 @@
+{
+  Capture<Runnable> runnableCapture=createCapture();
+  expect(taskExecutor.scheduleWithFixedDelay(capture(runnableCapture),eq(0L),eq((long)intervalBetweenRequests.as(Time.MILLISECONDS)),eq(TimeUnit.MILLISECONDS))).andReturn(null);
+  queueDrainer.run();
+  expectLastCall().andThrow(new RuntimeException());
+  control.replay();
+  rateLimiter=new RateLimitedCommandExecutor(taskExecutor,intervalBetweenRequests,queueDrainer,queue);
+  runnableCapture.getValue().run();
+}

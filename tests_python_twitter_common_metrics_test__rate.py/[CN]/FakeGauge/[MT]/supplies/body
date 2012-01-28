@@ -1,0 +1,3 @@
+def supplies(self, values):
+    self._supplies.extend(values)
+    return self

@@ -1,0 +1,3 @@
+def walk(self, func, unused_predicate):
+    if (not self.rev):
+        func(self)

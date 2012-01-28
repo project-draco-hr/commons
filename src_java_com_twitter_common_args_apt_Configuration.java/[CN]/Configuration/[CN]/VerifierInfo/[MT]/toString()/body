@@ -1,0 +1,3 @@
+{
+  return new ToStringBuilder(this).append("verifiedType",verifiedType).append("verifyingAnnotation",verifyingAnnotation).append("verifierClass",verifierClass).toString();
+}

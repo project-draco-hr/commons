@@ -1,0 +1,2 @@
+def add_option(self, *option):
+    self._option_list.extend(option)

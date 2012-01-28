@@ -1,0 +1,6 @@
+LocalServiceRegistry serviceRegistry
+HttpServerDispatch httpServer
+Set<HttpServletConfig> httpServlets
+Set<HttpAssetConfig> httpAssets
+Injector injector
+ShutdownRegistry shutdownRegistry

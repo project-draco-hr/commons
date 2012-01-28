@@ -1,0 +1,7 @@
+@classmethod
+def setup_class(cls):
+    cls.attrs = 'first last year_of_birth day_of_birth'.split()
+    cls.type_map = {'first': '%s', 'last': '%s', 'year_of_birth': '%d', 'day_of_birth': '%d', }
+    cls.days_of_week = ['m', 't', 'w', 'th', 'f', 's', 'su']
+    cls.handlers = {'first': (lambda k, v: v.upper()), 'last': (lambda k, v: v.lower()), 'day_of_birth': (lambda k, v: cls.days_of_week[(v % len(cls.days_of_week))]), }
+    cls.ph = ProcessHandleParser(cls.attrs, cls.type_map, cls.handlers)

@@ -1,0 +1,4 @@
+self
+java_targets
+genmap
+add_genjar

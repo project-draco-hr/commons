@@ -1,6 +1,0 @@
-def _find_calling_module():
-    stack = inspect.stack()
-    for fr_n in range(len(stack)):
-        if ('__name__' in stack[fr_n][0].f_locals):
-            return stack[fr_n][0].f_locals['__name__']
-    raise OptionsInternalErrorException('Unable to interpret stack frame from logging module.')

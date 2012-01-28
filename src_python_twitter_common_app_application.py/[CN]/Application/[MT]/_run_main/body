@@ -1,0 +1,13 @@
+def _run_main(self, main_method, *args, **kwargs):
+    try:
+        if self.profiler():
+            rc = self.profiler().runcall(main_method, *args, **kwargs)
+        else:
+            rc = main_method(*args, **kwargs)
+    except SystemExit as e:
+        rc = e.code
+        self._debug_log(('main_method exited with return code = %s' % repr(rc)))
+    except KeyboardInterrupt as e:
+        rc = None
+        self._debug_log('main_method exited with ^C')
+    return rc

@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(type);
+  Preconditions.checkArgument(type instanceof ParameterizedType,"Missing type parameter.");
+  Type[] typeArguments=((ParameterizedType)type).getActualTypeArguments();
+  Preconditions.checkArgument(typeArguments.length == 1,"Expected a type with exactly 1 type argument");
+  return typeArguments[0];
+}

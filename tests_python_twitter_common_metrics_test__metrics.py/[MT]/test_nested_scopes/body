@@ -1,0 +1,6 @@
+def test_nested_scopes():
+    rm = RootMetrics()
+    mg = rm.scope('a').scope('b').scope('c').register('123')
+    mg.write(Amount(1, Time.MILLISECONDS))
+    assert (rm.sample() == {'a.b.c.123': '1 ms', })
+    rm.clear()

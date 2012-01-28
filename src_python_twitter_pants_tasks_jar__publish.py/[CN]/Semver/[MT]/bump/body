@@ -1,0 +1,2 @@
+def bump(self):
+    self.patch += 1

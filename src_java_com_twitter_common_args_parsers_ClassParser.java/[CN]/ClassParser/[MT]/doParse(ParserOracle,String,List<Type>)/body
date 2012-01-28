@@ -1,0 +1,11 @@
+{
+  Class<?> rawClassType=TypeUtil.getRawType(typeParams.get(0));
+  try {
+    Class<?> actualClass=Class.forName(raw);
+    Preconditions.checkArgument(rawClassType.isAssignableFrom(actualClass));
+    return actualClass;
+  }
+ catch (  ClassNotFoundException e) {
+    throw new IllegalArgumentException("Could not find class " + raw);
+  }
+}

@@ -5,10 +5,10 @@
     while ((o=inputStream.readObject()) != null) {
       try {
         T t=(T)o;
-        if (endCondition.apply(t)) {
-          break;
-        }
         if (filter.apply(t)) {
+          if (endCondition.apply(t)) {
+            break;
+          }
           work.execute(t);
           ++count;
         }

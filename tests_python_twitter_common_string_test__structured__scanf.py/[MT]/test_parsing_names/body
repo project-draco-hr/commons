@@ -1,0 +1,10 @@
+def test_parsing_names():
+    with pytest.raises(ScanfParser.ParseError):
+        ScanfParser('%()s')
+    with pytest.raises(ScanfParser.ParseError):
+        ScanfParser('%(s')
+    with pytest.raises(ScanfParser.ParseError):
+        ScanfParser('%)s')
+    ScanfParser('%')
+    with pytest.raises(ScanfParser.ParseError):
+        ScanfParser('% c')

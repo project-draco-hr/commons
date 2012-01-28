@@ -1,0 +1,9 @@
+{
+  ImmutableSet<Field> positionalFields=ImmutableSet.copyOf(filterFields(configuration.positionalInfo(),filter));
+  if (positionalFields.size() > 1) {
+    throw new IllegalArgumentException(String.format("Found %d fields marked for @Positional Args after applying filter - " + "only 1 is allowed:\n\t%s",positionalFields.size(),Joiner.on("\n\t").join(positionalFields)));
+  }
+  Optional<PositionalInfo> positionalInfo=Optional.fromNullable(Iterables.getOnlyElement(Iterables.transform(positionalFields,TO_POSITIONALINFO),null));
+  Iterable<OptionInfo> optionInfos=Iterables.transform(filterFields(configuration.optionInfo(),filter),TO_OPTIONINFO);
+  return new ArgumentInfo(positionalInfo,optionInfos);
+}

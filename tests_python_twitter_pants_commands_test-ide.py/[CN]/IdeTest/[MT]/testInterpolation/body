@@ -1,0 +1,4 @@
+def testInterpolation(self):
+    testFileContents = '\nbase.dir=${root.dir}/base\nsub.dir.1=${base.dir}/a\nsub.dir.2=${base.dir}/b\n\ncheckstyle.suppression.files=${sub.dir.1}/checkstyle_suppressions.xml,${sub.dir.2}/checkstyle_suppressions.xml\n    '
+    result = Ide._find_checkstyle_suppressions(testFileContents, '/root')
+    self.assertEquals(['/root/base/a/checkstyle_suppressions.xml', '/root/base/b/checkstyle_suppressions.xml'], result)

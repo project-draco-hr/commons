@@ -1,0 +1,5 @@
+def linkage_signature(self):
+    cs = [c(self._constant_pool) for c in self._linkage_constants()]
+    m = md5()
+    m.update('\n'.join(sorted(cs)))
+    return m.hexdigest()

@@ -1,0 +1,7 @@
+def _produce(self):
+    try:
+        with open(('/proc/%s/stat' % self._pid)) as fp:
+            return fp.read()
+    except IOError as e:
+        if (e.errno not in (errno.ENOENT, errno.ESRCH)):
+            raise e

@@ -1,0 +1,3 @@
+{
+  launch(appClass,ArgFilters.SELECT_ALL,Arrays.asList(args));
+}

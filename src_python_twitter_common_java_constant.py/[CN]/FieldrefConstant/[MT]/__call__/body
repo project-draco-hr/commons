@@ -1,0 +1,2 @@
+def __call__(self, constants):
+    return ('%s.%s' % (constants[self._class_index](constants), constants[self._name_and_type_index](constants)))

@@ -1,0 +1,16 @@
+def move_to_end(self, key, last=True):
+    'Move an existing element to the end (or beginning if last==False).\n\n        Raises KeyError if the element does not exist.\n        When last=True, acts like a fast version of self[key]=self.pop(key).\n\n        '
+    (link_prev, link_next, key) = link = self.__map[key]
+    link_prev[1] = link_next
+    link_next[0] = link_prev
+    root = self.__root
+    if last:
+        last = root[0]
+        link[0] = last
+        link[1] = root
+        last[1] = root[0] = link
+    else:
+        first = root[1]
+        link[0] = root
+        link[1] = first
+        root[1] = first[0] = link

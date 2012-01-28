@@ -1,0 +1,5 @@
+{
+  Parser amountParser=parserOracle.get(Amount.class);
+  @SuppressWarnings("unchecked") Amount<Long,Time> parsed=(Amount<Long,Time>)amountParser.parse(parserOracle,TIME_AMOUNT_TYPE,raw);
+  return Duration.fromTimeUnit(parsed.getValue(),parsed.getUnit().getTimeUnit());
+}

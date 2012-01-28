@@ -1,0 +1,13 @@
+def _setup_modules(self):
+    '\n      Setup all initialized modules.\n    '
+    module_registry = AppModule.module_registry()
+    for bundle in topological_sort(AppModule.module_dependencies()):
+        for module_label in bundle:
+            assert (module_label in module_registry)
+            module = module_registry[module_label]
+            self._debug_log(('Initializing: %s (%s)' % (module.label(), module.description())))
+            try:
+                module.setup_function()
+            except AppModule.Unimplemented:
+                pass
+            self._init_modules.append(module.label())

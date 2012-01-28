@@ -1,6 +1,6 @@
 {
   zkClient.registerExpirationHandler(new Command(){
-    @Override public void execute() throws RuntimeException {
+    @Override public void execute(){
       rebuildServerSet();
     }
   }

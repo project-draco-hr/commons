@@ -1,0 +1,7 @@
+def _import_module(self, name):
+    '\n      Import the module, return True on success, False if the import failed.\n    '
+    try:
+        __import__(name)
+        return True
+    except ImportError:
+        return False

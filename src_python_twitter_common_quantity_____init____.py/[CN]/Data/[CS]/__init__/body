@@ -1,0 +1,2 @@
+def __init__(self, multiplier, base, display):
+    AmountUnit.__init__(self, multiplier, base, display)

@@ -1,0 +1,6 @@
+def _get_nailgun_client(self):
+    endpoint = self._get_nailgun_endpoint()
+    if (endpoint and _check_pid(endpoint[0])):
+        return NailgunClient(port=endpoint[1], work_dir=get_buildroot())
+    else:
+        return self._spawn_nailgun_server()

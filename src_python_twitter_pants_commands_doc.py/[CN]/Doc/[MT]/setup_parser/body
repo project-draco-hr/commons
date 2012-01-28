@@ -1,4 +1,4 @@
-def setup_parser(self, parser):
+def setup_parser(self, parser, args):
     parser.set_usage('%prog doc ([spec]...)')
     parser.add_option('--provides', action='store_true', dest='only_provides', default=False, help='Specifies docs should only be generated for build targets with a provides artifact')
     parser.add_option('--ignore-failure', action='store_true', dest='ignore_failure', default=False, help="Specifies that javadoc failures should not be reflected in this command's exit code.")

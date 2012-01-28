@@ -1,0 +1,5 @@
+{
+  AppLauncher.launch(TestApp1.class,ArgFilters.selectClass(TestApp1.class),"-user","jake");
+  assertTrue(TestApp1.hasRun);
+  assertEquals("jake",TestApp1.user.get());
+}

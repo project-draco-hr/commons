@@ -1,0 +1,5 @@
+def setup_function(self):
+    if app.get_options().twitter_common_zookeeper_debug:
+        zookeeper.set_debug_level(zookeeper.LOG_LEVEL_DEBUG)
+    else:
+        self._set_default_log_level()

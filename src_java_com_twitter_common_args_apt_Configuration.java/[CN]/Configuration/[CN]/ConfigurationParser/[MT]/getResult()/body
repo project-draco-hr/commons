@@ -1,3 +1,3 @@
 {
-  return new Configuration(infoBuilder.build());
+  return new Configuration(resources,nextIndex,positionalInfo.build(),fieldInfoBuilder.build(),parserInfoBuilder.build(),verifierInfoBuilder.build());
 }

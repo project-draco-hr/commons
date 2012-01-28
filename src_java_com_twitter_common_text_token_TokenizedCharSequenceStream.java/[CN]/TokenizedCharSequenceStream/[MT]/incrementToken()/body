@@ -12,7 +12,6 @@
   TokenizedCharSequence.Token token=tokenized.getTokens().get(currentIndex);
   termAttr.setOffset(token.getOffset());
   termAttr.setLength(token.getLength());
-  offsetAttr.setOffset(token.getOffset(),token.getOffset() + token.getLength());
   typeAttr.setType(token.getType());
   if (posAttr != null) {
     posAttr.setPOS(token.getPartOfSpeech());

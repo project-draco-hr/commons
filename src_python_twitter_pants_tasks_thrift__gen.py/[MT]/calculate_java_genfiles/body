@@ -1,0 +1,10 @@
+def calculate_java_genfiles(namespace, types):
+    basepath = namespace.replace('.', '/')
+
+    def path(name):
+        return os.path.join(basepath, ('%s.java' % name))
+    if ('const' in types):
+        yield path('Constants')
+    for type in ['enum', 'exception', 'service', 'struct', 'union']:
+        for name in types[type]:
+            yield path(name)

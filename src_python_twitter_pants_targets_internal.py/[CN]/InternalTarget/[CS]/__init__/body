@@ -1,6 +1,9 @@
 def __init__(self, name, dependencies, is_meta):
     Target.__init__(self, name, is_meta)
-    self.resolved_dependencies = OrderedSet()
+    self.dependencies = OrderedSet()
     self.internal_dependencies = OrderedSet()
     self.jar_dependencies = OrderedSet()
-    self.update_dependencies(dependencies)
+    if is_meta:
+        self.update_dependencies(dependencies)
+    else:
+        self._post_construct(self.update_dependencies, dependencies)

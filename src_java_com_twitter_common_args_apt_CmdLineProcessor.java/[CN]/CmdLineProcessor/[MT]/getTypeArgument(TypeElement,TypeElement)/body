@@ -1,0 +1,4 @@
+{
+  TypeMirror typeArgument=getTypeArgument(annotatedType.asType(),baseType);
+  return typeArgument == null ? null : getBinaryName((TypeElement)typeUtils.asElement(typeArgument));
+}

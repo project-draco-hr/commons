@@ -6,16 +6,19 @@
   final String dataModel=System.getProperty("sun.arch.data.model");
   if ("32".equals(dataModel)) {
     return new MemoryLayoutSpecification(){
-      int getArrayHeaderSize(){
+      @Override public int getArrayHeaderSize(){
         return 12;
       }
-      int getObjectHeaderSize(){
+      @Override public int getObjectHeaderSize(){
         return 8;
       }
-      int getReferenceSize(){
+      @Override public int getObjectPadding(){
+        return 8;
+      }
+      @Override public int getReferenceSize(){
         return 4;
       }
-      int getSuperclassFieldPadding(){
+      @Override public int getSuperclassFieldPadding(){
         return 4;
       }
     }
@@ -33,16 +36,19 @@
     }
     if (maxMemory < 30L * 1024 * 1024* 1024) {
       return new MemoryLayoutSpecification(){
-        int getArrayHeaderSize(){
+        @Override public int getArrayHeaderSize(){
           return 16;
         }
-        int getObjectHeaderSize(){
+        @Override public int getObjectHeaderSize(){
           return 12;
         }
-        int getReferenceSize(){
+        @Override public int getObjectPadding(){
+          return 8;
+        }
+        @Override public int getReferenceSize(){
           return 4;
         }
-        int getSuperclassFieldPadding(){
+        @Override public int getSuperclassFieldPadding(){
           return 4;
         }
       }
@@ -50,16 +56,19 @@
     }
   }
   return new MemoryLayoutSpecification(){
-    int getArrayHeaderSize(){
+    @Override public int getArrayHeaderSize(){
       return 24;
     }
-    int getObjectHeaderSize(){
+    @Override public int getObjectHeaderSize(){
       return 16;
     }
-    int getReferenceSize(){
+    @Override public int getObjectPadding(){
       return 8;
     }
-    int getSuperclassFieldPadding(){
+    @Override public int getReferenceSize(){
+      return 8;
+    }
+    @Override public int getSuperclassFieldPadding(){
       return 8;
     }
   }

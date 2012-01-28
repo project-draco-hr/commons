@@ -1,0 +1,3 @@
+def empty(self):
+    'Check if any resources are available.\n\n    Note: This is a rough guide only. It does not guarantee that acquire()\n        will succeed.\n    '
+    return self._resources.empty()

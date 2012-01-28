@@ -1,0 +1,6 @@
+{
+  Preconditions.checkArgument(numSamples > 0,"numSamples should be positive");
+  Preconditions.checkNotNull(random);
+  this.numSamples=numSamples;
+  this.random=random;
+}

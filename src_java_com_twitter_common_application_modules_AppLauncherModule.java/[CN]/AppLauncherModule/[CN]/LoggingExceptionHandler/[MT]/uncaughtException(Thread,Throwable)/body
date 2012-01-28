@@ -1,0 +1,3 @@
+{
+  LOG.log(Level.SEVERE,"Uncaught exception from " + t,e);
+}

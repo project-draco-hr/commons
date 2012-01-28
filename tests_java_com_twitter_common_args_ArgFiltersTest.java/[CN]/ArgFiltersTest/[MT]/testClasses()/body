@@ -1,0 +1,3 @@
+{
+  testFilter(ArgFilters.selectClasses(ArgFiltersTest.class,ArgsA.class),fieldInfo(ArgFiltersTest.class,"A"),fieldInfo(ArgFiltersTest.class,"B"),fieldInfo(ArgsA.class,"ARGS_A"));
+}

@@ -1,0 +1,3 @@
+def keys(self):
+    'od.keys() -> list of keys in od'
+    return list(self)

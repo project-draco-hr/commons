@@ -1,0 +1,3 @@
+'A generic thread-safe resource pool.'
+from Queue import Queue
+from twitter.common.quantity import Amount, Time

@@ -1,0 +1,3 @@
+{
+  posIncrAttribute.setPositionIncrement(input.readVInt());
+}

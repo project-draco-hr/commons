@@ -2,7 +2,7 @@
   resetArgs(scope);
   IllegalArgumentException exception=null;
   try {
-    parse(scope,args);
+    assertTrue(parse(scope,args));
   }
  catch (  IllegalArgumentException e) {
     exception=e;

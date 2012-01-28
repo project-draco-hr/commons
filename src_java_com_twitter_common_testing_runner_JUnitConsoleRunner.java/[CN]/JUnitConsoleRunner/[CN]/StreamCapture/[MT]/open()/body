@@ -1,0 +1,10 @@
+{
+  if (outstream == null) {
+    outstream=new FileOutputStream(out);
+  }
+  if (errstream == null) {
+    errstream=new FileOutputStream(err);
+  }
+  SWAPPABLE_OUT.swap(outstream);
+  SWAPPABLE_ERR.swap(errstream);
+}

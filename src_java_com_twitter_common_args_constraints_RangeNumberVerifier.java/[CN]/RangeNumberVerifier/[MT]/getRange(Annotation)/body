@@ -1,0 +1,4 @@
+{
+  checkArgument(annotation instanceof Range,"Annotation is not a range: " + annotation);
+  return (Range)annotation;
+}

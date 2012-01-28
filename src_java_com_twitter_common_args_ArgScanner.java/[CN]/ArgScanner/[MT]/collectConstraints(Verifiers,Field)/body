@@ -1,0 +1,12 @@
+{
+  Builder<String> constraints=ImmutableList.builder();
+  for (  Annotation annotation : field.getAnnotations()) {
+    Class<?> argType=TypeUtil.getTypeParamClass(field);
+    @SuppressWarnings("unchecked") Verifier verifier=verifiers.get(argType,annotation);
+    if (verifier != null) {
+      @SuppressWarnings("unchecked") String constraint=verifier.toString(argType,annotation);
+      constraints.add(constraint);
+    }
+  }
+  return constraints.build();
+}

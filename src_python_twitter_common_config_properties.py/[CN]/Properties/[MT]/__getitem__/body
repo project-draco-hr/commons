@@ -1,3 +1,0 @@
-def __getitem__(self, name):
-    ' To support direct dictionary like access '
-    return self.getProperty(name)

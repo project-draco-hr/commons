@@ -1,0 +1,7 @@
+def shutdown(self):
+    '\n      Terminate the WSGI server and call the shutdown() method on any mounted\n      class that has one.\n    '
+    if self._server:
+        self._server.shutdown()
+    for mount in self._mounts:
+        if (hasattr(mount, 'shutdown') and callable(mount.shutdown)):
+            mount.shutdown()

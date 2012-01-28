@@ -1,0 +1,4 @@
+MetricProvider metricProvider
+Iterable<MetricListener> listeners
+MetricRegistry registry
+Clock clock

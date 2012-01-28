@@ -1,0 +1,3 @@
+def iterkeys(self):
+    'od.iterkeys() -> an iterator over the keys in od'
+    return iter(self)

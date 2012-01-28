@@ -1,6 +1,6 @@
 {
   control.replay();
-  StateMachine<String> stateMachine=StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build();
+  StateMachine<String> stateMachine=StateMachine.<String>builder(NAME).initialState(A).addState(Rule.from(A).to(B)).build();
   stateMachine.checkState(A);
   stateMachine.transition(B);
   stateMachine.checkState(B);

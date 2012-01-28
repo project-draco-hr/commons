@@ -1,3 +1,5 @@
 {
-  wrapped.connectionReturned(backendKey);
+  if (backendSubset.contains(backendKey)) {
+    wrapped.connectionReturned(backendKey);
+  }
 }

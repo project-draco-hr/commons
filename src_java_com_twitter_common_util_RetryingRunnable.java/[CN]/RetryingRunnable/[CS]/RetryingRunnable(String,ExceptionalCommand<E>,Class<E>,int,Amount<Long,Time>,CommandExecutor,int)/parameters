@@ -1,0 +1,7 @@
+String name
+ExceptionalCommand<E> task
+Class<E> exceptionClass
+int numTries
+Amount<Long,Time> retryDelay
+CommandExecutor commandExecutor
+int tryNum

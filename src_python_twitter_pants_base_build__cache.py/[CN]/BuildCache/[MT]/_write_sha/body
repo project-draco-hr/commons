@@ -1,0 +1,3 @@
+def _write_sha(self, cache_key):
+    with open(self._sha_file(cache_key), 'w') as fd:
+        fd.write(cache_key.hash)

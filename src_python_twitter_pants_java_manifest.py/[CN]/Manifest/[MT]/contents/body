@@ -1,0 +1,2 @@
+def contents(self):
+    return (self._contents + '\n')

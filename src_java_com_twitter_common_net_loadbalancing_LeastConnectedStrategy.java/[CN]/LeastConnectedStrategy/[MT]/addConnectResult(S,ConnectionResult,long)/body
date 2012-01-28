@@ -2,12 +2,12 @@
   Preconditions.checkNotNull(backendKey);
   Preconditions.checkState(connections.size() == connectionStats.size());
   Preconditions.checkNotNull(result);
+  ConnectionStats stats=connections.get(backendKey);
+  Preconditions.checkNotNull(stats);
+  Preconditions.checkState(connectionStats.remove(stats));
   if (result == ConnectionResult.SUCCESS) {
-    ConnectionStats stats=connections.get(backendKey);
-    Preconditions.checkNotNull(stats);
-    Preconditions.checkState(connectionStats.remove(stats));
-    stats.value++;
-    stats.useCount++;
-    Preconditions.checkState(connectionStats.add(stats));
+    stats.activeCount++;
   }
+  stats.useCount++;
+  Preconditions.checkState(connectionStats.add(stats));
 }

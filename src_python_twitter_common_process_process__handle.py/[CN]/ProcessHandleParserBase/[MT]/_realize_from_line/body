@@ -1,0 +1,9 @@
+def _realize_from_line(self, line):
+    self._exists = False
+    if (line is None):
+        self._attrs = {}
+    else:
+        self._attrs = self.PARSER.parse(line)
+        if self._attrs:
+            self._pid = self._attrs['pid']
+            self._exists = True

@@ -1,0 +1,9 @@
+{
+  for (  AnnotationMirror annotationMirror : element.getAnnotationMirrors()) {
+    if (typeUtils.isSameType(annotationMirror.getAnnotationType(),annotationType.asType())) {
+      return annotationMirror;
+    }
+  }
+  error("Failed to find an annotation of type %s on %s",annotationType,element);
+  return null;
+}

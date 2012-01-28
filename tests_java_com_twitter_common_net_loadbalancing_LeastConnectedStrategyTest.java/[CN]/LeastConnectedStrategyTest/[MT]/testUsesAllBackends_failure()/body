@@ -1,0 +1,13 @@
+{
+  BackendOfferExpectation backendOfferExpectation=new BackendOfferExpectation();
+  control.replay();
+  ImmutableSet<String> allBackends=ImmutableSet.of(BACKEND_1,BACKEND_2,BACKEND_3);
+  backendOfferExpectation.offerBackends(allBackends);
+  ImmutableSet.Builder<String> usedBackends=ImmutableSet.builder();
+  for (int i=0; i < allBackends.size(); i++) {
+    String backend=leastCon.nextBackend();
+    usedBackends.add(backend);
+    connect(backend,ConnectionResult.FAILED,1);
+  }
+  assertThat(usedBackends.build(),is(allBackends));
+}

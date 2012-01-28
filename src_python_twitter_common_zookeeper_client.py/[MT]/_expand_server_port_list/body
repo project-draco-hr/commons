@@ -1,0 +1,8 @@
+def _expand_server_port_list(servers):
+    'Expand comma-separated list of host:port to comma-separated, fully-resolved list of ip:port.'
+    server_ports = []
+    for server_port in servers.split(','):
+        (server, port) = server_port.split(':')
+        for ip in socket.gethostbyname_ex(server)[2]:
+            server_ports.append(('%s:%s' % (ip, port)))
+    return ','.join(server_ports)

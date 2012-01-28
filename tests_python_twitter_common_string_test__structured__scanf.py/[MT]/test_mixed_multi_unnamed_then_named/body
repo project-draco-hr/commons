@@ -1,0 +1,8 @@
+def test_mixed_multi_unnamed_then_named():
+    pairs = {'%f %(val1)c': '1.0 h', ' %f3%(val1)c': ' 1.03h', '%f %(val1)c5': '1.0 h5', }
+    for (pattern, value) in pairs.items():
+        (d, l) = scanf(pattern, value)
+        assert (len(d) == 1)
+        assert (len(l) == 1)
+        assert almost_equal(l[0], 1.0)
+        assert (d['val1'] == 'h')

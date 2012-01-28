@@ -1,0 +1,3 @@
+int port
+ShutdownRegistry shutdownRegistry
+Amount<Integer,Time> defaultSessionTimeout

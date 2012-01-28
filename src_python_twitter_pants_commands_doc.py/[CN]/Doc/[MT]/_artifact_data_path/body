@@ -1,0 +1,2 @@
+def _artifact_data_path(self, base):
+    return os.path.abspath(os.path.join(base, 'artifacts.js'))

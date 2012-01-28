@@ -1,0 +1,4 @@
+{
+  attributeSerializers.add(serializer);
+  return this;
+}

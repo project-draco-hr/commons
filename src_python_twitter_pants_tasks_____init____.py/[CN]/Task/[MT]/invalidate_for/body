@@ -1,0 +1,2 @@
+def invalidate_for(self):
+    '\n      Subclasses can override and return an object that should be checked for changes when using\n      changed to manage target invalidation.  If the pickled form of returned object changes\n      between runs all targets will be invalidated.\n    '

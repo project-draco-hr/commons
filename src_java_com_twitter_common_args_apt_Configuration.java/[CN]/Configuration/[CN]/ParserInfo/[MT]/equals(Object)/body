@@ -1,0 +1,10 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!(obj instanceof ParserInfo)) {
+    return false;
+  }
+  ParserInfo other=(ParserInfo)obj;
+  return new EqualsBuilder().append(parsedType,other.parsedType).append(parserClass,other.parserClass).isEquals();
+}

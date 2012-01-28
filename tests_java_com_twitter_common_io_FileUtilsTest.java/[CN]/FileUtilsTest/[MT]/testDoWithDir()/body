@@ -1,0 +1,9 @@
+{
+  assertEquals("42",temporary.doWithDir(new Function<File,String>(){
+    @Override public String apply(    File dir){
+      assertEmptyDir(dir);
+      return "42";
+    }
+  }
+));
+}

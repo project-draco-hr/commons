@@ -1,0 +1,11 @@
+{
+  checkFullyAnnounced();
+  String primaryPort=getPrimaryPort();
+  Preconditions.checkState(primaryPort != null,"The primary port was not set.");
+  try {
+    return InetSocketAddressHelper.getLocalAddress(announcedPorts.get(primaryPort));
+  }
+ catch (  UnknownHostException e) {
+    throw Throwables.propagate(e);
+  }
+}

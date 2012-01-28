@@ -1,0 +1,4 @@
+def test_client_connect():
+    with ZookeeperClusterBootstrapper() as port:
+        zk = ZooKeeper(('localhost:%d' % port))
+        assert (zk.get_children('/') == ['zookeeper'])

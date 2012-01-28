@@ -1,0 +1,11 @@
+{
+  final File tmpDir=FileUtils.createTempDir();
+  addTearDown(new TearDown(){
+    @Override public void tearDown() throws Exception {
+      org.apache.commons.io.FileUtils.deleteDirectory(tmpDir);
+    }
+  }
+);
+  assertEmptyDir(tmpDir);
+  temporary=new Temporary(tmpDir);
+}

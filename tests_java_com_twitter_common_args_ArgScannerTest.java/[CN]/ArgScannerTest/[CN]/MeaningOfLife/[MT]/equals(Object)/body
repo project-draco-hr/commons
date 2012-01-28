@@ -1,0 +1,3 @@
+{
+  return (obj instanceof MeaningOfLife) && answer.equals(((MeaningOfLife)obj).answer);
+}

@@ -1,0 +1,4 @@
+def test_parser_defaults(self):
+    parser = options.parser()
+    assert (parser.interspersed_arguments() is False)
+    assert (parser.usage() == '')

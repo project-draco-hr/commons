@@ -1,4 +1,0 @@
-def unescape(self, value):
-    newvalue = value.replace('\\:', ':')
-    newvalue = newvalue.replace('\\=', '=')
-    return newvalue

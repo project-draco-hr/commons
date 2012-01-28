@@ -1,0 +1,17 @@
+def execute(self):
+    entry_point = self.entry()
+    saved_sys_path = sys.path[:]
+    if os.environ.has_key('PEX_INHERIT_PATH'):
+        sys.path.extend(self.path())
+    else:
+        sys.path = self.path()
+    PythonLauncher.debug(('Initialized sys.path to %s' % ':'.join(sys.path)))
+    force_interpreter = os.environ.has_key('PEX_INTERPRETER')
+    if (entry_point and (not force_interpreter)):
+        PythonLauncher.debug(('Detected entry_point: %s' % entry_point))
+        runpy.run_module(entry_point, run_name='__main__')
+    else:
+        PythonLauncher.debug(('%s, dropping into interpreter' % ('PEX_INTERPRETER specified' if force_interpreter else 'No entry point specified.')))
+        import code
+        code.interact()
+    sys.path = saved_sys_path

@@ -1,0 +1,12 @@
+{
+  Iterator<URL> allResources=getResources(0);
+  for (int nextResourceIndex=1; ; nextResourceIndex++) {
+    Iterator<URL> resources=getResources(nextResourceIndex);
+    if (resources.hasNext()) {
+      allResources=Iterators.concat(allResources,resources);
+    }
+ else {
+      return new ConfigurationResources(nextResourceIndex,allResources);
+    }
+  }
+}

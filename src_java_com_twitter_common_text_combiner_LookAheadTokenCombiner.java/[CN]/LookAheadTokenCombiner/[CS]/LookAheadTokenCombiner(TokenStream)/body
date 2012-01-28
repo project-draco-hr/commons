@@ -3,5 +3,4 @@
   inputTermAttr=inputStream.getAttribute(CharSequenceTermAttribute.class);
   termAttr=getAttribute(CharSequenceTermAttribute.class);
   typeAttr=getAttribute(TokenTypeAttribute.class);
-  offsetAttr=getAttribute(OffsetAttribute.class);
 }

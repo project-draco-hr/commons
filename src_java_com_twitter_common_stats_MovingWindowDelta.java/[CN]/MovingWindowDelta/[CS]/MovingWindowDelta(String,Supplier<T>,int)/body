@@ -1,6 +1,6 @@
 {
   super(name,0l);
-  Preconditions.checkArgument(windowSize > 1);
+  Preconditions.checkArgument(windowSize >= 1);
   Preconditions.checkNotNull(inputAccessor);
   MorePreconditions.checkNotBlank(name);
   deltaSeries=new LinkedBlockingDeque<Long>(windowSize);

@@ -1,0 +1,2 @@
+def terminate(self):
+    self._terminate.set()

@@ -1,0 +1,5 @@
+def check_content(self, identifier, files):
+    '\n        Checks if identified content has changed and invalidates it if so.\n\n        :id An identifier for the tracked content.\n        :files The files containing the content to track changes for.\n        :returns: The cache key for this content.\n      '
+    cache_key = self._cache.key_for(identifier, files)
+    if self._cache.needs_update(cache_key):
+        return cache_key

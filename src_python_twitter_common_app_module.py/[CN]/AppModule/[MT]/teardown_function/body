@@ -1,0 +1,3 @@
+def teardown_function(self):
+    '\n      The teardown function for this application module.  This is called if\n      the application exits "cleanly":\n         if your main() method returns\n         if your application calls sys.exit()\n         your application gets a SIGINT\n\n      The teardown functions are run in an order compatible with the reverse\n      topological order of the setup functions.\n    '
+    raise AppModule.Unimplemented()

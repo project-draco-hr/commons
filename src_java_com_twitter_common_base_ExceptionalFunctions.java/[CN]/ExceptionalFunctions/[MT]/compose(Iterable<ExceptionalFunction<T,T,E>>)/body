@@ -1,0 +1,12 @@
+{
+  return new ExceptionalFunction<T,T,E>(){
+    @Override public T apply(    T input) throws E {
+      T result=input;
+      for (      ExceptionalFunction<T,T,E> f : functions) {
+        result=f.apply(result);
+      }
+      return result;
+    }
+  }
+;
+}

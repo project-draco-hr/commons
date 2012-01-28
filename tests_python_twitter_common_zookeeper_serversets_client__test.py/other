@@ -1,0 +1,13 @@
+import posixpath
+import pytest
+import threading
+import zookeeper
+import thrift.TSerialization as codec
+from twitter.common.zookeeper import ZooKeeper
+from twitter.common.zookeeper.test_cluster import ZookeeperClusterBootstrapper
+from twitter.common.zookeeper.serversets import ServerSetClient
+from gen.twitter.thrift.endpoint.ttypes import ServiceInstance, Endpoint
+ZOO_OPEN_ACL_UNSAFE = {'perms': zookeeper.PERM_ALL, 'scheme': 'world', 'id': 'anyone', }
+SERVICE_PATH = '/twitter/service/test'
+INSTANCE1 = ServiceInstance(status=2, additionalEndpoints={}, serviceEndpoint=Endpoint(host='127.0.0.1', port=1234))
+INSTANCE2 = ServiceInstance(status=2, additionalEndpoints={}, serviceEndpoint=Endpoint(host='127.0.0.1', port=1235))

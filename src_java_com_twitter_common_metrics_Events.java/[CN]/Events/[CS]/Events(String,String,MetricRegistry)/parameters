@@ -1,0 +1,3 @@
+String eventMetricName
+String valueMetricName
+MetricRegistry registry

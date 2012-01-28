@@ -1,0 +1,9 @@
+def _reap_orphans(self, pid):
+    try:
+        os.killpg(pid, signal.SIGTERM)
+    except OSError as e:
+        if (e.errno == errno.EPERM):
+            PythonLauncher.debug(('Unable to kill process group: %d' % pid))
+            return
+        if (e.errno != errno.ESRCH):
+            raise

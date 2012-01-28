@@ -1,0 +1,5 @@
+import os
+import json
+from twitter.common.dirutil.chroot import Chroot
+from twitter.common.python.dependency import PythonDependency
+"\nTODO(wickman)\n\nLet's merge the PythonEnvironment and the PythonLauncher.  The logic between the\ntwo classes is a little intertwined.  In reality, we want to be able to create\nan environment and at any point in time call .fork() or .execute() on it, rather than\nhave to wrap it in a PythonLauncher object.\n\nSimilarly the only functionality that PexBuilder gives you is zipping up a chroot.\nIf we just abstract serialization/deserialization of a PythonEnvironment as being\na bunch of source/resource/dependency blobs, then we don't need things like magic\ndirectories (.deps) to be a place to search for magic dependencies (.eggs).\n"

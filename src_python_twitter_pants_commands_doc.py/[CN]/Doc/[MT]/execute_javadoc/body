@@ -1,0 +1,48 @@
+def execute_javadoc(self, targets, target_path):
+    if (not os.path.exists(target_path)):
+        os.makedirs(target_path)
+    (all_sources, all_deps) = self._extract_java_sources_and_deps(targets)
+    if (all_sources == []):
+        return 0
+    doc_target = self._create_doc_target(targets, all_sources, all_deps)
+    (classpath_result, classpath_file) = self._create_classpath_file(doc_target, target_path)
+    if (classpath_result != 0):
+        print 'Failed to generate javadoc classpath.'
+        return classpath_result
+    self._create_artifact_data(targets, target_path)
+    sources_file = self._create_sources_file(doc_target, target_path)
+    command = ['javadoc', '-encoding', 'UTF-8', '-notimestamp', '-doctitle', self.options.title, '-use', '-linksource', '-top', '<script type="text/javascript">top.updateArtifact(window.location);</script>', '-classpath', ('@%s' % classpath_file), '-d', target_path, ('@%s' % sources_file)]
+    if ('ANT_OPTS' in os.environ):
+        for ant_opt in os.environ['ANT_OPTS'].split():
+            command += [('-J%s' % ant_opt.strip())]
+    offlinelinks = set(['http://download.oracle.com/javase/6/docs/api/'])
+
+    def link(target):
+        for jar in target.jar_dependencies:
+            if jar.apidocs:
+                offlinelinks.add(jar.apidocs)
+    doc_target.walk(link, is_jvm)
+    for link in offlinelinks:
+        command.extend(['-linkoffline', link, link])
+    javadoc_result = subprocess.call(command)
+    if (self.options.ignore_failure or (javadoc_result == 0)):
+        for (root, _, files) in self._walk_assets(_ASSETS_DIR):
+            newdir = os.path.join(target_path, os.path.relpath(root, _ASSETS_DIR))
+            if (not os.path.exists(newdir)):
+                os.makedirs(newdir)
+            for filename in files:
+                if (not filename.startswith('javadoc')):
+                    with open(os.path.join(newdir, filename), 'w') as output:
+                        output.write(pkg_resources.resource_string(__name__, os.path.join(root, filename)))
+        docd_packages = OrderedSet()
+        for source in doc_target.sources:
+            docd_packages.add(os.path.dirname(source))
+        new_file = os.path.join(target_path, 'javadoc.html')
+        if (len(docd_packages) > 1):
+            source_file = 'javadoc.html'
+        else:
+            source_file = 'javadoc-single-package.html'
+        with open(new_file, 'w') as output:
+            output.write(pkg_resources.resource_string(__name__, os.path.join(_ASSETS_DIR, source_file)))
+        return 0
+    return javadoc_result

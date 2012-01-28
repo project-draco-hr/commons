@@ -3,3 +3,4 @@ name
 sources
 resources
 dependencies
+thrift_library

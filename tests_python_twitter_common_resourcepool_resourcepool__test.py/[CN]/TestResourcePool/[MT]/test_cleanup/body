@@ -1,0 +1,8 @@
+def test_cleanup(self):
+
+    def acquire():
+        resource = self.pool.acquire()
+        assert (self.pool._resources.qsize() == 9)
+    acquire()
+    gc.collect()
+    assert (self.pool._resources.qsize() == 10)

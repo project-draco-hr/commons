@@ -1,0 +1,11 @@
+def execute(self, targets):
+    if (not self.context.options.junit_run_skip):
+        tests = (self.tests or self.calculate_tests(targets))
+        if tests:
+            classpath = profile_classpath(self.profile)
+            classpath.extend((os.path.join(get_buildroot(), path) for path in ('src/resources', 'tests/resources')))
+            with self.context.state('classpath', []) as cp:
+                classpath.extend((jar for (conf, jar) in cp if (conf in self.confs)))
+            result = runjava(jvmargs=self.java_args, classpath=classpath, main='com.twitter.common.testing.runner.JUnitConsoleRunner', args=(self.flags + list(tests)))
+            if (result != 0):
+                raise TaskError()

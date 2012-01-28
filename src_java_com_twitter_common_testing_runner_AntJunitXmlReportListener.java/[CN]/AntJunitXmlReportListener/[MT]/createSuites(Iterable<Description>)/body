@@ -1,0 +1,16 @@
+{
+  for (  Description test : tests) {
+    createSuites(test.getChildren());
+    if (Util.isRunnable(test)) {
+      Class<?> testClass=test.getTestClass();
+      TestSuite suite=suites.get(testClass);
+      if (suite == null) {
+        suite=new TestSuite(test);
+        suites.put(testClass,suite);
+      }
+      TestCase testCase=new TestCase(test);
+      suite.testCases.add(testCase);
+      cases.put(test,testCase);
+    }
+  }
+}

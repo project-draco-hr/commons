@@ -1,0 +1,7 @@
+def values(self, merge_values=None):
+    ' Get/update default/parsed values. '
+    if (merge_values is None):
+        return self._values
+    me = self._copy()
+    TwitterOptionParser._merge_values(me._values, merge_values)
+    return me

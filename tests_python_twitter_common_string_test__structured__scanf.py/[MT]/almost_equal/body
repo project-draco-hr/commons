@@ -1,0 +1,2 @@
+def almost_equal(a, b, digits=7):
+    return (abs((a - b)) < (0.1 ** digits))

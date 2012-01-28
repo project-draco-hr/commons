@@ -1,0 +1,8 @@
+{
+  registry.register(new AbstractGauge<Integer>(name){
+    @Override public Integer read(){
+      return collection.size();
+    }
+  }
+);
+}

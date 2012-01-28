@@ -1,0 +1,5 @@
+def test_empty(self):
+    clock = TestClock()
+    gauge = FakeGauge('test').supplies([100000])
+    rate = Rate('foo', gauge, window=Amount(30, Time.SECONDS), clock=clock)
+    assert (rate.read() == 0)

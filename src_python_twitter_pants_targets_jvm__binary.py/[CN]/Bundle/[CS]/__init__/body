@@ -1,0 +1,4 @@
+def __init__(self, mapper=None):
+    '\n      Creates a new bundle with an empty filemap.  If no mapper is specified, an IdentityMapper\n      is used to map files into the bundle relative to the cwd.\n    '
+    self.mapper = (mapper or IdentityMapper(os.getcwd()))
+    self.filemap = {}

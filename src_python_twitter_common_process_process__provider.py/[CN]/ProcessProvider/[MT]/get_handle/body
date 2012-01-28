@@ -1,0 +1,4 @@
+def get_handle(self, pid):
+    'Given a pid, return a ProcessHandle based upon the last collection.'
+    self._raise_unless_has_pid(pid)
+    return self._translate_line_to_handle(self._raw[pid])

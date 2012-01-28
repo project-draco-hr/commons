@@ -1,0 +1,10 @@
+def test_basic_immutable_gauge():
+    lb = Label('a', 'b')
+    assert (lb.name() == 'a'), 'name should be properly initialized'
+    assert (lb.read() == 'b'), 'label should be properly set'
+    lb = Label('a', None)
+    assert (lb.read() == None)
+    lb = Label('a', [1, 2, 3])
+    assert (lb.read() == [1, 2, 3])
+    lb = Label('b', {})
+    assert (lb.read() == {})

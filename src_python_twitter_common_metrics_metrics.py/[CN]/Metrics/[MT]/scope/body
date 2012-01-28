@@ -1,0 +1,6 @@
+def scope(self, name):
+    if (not isinstance(name, basestring)):
+        raise TypeError(('Scope names must be strings, got: %s' % type(name)))
+    if (name not in self._children):
+        self._children[name] = Metrics()
+    return self._children[name]

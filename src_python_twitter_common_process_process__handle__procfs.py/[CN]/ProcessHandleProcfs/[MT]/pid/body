@@ -1,0 +1,2 @@
+def pid(self):
+    return self.get('pid')

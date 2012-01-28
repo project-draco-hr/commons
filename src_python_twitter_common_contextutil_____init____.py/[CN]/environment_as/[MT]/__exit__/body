@@ -1,0 +1,3 @@
+def __exit__(self, exctype, value, traceback):
+    for key in self.old_environment:
+        environment_as.setenv(key, self.old_environment[key])

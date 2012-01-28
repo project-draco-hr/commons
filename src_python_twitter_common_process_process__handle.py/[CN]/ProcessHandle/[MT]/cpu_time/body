@@ -1,0 +1,3 @@
+def cpu_time(self):
+    '\n      Total cpu time of this process.\n    '
+    raise NotImplementedError

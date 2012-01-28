@@ -1,0 +1,12 @@
+def test_basic_mutable_gauge():
+    mg = MutatorGauge('a')
+    assert (mg.name() == 'a')
+    assert (mg.read() == None)
+    mg = MutatorGauge('a', 'b')
+    assert (mg.name() == 'a')
+    assert (mg.read() == 'b')
+    mg.write('c')
+    assert (mg.name() == 'a')
+    assert (mg.read() == 'c')
+    mg.write(None)
+    assert (mg.read() == None)

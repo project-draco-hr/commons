@@ -1,0 +1,4 @@
+def test_getbool(self):
+    self.assertTrue(self.config.getbool('a', 'fast'))
+    self.assertFalse(self.config.getbool('b', 'preempt'))
+    self.checkDefaults(self.config.get, True)

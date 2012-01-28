@@ -1,0 +1,12 @@
+def test_nested_pushd():
+    pre_cwd = os.getcwd()
+    with temporary_dir() as tempdir1:
+        with pushd(tempdir1) as path1:
+            assert (os.getcwd() == os.path.realpath(tempdir1))
+            with temporary_dir(root_dir=tempdir1) as tempdir2:
+                with pushd(tempdir2) as path2:
+                    assert (os.getcwd() == os.path.realpath(tempdir2))
+                assert (os.getcwd() == os.path.realpath(tempdir1))
+            assert (os.getcwd() == os.path.realpath(tempdir1))
+        assert (os.getcwd() == pre_cwd)
+    assert (os.getcwd() == pre_cwd)

@@ -1,0 +1,4 @@
+def walk(self, work):
+    work(self)
+    for dep in self.dependencies:
+        dep.walk(work)

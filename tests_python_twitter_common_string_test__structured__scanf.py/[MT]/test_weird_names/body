@@ -1,0 +1,8 @@
+def test_weird_names():
+    weird_names = ['{', '}', '{}', '(', '*', '%c', '%%', ' ', 'w u hhhht', '123', '^', ',']
+    for weird_name in weird_names:
+        (d, l) = scanf((('%(' + weird_name) + ')s'), 'whee!')
+    assert (len(l) == 0)
+    assert (len(d) == 1)
+    assert (weird_name in d)
+    assert (d[weird_name] == 'whee!')

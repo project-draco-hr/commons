@@ -1,0 +1,3 @@
+{
+  return of(gauge,Clock.SYSTEM_CLOCK);
+}

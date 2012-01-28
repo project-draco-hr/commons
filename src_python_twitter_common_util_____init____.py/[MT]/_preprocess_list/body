@@ -1,0 +1,9 @@
+def _preprocess_list(L):
+    d = defaultdict(set)
+    for elt in L:
+        try:
+            (before, after) = elt
+        except Exception as e:
+            raise TypeError(('Expected a list of tuples, tried to unpack a %s' % type(elt)))
+        d[after].add(before)
+    return dict(d)

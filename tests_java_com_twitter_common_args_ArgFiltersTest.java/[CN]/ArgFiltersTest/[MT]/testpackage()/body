@@ -1,0 +1,3 @@
+{
+  testFilter(ArgFilters.selectPackage(ArgsRoot.class.getPackage()),fieldInfo(ArgsRoot.class,"ARGS_ROOT"));
+}

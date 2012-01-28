@@ -1,0 +1,13 @@
+{
+  try {
+    if (!new ArgScanner().parse(filter,args)) {
+      System.exit(0);
+    }
+  }
+ catch (  ArgScanException e) {
+    exit("Failed to scan arguments",e);
+  }
+catch (  IllegalArgumentException e) {
+    exit("Failed to apply arguments",e);
+  }
+}

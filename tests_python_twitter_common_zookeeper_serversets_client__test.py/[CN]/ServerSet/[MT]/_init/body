@@ -1,0 +1,9 @@
+def _init(self):
+    prefix = []
+    for component in self._path.strip('/').split('/'):
+        prefix.append(component)
+        path = ('/' + '/'.join(prefix))
+        try:
+            self._zk.create(path, 'dir', [ZOO_OPEN_ACL_UNSAFE], 0)
+        except zookeeper.NodeExistsException:
+            pass

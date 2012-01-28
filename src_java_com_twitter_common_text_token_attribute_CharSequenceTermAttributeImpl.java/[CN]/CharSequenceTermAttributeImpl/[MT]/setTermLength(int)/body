@@ -1,6 +1,0 @@
-{
-  Preconditions.checkArgument(length > 0);
-  if (length < getLength()) {
-    setLength(length);
-  }
-}

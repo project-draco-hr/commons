@@ -1,0 +1,3 @@
+{
+  serviceRegistry.announce(getPortName(),launchAndGetPort(),isPrimaryService());
+}

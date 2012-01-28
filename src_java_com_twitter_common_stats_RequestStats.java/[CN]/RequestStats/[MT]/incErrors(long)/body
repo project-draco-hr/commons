@@ -1,0 +1,4 @@
+{
+  requestComplete(latencyMicros);
+  errors.incrementAndGet();
+}

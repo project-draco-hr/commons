@@ -1,0 +1,2 @@
+def __exit__(self, exctype, value, traceback):
+    self._file.close()

@@ -1,0 +1,2 @@
+def cpu_time(self):
+    return (self.get('utime') + self.get('stime'))

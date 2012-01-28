@@ -1,0 +1,11 @@
+def add_module_path(self, name, path):
+    '\n      Add all app.Modules defined by name at path.\n\n      Typical usage (e.g. from the __init__.py of something containing many\n      app modules):\n\n        app.add_module_path(__name__, __path__)\n    '
+    import pkgutil
+    for (_, mod, ispkg) in pkgutil.iter_modules(path):
+        if ispkg:
+            continue
+        fq_module = '.'.join([name, mod])
+        __import__(fq_module)
+        for (kls_name, kls) in inspect.getmembers(sys.modules[fq_module], inspect.isclass):
+            if issubclass(kls, AppModule):
+                self.register_module(kls())

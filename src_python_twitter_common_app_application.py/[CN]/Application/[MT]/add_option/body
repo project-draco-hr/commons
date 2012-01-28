@@ -1,0 +1,6 @@
+def add_option(self, *args, **kwargs):
+    '\n      Add an option to the application.\n\n      You may pass either an Option object from the optparse/options module, or\n      pass the *args/**kwargs necessary to construct an Option.\n    '
+    self._raise_if_initialized('Cannot call add_option() after main()!')
+    calling_module = Inspection.find_calling_module()
+    added_option = self._get_option_from_args(args, kwargs)
+    self._add_option(calling_module, added_option)

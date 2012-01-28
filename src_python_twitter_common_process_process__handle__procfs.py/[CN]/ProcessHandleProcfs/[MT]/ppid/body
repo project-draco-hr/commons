@@ -1,0 +1,2 @@
+def ppid(self):
+    return self.get('ppid')

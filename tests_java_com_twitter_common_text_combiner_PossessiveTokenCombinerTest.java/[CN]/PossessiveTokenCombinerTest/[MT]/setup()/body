@@ -1,3 +1,0 @@
-{
-  stream=new PossessiveTokenCombiner(new RegexExtractor.Builder().setRegexPattern(Pattern.compile("([0-9]+|[a-zA-Z]+|'|\\.)")).build());
-}

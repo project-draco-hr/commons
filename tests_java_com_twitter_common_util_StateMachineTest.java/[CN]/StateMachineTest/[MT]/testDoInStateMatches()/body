@@ -1,6 +1,6 @@
 {
   control.replay();
-  StateMachine<String> stateMachine=StateMachine.<String>builder(NAME).initialState(A).addState(A,B).build();
+  StateMachine<String> stateMachine=StateMachine.<String>builder(NAME).initialState(A).addState(Rule.from(A).to(B)).build();
   int amount=stateMachine.doInState(A,new Supplier<Integer>(){
     @Override public Integer get(){
       return 42;

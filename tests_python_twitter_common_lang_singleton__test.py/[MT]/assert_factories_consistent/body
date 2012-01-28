@@ -1,0 +1,8 @@
+def assert_factories_consistent(john, brian):
+    j1 = john()
+    j2 = john()
+    b1 = brian()
+    b2 = brian()
+    assert (id(j1) == id(j2))
+    assert (id(b1) == id(b2))
+    assert (id(j1) != id(b1))

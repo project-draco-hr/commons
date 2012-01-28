@@ -1,3 +1,0 @@
-def getProperty(self, key):
-    ' Return a property for the given key '
-    return self._props.get(key, '')

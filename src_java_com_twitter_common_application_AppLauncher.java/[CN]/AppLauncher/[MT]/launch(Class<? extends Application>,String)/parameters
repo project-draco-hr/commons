@@ -1,0 +1,2 @@
+Class<? extends Application> appClass
+String args

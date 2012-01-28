@@ -1,4 +1,4 @@
-def __init__(self, root_dir, parser, argv):
+def __init__(self, root_dir, parser, argv, target_path=None):
     Command.__init__(self, root_dir, parser, argv)
     self.only_provides = self.options.only_provides
     self.link_changelog = self.options.link_changelog
@@ -12,8 +12,10 @@ def __init__(self, root_dir, parser, argv):
                 if Doc._is_documentable(target):
                     yield target
         self.targets = list(get_targets())
-    self.target_path = os.path.join(root_dir, 'target', 'pants.doc')
-    self.artifact_data_path = os.path.abspath(os.path.join(self.target_path, 'artifacts.js'))
+    if target_path:
+        self.target_path = target_path
+    else:
+        self.target_path = os.path.join(root_dir, 'target', 'pants.doc')
     self.java_src_prefix = os.path.join(root_dir, 'src', 'java')
     self.ivy_jar = os.path.join(root_dir, 'build-support', 'ivy', 'lib', 'ivy-2.2.0.jar')
     self.ivy_settings = os.path.join(root_dir, 'build-support', 'ivy', 'ivysettings.xml')

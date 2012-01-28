@@ -1,0 +1,6 @@
+def __init__(self, filename):
+    self._filename = filename
+    self._clock = TestClock()
+    self._lines = []
+    self._terminate = threading.Event()
+    threading.Thread.__init__(self)

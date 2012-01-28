@@ -1,0 +1,3 @@
+def internaldep(target, excludes=True):
+    jar = self.pushdb.as_jar_with_version(target)
+    return PomWriter.jardep(jar, excludes)

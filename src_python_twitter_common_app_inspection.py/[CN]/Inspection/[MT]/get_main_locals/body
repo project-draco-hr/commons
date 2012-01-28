@@ -1,0 +1,7 @@
+@staticmethod
+def get_main_locals():
+    stack = inspect.stack()[1:]
+    for fr_n in range(len(stack)):
+        if (('__name__' in stack[fr_n][0].f_locals) and (stack[fr_n][0].f_locals['__name__'] == '__main__')):
+            return stack[fr_n][0].f_locals
+    return {}

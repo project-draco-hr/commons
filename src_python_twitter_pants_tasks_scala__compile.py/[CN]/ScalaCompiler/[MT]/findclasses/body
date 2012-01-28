@@ -1,0 +1,16 @@
+@staticmethod
+def findclasses(outputdir, sources, depfile):
+    classes = []
+    with open(depfile, 'r') as deps:
+        section = 0
+        for dep in deps.readlines():
+            line = dep.strip()
+            if ('-------' == line):
+                section += 1
+            elif (ScalaCompiler._SECTIONS[section] == 'source_to_class'):
+                mapping = line.split('->')
+                sourcefile = os.path.relpath(os.path.join(outputdir, mapping[0].strip()), get_buildroot())
+                if (sourcefile in sources):
+                    classfile = os.path.relpath(os.path.join(outputdir, mapping[1].strip()), outputdir)
+                    classes.append(classfile)
+    return classes

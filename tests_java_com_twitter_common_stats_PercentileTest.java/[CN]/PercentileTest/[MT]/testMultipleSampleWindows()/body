@@ -1,0 +1,17 @@
+{
+  Percentile<Integer> mypercentile=new Percentile<Integer>("test",2,null,PERCENTILES);
+  for (int i=0; i < 10000; i++) {
+    mypercentile.record(i);
+  }
+  mypercentile.record(90000);
+  checkPercentiles(mypercentile,0,1000,5000,9000,9900,9990,9999,90000);
+  for (int i=10000; i < 20000; i++) {
+    mypercentile.record(i);
+  }
+  checkPercentiles(mypercentile,0,2000,10000,18000,19800,19980,19998,90000);
+  for (int i=20000; i < 30000; i++) {
+    mypercentile.record(i);
+  }
+  mypercentile.record(90000);
+  checkPercentiles(mypercentile,10000,12000,20000,28000,29800,29980,29998,90000);
+}

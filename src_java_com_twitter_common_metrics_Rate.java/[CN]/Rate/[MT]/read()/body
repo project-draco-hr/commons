@@ -1,0 +1,16 @@
+{
+  long now=clock.nowMillis();
+  long retainThreshold=now - windowLengthMs;
+  while (!samples.isEmpty() && samples.peekLast().getFirst() < retainThreshold) {
+    samples.removeLast();
+  }
+  double newSample=valueAccessor.get().doubleValue();
+  samples.addFirst(Pair.of(now,newSample));
+  if (samples.size() == 1) {
+    return 0d;
+  }
+  Pair<Long,Double> oldestSample=samples.getLast();
+  double dy=newSample - oldestSample.getSecond();
+  double dt=now - oldestSample.getFirst();
+  return dt == 0 ? 0 : ((dy * MILLIS_PER_SEC) / dt);
+}

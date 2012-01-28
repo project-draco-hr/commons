@@ -1,0 +1,4 @@
+def test_long_conversion():
+    for conversion in ('%u', '%lu', '%llu'):
+        assert (basic_scanf(conversion, '1') == 1)
+        assert (basic_scanf(conversion, '01') == 1)

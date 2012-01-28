@@ -1,0 +1,3 @@
+def _configure_options(self, module, option_dict):
+    for (opt_name, opt) in option_dict.items():
+        self._option_targets[module][opt_name] = opt.dest

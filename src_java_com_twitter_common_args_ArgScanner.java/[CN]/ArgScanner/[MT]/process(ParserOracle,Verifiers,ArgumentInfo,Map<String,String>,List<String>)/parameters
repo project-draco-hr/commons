@@ -1,0 +1,5 @@
+ParserOracle parserOracle
+Verifiers verifiers
+ArgumentInfo argumentInfo
+Map<String,String> args
+List<String> positionalArgs

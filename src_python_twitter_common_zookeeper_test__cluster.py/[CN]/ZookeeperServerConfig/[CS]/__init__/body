@@ -1,0 +1,6 @@
+def __init__(self, config, stderr, stdout, port, handle=None):
+    self.config = config
+    self.stderr = stderr
+    self.stdout = stdout
+    self.port = port
+    self.handle = handle

@@ -1,0 +1,19 @@
+def generate_individual(self, classpath, targets):
+    jobs = {}
+    for target in targets:
+        gendir = self._gendir(target)
+        command = create_javadoc_command(classpath, gendir, target)
+        if command:
+            jobs[gendir] = (target, command)
+    pool = multiprocessing.Pool(processes=min(len(jobs), multiprocessing.cpu_count()))
+    try:
+        futures = []
+        for (gendir, (target, command)) in jobs.items():
+            futures.append(pool.apply_async(create_javadoc, args=(command, gendir)))
+        for future in futures:
+            (result, gendir) = future.get()
+            (target, command) = jobs[gendir]
+            if (result != 0):
+                raise TaskError(('Failed to process javadoc for %s [%d]: %s' % (target, result, command)))
+    finally:
+        pool.close()

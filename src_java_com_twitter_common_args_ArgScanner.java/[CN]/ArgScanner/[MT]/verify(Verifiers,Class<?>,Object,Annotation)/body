@@ -1,0 +1,6 @@
+{
+  Verifier verifier=verifiers.get(fieldClass,annotation);
+  if (verifier != null) {
+    verifier.verify(value,annotation);
+  }
+}

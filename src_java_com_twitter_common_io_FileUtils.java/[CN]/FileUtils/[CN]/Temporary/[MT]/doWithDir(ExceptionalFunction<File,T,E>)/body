@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(work);
+  return doWithTemp(createDir(),work);
+}

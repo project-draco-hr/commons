@@ -1,0 +1,7 @@
+def options(self, merge_options=None):
+    ' Get/add options. '
+    if (merge_options is None):
+        return self._options
+    me = self._copy()
+    me._options.extend(merge_options)
+    return me

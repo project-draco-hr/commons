@@ -1,0 +1,2 @@
+def execute(self, targets):
+    '\n      Executes this task against the given targets which may be a subset of the current context\n      targets.\n    '

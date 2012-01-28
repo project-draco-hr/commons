@@ -1,0 +1,10 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!(obj instanceof ArgInfo)) {
+    return false;
+  }
+  ArgInfo other=(ArgInfo)obj;
+  return new EqualsBuilder().append(className,other.className).append(fieldName,other.fieldName).isEquals();
+}

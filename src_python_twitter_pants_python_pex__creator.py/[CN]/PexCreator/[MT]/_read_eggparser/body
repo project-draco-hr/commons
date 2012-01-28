@@ -1,3 +1,0 @@
-@staticmethod
-def _read_eggparser():
-    return pkgutil.get_data(__name__, PexCreator.EGG_PARSER)

@@ -1,0 +1,2 @@
+def is_java(target):
+    return (is_apt(target) or isinstance(target, JavaLibrary) or isinstance(target, JavaTests))

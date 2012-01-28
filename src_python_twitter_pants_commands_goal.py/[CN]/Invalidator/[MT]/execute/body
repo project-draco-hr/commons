@@ -1,0 +1,2 @@
+def execute(self, targets):
+    self.invalidate(all=True)

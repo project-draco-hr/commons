@@ -1,0 +1,3 @@
+{
+  return Iterables.filter(Optional.presentInstances(Iterables.transform(infos,TO_FIELD)),filter);
+}

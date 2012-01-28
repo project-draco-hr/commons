@@ -1,0 +1,4 @@
+@staticmethod
+def active():
+    'Return the current resident application object.'
+    return Application._Global

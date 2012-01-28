@@ -1,0 +1,15 @@
+def execute(self, targets):
+    safe_mkdir(self._output_dir)
+
+    def jar_targets(predicate):
+        return filter(predicate, (targets if self.transitive else self.context.target_roots))
+
+    def add_genjar(target, name):
+        if self.context.products.isrequired('jars'):
+            self.context.products.get('jars').add(target, self._output_dir).append(name)
+    if self.jar_classes:
+        self.jar(jar_targets(is_jvm), self.context.products.get('classes'), add_genjar)
+    if self.jar_sources:
+        self.sourcejar(jar_targets(is_jvm), add_genjar)
+    if self.jar_javadoc:
+        self.javadocjar(jar_targets(is_java), self.context.products.get('javadoc'), add_genjar)

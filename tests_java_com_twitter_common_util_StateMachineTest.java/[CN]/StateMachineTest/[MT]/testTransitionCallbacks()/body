@@ -16,7 +16,7 @@
   anyTransition.execute(bToD);
   fromB.execute(bToD);
   control.replay();
-  StateMachine<String> machine=StateMachine.<String>builder(NAME).initialState(A).addState(fromA,A,B).addState(fromB,B,C,D).addState(C,B).addState(D).onAnyTransition(anyTransition).throwOnBadTransition(false).build();
+  StateMachine<String> machine=StateMachine.<String>builder(NAME).initialState(A).addState(Rule.from(A).to(B).withCallback(fromA)).addState(Rule.from(B).to(C,D).withCallback(fromB)).addState(Rule.from(C).to(B)).addState(Rule.from(D).noTransitions()).onAnyTransition(anyTransition).throwOnBadTransition(false).build();
   machine.transition(B);
   machine.transition(B);
   machine.transition(C);

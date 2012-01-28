@@ -1,0 +1,5 @@
+def __init__(self, context):
+    self.context = context
+    self._build_cache = context.config.get('tasks', 'build_cache')
+    self._basedir = os.path.join(self._build_cache, self.__class__.__name__)
+    self._extradata = os.path.join(self._basedir, Task.EXTRA_DATA)

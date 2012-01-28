@@ -1,0 +1,4 @@
+{
+  captures.get(description.getTestClass()).close();
+  super.testFinished(description);
+}

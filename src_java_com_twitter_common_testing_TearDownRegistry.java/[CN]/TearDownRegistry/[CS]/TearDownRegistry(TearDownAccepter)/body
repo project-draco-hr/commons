@@ -1,0 +1,3 @@
+{
+  this.tearDownAccepter=Preconditions.checkNotNull(tearDownAccepter);
+}

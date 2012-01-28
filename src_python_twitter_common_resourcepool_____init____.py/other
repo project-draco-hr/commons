@@ -1,0 +1,2 @@
+from resourcepool import ResourcePool
+__all__ = ['ResourcePool']

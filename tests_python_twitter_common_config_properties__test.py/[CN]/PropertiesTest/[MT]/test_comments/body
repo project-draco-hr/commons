@@ -1,0 +1,2 @@
+def test_comments(self):
+    self.assertLoaded('\n# not=a prop\na=prop\n ! more non prop\n    ', {'a': 'prop', })

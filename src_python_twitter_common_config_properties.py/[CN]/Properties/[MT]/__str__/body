@@ -1,6 +1,0 @@
-def __str__(self):
-    s = '{'
-    for (key, value) in self._props.items():
-        s = ''.join((s, key, '=', value, ', '))
-    s = ''.join((s[:(-2)], '}'))
-    return s

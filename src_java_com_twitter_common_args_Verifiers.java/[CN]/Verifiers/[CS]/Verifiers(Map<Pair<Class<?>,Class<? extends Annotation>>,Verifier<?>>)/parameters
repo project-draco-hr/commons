@@ -1,0 +1,1 @@
+Map<Pair<Class<?>,Class<? extends Annotation>>,Verifier<?>> registry

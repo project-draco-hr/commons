@@ -1,0 +1,4 @@
+{
+  this.shutdownRegistry=shutdownRegistry;
+  Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+}

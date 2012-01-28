@@ -1,0 +1,4 @@
+def dump(self, file):
+    'Saves the pushdb as a properties file to the given path.'
+    with open(file, 'w+a') as props:
+        Properties.dump(self._props, props)

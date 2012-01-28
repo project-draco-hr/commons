@@ -1,0 +1,6 @@
+def _translate_line_to_pid_pair(self, line):
+    sline = line.split()
+    try:
+        return (int(sline[ProcessHandleProcfs.ATTRS.index('pid')]), int(sline[ProcessHandleProcfs.ATTRS.index('ppid')]))
+    except:
+        return (None, None)

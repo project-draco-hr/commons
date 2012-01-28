@@ -1,0 +1,3 @@
+@staticmethod
+def from_eggs(*egg_paths):
+    return PythonDependency(egg_paths)

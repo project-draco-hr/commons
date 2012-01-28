@@ -1,0 +1,2 @@
+def _realize(self):
+    return self._realize_from_line(self._produce())

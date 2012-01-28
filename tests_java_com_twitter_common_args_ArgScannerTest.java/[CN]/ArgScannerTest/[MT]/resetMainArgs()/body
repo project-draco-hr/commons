@@ -1,0 +1,5 @@
+{
+  resetArgs(Main1.class);
+  resetArgs(Main2.class);
+  resetArgs(Main3.class);
+}

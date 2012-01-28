@@ -1,0 +1,4 @@
+{
+  this.outdir=outdir;
+  this.streamSource=streamSource;
+}

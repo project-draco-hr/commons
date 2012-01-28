@@ -1,0 +1,3 @@
+def argv(self):
+    self._raise_if_uninitialized('Must call app.init() before you may access argv.')
+    return self._argv

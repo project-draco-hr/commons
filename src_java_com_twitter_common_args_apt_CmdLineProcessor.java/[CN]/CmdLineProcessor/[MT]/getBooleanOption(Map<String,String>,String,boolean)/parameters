@@ -1,0 +1,3 @@
+Map<String,String> options
+String name
+boolean defaultValue

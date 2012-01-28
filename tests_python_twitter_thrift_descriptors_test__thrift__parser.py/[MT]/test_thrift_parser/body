@@ -1,3 +1,4 @@
+@pytest.mark.xfail(reason='pytest 2.6')
 def test_thrift_parser(generate_golden_data):
     'Tests that we can parse a complex file that tickles as many cases and corner cases\n  as we can think of. We verify the result against golden data.'
     TEST_DATA_FILE = 'test_data/test_data.thrift'

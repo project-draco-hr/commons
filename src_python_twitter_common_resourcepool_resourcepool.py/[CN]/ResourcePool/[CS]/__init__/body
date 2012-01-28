@@ -1,0 +1,5 @@
+def __init__(self, resources):
+    'Create a new resource pool populated with resources.'
+    self._resources = Queue()
+    for resource in resources:
+        self._resources.put(resource)

@@ -1,0 +1,10 @@
+def __init__(self, path):
+    if (not os.path.exists(path)):
+        raise PythonLauncher.NotFound(('Could not find python environment in %s' % path))
+    self._dir = PythonDirectoryWrapper.get(path)
+    try:
+        self._manifest = json.loads(self._dir.read(PythonLauncher.MANIFEST))
+    except ValueError as e:
+        raise PythonLauncher.InvalidFormat(('Could not parse manifest! %s' % e))
+    self._cache = EggCache(self._dir)
+    self._path = OrderedSet([os.path.abspath(path)])

@@ -1,0 +1,11 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('skip'), mkflag('skip', negate=True), dest='junit_run_skip', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Skip running tests')
+    option_group.add_option(mkflag('debug'), mkflag('debug', negate=True), dest='junit_run_debug', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Run junit tests with a debugger')
+    option_group.add_option(mkflag('jvmargs'), dest='junit_run_jvmargs', action='append', help='Runs junit tests in a jvm with these extra jvm args.')
+    option_group.add_option(mkflag('test'), dest='junit_run_tests', action='append', help='[%default] Force running of just these tests.  Tests can be specified using any of: [classname], [classname]#[methodname], [filename] or [filename]#[methodname]')
+    outdir = mkflag('outdir')
+    option_group.add_option(outdir, dest='junit_run_outdir', help='Emit output in to this directory.')
+    xmlreport = mkflag('xmlreport')
+    option_group.add_option(xmlreport, mkflag('xmlreport', negate=True), dest='junit_run_xmlreport', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Causes an xml report to be output for each test class that is run.')
+    option_group.add_option(mkflag('suppress-output'), mkflag('suppress-output', negate=True), dest='junit_run_suppress_output', action='callback', callback=mkflag.set_bool, default=True, help=('[%%default] Redirects test output to files in %s.  Implied by %s' % (outdir, xmlreport)))

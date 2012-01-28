@@ -1,0 +1,7 @@
+{
+  statSupplier=createMock(new Clazz<Supplier<Iterable<Stat>>>(){
+  }
+);
+  request=createMock(HttpServletRequest.class);
+  vars=new VarsHandler(statSupplier);
+}

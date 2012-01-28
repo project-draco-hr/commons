@@ -1,0 +1,13 @@
+def test_client_reconnect():
+    cluster = ZookeeperClusterBootstrapper()
+    port = cluster.start(1)
+    zk = ZooKeeper(('localhost:%d' % port))
+    zk.get_children('/')
+    cluster.stop(1)
+    with pytest.raises(zookeeper.ConnectionLossException):
+        zk.get_children('/')
+    cluster.start(1)
+    with pytest.raises(zookeeper.ConnectionLossException):
+        zk.get_children('/')
+    zk.reconnect()
+    assert (zk.get_children('/') == ['zookeeper'])

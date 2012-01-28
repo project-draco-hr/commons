@@ -1,0 +1,13 @@
+{
+  TearDownRegistry tearDownRegistry=new TearDownRegistry(this);
+  final AtomicBoolean actionExecuted=new AtomicBoolean(false);
+  tearDownRegistry.addAction(new Command(){
+    @Override public void execute(){
+      actionExecuted.set(true);
+    }
+  }
+);
+  assertFalse(actionExecuted.get());
+  tearDown();
+  assertTrue(actionExecuted.get());
+}

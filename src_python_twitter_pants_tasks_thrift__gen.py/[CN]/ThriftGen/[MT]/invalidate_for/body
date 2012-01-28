@@ -1,0 +1,2 @@
+def invalidate_for(self):
+    return self.gen_langs

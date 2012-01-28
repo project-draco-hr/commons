@@ -1,0 +1,4 @@
+{
+  checkArgument(Modifier.isStatic(field.getModifiers()),"Non-static argument fields are not supported, found " + field);
+  checkArgument(getParser(parserOracle,custom,field) != null,"No parser found for type " + TypeUtil.getTypeParamClass(field) + ", for arg field "+ field.getName());
+}

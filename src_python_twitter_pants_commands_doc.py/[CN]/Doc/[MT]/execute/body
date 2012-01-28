@@ -1,33 +1,10 @@
 def execute(self):
     if os.path.exists(self.target_path):
         shutil.rmtree(self.target_path)
-    os.makedirs(self.target_path)
-    doc_target = self._create_doc_target()
-    (classpath_result, classpath_file) = self._create_classpath_file(doc_target)
-    if (classpath_result != 0):
-        print 'Failed to generate javadoc classpath.'
-        return classpath_result
-    self._create_artifact_data()
-    sources_file = self._create_sources_file(doc_target)
-    command = ['javadoc', '-encoding', 'UTF-8', '-notimestamp', '-doctitle', self.options.title, '-use', '-linksource', '-top', '<script type="text/javascript">top.updateArtifact(window.location);</script>', '-classpath', ('@%s' % classpath_file), '-d', self.target_path, ('@%s' % sources_file)]
-    offlinelinks = set(['http://download.oracle.com/javase/6/docs/api/'])
-
-    def link(target):
-        for jar in target.jar_dependencies:
-            if jar.apidocs:
-                offlinelinks.add(jar.apidocs)
-    doc_target.walk(link, is_jvm)
-    for link in offlinelinks:
-        command.extend(['-linkoffline', link, link])
-    javadoc_result = subprocess.call(command)
-    if (self.options.ignore_failure or (javadoc_result == 0)):
-        for (root, _, files) in self._walk_assets(_ASSETS_DIR):
-            newdir = os.path.join(self.target_path, os.path.relpath(root, _ASSETS_DIR))
-            if (not os.path.exists(newdir)):
-                os.makedirs(newdir)
-            for file in files:
-                new_file = os.path.join(newdir, file)
-                with open(new_file, 'w') as output:
-                    output.write(pkg_resources.resource_string(__name__, os.path.join(root, file)))
-        return 0
-    return javadoc_result
+    if self.execute_javadoc(self.targets, self.target_path):
+        print 'JavaDoc execution failed'
+        return 1
+    if self.execute_pantsdoc(self.targets, self.target_path):
+        print 'PantsDoc execution failed'
+        return 1
+    return 0

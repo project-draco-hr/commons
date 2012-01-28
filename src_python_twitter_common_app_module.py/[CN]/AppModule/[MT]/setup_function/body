@@ -1,0 +1,3 @@
+def setup_function(self):
+    '\n      The setup function for this application module.  If you wish to have a\n      setup function, override this method.  This is called by app.main()\n      just before running the main method of the application.\n\n      To control the order in which this setup function is run with respect\n      to other application modules, you may list a set of module\n      dependencies in the AppModule constructor.\n    '
+    raise AppModule.Unimplemented()

@@ -3,9 +3,9 @@ def rglobs(*globspecs):
     root = os.curdir
 
     def recursive_globs():
-        for (base, dirs, files) in os.walk(root):
-            for file in files:
-                path = os.path.relpath(os.path.normpath(os.path.join(base, file)), root)
+        for (base, _, files) in os.walk(root):
+            for filename in files:
+                path = os.path.relpath(os.path.normpath(os.path.join(base, filename)), root)
                 for globspec in globspecs:
                     if fnmatch.fnmatch(path, globspec):
                         yield path

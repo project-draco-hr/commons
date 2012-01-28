@@ -1,0 +1,9 @@
+{
+  Preconditions.checkNotNull(clazz);
+  return new Predicate<Field>(){
+    @Override public boolean apply(    Field field){
+      return field.getDeclaringClass().equals(clazz);
+    }
+  }
+;
+}

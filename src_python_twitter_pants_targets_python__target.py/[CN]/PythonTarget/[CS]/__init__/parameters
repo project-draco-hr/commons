@@ -1,7 +1,5 @@
 self
-target_base
 name
 sources
 resources
 dependencies
-is_meta

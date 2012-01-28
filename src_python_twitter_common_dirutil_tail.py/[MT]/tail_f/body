@@ -1,0 +1,30 @@
+def tail_f(filename, forever=True, clock=time):
+    fd = wait_until_opened(filename, forever, clock)
+    _tail_lines(fd, 10)
+    while True:
+        if (fd is None):
+            return
+        where = fd.tell()
+        line = fd.readline()
+        if line:
+            yield line
+        else:
+            fd_results = os.fstat(fd.fileno())
+            try:
+                st_results = None
+                st_results = os.stat(filename)
+            except OSError as e:
+                if (e.errno == errno.ENOENT):
+                    fd = wait_until_opened(filename, forever, clock)
+                    continue
+                else:
+                    raise
+            if (fd_results.st_ino != st_results.st_ino):
+                fd.close()
+                fd = wait_until_opened(filename, forever, clock)
+                continue
+            if (st_results.st_size < where):
+                fd.seek(0)
+            else:
+                clock.sleep(1)
+                fd.seek(where)

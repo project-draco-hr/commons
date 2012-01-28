@@ -1,0 +1,7 @@
+def test_multi():
+    pairs = {'%f %c': '1.0 h', ' %f %c': ' 1.0 h', '%f %c ': '1.0 h ', ' %f %c ': ' 1.0 h ', '1%f %c': '11.0 h', ' %f3%c': ' 1.03h', '%f %c5': '1.0 h5', " %f %c '": " 1.0 h '", }
+    for (pattern, value) in pairs.items():
+        (_, vals) = scanf(pattern, value)
+        assert (len(vals) == 2), ('%s has two values' % pattern)
+        assert almost_equal(vals[0], 1.0)
+        assert (vals[1] == 'h')

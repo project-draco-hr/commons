@@ -1,0 +1,3 @@
+def camelcase(string):
+    'Convert snake casing where present to camel casing'
+    return ''.join((word.capitalize() for word in string.split('_')))

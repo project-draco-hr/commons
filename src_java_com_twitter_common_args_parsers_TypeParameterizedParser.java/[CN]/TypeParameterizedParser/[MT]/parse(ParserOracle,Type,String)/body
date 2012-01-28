@@ -1,0 +1,5 @@
+{
+  List<Type> typeParams=TypeUtil.getTypeParams(type);
+  checkArgument(typeParams.size() == typeParamCount,String.format("Expected %d type parameters for %s but got %d",typeParamCount,type,typeParams.size()));
+  return doParse(parserOracle,raw,typeParams);
+}

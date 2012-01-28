@@ -1,0 +1,7 @@
+def test_basic_registration_and_clear():
+    lb = Label('ping', 'pong')
+    rm = RootMetrics()
+    rm.register(lb)
+    assert (rm.sample() == {'ping': 'pong', })
+    rm.clear()
+    assert (rm.sample() == {})

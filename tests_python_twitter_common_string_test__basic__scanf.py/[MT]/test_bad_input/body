@@ -1,0 +1,11 @@
+def test_bad_input():
+    conversions = ScanfParser.CONVERSIONS.keys()
+    bad_stuff = [' a', ' 1', ' +', 'a ', '1 ', '+ ']
+    garbage_stuff = [0, 1, None, dir, [], {}, (), type]
+    for c in conversions:
+        for b in bad_stuff:
+            with pytest.raises(ScanfParser.ParseError):
+                basic_scanf(c, b)
+        for b in garbage_stuff:
+            with pytest.raises(TypeError):
+                basic_scanf(c, b)

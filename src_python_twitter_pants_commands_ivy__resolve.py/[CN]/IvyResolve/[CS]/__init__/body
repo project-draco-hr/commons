@@ -1,0 +1,17 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    self.clean = self.options.clean
+    self.intransitive = self.options.intransitive
+    self.workspace_root = os.path.join(root_dir, '.pants.d')
+    self.ivy_jar = os.path.join(root_dir, 'build-support', 'ivy', 'lib', 'ivy-2.2.0.jar')
+    self.ivy_settings = os.path.join(root_dir, 'build-support', 'ivy', 'ivysettings.xml')
+    if self.args:
+        self.targets = self._parse_targets(OrderedSet(), root_dir)
+    else:
+
+        def get_targets():
+            for address in Command.scan_addresses(root_dir):
+                target = Target.get(address)
+                if IvyResolve._is_resolvable(target):
+                    yield target
+        self.targets = list(get_targets())

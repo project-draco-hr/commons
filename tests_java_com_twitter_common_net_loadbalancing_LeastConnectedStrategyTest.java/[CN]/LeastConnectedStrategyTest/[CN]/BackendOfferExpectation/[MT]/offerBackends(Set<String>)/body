@@ -1,5 +1,0 @@
-{
-  leastCon.offerBackends(backends,onBackendsChosen);
-  assertTrue(chosenBackends.hasCaptured());
-  assertEquals(backends,Sets.newHashSet(chosenBackends.getValue()));
-}

@@ -1,0 +1,15 @@
+@staticmethod
+def _find_checkstyle_suppressions(props, root_dir):
+    props = Properties.load(props)
+    props['root.dir'] = root_dir
+
+    def resolve_props(value):
+
+        def replace_symbols(matchobj):
+            return props[matchobj.group(1)]
+        symbol_parser = re.compile('\\${([^}]+)\\}')
+        while symbol_parser.match(value):
+            value = symbol_parser.sub(replace_symbols, value)
+        return value
+    files = resolve_props(props['checkstyle.suppression.files'])
+    return files.split(',')

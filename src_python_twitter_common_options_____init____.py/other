@@ -1,12 +1,9 @@
-'\n  Twitter\'s wrapper around the optparse module.\n\n  Typical usage (from module):\n    from twitter.common import options\n    options.add("-q", "--quiet",\n                action="store_false", dest="verbose", default=True,\n                help="don\'t print status messages to stdout")\n\n    def my_function():\n      opts = options.values()\n      if opts.verbose:\n        print \'LOOOOOOLLOLOLOL\'\n\n  From __main__ script:\n    from twitter.common import options\n    options.add(...)\n    options.add(...)\n\n    def main(argv):\n      options.parse()\n\n  All options are stored in a global options registry, and are grouped by\n  the module from which they were added (and displayed as such in --help.)\n\n  options.parse() must be called before modules can use options.values().\n  options.values() will raise an exception if called before options.parse()\n  by the __main__ module.  this is to prevent parsing before all options\n  have been registered.\n\n  For more help on options formatting, see the optparse module.\n'
+'\n  Twitter\'s wrapper around the optparse module for doing more stateless builder-style\n  options parsing.\n\n  Typical usage:\n\n    from twitter.common import options\n\n    base_parser = options.parser()\n    my_opts = [\n      options.Option(...),\n      options.Option(...)\n    ]\n    my_foo_opts = [\n      options.Option(...),\n      options.Option(...)\n    ]\n    group = base_parser.new_group(\'foo\')\n    group.add_option(*my_foo_opts)\n    parser = base_parser\n             .options(my_opts)\n             .groups([group])\n             .interspersed_arguments(True)\n             .usage("blah blah blah"))\n    values, rargs = parser.parse()\n'
 __author__ = 'Brian Wickman'
+import copy
 import sys
 import inspect
 import types
-from optparse import OptionParser, OptionValueError
-_add_both_options('-h', '--help', '--short-help', action='callback', callback=_short_help, help='show this help message and exit.')
-_add_both_options('--long-help', action='callback', callback=_long_help, help='show options from all registered modules, not just the __main__ module.')
-add_option = add
-parse_args = parse
-print_help = help
-__all__ = ['add', 'add_option', 'parse', 'parse_args', 'values', 'arguments', 'set_option', 'set_usage', 'help', 'longhelp', 'print_help', 'OptionsHaveNotBeenParsedException', 'OptionsAreFrozenException', 'OptionsInternalErrorException', 'OptionValueError']
+from optparse import OptionParser, OptionValueError, Option, OptionGroup, Values, NO_DEFAULT
+group = new_group
+__all__ = ['parser', 'new_group', 'group', 'Option', 'Values']

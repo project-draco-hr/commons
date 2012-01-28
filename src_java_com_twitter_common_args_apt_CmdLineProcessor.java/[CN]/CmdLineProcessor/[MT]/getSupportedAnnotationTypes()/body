@@ -1,0 +1,3 @@
+{
+  return ImmutableSet.copyOf(Iterables.transform(ImmutableList.of(Positional.class,CmdLine.class,ArgParser.class,VerifierFor.class),GET_NAME));
+}

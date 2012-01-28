@@ -1,0 +1,6 @@
+{
+  this.wrapped=Preconditions.checkNotNull(wrapped);
+  this.expirationNanos=Preconditions.checkNotNull(expiration).as(Time.NANOSECONDS);
+  Preconditions.checkArgument(expiration.getValue() > 0,"Expiration must be positive.");
+  this.clock=Preconditions.checkNotNull(clock);
+}

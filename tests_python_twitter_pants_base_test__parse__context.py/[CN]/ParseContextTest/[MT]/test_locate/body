@@ -1,0 +1,11 @@
+def test_locate(self):
+    with pytest.raises(ContextError):
+        ParseContext.locate()
+    with temporary_dir() as root_dir:
+        a_context = ParseContext(create_buildfile(root_dir, 'a'))
+        b_context = ParseContext(create_buildfile(root_dir, 'b'))
+
+        def test_in_a():
+            self.assertEquals(a_context, ParseContext.locate())
+            return b_context.do_in_context((lambda : ParseContext.locate()))
+        self.assertEquals(b_context, a_context.do_in_context(test_in_a))

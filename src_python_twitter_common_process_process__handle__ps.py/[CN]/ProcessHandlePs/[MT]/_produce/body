@@ -1,0 +1,7 @@
+def _produce(self):
+    try:
+        data = os.popen(('ps -p %s -o %s' % (self._pid, ','.join(ProcessHandlePs.ATTRS)))).readlines()
+        if (len(data) > 1):
+            return data[(-1)]
+    except:
+        return None

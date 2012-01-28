@@ -1,0 +1,3 @@
+def _translate_line_to_handle(self, line):
+    'Given a line, extract a ProcessHandle from it.'
+    raise NotImplementedError

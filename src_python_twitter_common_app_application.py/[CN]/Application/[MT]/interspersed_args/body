@@ -1,0 +1,2 @@
+def interspersed_args(self, value):
+    self._interspersed_args = bool(value)

@@ -1,0 +1,6 @@
+def basic_scanf(fmt_string, value_string):
+    '\n    Given format string, parse value string and return list of extracted\n    variables.  Does not support named variables.\n\n    See ScanfParser class for variable description.\n  '
+    so = ScanfParser(fmt_string).parse(value_string)
+    if (len(so.grouped()) > 0):
+        raise ScanfParser.ParseError('basic_scanf does not support named arguments!')
+    return so.ungrouped()

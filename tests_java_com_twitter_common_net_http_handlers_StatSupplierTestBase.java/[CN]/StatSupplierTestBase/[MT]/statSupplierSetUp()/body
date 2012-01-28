@@ -1,0 +1,5 @@
+{
+  statSupplier=createMock(new Clazz<Supplier<Iterable<Stat>>>(){
+  }
+);
+}

@@ -5,6 +5,8 @@ def __sub__(self, other):
             return (self() - other())
         elif isinstance(other, set):
             return (self() - other)
+        elif isinstance(other, basestring):
+            raise TypeError(('Unsupported operand type (%r) for -: %r and %r' % (type(other), self, other)))
         else:
             try:
                 return (self() - set(iter(other)))

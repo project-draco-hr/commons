@@ -1,0 +1,7 @@
+def register(self, gauge):
+    if isinstance(gauge, basestring):
+        gauge = MutatorGauge(gauge)
+    if ((not isinstance(gauge, NamedGauge)) and (not namablegauge(gauge))):
+        raise Metrics.Error(('Must register either a string or a Gauge-like object! Got %s' % gauge))
+    self._metrics[gauge.name()] = gauge
+    return gauge

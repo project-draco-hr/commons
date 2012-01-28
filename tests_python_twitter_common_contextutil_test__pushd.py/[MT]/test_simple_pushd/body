@@ -1,0 +1,8 @@
+def test_simple_pushd():
+    pre_cwd = os.getcwd()
+    with temporary_dir() as tempdir:
+        with pushd(tempdir) as path:
+            assert (path == tempdir)
+            assert (os.getcwd() == os.path.realpath(tempdir))
+        assert (os.getcwd() == pre_cwd)
+    assert (os.getcwd() == pre_cwd)

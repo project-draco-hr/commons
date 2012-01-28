@@ -1,0 +1,22 @@
+{
+  resetMainArgs();
+  assertTrue(parse(Main1.class,"jack,jill","laurel,hardy"));
+  assertEquals(ImmutableList.of("jack,jill","laurel,hardy"),ImmutableList.copyOf(Main1.names.get()));
+  resetMainArgs();
+  assertTrue(parse(Main2.class,"jack,jill","laurel,hardy"));
+  assertEquals(ImmutableList.of(ImmutableList.of("jack","jill"),ImmutableList.of("laurel","hardy")),ImmutableList.copyOf(Main2.rosters.get()));
+  resetMainArgs();
+  try {
+    parse(ImmutableList.of(Main1.class,Main2.class),"jack,jill","laurel,hardy");
+    fail("Expected more than 1 in-scope @Positional Arg List to trigger a failure.");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  resetMainArgs();
+  try {
+    parse(Main3.class,"50","90","99","99.9");
+    fail("Expected more than 1 in-scope @Positional Arg List to trigger a failure.");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

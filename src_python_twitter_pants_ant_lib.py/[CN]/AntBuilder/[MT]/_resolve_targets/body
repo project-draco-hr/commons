@@ -2,20 +2,7 @@ def _resolve_targets(self, targets, name=None):
     for target in targets:
         AntBuilder._check_target(target)
     foil = list(targets)[0]
-    if self.is_ide:
-
-        def is_transitive():
-            if (self.ide_transitivity == TRANSITIVITY_TESTS):
-                return is_test
-            if (self.ide_transitivity == TRANSITIVITY_ALL):
-                return (lambda target: True)
-            if (self.ide_transitivity == TRANSITIVITY_NONE):
-                return (lambda target: False)
-            if (self.ide_transitivity == TRANSITIVITY_SOURCES):
-                return (lambda target: (not is_test(target)))
-        is_transitive = is_transitive()
-        return foil.do_in_context((lambda : ide.extract_target(targets, is_transitive, name)))
-    elif ((len(targets) > 1) or foil.address.is_meta):
-        return foil.do_in_context((lambda : bang.extract_target(targets, name)))
+    if ((len(targets) > 1) or foil.address.is_meta):
+        return bang.extract_target(targets, name)
     else:
         return foil

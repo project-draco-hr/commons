@@ -1,13 +1,3 @@
 {
-  super(new AttributeFactory(){
-    @Override public AttributeImpl createAttributeInstance(    Class<? extends Attribute> attClass){
-      if (attClass == TermAttribute.class) {
-        return DEFAULT_ATTRIBUTE_FACTORY.createAttributeInstance(CharSequenceTermAttribute.class);
-      }
- else {
-        return DEFAULT_ATTRIBUTE_FACTORY.createAttributeInstance(attClass);
-      }
-    }
-  }
-);
+  super();
 }

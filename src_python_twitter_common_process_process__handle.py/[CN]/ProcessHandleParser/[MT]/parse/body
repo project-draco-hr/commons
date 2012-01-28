@@ -1,0 +1,11 @@
+def parse(self, line):
+    d = {}
+    try:
+        so = ScanfParser.parse(self, ' '.join(line.split()), True)
+        for (attr, value) in zip(self._attrs, so.ungrouped()):
+            d[attr] = (self._handlers[attr](attr, value) if (attr in self._handlers) else value)
+    except ScanfParser.ParseError as e:
+        if log:
+            log.error(('ProcessHandleParser failed: %s' % e))
+        return {}
+    return d

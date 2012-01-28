@@ -1,0 +1,10 @@
+{
+  Preconditions.checkNotNull(work);
+  doWithDir(new ExceptionalFunction<File,Void,E>(){
+    @Override public Void apply(    File dir) throws E {
+      work.execute(dir);
+      return null;
+    }
+  }
+);
+}

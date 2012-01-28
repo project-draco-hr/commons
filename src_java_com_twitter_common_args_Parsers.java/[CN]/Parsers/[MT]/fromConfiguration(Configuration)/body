@@ -1,0 +1,4 @@
+{
+  Map<Class<?>,Parser<?>> parsers=Maps.transformValues(Maps.uniqueIndex(configuration.parserInfo(),INFO_TO_PARSED_TYPE),INFO_TO_PARSER);
+  return new Parsers(parsers);
+}

@@ -1,0 +1,10 @@
+def test_static_constructor(self):
+    gauge = FakeGauge('test').supplies([100000])
+    rate = Rate.of(gauge)
+    assert (rate.name() == 'test_per_1secs')
+    rate = Rate.of(gauge, window=Amount(5, Time.MINUTES))
+    assert (rate.name() == 'test_per_5mins')
+    rate = Rate.of(gauge, name='holyguacamole')
+    assert (rate.name() == 'holyguacamole_per_1secs')
+    rate = Rate.of(gauge, name='holyguacamole', window=Amount(3, Time.HOURS))
+    assert (rate.name() == 'holyguacamole_per_3hrs')

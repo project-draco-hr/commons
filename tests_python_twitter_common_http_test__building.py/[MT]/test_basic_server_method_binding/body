@@ -1,0 +1,17 @@
+def test_basic_server_method_binding():
+
+
+    class MyServer(HttpServer):
+
+        def __init__(self):
+            HttpServer.__init__(self)
+
+        @HttpServer.route('/hello')
+        @HttpServer.route('/hello/:first')
+        @HttpServer.route('/hello/:first/:last')
+        def hello(self, first='Zaphod', last='Beeblebrox'):
+            return ('Hello, %s %s!' % (first, last))
+    server = MyServer()
+    assert (server.app().handle('/hello') == 'Hello, Zaphod Beeblebrox!')
+    assert (server.app().handle('/hello/Brian') == 'Hello, Brian Beeblebrox!')
+    assert (server.app().handle('/hello/Brian/Horfgorf') == 'Hello, Brian Horfgorf!')

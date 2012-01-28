@@ -1,0 +1,3 @@
+def __init__(self, typename):
+    self.typename = typename
+    self.by_target = defaultdict((lambda : defaultdict(list)))

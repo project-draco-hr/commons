@@ -1,2 +1,0 @@
-def getPropertyDict(self):
-    return self._props

@@ -1,0 +1,13 @@
+def find(self, requirement, platform=pkg_resources.get_platform()):
+    '\n      Query the location of a distribution that fulfills a requirement.\n\n      Returns a tuple of:\n        location = the location of the distribution (or None if none found.)\n        repo = the repo in which it was found (or None if local or not found.)\n    '
+    if isinstance(requirement, str):
+        requirement = pkg_resources.Requirement.parse(requirement)
+    for dist in pkg_resources.find_distributions(self._cache):
+        if ((dist in requirement) and pkg_resources.compatible_platforms(dist.platform, platform)):
+            return (dist.location, None)
+    for repo in self._pis:
+        repo.find_packages(requirement)
+        for package in repo[requirement.project_name]:
+            if pkg_resources.compatible_platforms(package.platform, platform):
+                return (package.location, repo)
+    return (None, None)

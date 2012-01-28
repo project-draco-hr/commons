@@ -1,0 +1,17 @@
+{
+  FileObject resource=createCommandLineDb(configuration);
+  if (resource == null) {
+    return null;
+  }
+  try {
+    log(Kind.NOTE,"Writing %s",resource.toUri());
+    return resource.openWriter();
+  }
+ catch (  IOException e) {
+    if (!resource.delete()) {
+      log(Kind.WARNING,"Failed to clean up %s after a failing to open it for writing",resource.toUri());
+    }
+    error("Failed to open resource file to store %s: %s",resource.toUri(),Throwables.getStackTraceAsString(e));
+    return null;
+  }
+}

@@ -1,0 +1,3 @@
+def increment(self):
+    '\n      Increment metric and return updated metric.\n    '
+    return self.add(1)

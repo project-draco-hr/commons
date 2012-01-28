@@ -1,0 +1,10 @@
+{
+  MorePreconditions.checkNotBlank(portName,"Port name must not be blank");
+  Preconditions.checkState(!isPrimary || (primaryPort == null),String.format("Attempted to announce primary port %s, conflicts with port %s",portName,primaryPort));
+  Preconditions.checkState(registeredNames.contains(portName),"Attempted to announce unregistered port " + portName);
+  Integer collision=announcedPorts.put(portName,port);
+  Preconditions.checkState(collision == null,"Port was announced twice: " + portName);
+  if (isPrimary) {
+    primaryPort=portName;
+  }
+}

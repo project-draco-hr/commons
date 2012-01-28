@@ -1,7 +1,11 @@
 {
-  int difference=value - other.value;
-  if (difference != 0)   return difference;
+  int difference=activeCount - other.activeCount;
+  if (difference != 0) {
+    return difference;
+  }
   long useDifference=useCount - other.useCount;
-  if (useDifference != 0)   return (int)useDifference;
-  return hashCode() - other.hashCode();
+  if (useDifference != 0) {
+    return Long.signum(useDifference);
+  }
+  return connectionId - other.connectionId;
 }

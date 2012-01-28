@@ -1,8 +1,23 @@
 '\nGlog log system global options.\n\nExports module-level options such as --log_dir and --stdout_log_level, but may be\noverridden locally before calling log.init().\n'
 import logging
 import optparse
-from twitter.common import options
+from collections import namedtuple
+DefaultLogOpts = namedtuple('DefaultLogOpts', ' '.join(['twitter_common_log_stdout_log_level', 'twitter_common_log_disk_log_level', 'twitter_common_log_log_dir']))
+_DEFAULT_LOG_OPTS = DefaultLogOpts(twitter_common_log_stdout_log_level='NONE', twitter_common_log_disk_log_level='INFO', twitter_common_log_log_dir='/var/tmp')
+try:
+    from twitter.common import app
+    HAVE_APP = True
+except ImportError:
+
+
+    class AppDefaultProxy(object):
+
+        def get_options(self):
+            return _DEFAULT_LOG_OPTS
+    app = AppDefaultProxy()
+    HAVE_APP = False
 _LOGGING_HELP = ('The level at which to log to %%s [default: %%%%default].\nTakes either LEVEL or scheme:LEVEL, where LEVEL is one\nof %s and scheme is one of %s.\n' % (repr(LogOptions._LOG_LEVELS.keys()), repr(LogOptions._LOG_SCHEMES)))
-options.add('--log_to_stdout', callback=LogOptions._stdout_options_callback, default='NONE', type='string', action='callback', metavar='[scheme:]LEVEL', dest='twitter_common_log_stdout_log_level', help=(_LOGGING_HELP % 'stdout'))
-options.add('--log_to_disk', callback=LogOptions._disk_options_callback, default='INFO', type='string', action='callback', metavar='[scheme:]LEVEL', dest='twitter_common_log_disk_log_level', help=(_LOGGING_HELP % 'disk'))
-options.add('--log_dir', type='string', default='/var/tmp', metavar='DIR', dest='twitter_common_log_log_dir', help='The directory into which log files will be generated [default: %default].')
+if HAVE_APP:
+    app.add_option('--log_to_stdout', callback=LogOptions._stdout_options_callback, default=_DEFAULT_LOG_OPTS.twitter_common_log_stdout_log_level, type='string', action='callback', metavar='[scheme:]LEVEL', dest='twitter_common_log_stdout_log_level', help=(_LOGGING_HELP % 'stdout'))
+    app.add_option('--log_to_disk', callback=LogOptions._disk_options_callback, default=_DEFAULT_LOG_OPTS.twitter_common_log_disk_log_level, type='string', action='callback', metavar='[scheme:]LEVEL', dest='twitter_common_log_disk_log_level', help=(_LOGGING_HELP % 'disk'))
+    app.add_option('--log_dir', type='string', default=_DEFAULT_LOG_OPTS.twitter_common_log_log_dir, metavar='DIR', dest='twitter_common_log_log_dir', help='The directory into which log files will be generated [default: %default].')

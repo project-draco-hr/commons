@@ -1,0 +1,12 @@
+def calculate_basedir(file):
+    with open(file, 'r') as source:
+        for line in source:
+            match = PACKAGE_PARSER.match(line)
+            if match:
+                package = match.group(1)
+                packagedir = package.replace('.', '/')
+                dir = os.path.dirname(file)
+                if (not dir.endswith(packagedir)):
+                    raise TaskError(('File %s declares a mismatching package %s' % (file, package)))
+                return dir[:(- len(packagedir))]
+    raise TaskError(('Could not calculate a base dir for: %s' % file))

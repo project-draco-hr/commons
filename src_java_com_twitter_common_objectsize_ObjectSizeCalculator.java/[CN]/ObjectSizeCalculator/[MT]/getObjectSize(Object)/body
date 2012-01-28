@@ -1,3 +1,3 @@
 {
-  return obj == null ? 0 : new ObjectSizeCalculator().getObjectSizeInternal(obj);
+  return obj == null ? 0 : new ObjectSizeCalculator(CurrentLayout.SPEC).calculateObjectSize(obj);
 }

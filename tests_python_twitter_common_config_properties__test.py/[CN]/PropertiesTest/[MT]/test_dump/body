@@ -1,0 +1,9 @@
+def test_dump(self):
+    props = OrderedDict()
+    props['a'] = 1
+    props['b'] = '2\n'
+    props['c'] = ' 3 : ='
+    out = StringIO()
+    Properties.dump(props, out)
+    print out.getvalue()
+    self.assertEquals('a=1\nb=2\\\n\nc=\\ 3\\ \\:\\ \\=\n', out.getvalue())

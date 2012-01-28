@@ -1,0 +1,7 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('outdir'), dest='javadoc_gen_outdir', help='Emit javadoc in this directory.')
+    option_group.add_option(mkflag('transitive'), mkflag('transitive', negate=True), dest='javadoc_gen_transitive', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Create javadoc for the transitive closure of internal targets reachable from the roots specified on the command line.')
+    combined_flag = mkflag('combined')
+    option_group.add_option(combined_flag, mkflag('combined', negate=True), dest='javadoc_gen_combined', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Generate javadoc for all targets combined instead of each target individually.')
+    option_group.add_option(mkflag('open'), mkflag('open', negate=True), dest='javadoc_gen_open', default=False, action='callback', callback=mkflag.set_bool, help=('[%%default] Attempt to open the generated javadoc in a browser (implies %s).' % combined_flag))

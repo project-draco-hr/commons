@@ -1,0 +1,5 @@
+def test_temporary_dir_without_cleanup():
+    with temporary_dir(cleanup=False) as path:
+        assert os.path.exists(path), 'temporary dir should exist within the context.'
+    assert os.path.exists(path), 'temporary dir should exist outside of context if cleanup=False.'
+    shutil.rmtree(path)

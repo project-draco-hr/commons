@@ -1,0 +1,4 @@
+{
+  checkFullyAnnounced();
+  return primaryPort;
+}

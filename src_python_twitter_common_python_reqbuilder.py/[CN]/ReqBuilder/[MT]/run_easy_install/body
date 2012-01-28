@@ -1,0 +1,10 @@
+@staticmethod
+def run_easy_install(arguments):
+    '\n      Run easy_install with the given arguments.\n    '
+    with environment_as(PYTHONPATH=':'.join(sys.path)):
+        with temporary_file() as fp:
+            rc = subprocess.Popen(([sys.executable, '-m', 'easy_install'] + arguments), stdout=fp, stderr=fp).wait()
+            if (rc != 0):
+                fp.seek(0)
+                print  >> sys.stderr, ('Failed to build!  %s' % fp.read())
+            return (rc == 0)

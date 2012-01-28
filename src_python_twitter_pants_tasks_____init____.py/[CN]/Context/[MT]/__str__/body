@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('Context(id:%s, state:%s, targets:%s)' % (self.id, self.state, self.targets()))

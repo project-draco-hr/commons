@@ -1,3 +1,3 @@
 {
-  return new StockTokenCombiner(new EmoticonTokenCombiner(new DotContractedTokenCombiner(new PossessiveTokenCombiner(new URLTokenCombiner(new HashtagTokenCombiner(new UserNameTokenCombiner(tokenizer)))))));
+  return new StockTokenCombiner(new EmoticonTokenCombiner(new DotContractedTokenCombiner(new PossessiveContractionTokenCombiner(new URLTokenCombiner(new HashtagTokenCombiner(new UserNameTokenCombiner(tokenizer)))))));
 }

@@ -1,0 +1,3 @@
+def __init__(self, compression):
+    Archiver.__init__(self)
+    self.compression = compression

@@ -1,0 +1,13 @@
+def register_module(self, module):
+    '\n      Register an app.Module and all its options.\n    '
+    if (not isinstance(module, AppModule)):
+        raise TypeError('register_module should be called with a subclass of AppModule')
+    if (module.label() in self._registered_modules):
+        return
+    if hasattr(module, 'OPTIONS'):
+        if (not isinstance(module.OPTIONS, dict)):
+            raise Application.Error(('Registered app.Module %s has invalid OPTIONS.' % module.__module__))
+        for opt in module.OPTIONS.values():
+            self._add_option(module.__module__, opt)
+        self._configure_options(module.label(), module.OPTIONS)
+    self._registered_modules.append(module.label())

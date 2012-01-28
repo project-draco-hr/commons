@@ -1,0 +1,6 @@
+{
+  if (type instanceof WildcardType) {
+    return getTypeParams(GET_TYPE.apply(type));
+  }
+  return Lists.transform(Arrays.asList(((ParameterizedType)type).getActualTypeArguments()),GET_TYPE);
+}

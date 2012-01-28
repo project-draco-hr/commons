@@ -1,5 +1,0 @@
-def list(self, out=sys.stdout):
-    " Prints a listing of the properties to the\n        stream 'out' which defaults to the standard output "
-    out.write('-- listing properties --\n')
-    for (key, value) in self._props.items():
-        out.write(''.join((key, '=', value, '\n')))

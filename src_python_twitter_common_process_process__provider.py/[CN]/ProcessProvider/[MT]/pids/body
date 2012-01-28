@@ -1,0 +1,3 @@
+def pids(self):
+    'Returns list of pids from the last collection.'
+    return copy(self._pids)

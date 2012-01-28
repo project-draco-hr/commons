@@ -24,7 +24,6 @@
       int currentEndOffset=inputTermAttr.getOffset() + inputTermAttr.getLength();
       if (currentEndOffset == endOffset) {
         termAttr.setLength(endOffset - startOffset);
-        offsetAttr.setOffset(startOffset,endOffset);
         if (type != null) {
           typeAttr.setType(type);
         }

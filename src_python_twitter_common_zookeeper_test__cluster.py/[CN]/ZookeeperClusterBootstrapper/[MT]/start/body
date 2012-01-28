@@ -1,0 +1,10 @@
+def start(self, server_id):
+    'Start a new (or reuse existing) ZK server.\n\n    :returns: Port the server is listening on.\n    '
+    if (server_id not in self.servers):
+        raise ZookeeperClusterBootstrapper.InvalidServerId(('Invalid server id: %s' % server_id))
+    sh = self.servers[server_id]
+    if (sh.handle is not None):
+        return sh.port
+    sh.handle = subprocess.Popen((ZookeeperClusterBootstrapper.COMMAND % {'root': ZookeeperClusterBootstrapper.ROOT, 'ivyfile': self.ivyfile, 'config': self.servers[server_id].config, }).split(), stderr=sh.stderr, stdout=sh.stdout)
+    ZookeeperClusterBootstrapper._orphaned_pids.add(sh.handle.pid)
+    return sh.port

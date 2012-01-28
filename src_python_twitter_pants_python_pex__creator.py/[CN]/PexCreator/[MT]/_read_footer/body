@@ -1,3 +1,0 @@
-@staticmethod
-def _read_footer():
-    return pkgutil.get_data(__name__, PexCreator.PEX_FOOTER)

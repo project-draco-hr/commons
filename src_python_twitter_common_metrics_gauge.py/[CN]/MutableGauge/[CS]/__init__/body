@@ -1,0 +1,4 @@
+def __init__(self, value=None):
+    import threading
+    self._lock = threading.Lock()
+    Gauge.__init__(self, value)

@@ -1,0 +1,6 @@
+def test_special_characters():
+    special_stuffs = [(')', '('), ('(', ')'), ('[', ']'), ('{', '}'), ('(', ')+'), ('(|', ')'), ('{,', '}'), ('$', '^'), ('^', '$'), (' ', '+'), (' ', '*'), (' ', '?')]
+    for (before, after) in special_stuffs:
+        assert (basic_scanf(((before + '%c') + after), ((before + 'a') + after)) == 'a')
+        assert (basic_scanf(((before + '%c') + after), ((before + u'a') + after)) == 'a')
+        assert (basic_scanf(((before + '%c') + after), ((before + ' ') + after)) == ' ')

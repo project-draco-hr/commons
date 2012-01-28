@@ -1,0 +1,3 @@
+{
+  return positionalInfos.isEmpty() && cmdLineInfos.isEmpty() && parserInfos.isEmpty()&& verifierInfos.isEmpty();
+}

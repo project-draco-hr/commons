@@ -1,0 +1,2 @@
+def __init__(self, name, value):
+    NamedGauge.__init__(self, name, value)

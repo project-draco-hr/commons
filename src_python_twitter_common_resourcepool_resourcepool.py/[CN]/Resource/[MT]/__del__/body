@@ -1,0 +1,6 @@
+def __del__(self):
+    try:
+        if (self._pool is not None):
+            self.release()
+    except:
+        pass

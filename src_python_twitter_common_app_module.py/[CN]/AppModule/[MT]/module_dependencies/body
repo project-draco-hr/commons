@@ -1,0 +1,3 @@
+@staticmethod
+def module_dependencies():
+    return AppModule._MODULE_DEPENDENCIES

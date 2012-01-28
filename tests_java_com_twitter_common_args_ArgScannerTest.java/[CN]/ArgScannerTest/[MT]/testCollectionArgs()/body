@@ -65,4 +65,16 @@
     }
   }
 ,"intIntPair","10    ,20");
+  test(CollectionArgs.class,new Command(){
+    @Override public void execute(){
+      assertThat(CollectionArgs.stringTimeAmountPair.get(),is(Pair.of("fred",Amount.of(42L,Time.MINUTES))));
+    }
+  }
+,"stringTimeAmountPair","fred    ,42mins");
+  test(CollectionArgs.class,new Command(){
+    @Override public void execute(){
+      CollectionArgs.stringTimeAmountPair.get();
+    }
+  }
+,true,"stringTimeAmountPair","george,1MB");
 }

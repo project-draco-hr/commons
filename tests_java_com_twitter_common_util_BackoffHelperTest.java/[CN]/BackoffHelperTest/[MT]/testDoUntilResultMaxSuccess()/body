@@ -1,0 +1,18 @@
+{
+  Supplier<String> task=createMock(new Clazz<Supplier<String>>(){
+  }
+);
+  BackoffHelper maxBackoffHelper=new BackoffHelper(clock,backoffStrategy);
+  expect(task.get()).andReturn(null);
+  expect(backoffStrategy.shouldContinue()).andReturn(true);
+  expect(backoffStrategy.calculateBackoffMs(0)).andReturn(42L);
+  clock.waitFor(42L);
+  expect(task.get()).andReturn(null);
+  expect(backoffStrategy.shouldContinue()).andReturn(true);
+  expect(backoffStrategy.calculateBackoffMs(42L)).andReturn(37L);
+  clock.waitFor(37L);
+  expect(task.get()).andReturn("jake");
+  control.replay();
+  assertEquals("jake",maxBackoffHelper.doUntilResult(task));
+  control.verify();
+}

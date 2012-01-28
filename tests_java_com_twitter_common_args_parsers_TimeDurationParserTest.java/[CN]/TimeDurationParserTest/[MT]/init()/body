@@ -1,0 +1,3 @@
+{
+  parserOracle=new Parsers(ImmutableMap.of(Long.class,new LongParser(),Unit.class,new UnitParser(),Amount.class,new AmountParser()));
+}

@@ -2,7 +2,16 @@ def execute(self):
     jvm_targets = OrderedSet(extract_jvm_targets(self.targets))
     if (not jvm_targets):
         raise Exception(('Only jvm targets currently handled and none found in: %s' % self.targets))
-    project = Project(self.project_name, self.options.python, self.root_dir, jvm_targets)
-    all_targets = project.configure()
-    (ivyfile, ivysettingsfile) = self._generate_ivy(all_targets)
-    self._generate_project_files(project, ivyfile, ivysettingsfile)
+    skip_java = (not self.options.java)
+    skip_scala = (not self.options.scala)
+    checkstyle_suppression_files = self._load_checkstyle_suppressions()
+    project = Project(self.project_name, self.options.python, skip_java, skip_scala, self.root_dir, checkstyle_suppression_files, jvm_targets)
+    all_targets = project.configure(self.scala_compiler_profile)
+    foil = list(all_targets)[0]
+    is_transitive = (lambda target: True)
+
+    def is_cp(target):
+        return (target.is_codegen or is_apt(target) or (skip_java and is_java(target)) or (skip_scala and is_scala(target)))
+    ide_target = foil.do_in_context((lambda : extract_target(all_targets, is_transitive, is_cp)))
+    (ivyfile, ivysettingsfile) = self._generate_ivy(ide_target)
+    return self._generate_project_files(project, ivyfile, ivysettingsfile)

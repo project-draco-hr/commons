@@ -1,0 +1,2 @@
+def add_dependency_file(self, filename, dep_filename):
+    self._chroot.link(filename, os.path.join(PythonEnvironment.DEPENDENCY_DIR, dep_filename), 'dependency')

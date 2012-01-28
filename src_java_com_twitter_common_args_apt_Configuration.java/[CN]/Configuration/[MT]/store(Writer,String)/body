@@ -3,7 +3,19 @@
   writer.printf("# %s\n",new Date());
   writer.printf("# %s\n ",message);
   writer.println();
-  for (  FieldInfo info : infos) {
-    writer.printf("%s%s%s\n",info.className,FIELD_NAME_SEPARATOR,info.fieldName);
+  for (  ArgInfo info : positionalInfos) {
+    writer.printf("positional %s %s\n",info.className,info.fieldName);
+  }
+  writer.println();
+  for (  ArgInfo info : cmdLineInfos) {
+    writer.printf("field %s %s\n",info.className,info.fieldName);
+  }
+  writer.println();
+  for (  ParserInfo info : parserInfos) {
+    writer.printf("parser %s %s\n",info.parsedType,info.parserClass);
+  }
+  writer.println();
+  for (  VerifierInfo info : verifierInfos) {
+    writer.printf("verifier %s %s %s\n",info.verifiedType,info.verifyingAnnotation,info.verifierClass);
   }
 }

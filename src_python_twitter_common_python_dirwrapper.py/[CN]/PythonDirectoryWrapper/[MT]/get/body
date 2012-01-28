@@ -1,0 +1,6 @@
+@staticmethod
+def get(path):
+    if os.path.isdir(path):
+        return _DirWrapper(path)
+    elif os.path.isfile(path):
+        return _ZipWrapper(path)

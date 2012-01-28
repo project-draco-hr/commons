@@ -1,0 +1,9 @@
+def shutdown(self):
+    '\n      Shutdown a server that has had its run() method called.\n    '
+    if (not self._run):
+        return
+    with self._lock:
+        while (not self._srv):
+            self.wait()
+        self._srv.shutdown()
+        self._run = False

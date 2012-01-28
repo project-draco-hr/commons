@@ -1,0 +1,3 @@
+def wall_time(self):
+    '\n      Total wall time this process has been up.\n    '
+    raise NotImplementedError

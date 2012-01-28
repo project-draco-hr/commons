@@ -1,0 +1,19 @@
+{
+  TypeElement parserType=typeElement(Parser.class);
+  for (  Element element : elements) {
+    if (element.getKind() != ElementKind.CLASS) {
+      error("Found an @ArgParser annotation on a non-class %s",element);
+    }
+ else {
+      TypeElement parser=(TypeElement)element;
+      if (!isAssignable(parser,Parser.class)) {
+        error("Found an @ArgParser annotation on a non-Parser %s",element);
+        return;
+      }
+      @Nullable String parsedType=getTypeArgument(parser,parserType);
+      if (parsedType != null) {
+        configBuilder.addParser(parsedType,getBinaryName(parser));
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+def _reset(self):
+    '\n      Resets the state set up by init() so that init() may be called again.\n    '
+    self.initialized = False
+    self._option_values = options.Values()
+    self._argv = []

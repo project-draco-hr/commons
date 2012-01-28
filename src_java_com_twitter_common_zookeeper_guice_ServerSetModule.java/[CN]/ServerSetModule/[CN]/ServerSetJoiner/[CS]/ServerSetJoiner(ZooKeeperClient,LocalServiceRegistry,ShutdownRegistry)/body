@@ -1,0 +1,5 @@
+{
+  this.zkClient=checkNotNull(zkClient);
+  this.serviceRegistry=checkNotNull(serviceRegistry);
+  this.shutdownRegistry=checkNotNull(shutdownRegistry);
+}

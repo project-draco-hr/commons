@@ -1,0 +1,4 @@
+def scanf(fmt, string):
+    formatter = ScanfParser(fmt)
+    result = formatter.parse(string)
+    return (result.groups(), result.ungrouped())

@@ -1,3 +1,0 @@
-def set_usage(usage):
-    _Global.OPTIONS.set_usage(usage)
-    _Global.OPTIONS_LONG.set_usage(usage)

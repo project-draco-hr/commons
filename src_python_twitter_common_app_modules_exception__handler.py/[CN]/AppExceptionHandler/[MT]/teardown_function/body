@@ -1,0 +1,2 @@
+def teardown_function(self):
+    sys.excepthook = sys.__excepthook__

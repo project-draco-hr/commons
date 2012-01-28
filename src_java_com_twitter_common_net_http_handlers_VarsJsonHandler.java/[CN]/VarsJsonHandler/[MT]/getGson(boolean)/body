@@ -1,0 +1,3 @@
+{
+  return pretty ? new GsonBuilder().setPrettyPrinting().create() : new Gson();
+}

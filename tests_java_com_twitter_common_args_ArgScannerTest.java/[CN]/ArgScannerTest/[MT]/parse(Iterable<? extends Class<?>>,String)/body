@@ -1,4 +1,5 @@
 {
   Predicate<Field> filter=Predicates.or(Iterables.transform(scopes,TO_SCOPE_PREDICATE));
-  ArgScanner.parse(filter,args);
+  PrintStream devNull=new PrintStream(new NullOutputStream());
+  return new ArgScanner(devNull).parse(filter,Arrays.asList(args));
 }

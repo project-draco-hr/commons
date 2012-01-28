@@ -1,0 +1,15 @@
+{
+  CharSequence test="This is for test.";
+  att.setTermBuffer(test);
+  int hashCode=att.hashCode();
+  att.setOffset(2);
+  att.setLength(3);
+  assertTrue(hashCode != att.hashCode());
+  att.setOffset(0);
+  att.setLength(test.length());
+  assertTrue(hashCode == att.hashCode());
+  att.setTermBuffer(test,2,3);
+  assertTrue(hashCode != att.hashCode());
+  att.setTermBuffer(test,0,test.length());
+  assertTrue(hashCode == att.hashCode());
+}

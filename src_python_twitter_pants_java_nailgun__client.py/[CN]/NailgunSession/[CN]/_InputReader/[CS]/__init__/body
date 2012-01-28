@@ -1,0 +1,7 @@
+def __init__(self, ins, sock):
+    threading.Thread.__init__(self)
+    self.daemon = True
+    self._ins = ins
+    self._sock = sock
+    self._send_chunk = partial(_send_chunk, sock)
+    self._stopping = threading.Event()

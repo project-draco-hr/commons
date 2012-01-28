@@ -1,0 +1,9 @@
+def dependants(self, predicate=None):
+    core = set(self.targets(predicate))
+    dependees = defaultdict(set)
+    for target in self.targets((lambda t: (not predicate(t)))):
+        if hasattr(target, 'dependencies'):
+            for dependency in target.dependencies:
+                if (dependency in core):
+                    dependees[target].add(dependency)
+    return dependees

@@ -1,0 +1,4 @@
+@staticmethod
+def reset():
+    'Reset the global application.  Only useful for testing.'
+    Application._Global = Application()

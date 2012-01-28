@@ -1,0 +1,3 @@
+def print_help(self):
+    parser = self._init_parser()
+    parser.print_help()

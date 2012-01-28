@@ -1,0 +1,9 @@
+{
+  Map<String,Number> samples=Maps.newHashMap(metrics.sample());
+  for (  Map.Entry<String,Number> expectedSample : expected.entrySet()) {
+    Number value=samples.remove(expectedSample.getKey());
+    assertNotNull(value);
+    assertEquals(expectedSample.getValue().doubleValue(),value.doubleValue(),EPS);
+  }
+  assertThat(metrics.sample(),is(expected));
+}

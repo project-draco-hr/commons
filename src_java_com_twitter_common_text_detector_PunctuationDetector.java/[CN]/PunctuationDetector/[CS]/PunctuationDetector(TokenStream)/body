@@ -1,5 +1,5 @@
 {
   super(inputStream);
-  setRegexPattern(DEFAULT_PUNCTUATION_REGEX);
+  setRegexPattern(DEFAULT_PUNCTUATION_PATTERN);
   setType(TokenType.PUNCTUATION);
 }

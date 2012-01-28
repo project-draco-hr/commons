@@ -1,12 +1,5 @@
 {
   super(inputStream);
-  if (inputStream.hasAttribute(CharSequenceTermAttribute.class)) {
-    inputCharSeqTermAttr=inputStream.getAttribute(CharSequenceTermAttribute.class);
-    inputTermAttr=null;
-  }
- else {
-    inputTermAttr=inputStream.getAttribute(TermAttribute.class);
-    inputCharSeqTermAttr=null;
-  }
+  inputCharSeqTermAttr=inputStream.getAttribute(CharSequenceTermAttribute.class);
   typeAttr=addAttribute(TokenTypeAttribute.class);
 }

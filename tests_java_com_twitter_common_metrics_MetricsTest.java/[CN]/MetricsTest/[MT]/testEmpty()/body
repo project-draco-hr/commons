@@ -1,0 +1,3 @@
+{
+  checkSamples(ImmutableMap.<String,Number>of());
+}

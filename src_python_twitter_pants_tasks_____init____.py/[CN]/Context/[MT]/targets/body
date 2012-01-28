@@ -1,0 +1,2 @@
+def targets(self, predicate=None):
+    return filter(predicate, self._targets)

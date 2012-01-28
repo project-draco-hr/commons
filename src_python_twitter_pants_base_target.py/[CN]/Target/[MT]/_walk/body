@@ -1,6 +1,6 @@
 def _walk(self, walked, work, predicate=None):
     for target in self.resolve():
-        if (target not in walked):
+        if ((target not in walked) and isinstance(target, Target)):
             walked.add(target)
             if ((not predicate) or predicate(target)):
                 additional_targets = work(target)

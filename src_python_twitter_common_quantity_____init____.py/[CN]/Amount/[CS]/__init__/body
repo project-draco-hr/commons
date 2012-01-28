@@ -1,0 +1,3 @@
+def __init__(self, amount, unit):
+    self._amount = amount
+    self._unit = unit

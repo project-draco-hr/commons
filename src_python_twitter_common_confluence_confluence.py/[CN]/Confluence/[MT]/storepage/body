@@ -1,0 +1,7 @@
+def storepage(self, page):
+    'Stores a page object, updating the page if it already exists.\n\n    returns the stored page, or None if the page could not be stored.\n    '
+    try:
+        return self._server.confluence1.storePage(self._session_token, page)
+    except xmlrpclib.Fault:
+        log.error(('Failed to store page %s: %s' % (page_title, e)))
+        return None

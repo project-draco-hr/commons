@@ -1,0 +1,2 @@
+def resolve(self, spec):
+    return self._do_in_context((lambda : Pants(spec).resolve()))

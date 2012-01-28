@@ -1,0 +1,2 @@
+def filter_map(fn, lst):
+    return filter((lambda return_value: (return_value is not None)), map(fn, lst))

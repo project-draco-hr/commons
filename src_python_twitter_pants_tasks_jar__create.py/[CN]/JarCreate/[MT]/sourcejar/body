@@ -1,0 +1,8 @@
+def sourcejar(self, jvm_targets, add_genjar):
+    for target in jvm_targets:
+        jar_name = ('%s-sources.jar' % jarname(target))
+        add_genjar(target, jar_name)
+        jar_path = os.path.join(self._output_dir, jar_name)
+        with self.create_jar(jar_path) as zip:
+            for source in target.sources:
+                zip.write(os.path.join(target.target_base, source), source)

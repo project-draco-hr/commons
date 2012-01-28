@@ -1,0 +1,2 @@
+def _add_target(self, target):
+    self._targets.update((t for t in target.resolve()))

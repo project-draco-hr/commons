@@ -1,0 +1,3 @@
+def user(self):
+    '\n      The owner of the process.\n    '
+    raise NotImplementedError

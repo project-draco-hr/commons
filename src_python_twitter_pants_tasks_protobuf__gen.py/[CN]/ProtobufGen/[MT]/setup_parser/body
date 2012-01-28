@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('outdir'), dest='protobuf_gen_create_outdir', help='Emit generated code in to this directory.')
+    option_group.add_option(mkflag('lang'), dest='protobuf_gen_langs', default=[], action='append', type='choice', choices=['python', 'java'], help="Force generation of protobuf code for these languages.  Both 'python' and 'java' are supported")

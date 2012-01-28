@@ -1,0 +1,40 @@
+{
+  Preconditions.checkNotNull(data);
+  Preconditions.checkState(data.length > 0);
+  ByteArrayInputStream bais=new ByteArrayInputStream(data);
+  final AttributeInputStream input=new AttributeInputStream(bais);
+  int ordinal=input.readVInt();
+  if (ordinal > CURRENT_VERSION.ordinal()) {
+    throw new IOException("Version of serialized data is newer than the version this serializer" + "supports: " + ordinal + " > "+ CURRENT_VERSION.ordinal());
+  }
+  final Version version=Version.values()[ordinal];
+  final int numTokens=input.readVInt();
+  TokenStream tokenStream=new TokenStream(){
+    CharSequence chars;
+    int token=0;
+    @Override public boolean incrementToken(){
+      if (token < numTokens) {
+        token++;
+        try {
+          deserializeAttributes(input,chars);
+        }
+ catch (        IOException e) {
+          throw new RuntimeException(e);
+        }
+        return true;
+      }
+      return false;
+    }
+    @Override public void reset(    CharSequence input){
+      chars=input;
+      token=0;
+    }
+  }
+;
+  for (  AttributeSerializer deserializer : attributeSerializers) {
+    deserializer.initialize(tokenStream,version);
+  }
+  input.close();
+  tokenStream.reset(charSequence);
+  return tokenStream;
+}

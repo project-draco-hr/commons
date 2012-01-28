@@ -1,0 +1,3 @@
+{
+  lastEventNs.set(clock.nowNanos());
+}

@@ -1,0 +1,6 @@
+{
+  assertNotNull(dir);
+  assertTrue(dir.exists());
+  assertTrue(dir.isDirectory());
+  assertEquals(0,dir.list().length);
+}

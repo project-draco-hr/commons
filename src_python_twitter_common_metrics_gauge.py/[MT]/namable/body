@@ -1,0 +1,2 @@
+def namable(obj):
+    return (hasattr(obj, 'name') and callable(obj.name))

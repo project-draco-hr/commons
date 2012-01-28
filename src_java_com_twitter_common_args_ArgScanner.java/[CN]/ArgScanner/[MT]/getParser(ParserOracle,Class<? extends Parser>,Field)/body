@@ -1,0 +1,4 @@
+{
+  Preconditions.checkArgument(argField.getType() == Arg.class,"Field is annotated for argument parsing but is not of Arg type: " + argField);
+  return getParser(parserOracle,custom,TypeUtil.getTypeParamClass(argField));
+}

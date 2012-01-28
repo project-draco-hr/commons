@@ -1,11 +1,10 @@
-def load(self, stream):
-    ' Load properties from an open file stream '
-    if (type(stream) is not file):
-        raise TypeError, 'Argument should be a file object!'
-    if (stream.mode != 'r'):
-        raise ValueError, 'Stream should be opened in read-only mode!'
-    try:
-        lines = stream.readlines()
-        self.__parse(lines)
-    except IOError as e:
-        raise
+@staticmethod
+def load(data):
+    '\n      Loads properties from an open stream or the contents of a string and returns a dict of the\n      parsed property data.\n    '
+    if (hasattr(data, 'read') and callable(data.read)):
+        contents = data.read()
+    elif isinstance(data, basestring):
+        contents = data
+    else:
+        raise TypeError(('Can only process data from a string or a readable object, given: %s' % data))
+    return Properties._parse(contents.splitlines())

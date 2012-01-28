@@ -1,0 +1,3 @@
+def copy(self):
+    'od.copy() -> a shallow copy of od'
+    return self.__class__(self)
