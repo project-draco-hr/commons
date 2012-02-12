@@ -7,5 +7,5 @@ def __init__(self, config, options, target_roots, log=None):
     self.products = Products()
     self._targets = OrderedSet()
     for target in self.target_roots:
-        target.walk(self._add_target)
+        self._add_target(target)
     self.id = self.identify(self._targets)
