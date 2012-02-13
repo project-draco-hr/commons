@@ -1,0 +1,8 @@
+def resolved_java_sources(self):
+    resolved_sources = []
+    if self.java_sources:
+        for target in self.java_sources:
+            for resolved in target.resolve():
+                if hasattr(resolved, 'sources'):
+                    resolved_sources += list((os.path.join(resolved.target_base, source) for source in resolved.sources if source.endswith('.java')))
+    return resolved_sources
