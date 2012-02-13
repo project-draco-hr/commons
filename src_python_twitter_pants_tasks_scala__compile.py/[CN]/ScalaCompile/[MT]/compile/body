@@ -1,6 +1,6 @@
 def compile(self, classpath, bases, sources_by_target):
     safe_mkdir(self._output_dir)
-    compiler_classpath = (self._compiler_classpath or nailgun_profile_classpath(self, self._profile))
+    compiler_classpath = (self._compiler_classpath or nailgun_profile_classpath(self, self._compile_profile))
     self.ng('ng-cp', *compiler_classpath)
     args = ['-classpath', ':'.join((compiler_classpath + classpath)), '-sourcepath', ':'.join(bases), '-d', self._output_dir, '-dependencyfile', self._depfile, '-make:transitivenocp']
     args.extend(self._args)
