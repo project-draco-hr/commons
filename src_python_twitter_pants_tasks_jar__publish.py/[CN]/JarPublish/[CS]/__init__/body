@@ -1,2 +1,54 @@
 def __init__(self, context):
     Task.__init__(self, context)
+    self.outdir = context.config.get('jar-publish', 'workdir')
+    self.cachedir = os.path.join(self.outdir, 'cache')
+    self.repos = context.config.getdict('jar-publish', 'repos')
+    self.repo_prefix = (context.options.jar_publish_repo_prefix or '')
+    self.ivycp = context.config.getlist('ivy', 'classpath')
+    self.ivysettings = context.config.get('ivy', 'ivy_settings')
+    self.dryrun = context.options.jar_publish_dryrun
+    self.commit = context.options.jar_publish_commit
+    self.transitive = context.options.jar_publish_transitive
+    self.force = context.options.jar_publish_force
+
+    def parse_jarcoordinate(coordinate):
+        components = coordinate.split('#', 1)
+        if (len(components) == 2):
+            (org, name) = components
+            return (org, name)
+        else:
+            try:
+                address = Address.parse(get_buildroot(), coordinate)
+                try:
+                    target = Target.get(address)
+                    if (not target):
+                        siblings = Target.get_all_addresses(address.buildfile)
+                        prompt = ('did you mean' if (len(siblings) == 1) else 'maybe you meant one of these')
+                        raise TaskError(('%s => %s?:\n    %s' % (address, prompt, '\n    '.join((str(a) for a in siblings)))))
+                    if (not is_exported(target)):
+                        raise TaskError(('%s is not an exported target' % coordinate))
+                    return (target.provides.org, target.provides.name)
+                except (ImportError, SyntaxError, TypeError):
+                    raise TaskError(('Failed to parse %s' % address.buildfile.relpath))
+            except IOError:
+                raise TaskError(('No BUILD file could be found at %s' % coordinate))
+    self.overrides = {}
+    if context.options.jar_publish_overrides:
+
+        def parse_override(override):
+            try:
+                (coordinate, rev) = override.split('=', 1)
+                try:
+                    rev = Semver.parse(rev)
+                except ValueError:
+                    raise TaskError(('Invalid version: %s' % rev))
+                return (parse_jarcoordinate(coordinate), rev)
+            except ValueError:
+                raise TaskError(('Invalid override: %s' % override))
+        self.overrides.update((parse_override(o) for o in context.options.jar_publish_overrides))
+    self.restart_at = None
+    if context.options.jar_publish_restart_at:
+        self.restart_at = parse_jarcoordinate(context.options.jar_publish_restart_at)
+    context.products.require('jars')
+    context.products.require('source_jars')
+    context.products.require('javadoc_jars')

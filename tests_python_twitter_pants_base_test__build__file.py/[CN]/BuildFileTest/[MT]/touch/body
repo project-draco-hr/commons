@@ -1,5 +1,3 @@
 @classmethod
 def touch(cls, path):
-    fullpath = os.path.join(BuildFileTest.root_dir, path)
-    BuildFileTest.makedirs(os.path.dirname(fullpath))
-    open(fullpath, 'w').close()
+    touch(os.path.join(BuildFileTest.root_dir, path))

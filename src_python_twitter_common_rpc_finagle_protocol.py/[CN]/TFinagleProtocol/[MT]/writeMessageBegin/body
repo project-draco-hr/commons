@@ -1,0 +1,10 @@
+def writeMessageBegin(self, *args, **kwargs):
+    if self._finagle_upgraded:
+        if (not hasattr(self._locals, 'trace')):
+            self._locals.trace = Trace()
+        trace_id = self._locals.trace.get()
+        TFinagleProtocol.to_request_header(trace_id).write(self)
+        with self._locals.trace.push(trace_id):
+            return TBinaryProtocol.TBinaryProtocolAccelerated.writeMessageBegin(self, *args, **kwargs)
+    else:
+        return TBinaryProtocol.TBinaryProtocolAccelerated.writeMessageBegin(self, *args, **kwargs)

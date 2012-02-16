@@ -1,14 +1,14 @@
-def __init__(self, context, output_dir=None, classpath=None, main=None, args=None, confs=None):
-    self._profile = context.config.get('java-compile', 'profile')
-    workdir = context.config.get('java-compile', 'nailgun_dir')
-    NailgunTask.__init__(self, context, workdir=workdir)
-    self._compiler_classpath = classpath
-    self._output_dir = (output_dir or context.config.get('java-compile', 'workdir'))
-    self._processor_service_info_file = os.path.join(self._output_dir, 'META-INF/services/javax.annotation.processing.Processor')
-    self._main = (main or context.config.get('java-compile', 'main'))
-    self._args = (args or context.config.getlist('java-compile', 'args'))
+def __init__(self, context):
+    NailgunTask.__init__(self, context, workdir=context.config.get('java-compile', 'nailgun_dir'))
+    workdir = context.config.get('java-compile', 'workdir')
+    self._classes_dir = os.path.join(workdir, 'classes')
+    self._resources_dir = os.path.join(workdir, 'resources')
+    self._dependencies_file = os.path.join(workdir, 'dependencies')
+    self._jmake_profile = context.config.get('java-compile', 'jmake-profile')
+    self._compiler_profile = context.config.get('java-compile', 'compiler-profile')
+    self._args = context.config.getlist('java-compile', 'args')
     if context.options.java_compile_warnings:
         self._args.extend(context.config.getlist('java-compile', 'warning_args'))
     else:
         self._args.extend(context.config.getlist('java-compile', 'no_warning_args'))
-    self._confs = (confs or context.config.getlist('java-compile', 'confs'))
+    self._confs = context.config.getlist('java-compile', 'confs')

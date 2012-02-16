@@ -1,17 +1,15 @@
 {
-  if (closed) {
-    return;
-  }
-  closed=true;
   if (zooKeeper != null) {
     try {
       zooKeeper.close();
-      zooKeeper=null;
-      sessionState=null;
     }
  catch (    InterruptedException e) {
       Thread.currentThread().interrupt();
       LOG.warning("Interrupted trying to close zooKeeper");
+    }
+ finally {
+      zooKeeper=null;
+      sessionState=null;
     }
   }
 }

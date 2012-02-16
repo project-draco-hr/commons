@@ -1,5 +1,5 @@
 def __init__(self, multiplier, base_or_unit, display):
-    if isinstance(base_or_unit, (int, long)):
+    if isinstance(base_or_unit, Integral):
         self._multiplier = (multiplier * long(base_or_unit))
     elif isinstance(base_or_unit, AmountUnit):
         self._multiplier = (multiplier * long(base_or_unit.multiplier()))

@@ -1,3 +1,0 @@
-Binder binder
-String portName
-Class<? extends ServiceLauncher> launcher

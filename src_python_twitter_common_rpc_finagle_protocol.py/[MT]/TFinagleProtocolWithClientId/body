@@ -1,0 +1,2 @@
+def TFinagleProtocolWithClientId(client_id):
+    return functools.partial(TFinagleProtocol, client_id=client_id)

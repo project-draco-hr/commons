@@ -4,12 +4,12 @@ def execute(self, targets):
     def jar_targets(predicate):
         return filter(predicate, (targets if self.transitive else self.context.target_roots))
 
-    def add_genjar(target, name):
-        if self.context.products.isrequired('jars'):
-            self.context.products.get('jars').add(target, self._output_dir).append(name)
+    def add_genjar(typename, target, name):
+        if self.context.products.isrequired(typename):
+            self.context.products.get(typename).add(target, self._output_dir).append(name)
     if self.jar_classes:
-        self.jar(jar_targets(is_jvm), self.context.products.get('classes'), add_genjar)
+        self.jar(jar_targets(is_jvm), self.context.products.get('classes'), functools.partial(add_genjar, 'jars'))
     if self.jar_sources:
-        self.sourcejar(jar_targets(is_jvm), add_genjar)
+        self.sourcejar(jar_targets(is_jvm), functools.partial(add_genjar, 'source_jars'))
     if self.jar_javadoc:
-        self.javadocjar(jar_targets(is_java), self.context.products.get('javadoc'), add_genjar)
+        self.javadocjar(jar_targets(is_java), self.context.products.get('javadoc'), functools.partial(add_genjar, 'javadoc_jars'))

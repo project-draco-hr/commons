@@ -1,0 +1,4 @@
+{
+  runnerBinder(binder).addBinding().to(launcher);
+  binder.bind(launcher).in(Singleton.class);
+}

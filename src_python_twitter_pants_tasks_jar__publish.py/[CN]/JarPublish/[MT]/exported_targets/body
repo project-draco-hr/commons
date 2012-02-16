@@ -1,0 +1,6 @@
+def exported_targets(self):
+    candidates = set((self.context.targets() if self.transitive else self.context.target_roots))
+
+    def exportable(target):
+        return ((target in candidates) and is_exported(target) and is_internal(target))
+    return OrderedSet(filter(exportable, reversed(InternalTarget.sort_targets(filter(exportable, candidates)))))

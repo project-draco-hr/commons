@@ -1,0 +1,35 @@
+{
+  if (primarySocket == null) {
+    ImmutableList.Builder<LocalService> builder=ImmutableList.builder();
+    for (    ServiceRunner runner : runnerProvider.get()) {
+      try {
+        LocalService service=runner.launch();
+        builder.add(service);
+        shutdownRegistry.addAction(service.shutdownCommand);
+      }
+ catch (      LaunchException e) {
+        throw new IllegalStateException("Failed to launch " + runner,e);
+      }
+    }
+    List<LocalService> localServices=builder.build();
+    Iterable<LocalService> primaries=Iterables.filter(localServices,IS_PRIMARY);
+switch (Iterables.size(primaries)) {
+case 0:
+      primarySocket=Optional.absent();
+    break;
+case 1:
+  primarySocket=Optional.of(SERVICE_TO_SOCKET.apply(Iterables.getOnlyElement(primaries)));
+break;
+default :
+throw new IllegalArgumentException("More than one primary local service: " + primaries);
+}
+Map<String,LocalService> byName;
+try {
+byName=Maps.uniqueIndex(Iterables.filter(localServices,Predicates.not(IS_PRIMARY)),GET_NAME);
+}
+ catch (IllegalArgumentException e) {
+throw new IllegalArgumentException("Auxiliary services with identical names.",e);
+}
+auxiliarySockets=ImmutableMap.copyOf(Maps.transformValues(byName,SERVICE_TO_SOCKET));
+}
+}

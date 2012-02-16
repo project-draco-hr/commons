@@ -1,2 +1,2 @@
 def _create_template_data(self):
-    return TemplateData(org=self.org, module=self.name, version=self.rev, repo=self.repo.name)
+    return TemplateData(org=self.org, module=self.name, version=self.rev, repo=self.repo.name, description=self.description)

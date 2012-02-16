@@ -1,0 +1,9 @@
+{
+  install(new LifecycleModule());
+  bind(UncaughtExceptionHandler.class).toInstance(new UncaughtExceptionHandler(){
+    @Override public void uncaughtException(    Thread thread,    Throwable throwable){
+      fail("Uncaught exception.");
+    }
+  }
+);
+}

@@ -1,8 +1,10 @@
 def _add_option(self, calling_module, option):
     op = copy.deepcopy(option)
-    if (option.dest and hasattr(option, 'default')):
-        self.set_option(option.dest, (option.default if (option.default != optparse.NO_DEFAULT) else None), force=False)
+    if (op.dest and hasattr(op, 'default')):
+        self.set_option(op.dest, (op.default if (op.default != optparse.NO_DEFAULT) else None), force=False)
+        Application.rewrite_help(op)
+        op.default = optparse.NO_DEFAULT
     if (calling_module == '__main__'):
-        self._add_main_option(option)
+        self._add_main_option(op)
     else:
-        self._add_module_option(calling_module, option)
+        self._add_module_option(calling_module, op)

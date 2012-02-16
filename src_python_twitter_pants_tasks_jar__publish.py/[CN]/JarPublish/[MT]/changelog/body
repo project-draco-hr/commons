@@ -1,0 +1,8 @@
+def changelog(self, target, sha):
+    cmd = ['git', 'whatchanged', '--stat', '-M', '-C']
+    if sha:
+        cmd.append(('%s..HEAD' % sha))
+    cmd.append('--')
+    cmd.extend((os.path.join(target.target_base, source) for source in target.sources))
+    cmd.append(target.address.buildfile.relpath)
+    return self.check_output(cmd)

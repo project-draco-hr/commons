@@ -1,0 +1,3 @@
+boolean suppressOutput
+boolean xmlReport
+File outdir

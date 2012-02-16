@@ -1,5 +1,5 @@
-def install(self, phase=None, first=False, replace=False):
-    '\n      Installs this goal in the specified phase (or a new phase with the same name as this Goal),\n      appending to any pre-existing goals unless first=True in which case it is installed as the\n      first goal in the phase.  If replace=True then this goal replaces all others for the phase.\n      The phase this goal is installed in is returned.\n    '
+def install(self, phase=None, first=False, replace=False, before=None):
+    '\n      Installs this goal in the specified phase (or a new phase with the same name as this Goal),\n      appending to any pre-existing goals unless first=True in which case it is installed as the\n      first goal in the phase.  If replace=True then this goal replaces all others for the phase.\n      The phase this goal is installed in is returned. If before is not None, installs this goal\n      right before the goal marked by before.\n    '
     phase = Phase((phase or self.name))
-    phase.install(self, first, replace)
+    phase.install(self, first, replace, before)
     return phase

@@ -1,0 +1,3 @@
+def __init__(self, outputdir, depfile):
+    self.outputdir = outputdir
+    self.depfile = depfile

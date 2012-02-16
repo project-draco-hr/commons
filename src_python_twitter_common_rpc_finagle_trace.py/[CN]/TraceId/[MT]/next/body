@@ -1,0 +1,2 @@
+def next(self):
+    return TraceId(self.trace_id, self.span_id, TraceId.rand(), self.sampled)

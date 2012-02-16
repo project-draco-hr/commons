@@ -1,6 +1,6 @@
 def dump(self):
     print ('Building PythonBinary %s:' % self._target)
-    (libraries, eggs, binaries, thrifts, antlrs) = self.build_dep_tree(self._target)
+    (libraries, eggs, binaries, thrifts, antlrs) = self.aggregate_targets(([self._target] + self._extra_targets))
     for lib in libraries:
         self._dump_library(lib)
     self._dump_setuptools()

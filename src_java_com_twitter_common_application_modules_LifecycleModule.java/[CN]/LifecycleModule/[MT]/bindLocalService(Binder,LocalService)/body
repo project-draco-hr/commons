@@ -1,0 +1,8 @@
+{
+  runnerBinder(binder).addBinding().toInstance(new ServiceRunner(){
+    @Override public LocalService launch(){
+      return service;
+    }
+  }
+);
+}

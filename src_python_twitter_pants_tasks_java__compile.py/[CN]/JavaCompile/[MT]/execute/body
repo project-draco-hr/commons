@@ -3,24 +3,32 @@ def execute(self, targets):
     if java_targets:
         with self.context.state('classpath', []) as cp:
             for conf in self._confs:
-                cp.insert(0, (conf, self._output_dir))
+                cp.insert(0, (conf, self._resources_dir))
+                cp.insert(0, (conf, self._classes_dir))
             with self.changed(java_targets, invalidate_dependants=True) as changed:
                 (bases, sources_by_target, processors, fingerprint) = self.calculate_sources(changed)
                 if sources_by_target:
                     classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
                     result = self.compile(classpath, bases, sources_by_target, fingerprint)
                     if (result != 0):
-                        raise TaskError(('%s returned %d' % (self._main, result)))
+                        raise TaskError(('%s returned %d' % (_JMAKE_MAIN, result)))
                     if processors:
-                        if os.path.exists(self._processor_service_info_file):
-                            with safe_open(self._processor_service_info_file, 'r') as f:
+                        processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
+                        if os.path.exists(processor_info_file):
+                            with safe_open(processor_info_file, 'r') as f:
                                 for processor in f:
                                     processors.add(processor.strip())
-                        with safe_open(self._processor_service_info_file, 'w') as f:
-                            for processor in processors:
-                                f.write(('%s\n' % processor))
+                        self.write_processor_info(processor_info_file, processors)
         if self.context.products.isrequired('classes'):
             genmap = self.context.products.get('classes')
-            classes_by_target = SunCompiler.findclasses(self._output_dir, targets)
-            for (target, classes) in classes_by_target.items():
-                genmap.add(target, self._output_dir, classes)
+            compiler = DependencyCompiler(self._classes_dir, self._dependencies_file)
+            for (target, classes_by_source) in compiler.findclasses(targets).items():
+                for (source, classes) in classes_by_source.items():
+                    genmap.add(source, self._classes_dir, classes)
+                    genmap.add(target, self._classes_dir, classes)
+            for target in targets:
+                if (is_apt(target) and target.processors):
+                    basedir = os.path.join(self._resources_dir, target.id)
+                    processor_info_file = os.path.join(basedir, _PROCESSOR_INFO_FILE)
+                    self.write_processor_info(processor_info_file, target.processors)
+                    genmap.add(target, basedir, [_PROCESSOR_INFO_FILE])

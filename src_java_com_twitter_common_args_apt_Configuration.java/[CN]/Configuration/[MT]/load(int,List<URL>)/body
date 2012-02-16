@@ -1,4 +1,4 @@
 {
   InputSupplier<Reader> input=CharStreams.join(Iterables.transform(configs,URL_TO_READER));
-  return CharStreams.readLines(input,new ConfigurationParser(configs,nextIndex));
+  return CharStreams.readLines(input,new ConfigurationParser(nextIndex));
 }

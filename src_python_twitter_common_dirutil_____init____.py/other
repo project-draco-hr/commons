@@ -1,6 +1,8 @@
+import fcntl
 import os
 import shutil
 import stat
 import errno
-from tail import tail_f
-__all__ = ['safe_mkdir', 'safe_open', 'chmod_plus_x', 'tail_f']
+from twitter.common.dirutil.tail import tail_f
+from twitter.common.dirutil.du import du
+__all__ = ['chmod_plus_x', 'du', 'lock_file', 'safe_mkdir', 'safe_open', 'tail_f', 'unlock_file']

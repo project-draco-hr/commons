@@ -1,0 +1,4 @@
+def normalize_test_classes(self):
+    for cls in self.test_classes:
+        for c in self.normalize(cls):
+            yield c

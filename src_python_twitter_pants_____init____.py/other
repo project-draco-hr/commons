@@ -9,6 +9,7 @@ from twitter.pants.targets import *
 annotation_processor = AnnotationProcessor
 artifact = Artifact
 bundle = Bundle
+credentials = Credentials
 doc = Doc
 egg = PythonEgg
 exclude = Exclude
@@ -35,4 +36,4 @@ pants = fancy_pants
 from twitter.pants.tasks import Config, Context, Goal, Group, Task, TaskError
 goal = Goal
 group = Group
-__all__ = ('annotation_processor', 'artifact', 'bundle', 'exclude', 'egg', 'get_buildroot', 'get_version', 'globs', 'goal', 'group', 'is_apt', 'is_doc', 'is_exported', 'is_internal', 'is_java', 'is_jvm', 'is_python', 'is_scala', 'is_test', 'jar', 'jar_library', 'java_library', 'java_protobuf_library', 'java_tests', 'java_thrift_library', 'jvm_app', 'jvm_binary', 'pants', 'python_antlr_library', 'python_binary', 'python_library', 'python_tests', 'python_test_suite', 'python_thrift_library', 'repo', 'rglobs', 'scala_library', 'scala_tests', 'source_root', 'doc', 'Config', 'Context', 'JavaLibrary', 'JavaTests', 'Task', 'TaskError')
+__all__ = ('annotation_processor', 'artifact', 'bundle', 'credentials', 'exclude', 'egg', 'get_buildroot', 'get_version', 'globs', 'goal', 'group', 'is_apt', 'is_doc', 'is_exported', 'is_internal', 'is_java', 'is_jvm', 'is_python', 'is_scala', 'is_test', 'jar', 'jar_library', 'java_library', 'java_protobuf_library', 'java_tests', 'java_thrift_library', 'jvm_app', 'jvm_binary', 'pants', 'python_antlr_library', 'python_binary', 'python_library', 'python_tests', 'python_test_suite', 'python_thrift_library', 'repo', 'rglobs', 'scala_library', 'scala_tests', 'source_root', 'doc', 'Config', 'Context', 'JavaLibrary', 'JavaTests', 'Task', 'TaskError')

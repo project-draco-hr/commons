@@ -24,16 +24,9 @@ def attempt(context, phases, timer=None):
             timer.log(('total: %.3fs' % elapsed))
     try:
         tasks_by_goal = {}
-
-        def prepare_tasks(phase):
-            for goal in phase.goals():
-                if (goal not in tasks_by_goal):
-                    for dependency in goal.dependencies:
-                        prepare_tasks(dependency)
-                    task = goal.prepare(context)
-                    tasks_by_goal[goal] = task
-        for phase in phases:
-            prepare_tasks(phase)
+        for goal in reversed(list(Phase.execution_order(phases))):
+            task = goal.prepare(context)
+            tasks_by_goal[goal] = task
         for phase in phases:
             Group.execute(phase, tasks_by_goal, context, executed, timer=timer)
         print_timings()

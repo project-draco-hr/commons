@@ -1,0 +1,7 @@
+{
+  control.replay();
+  Injector injector=Guice.createInjector(new SystemModule());
+  LocalServiceRegistry registry=injector.getInstance(LocalServiceRegistry.class);
+  assertEquals(Optional.<InetSocketAddress>absent(),registry.getPrimarySocket());
+  assertEquals(ImmutableMap.<String,InetSocketAddress>of(),registry.getAuxiliarySockets());
+}

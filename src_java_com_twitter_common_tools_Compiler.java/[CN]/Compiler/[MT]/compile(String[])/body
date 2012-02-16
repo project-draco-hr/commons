@@ -1,0 +1,49 @@
+{
+  JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
+  StandardJavaFileManager standardFileManager=compiler.getStandardFileManager(null,null,null);
+  List<String> options=new ArrayList<String>();
+  List<String> compilationUnits=new ArrayList<String>();
+  File dependencyFile=null;
+  for (Iterator<String> iter=Arrays.asList(args).iterator(); iter.hasNext(); ) {
+    String arg=iter.next();
+    if (DEPENDENCYFILE_FLAG.equals(arg)) {
+      if (!iter.hasNext()) {
+        System.err.printf("%s requires an argument specifying the output path\n",DEPENDENCYFILE_FLAG);
+        return 1;
+      }
+      dependencyFile=new File(iter.next());
+    }
+ else     if (arg.startsWith("-")) {
+      int argCount=compiler.isSupportedOption(arg);
+      if (argCount == -1) {
+        argCount=standardFileManager.isSupportedOption(arg);
+      }
+      if (argCount == -1) {
+        System.err.println("WARNING: Skipping unsupported option " + arg);
+      }
+ else {
+        options.add(arg);
+        while (argCount-- > 0) {
+          if (iter.hasNext()) {
+            options.add(iter.next());
+          }
+        }
+      }
+    }
+ else {
+      compilationUnits.add(arg);
+    }
+  }
+  if (dependencyFile == null) {
+    return compiler.run(null,null,null,args);
+  }
+  DependencyTrackingFileManager fileManager=new DependencyTrackingFileManager(standardFileManager,dependencyFile);
+  try {
+    CompilationTask compilationTask=compiler.getTask(null,fileManager,null,options,null,standardFileManager.getJavaFileObjectsFromStrings(compilationUnits));
+    boolean success=compilationTask.call();
+    return success ? 0 : 1;
+  }
+  finally {
+    fileManager.close();
+  }
+}

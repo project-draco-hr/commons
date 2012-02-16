@@ -1,9 +1,9 @@
 @staticmethod
-def jardep(jar, excludes=True):
+def jardep(jar):
 
     def create_exclude(exclude):
         return TemplateData(org=exclude.org, name=exclude.name)
-    template_data = TemplateData(org=jar.org, name=jar.name, rev=jar.rev)
-    if (excludes and jar.excludes):
+    template_data = TemplateData(org=jar.org, name=jar.name, rev=jar.rev, scope='compile', excludes=None)
+    if jar.excludes:
         template_data = template_data.extend(excludes=[create_exclude(exclude) for exclude in jar.excludes if exclude.name])
     return template_data

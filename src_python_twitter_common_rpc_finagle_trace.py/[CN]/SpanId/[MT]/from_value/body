@@ -1,0 +1,12 @@
+@staticmethod
+def from_value(value):
+    if isinstance(value, str):
+        if SpanId.HEX_REGEX.match(value):
+            return SpanId(int(value, 16))
+    elif isinstance(value, (int, long)):
+        return SpanId(value)
+    elif isinstance(value, SpanId):
+        return SpanId(value.value)
+    elif (value is None):
+        return SpanId(None)
+    raise SpanId.InvalidSpanId(value)

@@ -35,7 +35,7 @@ def _parse(lines):
                     return (normalize(line), '')
                 else:
                     return (normalize(line[:space_sep]), normalize(line[space_sep:]))
-    props = {}
+    props = OrderedDict()
     for line in coalesce_lines():
         kv_pair = parse_line(line)
         if kv_pair:

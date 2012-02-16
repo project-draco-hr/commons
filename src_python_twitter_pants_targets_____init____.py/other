@@ -1,5 +1,7 @@
+import os
 from annotation_processor import AnnotationProcessor
 from artifact import Artifact
+from credentials import Credentials
 from exclude import Exclude
 from exportable_jvm_library import ExportableJvmLibrary
 from internal import InternalTarget
@@ -25,4 +27,4 @@ from scala_tests import ScalaTests
 from sources import SourceRoot
 from with_sources import TargetWithSources
 from doc import Doc
-__all__ = ['AnnotationProcessor', 'Artifact', 'Bundle', 'Exclude', 'ExportableJvmLibrary', 'InternalTarget', 'JarDependency', 'JarLibrary', 'JavaLibrary', 'JavaThriftLibrary', 'JavaProtobufLibrary', 'JavaTests', 'JvmApp', 'JvmBinary', 'JvmTarget', 'Pants', 'PythonBinary', 'PythonEgg', 'PythonLibrary', 'PythonTarget', 'PythonAntlrLibrary', 'PythonThriftLibrary', 'PythonTests', 'PythonTestSuite', 'Repository', 'ScalaLibrary', 'ScalaTests', 'SourceRoot', 'TargetWithSources', 'Doc']
+__all__ = ['AnnotationProcessor', 'Artifact', 'Bundle', 'Credentials', 'Exclude', 'ExportableJvmLibrary', 'InternalTarget', 'JarDependency', 'JarLibrary', 'JavaLibrary', 'JavaThriftLibrary', 'JavaProtobufLibrary', 'JavaTests', 'JvmApp', 'JvmBinary', 'JvmTarget', 'Pants', 'PythonBinary', 'PythonEgg', 'PythonLibrary', 'PythonTarget', 'PythonAntlrLibrary', 'PythonThriftLibrary', 'PythonTests', 'PythonTestSuite', 'Repository', 'ScalaLibrary', 'ScalaTests', 'SourceRoot', 'TargetWithSources', 'Doc']

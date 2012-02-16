@@ -1,7 +1,9 @@
-def __init__(self, target, root_dir):
+def __init__(self, target, root_dir, extra_targets=None):
     self._target = target
     self._root = root_dir
     self._cache = BuildCache(os.path.join(root_dir, '.pants.d', 'py_artifact_cache'))
+    self._extra_targets = (list(extra_targets) if (extra_targets is not None) else [])
+    self._extra_targets.append(self._get_common_python())
     distdir = os.path.join(root_dir, 'dist')
     distpath = tempfile.mktemp(dir=distdir, prefix=target.name)
     self.env = PythonEnvironment(distpath)

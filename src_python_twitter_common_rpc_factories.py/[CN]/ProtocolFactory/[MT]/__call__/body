@@ -1,0 +1,2 @@
+def __call__(self, transport):
+    return self._protocol_klazz(transport)

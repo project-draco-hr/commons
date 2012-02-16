@@ -4,3 +4,6 @@ classpath
 workdir
 nailgun_jar
 args
+stdin
+stderr
+stdout

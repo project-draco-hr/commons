@@ -12,6 +12,12 @@ def __init__(self, context, workdir=None, ivy_jar=None, ivy_settings=None, cache
     self._ivy_xml = os.path.join(work_dir, 'ivy.xml')
     self._classpath_file = os.path.join(work_dir, 'classpath')
     self._classpath_dir = os.path.join(work_dir, 'mapped')
+    if _REPORT_AVAILABLE:
+        self._outdir = (context.options.ivy_resolve_outdir or os.path.join(work_dir, 'reports'))
+        self._open = context.options.ivy_resolve_open
+        self._report = (self._open or context.options.ivy_resolve_report)
+    else:
+        self._report = False
 
     def parse_override(override):
         match = re.match('^([^#]+)#([^=]+)=([^\\s]+)$', override)

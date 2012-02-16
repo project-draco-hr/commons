@@ -5,6 +5,8 @@ def execute(self):
         sys.path.extend(self.path())
     else:
         sys.path = self.path()
+    if os.environ.has_key('PEX_COVERAGE'):
+        start_coverage()
     PythonLauncher.debug(('Initialized sys.path to %s' % ':'.join(sys.path)))
     force_interpreter = os.environ.has_key('PEX_INTERPRETER')
     if (entry_point and (not force_interpreter)):
@@ -12,6 +14,9 @@ def execute(self):
         runpy.run_module(entry_point, run_name='__main__')
     else:
         PythonLauncher.debug(('%s, dropping into interpreter' % ('PEX_INTERPRETER specified' if force_interpreter else 'No entry point specified.')))
-        import code
-        code.interact()
+        if sys.argv[1:]:
+            self.run(args=sys.argv[1:])
+        else:
+            import code
+            code.interact()
     sys.path = saved_sys_path

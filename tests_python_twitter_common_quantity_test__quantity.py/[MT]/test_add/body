@@ -1,0 +1,8 @@
+def test_add():
+    kb = (Amount(512, Data.BYTES) + Amount(1536, Data.BYTES))
+    assert ((kb._amount == 2) and (kb._unit == Data.KB))
+    kb = (kb + Amount(1, Data.BYTES))
+    assert ((kb._amount == 2049) and (kb._unit == Data.BYTES))
+    value = (Amount(1, Data.KB) + Amount(1, Data.MB))
+    assert (value._amount == 1025)
+    assert (value._unit == Data.KB)

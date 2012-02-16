@@ -2,7 +2,7 @@ __author__ = 'jsirois'
 import os
 import subprocess
 from twitter.common import log
-from twitter.common.dirutil import safe_mkdir
+from twitter.common.dirutil import safe_mkdir, touch
 from twitter.pants.tasks import Config, TaskError
 _ID_BY_OS = {'linux': (lambda release, machine: ('linux', machine)), 'darwin': (lambda release, machine: ('darwin', release.split('.')[0])), }
 _PATH_BY_ID = {('linux', 'x86_64'): ['linux', 'x86_64'], ('linux', 'amd64'): ['linux', 'x86_64'], ('linux', 'i386'): ['linux', 'i386'], ('darwin', '9'): ['mac', '10.5'], ('darwin', '10'): ['mac', '10.6'], ('darwin', '11'): ['mac', '10.7'], }

@@ -1,0 +1,9 @@
+def test_bad():
+    bad_strings = ['foo', 'dhms', '1s30d', 'a b c d', '  ', '1s2s3s']
+    for bad_string in bad_strings:
+        with pytest.raises(InvalidTime):
+            parse_time(bad_string)
+    bad_strings = [123, type]
+    for bad_string in bad_strings:
+        with pytest.raises(TypeError):
+            parse_time(bad_string)

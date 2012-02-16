@@ -1,8 +1,11 @@
-def install(self, goal, first=False, replace=False):
+def install(self, goal, first=False, replace=False, before=None):
     g = self.goals()
     if replace:
         del g[:]
+    g_names = map((lambda goal: goal.name), g)
     if first:
         g.insert(0, goal)
+    elif (before in g_names):
+        g.insert(g_names.index(before), goal)
     else:
         g.append(goal)

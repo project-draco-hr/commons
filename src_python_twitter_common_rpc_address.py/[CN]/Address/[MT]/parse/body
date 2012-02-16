@@ -1,0 +1,8 @@
+@staticmethod
+def parse(*args, **kw):
+    for parser in [Address.from_string, Address.from_pair, Address.from_address, Address.from_tuple]:
+        try:
+            return parser(*args, **kw)
+        except Address.InvalidFormat:
+            continue
+    raise Address.InvalidFormat(('Could not parse input: args=%s kw=%s' % (repr(args), repr(kw))))

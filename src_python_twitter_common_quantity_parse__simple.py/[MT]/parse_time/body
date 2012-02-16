@@ -1,0 +1,21 @@
+def parse_time(timestring):
+    '\n    Parse a time string of the format\n      XdYhZmWs (each field optional but must be in that order.)\n  '
+    if (not isinstance(timestring, basestring)):
+        raise TypeError('timestring should be of type string')
+    BASES = (('d', Time.DAYS), ('h', Time.HOURS), ('m', Time.MINUTES), ('s', Time.SECONDS))
+    timestr = timestring.lower()
+    total_time = Amount(0, Time.SECONDS)
+    for (base_char, base) in BASES:
+        timesplit = timestr.split(base_char)
+        if (len(timesplit) > 2):
+            raise InvalidTime(timestring)
+        if (len(timesplit) == 2):
+            try:
+                amount = int(timesplit[0])
+            except ValueError:
+                raise InvalidTime(timestring)
+            total_time = (total_time + Amount(amount, base))
+            timestr = timesplit[1]
+    if (len(timestr) != 0):
+        raise InvalidTime(timestring)
+    return total_time

@@ -1,8 +1,12 @@
 {
   ServerSet serverSet=new ServerSetImpl(zkClient,SERVERSET_PATH.get());
+  Optional<InetSocketAddress> primarySocket=serviceRegistry.getPrimarySocket();
+  if (!primarySocket.isPresent()) {
+    throw new IllegalStateException("No primary service registered with LocalServiceRegistry.");
+  }
   final EndpointStatus status;
   try {
-    status=serverSet.join(serviceRegistry.getPrimarySocket(),serviceRegistry.getAuxiliarySockets(),Status.ALIVE);
+    status=serverSet.join(primarySocket.get(),serviceRegistry.getAuxiliarySockets(),Status.ALIVE);
   }
  catch (  JoinException e) {
     LOG.log(Level.WARNING,"Failed to join ServerSet.",e);

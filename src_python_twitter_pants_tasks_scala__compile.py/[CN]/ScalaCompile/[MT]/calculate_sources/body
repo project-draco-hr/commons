@@ -7,8 +7,8 @@ def calculate_sources(self, targets):
         if src:
             bases.add(target.target_base)
             sources[target].update(src)
-            if (isinstance(target, ScalaLibrary) and target.java_sources):
-                sources[target].update(target.resolved_java_sources())
+            if ((isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests)) and target.java_sources):
+                sources[target].update(resolve_target_sources(target.java_sources, '.java'))
     for target in targets:
         collect_sources(target)
     return (bases, sources)

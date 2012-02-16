@@ -1,0 +1,17 @@
+{
+  final ServiceRunner runner=createMock(ServiceRunner.class);
+  Command shutdown=createMock(Command.class);
+  expect(runner.launch()).andReturn(LocalService.primaryService(100,shutdown));
+  shutdown.execute();
+  Module testModule=new AbstractModule(){
+    @Override protected void configure(){
+      LifecycleModule.runnerBinder(binder()).addBinding().toInstance(runner);
+    }
+  }
+;
+  Injector injector=Guice.createInjector(new SystemModule(),testModule);
+  LocalServiceRegistry registry=injector.getInstance(LocalServiceRegistry.class);
+  control.replay();
+  assertEquals(Optional.of(getLocalAddress(100)),registry.getPrimarySocket());
+  injector.getInstance(ShutdownRegistryImpl.class).execute();
+}

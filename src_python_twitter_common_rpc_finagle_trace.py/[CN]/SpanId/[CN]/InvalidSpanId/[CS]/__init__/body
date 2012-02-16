@@ -1,0 +1,2 @@
+def __init__(self, value):
+    ValueError.__init__(self, ('Invalid SpanId: %s' % repr(value)))

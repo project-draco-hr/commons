@@ -1,0 +1,3 @@
+{
+  return String.format("%f",timespanNs / (double)TimeUnit.SECONDS.toNanos(1));
+}

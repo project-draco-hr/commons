@@ -1,3 +1,4 @@
 self
 target
 root_dir
+extra_targets

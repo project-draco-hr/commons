@@ -1,0 +1,3 @@
+def check_result(self, cmd, result, failuremsg=None):
+    if (result != 0):
+        raise TaskError((failuremsg or ('%s failed with exit code %d' % (' '.join(cmd), result))))

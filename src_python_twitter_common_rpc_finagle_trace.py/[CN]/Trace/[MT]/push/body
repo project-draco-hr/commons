@@ -1,0 +1,7 @@
+@contextmanager
+def push(self, trace_id):
+    self._stack.append(trace_id)
+    try:
+        yield self
+    finally:
+        self._stack.pop()

@@ -2,12 +2,24 @@ def __init__(self, root_dir, parser, argv):
     Command.__init__(self, root_dir, parser, argv)
     if (not self.args):
         self.error('A spec argument is required')
-    try:
-        address = Address.parse(root_dir, self.args[0])
-        target = Target.get(address)
-    except Exception as e:
-        self.error(('Invalid target in %s (%s)' % (self.args[0], str(e))))
-    if (not target):
-        self.error(('Target %s does not exist' % address))
-    self.target = target
-    self.args.pop(0)
+    targets = []
+    for k in range(len(self.args)):
+        arg = self.args[0]
+        if (arg == '--'):
+            self.args.pop(0)
+            break
+        try:
+            address = Address.parse(root_dir, arg)
+            target = Target.get(address)
+        except Exception as e:
+            break
+        if (not target):
+            break
+        targets.append(target)
+        self.args.pop(0)
+        if isinstance(target, PythonBinary):
+            break
+    self.target = (targets.pop(0) if targets else None)
+    self.extra_targets = targets
+    if (self.target is None):
+        self.error('No valid target specified!')

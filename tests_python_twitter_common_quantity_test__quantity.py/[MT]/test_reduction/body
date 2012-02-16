@@ -1,0 +1,3 @@
+def test_reduction():
+    minute = Amount(60, Time.SECONDS)
+    assert ((minute._amount == 1) and (minute._unit == Time.MINUTES))

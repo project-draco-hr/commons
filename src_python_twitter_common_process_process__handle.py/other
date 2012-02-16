@@ -1,4 +1,3 @@
-import copy
 from twitter.common.string import ScanfParser
 try:
     from twitter.common import log

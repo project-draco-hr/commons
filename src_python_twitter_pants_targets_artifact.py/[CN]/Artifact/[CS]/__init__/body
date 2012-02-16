@@ -1,5 +1,5 @@
-def __init__(self, org, name, repo):
-    'org: the originization of this artifact, the group id in maven parlance\n    name: the name of the artifact\n    repo: the repository this artifact is published to'
+def __init__(self, org, name, repo, description=None):
+    '\n      :org the originization of this artifact, the group id in maven parlance\n      :name the name of the artifact\n      :repo the repository this artifact is published to\n      :description a description of this artifact\n    '
     self.org = org
     self.name = name
     self.rev = None
@@ -7,3 +7,4 @@ def __init__(self, org, name, repo):
     if (len(repos) != 1):
         raise Exception(('An artifact must have exactly 1 repo, given: %s' % repos))
     self.repo = repos[0]
+    self.description = description

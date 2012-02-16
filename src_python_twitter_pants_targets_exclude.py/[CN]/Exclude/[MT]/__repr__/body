@@ -1,2 +1,2 @@
 def __repr__(self):
-    return ('org=%s name=%s' % (self.org, self.name))
+    return ("Exclude(org='%s', name=%s)" % (self.org, (('%s' % self.name) if self.name else None)))

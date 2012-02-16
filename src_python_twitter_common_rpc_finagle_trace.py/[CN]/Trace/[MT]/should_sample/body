@@ -1,0 +1,2 @@
+def should_sample(self):
+    return (random.random() < self._sample_rate)

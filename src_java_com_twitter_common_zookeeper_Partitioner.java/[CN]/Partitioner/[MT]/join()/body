@@ -11,6 +11,9 @@
     @Override public boolean isMember(    long value){
       return (value % groupSize) == groupIndex;
     }
+    @Override public int getNumPartitions(){
+      return groupSize;
+    }
     @Override public String getGroupPath(){
       return membership.getGroupPath();
     }

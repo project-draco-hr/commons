@@ -4,4 +4,4 @@ def test_equals():
     assert (Amount(25, Time.HOURS) != Amount(1, Time.DAYS)), 'expected unit conversions to not lose precision'
     assert (Amount(1, Time.DAYS) != Amount(25, Time.HOURS)), 'expected unit conversions to not lose precision'
     with pytest.raises(TypeError):
-        (Amount(1, Time.NANOSECONDS) == Amount(1, Data.BITS))
+        (Amount(1, Time.NANOSECONDS) == Amount(1, Data.BYTES))

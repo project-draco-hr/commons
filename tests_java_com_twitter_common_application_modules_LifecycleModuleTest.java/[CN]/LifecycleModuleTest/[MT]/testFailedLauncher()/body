@@ -1,0 +1,14 @@
+{
+  final ServiceRunner runner=createMock(ServiceRunner.class);
+  expect(runner.launch()).andThrow(new LaunchException("Injected failure."));
+  Module testModule=new AbstractModule(){
+    @Override protected void configure(){
+      LifecycleModule.runnerBinder(binder()).addBinding().toInstance(runner);
+    }
+  }
+;
+  Injector injector=Guice.createInjector(new SystemModule(),testModule);
+  LocalServiceRegistry registry=injector.getInstance(LocalServiceRegistry.class);
+  control.replay();
+  assertEquals(Optional.of(getLocalAddress(100)),registry.getPrimarySocket());
+}

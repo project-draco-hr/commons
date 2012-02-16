@@ -1,0 +1,5 @@
+def __init__(self, trace_id, parent_id, span_id, sampled):
+    self.trace_id = SpanId.from_value(trace_id)
+    self.parent_id = SpanId.from_value(parent_id)
+    self.span_id = SpanId.from_value(span_id)
+    self.sampled = bool(sampled)

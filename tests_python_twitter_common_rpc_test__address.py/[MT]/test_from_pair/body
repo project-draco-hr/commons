@@ -1,0 +1,10 @@
+def test_from_pair():
+    addr = Address.from_pair('localhost', 1234)
+    assert (addr.host == 'localhost')
+    assert (addr.port == 1234)
+    with pytest.raises(Address.InvalidFormat):
+        addr = Address.from_pair(('localhost', 1234))
+    with pytest.raises(Address.InvalidFormat):
+        addr = Address.from_pair('localhost')
+    with pytest.raises(Address.InvalidFormat):
+        addr = Address.from_pair('localhost', 1, 2, 3, 4)

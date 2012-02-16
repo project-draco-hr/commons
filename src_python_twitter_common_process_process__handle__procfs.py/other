@@ -2,4 +2,4 @@ import os
 import errno
 import time
 import pwd
-from process_handle import ProcessHandle, ProcessHandleParserBase
+from process_handle import ProcessHandleParserBase

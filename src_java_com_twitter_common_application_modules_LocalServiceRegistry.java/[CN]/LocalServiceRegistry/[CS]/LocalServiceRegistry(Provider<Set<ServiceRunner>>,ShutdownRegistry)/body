@@ -1,0 +1,4 @@
+{
+  this.runnerProvider=Preconditions.checkNotNull(runnerProvider);
+  this.shutdownRegistry=Preconditions.checkNotNull(shutdownRegistry);
+}

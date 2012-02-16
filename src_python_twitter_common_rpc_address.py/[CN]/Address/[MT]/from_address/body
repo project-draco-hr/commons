@@ -1,0 +1,5 @@
+@staticmethod
+def from_address(*args, **kw):
+    if (kw or (len(args) != 1) or (not isinstance(args[0], Address))):
+        raise Address.InvalidFormat('from_address expects an address as input!')
+    return Address(args[0].host, args[0].port)

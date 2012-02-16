@@ -1,4 +1,5 @@
 def setup_parser(self, parser, args):
     parser.set_usage('\n  %prog py (options) [spec] args\n')
     parser.disable_interspersed_args()
-    parser.epilog = 'Dumps the chroot of the specified target.'
+    parser.add_option('--pex', dest='pex', default=False, action='store_true', help='dump a .pex of this chroot')
+    parser.epilog = 'Interact with the chroot of the specified target.'

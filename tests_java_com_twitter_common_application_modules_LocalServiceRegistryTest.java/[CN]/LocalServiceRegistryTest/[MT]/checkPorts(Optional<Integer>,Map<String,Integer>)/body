@@ -1,0 +1,6 @@
+{
+  Optional<InetSocketAddress> registeredSocket=registry.getPrimarySocket();
+  Optional<Integer> registeredPort=registeredSocket.isPresent() ? Optional.of(registeredSocket.get().getPort()) : Optional.<Integer>absent();
+  assertEquals(primary,registeredPort);
+  assertEquals(expected,Maps.transformValues(registry.getAuxiliarySockets(),INET_TO_PORT));
+}

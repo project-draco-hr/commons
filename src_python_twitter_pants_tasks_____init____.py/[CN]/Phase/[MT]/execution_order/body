@@ -1,0 +1,23 @@
+@staticmethod
+def execution_order(phases):
+    '\n      Yields goals in execution order for the given phases.  Does not account for goals run\n      multiple times due to grouping.\n    '
+    dependencies_by_goal = OrderedDict()
+
+    def populate_dependencies(phases):
+        for phase in phases:
+            for goal in phase.goals():
+                if (goal not in dependencies_by_goal):
+                    populate_dependencies(goal.dependencies)
+                    deps = OrderedSet()
+                    for phasedep in goal.dependencies:
+                        deps.update(phasedep.goals())
+                    dependencies_by_goal[goal] = deps
+    populate_dependencies(phases)
+    while dependencies_by_goal:
+        for (goal, deps) in dependencies_by_goal.items():
+            if (not deps):
+                dependencies_by_goal.pop(goal)
+                for (g, deps) in dependencies_by_goal.items():
+                    if (goal in deps):
+                        deps.discard(goal)
+                yield goal

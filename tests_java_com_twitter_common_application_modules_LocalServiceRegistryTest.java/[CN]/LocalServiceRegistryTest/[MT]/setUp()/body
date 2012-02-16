@@ -1,0 +1,9 @@
+{
+  runner1=createMock(ServiceRunner.class);
+  runner2=createMock(ServiceRunner.class);
+  serviceProvider=createMock(new Clazz<Provider<Set<ServiceRunner>>>(){
+  }
+);
+  shutdownRegistry=createMock(ShutdownRegistry.class);
+  registry=new LocalServiceRegistry(serviceProvider,shutdownRegistry);
+}

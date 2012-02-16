@@ -8,6 +8,7 @@
  catch (  TimeoutException e) {
     assertTrue(zkClient.isClosed());
   }
+  assertNull(zkClient.getZooKeeperClientForTests());
   final CountDownLatch blockingGetComplete=new CountDownLatch(1);
   final AtomicReference<ZooKeeper> client=new AtomicReference<ZooKeeper>();
   new Thread(new Runnable(){

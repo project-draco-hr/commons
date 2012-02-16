@@ -1,0 +1,3 @@
+@staticmethod
+def create_exclude(exclude):
+    return TemplateData(org=exclude.org, name=exclude.name)

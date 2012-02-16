@@ -4,7 +4,6 @@ import sys
 import time
 import logging
 import getpass
-import errno
 from socket import gethostname
 from formatters import glog, plain
 from .options import LogOptions

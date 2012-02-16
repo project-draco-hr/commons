@@ -1,0 +1,13 @@
+def test_parse():
+
+    def assert_kosher(addr):
+        assert (addr.host == 'localhost')
+        assert (addr.port == 1234)
+    addr = Address.parse('localhost:1234')
+    assert_kosher(addr)
+    addr = Address.parse('localhost', 1234)
+    assert_kosher(addr)
+    addr = Address.parse(('localhost', 1234))
+    assert_kosher(addr)
+    addr = Address.from_address(addr)
+    assert_kosher(addr)

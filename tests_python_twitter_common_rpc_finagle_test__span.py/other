@@ -1,0 +1,2 @@
+import pytest
+from twitter.common.rpc.finagle.trace import SpanId

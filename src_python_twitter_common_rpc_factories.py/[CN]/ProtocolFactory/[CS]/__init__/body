@@ -1,0 +1,2 @@
+def __init__(self, protocol_klazz):
+    self._protocol_klazz = protocol_klazz

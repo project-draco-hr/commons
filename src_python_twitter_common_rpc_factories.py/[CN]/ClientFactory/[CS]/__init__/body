@@ -1,0 +1,2 @@
+def __init__(self, client_iface):
+    self._client_iface = client_iface

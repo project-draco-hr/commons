@@ -1,0 +1,7 @@
+{
+  JavaFileObject file=super.getJavaFileForOutput(location,className,kind,sibling);
+  if (Kind.CLASS == kind) {
+    addMapping(toOutputRelpath(sibling),toOutputRelpath(file));
+  }
+  return file;
+}

@@ -1,4 +1,0 @@
-{
-  Set<String> notAnnouncedPorts=Sets.difference(registeredNames,announcedPorts.keySet());
-  Preconditions.checkState(notAnnouncedPorts.isEmpty(),"Attempted to get announced ports, before ports were announced: " + notAnnouncedPorts);
-}

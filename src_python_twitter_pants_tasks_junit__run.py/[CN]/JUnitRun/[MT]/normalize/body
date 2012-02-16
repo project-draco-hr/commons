@@ -2,13 +2,20 @@ def normalize(self, classname_or_file, basedir=None):
     components = classname_or_file.split('#', 2)
     classname = components[0]
     methodname = (('#' + components[1]) if (len(components) == 2) else '')
-    if (not classname.endswith('.java')):
-        return (classname + methodname)
+    classes_by_source = self.context.products.get('classes')
 
     def relpath_toclassname(path):
-        return path.replace('/', '.').replace('.java', '')
+        classes = classes_by_source.get(path)
+        for (base, classes) in classes.items():
+            for cls in classes:
+                (clsname, _) = cls.replace('/', '.').rsplit('.class', 1)
+                yield clsname
     if basedir:
-        return (relpath_toclassname(classname) + methodname)
-    else:
+        for classname in relpath_toclassname(classname):
+            yield (classname + methodname)
+    elif os.path.exists(classname):
         basedir = calculate_basedir(classname)
-        return (relpath_toclassname(os.path.relpath(classname, basedir)) + methodname)
+        for classname in relpath_toclassname(os.path.relpath(classname, basedir)):
+            yield (classname + methodname)
+    else:
+        yield (classname + methodname)

@@ -7,6 +7,6 @@
   bind(ShutdownRegistryImpl.class).in(Singleton.class);
   bindStartupAction(binder(),ShutdownHookRegistration.class);
   bind(LocalServiceRegistry.class).in(Singleton.class);
-  Multibinder.newSetBinder(binder(),String.class,Port.class);
-  Multibinder.newSetBinder(binder(),ServiceLauncher.class);
+  runnerBinder(binder());
+  bindStartupAction(binder(),LocalServiceLauncher.class);
 }

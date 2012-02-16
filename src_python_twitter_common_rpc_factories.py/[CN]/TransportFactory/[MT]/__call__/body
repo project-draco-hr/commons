@@ -1,0 +1,2 @@
+def __call__(self, connection):
+    return self._transport_klazz(connection)

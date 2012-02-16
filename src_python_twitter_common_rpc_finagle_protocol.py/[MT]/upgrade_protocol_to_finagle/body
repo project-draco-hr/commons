@@ -1,0 +1,25 @@
+def upgrade_protocol_to_finagle(protocol):
+    UPGRADE_METHOD = '__can__finagle__trace__v3__'
+
+    def send(protocol):
+        protocol.writeMessageBegin(UPGRADE_METHOD, TMessageType.CALL, 0)
+        connection_options = ConnectionOptions()
+        connection_options.write(protocol)
+        protocol.writeMessageEnd()
+        protocol.trans.flush()
+
+    def recv(protocol):
+        (fname, mtype, rseqid) = protocol.readMessageBegin()
+        if (fname != UPGRADE_METHOD):
+            raise Exception('Unexpected error upgrading Finagle transport!')
+        if (mtype == TMessageType.EXCEPTION):
+            exc = TApplicationException()
+            exc.read(protocol)
+            protocol.readMessageEnd()
+            raise exc
+        reply = UpgradeReply()
+        reply.read(protocol)
+        protocol.readMessageEnd()
+        return reply
+    send(protocol)
+    return recv(protocol)

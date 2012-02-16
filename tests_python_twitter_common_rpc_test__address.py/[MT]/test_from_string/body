@@ -1,0 +1,15 @@
+def test_from_string():
+    addr = Address.from_string('localhost:1234')
+    assert (addr.host == 'localhost')
+    assert (addr.port == 1234)
+    addr = Address.from_string('localhost: 1234')
+    assert (addr.host == 'localhost')
+    assert (addr.port == 1234)
+    with pytest.raises(Address.InvalidFormat):
+        Address.from_string('localhost:')
+    with pytest.raises(Address.InvalidFormat):
+        Address.from_string('localhost:-1')
+    with pytest.raises(Address.InvalidFormat):
+        Address.from_string('localhost:beeblebrox')
+    with pytest.raises(Address.InvalidFormat):
+        Address.from_string('localhost:beeblebrox', host='localhost')

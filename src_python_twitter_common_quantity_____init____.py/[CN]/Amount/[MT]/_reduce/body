@@ -1,0 +1,13 @@
+def _reduce(self):
+    if (not hasattr(self._unit, 'BASES')):
+        return
+    index = self._unit.BASES.index(self._unit)
+    amount = self._amount
+    unit = self._unit
+    for base in self._unit.BASES[(index + 1):]:
+        new_amount = (((1.0 * self._amount) * self._unit.multiplier()) / base.multiplier())
+        if new_amount.is_integer():
+            amount = int(new_amount)
+            unit = base
+    self._amount = amount
+    self._unit = unit

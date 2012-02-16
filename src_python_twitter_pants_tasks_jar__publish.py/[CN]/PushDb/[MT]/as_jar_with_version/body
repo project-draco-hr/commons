@@ -1,8 +1,10 @@
 def as_jar_with_version(self, target):
-    'Given an internal target, return a JarDependency with the last published revision filled\n    in.'
+    '\n      Given an internal target, return a JarDependency with the last published revision filled in.\n    '
     (jar_dep, db_get, _) = self._accessors_for_target(target)
     major = db_get('revision.major', '0')
     minor = db_get('revision.minor', '0')
     patch = db_get('revision.patch', '0')
-    jar_dep.rev = Semver(major, minor, patch).version()
-    return jar_dep
+    sha = db_get('revision.sha', None)
+    semver = Semver(major, minor, patch)
+    jar_dep.rev = semver.version()
+    return (jar_dep, semver, sha)

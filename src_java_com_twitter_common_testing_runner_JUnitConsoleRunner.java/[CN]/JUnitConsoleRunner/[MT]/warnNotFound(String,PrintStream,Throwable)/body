@@ -1,0 +1,3 @@
+{
+  out.printf("WARNING: Skipping %s: %s\n",spec,t);
+}

@@ -1,0 +1,9 @@
+{
+  expect(serviceProvider.get()).andReturn(ImmutableSet.of(runner1,runner2));
+  expect(runner1.launch()).andReturn(auxiliary(A,1));
+  expect(runner2.launch()).andReturn(auxiliary(A,2));
+  shutdownRegistry.addAction(Commands.NOOP);
+  expectLastCall().times(2);
+  control.replay();
+  registry.getPrimarySocket();
+}

@@ -1,8 +1,7 @@
 def write(self, target, path):
     dependencies = [self.internaldep(dep) for dep in target.internal_dependencies]
     dependencies.extend((PomWriter.jardep(dep) for dep in target.jar_dependencies if dep.rev))
-    template_data = self.internaldep(target).extend(dependencies=dependencies)
-    pomname = ('%s-%s.pom' % (target_jar.name, target_jar.rev))
-    with open(os.path.join(path, pomname), 'w+a') as output:
-        generator = Generator(pkgutil.get_data(__name__, os.path.join('jar_publish', 'pom.mk')), root_dir=get_buildroot(), artifact=template_data)
+    target_jar = self.internaldep(target).extend(dependencies=dependencies)
+    with safe_open(path, 'w') as output:
+        generator = Generator(pkgutil.get_data(__name__, os.path.join('jar_publish', 'pom.mk')), artifact=target_jar)
         generator.write(output)

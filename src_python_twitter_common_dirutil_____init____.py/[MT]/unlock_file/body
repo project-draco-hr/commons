@@ -1,0 +1,4 @@
+def unlock_file(fp):
+    '\n    Unlock a file pointer.\n\n    Always returns True.\n  '
+    fcntl.flock(fp, fcntl.LOCK_UN)
+    return True

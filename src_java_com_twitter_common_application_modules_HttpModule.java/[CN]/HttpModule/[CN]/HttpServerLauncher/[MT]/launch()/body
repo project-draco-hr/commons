@@ -1,0 +1,20 @@
+{
+  if (!httpServer.listen(HTTP_PORT.get())) {
+    throw new IllegalStateException("Failed to start HTTP server, all servlets disabled.");
+  }
+  for (  HttpServletConfig config : httpServlets) {
+    HttpServlet handler=injector.getInstance(config.handlerClass);
+    httpServer.registerHandler(config.path,handler,config.params,config.silent);
+  }
+  for (  HttpAssetConfig config : httpAssets) {
+    httpServer.registerHandler(config.path,config.handler,null,config.silent);
+  }
+  Command shutdown=new Command(){
+    @Override public void execute(){
+      LOG.info("Shutting down embedded http server");
+      httpServer.stop();
+    }
+  }
+;
+  return HTTP_PRIMARY_SERVICE.get() ? LocalService.primaryService(httpServer.getPort(),shutdown) : LocalService.auxiliaryService("http",httpServer.getPort(),shutdown);
+}

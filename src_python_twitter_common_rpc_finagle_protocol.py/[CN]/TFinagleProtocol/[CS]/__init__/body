@@ -1,0 +1,10 @@
+def __init__(self, *args, **kw):
+    self._locals = threading.local()
+    self._finagle_upgraded = False
+    self._client_id = kw.pop('client_id', '')
+    TBinaryProtocol.TBinaryProtocolAccelerated.__init__(self, *args, **kw)
+    try:
+        upgrade_protocol_to_finagle(self)
+        self._finagle_upgraded = True
+    except TApplicationException:
+        pass

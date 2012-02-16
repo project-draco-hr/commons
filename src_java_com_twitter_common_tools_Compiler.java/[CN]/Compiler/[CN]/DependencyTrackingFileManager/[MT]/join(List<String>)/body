@@ -1,0 +1,10 @@
+{
+  StringBuilder path=new StringBuilder();
+  for (int i=0, max=components.size(); i < max; i++) {
+    if (i > 0) {
+      path.append(File.separatorChar);
+    }
+    path.append(components.get(i));
+  }
+  return path.toString();
+}

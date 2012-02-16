@@ -9,7 +9,7 @@ def setup_function(self):
 
         def run(self):
             rs = parent
-            rs.run(options.twitter_common_http_root_server_host, options.twitter_common_http_root_server_port)
+            rs.run(options.twitter_common_http_root_server_host, options.twitter_common_http_root_server_port, server=options.twitter_common_http_root_server_framework)
     if options.twitter_common_http_root_server_enabled:
         self._thread = RootServerThread()
         self._thread.start()

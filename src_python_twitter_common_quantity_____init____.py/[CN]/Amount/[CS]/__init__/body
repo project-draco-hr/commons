@@ -1,3 +1,8 @@
 def __init__(self, amount, unit):
+    if (not isinstance(amount, Integral)):
+        raise ValueError('Amount should be an integer type.')
+    if (not isinstance(unit, AmountUnit)):
+        raise TypeError('unit should be of type AmountUnit.')
     self._amount = amount
     self._unit = unit
+    self._reduce()

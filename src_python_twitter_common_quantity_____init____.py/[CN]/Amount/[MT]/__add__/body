@@ -1,0 +1,3 @@
+def __add__(self, other):
+    self._raise_if_incompatible(other)
+    return Amount((self._calc() + other._calc()), self._unit.BASES[0])

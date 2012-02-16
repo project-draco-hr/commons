@@ -1,0 +1,4 @@
+def __mul__(self, other):
+    if (not isinstance(other, Integral)):
+        raise TypeError('Can only multiply by integers')
+    return Amount((self._calc() * other), self._unit.BASES[0])

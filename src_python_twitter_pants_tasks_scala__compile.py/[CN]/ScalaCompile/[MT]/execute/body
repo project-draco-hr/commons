@@ -13,7 +13,8 @@ def execute(self, targets):
                     raise TaskError(('%s returned %d' % (self._main, result)))
         if self.context.products.isrequired('classes'):
             genmap = self.context.products.get('classes')
-            (_, sources) = self.calculate_sources(scala_targets)
-            for (target, sources) in sources.items():
-                classes = ScalaCompiler.findclasses(self._output_dir, sources, self._depfile)
-                genmap.add(target, self._output_dir, classes)
+            compiler = ScalaCompiler(self._output_dir, self._depfile)
+            for (target, classes_by_source) in compiler.findclasses(targets).items():
+                for (source, classes) in classes_by_source.items():
+                    genmap.add(source, self._output_dir, classes)
+                    genmap.add(target, self._output_dir, classes)

@@ -1,0 +1,6 @@
+def readMessageBegin(self, *args, **kwargs):
+    if self._finagle_upgraded:
+        header = ResponseHeader()
+        header.read(self)
+        self._locals.last_response = header
+    return TBinaryProtocol.TBinaryProtocolAccelerated.readMessageBegin(self, *args, **kwargs)

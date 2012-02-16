@@ -1,4 +1,4 @@
 @staticmethod
 def _register(sourceroot):
     for t in sourceroot.types:
-        SourceRoot.ROOTS[t].add(sourceroot.basedir)
+        SourceRoot._ROOTS[t].add(sourceroot.basedir)

@@ -1,0 +1,9 @@
+def resolve_target_sources(target_sources, extension):
+    'given a list of pants targets, extract their sources as a list'
+    resolved_sources = []
+    if target_sources:
+        for target in target_sources:
+            for resolved in target.resolve():
+                if hasattr(resolved, 'sources'):
+                    resolved_sources.extend((os.path.join(resolved.target_base, source) for source in resolved.sources if source.endswith(extension)))
+    return resolved_sources

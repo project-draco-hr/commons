@@ -1,5 +1,7 @@
+import os
 from . import Command
 from twitter.common.python import PythonLauncher
+from twitter.common.python.pexbuilder import PexBuilder
 from twitter.pants.base import Address, Target
 from twitter.pants.targets import PythonBinary
 from twitter.pants.python import PythonChroot

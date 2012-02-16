@@ -1,0 +1,7 @@
+@contextmanager
+def unwind(self):
+    trace_id_copy = copy.deepcopy(self._stack[(-1)])
+    try:
+        yield self
+    finally:
+        self._stack[(-1)] = trace_id_copy

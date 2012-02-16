@@ -1,6 +1,6 @@
 def execute(self, targets):
     if (not self.context.options.junit_run_skip):
-        tests = (self.tests or self.calculate_tests(targets))
+        tests = list((self.normalize_test_classes() if self.test_classes else self.calculate_tests(targets)))
         if tests:
             classpath = profile_classpath(self.profile)
             classpath.extend((os.path.join(get_buildroot(), path) for path in ('src/resources', 'tests/resources')))

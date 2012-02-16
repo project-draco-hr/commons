@@ -36,11 +36,17 @@ throw new TimeoutException("Timed out waiting for a ZK connection after " + conn
 }
 }
  else {
+try {
 connected.await();
+}
+ catch (InterruptedException ex) {
+LOG.info("Interrupted while waiting to connect to zooKeeper");
+close();
+throw ex;
+}
 }
 credentials.authenticate(zooKeeper);
 sessionState=new SessionState(zooKeeper.getSessionId(),zooKeeper.getSessionPasswd());
-closed=false;
 }
 return zooKeeper;
 }

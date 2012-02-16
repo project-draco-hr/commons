@@ -1,2 +1,3 @@
 import time
 import logging
+from twitter.common.log.formatters.base import format_message

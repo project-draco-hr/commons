@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('TraceId(trace_id = %s, parent_id = %s, span_id = %s, sampled = %s)' % (self.trace_id, self.parent_id, self.span_id, self.sampled))

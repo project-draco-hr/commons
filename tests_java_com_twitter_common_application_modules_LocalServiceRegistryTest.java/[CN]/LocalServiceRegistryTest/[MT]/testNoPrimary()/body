@@ -1,0 +1,8 @@
+{
+  expect(serviceProvider.get()).andReturn(ImmutableSet.of(runner1));
+  expect(runner1.launch()).andReturn(auxiliary(A,2));
+  shutdownRegistry.addAction(Commands.NOOP);
+  expectLastCall().times(1);
+  control.replay();
+  assertFalse(registry.getPrimarySocket().isPresent());
+}

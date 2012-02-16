@@ -1,5 +1,36 @@
 {
   System.setOut(new PrintStream(SWAPPABLE_OUT));
   System.setErr(new PrintStream(SWAPPABLE_ERR));
-  AppLauncher.launch(JUnitConsoleRunner.class,ArgFilters.selectClass(JUnitConsoleRunner.class),args);
+  /** 
+ * Command line option bean.
+ */
+class Options {
+    private boolean suppressOutput=false;
+    private boolean xmlReport=false;
+    private File outdir=new File(System.getProperty("java.io.tmpdir"));
+    private List<String> tests=Lists.newArrayList();
+    @Option(name="-suppress-output",usage="Suppresses test output.") public void setSuppressOutput(    boolean suppressOutput){
+      this.suppressOutput=suppressOutput;
+    }
+    @Option(name="-xmlreport",usage="Create ant compatible junit xml report files in -outdir.") public void setXmlReport(    boolean xmlReport){
+      this.xmlReport=xmlReport;
+    }
+    @Option(name="-outdir",usage="Directory to output test captures too.  Only used if -suppress-output or " + "-xmlreport is set.") public void setOutdir(    File outdir){
+      this.outdir=outdir;
+    }
+    @Argument(usage="Names of junit test classes or test methods to run.",required=true,metaVar="TESTS",handler=StringArrayOptionHandler.class) public void setTests(    String[] tests){
+      this.tests=Arrays.asList(tests);
+    }
+  }
+  Options options=new Options();
+  CmdLineParser parser=new CmdLineParser(options);
+  try {
+    parser.parseArgument(args);
+  }
+ catch (  CmdLineException e) {
+    e.getParser().printUsage(System.out);
+    exit(1);
+  }
+  JUnitConsoleRunner runner=new JUnitConsoleRunner(options.suppressOutput,options.xmlReport,options.outdir);
+  runner.run(options.tests);
 }

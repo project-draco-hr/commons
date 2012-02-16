@@ -1,5 +1,0 @@
-{
-  for (  RunListener listener : listeners) {
-    dispatcher.execute(listener);
-  }
-}

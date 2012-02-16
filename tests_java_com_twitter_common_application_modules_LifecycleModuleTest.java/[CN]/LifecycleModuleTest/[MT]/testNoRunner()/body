@@ -1,0 +1,19 @@
+{
+  final Command primaryShutdown=createMock(Command.class);
+  final Command auxShutdown=createMock(Command.class);
+  primaryShutdown.execute();
+  auxShutdown.execute();
+  Module testModule=new AbstractModule(){
+    @Override protected void configure(){
+      bindLocalService(binder(),LocalService.primaryService(99,primaryShutdown));
+      bindLocalService(binder(),LocalService.auxiliaryService("foo",100,auxShutdown));
+    }
+  }
+;
+  Injector injector=Guice.createInjector(new SystemModule(),testModule);
+  LocalServiceRegistry registry=injector.getInstance(LocalServiceRegistry.class);
+  control.replay();
+  assertEquals(Optional.of(getLocalAddress(99)),registry.getPrimarySocket());
+  assertEquals(ImmutableMap.of("foo",getLocalAddress(100)),registry.getAuxiliarySockets());
+  injector.getInstance(ShutdownRegistryImpl.class).execute();
+}

@@ -1,0 +1,15 @@
+def test_basic():
+
+
+    class Foo(Lockable):
+
+        def __init__(self):
+            self._pooped = 0
+            Lockable.__init__(self)
+
+        @Lockable.sync
+        def pooping(self):
+            self._pooped += 1
+    f = Foo()
+    f.pooping()
+    assert (f._pooped == 1)

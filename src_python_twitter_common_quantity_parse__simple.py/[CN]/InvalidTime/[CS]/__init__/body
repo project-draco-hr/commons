@@ -1,0 +1,2 @@
+def __init__(self, timestring):
+    ValueError.__init__(self, ('Invalid time span: %s' % timestring))

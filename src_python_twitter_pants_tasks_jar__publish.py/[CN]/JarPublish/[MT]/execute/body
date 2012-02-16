@@ -1,2 +1,90 @@
 def execute(self, targets):
-    self.context.log.warn('TODO(John Sirois): implement')
+    self.check_clean_master()
+    pushdbs = {}
+
+    def get_db(target):
+        dbfile = target.provides.repo.push_db
+        result = pushdbs.get(dbfile)
+        if (not result):
+            db = PushDb.load(dbfile)
+            repo = self.repos[(self.repo_prefix + target.provides.repo.name)]
+            result = (db, dbfile, repo)
+            pushdbs[dbfile] = result
+        return result
+
+    def stage_artifacts(target, jar, version, confs=None):
+
+        def artifact_path(name=None, suffix='', extension='jar'):
+            return os.path.join(self.outdir, jar.org, jar.name, ('%s-%s%s.%s' % ((name or jar.name), version, suffix, extension)))
+        with safe_open(artifact_path(suffix='-CHANGELOG', extension='txt'), 'w') as changelog_file:
+            changelog_file.write(changes)
+
+        def get_pushdb(target):
+            return get_db(target)[0]
+        PomWriter(get_pushdb).write(target, artifact_path(extension='pom'))
+        ivyxml = artifact_path(name='ivy', extension='xml')
+        IvyWriter(get_pushdb).write(target, ivyxml, confs)
+
+        def copy(typename, suffix=''):
+            genmap = self.context.products.get(typename)
+            for (basedir, jars) in genmap.get(target).items():
+                for artifact in jars:
+                    shutil.copy(os.path.join(basedir, artifact), artifact_path(suffix=suffix))
+        copy('jars')
+        if is_java(target):
+            copy('javadoc_jars', '-javadoc')
+        copy('source_jars', '-sources')
+        return ivyxml
+    if self.overrides:
+        print ('Publishing with revision overrides:\n  %s' % '\n  '.join((('%s#%s=%s' % (org, name, rev)) for ((org, name), rev) in self.overrides.items())))
+    head_sha = self.check_output(['git', 'rev-parse', 'HEAD']).strip()
+    safe_rmtree(self.outdir)
+    published = []
+    skip = (self.restart_at is not None)
+    for target in self.exported_targets():
+        (pushdb, dbfile, repo) = get_db(target)
+        (jar, semver, sha) = pushdb.as_jar_with_version(target)
+        published.append(jar)
+        if (skip and ((jar.org, jar.name) == self.restart_at)):
+            skip = False
+        newver = (self.overrides.get((jar.org, jar.name)) or semver.bump())
+        changes = self.changelog(target, sha)
+        if ((not changes) and (not self.force)):
+            print ('No changes for %s#%s;%s' % (jar.org, jar.name, semver.version()))
+            stage_artifacts(target, jar, (newver if self.force else semver).version())
+        elif skip:
+            print ('Skipping %s#%s;%s to resume at %s#%s' % (jar.org, jar.name, (newver if self.force else semver).version(), self.restart_at[0], self.restart_at[1]))
+            stage_artifacts(target, jar, semver.version())
+        else:
+            if (not self.dryrun):
+                if (not changes):
+                    print ('No changes for %s#%s;%s - forced push.' % (jar.org, jar.name, semver.version()))
+                else:
+                    print ('\nChanges for %s#%s since %s @ %s:\n\n%s' % (jar.org, jar.name, semver.version(), sha, changes))
+                push = raw_input(('Publish %s#%s with revision %s ? [y|N] ' % (jar.org, jar.name, newver.version())))
+                print '\n'
+                if (push.strip().lower() != 'y'):
+                    raise TaskError('User aborted push')
+            pushdb.set_version(target, newver, head_sha)
+            ivyxml = stage_artifacts(target, jar, newver.version(), confs=repo['confs'])
+            if self.dryrun:
+                print ('Skipping publish of %s#%s;%s in test mode.' % (jar.org, jar.name, newver.version()))
+            else:
+                resolver = repo['resolver']
+                jvmargs = []
+                auth = repo['auth']
+                if auth:
+                    buildfile = BuildFile(get_buildroot(), '.', must_exist=False)
+
+                    def load_credentials():
+                        return list(pants(auth).resolve()).pop()
+                    credentials = ParseContext(buildfile).do_in_context(load_credentials)
+                    jvmargs.append(credentials.username())
+                    jvmargs.append(credentials.password())
+                ivysettings = self.generate_ivysettings(published)
+                args = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
+                result = binary_utils.runjava(jvmargs=jvmargs, classpath=self.ivycp, args=args)
+                if (result != 0):
+                    raise TaskError(('Failed to push %s#%s;%s - ivy failed with %d' % (jar.org, jar.name, newver.version(), result)))
+                pushdb.dump(dbfile)
+                self.commit_push(jar.org, jar.name, newver.version(), head_sha)

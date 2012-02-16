@@ -1,0 +1,2 @@
+def __init__(self, transport_klazz):
+    self._transport_klazz = transport_klazz

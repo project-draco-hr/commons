@@ -1,0 +1,7 @@
+@staticmethod
+def from_tuple(*args, **kw):
+    if (kw or (len(args) != 1) or (len(args[0]) != 2)):
+        raise Address.InvalidFormat('from_tuple expects (host, port) tuple as input!')
+    (host, port) = args[0]
+    Address.sanity_check(host, port)
+    return Address(host, port)

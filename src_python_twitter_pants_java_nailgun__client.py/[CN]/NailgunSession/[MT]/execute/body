@@ -6,8 +6,10 @@ def execute(self, work_dir, main_class, *args, **environment):
         self._send_chunk('E', ('%s=%s' % (k, v)))
     self._send_chunk('D', work_dir)
     self._send_chunk('C', main_class)
-    self._input_reader.start()
+    if self._input_reader:
+        self._input_reader.start()
     try:
         return self._read_response()
     finally:
-        self._input_reader.stop()
+        if self._input_reader:
+            self._input_reader.stop()

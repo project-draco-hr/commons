@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('SpanId(%016x)' % (self._value if (self._value is not None) else 'Empty'))

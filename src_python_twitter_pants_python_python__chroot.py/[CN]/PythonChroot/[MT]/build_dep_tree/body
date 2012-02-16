@@ -1,8 +1,4 @@
-def build_dep_tree(self, input_target):
-    target = copy.deepcopy(input_target)
-    common_python = self._get_common_python()
-    if (common_python not in target.dependencies):
-        target.dependencies.add(common_python)
+def build_dep_tree(self, target):
     libraries = set()
     eggs = set()
     binaries = set()
@@ -11,7 +7,7 @@ def build_dep_tree(self, input_target):
 
     def add_dep(trg):
         if isinstance(trg, PythonLibrary):
-            if trg.sources:
+            if (trg.sources or trg.resources):
                 libraries.add(trg)
             for egg in [dep for dep in trg.dependencies if isinstance(dep, PythonEgg)]:
                 eggs.add(egg)
@@ -27,6 +23,5 @@ def build_dep_tree(self, input_target):
             pass
         else:
             raise PythonChroot.InvalidDependencyException(trg)
-        return [dep for dep in trg.dependencies if (not isinstance(dep, PythonEgg))]
     target.walk((lambda t: add_dep(t)), (lambda typ: (not isinstance(typ, PythonEgg))))
     return (libraries, eggs, binaries, thrifts, antlrs)

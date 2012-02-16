@@ -1,0 +1,17 @@
+{
+  List<String> base=new ArrayList<String>(getOutputPath());
+  List<String> path=toList(file);
+  for (Iterator<String> baseIter=base.iterator(), pathIter=path.iterator(); baseIter.hasNext() && pathIter.hasNext(); ) {
+    if (!baseIter.next().equals(pathIter.next())) {
+      break;
+    }
+ else {
+      baseIter.remove();
+      pathIter.remove();
+    }
+  }
+  if (!base.isEmpty()) {
+    path.addAll(0,Collections.nCopies(base.size(),".."));
+  }
+  return join(path);
+}

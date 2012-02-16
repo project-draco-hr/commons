@@ -1,0 +1,47 @@
+{
+  /** 
+ * Datatype representing an individual test method.
+ */
+class TestMethod {
+    private final Class<?> clazz;
+    private final String name;
+    TestMethod(    Class<?> clazz,    String name){
+      this.clazz=clazz;
+      this.name=name;
+    }
+  }
+  Set<TestMethod> testMethods=Sets.newLinkedHashSet();
+  Set<Class<?>> classes=Sets.newLinkedHashSet();
+  for (  String spec : specs) {
+    Matcher matcher=METHOD_PARSER.matcher(spec);
+    try {
+      if (matcher.matches()) {
+        Class<?> testClass=Class.forName(matcher.group(1));
+        if (isTest(testClass)) {
+          String method=matcher.group(2);
+          testMethods.add(new TestMethod(testClass,method));
+        }
+      }
+ else {
+        Class<?> testClass=Class.forName(spec);
+        if (isTest(testClass)) {
+          classes.add(testClass);
+        }
+      }
+    }
+ catch (    NoClassDefFoundError e) {
+      warnNotFound(spec,out,e);
+    }
+catch (    ClassNotFoundException e) {
+      warnNotFound(spec,out,e);
+    }
+  }
+  List<Request> requests=Lists.newArrayList();
+  if (!classes.isEmpty()) {
+    requests.add(Request.classes(classes.toArray(new Class<?>[classes.size()])));
+  }
+  for (  TestMethod testMethod : testMethods) {
+    requests.add(Request.method(testMethod.clazz,testMethod.name));
+  }
+  return requests;
+}

@@ -1,0 +1,5 @@
+def test_from_address():
+    addr = Address.from_tuple(('localhost', 1234))
+    addr = Address.from_address(addr)
+    assert (addr.host == 'localhost')
+    assert (addr.port == 1234)

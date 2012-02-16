@@ -5,11 +5,11 @@ def __init__(self, root_dir, parser, argv):
     spec = self.args[0]
     try:
         address = Address.parse(root_dir, spec)
-    except:
+    except IOError:
         self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
     try:
         self.target = Target.get(address)
-    except:
+    except (ImportError, SyntaxError, TypeError):
         self.error(('Problem parsing BUILD target %s: %s' % (address, traceback.format_exc())))
     if (not self.target):
         self.error(('Target %s does not exist' % address))

@@ -1,0 +1,5 @@
+int nextResourceIndex
+Iterable<ArgInfo> positionalInfos
+Iterable<ArgInfo> cmdLineInfos
+Iterable<ParserInfo> parserInfos
+Iterable<VerifierInfo> verifierInfos

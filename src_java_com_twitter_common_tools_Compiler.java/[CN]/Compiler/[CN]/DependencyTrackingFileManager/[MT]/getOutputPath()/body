@@ -1,0 +1,19 @@
+{
+  if (outputPath == null) {
+    for (    File path : fileManager.getLocation(StandardLocation.CLASS_OUTPUT)) {
+      if (outputPath != null) {
+        throw new IllegalStateException("Expected exactly 1 output path");
+      }
+      List<String> components=new ArrayList<String>();
+      File f=path;
+      while (f != null) {
+        components.add(f.getName());
+        f=f.getParentFile();
+      }
+      Collections.reverse(components);
+      outputPath=components;
+      outputDir=path;
+    }
+  }
+  return outputPath;
+}

@@ -1,0 +1,2 @@
+def __init__(self, datastring):
+    ValueError.__init__(self, ('Invalid size: %s' % datastring))

@@ -1,0 +1,7 @@
+def test_basic():
+    assert (parse_time('') == Amount(0, Time.SECONDS))
+    assert (parse_time('1s') == Amount(1, Time.SECONDS))
+    assert (parse_time('2m60s') == Amount(3, Time.MINUTES))
+    assert (parse_time('1d') == Amount(1, Time.DAYS))
+    assert (parse_time('1d1H3600s') == Amount(26, Time.HOURS))
+    assert (parse_time('1d-1s') == Amount(86399, Time.SECONDS))

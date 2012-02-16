@@ -1,0 +1,6 @@
+def get(self):
+    if (len(self._stack) == 0):
+        span_id = TraceId.rand()
+        trace_id = TraceId(span_id, None, span_id, self.should_sample())
+        self._stack.append(trace_id)
+    return self._stack[(-1)]
