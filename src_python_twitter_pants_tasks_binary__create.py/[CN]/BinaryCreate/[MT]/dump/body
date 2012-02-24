@@ -1,12 +1,11 @@
 def dump(self, jarpath, jarfile):
     self.context.log.debug(('  dumping %s' % jarpath))
     with temporary_dir() as tmpdir:
-        with pushd(tmpdir):
-            with self.open_jar(jarpath) as sourcejar:
-                sourcejar.extractall()
-                for (root, dirs, files) in os.walk(tmpdir):
-                    for file in files:
-                        path = os.path.join(root, file)
-                        relpath = os.path.relpath(path, tmpdir)
-                        if (Manifest.PATH != relpath):
-                            jarfile.write(path, relpath)
+        with self.open_jar(jarpath) as sourcejar:
+            BinaryCreate.safe_extract(sourcejar, tmpdir)
+            for (root, dirs, files) in os.walk(tmpdir):
+                for file in files:
+                    path = os.path.join(root, file)
+                    relpath = os.path.relpath(path, tmpdir)
+                    if (Manifest.PATH != relpath):
+                        jarfile.write(path, relpath)

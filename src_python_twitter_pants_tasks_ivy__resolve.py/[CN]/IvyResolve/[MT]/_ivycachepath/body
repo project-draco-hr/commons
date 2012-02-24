@@ -1,7 +1,7 @@
 def _ivycachepath(self, ivyxml, classpathfile, *targets):
     (jars, excludes) = self._calculate_classpath(targets)
     self._generate_ivy(jars, excludes, ivyxml)
-    ivy_args = ['-settings', self._ivy_settings, '-cache', self._cachedir, '-ivy', ivyxml, '-cachepath', classpathfile, '-confs']
+    ivy_args = ['-settings', self._ivy_settings, '-cache', self._cachedir, '-ivy', ivyxml, '-types', 'jar', '-cachepath', classpathfile, '-confs']
     ivy_args.extend(self._confs)
     if (not self._transitive):
         ivy_args.append('-notransitive')
