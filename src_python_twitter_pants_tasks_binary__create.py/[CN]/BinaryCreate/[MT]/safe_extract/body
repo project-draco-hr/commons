@@ -1,0 +1,8 @@
+@staticmethod
+def safe_extract(jar, dest_dir):
+    "OS X's python 2.6.1 has a bug in zipfile that makes it unzip directories as regular files."
+    for path in jar.namelist():
+        if (path.startswith('/') or path.startswith('..')):
+            raise Exception(('Jar file contains unsafe path: %s' % path))
+        if (not path.endswith('/')):
+            jar.extract(path, dest_dir)
