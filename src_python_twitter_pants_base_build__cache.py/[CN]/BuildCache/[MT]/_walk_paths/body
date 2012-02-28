@@ -1,6 +1,6 @@
 def _walk_paths(self, paths):
     'Recursively walk the given paths.\n\n    :returns: Iterable of (relative_path, absolute_path).\n    '
-    assert (not isinstance(paths, basestring))
+    assert (not isinstance(paths, Compatibility.string))
     for path in sorted(paths):
         if os.path.isdir(path):
             for (dir_name, _, filenames) in sorted(os.walk(path)):

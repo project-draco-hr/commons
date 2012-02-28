@@ -1,3 +1,0 @@
-ParserOracle parserOracle
-Class<? extends Parser> custom
-Field argField

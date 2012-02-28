@@ -1,0 +1,5 @@
+def __init__(self, parent, source_file, dest_file, read_lambda):
+    self._parent = parent
+    self._source = source_file
+    self._dest = dest_file
+    self._read_lambda = read_lambda

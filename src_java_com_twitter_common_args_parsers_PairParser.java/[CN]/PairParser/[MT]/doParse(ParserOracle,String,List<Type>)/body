@@ -1,8 +1,8 @@
 {
   Type leftType=typeParams.get(0);
-  Parser leftParser=parserOracle.get(TypeUtil.getRawType(leftType));
+  Parser leftParser=parserOracle.get(TypeToken.create(leftType));
   Type rightType=typeParams.get(1);
-  Parser rightParser=parserOracle.get(TypeUtil.getRawType(rightType));
+  Parser rightParser=parserOracle.get(TypeToken.create(rightType));
   List<String> parts=ImmutableList.copyOf(Parsers.MULTI_VALUE_SPLITTER.split(raw));
   checkArgument(parts.size() == 2,"Only two values may be specified for a pair, you gave " + parts.size());
   return Pair.of(leftParser.parse(parserOracle,leftType,parts.get(0)),rightParser.parse(parserOracle,rightType,parts.get(1)));

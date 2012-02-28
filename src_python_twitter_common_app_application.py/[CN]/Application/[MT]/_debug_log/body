@@ -1,3 +1,3 @@
 def _debug_log(self, msg):
     if (hasattr(self._option_values, 'twitter_common_app_debug') and self._option_values.twitter_common_app_debug):
-        print  >> sys.stderr, ('twitter.common.app debug: %s' % msg)
+        print(('twitter.common.app debug: %s' % msg), file=sys.stderr)

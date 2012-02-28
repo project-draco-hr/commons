@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 import inspect
 from .recordio import RecordIO
@@ -7,4 +8,4 @@ try:
 except ImportError:
     _SER = None
     _HAS_THRIFT = False
-    print  >> sys.stderr, 'WARNING: Unable to load thrift in record_writer'
+    print('WARNING: Unable to load thrift in record_writer', file=sys.stderr)

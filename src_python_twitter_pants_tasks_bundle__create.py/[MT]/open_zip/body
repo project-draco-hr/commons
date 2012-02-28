@@ -1,5 +1,0 @@
-@contextmanager
-def open_zip(path, mode, compression=ZIP_STORED):
-    zip = ZipFile(path, mode=mode, compression=compression)
-    yield zip
-    zip.close()

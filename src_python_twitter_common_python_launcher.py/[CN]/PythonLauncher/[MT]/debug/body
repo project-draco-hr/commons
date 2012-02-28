@@ -1,4 +1,4 @@
 @staticmethod
 def debug(msg):
-    if os.environ.has_key('PEX_VERBOSE'):
-        print  >> sys.stderr, ('PEX: %s' % msg)
+    if ('PEX_VERBOSE' in os.environ):
+        print(('PEX: %s' % msg), file=sys.stderr)

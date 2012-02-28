@@ -1,14 +1,14 @@
 def execute(self):
     entry_point = self.entry()
     saved_sys_path = sys.path[:]
-    if os.environ.has_key('PEX_INHERIT_PATH'):
+    if ('PEX_INHERIT_PATH' in os.environ):
         sys.path.extend(self.path())
     else:
         sys.path = self.path()
-    if os.environ.has_key('PEX_COVERAGE'):
+    if ('PEX_COVERAGE' in os.environ):
         start_coverage()
-    PythonLauncher.debug(('Initialized sys.path to %s' % ':'.join(sys.path)))
-    force_interpreter = os.environ.has_key('PEX_INTERPRETER')
+    PythonLauncher.debug(('Initialized sys.path to %s' % os.path.pathsep.join(sys.path)))
+    force_interpreter = ('PEX_INTERPRETER' in os.environ)
     if (entry_point and (not force_interpreter)):
         PythonLauncher.debug(('Detected entry_point: %s' % entry_point))
         runpy.run_module(entry_point, run_name='__main__')

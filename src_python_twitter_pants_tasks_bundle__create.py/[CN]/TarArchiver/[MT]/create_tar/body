@@ -1,5 +1,0 @@
-@contextmanager
-def create_tar(self, path):
-    tar = tarfile.open(path, self.mode, dereference=True)
-    yield tar
-    tar.close()

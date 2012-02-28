@@ -1,8 +1,7 @@
 def test_cannot_supercede_constructors():
 
 
-    class CountingSingleton(object):
-        __metaclass__ = SingletonMetaclass
+    class CountingSingleton(Singleton):
         VALUE = 0
 
         @staticmethod

@@ -6,5 +6,5 @@ def execute(self, targets):
     for app in filter(is_app, targets):
         basedir = self.bundle(app)
         if archiver:
-            archivepath = archiver.archive(basedir, self.outdir, app.name)
+            archivepath = archiver.archive(basedir, self.outdir, app.basename)
             self.context.log.info(('created %s' % os.path.relpath(archivepath, get_buildroot())))

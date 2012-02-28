@@ -1,3 +1,0 @@
-def __enter__(self):
-    self.path = tempfile.mkdtemp(dir=self.root_dir)
-    return self.path

@@ -1,0 +1,19 @@
+@contextmanager
+def environment_as(**kwargs):
+    "\n    Update the environment to the supplied values, for example:\n\n    with environment_as(PYTHONPATH = 'foo:bar:baz',\n                        PYTHON = '/usr/bin/python2.6'):\n      subprocess.Popen(foo).wait()\n  "
+    new_environment = kwargs
+    old_environment = {}
+
+    def setenv(key, val):
+        if (val is not None):
+            os.putenv(key, val)
+        else:
+            os.unsetenv(key)
+    for (key, val) in new_environment.items():
+        old_environment[key] = os.environ.get(key)
+        setenv(key, val)
+    try:
+        yield
+    finally:
+        for (key, val) in old_environment.items():
+            setenv(key, val)

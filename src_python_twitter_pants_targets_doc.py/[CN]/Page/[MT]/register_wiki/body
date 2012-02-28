@@ -1,0 +1,8 @@
+def register_wiki(self, wiki, **kwargs):
+    '\n      Adds this page to the given wiki for publishing.  Wiki-specific configuration is passed as\n      kwargs.\n    '
+    if isinstance(wiki, Pants):
+        wiki = wiki.get()
+    if (not isinstance(wiki, Wiki)):
+        raise ValueError(('The 1st argument must be a wiki target, given: %s' % wiki))
+    self._wikis[wiki] = kwargs
+    return self

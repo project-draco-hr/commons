@@ -1,2 +1,2 @@
-from twitter.common.lang import SingletonMetaclass
+from twitter.common.lang import SingletonMetaclass, Compatibility
 from twitter.common.util import topological_sort, DependencyCycle

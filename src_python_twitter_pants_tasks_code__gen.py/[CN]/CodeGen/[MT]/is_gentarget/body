@@ -1,0 +1,3 @@
+def is_gentarget(self, target):
+    '\n      Subclasses must override and return True if the target is a target it handles generating\n      code for.\n    '
+    raise NotImplementedError

@@ -1,11 +1,11 @@
 def code(self):
     'Returns the code object for this BUILD file.'
     if (os.path.exists(self._bytecode_path) and (os.path.getmtime(self.full_path) <= os.path.getmtime(self._bytecode_path))):
-        with open(self._bytecode_path, 'r') as bytecode:
+        with open(self._bytecode_path, 'rb') as bytecode:
             return marshal.load(bytecode)
     else:
-        with open(self.full_path, 'r') as source:
+        with open(self.full_path, 'rb') as source:
             code = compile(source.read(), self.full_path, 'exec')
-            with open(self._bytecode_path, 'w') as bytecode:
+            with open(self._bytecode_path, 'wb') as bytecode:
                 marshal.dump(code, bytecode)
             return code

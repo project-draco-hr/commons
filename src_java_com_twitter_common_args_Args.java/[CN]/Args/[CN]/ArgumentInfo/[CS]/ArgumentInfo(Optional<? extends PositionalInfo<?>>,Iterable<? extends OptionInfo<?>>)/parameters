@@ -1,0 +1,2 @@
+Optional<? extends PositionalInfo<?>> positionalInfo
+Iterable<? extends OptionInfo<?>> cmdLineDescs

@@ -1,0 +1,41 @@
+@staticmethod
+def attempt(context, phases, timer=None):
+    '\n      Attempts to reach the goals for the supplied phases, optionally recording phase timings and\n      then logging then when all specified phases have completed.\n    '
+    start = (timer.now() if timer else None)
+    executed = OrderedDict()
+
+    def print_timings():
+        if timer:
+            timer.log('Timing report')
+            timer.log('=============')
+            for (phase, timings) in executed.items():
+                phase_time = None
+                for (goal, times) in timings.items():
+                    if (len(times) > 1):
+                        timer.log(('[%(phase)s:%(goal)s(%(numsteps)d)] %(timings)s -> %(total).3fs' % {'phase': phase, 'goal': goal, 'numsteps': len(times), 'timings': ','.join((('%.3fs' % time) for time in times)), 'total': sum(times), }))
+                    else:
+                        timer.log(('[%(phase)s:%(goal)s] %(total).3fs' % {'phase': phase, 'goal': goal, 'total': sum(times), }))
+                    if (not phase_time):
+                        phase_time = 0
+                    phase_time += sum(times)
+                if (len(timings) > 1):
+                    timer.log(('[%(phase)s] total: %(total).3fs' % {'phase': phase, 'total': phase_time, }))
+            elapsed = (timer.now() - start)
+            timer.log(('total: %.3fs' % elapsed))
+    try:
+        tasks_by_goal = {}
+        for goal in reversed(list(Phase.execution_order(phases))):
+            task = goal.prepare(context)
+            tasks_by_goal[goal] = task
+        for phase in phases:
+            Group.execute(phase, tasks_by_goal, context, executed, timer=timer)
+        print_timings()
+        return 0
+    except (TaskError, GoalError) as e:
+        message = ('%s' % e)
+        if message:
+            print(('\nFAILURE: %s\n' % e))
+        else:
+            print('\nFAILURE\n')
+        print_timings()
+        return 1

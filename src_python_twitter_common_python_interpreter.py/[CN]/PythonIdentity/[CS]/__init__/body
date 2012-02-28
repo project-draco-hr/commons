@@ -1,0 +1,5 @@
+def __init__(self, interpreter, major, minor, subminor):
+    for var in (major, minor, subminor):
+        assert isinstance(var, Integral)
+    self._interpreter = interpreter
+    self._version = (major, minor, subminor)

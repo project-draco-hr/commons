@@ -1,22 +1,14 @@
 def bundle(self, app):
-    bundledir = os.path.join(self.outdir, ('%s-bundle' % app.name))
+    bundledir = os.path.join(self.outdir, ('%s-bundle' % app.basename))
     self.context.log.info(('creating %s' % os.path.relpath(bundledir, get_buildroot())))
     safe_mkdir(bundledir, clean=True)
     libdir = os.path.join(bundledir, 'libs')
     os.mkdir(libdir)
-    genmap = self.context.products.get('jar_dependencies')
     classpath = OrderedSet()
-
-    def link_jar(target):
-        generated = genmap.get(target)
-        if generated:
-            for (basedir, jars) in generated.items():
-                for jar in jars:
-                    if (jar not in classpath):
-                        path = os.path.join(basedir, jar)
-                        os.symlink(path, os.path.join(libdir, jar))
-                        classpath.add(jar)
-    app.walk(link_jar, is_internal)
+    for (basedir, externaljar) in self.list_jar_dependencies(app.binary):
+        path = os.path.join(basedir, externaljar)
+        os.symlink(path, os.path.join(libdir, externaljar))
+        classpath.add(externaljar)
     for (basedir, jars) in self.context.products.get('jars').get(app.binary).items():
         if (len(jars) != 1):
             raise TaskError(('Expected 1 mapped binary but found: %s' % jars))

@@ -9,10 +9,11 @@ def __init__(self, context):
         self.java_args.extend(context.config.getlist('jvm', 'debug_args'))
     self.test_classes = context.options.junit_run_tests
     self.context.products.require('classes')
+    self.outdir = (context.options.junit_run_outdir or context.config.get('junit-run', 'workdir'))
     self.flags = []
     if (context.options.junit_run_xmlreport or context.options.junit_run_suppress_output):
         if context.options.junit_run_xmlreport:
             self.flags.append('-xmlreport')
         self.flags.append('-suppress-output')
         self.flags.append('-outdir')
-        self.flags.append((context.options.junit_run_outdir or context.config.get('junit-run', 'workdir')))
+        self.flags.append(self.outdir)

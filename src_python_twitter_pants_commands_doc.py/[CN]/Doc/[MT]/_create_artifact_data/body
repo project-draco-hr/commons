@@ -23,7 +23,7 @@ def _create_artifact_data(self, targets, target_path):
                         revision = 'NOT-PUBLISHED-YET'
                     data[source] = dict(org=target.provides.org, name=target.provides.name, rev=revision, artifactBaseUrl=target.provides.repo.url)
     with open(self._artifact_data_path(target_path), mode='w') as data_file:
-        print  >> data_file, ('var artifacts = %s;' % json.dumps(data, sort_keys=True, indent=2))
-        print  >> data_file, ("artifacts.title = '%s';" % self.options.title)
-        print  >> data_file, ("artifacts.publishDate = '%s';" % datetime.now().strftime('%m/%d/%Y %I:%M %p'))
-        print  >> data_file, ('artifacts.hasChangelog = %s;' % ('true' if self.link_changelog else 'false'))
+        print(('var artifacts = %s;' % json.dumps(data, sort_keys=True, indent=2)), file=data_file)
+        print(("artifacts.title = '%s';" % self.options.title), file=data_file)
+        print(("artifacts.publishDate = '%s';" % datetime.now().strftime('%m/%d/%Y %I:%M %p')), file=data_file)
+        print(('artifacts.hasChangelog = %s;' % ('true' if self.link_changelog else 'false')), file=data_file)

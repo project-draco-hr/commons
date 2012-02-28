@@ -7,7 +7,7 @@ def execute_javadoc(self, targets, target_path):
     doc_target = self._create_doc_target(targets, all_sources, all_deps)
     (classpath_result, classpath_file) = self._create_classpath_file(doc_target, target_path)
     if (classpath_result != 0):
-        print 'Failed to generate javadoc classpath.'
+        print('Failed to generate javadoc classpath.')
         return classpath_result
     self._create_artifact_data(targets, target_path)
     sources_file = self._create_sources_file(doc_target, target_path)

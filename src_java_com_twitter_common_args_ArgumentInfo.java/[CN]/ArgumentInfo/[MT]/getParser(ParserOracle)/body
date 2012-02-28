@@ -1,0 +1,17 @@
+{
+  Preconditions.checkNotNull(parserOracle);
+  if (parser == null || Parser.class.equals(parser)) {
+    return parserOracle.get(type);
+  }
+ else {
+    try {
+      return parser.newInstance();
+    }
+ catch (    InstantiationException e) {
+      throw new RuntimeException("Failed to instantiate parser " + parser);
+    }
+catch (    IllegalAccessException e) {
+      throw new RuntimeException("No access to instantiate parser " + parser);
+    }
+  }
+}

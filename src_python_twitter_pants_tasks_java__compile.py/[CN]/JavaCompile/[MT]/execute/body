@@ -8,10 +8,14 @@ def execute(self, targets):
             with self.changed(java_targets, invalidate_dependants=True) as changed:
                 (bases, sources_by_target, processors, fingerprint) = self.calculate_sources(changed)
                 if sources_by_target:
-                    classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
-                    result = self.compile(classpath, bases, sources_by_target, fingerprint)
-                    if (result != 0):
-                        raise TaskError(('%s returned %d' % (_JMAKE_MAIN, result)))
+                    sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
+                    if (not sources):
+                        self.context.log.warn(('Skipping java compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
+                    else:
+                        classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
+                        result = self.compile(classpath, bases, sources, fingerprint)
+                        if (result != 0):
+                            raise TaskError(('%s returned %d' % (_JMAKE_MAIN, result)))
                     if processors:
                         processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
                         if os.path.exists(processor_info_file):

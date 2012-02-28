@@ -8,7 +8,7 @@ def minimum_path():
         site_packages_prefix = get_python_lib()
         site_packages = set()
         site.addsitepackages(site_packages)
-        scrub_from_sys_path = filter((lambda pkg: ((pkg in site_packages) or (site_packages_prefix in pkg))), sys.path)
+        scrub_from_sys_path = [pkg for pkg in sys.path if ((pkg in site_packages) or (site_packages_prefix in pkg))]
         for path in scrub_from_sys_path:
             PythonLauncher.debug(('Scrubbing from sys.path: %s' % path))
         scrubbed_sys_path = list((OrderedSet(sys.path) - OrderedSet(scrub_from_sys_path)))

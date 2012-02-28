@@ -1,0 +1,4 @@
+def _dump_distribution(self, dist):
+    self.debug(('  Dumping distribution: .../%s' % os.path.basename(dist.location)))
+    egg_dep = PythonDependency.from_distributions(dist)
+    self.env.add_dependency(egg_dep)

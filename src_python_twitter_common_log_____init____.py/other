@@ -1,5 +1,5 @@
 import logging
-from initialize import init
+from twitter.common.log.initialize import init, teardown_disk_logging, teardown_stderr_logging
 try:
     from twitter.common import app
 
@@ -28,4 +28,4 @@ WARNING = logging.WARNING
 WARN = logging.WARN
 ERROR = logging.ERROR
 FATAL = logging.FATAL
-__all__ = ['debug', 'info', 'warning', 'warn', 'error', 'fatal', 'log', 'logger', 'DEBUG', 'INFO', 'WARNING', 'WARN', 'ERROR', 'FATAL', 'init', 'formatters']
+__all__ = ['debug', 'info', 'warning', 'warn', 'error', 'fatal', 'log', 'logger', 'DEBUG', 'INFO', 'WARNING', 'WARN', 'ERROR', 'FATAL', 'init', 'teardown_stderr_logging', 'teardown_disk_logging', 'formatters']

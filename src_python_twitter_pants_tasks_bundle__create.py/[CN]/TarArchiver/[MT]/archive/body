@@ -1,5 +1,5 @@
 def archive(self, basedir, outdir, name):
     tarpath = os.path.join(outdir, ('%s.%s' % (name, self.extension)))
-    with self.create_tar(tarpath) as tar:
+    with open_tar(tarpath, self.mode, dereference=True) as tar:
         tar.add(basedir, arcname='')
     return tarpath

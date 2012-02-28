@@ -1,4 +1,0 @@
-def __enter__(self):
-    for key in self.new_environment:
-        self.old_environment[key] = os.environ.get(key, None)
-        environment_as.setenv(key, self.new_environment[key])

@@ -1,4 +1,7 @@
 import os
 import shutil
+import tarfile
 import tempfile
 import sys
+import zipfile
+from contextlib import closing, contextmanager

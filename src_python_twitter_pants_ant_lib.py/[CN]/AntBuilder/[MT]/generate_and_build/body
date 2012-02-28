@@ -15,5 +15,5 @@ def generate_and_build(self, targets, args, name=None):
         antargs.extend(buildflags)
     if args:
         antargs.extend(args)
-    print ('AntBuilder executing (ANT_OPTS="%s") %s' % (os.environ['ANT_OPTS'], ' '.join(antargs)))
+    print(('AntBuilder executing (ANT_OPTS="%s") %s' % (os.environ['ANT_OPTS'], ' '.join(antargs))))
     return (buildxml, ivyxml, subprocess.call(antargs))

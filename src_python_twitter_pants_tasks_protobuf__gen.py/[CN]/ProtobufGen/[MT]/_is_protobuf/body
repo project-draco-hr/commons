@@ -1,3 +1,0 @@
-@staticmethod
-def _is_protobuf(target):
-    return isinstance(target, JavaProtobufLibrary)

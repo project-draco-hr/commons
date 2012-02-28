@@ -1,0 +1,3 @@
+def wikis(self):
+    'Returns all the wikis registered with this page.'
+    return self._wikis.keys()

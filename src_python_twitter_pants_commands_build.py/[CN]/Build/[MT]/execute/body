@@ -1,5 +1,5 @@
 def execute(self):
-    print ('Build operating on targets: %s' % self.targets)
+    print(('Build operating on targets: %s' % self.targets))
     jvm_targets = OrderedSet()
     python_targets = OrderedSet()
     for target in self.targets:

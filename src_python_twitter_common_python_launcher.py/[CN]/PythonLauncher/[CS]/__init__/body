@@ -3,7 +3,10 @@ def __init__(self, path):
         raise PythonLauncher.NotFound(('Could not find python environment in %s' % path))
     self._dir = PythonDirectoryWrapper.get(path)
     try:
-        self._manifest = json.loads(self._dir.read(PythonLauncher.MANIFEST))
+        self._manifest = self._dir.read(PythonLauncher.MANIFEST)
+        if Compatibility.PY3:
+            self._manifest = str(self._manifest, encoding='utf8')
+        self._manifest = json.loads(self._manifest)
     except ValueError as e:
         raise PythonLauncher.InvalidFormat(('Could not parse manifest! %s' % e))
     self._cache = EggCache(self._dir)

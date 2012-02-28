@@ -3,7 +3,7 @@
 def handle_vars(self, var=None):
     samples = self._monitor.sample()
     if (var is None):
-        body = '<br>'.join((('%s %s' % (key, val)) for (key, val) in samples.iteritems()))
+        body = '<br>'.join((('%s %s' % (key, val)) for (key, val) in samples.items()))
         return ('<html><body><pre>%s</pre></body></html>' % body)
     elif (var in samples):
         return samples[var]

@@ -1,6 +1,0 @@
-@staticmethod
-def setenv(key, val):
-    if (val is not None):
-        os.putenv(key, val)
-    else:
-        os.unsetenv(key)

@@ -1,10 +1,9 @@
 def _create_java_target(self, target, dependees):
-    gen_java_dir = os.path.join(self.output_dir, 'gen-java')
     genfiles = []
     for source in target.sources:
         path = os.path.join(target.target_base, source)
         genfiles.extend(calculate_genfiles(path, source).get('java', []))
-    tgt = self.context.add_target(gen_java_dir, JavaLibrary, name=target.id, sources=genfiles, dependencies=self.javadeps)
+    tgt = self.context.add_target(self.java_out, JavaLibrary, name=target.id, sources=genfiles, dependencies=self.javadeps)
     tgt.id = target.id
     tgt.is_codegen = True
     for dependee in dependees:

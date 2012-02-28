@@ -3,7 +3,7 @@ def __init__(self, pexfile, basepath=None):
     self._name = os.path.basename(self._pex.path())
     if self._pex.is_condensed():
         self._cache_path = (basepath if (basepath is not None) else EggCache.DEFAULT_PATH)
-        self._cache_path = (os.path.join(self._cache_path, EggCache.PATH_FORMAT) % {'user': getpass.getuser(), 'name': self._name, 'crc': hashlib.md5(open(self._pex.path()).read()).hexdigest(), })
+        self._cache_path = (os.path.join(self._cache_path, EggCache.PATH_FORMAT) % {'user': getpass.getuser(), 'name': self._name, 'crc': hashlib.md5(open(self._pex.path(), 'rb').read()).hexdigest(), })
     else:
         self._cache_path = self._pex.path()
     self._eggparser = EggParser()

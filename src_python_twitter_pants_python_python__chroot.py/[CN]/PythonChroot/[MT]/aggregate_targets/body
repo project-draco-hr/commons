@@ -1,10 +1,11 @@
 def aggregate_targets(self, targets):
-    (libraries, eggs, binaries, thrifts, antlrs) = (set(), set(), set(), set(), set())
+    (libraries, eggs, reqs, binaries, thrifts, antlrs) = (set(), set(), set(), set(), set(), set())
     for target in targets:
-        (addl_libraries, addl_eggs, addl_binaries, addl_thrifts, addl_antlrs) = self.build_dep_tree(target)
+        (addl_libraries, addl_eggs, addl_reqs, addl_binaries, addl_thrifts, addl_antlrs) = self.build_dep_tree(target)
         libraries.update(addl_libraries)
         eggs.update(addl_eggs)
+        reqs.update(addl_reqs)
         binaries.update(addl_binaries)
         thrifts.update(addl_thrifts)
         antlrs.update(addl_antlrs)
-    return (libraries, eggs, binaries, thrifts, antlrs)
+    return (libraries, eggs, reqs, binaries, thrifts, antlrs)

@@ -1,7 +1,11 @@
+from __future__ import print_function
 from twitter.pants import get_buildroot, get_version
 from twitter.pants.base import Address
 from twitter.pants.commands import Command
-import ConfigParser
+try:
+    import ConfigParser
+except ImportError:
+    import configparser as ConfigParser
 import optparse
 import os
 import sys

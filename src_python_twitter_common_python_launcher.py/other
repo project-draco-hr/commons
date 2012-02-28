@@ -1,11 +1,14 @@
+from __future__ import print_function
 import errno
-import os
-import sys
 import json
+import os
 import runpy
 import signal
 import subprocess
-from twitter.common.python.dirwrapper import PythonDirectoryWrapper
-from twitter.common.python.eggcache import EggCache
+import sys
 from twitter.common.collections import OrderedSet
 from twitter.common.contextutil import pushd, environment_as
+from twitter.common.lang import Compatibility
+from twitter.common.python.dirwrapper import PythonDirectoryWrapper
+from twitter.common.python.eggcache import EggCache
+from twitter.common.python.interpreter import PythonInterpreter, PythonIdentity

@@ -1,0 +1,8 @@
+@classmethod
+def tearDownClass(cls):
+    cls._thread.terminate()
+    cls.write_to_fp('whee!')
+    cls._thread.clock().tick()
+    cls._thread.join()
+    os.unlink(cls._fp.name)
+    cls._fp.close()

@@ -1,0 +1,23 @@
+def execute(self, targets):
+    try:
+        wiki = Confluence.login(self.url)
+    except ConfluenceError as e:
+        raise TaskError(('Failed to login to confluence: %s' % e))
+    urls = list()
+    genmap = self.context.products.get('markdown_html')
+    for page in filter((lambda t: isinstance(t, Page)), targets):
+        wikiconfig = page.wiki_config(self.wiki())
+        if wikiconfig:
+            html_info = genmap.get((self.wiki(), page))
+            if (len(html_info) > 1):
+                raise TaskError(('Unexpected resources for %s: %s' % (page, html_info)))
+            (basedir, htmls) = html_info.items()[0]
+            if (len(htmls) != 1):
+                raise TaskError(('Unexpected resources for %s: %s' % (page, htmls)))
+            with safe_open(os.path.join(basedir, htmls[0])) as contents:
+                url = self.publish_page(wiki, wikiconfig['space'], wikiconfig['title'], contents.read(), parent=wikiconfig.get('parent'))
+                if url:
+                    urls.append(url)
+                    self.context.log.info(('Published %s to %s' % (page, url)))
+    if (self.open and urls):
+        binary_utils.open(*urls)

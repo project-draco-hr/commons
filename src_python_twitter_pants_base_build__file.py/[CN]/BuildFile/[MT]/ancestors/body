@@ -4,13 +4,15 @@ def ancestors(self):
     def find_parent(dir):
         parent = os.path.dirname(dir)
         buildfile = os.path.join(parent, BuildFile._CANONICAL_NAME)
-        if os.path.exists(buildfile):
+        if (os.path.exists(buildfile) and (not os.path.isdir(buildfile))):
             return (parent, BuildFile(self.root_dir, os.path.relpath(buildfile, self.root_dir)))
         else:
             return (parent, None)
     parent_buildfiles = OrderedSet()
     parentdir = os.path.dirname(self.full_path)
-    while (parentdir != self.root_dir):
+    visited = set()
+    while (parentdir not in visited):
+        visited.add(parentdir)
         (parentdir, buildfile) = find_parent(parentdir)
         if buildfile:
             parent_buildfiles.update(buildfile.family())

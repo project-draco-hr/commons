@@ -1,4 +1,6 @@
+from __future__ import print_function
 __author__ = 'John Sirois'
+import hashlib
 import getpass
 import os
 import pkgutil

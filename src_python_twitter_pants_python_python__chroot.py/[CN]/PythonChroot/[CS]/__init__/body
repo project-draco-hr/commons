@@ -1,9 +1,22 @@
 def __init__(self, target, root_dir, extra_targets=None):
+    self._config = Config.load()
     self._target = target
     self._root = root_dir
-    self._cache = BuildCache(os.path.join(root_dir, '.pants.d', 'py_artifact_cache'))
+    self._cache = BuildCache(os.path.join(self._config.get('python-setup', 'artifact_cache'), ('%s' % PythonIdentity.get())))
     self._extra_targets = (list(extra_targets) if (extra_targets is not None) else [])
     self._extra_targets.append(self._get_common_python())
-    distdir = os.path.join(root_dir, 'dist')
+    cachedir = self._config.get('python-setup', 'cache')
+    safe_mkdir(cachedir)
+    self._eggcache = cachedir
+    local_repo = ('file://%s' % os.path.realpath(cachedir))
+    self._repos = ([local_repo] + self._config.getlist('python-setup', 'repos'))
+    self._fetcher = ReqFetcher(repos=self._repos, cache=cachedir)
+    self._index = None
+    for index in self._config.getlist('python-setup', 'indices'):
+        if PythonChroot.can_contact_index(index):
+            self._index = index
+            break
+    self._additional_reqs = set()
+    distdir = self._config.getdefault('pants_distdir')
     distpath = tempfile.mktemp(dir=distdir, prefix=target.name)
     self.env = PythonEnvironment(distpath)

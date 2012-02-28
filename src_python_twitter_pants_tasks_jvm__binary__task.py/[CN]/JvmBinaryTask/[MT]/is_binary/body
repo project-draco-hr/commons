@@ -1,0 +1,2 @@
+def is_binary(self, target):
+    return isinstance(target, JvmBinary)

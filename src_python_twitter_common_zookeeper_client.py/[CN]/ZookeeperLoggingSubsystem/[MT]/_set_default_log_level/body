@@ -1,4 +1,4 @@
 def _set_default_log_level(self):
-    log_level = LogOptions.stdout_log_level()
+    log_level = LogOptions.stderr_log_level()
     zk_log_level = ZookeeperLoggingSubsystem._ZK_LOG_LEVEL_MAP.get(log_level, zookeeper.LOG_LEVEL_ERROR)
     zookeeper.set_debug_level(zk_log_level)

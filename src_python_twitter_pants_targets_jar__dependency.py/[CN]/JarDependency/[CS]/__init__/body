@@ -10,3 +10,5 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
     self.apidocs = apidocs
     self.id = None
     self._configurations = ['default']
+    self.withSources = self.with_sources
+    self.withDocs = self.with_sources

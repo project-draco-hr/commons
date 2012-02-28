@@ -1,0 +1,11 @@
+{
+  Parser<? extends T> parser=getParser(parserOracle);
+  Object result=parser.parse(parserOracle,getType().getType(),value);
+  if (isBoolean()) {
+    if (Predicates.in(Arrays.asList(getNegatedName(),getCanonicalNegatedName())).apply(name)) {
+      result=(!(Boolean)result);
+    }
+  }
+  @SuppressWarnings("unchecked") T parsed=(T)result;
+  setValue(parsed);
+}

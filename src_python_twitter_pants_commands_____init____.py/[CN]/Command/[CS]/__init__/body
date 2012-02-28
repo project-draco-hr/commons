@@ -4,8 +4,7 @@ def __init__(self, root_dir, parser, args):
 
     def error(message=None):
         if message:
-            print message
-            print 
+            print((message + '\n'))
         parser.print_help()
         parser.exit(status=1)
     parser.error = error

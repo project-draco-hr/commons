@@ -1,13 +1,17 @@
-def extract_target(java_targets, is_transitive, is_classpath, name=None):
-    meta_target = bang.extract_target(java_targets, name)
-    (internal_deps, jar_deps) = _extract_target(meta_target, is_transitive, is_classpath)
-    sources = ['__no_source__']
-    all_deps = OrderedSet()
-    all_deps.update(internal_deps)
-    all_deps.update(jar_deps)
-    if is_java(meta_target):
-        return JavaLibrary('ide', sources, dependencies=all_deps, excludes=meta_target.excludes, is_meta=True)
-    elif is_scala(meta_target):
-        return ScalaLibrary('ide', sources, dependencies=all_deps, excludes=meta_target.excludes, is_meta=True)
-    else:
-        raise TypeError(('Cannot generate IDE configuration for targets: %s' % java_targets))
+def extract_target(java_targets, is_classpath):
+    primary_target = InternalTarget.sort_targets(java_targets)[0]
+
+    def create_target():
+        (internal_deps, jar_deps) = _extract_target(java_targets, is_classpath)
+        sources = ['__no_source__']
+        all_deps = OrderedSet()
+        all_deps.update(internal_deps)
+        all_deps.update(jar_deps)
+        if is_java(primary_target):
+            return JavaLibrary('ide', sources, dependencies=all_deps, is_meta=True)
+        elif is_scala(primary_target):
+            return ScalaLibrary('ide', sources, dependencies=all_deps, is_meta=True)
+        else:
+            raise TypeError(('Cannot generate IDE configuration for targets: %s' % java_targets))
+    buildfile = BuildFile(get_buildroot(), primary_target.target_base, must_exist=False)
+    return ParseContext(buildfile).do_in_context(create_target)

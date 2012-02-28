@@ -1,6 +1,0 @@
-@staticmethod
-def stdout_log_level():
-    '\n      Get the current stdout_log_level (in logging units specified by logging module.)\n    '
-    if (LogOptions._STDOUT_LOG_LEVEL is None):
-        LogOptions.set_stdout_log_level(app.get_options().twitter_common_log_stdout_log_level)
-    return LogOptions._STDOUT_LOG_LEVEL

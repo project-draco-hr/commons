@@ -1,8 +1,7 @@
 def test_singleton_metaclass_inheritance():
 
 
-    class Named(object):
-        __metaclass__ = SingletonMetaclass
+    class Named(Singleton):
 
         def __init__(self, name):
             self._name = name

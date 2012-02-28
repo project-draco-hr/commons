@@ -1,6 +1,6 @@
 def entry(self):
     '\n      Return the module spec of the entry point of this PythonEnvironment.  None if\n      there is no binary for this environment.\n    '
-    if os.environ.has_key('PEX_MODULE'):
+    if ('PEX_MODULE' in os.environ):
         return os.environ['PEX_MODULE']
     entry_point = self._manifest.get('entry', None)
     if entry_point:

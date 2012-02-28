@@ -1,5 +1,3 @@
 @classmethod
 def makedirs(cls, path):
-    while (not os.path.exists(path)):
-        os.makedirs(path)
-        path = os.path.dirname(path)
+    safe_mkdir(os.path.join(BuildFileTest.root_dir, path))

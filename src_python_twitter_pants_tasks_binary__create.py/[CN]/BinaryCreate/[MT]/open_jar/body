@@ -1,5 +1,0 @@
-@contextmanager
-def open_jar(self, path):
-    zip = ZipFile(path)
-    yield zip
-    zip.close()

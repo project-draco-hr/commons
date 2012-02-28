@@ -1,2 +1,2 @@
 from twitter.pants.base.generator import TemplateData
-from exclude import Exclude
+from twitter.pants.targets.exclude import Exclude

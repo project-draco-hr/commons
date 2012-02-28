@@ -1,6 +1,8 @@
 self
 name
 main
+basename
 source
 dependencies
 excludes
+deploy_excludes

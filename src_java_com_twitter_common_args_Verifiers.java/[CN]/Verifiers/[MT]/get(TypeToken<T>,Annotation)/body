@@ -1,0 +1,9 @@
+{
+  for (  Map.Entry<Pair<Class<?>,Class<? extends Annotation>>,Verifier<?>> entry : registry.entrySet()) {
+    if (entry.getKey().getSecond() == constraint.annotationType() && entry.getKey().getFirst().isAssignableFrom(type.getRawType())) {
+      @SuppressWarnings("unchecked") Verifier<T> verifier=(Verifier<T>)entry.getValue();
+      return verifier;
+    }
+  }
+  return null;
+}

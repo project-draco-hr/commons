@@ -7,6 +7,6 @@ def test_parse_various_files():
     parser = ThriftParser()
     for test_data_file in TEST_DATA_FILES:
         test_data = pkgutil.get_data(TEST_DATA_PATH, os.path.join(TEST_DATA_DIR, test_data_file))
-        print ('Parsing file %s...' % test_data_file),
+        print(('Parsing file %s...' % test_data_file), end='')
         program = parser.parse_string(test_data)
-        print 'OK.'
+        print('OK.')

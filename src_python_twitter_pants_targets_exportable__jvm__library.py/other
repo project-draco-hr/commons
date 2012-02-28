@@ -1,2 +1,2 @@
 from twitter.pants.base.generator import TemplateData
-from jvm_target import JvmTarget
+from twitter.pants.targets.jvm_target import JvmTarget

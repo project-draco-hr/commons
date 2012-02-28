@@ -1,12 +1,15 @@
 def files(self):
     '\n      Iterator that yields\n        (filename, content)\n\n      Where filename is going to be:\n        my_egg.egg if a file egg\n        my_egg.egg/EGG-INFO/stuff1.txt if a directory egg or unzipsafe egg\n    '
-    for (egg, wrapper) in self._eggs.iteritems():
+    for (egg, wrapper) in self._eggs.items():
         all_files = sorted(wrapper.listdir())
         if (('EGG-INFO/zip-safe' in all_files) and wrapper.is_condensed()):
-            with open(wrapper.path(), 'r') as fp:
-                yield (egg, fp.read())
+
+            def read_contents():
+                with open(wrapper.path(), 'rb') as fp:
+                    return fp.read()
+            yield DirWrapperHandle('', wrapper.path(), egg, read_contents)
         else:
             for filename in all_files:
                 if ((filename.endswith('.pyc') or filename.endswith('.pyo')) and (('%s.py' % filename[:(-4)]) in all_files)):
                     continue
-                yield (os.path.join(egg, filename), wrapper.read(filename))
+                yield wrapper.handle(filename)

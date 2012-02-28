@@ -6,5 +6,5 @@ def _run_lint(self, target, args):
         interpreter_args.extend(args)
     sources = OrderedSet([])
     if (not isinstance(target, PythonEgg)):
-        target.walk((lambda trg: sources.update(trg.sources)), (lambda trg: (not isinstance(trg, PythonEgg))))
+        target.walk((lambda trg: sources.update((trg.sources if (hasattr(trg, 'sources') and (trg.sources is not None)) else []))))
     launcher.run(interpreter_args=interpreter_args, args=list(sources), extra_deps=sys.path, with_chroot=True)

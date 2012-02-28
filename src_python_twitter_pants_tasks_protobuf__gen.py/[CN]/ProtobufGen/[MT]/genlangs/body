@@ -1,0 +1,2 @@
+def genlangs(self):
+    return dict(java=is_jvm, python=is_python)

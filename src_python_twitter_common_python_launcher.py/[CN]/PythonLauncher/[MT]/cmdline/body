@@ -1,6 +1,7 @@
-def cmdline(self, binary=None, interpreter_args=[], args=[]):
-    "\n      The commandline to run this environment.\n\n      Optional arguments:\n        binary: The binary to run instead of the entry point as specified in the environment.\n        interpreter_args: Arguments to be passed to the interpreter before, e.g. '-E' or\n          ['-m', 'pylint.lint']\n        args: Arguments to be passed to the application being invoked by the environment.\n    "
-    cmds = [sys.executable]
+def cmdline(self, interpreter=None, binary=None, interpreter_args=[], args=[]):
+    "\n      The commandline to run this environment.\n\n      Optional arguments:\n        interpreter: The interpreter to use [defaults to sys.executable]\n        binary: The binary to run instead of the entry point in the environment\n        interpreter_args: Arguments to be passed to the interpreter before, e.g. '-E' or\n          ['-m', 'pylint.lint']\n        args: Arguments to be passed to the application being invoked by the environment.\n    "
+    interpreter = (interpreter or PythonInterpreter(sys.executable))
+    cmds = [interpreter.binary()]
     cmds.extend(interpreter_args)
     if (binary is None):
         binary = self.binary()

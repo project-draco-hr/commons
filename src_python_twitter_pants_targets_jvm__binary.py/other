@@ -1,3 +1,4 @@
 import os
-from jvm_target import JvmTarget
-from twitter.pants.base import Target, TargetDefinitionException
+from twitter.common.lang import Compatibility
+from twitter.pants.base import Fileset, Target, TargetDefinitionException
+from twitter.pants.targets.jvm_target import JvmTarget

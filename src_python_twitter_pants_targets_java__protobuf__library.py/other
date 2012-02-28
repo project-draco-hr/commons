@@ -1,4 +1,2 @@
 import os
-from twitter.common.collections import OrderedSet
-from exportable_jvm_library import ExportableJvmLibrary
-from jar_dependency import JarDependency
+from twitter.pants.targets.exportable_jvm_library import ExportableJvmLibrary

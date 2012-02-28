@@ -1,6 +1,6 @@
 @staticmethod
-def from_source(filename):
+def from_source(filename, interpreter=PythonInterpreter.get(), **kw):
     if (not os.path.exists(filename)):
         raise PythonDependency.NotFoundError(('Could not find PythonDependency target %s!' % filename))
-    dists = ReqBuilder.install_requirement(filename)
+    dists = ReqBuilder.install_requirement(filename, interpreter=interpreter, **kw)
     return PythonDependency.from_distributions(*list(dists))

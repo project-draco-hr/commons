@@ -1,0 +1,5 @@
+{
+  Builder<String> builder=ImmutableList.builder();
+  argumentInfo.collectConstraints(verifierOracle,builder);
+  return builder.build();
+}

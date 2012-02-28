@@ -1,4 +1,4 @@
-def __init__(self, name, binary, bundles):
+def __init__(self, name, binary, bundles, basename=None):
     Target.__init__(self, name, is_meta=False)
     if (not binary):
         raise TargetDefinitionException(self, 'binary is required')
@@ -28,3 +28,4 @@ def __init__(self, name, binary, bundles):
                 self.bundles.append(bundle)
     except TypeError:
         raise TargetDefinitionException(self, ('bundles must be one or more Bundle objects, got %s' % bundles))
+    self.basename = (basename or name)

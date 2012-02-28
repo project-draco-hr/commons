@@ -6,14 +6,15 @@ import time
 import traceback
 from contextlib import contextmanager
 from copy import copy
-from cStringIO import StringIO
-from . import Command
 from twitter.common import log
+from twitter.common.lang import Compatibility
 from twitter.common.dirutil import safe_mkdir, safe_rmtree
 from twitter.pants import get_buildroot, goal, group, is_apt, is_scala
-from twitter.pants.base import Address, BuildFile, ParseContext, Target
-from twitter.pants.tasks import Context, Phase, Task
-from twitter.pants.tasks.config import Config
+from twitter.pants.base import Address, BuildFile, Config, ParseContext, Target
+from twitter.pants.commands import Command
+from twitter.pants.tasks import Task, TaskError
+from twitter.pants.goal import Context, GoalError, Phase
+StringIO = Compatibility.StringIO
 goal(name='goals', action=List).install().with_description('List all documented goals.')
 goal(name='help', action=Help).install().with_description('Provide help for the specified goal.')
 from twitter.pants.targets import JavaLibrary, JavaTests
@@ -27,14 +28,15 @@ from twitter.pants.tasks.java_compile import JavaCompile
 from twitter.pants.tasks.javadoc_gen import JavadocGen
 from twitter.pants.tasks.junit_run import JUnitRun
 from twitter.pants.tasks.jvm_run import JvmRun
-from twitter.pants.tasks.scala_repl import ScalaRepl
+from twitter.pants.tasks.markdown_to_html import MarkdownToHtml
 from twitter.pants.tasks.nailgun_task import NailgunTask
 from twitter.pants.tasks.protobuf_gen import ProtobufGen
 from twitter.pants.tasks.scala_compile import ScalaCompile
+from twitter.pants.tasks.scala_repl import ScalaRepl
 from twitter.pants.tasks.specs_run import SpecsRun
 from twitter.pants.tasks.thrift_gen import ThriftGen
 goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all caches')
-goal(name='clean-all', action=CleanAll, dependencies=['invalidate']).install().with_description('Cleans all intermediate build output')
+goal(name='clean-all', action=(lambda ctx: safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output')
 if NailgunTask.killall:
 
 
@@ -61,6 +63,8 @@ goal(name='apt', action=JavaCompile, group=group('jvm', is_apt), dependencies=['
 goal(name='javac', action=JavaCompile, group=group('jvm', is_java), dependencies=['gen', 'resolve']).install('compile')
 checkstyle.install('compile')
 goal(name='javadoc', action=JavadocGen, dependencies=['compile']).install('javadoc').with_description('Create javadoc.')
+if MarkdownToHtml.AVAILABLE:
+    goal(name='markdown', action=MarkdownToHtml).install('markdown').with_description('Generate html from markdown docs.')
 goal(name='jar', action=JarCreate, dependencies=['compile']).install('jar').with_description('Create one or more jars.')
 goal(name='publish', action=JarPublish, dependencies=['javadoc', 'jar']).install().with_description('Publish one or more artifacts.')
 goal(name='junit', action=JUnitRun, dependencies=['compile']).install('test').with_description('Test compiled code.')
@@ -69,3 +73,5 @@ goal(name='binary', action=BinaryCreate, dependencies=['jar']).install().with_de
 goal(name='bundle', action=BundleCreate, dependencies=['binary']).install().with_description('Create an application bundle from binary targets.')
 goal(name='jvm-run', action=JvmRun, dependencies=['resolve', 'compile']).install('run').with_description('Run a (currently JVM only) binary target.')
 goal(name='scala-repl', action=ScalaRepl, dependencies=['resolve', 'compile']).install('repl').with_description('Run a (currently Scala only) REPL with the classpath set according to the targets.')
+from twitter.pants.tasks.python.setup import SetupPythonEnvironment
+goal(name='python-setup', action=SetupPythonEnvironment).install('setup').with_description("Setup the target's build environment.")

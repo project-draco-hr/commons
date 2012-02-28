@@ -1,0 +1,11 @@
+from sys import version_info as sys_version_info
+from numbers import Integral, Real
+try:
+    from cStringIO import StringIO
+except ImportError:
+    try:
+        from StringIO import StringIO
+    except:
+        from io import StringIO
+Singleton = SingletonMetaclass('Singleton', (object,), {})
+__all__ = ['Singleton', 'Compatibility']

@@ -1,0 +1,9 @@
+def execute(self, _):
+    setup_paths = (self.context.options.python_setup_paths or os.getenv('PATH').split(':'))
+    self.context.log.debug(('Finding interpreters in %s' % setup_paths))
+    interpreters = PythonInterpreter.all(setup_paths)
+    self.context.log.debug(('Found %d interpreters' % len(interpreters)))
+    setup_virtualenv_py(self.context)
+    for interpreter in interpreters:
+        self.context.log.debug(('Preparing %s' % interpreter))
+        install_virtualenv(self.context, interpreter)

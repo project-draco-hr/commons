@@ -1,10 +1,9 @@
 def _create_python_target(self, target, dependees):
-    gen_python_dir = os.path.join(self.output_dir, 'gen-py')
     genfiles = []
     for source in target.sources:
         path = os.path.join(target.target_base, source)
         genfiles.extend(calculate_genfiles(path, source).get('py', []))
-    tgt = self.context.add_target(gen_python_dir, PythonLibrary, name=target.id, sources=genfiles, module_root=gen_python_dir, dependencies=self.pythondeps)
+    tgt = self.context.add_target(self.py_out, PythonLibrary, name=target.id, sources=genfiles, dependencies=self.pythondeps)
     tgt.id = target.id
     for dependee in dependees:
         dependee.dependencies.add(tgt)

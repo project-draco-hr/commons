@@ -6,7 +6,7 @@ def paths(self):
             return False
         if (not os.path.isfile(filename)):
             return True
-        with open(filename, 'r') as fp:
+        with open(filename, 'rb') as fp:
             file_contents = fp.read()
         return (hashlib.md5(file_contents).digest() == hashlib.md5(contents).digest())
 
@@ -19,7 +19,7 @@ def paths(self):
                 dest = os.path.join(self._cache_path, fn)
                 if same(dest, fn_contents):
                     continue
-                with safe_open(dest, 'w') as fn_out:
+                with safe_open(dest, 'wb') as fn_out:
                     fn_out.write(fn_contents)
     if self._pex.is_condensed():
         populate_cache()

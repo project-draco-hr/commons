@@ -1,2 +1,0 @@
-def _create_template_data(self):
-    return PythonTarget._create_template_data(self).extend(module=self._module)

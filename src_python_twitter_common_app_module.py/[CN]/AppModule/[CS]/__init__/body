@@ -4,7 +4,7 @@ def __init__(self, label, dependencies=None, description=None):
     self._description = description
     if isinstance(dependencies, list):
         self._dependencies = set(dependencies)
-    elif isinstance(dependencies, basestring):
+    elif isinstance(dependencies, Compatibility.string):
         self._dependencies = set([dependencies])
     elif (dependencies is None):
         self._dependencies = set()

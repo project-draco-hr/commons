@@ -1,5 +1,5 @@
-def _extract_target(meta_target, is_transitive, is_classpath):
-    "\n    Extracts the minimal set of internal dependencies and external jar dependencies from the given\n    (meta) target so that an ide can run any required custom annotation processors and resolve all\n    symbols.\n\n    The extraction algorithm proceeds under the following assumptions:\n    1.) A custom annotation processor (or even a codegen target) may have internal dependencies\n    2.) An IDE need not have any compiled classes for ide compilable sources on its classpath in\n        order to resolve symbols, it just needs any custom annotation processors, custom codegen'ed\n        classes and any external jars dependencies\n\n    The algorithm then proceeds to categorize each target as either ide classpath required target\n    or not.  If the target is required on the ide classpath, it is retained and grafted into the\n    graph of internal dependencies returned.  If not, the target's jar dependencies are added to the\n    set of all external jar dependencies required on the ide classpath.  Finally the tuple of all\n    collected (internal dependencies, jar dependencies) is returned.\n\n    The assumptions noted above imply that any internal target dependended on by an ide classpath\n    required target must also be grafted into the graph of internal dependencies returned.\n  "
+def _extract_target(targets, is_classpath):
+    "\n    Extracts the minimal set of internal dependencies and external jar dependencies from the given\n    targets so that an ide can run any required custom annotation processors and resolve all\n    symbols.\n\n    The extraction algorithm proceeds under the following assumptions:\n    1.) A custom annotation processor (or even a codegen target) may have internal dependencies\n    2.) An IDE need not have any compiled classes for ide compilable sources on its classpath in\n        order to resolve symbols, it just needs any custom annotation processors, custom codegen'ed\n        classes and any external jars dependencies\n\n    The algorithm then proceeds to categorize each target as either ide classpath required target\n    or not.  If the target is required on the ide classpath, it is retained and grafted into the\n    graph of internal dependencies returned.  If not, the target's jar dependencies are added to the\n    set of all external jar dependencies required on the ide classpath.  Finally the tuple of all\n    collected (internal dependencies, jar dependencies) is returned.\n\n    The assumptions noted above imply that any internal target dependended on by an ide classpath\n    required target must also be grafted into the graph of internal dependencies returned.\n  "
 
 
     class RootNode(object):
@@ -24,10 +24,7 @@ def _extract_target(meta_target, is_transitive, is_classpath):
             else:
                 for jar_dependency in target.jar_dependencies:
                     if jar_dependency.rev:
-                        if is_transitive(target):
-                            jar_deps.add(jar_dependency)
-                        else:
-                            jar_deps.add(copy(jar_dependency).intransitive())
+                        jar_deps.add(jar_dependency)
             if is_needed_on_ide_classpath:
                 codegen_graph.appendleft(target)
             for internal_target in list(target.internal_dependencies):
@@ -35,6 +32,7 @@ def _extract_target(meta_target, is_transitive, is_classpath):
                 sift_targets(internal_target, is_needed_on_ide_classpath)
             if is_needed_on_ide_classpath:
                 codegen_graph.popleft()
-    sift_targets(meta_target)
+    for target in targets:
+        sift_targets(target)
     assert ((len(codegen_graph) == 1) and (codegen_graph[0] == root_target)), ('Unexpected walk: %s' % codegen_graph)
     return (codegen_graph.popleft().internal_dependencies, jar_deps)

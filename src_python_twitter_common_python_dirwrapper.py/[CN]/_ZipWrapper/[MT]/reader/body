@@ -1,0 +1,5 @@
+def reader(self, name):
+
+    def read_data():
+        return self._zf.read(name)
+    return read_data

@@ -1,0 +1,4 @@
+def __init__(self, requirement, name=None):
+    self._requirement = Requirement.parse(requirement)
+    self._name = (name or self._requirement.project_name)
+    PythonTarget.__init__(self, name=self._name, sources=None, dependencies=None)

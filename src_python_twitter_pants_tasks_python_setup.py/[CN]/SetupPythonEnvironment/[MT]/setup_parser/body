@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('force'), dest='setup_python_force', action='store_true', default=False, help='Force clean and install.')
+    option_group.add_option(mkflag('path'), dest='python_setup_paths', action='append', default=[], help='Add a path to search for interpreters, by default PATH.')

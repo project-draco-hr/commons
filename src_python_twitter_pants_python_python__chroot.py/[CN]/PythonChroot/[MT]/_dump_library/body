@@ -9,9 +9,8 @@ def _dump_library(self, library):
         src = os.path.join(self._root, base, path)
         dst = os.path.join(translate_module(relative_to), path)
         add_function(src, dst)
-    template = library._create_template_data()
-    print ('  Dumping library: %s [relative module: %s]' % (library, template.module))
-    for filename in template.sources:
-        copy_to_chroot(template.template_base, filename, template.module, self.env.add_source)
-    for filename in template.resources:
-        copy_to_chroot(template.template_base, filename, template.module, self.env.add_resource)
+    self.debug(('  Dumping library: %s [relative module: %s]' % (library, library.module)))
+    for filename in library.sources:
+        copy_to_chroot(library.target_base, filename, library.module, self.env.add_source)
+    for filename in library.resources:
+        copy_to_chroot(library.target_base, filename, library.module, self.env.add_resource)

@@ -6,7 +6,7 @@ def _parse(lines):
         try:
             buffer = ''
             while True:
-                line = line_iter.next()
+                line = next(line_iter)
                 if line.strip().endswith('\\'):
                     buffer += line.strip()[:(-1)]
                 else:

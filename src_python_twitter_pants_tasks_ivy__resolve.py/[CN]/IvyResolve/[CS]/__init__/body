@@ -1,23 +1,20 @@
-def __init__(self, context, workdir=None, ivy_jar=None, ivy_settings=None, cache_dir=None, confs=None, transitive=None):
-    classpath = ([ivy_jar] if ivy_jar else context.config.getlist('ivy', 'classpath'))
+def __init__(self, context):
+    classpath = context.config.getlist('ivy', 'classpath')
     nailgun_dir = context.config.get('ivy-resolve', 'nailgun_dir')
     NailgunTask.__init__(self, context, classpath=classpath, workdir=nailgun_dir)
-    self._ivy_settings = (ivy_settings or context.config.get('ivy', 'ivy_settings'))
-    self._cachedir = (cache_dir or context.config.get('ivy-resolve', 'cache_dir'))
-    self._confs = (confs or context.config.getlist('ivy-resolve', 'confs'))
-    self._transitive = (transitive or context.config.getbool('ivy-resolve', 'transitive'))
-    self._args = (confs or context.config.getlist('ivy-resolve', 'args'))
+    self._ivy_settings = context.config.get('ivy', 'ivy_settings')
+    self._cachedir = context.config.get('ivy-resolve', 'cache_dir')
+    self._confs = context.config.getlist('ivy-resolve', 'confs')
+    self._transitive = context.config.getbool('ivy-resolve', 'transitive')
+    self._args = context.config.getlist('ivy-resolve', 'args')
+    self._profile = context.config.get('ivy-resolve', 'profile')
     self._template_path = os.path.join('ivy_resolve', 'ivy.mk')
-    work_dir = (workdir or context.config.get('ivy-resolve', 'workdir'))
-    self._ivy_xml = os.path.join(work_dir, 'ivy.xml')
-    self._classpath_file = os.path.join(work_dir, 'classpath')
-    self._classpath_dir = os.path.join(work_dir, 'mapped')
-    if _REPORT_AVAILABLE:
-        self._outdir = (context.options.ivy_resolve_outdir or os.path.join(work_dir, 'reports'))
-        self._open = context.options.ivy_resolve_open
-        self._report = (self._open or context.options.ivy_resolve_report)
-    else:
-        self._report = False
+    self._work_dir = context.config.get('ivy-resolve', 'workdir')
+    self._classpath_file = os.path.join(self._work_dir, 'classpath')
+    self._classpath_dir = os.path.join(self._work_dir, 'mapped')
+    self._outdir = (context.options.ivy_resolve_outdir or os.path.join(self._work_dir, 'reports'))
+    self._open = context.options.ivy_resolve_open
+    self._report = (self._open or context.options.ivy_resolve_report)
 
     def parse_override(override):
         match = re.match('^([^#]+)#([^=]+)=([^\\s]+)$', override)

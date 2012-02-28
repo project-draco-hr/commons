@@ -10,7 +10,7 @@ def dump(props, output):
             out.write(('%s=%s\n' % (escape(str(k)), escape(str(v)))))
     if (hasattr(output, 'write') and callable(output.write)):
         write(output)
-    elif isinstance(output, basestring):
+    elif isinstance(output, Compatibility.string):
         with open(output, 'w+a') as out:
             write(out)
     else:

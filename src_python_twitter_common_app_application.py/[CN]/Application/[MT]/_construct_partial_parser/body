@@ -1,7 +1,19 @@
 def _construct_partial_parser(self):
     '\n      Construct an options parser containing only options added by __main__\n      or global help options registered by the application.\n    '
-    parser = options.parser().interspersed_arguments(self._interspersed_args).options(self._main_options).values(self._option_values).usage(self._usage)
+    values_copy = copy.deepcopy(self._option_values)
+    parser = options.parser().interspersed_arguments(self._interspersed_args).options(self._main_options).usage(self._usage)
     if hasattr(self._commands.get(self._command), Application.OPTIONS_ATTR):
-        return parser.groups([getattr(self._commands[self._command], Application.OPTIONS_ATTR)])
+        if (self._command is None):
+            command_group = options.new_group('When running with no command')
+        else:
+            command_group = options.new_group(('For command %s' % self._command))
+        for option in getattr(self._commands[self._command], Application.OPTIONS_ATTR):
+            op = copy.deepcopy(option)
+            if (not hasattr(values_copy, op.dest)):
+                setattr(values_copy, op.dest, (op.default if (op.default != optparse.NO_DEFAULT) else None))
+            Application.rewrite_help(op)
+            op.default = optparse.NO_DEFAULT
+            command_group.add_option(op)
+        return parser.groups([command_group]).values(values_copy)
     else:
-        return parser
+        return parser.values(values_copy)

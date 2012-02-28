@@ -1,2 +1,2 @@
 import os
-from build_file import BuildFile
+from twitter.pants.base.build_file import BuildFile

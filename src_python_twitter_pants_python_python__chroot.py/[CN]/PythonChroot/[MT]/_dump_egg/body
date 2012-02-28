@@ -1,16 +1,22 @@
 def _dump_egg(self, egg):
-    target_name = os.path.pathsep.join(sorted((os.path.basename(e) for e in egg.eggs)))
-    cache_key = self._cache.key_for(target_name, egg.eggs)
-    if self._cache.needs_update(cache_key):
-        print ('  Dumping egg: %s' % egg)
-        (prefixes, all_added_files) = (set(), set())
-        for egg_path in egg.eggs:
-            egg_dep = PythonDependency.from_eggs(egg_path)
-            (prefix, added_files) = self.env.add_dependency(egg_dep)
-            all_added_files.update(added_files)
-            prefixes.add(prefix)
-        assert (len(prefixes) == 1), 'Ambiguous egg environment!'
-        self._cache.update(cache_key, all_added_files, artifact_root=prefixes.pop())
+    if isinstance(egg, PythonEgg):
+        target_name = os.path.pathsep.join(sorted((os.path.basename(e) for e in egg.eggs)))
+        cache_key = self._cache.key_for(target_name, egg.eggs)
+        if self._cache.needs_update(cache_key):
+            self.debug(('  Dumping egg: %s' % egg))
+            (prefixes, all_added_files) = (set(), set())
+            for egg_path in egg.eggs:
+                egg_dep = PythonDependency.from_eggs(egg_path)
+                (prefix, added_files) = self.env.add_dependency(egg_dep)
+                all_added_files.update(added_files)
+                prefixes.add(prefix)
+            assert (len(prefixes) == 1), 'Ambiguous egg environment!'
+            self._cache.update(cache_key, all_added_files, artifact_root=prefixes.pop())
+        else:
+            self.debug(('  Dumping (cached) egg: %s' % egg))
+            self._cache.use_cached_files(cache_key, self.env.add_dependency_file)
+    elif isinstance(egg, PythonDependency):
+        self.debug(('  Dumping PythonDependency: %s' % egg))
+        self.env.add_dependency(egg)
     else:
-        print ('  Dumping (cached) egg: %s' % egg)
-        self._cache.use_cached_files(cache_key, self.env.add_dependency_file)
+        raise PythonChroot.InvalidDependencyException(('Unknown egg dependency %s' % egg))

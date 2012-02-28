@@ -1,0 +1,6 @@
+def __init__(self, name, source, dependencies=None, resources=None):
+    InternalTarget.__init__(self, name, dependencies, is_meta=False)
+    TargetWithSources.__init__(self, name)
+    self.source = self._resolve_paths(self.target_base, [source]).pop()
+    self.resources = (self._resolve_paths(self.target_base, resources) if resources else [])
+    self._wikis = {}

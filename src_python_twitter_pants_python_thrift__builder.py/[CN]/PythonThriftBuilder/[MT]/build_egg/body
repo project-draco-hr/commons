@@ -1,7 +1,7 @@
 def build_egg(self):
     self.run_thrifts()
     genpy_root = os.path.join(self.chroot.path(), self.codegen_root, 'gen-py')
-    for (dir, subdirs, files) in os.walk(os.path.normpath(genpy_root)):
+    for (dir, _, files) in os.walk(os.path.normpath(genpy_root)):
         reldir = os.path.relpath(dir, genpy_root)
         if (reldir == '.'):
             continue

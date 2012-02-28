@@ -1,7 +1,10 @@
-def create(self, wiki_space, parent_page, page_title, body):
-    ' Create a new confluence page with the given title and body.\n\n    returns the created page or None if the page could not be stored.\n    raises ConfluenceError if the parent page could not be found.\n    '
-    parent_page_obj = self.getpage(wiki_space, parent_page)
-    if (parent_page_obj is None):
-        raise ConfluenceError(('Failed to find parent page %s in space %s' % (parent_page, wiki_space)))
-    pagedef = dict(space=wiki_space, title=page_title, url=Confluence.get_url(self._server_url, wiki_space, page_title), content=body, contentStatus='current', current=True, parentId=parent_page_obj['id'])
+def create(self, space, title, content, parent_page=None, **pageoptions):
+    ' Create a new confluence page with the given title and content.  Additional page options\n    available in the xmlrpc api can be specified as kwargs.\n\n    returns the created page or None if the page could not be stored.\n    raises ConfluenceError if a parent page was specified but could not be found.\n    '
+    pagedef = dict(space=space, title=title, url=Confluence.get_url(self._server_url, space, title), content=content, contentStatus='current', current=True)
+    pagedef.update(**pageoptions)
+    if parent_page:
+        parent_page_obj = self.getpage(space, parent_page)
+        if (parent_page_obj is None):
+            raise ConfluenceError(('Failed to find parent page %s in space %s' % (parent_page, space)))
+        pagedef['parentId'] = parent_page_obj['id']
     return self.storepage(pagedef)

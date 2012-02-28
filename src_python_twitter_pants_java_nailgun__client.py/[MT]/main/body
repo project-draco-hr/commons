@@ -3,7 +3,7 @@ def main(args):
     if options.show_help:
         app.help()
     if (options.show_version or options.just_version):
-        print  >> sys.stdout, 'Python NailGun client version 0.0.1'
+        print('Python NailGun client version 0.0.1', file=sys.stdout)
         if options.just_version:
             sys.exit(0)
     command = re.compile('.pex$').sub('', os.path.basename(sys.argv[0]))

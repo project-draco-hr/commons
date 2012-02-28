@@ -1,16 +1,11 @@
-from contextlib import contextmanager
 __author__ = 'John Sirois'
 import os
 import pkgutil
 import re
 import shutil
+from contextlib import contextmanager
 from twitter.common.dirutil import safe_mkdir, safe_open
 from twitter.pants import get_buildroot, is_internal, is_jvm
 from twitter.pants.base.generator import Generator, TemplateData
 from twitter.pants.tasks import binary_utils, TaskError
 from twitter.pants.tasks.nailgun_task import NailgunTask
-try:
-    from lxml import etree
-    _REPORT_AVAILABLE = True
-except ImportError:
-    _REPORT_AVAILABLE = False

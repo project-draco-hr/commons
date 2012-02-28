@@ -5,5 +5,5 @@
   connect(BACKEND_1,5);
   connect(BACKEND_2,5);
   connect(BACKEND_3,5);
-  assertThat(leastCon.nextBackend(),anyOf(is(BACKEND_1),is(BACKEND_2),is(BACKEND_3)));
+  assertTrue(ImmutableSet.of(BACKEND_1,BACKEND_2,BACKEND_3).contains(leastCon.nextBackend()));
 }

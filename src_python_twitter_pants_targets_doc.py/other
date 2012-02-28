@@ -1,3 +1,5 @@
 __author__ = 'Mark McBride'
-from internal import InternalTarget
-from with_sources import TargetWithSources
+from twitter.pants.base import Target, TargetDefinitionException
+from twitter.pants.targets.pants_target import Pants
+from twitter.pants.targets.internal import InternalTarget
+from twitter.pants.targets.with_sources import TargetWithSources

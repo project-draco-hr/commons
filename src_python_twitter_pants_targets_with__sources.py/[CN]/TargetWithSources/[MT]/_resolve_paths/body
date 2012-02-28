@@ -8,7 +8,7 @@ def _resolve_paths(self, rel_base, paths):
         flat = []
 
         def flatmap(item):
-            if isinstance(item, basestring):
+            if isinstance(item, Compatibility.string):
                 flat.append(item)
             else:
                 try:

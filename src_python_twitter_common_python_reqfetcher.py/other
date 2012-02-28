@@ -1,5 +1,7 @@
-import types
+from __future__ import print_function
+import sys
 import getpass
+import types
 from twitter.common.dirutil import safe_mkdir
 import pkg_resources
 from setuptools.package_index import PackageIndex

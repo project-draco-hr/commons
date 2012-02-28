@@ -2,9 +2,9 @@
 def find_application_name():
     __entry_point__ = None
     locals = Inspection.get_main_locals()
-    if (locals.has_key('__file__') and (locals['__file__'] is not None)):
+    if (('__file__' in locals) and (locals['__file__'] is not None)):
         __entry_point__ = locals['__file__']
-    elif locals.has_key('__loader__'):
+    elif ('__loader__' in locals):
         from zipimport import zipimporter
         from pkgutil import ImpLoader
         if isinstance(locals['__loader__'], zipimporter):

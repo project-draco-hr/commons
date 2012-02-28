@@ -1,3 +1,3 @@
 def jarname(target):
-    (jar_dependency, id, exported) = target._get_artifact_info()
+    (_, id, _) = target._get_artifact_info()
     return id

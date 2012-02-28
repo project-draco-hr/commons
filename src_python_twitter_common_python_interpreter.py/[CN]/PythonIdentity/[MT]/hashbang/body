@@ -1,0 +1,2 @@
+def hashbang(self):
+    return ('#!/usr/bin/env python%s.%s' % self._version[0:2])

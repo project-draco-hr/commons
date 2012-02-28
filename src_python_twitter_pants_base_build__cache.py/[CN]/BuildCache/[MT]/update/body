@@ -3,7 +3,7 @@ def update(self, cache_key, build_artifacts=None, artifact_root=None):
     safe_rmtree(cache_key.filename)
     for artifact in (build_artifacts or ()):
         rel_path = (os.path.basename(artifact) if (artifact_root is None) else os.path.relpath(artifact, artifact_root))
-        assert (not rel_path.startswith('..'))
+        assert (not rel_path.startswith('..')), ('Weird: artifact=%s, rel_path=%s' % (artifact, rel_path))
         artifact_dest = os.path.join(cache_key.filename, rel_path)
         dir_name = os.path.dirname(artifact_dest)
         if (not os.path.exists(dir_name)):

@@ -1,5 +1,0 @@
-{
-  List<Class<?>> typeParams=getTypeParamClasses(field);
-  Preconditions.checkArgument(typeParams.size() == 1,"Expected exactly one type parameter for field " + field);
-  return typeParams.get(0);
-}

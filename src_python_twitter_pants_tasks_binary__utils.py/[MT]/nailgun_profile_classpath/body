@@ -1,6 +1,8 @@
 def nailgun_profile_classpath(nailgun_task, profile, ivy_jar=None, ivy_settings=None):
 
     def nailgun_runner(classpath, main, args):
-        nailgun_task.ng('ng-cp', *classpath)
-        nailgun_task.ng(main, *args)
+        result = nailgun_task.ng('ng-cp', *classpath)
+        if (result != 0):
+            return result
+        return nailgun_task.ng(main, *args)
     return profile_classpath(profile, java_runner=nailgun_runner, config=nailgun_task.context.config, ivy_jar=ivy_jar, ivy_settings=ivy_settings)

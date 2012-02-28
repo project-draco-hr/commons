@@ -1,6 +1,6 @@
 def parse(self, line, allow_extra=False):
     '\n      Given a line of text, parse it and return a ScanfResult object.\n    '
-    if (not isinstance(line, basestring)):
+    if (not isinstance(line, Compatibility.string)):
         raise TypeError(('Expected line to be a string, got %s' % type(line)))
     sre_match = self._re.match(line)
     if (sre_match is None):

@@ -1,0 +1,7 @@
+def createtarget(self, lang, gentarget, dependees):
+    if (lang == 'java'):
+        return self._create_java_target(gentarget, dependees)
+    elif (lang == 'python'):
+        return self._create_python_target(gentarget, dependees)
+    else:
+        raise TaskError(('Unrecognized protobuf gen lang: %s' % lang))

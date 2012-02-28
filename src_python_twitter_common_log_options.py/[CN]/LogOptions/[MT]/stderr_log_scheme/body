@@ -1,0 +1,6 @@
+@staticmethod
+def stderr_log_scheme():
+    '\n      Get the current stderr log scheme.\n    '
+    if (LogOptions._STDOUT_LOG_SCHEME is None):
+        LogOptions.set_stderr_log_level(app.get_options().twitter_common_log_stderr_log_level)
+    return LogOptions._STDOUT_LOG_SCHEME

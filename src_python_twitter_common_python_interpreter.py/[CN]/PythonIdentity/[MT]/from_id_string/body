@@ -1,0 +1,6 @@
+@staticmethod
+def from_id_string(id_string):
+    values = id_string.split()
+    if (len(values) != 4):
+        raise PythonIdentity.InvalidError(('Invalid id string: %s' % id_string))
+    return PythonIdentity(str(values[0]), int(values[1]), int(values[2]), int(values[3]))

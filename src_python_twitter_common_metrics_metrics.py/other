@@ -1,1 +1,2 @@
-from gauge import Gauge, MutatorGauge, NamedGauge, namablegauge
+from twitter.common.lang import Compatibility
+from twitter.common.metrics.gauge import Gauge, MutatorGauge, NamedGauge, namablegauge

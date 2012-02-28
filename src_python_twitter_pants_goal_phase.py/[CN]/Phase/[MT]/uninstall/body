@@ -1,0 +1,8 @@
+def uninstall(self):
+    '\n      Removes the named phase and all its attached goals.  Raises Phase.UnsatisfiedDependencyError\n      if the removal cannot be completed due to a dependency.\n    '
+    for (phase, goals) in Phase._goals_by_phase.items():
+        for goal in goals:
+            for dependee_phase in goal.dependencies:
+                if (self is dependee_phase):
+                    raise Phase.UnsatisfiedDependencyError(('%s is depended on by %s:%s' % (self.name, phase.name, goal.name)))
+    del Phase._goals_by_phase[self]

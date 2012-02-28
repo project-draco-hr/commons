@@ -5,6 +5,7 @@ def as_jar_with_version(self, target):
     minor = db_get('revision.minor', '0')
     patch = db_get('revision.patch', '0')
     sha = db_get('revision.sha', None)
+    fingerprint = db_get('revision.fingerprint', None)
     semver = Semver(major, minor, patch)
     jar_dep.rev = semver.version()
-    return (jar_dep, semver, sha)
+    return (jar_dep, semver, sha, fingerprint)

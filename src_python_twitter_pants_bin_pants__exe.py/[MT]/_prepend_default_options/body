@@ -6,6 +6,6 @@ def _prepend_default_options(command, args):
             config.read(pantsrc)
             if config.has_option(command, 'options'):
                 expanded_options = (config.get(command, 'options').split() + args)
-                print ('(using ~/.pantsrc expansion: pants %s %s)' % (command, ' '.join(expanded_options)))
+                print(('(using ~/.pantsrc expansion: pants %s %s)' % (command, ' '.join(expanded_options))))
                 return expanded_options
     return args

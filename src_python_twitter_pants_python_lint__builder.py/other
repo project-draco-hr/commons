@@ -1,6 +1,6 @@
+from __future__ import print_function
 import os
 import sys
-import subprocess
 from twitter.common.collections import OrderedSet
 from twitter.common.python import PythonLauncher
 from twitter.pants.python.python_chroot import PythonChroot

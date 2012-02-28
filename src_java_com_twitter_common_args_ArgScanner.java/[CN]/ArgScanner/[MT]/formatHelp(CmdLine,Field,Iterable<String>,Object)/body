@@ -1,3 +1,0 @@
-{
-  return String.format("-%s%s%s\n\t%s\n\t(%s.%s)",cmdLine.name(),defaultValue != null ? "=" + defaultValue : "",Iterables.isEmpty(constraints) ? "" : " [" + Joiner.on(", ").join(constraints) + "]",cmdLine.help(),field.getDeclaringClass().getName(),field.getName());
-}

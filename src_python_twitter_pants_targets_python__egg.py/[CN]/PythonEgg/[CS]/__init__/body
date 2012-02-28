@@ -1,6 +1,6 @@
 def __init__(self, egg_glob):
     '\n      Construct an Egg equivalence class.\n\n      egg_glob: A glob.glob() compatible egg pattern, e.g.:\n        - Mako-0.4.0-py2.6.egg\n        - ZooKeeper-0.4-*.egg\n        - ZooKeeper*\n        - *.egg\n\n      All eggs in the pattern must be the same package/version, but may\n      differ on platform.  This is how we support creating "fat" pex\n      binaries, by packaging the same egg but with native code compiled for\n      several architectures, e.g. linux-x86_64 and macosx-10.6-x86_64.\n    '
-    self._env = Environment(search_path=glob.glob(egg_glob), platform=None)
+    self._env = Environment(search_path=glob.glob(egg_glob), platform=None, python=None)
     pkgs = [pkg for pkg in self._env]
     if (len(pkgs) != 1):
         raise PythonEgg.AmbiguousEggNest(egg_glob, self._env)

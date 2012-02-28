@@ -1,11 +1,11 @@
-def run(self, binary=None, interpreter_args=[], args=[], extra_deps=[], with_chroot=False, kill_orphans=False):
+def run(self, interpreter=None, binary=None, interpreter_args=[], args=[], extra_deps=[], with_chroot=False, kill_orphans=False):
     '\n      Run the PythonEnvironment in an interpreter in a subprocess.\n    '
-    cmdline = self.cmdline(binary, interpreter_args, args)
-    path = self.path(extras=extra_deps)
+    cmdline = self.cmdline(interpreter, binary, interpreter_args, args)
+    pythonpath = os.path.pathsep.join((p for p in self.path(extras=extra_deps)))
     with pushd((self._dir.path() if with_chroot else os.getcwd())):
-        with environment_as(PYTHONPATH=':'.join(path)):
-            PythonLauncher.debug(('With PYTHONPATH=%s, executing %s' % (':'.join(path), ' '.join(cmdline))))
-            po = subprocess.Popen(cmdline, preexec_fn=os.setsid)
+        with environment_as(PYTHONPATH=pythonpath):
+            PythonLauncher.debug(('With PYTHONPATH=%s, executing %s' % (pythonpath, ' '.join(cmdline))))
+            po = subprocess.Popen(cmdline, preexec_fn=(os.setsid if kill_orphans else None))
             rv = (-1)
             try:
                 rv = po.wait()

@@ -1,0 +1,9 @@
+{
+  if (type instanceof ParameterizedType) {
+    return getRawType(((ParameterizedType)type).getRawType());
+  }
+  if (type instanceof WildcardType) {
+    return getRawType(((WildcardType)type).getUpperBounds()[0]);
+  }
+  return (Class<?>)type;
+}

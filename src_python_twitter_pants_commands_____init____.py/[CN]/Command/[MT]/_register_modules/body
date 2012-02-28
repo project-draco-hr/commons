@@ -6,7 +6,7 @@ def _register_modules():
             continue
         fq_module = '.'.join([__name__, mod])
         __import__(fq_module)
-        for (kls_name, kls) in inspect.getmembers(sys.modules[fq_module], inspect.isclass):
+        for (_, kls) in inspect.getmembers(sys.modules[fq_module], inspect.isclass):
             if issubclass(kls, Command):
                 command_name = kls.__dict__.get('__command__', None)
                 if command_name:

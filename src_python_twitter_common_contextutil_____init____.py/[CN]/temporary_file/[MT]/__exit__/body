@@ -1,5 +1,0 @@
-def __exit__(self, exctype, value, traceback):
-    if (not self.fd.closed):
-        self.fd.close()
-    if self.cleanup:
-        os.unlink(self.path)

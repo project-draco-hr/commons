@@ -1,0 +1,2 @@
+def coordinate(org, name, rev=None):
+    return (('%s#%s;%s' % (org, name, rev)) if rev else ('%s#%s' % (org, name)))

@@ -2,9 +2,9 @@ def execute(self):
     if os.path.exists(self.target_path):
         shutil.rmtree(self.target_path)
     if self.execute_javadoc(self.targets, self.target_path):
-        print 'JavaDoc execution failed'
+        print('JavaDoc execution failed')
         return 1
     if self.execute_pantsdoc(self.targets, self.target_path):
-        print 'PantsDoc execution failed'
+        print('PantsDoc execution failed')
         return 1
     return 0

@@ -1,0 +1,10 @@
+{
+  Function<Annotation,Pair<? extends Verifier<? super T>,Annotation>> toVerifier=new Function<Annotation,Pair<? extends Verifier<? super T>,Annotation>>(){
+    @Override public Pair<? extends Verifier<? super T>,Annotation> apply(    Annotation annotation){
+      @Nullable Verifier<? super T> verifier=verifierOracle.get(type,annotation);
+      return (verifier != null) ? Pair.of(verifier,annotation) : null;
+    }
+  }
+;
+  return Iterables.filter(Iterables.transform(verifierAnnotations,toVerifier),Predicates.<Pair<? extends Verifier<? super T>,Annotation>>notNull());
+}

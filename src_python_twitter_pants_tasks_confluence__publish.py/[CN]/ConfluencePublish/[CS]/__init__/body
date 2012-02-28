@@ -1,0 +1,6 @@
+def __init__(self, context):
+    Task.__init__(self, context)
+    self.url = (context.options.confluence_publish_url or context.config.get('confluence-publish', 'url'))
+    self.force = context.options.confluence_publish_force
+    self.open = context.options.confluence_publish_open
+    self.context.products.require('markdown_html')

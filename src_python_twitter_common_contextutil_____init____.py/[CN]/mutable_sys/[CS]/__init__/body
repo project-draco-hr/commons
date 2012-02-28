@@ -1,3 +1,0 @@
-def __init__(self):
-    self._sys_backup = dict(((key, getattr(sys, key)) for key in mutable_sys.SAVED_ATTRIBUTES if hasattr(sys, key)))
-    self._sys_delete = set(filter((lambda key: (not hasattr(sys, key))), mutable_sys.SAVED_ATTRIBUTES))

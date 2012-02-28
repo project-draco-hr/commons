@@ -1,0 +1,6 @@
+def teardown_disk_logging():
+    root_logger = logging.getLogger()
+    global _DISK_LOGGERS
+    for handler in _DISK_LOGGERS:
+        root_logger.removeHandler(handler)
+    _DISK_LOGGERS = []

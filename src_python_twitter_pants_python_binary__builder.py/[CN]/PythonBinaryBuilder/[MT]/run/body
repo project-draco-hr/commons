@@ -1,4 +1,4 @@
 def run(self):
-    print ('Building PythonBinary %s:' % self.target)
+    print(('Building PythonBinary %s:' % self.target))
     self._generate()
     return 0

@@ -1,2 +1,0 @@
-def execute(self, targets):
-    safe_rmtree(self.context.config.getdefault('pants_workdir'))

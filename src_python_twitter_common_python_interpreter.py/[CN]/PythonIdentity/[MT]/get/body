@@ -1,0 +1,7 @@
+@staticmethod
+def get():
+    if hasattr(sys, 'subversion'):
+        subversion = sys.subversion[0]
+    else:
+        subversion = 'CPython'
+    return PythonIdentity(subversion, sys.version_info[0], sys.version_info[1], sys.version_info[2])

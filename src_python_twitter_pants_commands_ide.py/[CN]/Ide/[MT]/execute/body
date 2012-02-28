@@ -8,10 +8,9 @@ def execute(self):
     project = Project(self.project_name, self.options.python, skip_java, skip_scala, self.root_dir, checkstyle_suppression_files, jvm_targets)
     all_targets = project.configure(self.scala_compiler_profile)
     foil = list(all_targets)[0]
-    is_transitive = (lambda target: True)
 
     def is_cp(target):
         return (target.is_codegen or is_apt(target) or (skip_java and is_java(target)) or (skip_scala and is_scala(target)))
-    ide_target = foil.do_in_context((lambda : extract_target(all_targets, is_transitive, is_cp)))
+    ide_target = foil.do_in_context((lambda : extract_target(all_targets, is_cp)))
     (ivyfile, ivysettingsfile) = self._generate_ivy(ide_target)
     return self._generate_project_files(project, ivyfile, ivysettingsfile)

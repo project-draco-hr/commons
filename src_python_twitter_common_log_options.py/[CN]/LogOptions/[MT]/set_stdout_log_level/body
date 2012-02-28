@@ -1,4 +1,0 @@
-@staticmethod
-def set_stdout_log_level(log_level):
-    '\n      Set the log level for stdout.\n    '
-    (LogOptions._STDOUT_LOG_SCHEME, LogOptions._STDOUT_LOG_LEVEL) = LogOptions._parse_loglevel(log_level, scheme='plain')

@@ -1,5 +1,6 @@
 import os
 import unittest
+import pytest
 from twitter.common.python import PythonLauncher
 from twitter.pants import get_buildroot, egg
 from twitter.pants.base import Target, Address

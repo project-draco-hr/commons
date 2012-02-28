@@ -15,6 +15,6 @@ def __init__(self, root_dir, relpath, must_exist=True):
     self.full_path = buildfile
     self.name = os.path.basename(self.full_path)
     self.parent_path = os.path.dirname(self.full_path)
-    self._bytecode_path = os.path.join(self.parent_path, ('.%s.pyc' % self.name))
+    self._bytecode_path = os.path.join(self.parent_path, ('.%s.%s.pyc' % (self.name, PythonIdentity.get())))
     self.relpath = os.path.relpath(self.full_path, self.root_dir)
     self.canonical_relpath = os.path.join(os.path.dirname(self.relpath), BuildFile._CANONICAL_NAME)

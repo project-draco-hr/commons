@@ -7,9 +7,9 @@ def test_thrift_parser(generate_golden_data):
     test_data = pkgutil.get_data(TEST_DATA_PATH, TEST_DATA_FILE)
     golden_data = pkgutil.get_data(TEST_DATA_PATH, GOLDEN_DATA_FILE)
     parser = ThriftParser()
-    print ('Parsing file %s...' % TEST_DATA_FILE),
+    print(('Parsing file %s...' % TEST_DATA_FILE))
     program = parser.parse_string(test_data)
-    print 'OK.'
+    print('OK.')
     res = thrift_json_encoder.thrift_to_json(program)
     if (golden_data is not None):
         if (generate_golden_data is not None):

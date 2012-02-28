@@ -1,7 +1,13 @@
+from __future__ import print_function
 import os
 import copy
 import threading
 import tempfile
 import time
+import sys
+from twitter.common.lang import Compatibility
 from twitter.common.dirutil import tail_f
-import unittest
+if Compatibility.PY3:
+    import unittest
+else:
+    import unittest2 as unittest

@@ -1,1 +1,1 @@
-from twitter.common.lang import Singleton, SingletonMetaclass
+from twitter.common.lang import Singleton

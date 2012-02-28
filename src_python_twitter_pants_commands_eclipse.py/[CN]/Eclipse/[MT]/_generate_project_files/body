@@ -42,10 +42,10 @@ def _generate_project_files(self, project, ivyfile, ivysettingsfile):
         libdir = os.path.abspath(libs_base_path)
         if (not os.path.exists(libdir)):
             os.makedirs(libdir)
-        print 'Retrieving apt libs...'
+        print('Retrieving apt libs...')
         retrieve_result = subprocess.call(['java', '-jar', self.ivy_jar, '-warn', '-settings', ivysettingsfile, '-ivy', ivyfile, '-retrieve', ('%s/%s/[conf]/[artifact].[ext]' % (self.root_dir, libs_base_path)), '-types', 'jar', '-sync', '-symlink'])
         if (retrieve_result != 0):
-            print 'Failed to retrieve apt libs.'
+            print('Failed to retrieve apt libs.')
             return retrieve_result
         jarpaths = []
         for (path, _, filenames) in os.walk(libdir):
@@ -54,7 +54,7 @@ def _generate_project_files(self, project, ivyfile, ivysettingsfile):
         configured_factorypath = TemplateData(jarpaths=jarpaths)
         with open(self.apt_filename, 'w') as output:
             Generator(pkgutil.get_data(__name__, self.apt_template), factorypath=configured_factorypath).write(output)
-        print 'Generated apt config'
+        print('Generated apt config')
     if os.path.exists(self.pydev_filename):
         os.remove(self.pydev_filename)
     if project.has_python:

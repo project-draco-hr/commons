@@ -12,12 +12,19 @@ def execute(self, targets):
             pushdbs[dbfile] = result
         return result
 
-    def stage_artifacts(target, jar, version, confs=None):
+    def fingerprint_internal(target):
+        if (not is_internal(target)):
+            raise ValueError(('Expected an internal target for fingerprinting, got %s' % target))
+        (pushdb, _, _) = get_db(target)
+        (_, _, _, fingerprint) = pushdb.as_jar_with_version(target)
+        return (fingerprint or '0.0.0')
+
+    def stage_artifacts(target, jar, version, changelog, confs=None):
 
         def artifact_path(name=None, suffix='', extension='jar'):
             return os.path.join(self.outdir, jar.org, jar.name, ('%s-%s%s.%s' % ((name or jar.name), version, suffix, extension)))
         with safe_open(artifact_path(suffix='-CHANGELOG', extension='txt'), 'w') as changelog_file:
-            changelog_file.write(changes)
+            changelog_file.write(changelog)
 
         def get_pushdb(target):
             return get_db(target)[0]
@@ -36,39 +43,46 @@ def execute(self, targets):
         copy('source_jars', '-sources')
         return ivyxml
     if self.overrides:
-        print ('Publishing with revision overrides:\n  %s' % '\n  '.join((('%s#%s=%s' % (org, name, rev)) for ((org, name), rev) in self.overrides.items())))
+        print(('Publishing with revision overrides:\n  %s' % '\n  '.join((('%s=%s' % (coordinate(org, name), rev)) for ((org, name), rev) in self.overrides.items()))))
     head_sha = self.check_output(['git', 'rev-parse', 'HEAD']).strip()
     safe_rmtree(self.outdir)
     published = []
     skip = (self.restart_at is not None)
     for target in self.exported_targets():
         (pushdb, dbfile, repo) = get_db(target)
-        (jar, semver, sha) = pushdb.as_jar_with_version(target)
+        (jar, semver, sha, fingerprint) = pushdb.as_jar_with_version(target)
         published.append(jar)
         if (skip and ((jar.org, jar.name) == self.restart_at)):
             skip = False
         newver = (self.overrides.get((jar.org, jar.name)) or semver.bump())
-        changes = self.changelog(target, sha)
-        if ((not changes) and (not self.force)):
-            print ('No changes for %s#%s;%s' % (jar.org, jar.name, semver.version()))
-            stage_artifacts(target, jar, (newver if self.force else semver).version())
+        if (newver <= semver):
+            raise TaskError(('Requested version %s must be greater than the current version %s' % (newver.version(), semver.version())))
+        newfingerprint = self.fingerprint(target, fingerprint_internal)
+        no_changes = (newfingerprint == fingerprint)
+        if no_changes:
+            changelog = ('No changes for %s - forced push.\n' % jar_coordinate(jar, semver.version()))
+        else:
+            changelog = (self.changelog(target, sha) or 'Direct dependencies changed.\n')
+        if (no_changes and (not self.force)):
+            print(('No changes for %s' % jar_coordinate(jar, semver.version())))
+            stage_artifacts(target, jar, (newver if self.force else semver).version(), changelog)
         elif skip:
-            print ('Skipping %s#%s;%s to resume at %s#%s' % (jar.org, jar.name, (newver if self.force else semver).version(), self.restart_at[0], self.restart_at[1]))
-            stage_artifacts(target, jar, semver.version())
+            print(('Skipping %s to resume at %s' % (jar_coordinate(jar, (newver if self.force else semver).version()), coordinate(self.restart_at[0], self.restart_at[1]))))
+            stage_artifacts(target, jar, semver.version(), changelog)
         else:
             if (not self.dryrun):
-                if (not changes):
-                    print ('No changes for %s#%s;%s - forced push.' % (jar.org, jar.name, semver.version()))
+                if no_changes:
+                    print(changelog)
                 else:
-                    print ('\nChanges for %s#%s since %s @ %s:\n\n%s' % (jar.org, jar.name, semver.version(), sha, changes))
-                push = raw_input(('Publish %s#%s with revision %s ? [y|N] ' % (jar.org, jar.name, newver.version())))
-                print '\n'
+                    print(('\nChanges for %s since %s @ %s:\n\n%s' % (coordinate(jar.org, jar.name), semver.version(), sha, changelog)))
+                push = raw_input(('Publish %s with revision %s ? [y|N] ' % (coordinate(jar.org, jar.name), newver.version())))
+                print('\n')
                 if (push.strip().lower() != 'y'):
                     raise TaskError('User aborted push')
-            pushdb.set_version(target, newver, head_sha)
-            ivyxml = stage_artifacts(target, jar, newver.version(), confs=repo['confs'])
+            pushdb.set_version(target, newver, head_sha, newfingerprint)
+            ivyxml = stage_artifacts(target, jar, newver.version(), changelog, confs=repo['confs'])
             if self.dryrun:
-                print ('Skipping publish of %s#%s;%s in test mode.' % (jar.org, jar.name, newver.version()))
+                print(('Skipping publish of %s in test mode.' % jar_coordinate(jar, newver.version())))
             else:
                 resolver = repo['resolver']
                 jvmargs = []
@@ -85,6 +99,6 @@ def execute(self, targets):
                 args = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
                 result = binary_utils.runjava(jvmargs=jvmargs, classpath=self.ivycp, args=args)
                 if (result != 0):
-                    raise TaskError(('Failed to push %s#%s;%s - ivy failed with %d' % (jar.org, jar.name, newver.version(), result)))
+                    raise TaskError(('Failed to push %s - ivy failed with %d' % (jar_coordinate(jar, newver.version()), result)))
                 pushdb.dump(dbfile)
                 self.commit_push(jar.org, jar.name, newver.version(), head_sha)

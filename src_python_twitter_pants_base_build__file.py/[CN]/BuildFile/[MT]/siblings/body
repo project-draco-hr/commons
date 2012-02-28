@@ -2,4 +2,6 @@ def siblings(self):
     'Returns an iterator over all the BUILD files co-located with this BUILD file not including\n    this BUILD file itself'
     for build in glob1(self.parent_path, 'BUILD*'):
         if ((self.name != build) and BuildFile._is_buildfile_name(build)):
-            yield BuildFile(self.root_dir, os.path.join(os.path.dirname(self.relpath), build))
+            siblingpath = os.path.join(os.path.dirname(self.relpath), build)
+            if (not os.path.isdir(os.path.join(self.root_dir, siblingpath))):
+                yield BuildFile(self.root_dir, siblingpath)

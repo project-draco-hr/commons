@@ -1,3 +1,0 @@
-def read(self, name):
-    with open(os.path.join(self._dir, name), 'r') as fp:
-        return fp.read()

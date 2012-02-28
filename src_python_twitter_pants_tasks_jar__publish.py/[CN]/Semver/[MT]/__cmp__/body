@@ -1,7 +1,7 @@
 def __cmp__(self, other):
     diff = (self.major - other.major)
     if (not diff):
-        diff = (self.major - other.major)
+        diff = (self.minor - other.minor)
         if (not diff):
             diff = (self.patch - other.patch)
     return diff

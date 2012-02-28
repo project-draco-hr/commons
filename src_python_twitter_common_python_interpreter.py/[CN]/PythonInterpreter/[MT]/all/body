@@ -1,0 +1,3 @@
+@staticmethod
+def all(paths=os.getenv('PATH').split(':')):
+    return PythonInterpreter.filter(PythonInterpreter.find(paths))

@@ -8,8 +8,9 @@ from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir
 from twitter.pants import is_jvm, is_python
 from twitter.pants.targets import JavaLibrary, JavaThriftLibrary, PythonLibrary, PythonThriftLibrary
-from twitter.pants.tasks import Task, TaskError
+from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.binary_utils import select_binary
+from twitter.pants.tasks.code_gen import CodeGen
 INCLUDE_PARSER = re.compile('^\\s*include\\s+"([^"]+)"\\s*$')
 NAMESPACE_PARSER = re.compile('^\\s*namespace\\s+([^\\s]+)\\s+([^\\s]+)\\s*$')
 TYPE_PARSER = re.compile('^\\s*(const|enum|exception|service|struct|union)\\s+([^\\s{]+).*')

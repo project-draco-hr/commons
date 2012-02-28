@@ -1,3 +1,0 @@
-def __init__(self, root_dir=None, cleanup=True):
-    self.root_dir = root_dir
-    self.cleanup = cleanup

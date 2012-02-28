@@ -1,11 +1,13 @@
 def _run_tests(self, targets):
+    fail_hard = ('PANTS_PYTHON_TEST_FAILSOFT' not in os.environ)
     for target in targets:
         if isinstance(target, PythonTests):
             rv = self._run_python_test(target)
         elif isinstance(target, PythonTestSuite):
-            rv = self._run_python_test_suite(target)
+            rv = self._run_python_test_suite(target, fail_hard)
         else:
             raise PythonTestBuilder.InvalidDependencyException(('Invalid dependency in python test target: %s' % target))
         if (rv != 0):
-            return rv
+            if fail_hard:
+                return rv
     return 0

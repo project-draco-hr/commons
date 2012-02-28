@@ -5,7 +5,7 @@ def parse(self, **globals):
         ParseContext._parsed.update(buildfile_family)
         pants_context = {}
         ast = compile('from twitter.pants import *', '<string>', 'exec')
-        exec ast in pants_context
+        Compatibility.exec_function(ast, pants_context)
 
         def _parse():
             start = os.path.abspath(os.curdir)
@@ -16,7 +16,7 @@ def parse(self, **globals):
                     eval_globals = copy.copy(pants_context)
                     eval_globals.update({'ROOT_DIR': buildfile.root_dir, '__file__': buildfile.full_path, 'PANTS_NEW': False, })
                     eval_globals.update(globals)
-                    eval(buildfile.code(), eval_globals)
+                    Compatibility.exec_function(buildfile.code(), eval_globals)
             finally:
                 os.chdir(start)
         self.do_in_context(_parse)

@@ -1,0 +1,16 @@
+try:
+    from numbers import Integral
+except ImportError:
+    Integral = (int, long)
+import os
+import re
+import subprocess
+import sys
+if (not hasattr(__builtins__, 'any')):
+
+    def any(genexpr):
+        for expr in genexpr:
+            if expr:
+                return True
+        return False
+ID_PY = '\nimport sys\n\nif hasattr(sys, \'subversion\'):\n  subversion = sys.subversion[0]\nelse:\n  subversion = \'CPython\'\n\nprint("%s %s %s %s" % (\n  subversion,\n  sys.version_info[0],\n  sys.version_info[1],\n  sys.version_info[2]))\n'

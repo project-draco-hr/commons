@@ -1,8 +1,8 @@
 def execute(self):
     for target in self.target.resolve():
         for sourcefile in (getattr(target, 'sources', ()) or ()):
-            print os.path.join(target.target_base, sourcefile)
+            print(os.path.join(target.target_base, sourcefile))
         for resourcefile in (getattr(target, 'resources', ()) or ()):
-            print ('[res] %s' % resourcefile)
+            print(('[res] %s' % resourcefile))
         for java_source in (getattr(target, 'java_sources', ()) or ()):
-            print ('[java cyclic] %s' % java_source)
+            print(('[java cyclic] %s' % java_source))

@@ -8,5 +8,5 @@ from twitter.common.log.options import LogOptions
 from twitter.common.quantity import Amount, Time
 app.add_option('--zookeeper', default='zookeeper.local.twitter.com:2181', metavar='HOST:PORT[,HOST:PORT,...]', help='Comma-separated list of host:port of ZooKeeper servers')
 app.add_option('--zookeeper_timeout', type='float', default=5.0, help='default timeout (in seconds) for ZK operations')
-app.add_option('--enable_zookeeper_debug_logging', dest='twitter_common_zookeeper_debug', default=False, action='store_true', help='whether to enable ZK debug logging to stdout')
+app.add_option('--enable_zookeeper_debug_logging', dest='twitter_common_zookeeper_debug', default=False, action='store_true', help='whether to enable ZK debug logging to stderr')
 app.register_module(ZookeeperLoggingSubsystem())

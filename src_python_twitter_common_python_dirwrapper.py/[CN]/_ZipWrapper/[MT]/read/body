@@ -1,2 +1,0 @@
-def read(self, name):
-    return self._zf.read(name)

@@ -1,7 +1,0 @@
-def _setup_stdout_logging():
-    filter = GenericFilter((lambda r_l: (r_l >= LogOptions.stdout_log_level())))
-    formatter = ProxyFormatter(LogOptions.stdout_log_scheme)
-    stdout_handler = logging.StreamHandler(sys.stdout)
-    stdout_handler.setFormatter(formatter)
-    stdout_handler.addFilter(filter)
-    return [stdout_handler]

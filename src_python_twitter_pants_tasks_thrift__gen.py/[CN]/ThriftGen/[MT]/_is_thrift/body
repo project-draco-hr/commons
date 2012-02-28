@@ -1,3 +1,0 @@
-@staticmethod
-def _is_thrift(target):
-    return (isinstance(target, JavaThriftLibrary) or isinstance(target, PythonThriftLibrary))

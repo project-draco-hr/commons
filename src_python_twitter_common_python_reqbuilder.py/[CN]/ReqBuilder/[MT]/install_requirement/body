@@ -1,5 +1,5 @@
 @staticmethod
-def install_requirement(req, path=None, extra_site_dirs=[]):
+def install_requirement(req, path=None, extra_site_dirs=[], index='http://pypi.python.org/simple', repositories=['http://pypi.python.org/simple'], interpreter=PythonInterpreter.get()):
     '\n      Install the requirement "req" to path "path" with extra_site_dirs put\n      onto the PYTHONPATH.  Returns the set of newly added Distributions\n      (of type pkg_resource.Distribution.)\n\n      "req" can either be a pkg_resources.Requirement object (e.g. created by\n        pkg_resources.Requirement.parse("MySQL-python==1.2.2")) or an installable\n        package (e.g. a tar.gz source distribution, a source or binary .egg)\n\n      "path" is the into which we install the requirements.  if path is None,\n      we\'ll create one for you.\n    '
     if (not isinstance(req, pkg_resources.Requirement)):
         if (not os.path.exists(req)):
@@ -11,11 +11,12 @@ def install_requirement(req, path=None, extra_site_dirs=[]):
         path = tempfile.mkdtemp()
     if (not os.path.exists(path)):
         safe_mkdir(path)
-    easy_install_args = [('--install-dir=%s' % path), ('--site-dirs=%s' % ','.join(([path] + extra_site_dirs))), '--always-copy', '--multi-version', '--exclude-scripts', str(req)]
+    easy_install_args = [('--install-dir=%s' % path), ('--site-dirs=%s' % ','.join(([path] + extra_site_dirs))), '--always-copy', '--multi-version', '--exclude-scripts', '-i', index]
+    for repo in reversed(repositories):
+        easy_install_args.extend(['-f', repo])
+    easy_install_args.append(str(req))
     distributions_backup = set(pkg_resources.find_distributions(path))
-    with mutable_sys():
-        sys.path = ([path] + sys.path)
-        rc = ReqBuilder.run_easy_install(easy_install_args)
+    rc = ReqBuilder.run_easy_install((([path] + extra_site_dirs) + sys.path), easy_install_args, interpreter)
     distributions = set(pkg_resources.find_distributions(path))
     new_distributions = (distributions - distributions_backup)
     return (new_distributions if rc else set())

@@ -1,7 +1,7 @@
 def dump(self, jarpath, jarfile):
     self.context.log.debug(('  dumping %s' % jarpath))
     with temporary_dir() as tmpdir:
-        with self.open_jar(jarpath) as sourcejar:
+        with open_jar(jarpath) as sourcejar:
             BinaryCreate.safe_extract(sourcejar, tmpdir)
             for (root, dirs, files) in os.walk(tmpdir):
                 for file in files:

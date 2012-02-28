@@ -1,5 +1,5 @@
-@classmethod
-def get(cls, address):
+@staticmethod
+def get(address):
     'Returns the specified module target if already parsed; otherwise, parses the buildfile in the\n    context of its parent directory and returns the parsed target.'
 
     def lookup():

@@ -1,6 +1,0 @@
-{
-  checkArgDef(parserOracle,field,cmdLine.parser());
-  String argName=cmdLine.name();
-  checkArgument(!HELP_ARGS.contains(argName),String.format("Argument name '%s' is reserved for builtin argument help",argName));
-  checkArgument(ARG_NAME_PATTERN.matcher(argName).matches(),String.format("Argument name '%s' on %s does not match required pattern %s",argName,field,ARG_NAME_RE));
-}

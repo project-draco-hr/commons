@@ -1,0 +1,2 @@
+def is_forced(self, lang):
+    return (lang in self.gen_langs)

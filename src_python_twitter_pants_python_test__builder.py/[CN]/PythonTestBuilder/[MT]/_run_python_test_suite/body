@@ -1,4 +1,4 @@
-def _run_python_test_suite(self, target):
+def _run_python_test_suite(self, target, fail_hard=True):
     tests = OrderedSet([])
 
     def _gather_deps(trg):
@@ -9,8 +9,11 @@ def _run_python_test_suite(self, target):
                 for dep in dependency.resolve():
                     _gather_deps(dep)
     _gather_deps(target)
+    failed = False
     for test in tests:
         rv = self._run_python_test(test)
         if (rv != 0):
-            return rv
-    return 0
+            failed = True
+            if fail_hard:
+                return rv
+    return (1 if failed else 0)

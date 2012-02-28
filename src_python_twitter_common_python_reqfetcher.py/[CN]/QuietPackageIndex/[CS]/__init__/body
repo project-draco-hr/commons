@@ -1,3 +1,5 @@
 def __init__(self, index_url):
     PackageIndex.__init__(self, index_url)
     self.platform = None
+    self._distmap = {}
+    self._cache = {}

@@ -1,8 +1,0 @@
-{
-  for (  Map.Entry<Pair<Class<?>,Class<? extends Annotation>>,Verifier<?>> entry : registry.entrySet()) {
-    if (entry.getKey().getSecond() == constraint.annotationType() && entry.getKey().getFirst().isAssignableFrom(type)) {
-      return (Verifier<T>)entry.getValue();
-    }
-  }
-  return null;
-}

@@ -1,4 +1,5 @@
-def __init__(self, environment):
+def __init__(self, environment, identity=PythonIdentity.get()):
     if (not isinstance(environment, PythonEnvironment)):
         raise ValueError(('Expected environment to be of type PythonEnvironment!  Got %s' % type(environment)))
     self._env = environment
+    self._identity = identity

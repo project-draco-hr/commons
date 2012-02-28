@@ -1,0 +1,9 @@
+@contextmanager
+def pushd(directory):
+    '\n    A with-context that encapsulates pushd/popd.\n  '
+    cwd = os.getcwd()
+    os.chdir(directory)
+    try:
+        yield directory
+    finally:
+        os.chdir(cwd)

@@ -1,0 +1,6 @@
+@staticmethod
+def stderr_log_level():
+    '\n      Get the current stderr_log_level (in logging units specified by logging module.)\n    '
+    if (LogOptions._STDERR_LOG_LEVEL is None):
+        LogOptions.set_stderr_log_level(app.get_options().twitter_common_log_stderr_log_level)
+    return LogOptions._STDERR_LOG_LEVEL

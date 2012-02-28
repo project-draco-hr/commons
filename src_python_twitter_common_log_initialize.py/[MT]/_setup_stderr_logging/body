@@ -1,0 +1,7 @@
+def _setup_stderr_logging():
+    filter = GenericFilter((lambda r_l: (r_l >= LogOptions.stderr_log_level())))
+    formatter = ProxyFormatter(LogOptions.stderr_log_scheme)
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    stderr_handler.setFormatter(formatter)
+    stderr_handler.addFilter(filter)
+    return [stderr_handler]

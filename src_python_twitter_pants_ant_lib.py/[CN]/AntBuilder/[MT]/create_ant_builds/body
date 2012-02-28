@@ -3,7 +3,7 @@ def create_ant_builds(self, workspace_root, targets, flags, target):
         return targets[target.id]
 
     def add_scaladeps(tgt):
-        scaladeps = target.do_in_context((lambda : JarDependency(org='org.scala-lang', name='scala-library', rev='${scala.version}').withSources().resolve()))
+        scaladeps = target.do_in_context((lambda : JarDependency(org='org.scala-lang', name='scala-library', rev='${scala.version}').with_sources().resolve()))
         target.update_dependencies(scaladeps)
     if is_jvm(target):
         if (not target.sources):
@@ -25,7 +25,7 @@ def create_ant_builds(self, workspace_root, targets, flags, target):
         add_scaladeps(target)
     elif isinstance(target, ScalaTests):
         add_scaladeps(target)
-        specdeps = target.do_in_context((lambda : JarDependency(org='org.scala-tools.testing', name='${specs.name}', rev='${specs.version}').withSources().resolve()))
+        specdeps = target.do_in_context((lambda : JarDependency(org='org.scala-tools.testing', name='${specs.name}', rev='${specs.version}').with_sources().resolve()))
         target.update_dependencies(specdeps)
     try:
         library_template_data = target._create_template_data()

@@ -1,0 +1,20 @@
+@staticmethod
+def find(paths):
+    '\n      Given a list of files or directories, try to detect python interpreters amongst them.\n      Returns a list of PythonInterpreter objects.\n    '
+    pythons = []
+    for path in paths:
+
+        def expand_path(path):
+            if os.path.isfile(path):
+                return [path]
+            elif os.path.isdir(path):
+                return (os.path.join(path, fn) for fn in os.listdir(path))
+            return []
+        for fn in expand_path(path):
+            basefile = os.path.basename(fn)
+            if any(((matcher.match(basefile) is not None) for matcher in PythonInterpreter.REGEXEN)):
+                try:
+                    pythons.append(PythonInterpreter.from_binary(fn))
+                except:
+                    continue
+    return pythons

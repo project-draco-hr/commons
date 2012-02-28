@@ -1,3 +1,0 @@
-def withDocs(self):
-    self._configurations.append('docs')
-    return self

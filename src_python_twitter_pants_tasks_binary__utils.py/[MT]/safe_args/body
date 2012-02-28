@@ -1,0 +1,22 @@
+@contextmanager
+def safe_args(args, max_args=None, config=None, argfile=None, delimiter='\n', quoter=None, delete=True):
+    "\n    Yields args if there are less than a limit otherwise writes args to an argfile and yields an\n    argument list with one argument formed from the path of the argfile.\n\n    :args The args to work with.\n    :max_args The maximum number of args to let though without writing an argfile.  If not specified\n              then the maximum will be loaded from config.\n    :config Used to lookup the configured maximum number of args that can be passed to a subprocess;\n            defaults to the default config and looks for key 'max_subprocess_args' in the DEFAULTS.\n    :argfile The file to write args to when there are too many; defaults to a temporary file.\n    :delimiter The delimiter to insert between args written to the argfile, defaults to '\n'\n    :quoter A function that can take the argfile path and return a single argument value;\n            defaults to:\n            <code>lambda f: '@' + f<code>\n    :delete If True deletes any arg files created upon exit from this context; defaults to True.\n  "
+    max_args = (max_args or (config or Config.load()).getdefault('max_subprocess_args', int, 10))
+    if (len(args) > max_args):
+
+        def create_argfile(fp):
+            fp.write(delimiter.join(args))
+            fp.close()
+            return [(quoter(fp.name) if quoter else ('@%s' % fp.name))]
+        if argfile:
+            try:
+                with safe_open(argfile, 'w') as fp:
+                    yield create_argfile(fp)
+            finally:
+                if (delete and os.path.exists(argfile)):
+                    os.unlink(argfile)
+        else:
+            with temporary_file(cleanup=delete) as fp:
+                yield create_argfile(fp)
+    else:
+        yield args

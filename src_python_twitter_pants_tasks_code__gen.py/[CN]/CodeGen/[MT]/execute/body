@@ -1,0 +1,35 @@
+def execute(self, targets):
+    gentargets = [t for t in targets if self.is_gentarget(t)]
+    capabilities = self.genlangs()
+    gentargets_by_dependee = self.context.dependants(self.is_gentarget)
+    dependees_by_gentarget = defaultdict(set)
+    for (dependee, tgts) in gentargets_by_dependee.items():
+        for gentarget in tgts:
+            dependees_by_gentarget[gentarget].add(dependee)
+
+    def find_gentargets(predicate):
+        tgts = set()
+        for dependee in gentargets_by_dependee.keys():
+            if predicate(dependee):
+                for tgt in gentargets_by_dependee.pop(dependee):
+                    tgt.walk(tgts.add, self.is_gentarget)
+        return tgts.intersection(set(gentargets))
+    gentargets_bylang = {}
+    for (lang, predicate) in capabilities.items():
+        gentargets_bylang[lang] = (gentargets if self.is_forced(lang) else find_gentargets(predicate))
+    if gentargets_by_dependee:
+        raise TaskError(('Left with unexpected unconsumed gen targets: %s' % gentargets_by_dependee))
+    with self.changed(gentargets, invalidate_dependants=True) as changed_targets:
+        changed = set(changed_targets)
+        for (lang, tgts) in gentargets_bylang.items():
+            lang_changed = changed.intersection(tgts)
+            if lang_changed:
+                self.genlang(lang, lang_changed)
+    for (lang, tgts) in gentargets_bylang.items():
+        if tgts:
+            langtarget_by_gentarget = {}
+            for target in tgts:
+                langtarget_by_gentarget[target] = self.createtarget(lang, target, dependees_by_gentarget.get(target, []))
+            for (gentarget, langtarget) in langtarget_by_gentarget.items():
+                for dep in self.getdependencies(gentarget):
+                    self.updatedependencies(langtarget, langtarget_by_gentarget[dep])

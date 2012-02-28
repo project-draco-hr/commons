@@ -1,0 +1,3 @@
+def genlang(self, lang, targets):
+    '\n      Subclasses must override and generate code in :lang for the given targets.\n    '
+    raise NotImplementedError

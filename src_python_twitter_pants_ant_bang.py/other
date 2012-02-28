@@ -1,3 +1,4 @@
+from __future__ import print_function
 from twitter.common.collections import OrderedSet
 from twitter.pants import get_buildroot, is_internal, is_jvm
 from twitter.pants.base import BuildFile, ParseContext

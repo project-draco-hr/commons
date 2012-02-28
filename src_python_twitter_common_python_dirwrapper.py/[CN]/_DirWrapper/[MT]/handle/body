@@ -1,0 +1,2 @@
+def handle(self, name):
+    return DirWrapperHandle(os.path.basename(self._dir), os.path.join(self._dir, name), name, self.reader(name))

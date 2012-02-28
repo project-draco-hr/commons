@@ -1,0 +1,2 @@
+def __repr__(self):
+    return ('PythonInterpreter(%r, %r)' % (self._binary, self._identity))

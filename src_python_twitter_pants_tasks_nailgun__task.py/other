@@ -24,7 +24,7 @@ try:
                 if (('java' == proc.name) and cmdline_matches(proc.cmdline)):
                     NailgunTask.log_kill(log, proc.pid)
                     proc.kill()
-            except psutil.AccessDenied as psutil.NoSuchProcess:
+            except (psutil.AccessDenied, psutil.NoSuchProcess):
                 pass
     NailgunTask.killall = staticmethod(killall)
 except ImportError:

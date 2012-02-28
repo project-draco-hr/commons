@@ -7,6 +7,6 @@ def execute(self):
             self._print_dependency_tree(target)
     elif is_python(target):
         if (self.is_internal_only or self.is_external_only or self.is_minimal or self.is_graph):
-            print  >> sys.stderr, 'Unsupported option for Python target'
+            print('Unsupported option for Python target', file=sys.stderr)
             sys.exit(1)
         self._print_python_dependencies(target, 0)

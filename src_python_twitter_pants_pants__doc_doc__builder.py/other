@@ -1,9 +1,13 @@
+from __future__ import print_function
 __author__ = 'Mark McBride'
 import os
 import pkgutil
 import shutil
-import markdown
+try:
+    import markdown
+    HAS_MARKDOWN = True
+except ImportError:
+    HAS_MARKDOWN = False
 from twitter.pants import is_doc
 from twitter.pants.base.generator import Generator
-from twitter.pants.base.builder import Builder
 _TEMPLATE_BASEDIR = 'templates'

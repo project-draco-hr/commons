@@ -1,3 +1,3 @@
 {
-  return EasyMock.createMock(getRawType());
+  return EasyMock.createMock(rawType());
 }

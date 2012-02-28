@@ -1,0 +1,41 @@
+def install_virtualenv(context, interpreter):
+    virtualenv_cache = context.config.get('python-setup', 'cache')
+    virtualenv_target = context.config.get('python-setup', 'virtualenv_target')
+    pip_repos = context.config.getlist('python-setup', 'repos')
+    if (not os.path.exists(virtualenv_target)):
+        raise TaskError('Could not find installed virtualenv!')
+    env_base = context.config.getdefault('pants_pythons')
+    env_bin = os.path.join(env_base, 'bin')
+    safe_mkdir(env_bin)
+    link_target = os.path.join(env_bin, str(interpreter.identity()))
+    if os.path.exists(link_target):
+        os.unlink(link_target)
+    os.symlink(interpreter.binary(), link_target)
+    environment_install_path = os.path.join(env_base, str(interpreter.identity()))
+    virtualenv_py = os.path.join(virtualenv_target, 'virtualenv.py')
+    python_interpreter = interpreter.binary()
+    if (os.path.exists(os.path.join(environment_install_path, 'bin', 'python')) and (not context.options.setup_python_force)):
+        return True
+    else:
+        safe_rmtree(environment_install_path)
+        safe_mkdir(environment_install_path)
+    cmdline = ('%s %s --distribute %s' % (python_interpreter, virtualenv_py, environment_install_path))
+    context.log.info(('Setting up %s...' % interpreter.identity()))
+    context.log.debug(('Running %s' % cmdline))
+    (rc, stdout, stderr) = subprocess_call(cmdline)
+    if (rc != 0):
+        context.log.warn(('Failed to install virtualenv: err=%s' % stderr))
+        raise TaskError(('Could not install virtualenv for %s' % interpreter.identity()))
+
+    def install_package(pkg):
+        INSTALL_VIRTUALENV_PACKAGE = ('\n      source %(environment)s/bin/activate\n      %(environment)s/bin/pip install --download-cache=%(cache)s          %(f_repositories)s --no-index -U %(package)s\n    ' % {'environment': environment_install_path, 'cache': virtualenv_cache, 'f_repositories': ' '.join((('-f %s' % repository) for repository in pip_repos)), 'package': pkg, })
+        (rc, stdout, stderr) = subprocess_call(INSTALL_VIRTUALENV_PACKAGE)
+        if (rc != 0):
+            context.log.warn(('Failed to install %s' % pkg))
+            context.log.debug(('Stdout:\n%s\nStderr:\n%s\n' % (stdout, stderr)))
+        return (rc == 0)
+    for package in context.config.getlist('python-setup', 'bootstrap_packages'):
+        context.log.debug(('Installing %s into %s' % (package, interpreter.identity())))
+        if (not install_package(package)):
+            context.log.warn(('Failed to install %s into %s!' % (package, interpreter.identity())))
+    return True

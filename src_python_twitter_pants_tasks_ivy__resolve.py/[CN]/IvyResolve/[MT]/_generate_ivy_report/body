@@ -1,21 +1,19 @@
 def _generate_ivy_report(self):
+    classpath = binary_utils.nailgun_profile_classpath(self, self._profile)
+    self.ng('ng-cp', *classpath)
+    reports = []
     (org, name) = self._identify()
-    with open(os.path.join(self._cachedir, 'ivy-report.xsl')) as report_xsl:
-        xsltree = etree.parse(report_xsl)
-        transform = etree.XSLT(xsltree)
-        reports = []
-        for conf in self._confs:
-            report_name = ('%s-%s-%s.xml' % (org, name, conf))
-            with open(os.path.join(self._cachedir, report_name)) as report_xml:
-                xmltree = etree.parse(report_xml)
-                html_name = ('%s-%s-%s.html' % (org, name, conf))
-                with safe_open(os.path.join(self._outdir, html_name), 'w') as report_html:
-                    html_content = str(transform(xmltree))
-                    report_html.write(html_content)
-                    reports.append(report_html.name)
-        css = os.path.join(self._outdir, 'ivy-report.css')
-        if os.path.exists(css):
-            os.unlink(css)
-        shutil.copy(os.path.join(self._cachedir, 'ivy-report.css'), self._outdir)
-        if self._open:
-            binary_utils.open(*reports)
+    xsl = os.path.join(self._cachedir, 'ivy-report.xsl')
+    safe_mkdir(self._outdir, clean=True)
+    for conf in self._confs:
+        params = dict(org=org, name=name, conf=conf)
+        xml = os.path.join(self._cachedir, ('%(org)s-%(name)s-%(conf)s.xml' % params))
+        out = os.path.join(self._outdir, ('%(org)s-%(name)s-%(conf)s.html' % params))
+        self.ng('org.apache.xalan.xslt.Process', '-IN', xml, '-XSL', xsl, '-OUT', out)
+        reports.append(out)
+    css = os.path.join(self._outdir, 'ivy-report.css')
+    if os.path.exists(css):
+        os.unlink(css)
+    shutil.copy(os.path.join(self._cachedir, 'ivy-report.css'), self._outdir)
+    if self._open:
+        binary_utils.open(*reports)

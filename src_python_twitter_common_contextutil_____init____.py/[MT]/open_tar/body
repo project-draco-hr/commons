@@ -1,0 +1,5 @@
+@contextmanager
+def open_tar(path, *args, **kwargs):
+    '\n    A with-context for tar files.  Passes through positional and kwargs to tarfile.open.\n  '
+    with closing(tarfile.open(path, *args, **kwargs)) as tar:
+        yield tar

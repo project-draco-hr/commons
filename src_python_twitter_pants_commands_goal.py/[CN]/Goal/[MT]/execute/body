@@ -32,7 +32,7 @@ def execute(self):
     if (self.options.log or self.options.log_level):
         from twitter.common.log import init
         from twitter.common.log.options import LogOptions
-        LogOptions.set_stdout_log_level((self.options.log_level or 'info').upper())
+        LogOptions.set_stderr_log_level((self.options.log_level or 'info').upper())
         logdir = self.config.get('goals', 'logdir')
         if logdir:
             safe_mkdir(logdir)
@@ -46,6 +46,6 @@ def execute(self):
             unknown.append(phase)
     if unknown:
         print ('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown)))
-        print 
+        print ()
         return Phase.execute(context, 'goals')
     return Phase.attempt(context, self.phases, timer=timer)

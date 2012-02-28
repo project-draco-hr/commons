@@ -1,4 +1,8 @@
-import ConfigParser
+from __future__ import print_function
+try:
+    import ConfigParser
+except ImportError:
+    import configparser as ConfigParser
 import copy
 import inspect
 import os
@@ -8,6 +12,7 @@ import shlex
 import traceback
 from collections import defaultdict
 from twitter.common import options
+from twitter.common.app.module import AppModule
+from twitter.common.app.inspection import Inspection
+from twitter.common.lang import Compatibility
 from twitter.common.util import topological_sort
-from module import AppModule
-from inspection import Inspection

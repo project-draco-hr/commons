@@ -1,3 +1,0 @@
-ParserOracle parserOracle
-Field field
-Class<? extends Parser> custom

@@ -1,5 +1,0 @@
-__author__ = 'jsirois'
-import ConfigParser
-import os
-import getpass
-from twitter.pants import get_buildroot

@@ -1,0 +1,5 @@
+{
+  List<Type> typeParams=getTypeParams(field.getGenericType());
+  Preconditions.checkArgument(typeParams.size() == 1,"Expected exactly one type parameter for field " + field);
+  return TypeToken.create(typeParams.get(0));
+}

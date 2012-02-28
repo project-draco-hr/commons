@@ -1,0 +1,7 @@
+def __init__(self, binary=sys.executable, interpreter=None):
+    '\n      :binary => binary of python interpreter\n                 (if None, default to sys.executable)\n    '
+    self._binary = binary
+    if ((binary == sys.executable) and (interpreter is None)):
+        self._identity = PythonIdentity.get()
+    else:
+        self._identity = (interpreter or PythonInterpreter.from_binary(binary).identity())

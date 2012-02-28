@@ -1,0 +1,5 @@
+def getdependencies(self, gentarget):
+    if hasattr(gentarget, 'internal_dependencies'):
+        return gentarget.internal_dependencies
+    else:
+        return gentarget.dependencies

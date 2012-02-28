@@ -1,4 +1,4 @@
-def compile(self, classpath, bases, sources_by_target, fingerprint):
+def compile(self, classpath, bases, sources, fingerprint):
     safe_mkdir(self._classes_dir)
     jmake_classpath = nailgun_profile_classpath(self, self._jmake_profile)
     self.ng('ng-cp', *jmake_classpath)
@@ -6,6 +6,6 @@ def compile(self, classpath, bases, sources_by_target, fingerprint):
     compiler_classpath = nailgun_profile_classpath(self, self._compiler_profile)
     args.extend(['-jcpath', ':'.join(compiler_classpath), '-jcmainclass', 'com.twitter.common.tools.Compiler', '-C-dependencyfile', ('-C%s' % self._dependencies_file)])
     args.extend(self._args)
-    args.extend(reduce((lambda all, sources: all.union(sources)), sources_by_target.values()))
+    args.extend(sources)
     log.debug(('Executing: %s %s' % (_JMAKE_MAIN, ' '.join(args))))
     return self.ng(_JMAKE_MAIN, *args)

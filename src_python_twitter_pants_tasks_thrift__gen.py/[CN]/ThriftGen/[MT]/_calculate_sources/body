@@ -3,7 +3,7 @@ def _calculate_sources(self, thrift_targets):
     sources = set()
 
     def collect_sources(target):
-        if ThriftGen._is_thrift(target):
+        if self.is_gentarget(target):
             bases.add(target.target_base)
             sources.update((os.path.join(target.target_base, source) for source in target.sources))
     for target in thrift_targets:

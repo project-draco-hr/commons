@@ -1,3 +1,3 @@
 def internaldep(self, target):
-    (jar, _, _) = self.get_db(target).as_jar_with_version(target)
+    (jar, _, _, _) = self.get_db(target).as_jar_with_version(target)
     return TemplateData(org=jar.org, module=jar.name, version=jar.rev, force=False, excludes=[IvyWriter.create_exclude(exclude) for exclude in target.excludes], transitive=True, ext=None, url=None, configurations='default')

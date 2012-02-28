@@ -1,7 +1,10 @@
 import os
 import types
 import zipfile
-from twitter.common.python.dirwrapper import PythonDirectoryWrapper
+from collections import Sequence
+from twitter.common.lang import Compatibility
+from twitter.common.python.dirwrapper import PythonDirectoryWrapper, DirWrapperHandle
+from twitter.common.python.interpreter import PythonInterpreter
 from twitter.common.python.reqbuilder import ReqBuilder
 from setuptools.package_index import EXTENSIONS as VALID_SOURCE_EXTENSIONS
-'\nTODO(wickman):  I don\'t like how this is factored right now, though it\'s an\nimprovement over what we used to have.\n\nIn the next iteration let\'s do:\n\nMake PythonDependency a base class for:\n  PythonEggDependency <= .egg(s)\n  PythonTgzDependency <= .tgz\n  PythonReqDependency <= pkg_resources.Requirement\n\nPythonDependency exports the API:\n   input_files()\n   activate(path) (idempotent) => .egg heads\n\nWe then encode PythonDependency blobs directly into the manifest to make the\ndependencies more explicit than just autodetecting a bunch of ".egg" directories\nin the "dependency" fileset of the chroot.\n'
+'\n  N.B. from pkg_resources.PathMetadata\n\n  # Unpacked egg directories:\n  egg_path = "/path/to/PackageName-ver-pyver-etc.egg"\n  metadata = PathMetadata(egg_path, os.path.join(egg_path,\'EGG-INFO\'))\n  dist = Distribution.from_filename(egg_path, metadata=metadata)\n\n  # Zipped eggs:\n  egg_importer = zipimport.zipimporter(egg_path)\n  metadata = EggMetadata(egg_importer)\n  dist = Distribution.from_filename(egg_path, metadata=metadata)\n'

@@ -5,7 +5,7 @@ def execute(self, targets):
         return (is_internal(t) and any((jar for jar in t.jar_dependencies if jar.rev)))
     with self.changed(filter(is_classpath, targets), only_buildfiles=True) as changed_deps:
         if changed_deps:
-            self._ivycachepath(self._ivy_xml, self._classpath_file, *targets)
+            self._exec_ivy(self._work_dir, targets, (['-cachepath', self._classpath_file, '-types', 'jar', 'bundle', '-confs'] + self._confs))
     if os.path.exists(self._classpath_file):
         with self._cachepath(self._classpath_file) as classpath:
             with self.context.state('classpath', []) as cp:

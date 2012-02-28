@@ -16,5 +16,5 @@ def test_encode_thrift_to_json(self):
     x.field6.color = structs_for_testing.Color.BLUE
     expected2 = '{\n  "field1": 42,\n  "field2": false,\n  "field3": "\\"not default\\"",\n  "field4": [\n    2,\n    4,\n    6,\n    8,\n    10\n  ],\n  "field5": [\n    "a",\n    "b",\n    "c"\n  ],\n  "field6": {\n    "color": 3,\n    "foo": "bar"\n  },\n  "field7": 1.2\n}'
     json_str2 = thrift_json_encoder.thrift_to_json(x)
-    print json_str2
+    print(json_str2)
     assert (expected2 == json_str2)

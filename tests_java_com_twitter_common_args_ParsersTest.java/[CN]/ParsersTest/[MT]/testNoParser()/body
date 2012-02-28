@@ -1,5 +1,5 @@
 {
 class NoParserForMe {
   }
-  assertNull(defaultParsers.get(NoParserForMe.class));
+  assertNull(defaultParsers.get(TypeToken.create(NoParserForMe.class)));
 }

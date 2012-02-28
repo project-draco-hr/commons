@@ -1,3 +1,0 @@
-{
-  return Lists.transform(getTypeParams(field.getGenericType()),GET_CLASS);
-}

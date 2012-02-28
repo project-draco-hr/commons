@@ -1,5 +1,5 @@
 def clear(self):
-    time.sleep(0.01)
+    time.sleep(0.1)
     rc = copy.copy(self._lines)
     self._lines = []
     return rc

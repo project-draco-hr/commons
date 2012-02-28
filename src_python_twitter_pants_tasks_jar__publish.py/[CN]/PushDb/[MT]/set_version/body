@@ -1,7 +1,8 @@
-def set_version(self, target, version, sha):
+def set_version(self, target, version, sha, fingerprint):
     version = (version if isinstance(version, Semver) else Semver.parse(version))
     (_, _, db_set) = self._accessors_for_target(target)
     db_set('revision.major', version.major)
     db_set('revision.minor', version.minor)
     db_set('revision.patch', version.patch)
     db_set('revision.sha', sha)
+    db_set('revision.fingerprint', fingerprint)

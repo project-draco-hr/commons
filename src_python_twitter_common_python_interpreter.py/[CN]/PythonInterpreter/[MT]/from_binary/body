@@ -1,0 +1,5 @@
+@staticmethod
+def from_binary(binary):
+    po = subprocess.Popen([binary], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    (so, _) = po.communicate(ID_PY)
+    return PythonInterpreter(binary, PythonIdentity.from_id_string(so.decode('utf8')))

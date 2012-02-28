@@ -1,17 +1,22 @@
 def dump(self):
-    print ('Building PythonBinary %s:' % self._target)
-    (libraries, eggs, binaries, thrifts, antlrs) = self.aggregate_targets(([self._target] + self._extra_targets))
+    self.debug(('Building PythonBinary %s:' % self._target))
+    (libraries, eggs, reqs, binaries, thrifts, antlrs) = self.aggregate_targets(([self._target] + self._extra_targets))
+    bare_reqs = set([pkg_resources.Requirement.parse('distribute')])
+    bare_reqs.update(self._additional_reqs)
     for lib in libraries:
         self._dump_library(lib)
-    self._dump_setuptools()
+    for req in bare_reqs:
+        self._dump_req(req)
     for egg in eggs:
         self._dump_egg(egg)
+    for req in reqs:
+        self._dump_python_req(req)
     for thr in thrifts:
         self._dump_thrift_library(thr)
     for antlr in antlrs:
         self._dump_antlr_library(antlr)
     if (len(binaries) > 1):
-        print  >> sys.stderr, 'WARNING: Target has multiple python_binary targets!'
+        print('WARNING: Target has multiple python_binary targets!', file=sys.stderr)
     for binary in binaries:
         self._dump_bin(binary.sources[0], binary.target_base)
     self.env.freeze()

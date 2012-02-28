@@ -8,7 +8,7 @@ def _extract_java_sources_and_deps(self, targets):
                 if os.path.exists(source_path):
                     all_sources.append(source_path)
                 else:
-                    print ('skipping %s' % source_path)
+                    print(('skipping %s' % source_path))
                 for jar_dep in target.jar_dependencies:
                     if jar_dep.rev:
                         all_deps.add(copy(jar_dep).intransitive())

@@ -1,0 +1,3 @@
+def reader(self, name):
+    "\n      Return a lambda that can read the item by the name of 'name'.\n    "
+    raise NotImplementedError

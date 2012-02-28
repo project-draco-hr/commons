@@ -4,4 +4,4 @@ def execute(self):
             target = Target.get(address)
             if (hasattr(target, 'sources') and (target.sources is not None)):
                 for sourcefile in target.sources:
-                    print sourcefile, address
+                    print(sourcefile, address)

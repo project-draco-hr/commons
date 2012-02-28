@@ -3,10 +3,10 @@ def _dump_built_library(self, library, builder):
     absolute_sources.sort()
     cache_key = self._cache.key_for(library._create_id(), absolute_sources)
     if (not self._cache.needs_update(cache_key)):
-        print ('  Generating (cached) %s...' % library)
+        self.debug(('  Generating (cached) %s...' % library))
         self._cache.use_cached_files(cache_key, self.env.add_dependency_file)
     else:
-        print ('  Generating %s...' % library)
+        self.debug(('  Generating %s...' % library))
         egg_file = builder.build_egg()
         if egg_file:
             src_egg_file = egg_file
@@ -15,10 +15,10 @@ def _dump_built_library(self, library, builder):
             self._cache.update(cache_key, [dst_egg_file])
             egg_dep = PythonDependency.from_eggs(dst_egg_file)
             for pkg in builder.packages():
-                print ('    found namespace: %s' % pkg)
-            print '    copying...',
+                self.debug(('    found namespace: %s' % pkg))
+            self.debug('    copying...')
             self.env.add_dependency(egg_dep)
-            print 'done.'
+            self.debug('done.')
         else:
-            print '   Failed!'
+            self.debug('   Failed!')
             raise PythonChroot.BuildFailureException(('Failed to build %s!' % library))

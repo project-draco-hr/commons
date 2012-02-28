@@ -1,2 +1,2 @@
 def read(self, name):
-    raise NotImplementedError
+    return self.reader(name)()

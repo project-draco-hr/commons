@@ -1,7 +1,10 @@
 @staticmethod
 def login(confluence_url):
-    'Prompts the user to log in to confluence, and returns a Confluence object.'
+    'Prompts the user to log in to confluence, and returns a Confluence object.\n\n    raises ConfluenceError if login is unsuccessful.\n    '
     server = xmlrpclib.ServerProxy((confluence_url + '/rpc/xmlrpc'))
     user = getpass.getuser()
     password = getpass.getpass(('Please enter confluence password for %s: ' % user))
-    return Confluence(server, confluence_url, server.confluence1.login(user, password))
+    try:
+        return Confluence(server, confluence_url, server.confluence1.login(user, password))
+    except xmlrpclib.Fault as e:
+        raise ConfluenceError(('Failed to log in to %s: %s' % (confluence_url, e)))

@@ -1,0 +1,19 @@
+def genlang(self, lang, targets):
+    (bases, sources) = self._calculate_sources(targets)
+    if (lang == 'java'):
+        safe_mkdir(self.java_out)
+        gen = ('--java_out=%s' % self.java_out)
+    elif (lang == 'python'):
+        safe_mkdir(self.py_out)
+        gen = ('--python_out=%s' % self.py_out)
+    else:
+        raise TaskError(('Unrecognized protobuf gen lang: %s' % lang))
+    args = [self.protobuf_binary, gen]
+    for base in bases:
+        args.append(('--proto_path=%s' % base))
+    args.extend(sources)
+    log.debug(('Executing: %s' % ' '.join(args)))
+    process = subprocess.Popen(args)
+    result = process.wait()
+    if (result != 0):
+        raise TaskError

@@ -1,0 +1,3 @@
+@staticmethod
+def get():
+    return PythonInterpreter(sys.executable, interpreter=PythonIdentity.get())

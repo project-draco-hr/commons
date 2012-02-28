@@ -1,7 +1,8 @@
 __author__ = 'John Sirois'
 import os
 import re
+from twitter.common.collections import OrderedSet
 from twitter.pants import get_buildroot, is_scala, is_test
 from twitter.pants.tasks import Task, TaskError
-from twitter.pants.tasks.binary_utils import profile_classpath, runjava
+from twitter.pants.tasks.binary_utils import profile_classpath, runjava, safe_args
 PACKAGE_PARSER = re.compile('^\\s*package\\s+([\\w.]+)\\s*')

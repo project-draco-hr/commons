@@ -1,6 +1,6 @@
 def __init__(self, format_string):
     '\n      Given a format string, construct a parser.\n\n      The format string takes:\n        %c %d %u %f %s\n        %d and %u take l or ll modifiers\n        you can name parameters %(hey there)s and the string value will be keyed by "hey there"\n        you can parse but not save parameters by specifying %*f\n    '
-    if (not isinstance(format_string, basestring)):
+    if (not isinstance(format_string, Compatibility.string)):
         raise TypeError(('format_string should be a string, instead got %s' % type(format_string)))
     (self._re_pattern, self._applicators) = self._preprocess_format_string(format_string)
     self._re = re.compile(self._re_pattern)

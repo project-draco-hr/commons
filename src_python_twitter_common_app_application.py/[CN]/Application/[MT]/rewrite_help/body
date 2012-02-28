@@ -1,6 +1,6 @@
 @staticmethod
 def rewrite_help(op):
-    if (hasattr(op, 'help') and isinstance(op.help, basestring)):
+    if (hasattr(op, 'help') and isinstance(op.help, Compatibility.string)):
         if ((op.help.find('%default') != (-1)) and (op.default != optparse.NO_DEFAULT)):
             op.help = op.help.replace('%default', str(op.default))
         else:

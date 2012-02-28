@@ -3,7 +3,7 @@ def check_errors(self, banner):
     errors = {}
 
     def error(key, include_traceback=False):
-        (exc_type, exc_value, exc_traceback) = sys.exc_info()
+        (exc_type, exc_value, _) = sys.exc_info()
         msg = StringIO()
         if include_traceback:
             frame = inspect.trace()[(-1)]

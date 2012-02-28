@@ -1,16 +1,14 @@
 def test_singleton_names():
 
 
-    class Hello(object):
-        __metaclass__ = SingletonMetaclass
+    class Hello(Singleton):
 
         def __init__(self, sig):
             self._sig = sig
     H1 = Hello
 
 
-    class Hello(object):
-        __metaclass__ = SingletonMetaclass
+    class Hello(Singleton):
 
         def __init__(self, sig):
             self._sig = sig

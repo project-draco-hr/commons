@@ -1,0 +1,4 @@
+@staticmethod
+def set_stderr_log_level(log_level):
+    '\n      Set the log level for stderr.\n    '
+    (LogOptions._STDOUT_LOG_SCHEME, LogOptions._STDERR_LOG_LEVEL) = LogOptions._parse_loglevel(log_level, scheme='plain')

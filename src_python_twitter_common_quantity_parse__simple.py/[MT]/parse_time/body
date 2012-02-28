@@ -1,6 +1,6 @@
 def parse_time(timestring):
     '\n    Parse a time string of the format\n      XdYhZmWs (each field optional but must be in that order.)\n  '
-    if (not isinstance(timestring, basestring)):
+    if (not isinstance(timestring, Compatibility.string)):
         raise TypeError('timestring should be of type string')
     BASES = (('d', Time.DAYS), ('h', Time.HOURS), ('m', Time.MINUTES), ('s', Time.SECONDS))
     timestr = timestring.lower()

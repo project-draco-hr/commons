@@ -1,0 +1,3 @@
+def is_forced(self, lang):
+    '\n      Subclasses should override and return True if they wish to force code generation for the\n      given language.\n    '
+    return False

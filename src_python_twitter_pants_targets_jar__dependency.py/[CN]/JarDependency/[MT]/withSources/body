@@ -1,3 +1,0 @@
-def withSources(self):
-    self._configurations.append('sources')
-    return self

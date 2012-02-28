@@ -3,7 +3,7 @@ def load(data):
     '\n      Loads properties from an open stream or the contents of a string and returns a dict of the\n      parsed property data.\n    '
     if (hasattr(data, 'read') and callable(data.read)):
         contents = data.read()
-    elif isinstance(data, basestring):
+    elif isinstance(data, Compatibility.string):
         contents = data
     else:
         raise TypeError(('Can only process data from a string or a readable object, given: %s' % data))

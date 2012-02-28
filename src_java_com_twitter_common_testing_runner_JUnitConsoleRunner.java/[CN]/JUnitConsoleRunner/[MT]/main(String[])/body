@@ -18,7 +18,7 @@ class Options {
     @Option(name="-outdir",usage="Directory to output test captures too.  Only used if -suppress-output or " + "-xmlreport is set.") public void setOutdir(    File outdir){
       this.outdir=outdir;
     }
-    @Argument(usage="Names of junit test classes or test methods to run.",required=true,metaVar="TESTS",handler=StringArrayOptionHandler.class) public void setTests(    String[] tests){
+    @Argument(usage="Names of junit test classes or test methods to run.  Names prefixed " + "with @ are considered arg file paths and these will be loaded and the " + "whitespace delimited arguments found inside added to the list",required=true,metaVar="TESTS",handler=StringArrayOptionHandler.class) public void setTests(    String[] tests){
       this.tests=Arrays.asList(tests);
     }
   }
@@ -32,5 +32,21 @@ class Options {
     exit(1);
   }
   JUnitConsoleRunner runner=new JUnitConsoleRunner(options.suppressOutput,options.xmlReport,options.outdir);
-  runner.run(options.tests);
+  List<String> tests=Lists.newArrayList();
+  for (  String test : options.tests) {
+    if (test.startsWith("@")) {
+      try {
+        String argFileContents=Files.toString(new File(test.substring(1)),Charsets.UTF_8);
+        tests.addAll(Arrays.asList(argFileContents.split("\\s+")));
+      }
+ catch (      IOException e) {
+        System.err.printf("Failed to load args from arg file %s: %s\n",test,e.getMessage());
+        exit(1);
+      }
+    }
+ else {
+      tests.add(test);
+    }
+  }
+  runner.run(tests);
 }

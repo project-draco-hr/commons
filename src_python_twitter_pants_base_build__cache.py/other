@@ -1,7 +1,8 @@
+from collections import namedtuple
 import errno
 import hashlib
 import os
 import shutil
-from collections import namedtuple
+from twitter.common.lang import Compatibility
 from twitter.common.dirutil import safe_rmtree
 CacheKey = namedtuple('CacheKey', 'target_name, sources, hash, filename')

@@ -1,6 +1,6 @@
 def __init__(self, eggheads):
     '\n      eggheads = List of files or directories that end with ".egg" and point to\n        valid eggs.\n\n      Not intended to be called directly.  Instead use the from_* factory methods.\n    '
-    if (not isinstance(eggheads, (types.ListType, types.TupleType))):
+    if ((not isinstance(eggheads, Sequence)) or isinstance(eggheads, Compatibility.string)):
         raise ValueError(('Expected eggs to be a list of filenames!  Got %s' % type(eggheads)))
     self._eggs = {}
     for egg in eggheads:

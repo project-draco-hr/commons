@@ -1,0 +1,65 @@
+{
+  if (!Sets.intersection(args.keySet(),ArgumentInfo.HELP_ARGS).isEmpty()) {
+    printHelp(verifiers,argumentInfo);
+    return false;
+  }
+  Optional<? extends PositionalInfo<?>> positionalInfoOptional=argumentInfo.positionalInfo;
+  checkArgument(positionalInfoOptional.isPresent() || positionalArgs.isEmpty(),"Positional arguments have been supplied but there is no Arg annotated to received them.");
+  Iterable<? extends OptionInfo<?>> optionInfos=argumentInfo.optionInfos;
+  final Set<String> argsFailedToParse=Sets.newHashSet();
+  final Set<String> argsConstraintsFailed=Sets.newHashSet();
+  Iterable<String> argShortNames=Iterables.transform(optionInfos,GET_OPTIONINFO_NAME);
+  Set<String> argShortNamesNoCollisions=dropCollisions(argShortNames);
+  Set<String> collisionsDropped=Sets.difference(ImmutableSet.copyOf(argShortNames),argShortNamesNoCollisions);
+  if (!collisionsDropped.isEmpty()) {
+    LOG.warning("Found argument name collisions, args must be referenced by canonical names: " + collisionsDropped);
+  }
+  final Map<String,OptionInfo> argsByName=ImmutableMap.<String,OptionInfo>builder().putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,Predicates.compose(Predicates.in(argShortNamesNoCollisions),GET_OPTIONINFO_NAME)),GET_OPTIONINFO_NAME)).putAll(Maps.uniqueIndex(optionInfos,GET_CANONICAL_ARG_NAME)).putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,IS_BOOLEAN),GET_OPTIONINFO_NEGATED_NAME)).putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,IS_BOOLEAN),GET_CANONICAL_NEGATED_ARG_NAME)).build();
+  Set<String> recognizedArgs=Sets.intersection(argsByName.keySet(),args.keySet());
+  for (  String argName : recognizedArgs) {
+    String argValue=args.get(argName);
+    OptionInfo optionInfo=argsByName.get(argName);
+    try {
+      optionInfo.load(parserOracle,argName,argValue);
+    }
+ catch (    IllegalArgumentException e) {
+      argsFailedToParse.add(argName + " - " + e.getMessage());
+    }
+  }
+  if (positionalInfoOptional.isPresent()) {
+    PositionalInfo<?> positionalInfo=positionalInfoOptional.get();
+    positionalInfo.load(parserOracle,positionalArgs);
+  }
+  Set<String> commandLineArgumentInfos=Sets.newTreeSet();
+  Iterable<? extends ArgumentInfo<?>> allArguments=argumentInfo.optionInfos;
+  if (positionalInfoOptional.isPresent()) {
+    PositionalInfo<?> positionalInfo=positionalInfoOptional.get();
+    allArguments=Iterables.concat(optionInfos,ImmutableList.of(positionalInfo));
+  }
+  for (  ArgumentInfo<?> anArgumentInfo : allArguments) {
+    Arg<?> arg=anArgumentInfo.getArg();
+    commandLineArgumentInfos.add(String.format("%s (%s): %s",anArgumentInfo.getName(),anArgumentInfo.getCanonicalName(),arg.uncheckedGet()));
+    try {
+      anArgumentInfo.verify(verifiers);
+    }
+ catch (    IllegalArgumentException e) {
+      argsConstraintsFailed.add(anArgumentInfo.getName() + " - " + e.getMessage());
+    }
+  }
+  ImmutableMultimap<String,String> warningMessages=ImmutableMultimap.<String,String>builder().putAll("Unrecognized arguments",Sets.difference(args.keySet(),argsByName.keySet())).putAll("Failed to parse",argsFailedToParse).putAll("Value did not meet constraints",argsConstraintsFailed).build();
+  if (!warningMessages.isEmpty()) {
+    printHelp(verifiers,argumentInfo);
+    StringBuilder sb=new StringBuilder();
+    for (    Map.Entry<String,Collection<String>> warnings : warningMessages.asMap().entrySet()) {
+      sb.append(warnings.getKey()).append(":\n\t").append(Joiner.on("\n\t").join(warnings.getValue())).append("\n");
+    }
+    throw new IllegalArgumentException(sb.toString());
+  }
+  infoLog("-------------------------------------------------------------------------");
+  infoLog("Command line argument values");
+  for (  String commandLineArgumentInfo : commandLineArgumentInfos) {
+    infoLog(commandLineArgumentInfo);
+  }
+  infoLog("-------------------------------------------------------------------------");
+  return true;
+}

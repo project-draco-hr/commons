@@ -1,7 +1,7 @@
 def profile_classpath(profile, java_runner=None, config=None, ivy_jar=None, ivy_settings=None):
 
     def call_java(classpath, main, args):
-        runjava(classpath=classpath, main=main, args=args)
+        return runjava(classpath=classpath, main=main, args=args)
     java_runner = (java_runner or call_java)
     config = (config or Config.load())
     profile_dir = config.get('ivy-profiles', 'workdir')
@@ -12,7 +12,9 @@ def profile_classpath(profile, java_runner=None, config=None, ivy_jar=None, ivy_
         safe_mkdir(profile_libdir)
         ivy_settings = (ivy_settings or config.get('ivy', 'ivy_settings'))
         ivy_xml = os.path.join(profile_dir, ('%s.ivy.xml' % profile))
-        ivy_args = ['-settings', ivy_settings, '-ivy', ivy_xml, '-retrieve', ('%s/[artifact]-[revision](-[classifier]).[ext]' % profile_libdir), '-sync', '-symlink', '-types', 'jar', '-confs', 'default']
-        java_runner(classpath=ivy_classpath, main='org.apache.ivy.Main', args=ivy_args)
+        ivy_args = ['-settings', ivy_settings, '-ivy', ivy_xml, '-retrieve', ('%s/[artifact]-[revision](-[classifier]).[ext]' % profile_libdir), '-sync', '-symlink', '-types', 'jar', 'bundle', '-confs', 'default']
+        result = java_runner(classpath=ivy_classpath, main='org.apache.ivy.Main', args=ivy_args)
+        if (result != 0):
+            raise TaskError(('Failed to load profile %s, ivy exit code %d' % (profile, result)))
         touch(profile_check)
     return [os.path.join(profile_libdir, jar) for jar in os.listdir(profile_libdir)]

@@ -1,0 +1,10 @@
+@staticmethod
+def _stderr_options_callback(option, opt, value, parser):
+    if LogOptions.__log_to_stdout_is_set:
+        raise optparse.OptionValueError('--log_to_stdout is an obsolete flag that was replaced by --log_to_stderr. Use only --log_to_stderr.')
+    LogOptions.__log_to_stderr_is_set = True
+    try:
+        LogOptions.set_stderr_log_level(value)
+    except LogOptionsException as e:
+        raise optparse.OptionValueError(('Failed to parse option: %s' % e))
+    parser.values.twitter_common_log_stderr_log_level = value

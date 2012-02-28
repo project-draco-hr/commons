@@ -3,4 +3,4 @@ def _generate(self):
     pex = PexBuilder(env)
     pex_name = os.path.join(self.distdir, ('%s.pex' % self.target.name))
     pex.write(pex_name)
-    print ('Wrote %s' % pex_name)
+    print(('Wrote %s' % pex_name))

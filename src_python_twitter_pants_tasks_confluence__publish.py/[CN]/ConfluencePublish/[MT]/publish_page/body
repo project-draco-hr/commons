@@ -1,0 +1,15 @@
+def publish_page(self, wiki, space, title, content, parent=None):
+    body = (textwrap.dedent('\n    {html}\n    %s\n    {html}\n    ').strip() % content)
+    pageopts = dict(versionComment='updated by pants!')
+    existing = wiki.getpage(space, title)
+    if existing:
+        if ((not self.force) and (existing['content'].strip() == body.strip())):
+            self.context.log.warning(("Skipping publish of '%s' - no changes" % title))
+            return
+        pageopts['id'] = existing['id']
+        pageopts['version'] = existing['version']
+    try:
+        page = wiki.create(space, title, body, parent, **pageopts)
+        return page['url']
+    except ConfluenceError as e:
+        raise TaskError(('Failed to update confluence: %s' % e))

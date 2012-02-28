@@ -3,5 +3,6 @@ import copy
 import shutil
 import errno
 import tempfile
+import sys
 import zipfile
 from . import safe_mkdir

@@ -1,10 +1,13 @@
 @staticmethod
-def run_easy_install(arguments):
+def run_easy_install(pythonpath, arguments, interpreter):
     '\n      Run easy_install with the given arguments.\n    '
-    with environment_as(PYTHONPATH=':'.join(sys.path)):
-        with temporary_file() as fp:
-            rc = subprocess.Popen(([sys.executable, '-m', 'easy_install'] + arguments), stdout=fp, stderr=fp).wait()
-            if (rc != 0):
-                fp.seek(0)
-                print  >> sys.stderr, ('Failed to build!  %s' % fp.read())
-            return (rc == 0)
+    if (not isinstance(interpreter, PythonInterpreter)):
+        raise ValueError('Expected interpreter to be a PythonInterpreter!')
+    with temporary_file() as fp:
+        cmdline = ([interpreter.binary(), '-m', 'easy_install'] + arguments)
+        rc = subprocess.Popen(cmdline, env={'PYTHONPATH': ':'.join(pythonpath), }, stdout=fp, stderr=fp).wait()
+        if (rc != 0):
+            fp.seek(0)
+            print('Failed to build!', file=sys.stderr)
+            print(('Error output\n%s' % fp.read()), file=sys.stderr)
+        return (rc == 0)

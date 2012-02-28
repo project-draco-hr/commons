@@ -1,0 +1,3 @@
+{
+  return String.format("-%s%s%s\n\t%s\n\t(%s)",argumentInfo.getName(),defaultValue != null ? "=" + defaultValue : "",Iterables.isEmpty(constraints) ? "" : " [" + Joiner.on(", ").join(constraints) + "]",argumentInfo.getHelp(),argumentInfo.getCanonicalName());
+}

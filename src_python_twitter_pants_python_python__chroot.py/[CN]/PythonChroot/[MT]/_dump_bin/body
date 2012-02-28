@@ -1,4 +1,4 @@
 def _dump_bin(self, binary_name, base):
     src = os.path.join(self._root, base, binary_name)
-    print ('  Dumping binary: %s' % binary_name)
+    self.debug(('  Dumping binary: %s' % binary_name))
     self.env.set_executable(src, os.path.basename(src))

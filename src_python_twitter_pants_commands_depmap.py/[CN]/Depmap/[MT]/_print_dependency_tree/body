@@ -1,7 +1,7 @@
 def _print_dependency_tree(self, target):
 
     def print_dep(dep, indent):
-        print ('%s%s' % ((indent * '  '), dep))
+        print(('%s%s' % ((indent * '  '), dep)))
 
     def print_deps(printed, dep, indent=0):
         (dep_id, _) = self._dep_id(dep)

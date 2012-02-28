@@ -1,0 +1,2 @@
+def wiki(self):
+    raise NotImplementedError('Subclasses must provide the wiki target they are associated with')

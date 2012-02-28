@@ -1,5 +1,5 @@
 def scope(self, name):
-    if (not isinstance(name, basestring)):
+    if (not isinstance(name, Compatibility.string)):
         raise TypeError(('Scope names must be strings, got: %s' % type(name)))
     if (name not in self._children):
         self._children[name] = Metrics()

@@ -1,3 +1,5 @@
-def add(self, *from_specs):
-    self.filemap.update(((self.mapper(from_spec), from_spec) for from_spec in from_specs))
+def add(self, *filesets):
+    for fileset in filesets:
+        paths = (fileset() if isinstance(fileset, Fileset) else (fileset if hasattr(fileset, '__iter__') else [fileset]))
+        self.filemap.update(((self.mapper(path), path) for path in paths))
     return self

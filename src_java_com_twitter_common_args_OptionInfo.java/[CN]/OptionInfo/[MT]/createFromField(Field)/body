@@ -1,0 +1,9 @@
+{
+  Preconditions.checkNotNull(field);
+  CmdLine cmdLine=field.getAnnotation(CmdLine.class);
+  if (cmdLine == null) {
+    throw new Configuration.ConfigurationException("No @CmdLine Arg annotation for field " + field);
+  }
+  @SuppressWarnings("unchecked") OptionInfo optionInfo=new OptionInfo(checkValidName(cmdLine.name()),cmdLine.help(),ArgumentInfo.getArgForField(field),TypeUtil.getTypeParamTypeToken(field),field.getDeclaringClass().getCanonicalName(),Arrays.asList(field.getAnnotations()),cmdLine.parser());
+  return optionInfo;
+}

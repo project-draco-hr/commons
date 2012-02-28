@@ -1,0 +1,6 @@
+def teardown_stderr_logging():
+    root_logger = logging.getLogger()
+    global _STDERR_LOGGERS
+    for handler in _STDERR_LOGGERS:
+        root_logger.removeHandler(handler)
+    _STDERR_LOGGERS = []
