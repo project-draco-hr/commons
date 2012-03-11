@@ -1,4 +1,4 @@
-def compile(self, classpath, bases, sources):
+def compile(self, classpath, sources):
     safe_mkdir(self._output_dir)
     compiler_classpath = (self._compiler_classpath or nailgun_profile_classpath(self, self._compile_profile))
     self.ng('ng-cp', *compiler_classpath)
