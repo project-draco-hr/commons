@@ -1,14 +1,12 @@
 def calculate_sources(self, targets):
-    bases = set()
     sources = defaultdict(set)
 
     def collect_sources(target):
         src = (os.path.join(target.target_base, source) for source in target.sources if source.endswith('.scala'))
         if src:
-            bases.add(target.target_base)
             sources[target].update(src)
             if ((isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests)) and target.java_sources):
                 sources[target].update(resolve_target_sources(target.java_sources, '.java'))
     for target in targets:
         collect_sources(target)
-    return (bases, sources)
+    return sources
