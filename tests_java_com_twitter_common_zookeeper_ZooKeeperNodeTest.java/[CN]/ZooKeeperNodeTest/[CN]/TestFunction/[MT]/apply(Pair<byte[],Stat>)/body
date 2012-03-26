@@ -1,0 +1,4 @@
+{
+  this.stat=from.getSecond();
+  return new String(from.getFirst());
+}

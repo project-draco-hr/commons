@@ -1,0 +1,3 @@
+Function<Pair<byte[],Stat>,String> func
+String path
+Closure<String> listener

@@ -2,12 +2,16 @@
   String data1="testdata";
   zkClient.get().create(nodePath,data1.getBytes(),ACL,CreateMode.PERSISTENT);
   Listener<String> listener=new Listener<String>();
-  ZooKeeperNode<String> zkNode=makeNode(nodePath,listener);
+  TestFunction func=new TestFunction();
+  ZooKeeperNode<String> zkNode=makeNode(func,nodePath,listener);
   assertEquals(data1,listener.waitForUpdate());
+  assertNotNull(func.getStat());
+  assertEquals(0,func.getStat().getVersion());
   expireSession(zkClient);
   assertEquals(data1,listener.waitForUpdate());
   String data2="avewf";
   zkClient=createZkClient();
   zkClient.get().setData(nodePath,data2.getBytes(),-1);
   assertEquals(data2,listener.waitForUpdate());
+  assertEquals(1,func.getStat().getVersion());
 }

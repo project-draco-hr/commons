@@ -1,0 +1,5 @@
+{
+  ZooKeeperNode<String> zkNode=makeUninitializedNode(func,path,listener);
+  zkNode.init();
+  return zkNode;
+}

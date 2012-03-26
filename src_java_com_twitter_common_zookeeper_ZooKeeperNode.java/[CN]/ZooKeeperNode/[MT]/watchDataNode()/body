@@ -13,7 +13,9 @@
   }
 ;
   try {
-    T newData=deserializer.apply(zkClient.get().getData(nodePath,nodeWatcher,null));
+    Stat stat=new Stat();
+    byte[] rawData=zkClient.get().getData(nodePath,nodeWatcher,stat);
+    T newData=deserializer.apply(rawData,stat);
     updateData(newData);
   }
  catch (  KeeperException.NoNodeException e) {

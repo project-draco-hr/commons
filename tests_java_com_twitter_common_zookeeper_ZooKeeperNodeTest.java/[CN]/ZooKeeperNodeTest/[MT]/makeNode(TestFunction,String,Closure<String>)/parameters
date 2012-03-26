@@ -1,2 +1,3 @@
+TestFunction func
 String path
 Closure<String> listener

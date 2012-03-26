@@ -1,0 +1,3 @@
+ZooKeeperClient zkClient
+String nodePath
+Function<Pair<byte[],Stat>,T> deserializer

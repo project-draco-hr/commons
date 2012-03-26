@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(func);
+  this.func=func;
+}
