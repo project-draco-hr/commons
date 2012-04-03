@@ -1,3 +1,0 @@
-{
-  return func.apply(Pair.<byte[],Stat>of(rawData,stat));
-}

@@ -1,3 +1,0 @@
-{
-  return createWithStat(zkClient,nodePath,deserializer,Closures.<T>noop());
-}

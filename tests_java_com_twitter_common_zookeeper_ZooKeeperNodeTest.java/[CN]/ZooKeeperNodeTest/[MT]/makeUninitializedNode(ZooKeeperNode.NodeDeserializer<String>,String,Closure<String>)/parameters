@@ -1,0 +1,3 @@
+ZooKeeperNode.NodeDeserializer<String> deserializer
+String path
+Closure<String> listener

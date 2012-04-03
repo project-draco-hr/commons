@@ -1,3 +1,0 @@
-{
-  return new ZooKeeperNode<String>(zkClient,path,new ZooKeeperNode.FunctionWithPair<String>(func),listener);
-}

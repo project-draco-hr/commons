@@ -1,0 +1,4 @@
+{
+  this.stat=stat;
+  return new String(data);
+}

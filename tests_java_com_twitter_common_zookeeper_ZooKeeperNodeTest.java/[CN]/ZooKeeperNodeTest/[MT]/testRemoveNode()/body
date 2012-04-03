@@ -2,15 +2,15 @@
   String data="testdata";
   zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
   Listener<String> listener=new Listener<String>();
-  TestFunction func=new TestFunction();
-  ZooKeeperNode<String> zkNode=makeNode(func,nodePath,listener);
+  TestDeserializer deserializer=new TestDeserializer();
+  ZooKeeperNode<String> zkNode=makeNode(deserializer,nodePath,listener);
   assertEquals(data,listener.waitForUpdate());
-  assertNotNull(func.getStat());
-  assertEquals(0,func.getStat().getVersion());
+  assertNotNull(deserializer.getStat());
+  assertEquals(0,deserializer.getStat().getVersion());
   zkClient.get().delete(nodePath,-1);
   assertEquals(null,listener.waitForUpdate());
-  assertEquals(0,func.getStat().getVersion());
+  assertEquals(0,deserializer.getStat().getVersion());
   zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
   assertEquals(data,listener.waitForUpdate());
-  assertEquals(0,func.getStat().getVersion());
+  assertEquals(0,deserializer.getStat().getVersion());
 }
