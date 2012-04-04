@@ -1,0 +1,3 @@
+{
+  return create(zkClient,nodePath,deserializer,Closures.<T>noop());
+}

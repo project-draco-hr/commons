@@ -1,4 +1,4 @@
 ZooKeeperClient zkClient
 String nodePath
-Function<byte[],T> deserializer
+NodeDeserializer<T> deserializer
 Closure<T> dataUpdateListener

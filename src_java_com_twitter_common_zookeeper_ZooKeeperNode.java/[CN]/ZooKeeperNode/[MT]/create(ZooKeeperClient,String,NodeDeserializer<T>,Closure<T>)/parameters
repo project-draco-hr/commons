@@ -1,0 +1,4 @@
+ZooKeeperClient zkClient
+String nodePath
+NodeDeserializer<T> deserializer
+Closure<T> dataUpdateListener
