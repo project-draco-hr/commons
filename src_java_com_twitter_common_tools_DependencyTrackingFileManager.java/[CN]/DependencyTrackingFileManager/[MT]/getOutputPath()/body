@@ -1,0 +1,13 @@
+{
+  if (outputPath == null) {
+    List<String> components=new ArrayList<String>();
+    File f=getOutputDir();
+    while (f != null) {
+      components.add(f.getName());
+      f=f.getParentFile();
+    }
+    Collections.reverse(components);
+    outputPath=components;
+  }
+  return outputPath;
+}

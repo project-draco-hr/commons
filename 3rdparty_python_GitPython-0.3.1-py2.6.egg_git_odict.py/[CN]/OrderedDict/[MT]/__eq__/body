@@ -1,6 +1,0 @@
-def __eq__(self, other):
-    '\n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d == OrderedDict(d)\n        True\n        >>> d == OrderedDict(((1, 3), (2, 1), (3, 2)))\n        False\n        >>> d == OrderedDict(((1, 0), (3, 2), (2, 1)))\n        False\n        >>> d == OrderedDict(((0, 3), (3, 2), (2, 1)))\n        False\n        >>> d == dict(d)\n        False\n        >>> d == False\n        False\n        '
-    if isinstance(other, OrderedDict):
-        return (self.items() == other.items())
-    else:
-        return False

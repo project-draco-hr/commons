@@ -1,0 +1,13 @@
+{
+  int ordinal=input.readVInt();
+  if (ordinal > CURRENT_VERSION.ordinal()) {
+    throw new IOException("Version of serialized data is newer than the version this serializer" + "supports: " + ordinal + " > "+ CURRENT_VERSION.ordinal());
+  }
+  if (ordinal >= Version.VERSION_2.ordinal()) {
+    int fp=input.readInt();
+    if (fp != attributeSerializersFingerprint) {
+      throw new IOException("Attributes of serialized data are different than attributes of " + "this serializer: " + fp + " != "+ attributeSerializersFingerprint);
+    }
+  }
+  return Version.values()[ordinal];
+}

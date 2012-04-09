@@ -1,0 +1,35 @@
+{
+  List<DiagnosticFilter<? super FileObject>> filters=new ArrayList<DiagnosticFilter<? super FileObject>>();
+  List<String> pathPrefixes=new ArrayList<String>();
+  List<Pattern> messageRegexes=new ArrayList<Pattern>();
+  for (Iterator<String> iter=Arrays.asList(args).iterator(); iter.hasNext(); ) {
+    String arg=iter.next();
+    if (DEPENDENCYFILE_FLAG.equals(arg)) {
+      parseDependencyFile(iter);
+    }
+ else     if (COLOR_FLAG.equals(arg)) {
+      color=true;
+    }
+ else     if (WARN_IGNORE_PATH_PREFIXES.equals(arg)) {
+      pathPrefixes.addAll(parsePrefixes(iter));
+    }
+ else     if (WARN_IGNORE_MESSAGE_REGEX.equals(arg)) {
+      messageRegexes.add(parseRegex(iter));
+    }
+ else     if (arg.startsWith("-")) {
+      parsePassThroughOption(arg,iter);
+    }
+ else {
+      compilationUnits.add(arg);
+    }
+  }
+  if (!pathPrefixes.isEmpty()) {
+    filters.add(DiagnosticFilters.guarded(DiagnosticFilters.ignorePathPrefixes(pathPrefixes),IS_WARNING));
+  }
+  if (!messageRegexes.isEmpty()) {
+    filters.add(DiagnosticFilters.guarded(DiagnosticFilters.ignoreMessagesMatching(messageRegexes),IS_WARNING));
+  }
+  if (!filters.isEmpty()) {
+    diagnosticListener.setFilter(DiagnosticFilters.combine(filters));
+  }
+}

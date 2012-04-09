@@ -1,3 +1,0 @@
-def delete_remote(self, remote):
-    'Delete the given remote.'
-    return Remote.remove(self, remote)

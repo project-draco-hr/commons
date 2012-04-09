@@ -1,2 +1,2 @@
 def __init__(self, get_db):
-    self.get_db = get_db
+    super(PomWriter, self).__init__(get_db, os.path.join('jar_publish', 'pom.mk'))

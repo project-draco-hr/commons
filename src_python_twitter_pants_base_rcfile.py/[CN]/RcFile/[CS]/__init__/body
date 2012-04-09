@@ -1,0 +1,9 @@
+def __init__(self, paths, default_prepend=True, process_default=False):
+    "\n      Creates an RcFile object that gives precedence to rcfiles that come last in the given\n      sequence of paths.  The effect is as if each rcfile in paths overlays the next in a walk from\n      left to right.\n\n      :paths The rcfiles to apply default subcommand options from.\n      :default_prepend Whether to prepend (the default) or append if default options are specified\n                       with the 'options' key.\n      :process_default True to process options in the [DEFAULT] section and apply regardless of\n                       goal.\n    "
+    self.default_prepend = default_prepend
+    self.process_default = process_default
+    if (not paths):
+        raise ValueError('One or more rcfile paths must be specified')
+    if isinstance(paths, Compatibility.string):
+        paths = [paths]
+    self.paths = [os.path.expanduser(path) for path in paths]

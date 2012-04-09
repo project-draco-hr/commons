@@ -1,0 +1,2 @@
+def _reinit(self):
+    self._finder = PackageFinder(self._repositories, self._indices, use_mirrors=self._use_mirrors)

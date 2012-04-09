@@ -1,4 +1,3 @@
 {
-  Stats.flush();
   control.verify();
 }

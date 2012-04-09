@@ -1,4 +1,0 @@
-def commit(self, message, parent_commits=None, head=True):
-    "Commit the current default index file, creating a commit object.\n\n\t\tFor more information on the arguments, see tree.commit.\n\t\t:note:\n\t\t\tIf you have manually altered the .entries member of this instance,\n\t\t\tdon't forget to write() your changes to disk beforehand.\n\n\t\t:return:\n\t\t\tCommit object representing the new commit"
-    tree = self.write_tree()
-    return Commit.create_from_tree(self.repo, tree, message, parent_commits, head)

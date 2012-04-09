@@ -1,0 +1,4 @@
+boolean failFast
+boolean suppressOutput
+boolean xmlReport
+File outdir

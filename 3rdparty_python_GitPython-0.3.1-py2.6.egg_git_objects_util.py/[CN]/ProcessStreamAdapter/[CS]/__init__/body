@@ -1,3 +1,0 @@
-def __init__(self, process, stream_name):
-    self._proc = process
-    self._stream = getattr(process, stream_name)

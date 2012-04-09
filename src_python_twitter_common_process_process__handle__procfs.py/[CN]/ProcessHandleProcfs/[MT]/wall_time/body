@@ -1,3 +1,2 @@
 def wall_time(self):
-    '\n      wall_time that this application has been running\n    '
     return self.get('starttime')

@@ -1,4 +1,0 @@
-@classmethod
-def setUpAll(cls):
-    '\n\t\tDynamically add a read-only repository to our actual type. This way \n\t\teach test type has its own repository\n\t\t'
-    cls.rorepo = Repo(GIT_REPO)

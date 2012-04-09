@@ -1,5 +1,0 @@
-def clear_cache(self):
-    'Clear all kinds of internal caches to release resources.\n\t\t\n\t\tCurrently persistent commands will be interrupted.\n\t\t\n\t\t:return: self'
-    self.cat_file_all = None
-    self.cat_file_header = None
-    return self

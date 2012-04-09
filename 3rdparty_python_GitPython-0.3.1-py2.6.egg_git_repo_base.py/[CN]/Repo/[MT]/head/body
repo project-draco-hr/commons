@@ -1,4 +1,0 @@
-@property
-def head(self):
-    ':return: HEAD Object pointing to the current head reference'
-    return HEAD(self, 'HEAD')

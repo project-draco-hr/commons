@@ -1,4 +1,0 @@
-def __getattr__(self, attr):
-    if (attr in self._valid_attrs_):
-        return (lambda *args, **kwargs: self._call_config(attr, *args, **kwargs))
-    return super(SectionConstraint, self).__getattribute__(attr)

@@ -1,0 +1,3 @@
+def die(self, msg=None):
+    '\n    Cleanly exits the program with an error message. Erases all remaining\n    temporary files.\n    '
+    raise Exception(msg)

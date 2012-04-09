@@ -1,2 +1,0 @@
-def __init__(self, glob, env):
-    Exception.__init__(self, ('Egg description (%s) matches multiple distributions: %s' % (glob, ' '.join((pkg for pkg in env)))))

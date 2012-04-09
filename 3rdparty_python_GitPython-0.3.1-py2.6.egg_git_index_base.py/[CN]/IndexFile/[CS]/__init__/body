@@ -1,6 +1,0 @@
-def __init__(self, repo, file_path=None):
-    "Initialize this Index instance, optionally from the given ``file_path``.\n\t\tIf no file_path is given, we will be created from the current index file.\n\n\t\tIf a stream is not given, the stream will be initialized from the current\n\t\trepository's index on demand."
-    self.repo = repo
-    self.version = self._VERSION
-    self._extension_data = ''
-    self._file_path = (file_path or self._index_path())

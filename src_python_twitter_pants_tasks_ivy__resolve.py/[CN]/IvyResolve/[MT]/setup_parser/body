@@ -1,5 +1,6 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
+    NailgunTask.setup_parser(option_group, args, mkflag)
     flag = mkflag('override')
     option_group.add_option(flag, action='append', dest='ivy_resolve_overrides', help=('Specifies a jar dependency override in the form:\n                            [org]#[name]=(revision|url)\n\n                            For example, to specify 2 overrides:\n                            %(flag)s=com.foo#bar=0.1.2 \\\n                            %(flag)s=com.baz#spam=file:///tmp/spam.jar\n                            ' % dict(flag=flag)))
     report = mkflag('report')

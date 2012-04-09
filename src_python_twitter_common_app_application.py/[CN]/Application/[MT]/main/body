@@ -7,7 +7,14 @@ def main(self):
         print('Unable to import twitter app modules!', file=sys.stderr)
         sys.exit(1)
     self.init()
-    self._commands[None] = Inspection.find_main_from_caller()
+    try:
+        caller_main = Inspection.find_main_from_caller()
+    except Inspection.InternalError:
+        caller_main = None
+    if (None in self._commands):
+        assert (caller_main is None), 'Error: Cannot define both main and a default command.'
+    else:
+        self._commands[None] = caller_main
     main_method = self._commands[self._command]
     if (main_method is None):
         commands = sorted(self.get_commands())

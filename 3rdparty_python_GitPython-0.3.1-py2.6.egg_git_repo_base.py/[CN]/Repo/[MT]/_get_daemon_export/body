@@ -1,3 +1,0 @@
-def _get_daemon_export(self):
-    filename = join(self.git_dir, self.DAEMON_EXPORT_FILE)
-    return os.path.exists(filename)

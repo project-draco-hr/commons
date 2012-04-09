@@ -1,5 +1,5 @@
-def __init__(self, configpath, defaults):
-    self.config = ConfigParser.SafeConfigParser(defaults)
+def __init__(self, configparser, configpath):
+    self.configparser = configparser
     with open(configpath) as ini:
-        self.config.readfp(ini, filename=configpath)
+        self.configparser.readfp(ini, filename=configpath)
     self.file = configpath

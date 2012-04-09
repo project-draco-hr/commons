@@ -1,3 +1,4 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
+    NailgunTask.setup_parser(option_group, args, mkflag)
     option_group.add_option(mkflag('skip'), mkflag('skip', negate=True), dest='checkstyle_skip', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Skip checkstyle.')

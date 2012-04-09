@@ -1,9 +1,0 @@
-@staticmethod
-def synthesize_thread_stacks():
-    threads = dict([(th.ident, th) for th in threading.enumerate()])
-    ostr = StringIO()
-    if ((len(sys._current_frames()) > 1) or (sys._current_frames().values()[0] != inspect.currentframe())):
-        ostr.write('\nAll threads:\n')
-        for (thread_id, stack) in sys._current_frames().items():
-            AppExceptionHandler.print_stack(thread_id, threads[thread_id], stack, ostr, indent=2)
-    return ostr.getvalue()

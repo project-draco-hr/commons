@@ -1,0 +1,10 @@
+{
+  Diagnostic<FileObject> a=expectDiagnosticMessage("fred jake*");
+  Diagnostic<FileObject> b=expectDiagnosticMessage("*fred jake");
+  Diagnostic<FileObject> c=expectDiagnosticMessage("*fred jake*");
+  control.replay();
+  DiagnosticFilter<FileObject> filter=DiagnosticFilters.ignoreMessagesMatching(ImmutableList.of(Pattern.compile("^fred.*"),Pattern.compile(".*jake$")));
+  assertEquals(Treatment.IGNORE,filter.categorize(a));
+  assertEquals(Treatment.IGNORE,filter.categorize(b));
+  assertEquals(Treatment.PASS,filter.categorize(c));
+}

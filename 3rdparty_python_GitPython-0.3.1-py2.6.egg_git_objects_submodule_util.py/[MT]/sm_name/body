@@ -1,4 +1,0 @@
-def sm_name(section):
-    ':return: name of the submodule as parsed from the section name'
-    section = section.strip()
-    return section[11:(-1)]

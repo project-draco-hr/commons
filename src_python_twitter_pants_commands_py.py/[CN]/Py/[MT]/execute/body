@@ -1,13 +1,17 @@
 def execute(self):
     print(('Build operating on target: %s %s' % (self.target, (('Extra targets: %s' % ' '.join(map(str, self.extra_targets))) if self.extra_targets else ''))))
+    if self.options.resolve:
+        executor = PythonResolver(self.target, self.root_dir, extra_targets=self.extra_targets)
+        executor.dump()
+        return 0
     executor = PythonChroot(self.target, self.root_dir, extra_targets=self.extra_targets)
+    builder = executor.dump()
     if self.options.pex:
         pex_name = os.path.join(self.root_dir, 'dist', ('%s.pex' % self.target.name))
-        PexBuilder(executor.dump()).write(pex_name)
+        builder.build(pex_name)
         print(('Wrote %s' % pex_name))
+        return 0
     else:
-        launcher = PythonLauncher(executor.dump().path())
-        binary = None
-        if isinstance(self.target, PythonBinary):
-            binary = executor.path()
-        launcher.run(binary=binary, args=list(self.args))
+        builder.freeze()
+        pex = PEX(builder.path())
+        return pex.run(args=list(self.args))

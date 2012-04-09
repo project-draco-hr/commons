@@ -1,0 +1,2 @@
+def _is_jar(self, path):
+    return path.endswith('.jar')

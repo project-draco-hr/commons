@@ -1,3 +1,0 @@
-def __hash__(self):
-    'Hash this instance using its logical id, not the sha'
-    return hash(self._name)

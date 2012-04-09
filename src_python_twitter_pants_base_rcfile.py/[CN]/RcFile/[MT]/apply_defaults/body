@@ -1,0 +1,22 @@
+def apply_defaults(self, commands, args):
+    "\n      Augments the given list of arguments with any default options found for the given commands.\n      The returned argments will be a new copy of the given args with possibly extra augmented\n      arguments.\n\n      Default options are applied from the following keys under a section with the name of the\n      subcommand the default options apply to:\n      'options': These options are either prepended or appended to the command line args as\n                 specified in the constructor with default_prepend.\n      'prepend-options': These options are prepended to the command line args.\n      'append-options': These options are appended to the command line args.\n    "
+    args = args[:]
+    if (RcFile._DISABLE_PANTS_RC_OPTION in args):
+        return args
+    config = Config.create_parser()
+    read_from = config.read(self.paths)
+    if (not read_from):
+        log.debug('no rcfile found')
+        return args
+    log.debug(('using rcfiles: %s to modify args' % ','.join(read_from)))
+
+    def get_rcopts(command, key):
+        return (config.get(command, key).split() if config.has_option(command, key) else [])
+    commands = list(commands)
+    if self.process_default:
+        commands.insert(0, Config.DEFAULT_SECTION)
+    for cmd in commands:
+        opts = get_rcopts(cmd, 'options')
+        args = ((opts + args) if self.default_prepend else (args + opts))
+        args = ((get_rcopts(cmd, 'prepend-options') + args) + get_rcopts(cmd, 'append-options'))
+    return args

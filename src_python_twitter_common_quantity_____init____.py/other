@@ -1,4 +1,6 @@
+__author__ = 'Brian Wickman'
 from numbers import Integral
+from twitter.common.lang import total_ordering
 Time.NANOSECONDS = Time(1, 1, 'ns')
 Time.MICROSECONDS = Time(1000, Time.NANOSECONDS, 'us')
 Time.MILLISECONDS = Time(1000, Time.MICROSECONDS, 'ms')

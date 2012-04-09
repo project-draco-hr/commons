@@ -1,4 +1,0 @@
-@classmethod
-def committer(cls, config_reader=None):
-    '\n\t\t:return: Actor instance corresponding to the configured committer. It behaves\n\t\t\tsimilar to the git implementation, such that the environment will override \n\t\t\tconfiguration values of config_reader. If no value is set at all, it will be\n\t\t\tgenerated\n\t\t:param config_reader: ConfigReader to use to retrieve the values from in case\n\t\t\tthey are not set in the environment'
-    return cls._main_actor(cls.env_committer_name, cls.env_committer_email, config_reader)

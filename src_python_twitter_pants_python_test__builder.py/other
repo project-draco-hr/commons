@@ -1,8 +1,17 @@
-import os
+from __future__ import print_function
+__author__ = 'Brian Wickman'
 import errno
-import pkg_resources
+import os
+import time
+import signal
+import subprocess
+import sys
 from twitter.common.collections import OrderedSet
-from twitter.common.python import PythonLauncher
-from twitter.pants.base import Target, Address
+from twitter.common.lang import Compatibility
+from twitter.common.quantity import Amount, Time
+from twitter.common.python.pex import PEX
+from twitter.common.python.pex_builder import PEXBuilder
+from twitter.pants.base import Target, Address, ParseContext
 from twitter.pants.python.python_chroot import PythonChroot
-from twitter.pants.targets import PythonTests, PythonTestSuite, PythonEgg
+from twitter.pants.targets import PythonTests, PythonTestSuite, PythonRequirement
+from twitter.pants.goal.context import Context as FakeContext

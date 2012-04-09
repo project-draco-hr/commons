@@ -1,8 +1,0 @@
-@classmethod
-def delete(cls, repo, *heads, **kwargs):
-    'Delete the given heads\n\t\t:param force:\n\t\t\tIf True, the heads will be deleted even if they are not yet merged into\n\t\t\tthe main development stream.\n\t\t\tDefault False'
-    force = kwargs.get('force', False)
-    flag = '-d'
-    if force:
-        flag = '-D'
-    repo.git.branch(flag, *heads)

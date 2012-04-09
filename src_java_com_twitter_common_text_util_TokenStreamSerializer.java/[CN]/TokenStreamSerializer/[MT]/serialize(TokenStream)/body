@@ -15,6 +15,7 @@
   baos=new ByteArrayOutputStream(8 + data.length);
   output=new AttributeOutputStream(baos);
   output.writeVInt(CURRENT_VERSION.ordinal());
+  output.writeInt(attributeSerializersFingerprint);
   output.writeVInt(numTokens);
   output.write(data);
   output.flush();

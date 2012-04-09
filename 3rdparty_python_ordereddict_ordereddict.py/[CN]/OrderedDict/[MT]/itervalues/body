@@ -1,4 +1,0 @@
-def itervalues(self):
-    'od.itervalues -> an iterator over the values in od'
-    for k in self:
-        yield self[k]

@@ -2,7 +2,9 @@
 def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('dryrun'), mkflag('dryrun', negate=True), dest='jar_publish_dryrun', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Runs through a push without actually pushing artifacts, editing publish dbs or otherwise writing data')
     option_group.add_option(mkflag('commit', negate=True), dest='jar_publish_commit', default=True, action='callback', callback=mkflag.set_bool, help='Turns off commits of the push db for local testing.')
-    option_group.add_option(mkflag('repo-prefix'), dest='jar_publish_repo_prefix', help='Prefix provided jars repo names with this string - useful for swapping out a set of standard repos for another.')
+    local_flag = mkflag('local')
+    option_group.add_option(local_flag, dest='jar_publish_local', help='Publishes jars to a maven repository on the local filesystem at the specified path.')
+    option_group.add_option(mkflag('local-snapshot'), mkflag('local-snapshot', negate=True), dest='jar_publish_local_snapshot', default=True, action='callback', callback=mkflag.set_bool, help=("[%%default] If %s is specified, publishes jars with '-SNAPSHOT' revisions." % local_flag))
     option_group.add_option(mkflag('transitive'), mkflag('transitive', negate=True), dest='jar_publish_transitive', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Publishes the specified targets and all their internal dependencies transitively.')
     option_group.add_option(mkflag('force'), mkflag('force', negate=True), dest='jar_publish_force', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Forces pushing jars even if there have been no changes since the last push.')
     flag = mkflag('override')

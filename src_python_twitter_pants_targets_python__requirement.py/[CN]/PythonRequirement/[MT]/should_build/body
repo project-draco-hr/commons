@@ -1,0 +1,2 @@
+def should_build(self):
+    return self._version_filter()

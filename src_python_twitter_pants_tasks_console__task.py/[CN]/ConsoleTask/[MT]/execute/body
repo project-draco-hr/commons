@@ -1,0 +1,2 @@
+def execute(self, targets):
+    print(sep=self.console_separator, end=self.console_separator, *self.console_output(targets))

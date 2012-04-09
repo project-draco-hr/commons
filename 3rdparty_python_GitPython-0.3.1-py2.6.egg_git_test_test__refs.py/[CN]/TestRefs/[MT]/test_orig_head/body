@@ -1,2 +1,0 @@
-def test_orig_head(self):
-    assert (type(self.rorepo.head.orig_head()) == SymbolicReference)

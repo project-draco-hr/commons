@@ -1,0 +1,9 @@
+@classmethod
+@contextlib.contextmanager
+def _log_nested(cls, msg, at_level=1):
+    cls._log(msg, at_level)
+    with EggZipImporter._LOG_LOCK:
+        EggZipImporter._LOG_INDENT += 2
+    yield
+    with EggZipImporter._LOG_LOCK:
+        EggZipImporter._LOG_INDENT -= 2

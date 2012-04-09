@@ -1,3 +1,0 @@
-def join_path_native(a, *p):
-    "\n\tAs join path, but makes sure an OS native path is returned. This is only \n\t\tneeded to play it safe on my dear windows and to assure nice paths that only \n\t\tuse ''"
-    return to_native_path(join_path(a, *p))

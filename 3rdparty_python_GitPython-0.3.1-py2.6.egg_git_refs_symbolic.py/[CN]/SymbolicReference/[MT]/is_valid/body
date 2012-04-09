@@ -1,8 +1,0 @@
-def is_valid(self):
-    '\n\t\t:return:\n\t\t\tTrue if the reference is valid, hence it can be read and points to \n\t\t\ta valid object or reference.'
-    try:
-        self.object
-    except (OSError, ValueError):
-        return False
-    else:
-        return True

@@ -1,6 +1,0 @@
-def __init__(self, size, stream):
-    self._stream = stream
-    self._size = size
-    self._nbr = 0
-    if (size == 0):
-        stream.read(1)

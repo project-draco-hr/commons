@@ -1,5 +1,5 @@
 @staticmethod
-def handle_elapsed(key, value):
+def handle_elapsed(_, value):
     seconds = 0
     unpack = value.split('-')
     if (len(unpack) == 2):

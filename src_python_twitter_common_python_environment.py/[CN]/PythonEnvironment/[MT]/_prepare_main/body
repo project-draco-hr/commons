@@ -1,2 +1,0 @@
-def _prepare_main(self):
-    self._chroot.write(self.MAIN, '__main__.py', label='main')

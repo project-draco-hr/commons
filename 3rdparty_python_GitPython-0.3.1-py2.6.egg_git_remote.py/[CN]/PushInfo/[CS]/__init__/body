@@ -1,8 +1,0 @@
-def __init__(self, flags, local_ref, remote_ref_string, remote, old_commit=None, summary=''):
-    ' Initialize a new instance '
-    self.flags = flags
-    self.local_ref = local_ref
-    self.remote_ref_string = remote_ref_string
-    self._remote = remote
-    self.old_commit = old_commit
-    self.summary = summary

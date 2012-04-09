@@ -1,0 +1,14 @@
+{
+  return new DiagnosticFilter<S>(){
+    @Override public Treatment categorize(    Diagnostic<? extends S> diagnostic){
+      for (      DiagnosticFilter<? super S> filter : filters) {
+        Treatment treatment=filter.categorize(diagnostic);
+        if (Treatment.PASS != treatment) {
+          return treatment;
+        }
+      }
+      return STRAIGHT_MAPPING.categorize(diagnostic);
+    }
+  }
+;
+}

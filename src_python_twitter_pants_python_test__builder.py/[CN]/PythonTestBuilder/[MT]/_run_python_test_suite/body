@@ -12,8 +12,8 @@ def _run_python_test_suite(self, target, fail_hard=True):
     failed = False
     for test in tests:
         rv = self._run_python_test(test)
-        if (rv != 0):
+        if (not rv.success):
             failed = True
             if fail_hard:
                 return rv
-    return (1 if failed else 0)
+    return PythonTestResult.rc((1 if failed else 0))

@@ -1,0 +1,22 @@
+{
+  int messageLength=BASE_MESSAGE_LENGTH + 2 + record.getMessage().length();
+  if (record.getSourceClassName() != null) {
+    messageLength+=record.getSourceClassName().length();
+    if (record.getSourceMethodName() != null) {
+      messageLength+=1;
+      messageLength+=record.getSourceMethodName().length();
+    }
+  }
+  StringBuilder sb=new StringBuilder(messageLength).append(LEVEL_LABELS.getUnchecked(record.getLevel())).append(DATE_TIME_FORMATTER.print(record.getMillis())).append(" THREAD").append(record.getThreadID());
+  if (record.getSourceClassName() != null) {
+    sb.append(' ').append(record.getSourceClassName());
+    if (record.getSourceMethodName() != null) {
+      sb.append('.').append(record.getSourceMethodName());
+    }
+  }
+  sb.append(": ").append(formatMessage(record));
+  if (record.getThrown() != null) {
+    sb.append('\n').append(Throwables.getStackTraceAsString(record.getThrown()));
+  }
+  return sb.append('\n').toString();
+}

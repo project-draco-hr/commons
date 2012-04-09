@@ -1,4 +1,0 @@
-@property
-def abspath(self):
-    "\n\t\t:return:\n\t\t\tAbsolute path to this index object in the file system ( as opposed to the \n\t\t\t.path field which is a path relative to the git repository ).\n\t\t\t\n\t\t\tThe returned path will be native to the system and contains '' on windows. "
-    return join_path_native(self.repo.working_tree_dir, self.path)

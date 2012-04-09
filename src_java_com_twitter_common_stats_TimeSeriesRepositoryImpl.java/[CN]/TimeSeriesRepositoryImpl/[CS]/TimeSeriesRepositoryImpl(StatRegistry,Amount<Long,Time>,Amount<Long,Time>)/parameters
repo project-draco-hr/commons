@@ -1,0 +1,3 @@
+StatRegistry statRegistry
+Amount<Long,Time> samplePeriod
+Amount<Long,Time> retentionPeriod

@@ -1,6 +1,0 @@
-def __call__(self, stage_blob):
-    path = stage_blob[1].path
-    for p in self.paths:
-        if path.startswith(p):
-            return True
-    return False

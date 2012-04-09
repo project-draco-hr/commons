@@ -5,12 +5,14 @@ import sys
 import time
 import traceback
 from contextlib import contextmanager
-from copy import copy
+from optparse import Option, OptionParser
 from twitter.common import log
-from twitter.common.lang import Compatibility
+from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_rmtree
+from twitter.common.lang import Compatibility
 from twitter.pants import get_buildroot, goal, group, is_apt, is_scala
 from twitter.pants.base import Address, BuildFile, Config, ParseContext, Target
+from twitter.pants.base.rcfile import RcFile
 from twitter.pants.commands import Command
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.goal import Context, GoalError, Phase
@@ -21,6 +23,7 @@ from twitter.pants.targets import JavaLibrary, JavaTests
 from twitter.pants.tasks.binary_create import BinaryCreate
 from twitter.pants.tasks.bundle_create import BundleCreate
 from twitter.pants.tasks.checkstyle import Checkstyle
+from twitter.pants.tasks.filedeps import FileDeps
 from twitter.pants.tasks.ivy_resolve import IvyResolve
 from twitter.pants.tasks.jar_create import JarCreate
 from twitter.pants.tasks.jar_publish import JarPublish
@@ -30,6 +33,7 @@ from twitter.pants.tasks.junit_run import JUnitRun
 from twitter.pants.tasks.jvm_run import JvmRun
 from twitter.pants.tasks.markdown_to_html import MarkdownToHtml
 from twitter.pants.tasks.nailgun_task import NailgunTask
+from twitter.pants.tasks.pathdeps import PathDeps
 from twitter.pants.tasks.protobuf_gen import ProtobufGen
 from twitter.pants.tasks.scala_compile import ScalaCompile
 from twitter.pants.tasks.scala_repl import ScalaRepl
@@ -69,7 +73,13 @@ goal(name='junit', action=JUnitRun, dependencies=['compile']).install('test').wi
 goal(name='specs', action=SpecsRun, dependencies=['compile']).install('test')
 goal(name='binary', action=BinaryCreate, dependencies=['jar']).install().with_description('Create a jvm binary jar.')
 goal(name='bundle', action=BundleCreate, dependencies=['binary']).install().with_description('Create an application bundle from binary targets.')
-goal(name='jvm-run', action=JvmRun, dependencies=['resolve', 'compile']).install('run').with_description('Run a (currently JVM only) binary target.')
-goal(name='scala-repl', action=ScalaRepl, dependencies=['resolve', 'compile']).install('repl').with_description('Run a (currently Scala only) REPL with the classpath set according to the targets.')
+goal(name='jvm-run', action=JvmRun, dependencies=['compile']).install('run').with_description('Run a (currently JVM only) binary target.')
+goal(name='scala-repl', action=ScalaRepl, dependencies=['compile']).install('repl').with_description('Run a (currently Scala only) REPL with the classpath set according to the targets.')
+goal(name='filedeps', action=FileDeps).install('filedeps').with_description('Print out a list of all files the target depends on')
+goal(name='pathdeps', action=PathDeps).install('pathdeps').with_description('Print out a list of all paths containing build files the target depends on')
+from twitter.pants.tasks.idea_gen import IdeaGen
+goal(name='idea', action=IdeaGen, dependencies=['jar']).install().with_description('Create an IntelliJ IDEA project from the given targets.')
+from twitter.pants.tasks.eclipse_gen import EclipseGen
+goal(name='eclipse', action=EclipseGen, dependencies=['jar']).install().with_description('Create an Eclipse project from the given targets.')
 from twitter.pants.tasks.python.setup import SetupPythonEnvironment
 goal(name='python-setup', action=SetupPythonEnvironment).install('setup').with_description("Setup the target's build environment.")

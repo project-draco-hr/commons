@@ -1,0 +1,54 @@
+def post_review(self, changenum, diff_content=None, parent_diff_content=None, submit_as=None, target_groups=None, target_people=None, summary=None, branch=None, bugs_closed=None, description=None, testing_done=None, rid=None, publish=True):
+    '\n    Attempts to create a review request on a Review Board server\n    and upload a diff. On success, the review request path is displayed.\n    '
+    try:
+        save_draft = False
+        if rid:
+            review_request = self.get_review_request(rid)
+        else:
+            review_request = self.new_review_request(changenum, submit_as)
+        if target_groups:
+            self.set_review_request_field(review_request, 'target_groups', target_groups)
+            save_draft = True
+        if target_people:
+            self.set_review_request_field(review_request, 'target_people', target_people)
+            save_draft = True
+        if summary:
+            self.set_review_request_field(review_request, 'summary', summary)
+            save_draft = True
+        if branch:
+            self.set_review_request_field(review_request, 'branch', branch)
+            save_draft = True
+        if bugs_closed:
+            self.set_review_request_field(review_request, 'bugs_closed', bugs_closed)
+            save_draft = True
+        if description:
+            self.set_review_request_field(review_request, 'description', description)
+            save_draft = True
+        if testing_done:
+            self.set_review_request_field(review_request, 'testing_done', testing_done)
+            save_draft = True
+        if save_draft:
+            self.save_draft(review_request)
+    except APIError as e:
+        (rsp,) = e.args
+        if rid:
+            return self.die(('Error getting review request %s: %s (code %s)' % (rid, rsp['err']['msg'], rsp['err']['code'])))
+        else:
+            return self.die(('Error creating review request: %s (code %s)' % (rsp['err']['msg'], rsp['err']['code'])))
+    if (not self.info.supports_changesets):
+        try:
+            self.upload_diff(review_request, diff_content, parent_diff_content)
+        except APIError as e:
+            (rsp,) = e.args
+            print(('Error uploading diff: %s (%s)' % (rsp['err']['msg'], rsp['err']['code'])))
+            self.debug(rsp)
+            self.die('Your review request still exists, but the diff is not attached.')
+    if publish:
+        self.publish(review_request)
+    request_url = ('r/' + str(review_request['id']))
+    review_url = urljoin(self.url, request_url)
+    if (not review_url.startswith('http')):
+        review_url = ('http://%s' % review_url)
+    sys.stderr.write(('Review request #%s posted.\n' % review_request['id']))
+    sys.stderr.write(('\n%s\n' % review_url))
+    return 1

@@ -1,2 +1,0 @@
-def extend(self, other):
-    raise TypeError("Can't extend keys")

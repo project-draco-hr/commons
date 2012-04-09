@@ -1,4 +1,0 @@
-@classmethod
-def _get_intermediate_items(cls, item):
-    '\n\t\tReturns:\n\t\t\tList of items connected to the given item.\n\t\t\tMust be implemented in subclass\n\t\t'
-    raise NotImplementedError('To be implemented in subclass')

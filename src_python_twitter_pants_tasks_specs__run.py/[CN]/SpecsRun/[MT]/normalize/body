@@ -1,5 +1,0 @@
-def normalize(self, classname_or_file):
-    if (not classname_or_file.endswith('.scala')):
-        return classname_or_file
-    basedir = calculate_basedir(classname_or_file)
-    return os.path.relpath(classname_or_file, basedir).replace('/', '.').replace('.scala', '')

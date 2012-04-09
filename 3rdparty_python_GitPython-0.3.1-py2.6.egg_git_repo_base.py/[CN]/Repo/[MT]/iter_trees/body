@@ -1,3 +1,0 @@
-def iter_trees(self, *args, **kwargs):
-    ':return: Iterator yielding Tree objects\n\t\t:note: Takes all arguments known to iter_commits method'
-    return (c.tree for c in self.iter_commits(*args, **kwargs))

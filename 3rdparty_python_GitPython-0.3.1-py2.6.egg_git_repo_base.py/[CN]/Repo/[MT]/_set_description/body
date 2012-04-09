@@ -1,3 +1,0 @@
-def _set_description(self, descr):
-    filename = join(self.git_dir, 'description')
-    file(filename, 'w').write((descr + '\n'))

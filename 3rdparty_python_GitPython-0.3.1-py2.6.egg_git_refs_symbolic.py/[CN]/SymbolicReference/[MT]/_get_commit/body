@@ -1,8 +1,0 @@
-def _get_commit(self):
-    '\n\t\t:return:\n\t\t\tCommit object we point to, works for detached and non-detached \n\t\t\tSymbolicReferences. The symbolic reference will be dereferenced recursively.'
-    obj = self._get_object()
-    if (obj.type == 'tag'):
-        obj = obj.object
-    if (obj.type != Commit.type):
-        raise TypeError(('Symbolic Reference pointed to object %r, commit was required' % obj))
-    return obj

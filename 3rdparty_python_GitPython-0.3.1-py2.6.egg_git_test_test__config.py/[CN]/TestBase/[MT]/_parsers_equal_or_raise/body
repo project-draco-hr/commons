@@ -1,2 +1,0 @@
-def _parsers_equal_or_raise(self, lhs, rhs):
-    pass

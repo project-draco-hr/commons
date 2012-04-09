@@ -1,5 +1,6 @@
 import pkgutil
 import pytest
+import sys
 from twitter.common.java.class_file import ClassFile
 import unittest2 as unittest
 _EXAMPLE_RESOURCE = 'resources/example_class'

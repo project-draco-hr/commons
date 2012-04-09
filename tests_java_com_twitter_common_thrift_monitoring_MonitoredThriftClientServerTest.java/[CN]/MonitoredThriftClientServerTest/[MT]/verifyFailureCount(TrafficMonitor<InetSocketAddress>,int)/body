@@ -1,7 +1,0 @@
-{
-  int failures=0;
-  for (  TrafficMonitor<InetSocketAddress>.TrafficInfo info : monitor.getTrafficInfo().values()) {
-    failures+=info.getRequestFailureCount();
-  }
-  assertThat(failures,is(failCount));
-}

@@ -1,2 +1,0 @@
-def test_head(self):
-    assert (self.rorepo.head.reference.object == self.rorepo.active_branch.object)

@@ -1,8 +1,0 @@
-def _finalize_proc(self, proc):
-    'Wait for the process (fetch, pull or push) and handle its errors accordingly'
-    try:
-        proc.wait()
-    except GitCommandError as e:
-        if (proc.poll() == 128):
-            raise
-        pass

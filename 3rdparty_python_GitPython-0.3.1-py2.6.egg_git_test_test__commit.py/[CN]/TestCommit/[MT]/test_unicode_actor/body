@@ -1,6 +1,0 @@
-def test_unicode_actor(self):
-    name = '\xc3\x9c\xc3\xa4\xc3\xb6\xc3\x9f \xc3\x84u\xc3\x9f\xc3\x89'.decode('utf-8')
-    assert (len(name) == 9)
-    special = Actor._from_string((u'%s <something@this.com>' % name))
-    assert (special.name == name)
-    assert isinstance(special.name, unicode)

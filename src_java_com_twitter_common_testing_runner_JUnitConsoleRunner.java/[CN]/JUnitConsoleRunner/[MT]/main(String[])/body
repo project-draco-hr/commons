@@ -5,10 +5,14 @@
  * Command line option bean.
  */
 class Options {
+    private boolean failFast=false;
     private boolean suppressOutput=false;
     private boolean xmlReport=false;
     private File outdir=new File(System.getProperty("java.io.tmpdir"));
     private List<String> tests=Lists.newArrayList();
+    @Option(name="-fail-fast",usage="Causes the test suite run to fail fast.") public void setFailFast(    boolean failFast){
+      this.failFast=failFast;
+    }
     @Option(name="-suppress-output",usage="Suppresses test output.") public void setSuppressOutput(    boolean suppressOutput){
       this.suppressOutput=suppressOutput;
     }
@@ -31,7 +35,7 @@ class Options {
     e.getParser().printUsage(System.out);
     exit(1);
   }
-  JUnitConsoleRunner runner=new JUnitConsoleRunner(options.suppressOutput,options.xmlReport,options.outdir);
+  JUnitConsoleRunner runner=new JUnitConsoleRunner(options.failFast,options.suppressOutput,options.xmlReport,options.outdir);
   List<String> tests=Lists.newArrayList();
   for (  String test : options.tests) {
     if (test.startsWith("@")) {

@@ -1,5 +1,7 @@
 def _key_for(self, target):
     if self._only_buildfiles:
+        if (not os.path.exists(target.address.buildfile.full_path)):
+            return None
         absolute_sources = [target.address.buildfile.full_path]
     else:
         absolute_sources = sorted(target.expand_files(recursive=False))

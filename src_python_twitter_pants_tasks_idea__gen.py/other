@@ -1,0 +1,12 @@
+import os
+import pkgutil
+import shutil
+import tempfile
+from xml.dom import minidom
+from twitter.common.dirutil import safe_mkdir
+from twitter.pants import get_buildroot
+from twitter.pants.base.generator import TemplateData, Generator
+from twitter.pants.tasks.ide_gen import IdeGen, Project
+__author__ = 'John Sirois'
+_TEMPLATE_BASEDIR = 'idea/templates'
+_VERSIONS = {'9': '11', '10': '11', '11': '11', }

@@ -1,2 +1,0 @@
-def dashify(string):
-    return string.replace('_', '-')

@@ -1,0 +1,3 @@
+def get_raw_diff(self, review):
+    '\n    Returns the raw diff for the given reviewboard item.\n    '
+    return self.http_request(('/r/%s/diff/raw/' % review), {})

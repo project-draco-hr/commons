@@ -1,9 +1,0 @@
-@classmethod
-def delete(cls, repo, *refs, **kwargs):
-    'Delete the given remote references.\n\t\t:note:\n\t\t\tkwargs are given for compatability with the base class method as we \n\t\t\tshould not narrow the signature.'
-    repo.git.branch('-d', '-r', *refs)
-    for ref in refs:
-        try:
-            os.remove(join(repo.git_dir, ref.path))
-        except OSError:
-            pass

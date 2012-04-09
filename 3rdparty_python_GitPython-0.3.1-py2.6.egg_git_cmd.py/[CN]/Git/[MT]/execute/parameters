@@ -1,8 +1,0 @@
-self
-command
-istream
-with_keep_cwd
-with_extended_output
-with_exceptions
-as_process
-output_stream

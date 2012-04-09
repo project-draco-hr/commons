@@ -1,4 +1,0 @@
-@property
-def flags(self):
-    ':return: flags stored with this entry'
-    return self[2]

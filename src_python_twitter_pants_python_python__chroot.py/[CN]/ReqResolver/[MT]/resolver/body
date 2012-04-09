@@ -1,0 +1,3 @@
+@staticmethod
+def resolver(config, platform, python):
+    return SilentResolver(caches=(config.getlist('python-setup', 'local_eggs') + [config.get('python-setup', 'install_cache')]), install_cache=config.get('python-setup', 'install_cache'), fetcher=ReqResolver.fetcher(config), platform=platform, python=python)

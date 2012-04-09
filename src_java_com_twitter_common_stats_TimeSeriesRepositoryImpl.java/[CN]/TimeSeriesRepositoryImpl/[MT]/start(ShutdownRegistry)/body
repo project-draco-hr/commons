@@ -1,6 +1,6 @@
 {
-  Preconditions.checkNotNull(shutdownRegistry);
-  Preconditions.checkNotNull(samplePeriod);
+  checkNotNull(shutdownRegistry);
+  checkNotNull(samplePeriod);
   Preconditions.checkArgument(samplePeriod.getValue() > 0);
   final ScheduledExecutorService executor=new ScheduledThreadPoolExecutor(1,new ThreadFactoryBuilder().setNameFormat("VariableSampler-%d").setDaemon(true).build());
   final AtomicBoolean shouldSample=new AtomicBoolean(true);

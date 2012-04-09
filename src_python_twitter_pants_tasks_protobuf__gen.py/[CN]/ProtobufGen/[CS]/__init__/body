@@ -13,3 +13,6 @@ def __init__(self, context):
     self.pythondeps = resolve_deps('pythondeps')
     self.py_out = os.path.join(self.output_dir, 'gen-py')
     self.gen_langs = set(context.options.protobuf_gen_langs)
+    for lang in ('java', 'python'):
+        if self.context.products.isrequired(lang):
+            self.gen_langs.add(lang)

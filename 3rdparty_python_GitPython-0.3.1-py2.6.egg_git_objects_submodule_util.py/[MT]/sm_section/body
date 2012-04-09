@@ -1,3 +1,0 @@
-def sm_section(name):
-    ':return: section title used in .gitmodules configuration file'
-    return ('submodule "%s"' % name)

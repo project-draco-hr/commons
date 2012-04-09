@@ -1,3 +1,0 @@
-def __hash__(self):
-    ':return: Hash of our id allowing objects to be used in dicts and sets'
-    return hash(self.binsha)

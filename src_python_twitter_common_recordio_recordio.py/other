@@ -1,5 +1,5 @@
 import os
-import types
 import struct
 import errno
 from twitter.common import log
+from twitter.common.lang import Compatibility

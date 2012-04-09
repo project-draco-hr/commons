@@ -1,14 +1,16 @@
-def init(filebase):
-    '\n    Set up default logging using:\n      {--log_dir}/filebase.{INFO,WARNING,...}\n  '
+def init(filebase=None):
+    '\n    Sets up default stderr logging and, if filebase is supplied, sets up disk logging using:\n      {--log_dir}/filebase.{INFO,WARNING,...}\n  '
     logging._acquireLock()
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)
     teardown_stderr_logging()
     teardown_disk_logging()
-    num_disk_handlers = 0
-    for handler in _setup_disk_logging(filebase):
-        root_logger.addHandler(handler)
-        _DISK_LOGGERS.append(handler)
+    for handler in root_logger.handlers:
+        root_logger.removeHandler(handler)
+    if filebase:
+        for handler in _setup_disk_logging(filebase):
+            root_logger.addHandler(handler)
+            _DISK_LOGGERS.append(handler)
     for handler in _setup_stderr_logging():
         root_logger.addHandler(handler)
         _STDERR_LOGGERS.append(handler)

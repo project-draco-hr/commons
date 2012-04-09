@@ -1,3 +1,0 @@
-def iter_submodules(self, *args, **kwargs):
-    'An iterator yielding Submodule instances, see Traversable interface\n\t\tfor a description of args and kwargs\n\t\t:return: Iterator'
-    return RootModule(self).traverse(*args, **kwargs)

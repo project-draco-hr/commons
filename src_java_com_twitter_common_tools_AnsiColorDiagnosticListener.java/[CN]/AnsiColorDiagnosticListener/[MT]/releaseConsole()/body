@@ -1,0 +1,8 @@
+{
+  if (colorOutput) {
+    AnsiConsole.systemUninstall();
+  }
+ else {
+    System.setProperty(Ansi.DISABLE,"false");
+  }
+}

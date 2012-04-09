@@ -3,4 +3,7 @@ def name(self):
     if (self._name is not None):
         return self._name
     else:
-        return Inspection.find_application_name()
+        try:
+            return Inspection.find_application_name()
+        except:
+            return 'unknown'

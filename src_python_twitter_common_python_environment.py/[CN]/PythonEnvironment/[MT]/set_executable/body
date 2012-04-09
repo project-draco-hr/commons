@@ -1,4 +1,0 @@
-def set_executable(self, filename, env_filename=None):
-    if (env_filename is None):
-        env_filename = os.path.basename(filename)
-    self._chroot.link(filename, env_filename, 'executable')

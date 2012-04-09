@@ -1,7 +1,11 @@
 @staticmethod
 def find_calling_module():
-    stack = inspect.stack()
-    for fr_n in range(len(stack)):
-        if ('__name__' in stack[fr_n][0].f_locals):
-            return stack[fr_n][0].f_locals['__name__']
+    last_frame = inspect.currentframe()
+    while True:
+        inspect_frame = last_frame.f_back
+        if (not inspect_frame):
+            break
+        if ('__name__' in inspect_frame.f_locals):
+            return inspect_frame.f_locals['__name__']
+        last_frame = inspect_frame
     raise Inspection.InternalError('Unable to interpret stack frame!')

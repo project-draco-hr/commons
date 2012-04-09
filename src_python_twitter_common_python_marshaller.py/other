@@ -1,0 +1,5 @@
+from imp import get_magic
+import marshal
+import struct
+import time
+from twitter.common.lang import Compatibility

@@ -1,0 +1,10 @@
+@staticmethod
+def resolve(requirements, config, platforms, pythons, ignore_errors=False):
+    reqset = OrderedSet()
+    requirements = list(requirements)
+    for platform in platforms:
+        for python in pythons:
+            resolver = ReqResolver.resolver(config, platform, python)
+            for dist in resolver.resolve(requirements, ignore_errors=ignore_errors):
+                reqset.add(dist)
+    return list(reqset)

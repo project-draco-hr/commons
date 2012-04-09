@@ -1,8 +1,0 @@
-from git.test.lib import *
-from git import *
-from git.util import IterableList
-import tempfile
-import shutil
-import os
-import random
-random.seed(0)

@@ -1,2 +1,0 @@
-def sort(self, *args, **kwds):
-    self._main._sequence.sort(*args, **kwds)

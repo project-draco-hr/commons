@@ -1,3 +1,0 @@
-def __ne__(self, other):
-    ':return: True if the objects do not have the same SHA1 '
-    return (self.binsha != other.binsha)

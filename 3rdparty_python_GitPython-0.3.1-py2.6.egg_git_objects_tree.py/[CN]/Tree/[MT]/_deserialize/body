@@ -1,3 +1,0 @@
-def _deserialize(self, stream):
-    self._cache = tree_entries_from_data(stream.read())
-    return self

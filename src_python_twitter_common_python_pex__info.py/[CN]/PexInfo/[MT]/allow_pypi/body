@@ -1,0 +1,3 @@
+@property
+def allow_pypi(self):
+    return self._pex_info.get('allow_pypi', False)

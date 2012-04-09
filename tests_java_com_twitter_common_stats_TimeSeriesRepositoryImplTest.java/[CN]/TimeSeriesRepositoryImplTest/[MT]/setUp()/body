@@ -1,5 +1,6 @@
 {
-  repo=new TimeSeriesRepositoryImpl(SAMPLE_PERIOD,RETENTION_PERIOD);
-  clock=new FakeClock();
   control=createStrictControl();
+  statRegistry=control.createMock(StatRegistry.class);
+  repo=new TimeSeriesRepositoryImpl(statRegistry,SAMPLE_PERIOD,RETENTION_PERIOD);
+  clock=new FakeClock();
 }

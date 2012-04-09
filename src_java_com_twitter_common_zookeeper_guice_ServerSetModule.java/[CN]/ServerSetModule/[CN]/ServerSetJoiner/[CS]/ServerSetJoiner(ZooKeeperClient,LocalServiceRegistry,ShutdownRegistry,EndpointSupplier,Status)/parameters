@@ -1,0 +1,5 @@
+ZooKeeperClient zkClient
+LocalServiceRegistry serviceRegistry
+ShutdownRegistry shutdownRegistry
+EndpointSupplier endpointSupplier
+Status initialStatus

@@ -1,0 +1,26 @@
+def _egg_info(self):
+    '\n      yield (filename, content) pairs of the EGG-INFO directory.\n    '
+
+    def egg_info_name(fn):
+        return '/'.join(['EGG-INFO', fn])
+
+    def pez_info_name(fn):
+        return '/'.join(['PEZ-INFO', fn])
+    handled_files = frozenset(['native_libs.txt', 'zip-safe', 'not-zip-safe'])
+
+    def skip(fn):
+        return any((fn.endswith(filename) for filename in handled_files))
+    egg_info_dir = os.path.realpath(self._dist.egg_info)
+    for fn in self._installed_files:
+        if (fn.startswith(egg_info_dir) and (not skip(fn))):
+            rel_fn = os.path.relpath(fn, egg_info_dir)
+            if (rel_fn == '.'):
+                continue
+            with open(fn) as fp:
+                yield (egg_info_name(rel_fn), fp.read())
+    native_deps = self._native_deps()
+    if native_deps:
+        yield (egg_info_name('native_libs.txt'), '\n'.join((self._relpath(fn) for fn in native_deps)))
+    unsafe_source = self._unsafe_source()
+    yield (egg_info_name(('not-zip-safe' if (unsafe_source or native_deps) else 'zip-safe')), '')
+    yield (pez_info_name(('not-zip-safe' if unsafe_source else 'zip-safe')), '')

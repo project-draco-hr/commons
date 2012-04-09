@@ -1,0 +1,8 @@
+def can_add(self, dist):
+
+    def version_compatible():
+        return any([(self.python is None), (dist.py_version is None), (dist.py_version == self.python)])
+
+    def platform_compatible():
+        return Platform.compatible(dist.platform, self.platform)
+    return (version_compatible() and platform_compatible())

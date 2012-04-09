@@ -1,5 +1,5 @@
 def install_virtualenv(context, interpreter):
-    virtualenv_cache = context.config.get('python-setup', 'cache')
+    virtualenv_cache = context.config.get('python-setup', 'bootstrap_cache')
     virtualenv_target = context.config.get('python-setup', 'virtualenv_target')
     pip_repos = context.config.getlist('python-setup', 'repos')
     if (not os.path.exists(virtualenv_target)):
@@ -25,6 +25,8 @@ def install_virtualenv(context, interpreter):
     (rc, stdout, stderr) = subprocess_call(cmdline)
     if (rc != 0):
         context.log.warn(('Failed to install virtualenv: err=%s' % stderr))
+        context.log.info(('Cleaning up %s' % interpreter.identity()))
+        safe_rmtree(environment_install_path)
         raise TaskError(('Could not install virtualenv for %s' % interpreter.identity()))
 
     def install_package(pkg):

@@ -1,0 +1,3 @@
+@property
+def egg_caches(self):
+    return self._egg_caches

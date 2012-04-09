@@ -1,0 +1,6 @@
+@staticmethod
+def walk(dist):
+    for (fn, content) in DistributionHelper.walk_metadata(dist):
+        yield (fn, content)
+    for (fn, content) in DistributionHelper.walk_data(dist):
+        yield (fn, content)

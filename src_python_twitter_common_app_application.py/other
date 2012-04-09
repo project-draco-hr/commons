@@ -1,8 +1,10 @@
 from __future__ import print_function
+__author__ = 'Dave Buchfuhrer, Brian Wickman'
 try:
     import ConfigParser
 except ImportError:
     import configparser as ConfigParser
+import atexit
 import copy
 import inspect
 import os
@@ -14,5 +16,7 @@ from collections import defaultdict
 from twitter.common import options
 from twitter.common.app.module import AppModule
 from twitter.common.app.inspection import Inspection
+from twitter.common.dirutil import lock_file
 from twitter.common.lang import Compatibility
 from twitter.common.util import topological_sort
+_PIDFILE = None

@@ -1,4 +1,0 @@
-@property
-def newhexsha(self):
-    'The hexsha to the commit the ref now points to, after the change'
-    return self[1]

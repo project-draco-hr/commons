@@ -1,5 +1,0 @@
-def _assert_fprogress(self, entries):
-    assert (len(entries) == len(self._fprogress_map))
-    for (path, call_count) in self._fprogress_map.iteritems():
-        assert (call_count == 2)
-    self._reset_progress()

@@ -1,0 +1,3 @@
+{
+  return new File(getOutputDir(),sourceFile).exists() && new File(getOutputDir(),classFile).exists();
+}

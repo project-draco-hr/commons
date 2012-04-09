@@ -1,79 +1,79 @@
 {
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CollectionArgs.stringList.get(),is(Arrays.asList("a","b","c","d")));
+      assertThat(CollectionArgs.STRING_LIST.get(),is(Arrays.asList("a","b","c","d")));
     }
   }
 ,"stringList","a,b,c,d");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CollectionArgs.intList.get(),is(Arrays.asList(1,2,3,4)));
+      assertThat(CollectionArgs.INT_LIST.get(),is(Arrays.asList(1,2,3,4)));
     }
   }
 ,"intList","1, 2, 3, 4");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
       Set<String> expected=ImmutableSet.of("a","b","c","d");
-      assertThat(CollectionArgs.stringSet.get(),is(expected));
+      assertThat(CollectionArgs.STRING_SET.get(),is(expected));
     }
   }
 ,"stringSet","a,b,c,d");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
       Set<Integer> expected=ImmutableSet.of(1,2,3,4);
-      assertThat(CollectionArgs.intSet.get(),is(expected));
+      assertThat(CollectionArgs.INT_SET.get(),is(expected));
     }
   }
 ,"intSet","1, 2, 3, 4");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
       Map<String,String> expected=ImmutableMap.of("a","b","c","d","e","f","g","h");
-      assertThat(CollectionArgs.stringStringMap.get(),is(expected));
+      assertThat(CollectionArgs.STRING_STRING_MAP.get(),is(expected));
     }
   }
 ,"stringStringMap","a=b, c=d, e=f, g=h");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
       Map<Integer,Integer> expected=ImmutableMap.of(1,2,3,4,5,6,7,8);
-      assertThat(CollectionArgs.intIntMap.get(),is(expected));
+      assertThat(CollectionArgs.INT_INT_MAP.get(),is(expected));
     }
   }
 ,"intIntMap","1 = 2,3=4, 5=6 ,7=8");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
       Map<String,Integer> expected=ImmutableMap.of("a",1,"b",2,"c",3,"d",4);
-      assertThat(CollectionArgs.stringIntMap.get(),is(expected));
+      assertThat(CollectionArgs.STRING_INT_MAP.get(),is(expected));
     }
   }
 ,"stringIntMap","a=1  , b=2, c=3   ,d=4");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
       Map<Integer,String> expected=ImmutableMap.of(1,"1",2,"2",3,"3",4,"4");
-      assertThat(CollectionArgs.intStringMap.get(),is(expected));
+      assertThat(CollectionArgs.INT_STRING_MAP.get(),is(expected));
     }
   }
 ,"intStringMap","  1=1  , 2=2, 3=3,4=4");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CollectionArgs.stringStringPair.get(),is(Pair.of("foo","bar")));
+      assertThat(CollectionArgs.STRING_STRING_PAIR.get(),is(Pair.of("foo","bar")));
     }
   }
 ,"stringStringPair","foo , bar");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CollectionArgs.intIntPair.get(),is(Pair.of(10,20)));
+      assertThat(CollectionArgs.INT_INT_PAIR.get(),is(Pair.of(10,20)));
     }
   }
 ,"intIntPair","10    ,20");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CollectionArgs.stringTimeAmountPair.get(),is(Pair.of("fred",Amount.of(42L,Time.MINUTES))));
+      assertThat(CollectionArgs.STRING_TIME_AMOUNT_PAIR.get(),is(Pair.of("fred",Amount.of(42L,Time.MINUTES))));
     }
   }
 ,"stringTimeAmountPair","fred    ,42mins");
   test(CollectionArgs.class,new Command(){
     @Override public void execute(){
-      CollectionArgs.stringTimeAmountPair.get();
+      CollectionArgs.STRING_TIME_AMOUNT_PAIR.get();
     }
   }
 ,true,"stringTimeAmountPair","george,1MB");

@@ -1,6 +1,0 @@
-def test_equality(self):
-    commit1 = Commit(self.rorepo, Commit.NULL_BIN_SHA)
-    commit2 = Commit(self.rorepo, Commit.NULL_BIN_SHA)
-    commit3 = Commit(self.rorepo, ('\x01' * 20))
-    assert_equal(commit1, commit2)
-    assert_not_equal(commit2, commit3)

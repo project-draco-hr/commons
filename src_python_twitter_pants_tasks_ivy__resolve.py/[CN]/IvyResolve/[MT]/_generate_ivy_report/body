@@ -1,6 +1,5 @@
 def _generate_ivy_report(self):
     classpath = binary_utils.nailgun_profile_classpath(self, self._profile)
-    self.ng('ng-cp', *classpath)
     reports = []
     (org, name) = self._identify()
     xsl = os.path.join(self._cachedir, 'ivy-report.xsl')
@@ -9,7 +8,8 @@ def _generate_ivy_report(self):
         params = dict(org=org, name=name, conf=conf)
         xml = os.path.join(self._cachedir, ('%(org)s-%(name)s-%(conf)s.xml' % params))
         out = os.path.join(self._outdir, ('%(org)s-%(name)s-%(conf)s.html' % params))
-        self.ng('org.apache.xalan.xslt.Process', '-IN', xml, '-XSL', xsl, '-OUT', out)
+        args = ['-IN', xml, '-XSL', xsl, '-OUT', out]
+        self.runjava('org.apache.xalan.xslt.Process', classpath=classpath, args=args)
         reports.append(out)
     css = os.path.join(self._outdir, 'ivy-report.css')
     if os.path.exists(css):

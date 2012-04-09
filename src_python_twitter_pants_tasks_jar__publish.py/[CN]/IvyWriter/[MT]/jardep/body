@@ -1,3 +1,2 @@
-@staticmethod
-def jardep(jar):
-    return TemplateData(org=jar.org, module=jar.name, version=jar.rev, force=jar.force, excludes=[IvyWriter.create_exclude(exclude) for exclude in jar.excludes], transitive=jar.transitive, ext=jar.ext, url=jar.url, configurations=';'.join(jar._configurations))
+def jardep(self, jar):
+    return self._jardep(jar, transitive=jar.transitive, ext=jar.ext, url=jar.url, configurations=';'.join(jar._configurations))

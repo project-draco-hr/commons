@@ -1,3 +1,0 @@
-@classmethod
-def setUpAll(cls):
-    cls.git = Git(GIT_REPO)

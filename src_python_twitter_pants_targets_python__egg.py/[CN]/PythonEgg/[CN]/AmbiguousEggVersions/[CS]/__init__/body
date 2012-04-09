@@ -1,2 +1,0 @@
-def __init__(self, glob):
-    Exception.__init__(self, ('Egg description (%s) has ambiguous versions' % glob))

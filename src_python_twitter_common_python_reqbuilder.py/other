@@ -1,9 +1,0 @@
-from __future__ import print_function
-import os
-import sys
-import tempfile
-import subprocess
-from twitter.common.dirutil import safe_mkdir
-from twitter.common.contextutil import environment_as, temporary_file, mutable_sys
-from twitter.common.python.interpreter import PythonInterpreter
-import pkg_resources

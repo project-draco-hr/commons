@@ -1,3 +1,4 @@
+from twitter.pants.targets.jar_dependency import JarDependency
 __author__ = 'John Sirois'
 import hashlib
 import os

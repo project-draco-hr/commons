@@ -1,0 +1,35 @@
+def distill(self, into=None, strip_pyc=False):
+    native_deps = self._native_deps()
+    if (into is not None):
+        safe_mkdir(into)
+        filename = os.path.join(into, self._package_name())
+    else:
+        tempdir = tempfile.mkdtemp()
+        filename = os.path.join(tempdir, self._package_name())
+    with closing(zipfile.ZipFile(filename, 'w', compression=zipfile.ZIP_DEFLATED)) as zf:
+        for fn in self._installed_files:
+            rel_fn = self._relpath(fn)
+            if (not self._is_top_level(fn)):
+                self._log(('Skipping file outside of top_level: %s' % rel_fn))
+                continue
+            if (not os.path.exists(fn)):
+                self._log(('File does not exist: %s!' % rel_fn))
+                continue
+            if (strip_pyc and (fn.endswith('.pyc') or fn.endswith('.pyo'))):
+                self._log(('Stripping %s' % rel_fn))
+                continue
+            zf.write(fn, arcname=rel_fn)
+            if (fn in native_deps):
+                (fn_base, extension) = os.path.splitext(rel_fn)
+                self._log(('Writing native stub for %s' % rel_fn))
+                zf.writestr((fn_base + '.py'), (NATIVE_STUB % {'extension': extension, }))
+        for nspkg in self._nspkg:
+            nspkg_init = (nspkg + '/__init__.py')
+            if (nspkg_init in zf.namelist()):
+                self._log(('Cannot write namespace for %s!' % nspkg_init))
+            else:
+                self._log(('Writing namespace package stub for %s' % nspkg))
+                zf.writestr(nspkg_init, NAMESPACE_STUB)
+        for (fn, content) in self._egg_info():
+            zf.writestr(fn, content)
+    return filename

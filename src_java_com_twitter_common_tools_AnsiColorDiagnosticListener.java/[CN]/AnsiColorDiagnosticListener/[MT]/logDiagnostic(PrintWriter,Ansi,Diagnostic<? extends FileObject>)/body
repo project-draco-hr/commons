@@ -1,0 +1,12 @@
+{
+  String message=getMessage(diagnostic);
+  CharSequence sourceCode=extractSource(diagnostic);
+  if (sourceCode == null) {
+    out.println(ansi.format("%s",message));
+  }
+ else {
+    out.println(ansi.format("%s\n%s\n%s^",message,sourceCode,spaces((int)diagnostic.getColumnNumber() - 1)));
+  }
+  out.print(Ansi.ansi().reset());
+  out.flush();
+}

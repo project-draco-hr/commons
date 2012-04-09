@@ -1,4 +1,0 @@
-@staticmethod
-def uname():
-    import os
-    return os.uname()

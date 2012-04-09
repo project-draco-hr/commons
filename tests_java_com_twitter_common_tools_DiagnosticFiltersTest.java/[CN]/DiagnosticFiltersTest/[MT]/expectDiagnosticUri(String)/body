@@ -1,0 +1,3 @@
+{
+  return expectDiagnostic(Kind.WARNING,new URI(uri),null);
+}

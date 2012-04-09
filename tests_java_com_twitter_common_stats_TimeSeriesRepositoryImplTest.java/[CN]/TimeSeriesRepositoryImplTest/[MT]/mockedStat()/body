@@ -1,0 +1,5 @@
+{
+  return createMock(new Clazz<RecordingStat<Integer>>(){
+  }
+);
+}

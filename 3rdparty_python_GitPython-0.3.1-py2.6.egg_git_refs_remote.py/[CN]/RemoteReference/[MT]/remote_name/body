@@ -1,5 +1,0 @@
-@property
-def remote_name(self):
-    "\n\t\t:return:\n\t\t\tName of the remote we are a reference of, such as 'origin' for a reference\n\t\t\tnamed 'origin/master'"
-    tokens = self.path.split('/')
-    return tokens[2]

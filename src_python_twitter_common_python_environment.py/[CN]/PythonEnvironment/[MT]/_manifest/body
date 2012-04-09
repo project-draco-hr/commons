@@ -1,6 +1,0 @@
-def _manifest(self):
-    manifest = {}
-    script = self._script()
-    if script:
-        manifest.update({'entry': script, })
-    return json.dumps(manifest)

@@ -1,4 +1,0 @@
-@property
-def path(self):
-    ':return: our path relative to the repository working tree root'
-    return self[3]

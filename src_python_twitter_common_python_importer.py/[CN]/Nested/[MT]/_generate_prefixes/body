@@ -1,0 +1,6 @@
+@staticmethod
+def _generate_prefixes(path):
+    "\n      Iterate the prefixes of a path '/a/b/c/d' => ('/a/b/c/d', '/a/b/c', '/a/b', '/a')\n    "
+    while (path not in ('', '.', os.path.sep)):
+        yield path
+        (path, _) = os.path.split(path)

@@ -1,0 +1,3 @@
+def debug(self, msg, indent=0):
+    if ('PANTS_VERBOSE' in os.environ):
+        print(('%s%s' % ((' ' * indent), msg)))

@@ -1,2 +1,0 @@
-import unittest
-from twitter.common.python.eggparser import EggParser

@@ -1,0 +1,13 @@
+def PythonEgg(egg_glob):
+    eggs = glob.glob(egg_glob)
+    requirements = set()
+    for egg in eggs:
+        if os.path.isdir(egg):
+            metadata = PathMetadata(egg, os.path.join(egg, 'EGG-INFO'))
+        else:
+            metadata = EggMetadata(EggZipImporter(egg))
+        dist = Distribution.from_filename(egg, metadata=metadata)
+        requirements.add(dist.as_requirement())
+    if (len(requirements) > 1):
+        raise ValueError(('Got multiple egg versions! => %s' % requirements))
+    return PythonRequirement(str(requirements.pop()))

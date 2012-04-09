@@ -1,6 +1,7 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
     configure_codehighlight_options(option_group, mkflag)
+    option_group.add_option(mkflag('open'), mkflag('open', negate=True), dest='markdown_to_html_open', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Open the generated documents in a browser.')
     option_group.add_option(mkflag('standalone'), mkflag('standalone', negate=True), dest='markdown_to_html_standalone', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Generate a well-formed standalone html document.')
     option_group.add_option(mkflag('outdir'), dest='markdown_to_html_outdir', help='Emit generated html in to this directory.')
     option_group.add_option(mkflag('extension'), dest='markdown_to_html_extensions', action='append', help='Override the default markdown extensions and process pages whose source have these extensions instead.')

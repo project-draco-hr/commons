@@ -1,0 +1,4 @@
+def get_review_request(self, rid):
+    '\n    Returns the review request with the specified ID.\n    '
+    rsp = self.api_call(('api/review-requests/%s/' % rid))
+    return rsp['review_request']

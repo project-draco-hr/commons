@@ -1,7 +1,0 @@
-{
-  serverMonitor=new TrafficMonitor<InetSocketAddress>("test-server");
-  clientMonitor=new TrafficMonitor<InetSocketAddress>("test-client");
-  server=new TestService();
-  server.start(new ThriftServer.ServerSetup("test",0,new ThriftService.Processor(server),ThriftServer.BINARY_PROTOCOL.get(),1,Amount.of(100,Time.MILLISECONDS),serverMonitor));
-  prepareClient(server.getListeningPort());
-}

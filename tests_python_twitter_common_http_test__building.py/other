@@ -1,2 +1,3 @@
 import pytest
+import sys
 from twitter.common.http import HttpServer

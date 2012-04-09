@@ -1,0 +1,9 @@
+{
+  expect(diagnostic.getKind()).andReturn(kind);
+  expect(diagnostic.getMessage(EasyMock.<Locale>notNull())).andReturn(message);
+  expect(diagnostic.getSource()).andReturn(file).anyTimes();
+  expect(diagnostic.getStartPosition()).andReturn(start).anyTimes();
+  expect(diagnostic.getEndPosition()).andReturn(end).anyTimes();
+  expect(diagnostic.getColumnNumber()).andReturn(col).anyTimes();
+  expect(file.getCharContent(anyBoolean())).andReturn(source).anyTimes();
+}

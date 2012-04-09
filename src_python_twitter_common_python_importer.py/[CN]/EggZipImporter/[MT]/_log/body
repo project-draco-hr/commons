@@ -1,0 +1,4 @@
+@classmethod
+def _log(cls, msg, at_level=1):
+    if (cls._zipimport_debug_level() >= at_level):
+        sys.stderr.write(('ZIPIMPORT_DEBUG: %s%s\n' % ((' ' * EggZipImporter._LOG_INDENT), msg)))

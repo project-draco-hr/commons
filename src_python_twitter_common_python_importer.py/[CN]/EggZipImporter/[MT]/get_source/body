@@ -1,0 +1,6 @@
+def get_source(self, fullmodname):
+    'Return source code for a module.'
+    with self._log_nested(('entering get_source(%s)' % fullmodname), at_level=3):
+        (submodname, is_package, fullpath, source) = self._get_source(fullmodname)
+    self._log(('exiting get_source(%s) => submodname: %s, is_package: %s, fullpath: %s, source len: %s' % (fullmodname, submodname, is_package, fullpath, len(source))), at_level=3)
+    return source

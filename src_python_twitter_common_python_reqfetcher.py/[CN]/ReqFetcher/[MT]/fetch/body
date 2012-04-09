@@ -1,7 +1,0 @@
-def fetch(self, requirement, platform=pkg_resources.get_platform()):
-    '\n      Fetch a distribution that matches the requirement.\n\n      Returns a local path to the distribution or None if nothing\n      appropriate found.\n    '
-    (location, repo) = self.find(requirement, platform)
-    if repo:
-        return repo.download(location, self._cache)
-    elif location:
-        return location

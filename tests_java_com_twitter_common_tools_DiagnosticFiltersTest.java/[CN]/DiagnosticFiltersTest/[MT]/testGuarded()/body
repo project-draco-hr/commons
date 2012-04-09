@@ -1,0 +1,15 @@
+{
+  Diagnostic<FileObject> a=expectDiagnostic(Kind.NOTE,new URI("file:///a"),null);
+  Diagnostic<FileObject> b=expectDiagnostic(Kind.WARNING,null,null);
+  Diagnostic<FileObject> c=expectDiagnostic(Kind.NOTE,new URI("file:///c"),null);
+  control.replay();
+  DiagnosticFilter<FileObject> filter=DiagnosticFilters.guarded(DiagnosticFilters.ignorePathPrefixes(ImmutableList.of("/a")),new Guard<Diagnostic<? extends FileObject>>(){
+    @Override public boolean permit(    Diagnostic<? extends FileObject> diagnostic){
+      return diagnostic.getKind() == Kind.NOTE;
+    }
+  }
+);
+  assertEquals(Treatment.IGNORE,filter.categorize(a));
+  assertEquals(Treatment.PASS,filter.categorize(b));
+  assertEquals(Treatment.PASS,filter.categorize(c));
+}

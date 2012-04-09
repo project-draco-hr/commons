@@ -1,2 +1,0 @@
-def __init__(self, repo, binsha, mode=(tree_id << 12), path=None):
-    super(Tree, self).__init__(repo, binsha, mode, path)

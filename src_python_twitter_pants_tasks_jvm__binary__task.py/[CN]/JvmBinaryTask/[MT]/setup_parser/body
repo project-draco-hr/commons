@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('outdir'), dest='jvm_binary_create_outdir', help='Create bundles and archives in this directory.')
+    option_group.add_option(mkflag('deployjar'), mkflag('deployjar', negate=True), dest='jvm_binary_create_deployjar', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Create a monolithic deploy jar containing this binaries classfiles as well as all classfiles it depends on transitively.')

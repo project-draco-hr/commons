@@ -1,0 +1,2 @@
+def keys(self):
+    return list(_zipfile_namecache[self._archive])

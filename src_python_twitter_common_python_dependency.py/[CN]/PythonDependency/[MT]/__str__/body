@@ -1,2 +1,0 @@
-def __str__(self):
-    return ('PythonDependency(eggs: %s)' % ' '.join(self._eggs.keys()))

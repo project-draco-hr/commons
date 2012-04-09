@@ -1,3 +1,0 @@
-@with_rw_repo('HEAD', bare=True)
-def test_serialization(self, rwrepo):
-    assert_commit_serialization(rwrepo, '0.1.6')

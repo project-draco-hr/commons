@@ -1,0 +1,10 @@
+def _add_auth_params(self, username, password):
+    headers = [('User-agent', ('post-review/' + VERSION))]
+    if (username and password):
+        self.debug(('Authorizing as user %s' % username))
+        base64string = base64.encodestring(('%s:%s' % (username, password)))
+        base64string = base64string[:(-1)]
+        headers.append(('Authorization', ('Basic %s' % base64string)))
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookie_jar))
+    opener.addheaders = headers
+    urllib2.install_opener(opener)

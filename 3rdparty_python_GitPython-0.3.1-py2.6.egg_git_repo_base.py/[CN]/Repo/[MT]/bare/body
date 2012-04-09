@@ -1,4 +1,0 @@
-@property
-def bare(self):
-    ':return: True if the repository is bare'
-    return self._bare

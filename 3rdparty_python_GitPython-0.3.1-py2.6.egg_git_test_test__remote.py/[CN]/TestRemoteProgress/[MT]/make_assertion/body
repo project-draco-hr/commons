@@ -1,7 +1,0 @@
-def make_assertion(self):
-    if (not self._seen_lines):
-        return
-    assert (len(self._seen_ops) in (2, 3))
-    assert self._stages_per_op
-    for (op, stages) in self._stages_per_op.items():
-        assert ((stages & self.STAGE_MASK) == self.STAGE_MASK)

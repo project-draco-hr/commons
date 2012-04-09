@@ -2,7 +2,6 @@ def _setup_disk_logging(filebase):
     handlers = []
     logroot = LogOptions.log_dir()
     safe_mkdir(logroot)
-    now = time.localtime()
 
     def gen_filter(level):
         return GenericFilter((lambda record_level: ((record_level == level) and (level >= LogOptions.disk_log_level()))))

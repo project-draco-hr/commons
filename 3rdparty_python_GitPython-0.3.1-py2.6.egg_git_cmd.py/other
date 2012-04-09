@@ -1,7 +1,0 @@
-import os, sys
-from util import *
-from exc import GitCommandError
-from subprocess import call, Popen, PIPE
-GIT_PYTHON_TRACE = os.environ.get('GIT_PYTHON_TRACE', False)
-execute_kwargs = ('istream', 'with_keep_cwd', 'with_extended_output', 'with_exceptions', 'as_process', 'output_stream')
-__all__ = ('Git',)

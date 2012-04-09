@@ -1,0 +1,20 @@
+def new_review_request(self, changenum=None, submit_as=None, diff_only=False):
+    '\n    Creates a review request on a Review Board server, updating an\n    existing one if the changeset number already exists.\n\n    If submit_as is provided, the specified user name will be recorded as\n    the submitter of the review request (given that the logged in user has\n    the appropriate permissions).\n    '
+    try:
+        data = {'repository_path': self.info.path, }
+        if changenum:
+            data['changenum'] = changenum
+        if submit_as:
+            self.debug(('Submitting the review request as %s' % submit_as))
+            data['submit_as'] = submit_as
+        rsp = self.api_call('api/review-requests/new/', data)
+    except APIError as e:
+        (rsp,) = e.args
+        if (not diff_only):
+            if (rsp['err']['code'] == 204):
+                self.debug('Review request already exists. Updating it...')
+                rsp = self.api_call(('api/review-requests/%s/update_from_changenum/' % rsp['review_request']['id']))
+            else:
+                raise e
+    self.debug('Review request created')
+    return rsp['review_request']

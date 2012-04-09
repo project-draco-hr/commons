@@ -1,6 +1,0 @@
-def short_to_long(odb, hexsha):
-    ':return: long hexadecimal sha1 from the given less-than-40 byte hexsha\n\t\tor None if no candidate could be found.\n\t:param hexsha: hexsha with less than 40 byte'
-    try:
-        return bin_to_hex(odb.partial_to_complete_sha_hex(hexsha))
-    except BadObject:
-        return None

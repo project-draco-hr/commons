@@ -1,4 +1,0 @@
-def _fprogress_add(self, path, done, item):
-    'Called as progress func - we keep track of the proper \n\t\tcall order'
-    assert (item is not None)
-    self._fprogress(path, done, item)

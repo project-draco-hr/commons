@@ -2,12 +2,18 @@ def __init__(self, context):
     Task.__init__(self, context)
     self.outdir = context.config.get('jar-publish', 'workdir')
     self.cachedir = os.path.join(self.outdir, 'cache')
-    self.repos = context.config.getdict('jar-publish', 'repos')
-    self.repo_prefix = (context.options.jar_publish_repo_prefix or '')
+    if context.options.jar_publish_local:
+        local_repo = dict(resolver='publish_local', path=os.path.abspath(os.path.expanduser(context.options.jar_publish_local)), confs=context.config.getlist('jar-publish', 'publish_local_confs', default=['*']), auth=None)
+        self.repos = defaultdict((lambda : local_repo))
+        self.commit = False
+        self.snapshot = context.options.jar_publish_local_snapshot
+    else:
+        self.repos = context.config.getdict('jar-publish', 'repos')
+        self.commit = context.options.jar_publish_commit
+        self.snapshot = False
     self.ivycp = context.config.getlist('ivy', 'classpath')
     self.ivysettings = context.config.get('ivy', 'ivy_settings')
     self.dryrun = context.options.jar_publish_dryrun
-    self.commit = context.options.jar_publish_commit
     self.transitive = context.options.jar_publish_transitive
     self.force = context.options.jar_publish_force
 
@@ -40,8 +46,8 @@ def __init__(self, context):
                 (coordinate, rev) = override.split('=', 1)
                 try:
                     rev = Semver.parse(rev)
-                except ValueError:
-                    raise TaskError(('Invalid version: %s' % rev))
+                except ValueError as e:
+                    raise TaskError(('Invalid version %s: %s' % (rev, e)))
                 return (parse_jarcoordinate(coordinate), rev)
             except ValueError:
                 raise TaskError(('Invalid override: %s' % override))

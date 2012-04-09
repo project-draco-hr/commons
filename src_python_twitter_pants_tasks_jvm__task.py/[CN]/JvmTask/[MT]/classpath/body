@@ -1,0 +1,6 @@
+def classpath(self, cp=None, confs=None):
+    classpath = (cp or [])
+    with self.context.state('classpath', []) as cp:
+        classpath.extend((jar for (conf, jar) in cp if ((not confs) or (conf in confs))))
+    classpath.extend((os.path.join(get_buildroot(), path) for path in ('src/resources', 'tests/resources')))
+    return classpath

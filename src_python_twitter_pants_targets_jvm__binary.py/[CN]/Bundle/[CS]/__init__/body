@@ -1,4 +1,12 @@
-def __init__(self, mapper=None):
+def __init__(self, mapper=None, relative_to=None):
     '\n      Creates a new bundle with an empty filemap.  If no mapper is specified, an IdentityMapper\n      is used to map files into the bundle relative to the cwd.\n    '
-    self.mapper = (mapper or IdentityMapper(os.getcwd()))
+    if (mapper and relative_to):
+        raise ValueError("Must specify exactly one of 'mapper' or 'relative_to'")
+    if relative_to:
+        base = os.path.abspath(relative_to)
+        if ((not os.path.exists(base)) and os.path.isdir(base)):
+            raise ValueError(('Could not find a directory to bundle relative to at %s' % base))
+        self.mapper = RelativeToMapper(base)
+    else:
+        self.mapper = (mapper or RelativeToMapper(os.getcwd()))
     self.filemap = {}

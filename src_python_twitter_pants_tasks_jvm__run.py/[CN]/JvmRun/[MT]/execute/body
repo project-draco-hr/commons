@@ -2,9 +2,6 @@ def execute(self, targets):
     binaries = filter(is_binary, targets)
     if (len(binaries) > 0):
         main = binaries[0].main
-        classpath = []
-        with self.context.state('classpath', []) as cp:
-            classpath.extend((jar for (conf, jar) in cp if (conf in self.confs)))
-        result = runjava(jvmargs=self.jvm_args, classpath=classpath, main=main, args=self.args)
+        result = runjava(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args)
         if (result != 0):
             raise TaskError()

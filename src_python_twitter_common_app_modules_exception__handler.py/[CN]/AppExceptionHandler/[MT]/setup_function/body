@@ -1,2 +1,7 @@
 def setup_function(self):
-    sys.excepthook = AppExceptionHandler.handle_error
+    self._builtin_hook = sys.excepthook
+
+    def forwarding_handler(*args, **kw):
+        BasicExceptionHandler.handle_error(*args, **kw)
+        self._builtin_hook(*args, **kw)
+    sys.excepthook = forwarding_handler

@@ -1,0 +1,23 @@
+def obtain(self, req, *ignore_args, **ignore_kwargs):
+    if (not all((subcache.activated for subcache in self._subcaches))):
+        return None
+    with self.timed(('Fetching %s' % req)):
+        fetched_req = self.fetcher.fetch(req)
+    if (not fetched_req):
+        print(('Failed to fetch %s' % req))
+        return None
+    installer = Installer(fetched_req)
+    with self.timed(('Building %s' % req)):
+        try:
+            dist = installer.distribution()
+        except Installer.InstallFailure as e:
+            print(('Failed to install %s' % req), file=sys.stderr)
+            return None
+    if self._install_cache:
+        with self.timed(('Distilling %s' % req)):
+            distilled = Distiller(dist).distill(into=self._install_cache)
+        with self.timed(('Constructing distribution %s' % req)):
+            metadata = EggMetadata(EggZipImporter(distilled))
+            dist = Distribution.from_filename(distilled, metadata)
+    self.add(dist)
+    return dist

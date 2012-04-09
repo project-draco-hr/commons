@@ -1,5 +1,0 @@
-def test_is_valid(self):
-    assert (Reference(self.rorepo, 'refs/doesnt/exist').is_valid() == False)
-    assert self.rorepo.head.is_valid()
-    assert self.rorepo.head.reference.is_valid()
-    assert (SymbolicReference(self.rorepo, 'hellothere').is_valid() == False)

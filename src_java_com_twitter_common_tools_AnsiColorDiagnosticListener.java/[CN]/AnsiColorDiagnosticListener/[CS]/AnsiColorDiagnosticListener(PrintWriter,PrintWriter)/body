@@ -1,0 +1,4 @@
+{
+  this.outWriter=outWriter;
+  this.errWriter=errWriter;
+}

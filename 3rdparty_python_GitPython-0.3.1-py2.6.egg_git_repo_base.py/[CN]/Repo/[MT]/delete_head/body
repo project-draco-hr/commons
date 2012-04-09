@@ -1,3 +1,0 @@
-def delete_head(self, *heads, **kwargs):
-    'Delete the given heads\n\t\t\n\t\t:param kwargs: Additional keyword arguments to be passed to git-branch'
-    return Head.delete(self, *heads, **kwargs)

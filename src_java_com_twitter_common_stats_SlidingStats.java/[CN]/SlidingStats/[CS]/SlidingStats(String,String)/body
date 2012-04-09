@@ -1,8 +1,3 @@
 {
-  MorePreconditions.checkNotBlank(name);
-  String totalDisplay=name + "_" + totalUnitDisplay+ "_total";
-  String eventDisplay=name + "_events";
-  total=Stats.exportLong(totalDisplay);
-  events=Stats.exportLong(eventDisplay);
-  Stats.export(Ratio.of(name + "_" + totalUnitDisplay+ "_per_event",Rate.of(totalDisplay + "_per_sec",total).build(),Rate.of(eventDisplay + "_per_sec",events).build()));
+  this(name,totalUnitDisplay,DEFAULT_WINDOW_SIZE);
 }

@@ -1,6 +1,8 @@
 from __future__ import print_function
 __author__ = 'Brian Wickman'
 import os
-from twitter.common.python.pexbuilder import PexBuilder
+import tempfile
+from twitter.common.python.pex_builder import PEXBuilder
+from twitter.pants.base import Config
 from twitter.pants.targets import PythonBinary
 from twitter.pants.python.python_chroot import PythonChroot

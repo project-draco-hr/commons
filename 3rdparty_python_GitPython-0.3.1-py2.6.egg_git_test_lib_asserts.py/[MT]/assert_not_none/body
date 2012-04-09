@@ -1,3 +1,0 @@
-def assert_not_none(actual, msg=None):
-    'verify that item is None'
-    assert (actual is not None), msg

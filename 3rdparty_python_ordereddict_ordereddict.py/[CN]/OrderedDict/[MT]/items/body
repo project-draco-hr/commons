@@ -1,3 +1,0 @@
-def items(self):
-    'od.items() -> list of (key, value) pairs in od'
-    return [(key, self[key]) for key in self]

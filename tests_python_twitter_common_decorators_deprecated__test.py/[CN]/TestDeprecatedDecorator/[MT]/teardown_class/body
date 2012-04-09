@@ -1,4 +1,0 @@
-@classmethod
-def teardown_class(cls):
-    root_logger = logging.getLogger()
-    root_logger.removeHandler(cls._log_handler)

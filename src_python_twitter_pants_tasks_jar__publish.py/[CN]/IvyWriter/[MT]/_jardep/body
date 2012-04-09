@@ -1,0 +1,2 @@
+def _jardep(self, jar, transitive=True, ext=None, url=None, configurations='default'):
+    return TemplateData(org=jar.org, module=jar.name, version=jar.rev, force=jar.force, excludes=[self.create_exclude(exclude) for exclude in jar.excludes], transitive=transitive, ext=ext, url=url, configurations=configurations)

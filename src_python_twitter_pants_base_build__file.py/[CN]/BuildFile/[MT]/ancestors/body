@@ -11,7 +11,7 @@ def ancestors(self):
     parent_buildfiles = OrderedSet()
     parentdir = os.path.dirname(self.full_path)
     visited = set()
-    while (parentdir not in visited):
+    while ((parentdir not in visited) and (self.root_dir != parentdir)):
         visited.add(parentdir)
         (parentdir, buildfile) = find_parent(parentdir)
         if buildfile:

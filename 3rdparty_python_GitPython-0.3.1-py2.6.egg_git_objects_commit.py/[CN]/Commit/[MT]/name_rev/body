@@ -1,4 +1,0 @@
-@property
-def name_rev(self):
-    '\n\t\t:return:\n\t\t\tString describing the commits hex sha based on the closest Reference.\n\t\t\tMostly useful for UI purposes'
-    return self.repo.git.name_rev(self)

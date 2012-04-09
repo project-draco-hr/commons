@@ -1,4 +1,0 @@
-def test_commit_from_revision(self):
-    commit = self.rorepo.commit('0.1.4')
-    assert (commit.type == 'commit')
-    assert (self.rorepo.commit(commit) == commit)

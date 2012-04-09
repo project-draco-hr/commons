@@ -1,2 +1,0 @@
-def __str__(self):
-    return ("'%s' returned exit status %i: %s" % (' '.join((str(i) for i in self.command)), self.status, self.stderr))

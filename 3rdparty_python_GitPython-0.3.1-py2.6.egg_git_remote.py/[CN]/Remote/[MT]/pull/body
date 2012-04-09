@@ -1,4 +1,0 @@
-def pull(self, refspec=None, progress=None, **kwargs):
-    "Pull changes from the given branch, being the same as a fetch followed \n\t\tby a merge of branch with your local branch.\n\t\t\n\t\t:param refspec: see 'fetch' method\n\t\t:param progress: see 'push' method\n\t\t:param kwargs: Additional arguments to be passed to git-pull\n\t\t:return: Please see 'fetch' method "
-    proc = self.repo.git.pull(self, refspec, with_extended_output=True, as_process=True, v=True, **kwargs)
-    return self._get_fetch_info_from_stderr(proc, (progress or RemoteProgress()))

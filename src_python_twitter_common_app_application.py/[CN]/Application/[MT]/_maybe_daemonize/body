@@ -1,0 +1,3 @@
+def _maybe_daemonize(self):
+    if self._option_values.twitter_common_app_daemonize:
+        daemonize(pidfile=self._option_values.twitter_common_app_pidfile, stdout=self._option_values.twitter_common_app_daemon_stdout, stderr=self._option_values.twitter_common_app_daemon_stderr)

@@ -1,4 +1,0 @@
-def test_archive(self):
-    tmpfile = os.tmpfile()
-    self.rorepo.archive(tmpfile, '0.1.5')
-    assert tmpfile.tell()

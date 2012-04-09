@@ -1,0 +1,12 @@
+def get_build_info():
+    buildroot = get_build_root()
+    revision = safe_call(['git', 'rev-parse', 'HEAD']).strip().decode('utf-8')
+    tag = safe_call(['git', 'describe']).strip()
+    tag = ('none' if ('cannot' in tag) else tag.decode('utf-8'))
+    branchname = revision
+    for branchname in safe_call(['git', 'branch']).splitlines():
+        if branchname.startswith('* '):
+            branchname = branchname[2:].strip().decode('utf-8')
+            break
+    now = localtime()
+    return BuildInfo(date=strftime('%A %b %d, %Y', now), time=strftime('%H:%M:%S', now), timestamp=strftime('%m.%d.%Y %H:%M', now), branch=branchname, tag=tag, sha=revision, name=getpass.getuser(), machine=socket.gethostname(), path=buildroot)

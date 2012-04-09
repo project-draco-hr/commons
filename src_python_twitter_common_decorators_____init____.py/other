@@ -1,2 +1,13 @@
+from __future__ import print_function
+__author__ = 'Brian Wickman'
+import sys
 import types
-from twitter.common import log
+try:
+    from twitter.common import log
+    _log_function = log.warning
+except ImportError:
+
+    def _log_function(msg):
+        print(msg, file=sys.stderr)
+from .lru_cache import lru_cache
+__all__ = ('deprecated', 'deprecated_with_warning', 'lru_cache')

@@ -1,0 +1,3 @@
+@classmethod
+def _log(cls, msg, *args, **kw):
+    print(msg, *args, **kw)

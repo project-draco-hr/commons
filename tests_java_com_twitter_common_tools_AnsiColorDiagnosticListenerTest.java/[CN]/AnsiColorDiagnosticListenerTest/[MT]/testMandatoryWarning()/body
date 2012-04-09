@@ -1,0 +1,7 @@
+{
+  expectDiagnostic(Kind.MANDATORY_WARNING,"mandatory warning","abcdefg",1L,5L,1L);
+  control.replay();
+  listener.reportOn(diagnostic);
+  assertErr("mandatory warning","abcdefg","^");
+  assertNoOut();
+}

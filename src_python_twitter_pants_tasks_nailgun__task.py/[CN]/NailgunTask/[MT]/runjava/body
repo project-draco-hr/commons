@@ -1,0 +1,14 @@
+def runjava(self, main, classpath=None, args=None, jvmargs=None):
+    '\n      Runs the java main using the given classpath and args.  If --no-ng-daemons is specified then\n      the java main is run in a freshly spawned subprocess, otherwise a persistent nailgun server\n      dedicated to this Task subclass is used to speed up amortized run times.\n    '
+    cp = ((self._classpath or []) + (classpath or []))
+    if self._daemon:
+        nailgun = self._get_nailgun_client()
+        try:
+            if cp:
+                nailgun('ng-cp', *[os.path.relpath(jar, get_buildroot()) for jar in cp])
+            return nailgun(main, *args)
+        except NailgunError as e:
+            self._ng_shutdown()
+            raise e
+    else:
+        return binary_utils.runjava(main=main, classpath=cp, args=args, jvmargs=jvmargs)

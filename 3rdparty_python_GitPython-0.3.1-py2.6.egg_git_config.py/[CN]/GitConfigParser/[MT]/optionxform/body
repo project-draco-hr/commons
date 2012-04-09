@@ -1,3 +1,0 @@
-def optionxform(self, optionstr):
-    'Do not transform options in any way when writing'
-    return optionstr

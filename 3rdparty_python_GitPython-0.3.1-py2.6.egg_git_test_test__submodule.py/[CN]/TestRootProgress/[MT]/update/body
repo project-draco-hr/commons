@@ -1,2 +1,0 @@
-def update(self, op, index, max_count, message=''):
-    print message

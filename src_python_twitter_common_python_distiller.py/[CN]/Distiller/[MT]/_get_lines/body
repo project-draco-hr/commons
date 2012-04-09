@@ -1,0 +1,2 @@
+def _get_lines(self, txt):
+    return list(self._dist.get_metadata_lines(txt))

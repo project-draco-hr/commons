@@ -1,7 +1,0 @@
-import os
-from git.objects import Object, Commit
-from git.util import join_path, join_path_native, to_native_path_linux, assure_directory_exists
-from gitdb.exc import BadObject
-from gitdb.util import join, dirname, isdir, exists, isfile, rename, hex_to_bin, LockedFD
-from log import RefLog
-__all__ = ['SymbolicReference']

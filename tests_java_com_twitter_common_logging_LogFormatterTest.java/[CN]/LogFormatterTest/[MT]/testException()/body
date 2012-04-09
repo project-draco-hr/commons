@@ -1,0 +1,7 @@
+{
+  String message="The fuzzbizzer failed.";
+  Throwable exception=new RuntimeException("No such fizzbuzzer.");
+  LogRecord record=makeRecord(Level.WARNING,message);
+  record.setThrown(exception);
+  assertThat(formatter.format(record),is(String.format("W%s THREAD%d: %s\n%s\n",TIME_STRING,THREAD_ID,message,Throwables.getStackTraceAsString(exception))));
+}

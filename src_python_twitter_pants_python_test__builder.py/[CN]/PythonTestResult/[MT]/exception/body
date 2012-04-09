@@ -1,0 +1,3 @@
+@staticmethod
+def exception():
+    return PythonTestResult('EXCEPTION')

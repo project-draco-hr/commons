@@ -1,0 +1,2 @@
+def console_output(self, targets):
+    return set((target.address.buildfile.parent_path for target in targets))

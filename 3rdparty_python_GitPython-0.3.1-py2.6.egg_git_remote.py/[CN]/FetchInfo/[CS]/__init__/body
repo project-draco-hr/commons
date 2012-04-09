@@ -1,6 +1,0 @@
-def __init__(self, ref, flags, note='', old_commit=None):
-    '\n\t\tInitialize a new instance\n\t\t'
-    self.ref = ref
-    self.flags = flags
-    self.note = note
-    self.old_commit = old_commit

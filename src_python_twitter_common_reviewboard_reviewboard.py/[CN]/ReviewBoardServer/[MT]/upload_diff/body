@@ -1,0 +1,13 @@
+def upload_diff(self, review_request, diff_content, parent_diff_content):
+    '\n    Uploads a diff to a Review Board server.\n    '
+    self.debug(('Uploading diff, size: %d' % len(diff_content)))
+    if parent_diff_content:
+        self.debug(('Uploading parent diff, size: %d' % len(parent_diff_content)))
+    fields = {}
+    files = {}
+    if self.info.base_path:
+        fields['basedir'] = self.info.base_path
+    files['path'] = {'filename': 'diff', 'content': diff_content, }
+    if parent_diff_content:
+        files['parent_diff_path'] = {'filename': 'parent_diff', 'content': parent_diff_content, }
+    self.api_call(('api/review-requests/%s/diff/new/' % review_request['id']), fields, files)

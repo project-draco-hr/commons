@@ -1,0 +1,17 @@
+{
+switch (diagnostic.getKind()) {
+case NOTE:
+    logDiagnostic(outWriter,Ansi.ansi().fg(Color.GREEN),diagnostic);
+  break;
+case WARNING:
+case MANDATORY_WARNING:
+logDiagnostic(errWriter,Ansi.ansi().fg(Color.YELLOW),diagnostic);
+break;
+case ERROR:
+logDiagnostic(errWriter,Ansi.ansi().fg(Color.RED),diagnostic);
+break;
+case OTHER:
+default :
+outWriter.println(getMessage(diagnostic));
+}
+}

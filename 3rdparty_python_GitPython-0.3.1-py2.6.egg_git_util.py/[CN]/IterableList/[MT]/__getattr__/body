@@ -1,6 +1,0 @@
-def __getattr__(self, attr):
-    attr = (self._prefix + attr)
-    for item in self:
-        if (getattr(item, self._id_attr) == attr):
-            return item
-    return list.__getattribute__(self, attr)

@@ -1,4 +1,0 @@
-def update(self, **kwargs):
-    'Fetch all changes for this remote, including new branches which will \n\t\tbe forced in ( in case your local remote branch is not part the new remote branches\n\t\tancestry anymore ).\n\t\t\n\t\t:param kwargs:\n\t\t\tAdditional arguments passed to git-remote update\n\t\t\n\t\t:return: self '
-    self.repo.git.remote('update', self.name)
-    return self

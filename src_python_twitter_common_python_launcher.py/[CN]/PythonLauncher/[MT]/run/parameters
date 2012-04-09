@@ -1,8 +1,0 @@
-self
-interpreter
-binary
-interpreter_args
-args
-extra_deps
-with_chroot
-kill_orphans

@@ -1,2 +1,0 @@
-def __ne__(self, rhs):
-    return (not self.__eq__(rhs))

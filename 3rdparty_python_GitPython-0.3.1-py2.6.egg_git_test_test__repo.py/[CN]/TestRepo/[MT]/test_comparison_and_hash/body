@@ -1,3 +1,0 @@
-def test_comparison_and_hash(self):
-    assert ((self.rorepo == self.rorepo) and (not (self.rorepo != self.rorepo)))
-    assert (len(set((self.rorepo, self.rorepo))) == 1)

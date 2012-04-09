@@ -1,2 +1,0 @@
-def __iadd__(self, other):
-    self.extend(other)

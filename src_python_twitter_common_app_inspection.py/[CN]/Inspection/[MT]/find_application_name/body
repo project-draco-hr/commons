@@ -7,7 +7,7 @@ def find_application_name():
     elif ('__loader__' in locals):
         from zipimport import zipimporter
         from pkgutil import ImpLoader
-        if isinstance(locals['__loader__'], zipimporter):
+        if hasattr(locals['__loader__'], 'archive'):
             __entry_point__ = os.path.basename(locals['__loader__'].archive)
             __entry_point__ = __entry_point__.split('-')[0].split('.')[0]
         elif isinstance(locals['__loader__'], ImpLoader):

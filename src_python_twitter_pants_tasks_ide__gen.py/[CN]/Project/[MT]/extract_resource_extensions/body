@@ -1,0 +1,7 @@
+@staticmethod
+def extract_resource_extensions(resources):
+    'Returns the set of unique extensions (including the .) from the given resource files.'
+    if resources:
+        for resource in resources:
+            (_, ext) = os.path.splitext(resource)
+            yield ext

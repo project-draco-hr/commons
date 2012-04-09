@@ -1,0 +1,9 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('project-name'), dest='ide_gen_project_name', default='project', help='[%default] Specifies the name to use for the generated project.')
+    gen_dir = mkflag('project-dir')
+    option_group.add_option(gen_dir, dest='ide_gen_project_dir', help='[%default] Specifies the directory to output the generated project files to.')
+    option_group.add_option(mkflag('project-cwd'), dest='ide_gen_project_cwd', help=('[%%default] Specifies the directory the generated project should use as the cwd for processes it launches.  Note that specifying this trumps %s and not all project related files will be stored there.' % gen_dir))
+    option_group.add_option(mkflag('python'), mkflag('python', negate=True), default=False, action='callback', callback=mkflag.set_bool, dest='ide_gen_python', help='[%default] Adds python support to the generated project configuration.')
+    option_group.add_option(mkflag('java'), mkflag('java', negate=True), default=True, action='callback', callback=mkflag.set_bool, dest='ide_gen_java', help='[%default] Includes java sources in the project; otherwise compiles them and adds them to the project classpath.')
+    option_group.add_option(mkflag('scala'), mkflag('scala', negate=True), default=True, action='callback', callback=mkflag.set_bool, dest='ide_gen_scala', help='[%default] Includes scala sources in the project; otherwise compiles them and adds them to the project classpath.')

@@ -1,0 +1,7 @@
+@staticmethod
+def format(exctype, value, tb):
+    ostr = Compatibility.StringIO()
+    ostr.write('Uncaught exception:\n')
+    ostr.write(''.join(traceback.format_exception(exctype, value, tb)))
+    ostr.write(BasicExceptionHandler.synthesize_thread_stacks())
+    return ostr.getvalue()

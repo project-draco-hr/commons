@@ -1,5 +1,0 @@
-def __gt__(self, other):
-    '\n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> c = OrderedDict(((0, 3), (3, 2), (2, 1)))\n        >>> d > c\n        True\n        >>> c > d\n        False\n        >>> d > dict(c)\n        Traceback (most recent call last):\n        TypeError: Can only compare with other OrderedDicts\n        '
-    if (not isinstance(other, OrderedDict)):
-        raise TypeError('Can only compare with other OrderedDicts')
-    return (self.items() > other.items())

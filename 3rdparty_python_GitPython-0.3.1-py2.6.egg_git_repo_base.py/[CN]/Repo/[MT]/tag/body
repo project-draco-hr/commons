@@ -1,3 +1,0 @@
-def tag(self, path):
-    ':return: TagReference Object, reference pointing to a Commit or Tag\n\t\t:param path: path to the tag reference, i.e. 0.1.5 or tags/0.1.5 '
-    return TagReference(self, path)

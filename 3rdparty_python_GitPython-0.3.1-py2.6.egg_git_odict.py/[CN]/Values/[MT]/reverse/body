@@ -1,5 +1,0 @@
-def reverse(self):
-    'Reverse the values'
-    vals = self._main.values()
-    vals.reverse()
-    self[:] = vals

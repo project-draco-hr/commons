@@ -7,6 +7,7 @@ def __init__(self, context):
     self._jmake_profile = context.config.get('java-compile', 'jmake-profile')
     self._compiler_profile = context.config.get('java-compile', 'compiler-profile')
     self._args = context.config.getlist('java-compile', 'args')
+    self._jvm_args = context.config.getlist('java-compile', 'jvm_args')
     if context.options.java_compile_warnings:
         self._args.extend(context.config.getlist('java-compile', 'warning_args'))
     else:

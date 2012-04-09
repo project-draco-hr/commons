@@ -1,4 +1,0 @@
-@classmethod
-def remove(cls, repo, name):
-    'Remove the remote with the given name'
-    repo.git.remote('rm', name)

@@ -1,5 +1,0 @@
-def __le__(self, other):
-    '\n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> c = OrderedDict(((0, 3), (3, 2), (2, 1)))\n        >>> e = OrderedDict(d)\n        >>> c <= d\n        True\n        >>> d <= c\n        False\n        >>> d <= dict(c)\n        Traceback (most recent call last):\n        TypeError: Can only compare with other OrderedDicts\n        >>> d <= e\n        True\n        '
-    if (not isinstance(other, OrderedDict)):
-        raise TypeError('Can only compare with other OrderedDicts')
-    return (self.items() <= other.items())

@@ -1,4 +1,0 @@
-@property
-def config(self):
-    'return: Configparser instance we constrain'
-    return self._config

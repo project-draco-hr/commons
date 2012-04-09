@@ -5,3 +5,4 @@ dependencies
 excludes
 buildflags
 is_meta
+configurations

@@ -1,4 +1,0 @@
-@property
-def summary(self):
-    ':return: First line of the commit message'
-    return self.message.split('\n', 1)[0]

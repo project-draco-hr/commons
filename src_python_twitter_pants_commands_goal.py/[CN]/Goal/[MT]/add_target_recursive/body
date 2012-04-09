@@ -1,0 +1,6 @@
+def add_target_recursive(self, *specs):
+    with self.check_errors('There was a problem scanning the following directories for targets:') as error:
+        for spec in specs:
+            dir = self.get_dir(spec)
+            for buildfile in BuildFile.scan_buildfiles(self.root_dir, dir):
+                self.add_targets(error, dir, buildfile)

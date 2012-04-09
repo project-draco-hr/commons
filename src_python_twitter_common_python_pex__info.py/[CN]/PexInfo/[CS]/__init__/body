@@ -1,0 +1,8 @@
+def __init__(self, content=json.dumps({})):
+    if isinstance(content, bytes):
+        content = content.decode('utf-8')
+    self._pex_info = json.loads(content)
+    self._requirements = OrderedSet((PexRequirement(*req) for req in self._pex_info.get('requirements', [])))
+    self._repositories = OrderedSet(self._pex_info.get('repositories', []))
+    self._indices = OrderedSet(self._pex_info.get('indices', []))
+    self._egg_caches = OrderedSet(self._pex_info.get('egg_caches', []))

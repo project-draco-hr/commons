@@ -1,10 +1,32 @@
 def _run_python_test(self, target):
-    chroot = PythonChroot(target, self.root_dir)
-    chroot.add_req(pkg_resources.Requirement.parse('pytest'))
-    chroot.add_req(pkg_resources.Requirement.parse('unittest2'))
-    launcher = PythonLauncher(chroot.dump().path())
-    test_args = ['-m', 'pytest']
-    test_args.extend(PythonTestBuilder.generate_junit_args(target))
-    test_args.extend(self.args)
-    sources = [os.path.join(target.target_base, source) for source in target.sources]
-    return launcher.run(interpreter_args=test_args, args=list(sources), kill_orphans=True)
+    po = None
+    rv = PythonTestResult.exception()
+    try:
+        try:
+            builder = PEXBuilder()
+            builder.info().entry_point = 'pytest'
+            builder.info().ignore_errors = target._soft_dependencies
+            chroot = PythonChroot(target, self.root_dir, extra_targets=self.generate_test_targets(), builder=builder)
+            builder = chroot.dump()
+            builder.freeze()
+            test_args = PythonTestBuilder.generate_junit_args(target)
+            test_args.extend(self.args)
+            sources = [os.path.join(target.target_base, source) for source in target.sources]
+            po = PEX(builder.path()).run(args=(test_args + sources), blocking=False, setsid=True)
+            rv = PythonTestBuilder.wait_on(po, timeout=target.timeout)
+        except Exception as e:
+            import traceback
+            print('Failed to run test!', file=sys.stderr)
+            traceback.print_exc()
+            rv = PythonTestResult.exception()
+    finally:
+        if (po and (po.returncode != 0)):
+            try:
+                os.killpg(po.pid, signal.SIGTERM)
+            except OSError as e:
+                if (e.errno == errno.EPERM):
+                    print(('Unable to kill process group: %d' % po.pid))
+                elif (e.errno != errno.ESRCH):
+                    rv = PythonTestResult.exception()
+    self.successes[target._create_id()] = rv
+    return rv

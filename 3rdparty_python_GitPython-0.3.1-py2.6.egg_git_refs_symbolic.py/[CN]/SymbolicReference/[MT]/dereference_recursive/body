@@ -1,7 +1,0 @@
-@classmethod
-def dereference_recursive(cls, repo, ref_path):
-    '\n\t\t:return: hexsha stored in the reference at the given ref_path, recursively dereferencing all\n\t\t\tintermediate references as required\n\t\t:param repo: the repository containing the reference at ref_path'
-    while True:
-        (hexsha, ref_path) = cls._get_ref_info(repo, ref_path)
-        if (hexsha is not None):
-            return hexsha

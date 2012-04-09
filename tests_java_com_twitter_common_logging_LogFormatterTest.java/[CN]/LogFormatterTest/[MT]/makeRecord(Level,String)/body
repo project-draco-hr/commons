@@ -1,0 +1,6 @@
+{
+  LogRecord record=new LogRecord(level,message);
+  record.setMillis(TIME_MILLIS);
+  record.setThreadID(THREAD_ID);
+  return record;
+}

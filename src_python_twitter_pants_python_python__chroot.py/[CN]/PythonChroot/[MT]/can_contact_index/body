@@ -1,7 +1,0 @@
-@staticmethod
-def can_contact_index(url, timeout=Amount(5, Time.SECONDS)):
-    try:
-        response = urlopen(url, timeout=timeout.as_(Time.SECONDS))
-        return (response.code == 200)
-    except URLError:
-        return False

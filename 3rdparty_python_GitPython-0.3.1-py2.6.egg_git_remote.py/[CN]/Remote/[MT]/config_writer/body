@@ -1,9 +1,0 @@
-@property
-def config_writer(self):
-    '\n\t\t:return: GitConfigParser compatible object able to write options for this remote.\n\t\t:note:\n\t\t\tYou can only own one writer at a time - delete it to release the \n\t\t\tconfiguration file and make it useable by others.\n\t\t\t\n\t\t\tTo assure consistent results, you should only query options through the \n\t\t\twriter. Once you are done writing, you are free to use the config reader \n\t\t\tonce again.'
-    writer = self.repo.config_writer()
-    try:
-        del self._config_reader
-    except AttributeError:
-        pass
-    return SectionConstraint(writer, self._config_section_name())

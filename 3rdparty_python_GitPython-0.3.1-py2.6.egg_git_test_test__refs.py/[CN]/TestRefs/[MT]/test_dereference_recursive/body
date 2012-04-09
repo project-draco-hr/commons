@@ -1,2 +1,0 @@
-def test_dereference_recursive(self):
-    assert SymbolicReference.dereference_recursive(self.rorepo, 'HEAD')

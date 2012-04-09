@@ -1,2 +1,0 @@
-def fixture(name):
-    return open(fixture_path(name), 'rb').read()

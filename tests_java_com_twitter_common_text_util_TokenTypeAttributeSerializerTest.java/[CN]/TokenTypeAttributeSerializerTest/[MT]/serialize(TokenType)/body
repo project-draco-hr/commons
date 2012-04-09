@@ -1,0 +1,11 @@
+{
+  AttributeSource attributeSource=new AttributeSource();
+  TokenTypeAttribute tokenTypeAttribute=attributeSource.addAttribute(TokenTypeAttribute.class);
+  tokenTypeAttribute.setType(tokenType);
+  TokenTypeAttributeSerializer serializer=new TokenTypeAttributeSerializer();
+  serializer.initialize(attributeSource,TokenStreamSerializer.CURRENT_VERSION);
+  ByteArrayOutputStream output=new ByteArrayOutputStream();
+  TokenStreamSerializer.AttributeOutputStream outputStream=new TokenStreamSerializer.AttributeOutputStream(output);
+  serializer.serialize(outputStream);
+  return output.toByteArray();
+}

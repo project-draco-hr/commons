@@ -1,7 +1,7 @@
 @contextmanager
 def mutable_sys():
     '\n    A with-context that does backup/restore of sys.argv, sys.path and\n    sys.stderr/stdout/stdin following execution.\n  '
-    SAVED_ATTRIBUTES = ['stdin', 'stdout', 'stderr', 'argv', 'path', 'path_importer_cache', 'path_hooks', '__egginsert']
+    SAVED_ATTRIBUTES = ['stdin', 'stdout', 'stderr', 'argv', 'path', 'path_importer_cache', 'path_hooks', 'modules', '__egginsert']
     _sys_backup = dict(((key, getattr(sys, key)) for key in SAVED_ATTRIBUTES if hasattr(sys, key)))
     _sys_delete = set(filter((lambda key: (not hasattr(sys, key))), SAVED_ATTRIBUTES))
     try:

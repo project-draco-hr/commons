@@ -2,8 +2,8 @@ from __future__ import print_function
 __author__ = 'Brian Wickman'
 import os
 import sys
-import shutil
 import tempfile
 import subprocess
+from twitter.common.dirutil import safe_rmtree
 from twitter.common.dirutil.chroot import RelativeChroot
 from twitter.pants.python.egg_builder import EggBuilder

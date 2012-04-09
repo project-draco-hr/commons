@@ -1,0 +1,1 @@
+from twitter.common.lang import Compatibility

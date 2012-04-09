@@ -1,3 +1,2 @@
 def setUp(self):
     self.buildfile = BuildFileTest.buildfile('grandparent/parent/BUILD')
-    pass

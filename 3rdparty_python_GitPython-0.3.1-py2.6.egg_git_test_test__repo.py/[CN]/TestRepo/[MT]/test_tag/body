@@ -1,2 +1,0 @@
-def test_tag(self):
-    assert self.rorepo.tag('refs/tags/0.1.5').commit

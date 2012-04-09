@@ -1,0 +1,7 @@
+def setup_function(self):
+    self._builtin_hook = sys.excepthook
+
+    def forwarding_handler(*args, **kw):
+        AppScribeExceptionHandler.scribe_error(*args, **kw)
+        self._builtin_hook(*args, **kw)
+    sys.excepthook = forwarding_handler

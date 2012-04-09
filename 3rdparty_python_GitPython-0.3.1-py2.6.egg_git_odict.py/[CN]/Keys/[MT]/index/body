@@ -1,2 +1,0 @@
-def index(self, item, *args):
-    return self._main._sequence.index(item, *args)

@@ -1,3 +1,0 @@
-def _get_object(self):
-    '\n\t\t:return:\n\t\t\tThe object our ref currently refers to. Refs can be cached, they will \n\t\t\talways point to the actual object as it gets re-created on each query'
-    return Object.new_from_sha(self.repo, hex_to_bin(self.dereference_recursive(self.repo, self.path)))

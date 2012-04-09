@@ -1,7 +1,0 @@
-def __setattr__(self, name, value):
-    '\n        Implemented so that accesses to ``sequence`` raise a warning and are\n        diverted to the new ``setkeys`` method.\n        '
-    if (name == 'sequence'):
-        warnings.warn('Use of the sequence attribute is deprecated. Use the keys method instead.', DeprecationWarning)
-        self.setkeys(value)
-    else:
-        object.__setattr__(self, name, value)

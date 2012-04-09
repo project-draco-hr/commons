@@ -1,4 +1,0 @@
-@property
-def active_branch(self):
-    'The name of the currently active branch.\n\n\t\t:return: Head to the active branch'
-    return self.head.reference

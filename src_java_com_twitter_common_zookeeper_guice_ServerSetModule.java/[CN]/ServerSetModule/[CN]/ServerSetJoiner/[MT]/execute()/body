@@ -4,9 +4,10 @@
   if (!primarySocket.isPresent()) {
     throw new IllegalStateException("No primary service registered with LocalServiceRegistry.");
   }
-  final EndpointStatus status;
+  final EndpointStatus endpointStatus;
   try {
-    status=serverSet.join(primarySocket.get(),serviceRegistry.getAuxiliarySockets(),Status.ALIVE);
+    endpointStatus=serverSet.join(primarySocket.get(),serviceRegistry.getAuxiliarySockets(),initialStatus);
+    endpointSupplier.set(endpointStatus);
   }
  catch (  JoinException e) {
     LOG.log(Level.WARNING,"Failed to join ServerSet.",e);
@@ -20,7 +21,7 @@ catch (  InterruptedException e) {
   shutdownRegistry.addAction(new ExceptionalCommand<UpdateException>(){
     @Override public void execute() throws UpdateException {
       LOG.info("Leaving ServerSet.");
-      status.update(Status.DEAD);
+      endpointStatus.update(Status.DEAD);
     }
   }
 );

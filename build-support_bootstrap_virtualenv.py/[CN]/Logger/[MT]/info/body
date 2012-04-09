@@ -1,2 +1,0 @@
-def info(self, msg, *args, **kw):
-    self.log(self.INFO, msg, *args, **kw)

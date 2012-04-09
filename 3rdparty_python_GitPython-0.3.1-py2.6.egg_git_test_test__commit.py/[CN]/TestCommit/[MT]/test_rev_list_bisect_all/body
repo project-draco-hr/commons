@@ -1,7 +1,0 @@
-def test_rev_list_bisect_all(self):
-    "\n\t\t'git rev-list --bisect-all' returns additional information\n\t\tin the commit header.  This test ensures that we properly parse it.\n\t\t"
-    revs = self.rorepo.git.rev_list('933d23bf95a5bd1624fbcdf328d904e1fa173474', first_parent=True, bisect_all=True)
-    commits = Commit._iter_from_process_or_stream(self.rorepo, StringProcessAdapter(revs))
-    expected_ids = ('7156cece3c49544abb6bf7a0c218eb36646fad6d', '1f66cfbbce58b4b552b041707a12d437cc5f400a', '33ebe7acec14b25c5f84f35a664803fcab2f7781', '933d23bf95a5bd1624fbcdf328d904e1fa173474')
-    for (sha1, commit) in zip(expected_ids, commits):
-        assert_equal(sha1, commit.hexsha)

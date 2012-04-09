@@ -1,8 +1,0 @@
-def config_reader(self, config_level=None):
-    '\n\t\t:return:\n\t\t\tGitConfigParser allowing to read the full git configuration, but not to write it\n\t\t\t\n\t\t\tThe configuration will include values from the system, user and repository \n\t\t\tconfiguration files.\n\t\t\t\n\t\t:param config_level:\n\t\t\tFor possible values, see config_writer method\n\t\t\tIf None, all applicable levels will be used. Specify a level in case \n\t\t\tyou know which exact file you whish to read to prevent reading multiple files for \n\t\t\tinstance\n\t\t:note: On windows, system configuration cannot currently be read as the path is \n\t\t\tunknown, instead the global path will be used.'
-    files = None
-    if (config_level is None):
-        files = [self._get_config_path(f) for f in self.config_level]
-    else:
-        files = [self._get_config_path(config_level)]
-    return GitConfigParser(files, read_only=True)

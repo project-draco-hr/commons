@@ -1,4 +1,0 @@
-@classmethod
-def delete(cls, repo, *tags):
-    'Delete the given existing tag or tags'
-    repo.git.tag('-d', *tags)

@@ -1,4 +1,5 @@
 '\n  Basic Twitter Python application framework.\n\n  Example usage:\n    from twitter.common import app, log\n    app.add_option(\'--my_option\', dest=\'my_option\', help="my commandline argument!")\n\n    def main(args):\n      log.info(\'my_option was set to %s\' % app.get_options().my_option)\n      log.info(\'my argv is: %s\' % args)\n\n    app.main()\n\n  app.main() replaces the "if __name__ == \'__main__\': main()" idiom and runs any\n  initialization code by app-compatible libraries as many in twitter.common are.\n'
+__author__ = 'Brian Wickman'
 import sys
 import types
 from twitter.common.app.application import Application

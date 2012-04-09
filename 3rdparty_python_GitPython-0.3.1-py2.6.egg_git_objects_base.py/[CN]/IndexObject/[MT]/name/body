@@ -1,4 +1,0 @@
-@property
-def name(self):
-    ':return: Name portion of the path, effectively being the basename'
-    return basename(self.path)

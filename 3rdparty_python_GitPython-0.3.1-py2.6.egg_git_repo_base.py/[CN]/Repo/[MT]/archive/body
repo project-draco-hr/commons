@@ -1,9 +1,0 @@
-def archive(self, ostream, treeish=None, prefix=None, **kwargs):
-    "Archive the tree at the given revision.\n\t\t:parm ostream: file compatible stream object to which the archive will be written\n\t\t:parm treeish: is the treeish name/id, defaults to active branch\n\t\t:parm prefix: is the optional prefix to prepend to each filename in the archive\n\t\t:parm kwargs:\n\t\t\tAdditional arguments passed to git-archive\n\t\t\tNOTE: Use the 'format' argument to define the kind of format. Use \n\t\t\tspecialized ostreams to write any format supported by python\n\n\t\t:raise GitCommandError: in case something went wrong\n\t\t:return: self"
-    if (treeish is None):
-        treeish = self.head.commit
-    if (prefix and ('prefix' not in kwargs)):
-        kwargs['prefix'] = prefix
-    kwargs['output_stream'] = ostream
-    self.git.archive(treeish, **kwargs)
-    return self

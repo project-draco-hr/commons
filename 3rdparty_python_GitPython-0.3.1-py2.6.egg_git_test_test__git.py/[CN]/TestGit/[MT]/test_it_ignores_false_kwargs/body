@@ -1,4 +1,0 @@
-@patch_object(Git, 'execute')
-def test_it_ignores_false_kwargs(self, git):
-    output = self.git.version(pass_this_kwarg=False)
-    assert_true(('pass_this_kwarg' not in git.call_args[1]))

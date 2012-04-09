@@ -1,7 +1,0 @@
-{
-  int connections=0;
-  for (  TrafficMonitor<InetSocketAddress>.TrafficInfo info : monitor.getTrafficInfo().values()) {
-    connections+=info.getConnectionCount();
-  }
-  assertThat(connections,is(connectionCount));
-}

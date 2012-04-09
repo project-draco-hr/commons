@@ -1,4 +1,0 @@
-def assert_mode_644(mode):
-    'Verify given mode is 644'
-    assert ((mode & stat.S_IROTH) and (mode & stat.S_IRGRP))
-    assert ((mode & stat.S_IWUSR) and (mode & stat.S_IRUSR) and (not (mode & stat.S_IXUSR)))

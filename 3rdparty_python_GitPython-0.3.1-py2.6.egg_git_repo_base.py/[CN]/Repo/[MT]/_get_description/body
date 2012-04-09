@@ -1,3 +1,0 @@
-def _get_description(self):
-    filename = join(self.git_dir, 'description')
-    return file(filename).read().rstrip()

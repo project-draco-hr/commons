@@ -1,3 +1,0 @@
-def config_writer(self, config_level='repository'):
-    "\n\t\t:return:\n\t\t\tGitConfigParser allowing to write values of the specified configuration file level.\n\t\t\tConfig writers should be retrieved, used to change the configuration ,and written \n\t\t\tright away as they will lock the configuration file in question and prevent other's\n\t\t\tto write it.\n\t\t\t\n\t\t:param config_level:\n\t\t\tOne of the following values\n\t\t\tsystem = sytem wide configuration file\n\t\t\tglobal = user level configuration file\n\t\t\trepository = configuration file for this repostory only"
-    return GitConfigParser(self._get_config_path(config_level), read_only=False)

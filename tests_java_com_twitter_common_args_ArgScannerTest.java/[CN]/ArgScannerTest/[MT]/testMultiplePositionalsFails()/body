@@ -1,10 +1,10 @@
 {
   resetMainArgs();
   assertTrue(parse(Main1.class,"jack,jill","laurel,hardy"));
-  assertEquals(ImmutableList.of("jack,jill","laurel,hardy"),ImmutableList.copyOf(Main1.names.get()));
+  assertEquals(ImmutableList.of("jack,jill","laurel,hardy"),ImmutableList.copyOf(Main1.NAMES.get()));
   resetMainArgs();
   assertTrue(parse(Main2.class,"jack,jill","laurel,hardy"));
-  assertEquals(ImmutableList.of(ImmutableList.of("jack","jill"),ImmutableList.of("laurel","hardy")),ImmutableList.copyOf(Main2.rosters.get()));
+  assertEquals(ImmutableList.of(ImmutableList.of("jack","jill"),ImmutableList.of("laurel","hardy")),ImmutableList.copyOf(Main2.ROSTERS.get()));
   resetMainArgs();
   try {
     parse(ImmutableList.of(Main1.class,Main2.class),"jack,jill","laurel,hardy");

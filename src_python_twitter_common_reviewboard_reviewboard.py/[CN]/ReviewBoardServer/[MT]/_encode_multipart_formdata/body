@@ -1,0 +1,27 @@
+def _encode_multipart_formdata(self, fields, files):
+    '\n    Encodes data for use in an HTTP POST or PUT.\n    '
+    BOUNDARY = mimetools.choose_boundary()
+    content = []
+    fields = (fields or {})
+    files = (files or {})
+    for key in fields:
+        content.append((('--' + BOUNDARY) + '\r\n'))
+        content.append(('Content-Disposition: form-data; name="%s"\r\n' % key))
+        content.append('\r\n')
+        content.append(fields[key])
+        content.append('\r\n')
+    for key in files:
+        filename = files[key]['filename']
+        value = files[key]['content']
+        content.append((('--' + BOUNDARY) + '\r\n'))
+        content.append(('Content-Disposition: form-data; name="%s"; ' % key))
+        content.append(('filename="%s"\r\n' % filename))
+        content.append('\r\n')
+        content.append(value)
+        content.append('\r\n')
+    content.append('--')
+    content.append(BOUNDARY)
+    content.append('--\r\n')
+    content.append('\r\n')
+    content_type = ('multipart/form-data; boundary=%s' % BOUNDARY)
+    return (content_type, ''.join(map(str, content)))

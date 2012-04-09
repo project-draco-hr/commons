@@ -1,2 +1,0 @@
-def _deserialize(self, stream):
-    self.extend(self.iter_entries(stream))

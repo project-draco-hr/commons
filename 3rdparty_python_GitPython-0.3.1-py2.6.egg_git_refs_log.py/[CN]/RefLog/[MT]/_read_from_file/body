@@ -1,6 +1,0 @@
-def _read_from_file(self):
-    fmap = file_contents_ro_filepath(self._path, stream=False, allow_mmap=True)
-    try:
-        self._deserialize(fmap)
-    finally:
-        fmap.close()

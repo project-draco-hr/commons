@@ -1,0 +1,5 @@
+def __init__(self, pex, pex_info):
+    self._pex_info = pex_info
+    subcaches = sum([[os.path.join(pex, pex_info.internal_cache)], [cache for cache in pex_info.egg_caches], [(pex_info.install_cache if pex_info.install_cache else [])]], [])
+    self._activated = False
+    super(PEXEnvironment, self).__init__(caches=subcaches, install_cache=pex_info.install_cache, fetcher_provider=PEXEnvironment.get_fetcher_provider(pex_info))

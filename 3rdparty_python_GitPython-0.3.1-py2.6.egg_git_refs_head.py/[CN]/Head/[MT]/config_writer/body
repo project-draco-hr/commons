@@ -1,3 +1,0 @@
-def config_writer(self):
-    '\n\t\t:return: A configuration writer instance with read-and write acccess\n\t\t\tto options of this head'
-    return self._config_parser(read_only=False)

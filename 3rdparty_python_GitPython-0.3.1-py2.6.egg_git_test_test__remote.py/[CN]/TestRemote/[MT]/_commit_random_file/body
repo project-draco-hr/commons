@@ -1,6 +1,0 @@
-def _commit_random_file(self, repo):
-    index = repo.index
-    new_file = self._make_file(os.path.basename(tempfile.mktemp()), str(random.random()), repo)
-    index.add([new_file])
-    index.commit(('Committing %s' % new_file))
-    return new_file

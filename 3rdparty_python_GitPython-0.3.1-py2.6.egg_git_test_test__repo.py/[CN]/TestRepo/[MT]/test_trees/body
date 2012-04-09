@@ -1,7 +1,0 @@
-def test_trees(self):
-    mc = 30
-    num_trees = 0
-    for tree in self.rorepo.iter_trees('0.1.5', max_count=mc):
-        num_trees += 1
-        assert isinstance(tree, Tree)
-    assert (num_trees == mc)

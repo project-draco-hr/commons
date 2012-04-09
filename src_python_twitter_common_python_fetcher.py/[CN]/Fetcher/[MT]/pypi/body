@@ -1,0 +1,3 @@
+@classmethod
+def pypi(cls):
+    return cls([], external=True)

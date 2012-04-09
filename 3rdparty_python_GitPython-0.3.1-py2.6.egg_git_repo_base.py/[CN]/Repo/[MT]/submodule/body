@@ -1,6 +1,0 @@
-def submodule(self, name):
-    ' :return: Submodule with the given name \n\t\t:raise ValueError: If no such submodule exists'
-    try:
-        return self.submodules[name]
-    except IndexError:
-        raise ValueError(("Didn't find submodule named %r" % name))

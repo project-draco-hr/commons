@@ -1,4 +1,0 @@
-@property
-def heads(self):
-    'A list of ``Head`` objects representing the branch heads in\n\t\tthis repo\n\n\t\t:return: ``git.IterableList(Head, ...)``'
-    return Head.list_items(self)

@@ -1,0 +1,3 @@
+@staticmethod
+def uninstall():
+    sys.excepthook = sys.__excepthook__

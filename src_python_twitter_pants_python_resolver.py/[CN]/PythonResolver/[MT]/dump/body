@@ -1,0 +1,23 @@
+def dump(self):
+    self.debug(('Building PythonBinary %s:' % self._target))
+    targets = self.resolve()
+    for lib in targets['libraries']:
+        self.debug(('Library: %s' % lib))
+    for egg in targets['eggs']:
+        self.debug(('Egg: %s' % egg))
+    reqs = (OrderedSet([pkg_resources.Requirement.parse('distribute')]) | OrderedSet((req._requirement for req in targets['reqs'])))
+    for req in reqs:
+        self.debug(('Req: %s' % req))
+    self.debug('Resolving...')
+    dists = self._resolver.resolve(list(reqs))
+    for dist in dists:
+        self.debug(('  => Dist: %s [%s]' % (dist, dist.location)))
+    for thr in targets['thrifts']:
+        self.debug(('Thrift: %s' % thr))
+    for antlr in targets['antlrs']:
+        self.debug(('ANTLR: %s' % antlr))
+    if (len(targets['binaries']) > 1):
+        print('WARNING: Target has multiple python_binary targets!', file=sys.stderr)
+    for binary in targets['binaries']:
+        self.debug(('Binary: %s' % binary))
+    self.debug('Frozen.')

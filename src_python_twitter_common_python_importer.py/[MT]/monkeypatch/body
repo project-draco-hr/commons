@@ -1,0 +1,3 @@
+def monkeypatch():
+    monkeypatch_zipimport()
+    monkeypatch_pkg_resources()

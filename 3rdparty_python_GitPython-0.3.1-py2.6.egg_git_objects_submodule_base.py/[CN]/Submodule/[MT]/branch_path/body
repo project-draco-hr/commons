@@ -1,4 +1,0 @@
-@property
-def branch_path(self):
-    '\n\t\t:return: full (relative) path as string to the branch we would checkout\n\t\t\tfrom the remote and track'
-    return self._branch_path

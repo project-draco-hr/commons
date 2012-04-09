@@ -1,8 +1,8 @@
 def __init__(self, context):
     JvmBinaryTask.__init__(self, context)
-    self.outdir = (context.options.binary_create_outdir or context.config.get('binary-create', 'outdir'))
+    self.outdir = (context.options.jvm_binary_create_outdir or context.config.get('binary-create', 'outdir'))
     self.compression = (ZIP_DEFLATED if context.options.binary_create_compressed else ZIP_STORED)
-    self.deployjar = context.options.binary_create_deployjar
+    self.deployjar = context.options.jvm_binary_create_deployjar
     context.products.require('jars', predicate=self.is_binary)
     if self.deployjar:
         self.require_jar_dependencies()

@@ -1,7 +1,3 @@
 def __del__(self):
     if (os.getenv('PANTS_LEAVE_CHROOT') is None):
-        try:
-            shutil.rmtree(self.path())
-        except OSError as e:
-            if (e.errno != errno.ENOENT):
-                raise
+        safe_rmtree(self.path())

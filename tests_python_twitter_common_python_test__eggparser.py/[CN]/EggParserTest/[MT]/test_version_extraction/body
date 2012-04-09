@@ -1,9 +1,0 @@
-def test_version_extraction(self):
-    (_, version, _, _) = self.parser.parse('Mako.egg')
-    self.assertEquals(version, None)
-    (_, version, _, _) = self.parser.parse('Thrift-0.7.0_dev.egg')
-    self.assertEquals(version, '0.7.0_dev')
-    (_, version, _, _) = self.parser.parse('Bonkers-0.7.0-py2.6.egg')
-    self.assertEquals(version, '0.7.0')
-    (_, version, _, _) = self.parser.parse('ZooKeeper-0.4-py2.6-linux-x86_64.egg')
-    self.assertEquals(version, '0.4')

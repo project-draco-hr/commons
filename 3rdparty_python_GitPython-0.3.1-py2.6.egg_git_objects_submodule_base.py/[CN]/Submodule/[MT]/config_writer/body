@@ -1,8 +1,0 @@
-@unbare_repo
-def config_writer(self, index=None, write=True):
-    ":return: a config writer instance allowing you to read and write the data\n\t\tbelonging to this submodule into the .gitmodules file.\n\t\t\n\t\t:param index: if not None, an IndexFile instance which should be written.\n\t\t\tdefaults to the index of the Submodule's parent repository.\n\t\t:param write: if True, the index will be written each time a configuration\n\t\t\tvalue changes.\n\t\t:note: the parameters allow for a more efficient writing of the index, \n\t\t\tas you can pass in a modified index on your own, prevent automatic writing, \n\t\t\tand write yourself once the whole operation is complete\n\t\t:raise ValueError: if trying to get a writer on a parent_commit which does not\n\t\t\tmatch the current head commit\n\t\t:raise IOError: If the .gitmodules file/blob could not be read"
-    writer = self._config_parser_constrained(read_only=False)
-    if (index is not None):
-        writer.config._index = index
-    writer.config._auto_write = write
-    return writer

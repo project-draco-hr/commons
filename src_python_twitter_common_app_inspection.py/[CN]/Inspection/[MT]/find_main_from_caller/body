@@ -1,7 +1,11 @@
 @staticmethod
 def find_main_from_caller():
-    stack = inspect.stack()[1:]
-    for fr_n in range(len(stack)):
-        if ('main' in stack[fr_n][0].f_locals):
-            return stack[fr_n][0].f_locals['main']
-    return None
+    last_frame = inspect.currentframe()
+    while True:
+        inspect_frame = last_frame.f_back
+        if (not inspect_frame):
+            break
+        if ('main' in inspect_frame.f_locals):
+            return inspect_frame.f_locals['main']
+        last_frame = inspect_frame
+    raise Inspection.InternalError('Unable to detect main from the stack!')

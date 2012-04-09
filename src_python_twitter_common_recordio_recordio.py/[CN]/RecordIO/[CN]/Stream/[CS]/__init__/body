@@ -3,8 +3,6 @@ def __init__(self, fp, codec):
     def validate_filehandle():
         if (fp is None):
             raise RecordIO.InvalidFileHandle(('Intialized with an invalid file handle: %s' % fp))
-        if (not isinstance(fp, types.FileType)):
-            raise RecordIO.InvalidFileHandle(('RecordWriter initialized with something other than filehandle! fp=%s' % fp))
 
     def validate_codec():
         if (not isinstance(codec, RecordIO.Codec)):

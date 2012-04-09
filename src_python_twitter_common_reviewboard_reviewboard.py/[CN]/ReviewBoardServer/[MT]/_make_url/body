@@ -1,0 +1,6 @@
+def _make_url(self, path):
+    'Given a path on the server returns a full http:// style url'
+    url = urljoin(self.url, path)
+    if (not url.startswith('http')):
+        url = ('http://%s' % url)
+    return url

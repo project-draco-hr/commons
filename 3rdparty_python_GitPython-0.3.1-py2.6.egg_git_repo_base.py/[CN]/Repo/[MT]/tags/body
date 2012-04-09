@@ -1,4 +1,0 @@
-@property
-def tags(self):
-    'A list of ``Tag`` objects that are available in this repo\n\t\t:return: ``git.IterableList(TagReference, ...)`` '
-    return TagReference.list_items(self)

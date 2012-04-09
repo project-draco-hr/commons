@@ -1,7 +1,7 @@
 {
   ImmutableList.Builder<String> requiredHelps=ImmutableList.builder();
   ImmutableList.Builder<String> optionalHelps=ImmutableList.builder();
-  for (  OptionInfo<?> optionInfo : ORDER_BY_NAME.immutableSortedCopy(argumentInfo.optionInfos)) {
+  for (  OptionInfo<?> optionInfo : ORDER_BY_NAME.immutableSortedCopy(argumentInfo.getOptionInfos())) {
     Arg<?> arg=optionInfo.getArg();
     Object defaultValue=arg.uncheckedGet();
     ImmutableList<String> constraints=collectConstraints(verifiers,optionInfo);
@@ -15,7 +15,7 @@
   }
   infoLog("-------------------------------------------------------------------------");
   infoLog(String.format("%s to print this help message",Joiner.on(" or ").join(Iterables.transform(ArgumentInfo.HELP_ARGS,ARG_NAME_TO_FLAG))));
-  Optional<? extends PositionalInfo<?>> positionalInfoOptional=argumentInfo.positionalInfo;
+  Optional<? extends PositionalInfo<?>> positionalInfoOptional=argumentInfo.getPositionalInfo();
   if (positionalInfoOptional.isPresent()) {
     infoLog("\nPositional args:");
     PositionalInfo<?> positionalInfo=positionalInfoOptional.get();

@@ -1,0 +1,6 @@
+def is_package(self, fullmodname):
+    'Return whether a module is a package.'
+    with self._log_nested(('entering is_package(%s)' % fullmodname), at_level=3):
+        (submodname, is_package, relpath) = self._get_info(fullmodname)
+    self._log(('exiting is_package(%s) => submodname: %s, is_package: %s, relpath: %s' % (fullmodname, submodname, is_package, relpath)), at_level=3)
+    return is_package

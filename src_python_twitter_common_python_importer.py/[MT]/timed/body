@@ -1,0 +1,6 @@
+@contextlib.contextmanager
+def timed(prefix, at_level=1):
+    start_time = time.time()
+    yield
+    end_time = time.time()
+    EggZipImporter._log(('%s => %.3fms' % (prefix, (1000.0 * (end_time - start_time)))), at_level)

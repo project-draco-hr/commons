@@ -1,6 +1,6 @@
 def add(self, delta):
     '\n      Add delta to metric and return updated metric.\n    '
-    if (not isinstance(delta, (int, long))):
+    if (not isinstance(delta, Compatibility.integer)):
         raise TypeError('AtomicGauge.add must be called with an integer.')
     with self.lock():
         self._value += delta

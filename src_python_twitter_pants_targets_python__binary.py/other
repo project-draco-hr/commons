@@ -1,1 +1,4 @@
+import sys
 from twitter.pants.targets.python_target import PythonTarget
+from twitter.pants.base import TargetDefinitionException
+from twitter.common.python.platforms import Platform

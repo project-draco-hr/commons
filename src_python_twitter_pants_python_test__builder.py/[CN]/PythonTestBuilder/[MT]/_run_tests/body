@@ -7,7 +7,7 @@ def _run_tests(self, targets):
             rv = self._run_python_test_suite(target, fail_hard)
         else:
             raise PythonTestBuilder.InvalidDependencyException(('Invalid dependency in python test target: %s' % target))
-        if (rv != 0):
+        if (not rv.success):
             if fail_hard:
                 return rv
-    return 0
+    return PythonTestResult.rc(0)

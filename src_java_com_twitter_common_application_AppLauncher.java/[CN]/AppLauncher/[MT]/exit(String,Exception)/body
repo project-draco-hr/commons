@@ -1,4 +1,4 @@
 {
-  LOG.log(Level.SEVERE,message,error);
+  LOG.log(Level.SEVERE,message + "\n" + error,error);
   System.exit(1);
 }

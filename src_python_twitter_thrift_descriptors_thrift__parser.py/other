@@ -5,3 +5,4 @@ from antlrgen.twitter.thrift.descriptors.AntlrThriftLexer import AntlrThriftLexe
 from antlrgen.twitter.thrift.descriptors.AntlrThriftParser import AntlrThriftParser
 from antlrgen.twitter.thrift.descriptors.AntlrThriftTreeWalker import AntlrThriftTreeWalker
 from twitter.thrift.text import thrift_json_encoder
+from twitter.thrift.descriptors.thrift_parser_error import ThriftParserError

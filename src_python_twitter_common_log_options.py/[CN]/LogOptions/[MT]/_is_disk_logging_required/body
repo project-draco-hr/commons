@@ -1,0 +1,3 @@
+@staticmethod
+def _is_disk_logging_required():
+    return (LogOptions._LOG_LEVEL_NONE_KEY != getattr(app.get_options(), _DISK_LOG_LEVEL_OPTION))

@@ -1,9 +1,0 @@
-def unmerged_blobs(self):
-    "\n\t\t:return:\n\t\t\tIterator yielding dict(path : list( tuple( stage, Blob, ...))), being\n\t\t\ta dictionary associating a path in the index with a list containing\n\t\t\tsorted stage/blob pairs\n\n\t\t:note:\n\t\t\tBlobs that have been removed in one side simply do not exist in the\n\t\t\tgiven stage. I.e. a file removed on the 'other' branch whose entries\n\t\t\tare at stage 3 will not have a stage 3 entry.\n\t\t"
-    is_unmerged_blob = (lambda t: (t[0] != 0))
-    path_map = dict()
-    for (stage, blob) in self.iter_blobs(is_unmerged_blob):
-        path_map.setdefault(blob.path, list()).append((stage, blob))
-    for l in path_map.itervalues():
-        l.sort()
-    return path_map

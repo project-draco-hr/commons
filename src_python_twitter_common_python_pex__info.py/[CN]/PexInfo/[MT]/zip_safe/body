@@ -1,0 +1,3 @@
+@property
+def zip_safe(self):
+    return self._pex_info.get('zip_safe', True)

@@ -1,5 +1,0 @@
-def _entries_sorted(self):
-    ':return: list of entries, in a sorted fashion, first by path, then by stage'
-    entries_sorted = self.entries.values()
-    entries_sorted.sort(key=(lambda e: (e.path, e.stage)))
-    return entries_sorted

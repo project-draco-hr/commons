@@ -1,3 +1,0 @@
-def submodule_update(self, *args, **kwargs):
-    'Update the submodules, keeping the repository consistent as it will \n\t\ttake the previous state into consideration. For more information, please\n\t\tsee the documentation of RootModule.update'
-    return RootModule(self).update(*args, **kwargs)

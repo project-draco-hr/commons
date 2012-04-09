@@ -1,6 +1,7 @@
 {
   requireBinding(ShutdownRegistry.class);
   requireBinding(BuildInfo.class);
+  bind(StatRegistry.class).toInstance(Stats.STAT_REGISTRY);
   bind(new TypeLiteral<Amount<Long,Time>>(){
   }
 ).annotatedWith(Names.named(TimeSeriesRepositoryImpl.SAMPLE_RETENTION_PERIOD)).toInstance(RETENTION_PERIOD.get());

@@ -1,0 +1,4 @@
+def debug(self, message):
+    '\n    Prints a debug message, if debug is enabled.\n    '
+    if self._debug:
+        print(('[Debug] %s' % message))

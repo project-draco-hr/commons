@@ -1,0 +1,5 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    IdeGen.setup_parser(option_group, args, mkflag)
+    supported_versions = sorted(list(_VERSIONS.keys()))
+    option_group.add_option(mkflag('eclipse-version'), dest='eclipse_gen_version', default='3.6', type='choice', choices=supported_versions, help=('[%%default] The Eclipse version the project configuration should be generated for; can be one of: %s' % supported_versions))

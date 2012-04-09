@@ -1,6 +1,0 @@
-def _delete_entries_cache(self):
-    'Safely clear the entries cache so it can be recreated'
-    try:
-        del self.entries
-    except AttributeError:
-        pass

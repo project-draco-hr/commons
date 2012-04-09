@@ -1,3 +1,0 @@
-def create_head(self, path, commit='HEAD', force=False, logmsg=None):
-    'Create a new head within the repository. \n\t\tFor more documentation, please see the Head.create method.\n\t\t\n\t\t:return: newly created Head Reference'
-    return Head.create(self, path, commit, force, logmsg)

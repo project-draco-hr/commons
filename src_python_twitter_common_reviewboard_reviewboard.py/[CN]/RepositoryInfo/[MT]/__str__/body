@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('Path: %s, Base path: %s, Supports changesets: %s' % (self.path, self.base_path, self.supports_changesets))

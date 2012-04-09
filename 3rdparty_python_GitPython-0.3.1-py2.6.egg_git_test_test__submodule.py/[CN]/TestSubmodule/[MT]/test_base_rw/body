@@ -1,3 +1,0 @@
-@with_rw_repo(k_subm_current)
-def test_base_rw(self, rwrepo):
-    self._do_base_tests(rwrepo)

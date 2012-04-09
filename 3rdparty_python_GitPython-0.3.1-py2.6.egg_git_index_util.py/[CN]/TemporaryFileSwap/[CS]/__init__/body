@@ -1,7 +1,0 @@
-def __init__(self, file_path):
-    self.file_path = file_path
-    self.tmp_file_path = (self.file_path + tempfile.mktemp('', '', ''))
-    try:
-        os.rename(self.file_path, self.tmp_file_path)
-    except OSError:
-        pass

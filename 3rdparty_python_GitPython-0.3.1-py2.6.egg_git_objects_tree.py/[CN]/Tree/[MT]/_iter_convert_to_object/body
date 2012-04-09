@@ -1,8 +1,0 @@
-def _iter_convert_to_object(self, iterable):
-    'Iterable yields tuples of (binsha, mode, name), which will be converted\n\t\tto the respective object representation'
-    for (binsha, mode, name) in iterable:
-        path = join_path(self.path, name)
-        try:
-            yield self._map_id_to_type[(mode >> 12)](self.repo, binsha, mode, path)
-        except KeyError:
-            raise TypeError(("Unknown mode %o found in tree data for path '%s'" % (mode, path)))

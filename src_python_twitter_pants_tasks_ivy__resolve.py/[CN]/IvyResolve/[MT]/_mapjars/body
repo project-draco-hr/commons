@@ -1,15 +1,21 @@
 def _mapjars(self, genmap, target):
     mapdir = os.path.join(self._classpath_dir, target.id)
     safe_mkdir(mapdir, clean=True)
-    self._exec_ivy(mapdir, [target], ['-retrieve', ('%s/[organisation]/[artifact]/[organisation]-[artifact]-[revision].jar' % mapdir), '-symlink', '-types', 'jar', 'bundle'])
+    ivyargs = ['-retrieve', ('%s/[organisation]/[artifact]/[conf]/[organisation]-[artifact]-[revision](-[classifier]).[ext]' % mapdir), '-symlink', '-confs']
+    ivyargs.extend((target.configurations or self._confs))
+    self._exec_ivy(mapdir, [target], ivyargs)
     for org in os.listdir(mapdir):
         orgdir = os.path.join(mapdir, org)
         if os.path.isdir(orgdir):
             for name in os.listdir(orgdir):
                 artifactdir = os.path.join(orgdir, name)
                 if os.path.isdir(artifactdir):
-                    for file in os.listdir(artifactdir):
-                        if file.endswith('.jar'):
-                            genmap.add(org, artifactdir).append(file)
-                            genmap.add((org, name), artifactdir).append(file)
-                            genmap.add(target, artifactdir).append(file)
+                    for conf in os.listdir(artifactdir):
+                        confdir = os.path.join(artifactdir, conf)
+                        for file in os.listdir(confdir):
+                            if self._is_jar(file):
+                                genmap.add(org, confdir).append(file)
+                                genmap.add((org, name), confdir).append(file)
+                                genmap.add(target, confdir).append(file)
+                                genmap.add((target, conf), confdir).append(file)
+                                genmap.add((org, name, conf), confdir).append(file)

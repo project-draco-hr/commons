@@ -1,3 +1,3 @@
 {
-  return export(name,new AtomicInteger());
+  return exportInt(name,0);
 }

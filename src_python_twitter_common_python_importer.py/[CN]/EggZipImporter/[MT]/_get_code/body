@@ -1,0 +1,15 @@
+def _get_code(self, fullmodname):
+    (submodname, is_package, relpath) = self._get_info(fullmodname)
+    (relsplit, _) = os.path.split(relpath)
+    fullpath = ('%s%s%s' % (self.archive, os.sep, relpath))
+    pyc = (os.path.splitext(fullpath)[0] + '.pyc')
+    try:
+        with timed(('Unmarshaling %s' % pyc), at_level=2):
+            pyc_object = CodeMarshaller.from_pyc(Nested.read(pyc))
+    except (Nested.FileNotFound, ValueError, CodeMarshaller.InvalidCode) as e:
+        with timed(('Compiling %s because of %s' % (fullpath, e.__class__.__name__)), at_level=2):
+            py = Nested.read(fullpath).decode('utf-8')
+            assert (py is not None)
+            py = py.replace('\r\n', '\n').replace('\r', '\n')
+            pyc_object = CodeMarshaller.from_py(py, fullpath)
+    return (submodname, is_package, fullpath, pyc_object.code)

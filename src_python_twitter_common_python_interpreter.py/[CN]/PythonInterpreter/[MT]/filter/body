@@ -9,7 +9,11 @@ def filter(pythons):
     all_versions = set((interpreter.identity().version for interpreter in pythons))
     good_versions = filter(version_filter, all_versions)
     for version in good_versions:
-        candidates = [interp for interp in pythons if (interp.identity().version == version)]
-        candidates.sort(key=(lambda interp: os.path.getmtime(interp.binary())), reverse=True)
-        good.append(candidates.pop(0))
+        candidates = defaultdict(list)
+        for interp in pythons:
+            if (interp.identity().version == version):
+                candidates[interp.identity().interpreter].append(interp)
+        for interp_class in candidates:
+            candidates[interp_class].sort(key=(lambda interp: os.path.getmtime(interp.binary())), reverse=True)
+            good.append(candidates[interp_class].pop(0))
     return good

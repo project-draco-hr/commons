@@ -1,3 +1,0 @@
-def reverse(self):
-    '\n        Reverse the order of the OrderedDict.\n        \n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d.reverse()\n        >>> d\n        OrderedDict([(2, 1), (3, 2), (1, 3)])\n        '
-    self._sequence.reverse()

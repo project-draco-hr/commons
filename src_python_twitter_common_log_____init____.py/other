@@ -1,7 +1,9 @@
+__author__ = 'Brian Wickman'
 import logging
 from twitter.common.log.initialize import init, teardown_disk_logging, teardown_stderr_logging
 try:
     from twitter.common import app
+    from twitter.common.log.options import LogOptions
 
 
     class LoggingSubsystem(app.Module):
@@ -10,7 +12,10 @@ try:
             app.Module.__init__(self, __name__, description='Logging subsystem.')
 
         def setup_function(self):
-            init(app.name())
+            if (not LogOptions._is_disk_logging_required()):
+                init()
+            else:
+                init(app.name())
     app.register_module(LoggingSubsystem())
 except ImportError:
     pass

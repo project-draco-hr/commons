@@ -4,3 +4,4 @@ def __init__(self, context):
     self.force = context.options.confluence_publish_force
     self.open = context.options.confluence_publish_open
     self.context.products.require('markdown_html')
+    self._wiki = None

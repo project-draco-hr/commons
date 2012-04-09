@@ -1,0 +1,17 @@
+@staticmethod
+def scribe_error(*args, **kw):
+    options = app.get_options()
+    socket = TSocket.TSocket(host=options.twitter_common_scribe_host, port=options.twitter_common_scribe_port)
+    transport = TTransport.TFramedTransport(socket)
+    protocol = TBinaryProtocol.TBinaryProtocol(trans=transport, strictRead=False, strictWrite=False)
+    client = scribe.Client(iprot=protocol, oprot=protocol)
+    value = BasicExceptionHandler.format(*args, **kw)
+    log_entry = scribe.LogEntry(category=options.twitter_common_scribe_category, message=value)
+    try:
+        transport.open()
+        result = client.Log(messages=[log_entry])
+        transport.close()
+        if (result != scribe.ResultCode.OK):
+            AppScribeExceptionHandler.log_error('Failed to scribe exception!')
+    except TTransport.TTransportException:
+        AppScribeExceptionHandler.log_error('Could not connect to scribe!')

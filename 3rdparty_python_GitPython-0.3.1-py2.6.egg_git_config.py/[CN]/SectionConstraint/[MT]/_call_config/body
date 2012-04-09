@@ -1,3 +1,0 @@
-def _call_config(self, method, *args, **kwargs):
-    'Call the configuration at the given method which must take a section name \n\t\tas first argument'
-    return getattr(self._config, method)(self._section_name, *args, **kwargs)

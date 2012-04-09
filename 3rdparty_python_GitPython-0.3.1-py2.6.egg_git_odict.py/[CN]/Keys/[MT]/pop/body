@@ -1,2 +1,0 @@
-def pop(self, i=(-1)):
-    raise TypeError("Can't pop items from keys")

@@ -1,9 +1,8 @@
 def compile(self, classpath, sources):
     safe_mkdir(self._output_dir)
     compiler_classpath = (self._compiler_classpath or nailgun_profile_classpath(self, self._compile_profile))
-    self.ng('ng-cp', *compiler_classpath)
     args = ['-classpath', ':'.join((compiler_classpath + classpath)), '-d', self._output_dir, '-dependencyfile', self._depfile, '-make:transitivenocp']
     args.extend(self._args)
     args.extend(sources)
     self.context.log.debug(('Executing: %s %s' % (self._main, ' '.join(args))))
-    return self.ng(self._main, *args)
+    return self.runjava(self._main, classpath=compiler_classpath, args=args)

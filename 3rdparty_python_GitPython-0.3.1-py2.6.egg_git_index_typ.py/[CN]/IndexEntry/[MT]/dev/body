@@ -1,4 +1,0 @@
-@property
-def dev(self):
-    ' Device ID '
-    return self[6]

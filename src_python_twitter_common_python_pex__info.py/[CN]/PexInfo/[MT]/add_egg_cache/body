@@ -1,0 +1,2 @@
+def add_egg_cache(self, egg_cache):
+    self._egg_caches.add(egg_cache)

@@ -10,5 +10,4 @@ def __init__(self, context):
     self.skip = context.options.specs_run_skip
     self.color = context.options.specs_run_color
     self.workdir = context.config.get('specs-run', 'workdir')
-    classes = context.options.specs_run_tests
-    self.tests = (map(self.normalize, classes) if classes else None)
+    self.tests = context.options.specs_run_tests

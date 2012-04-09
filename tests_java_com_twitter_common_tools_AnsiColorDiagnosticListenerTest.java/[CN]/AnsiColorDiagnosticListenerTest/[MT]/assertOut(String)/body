@@ -1,0 +1,3 @@
+{
+  assertOutput(out,Arrays.asList(lines));
+}

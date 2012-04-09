@@ -1,3 +1,0 @@
-def __init__(self, proc, args):
-    self.proc = proc
-    self.args = args

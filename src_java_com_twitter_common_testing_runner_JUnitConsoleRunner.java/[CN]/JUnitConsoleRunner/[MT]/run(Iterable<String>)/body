@@ -1,13 +1,14 @@
 {
   PrintStream out=SWAPPABLE_OUT.getOriginal();
   List<Request> requests=parseRequests(out,tests);
-  final JUnitCore core=new JUnitCore();
-  ListenerRegistry listenerRegistry=new ListenerRegistry(){
-    @Override public void addListener(    RunListener listener){
-      core.addListener(listener);
+  JUnitCore core=new JUnitCore();
+  ForwardingListener forwardingListener=failFast ? new FailFastListener(){
+    @Override protected void failFast(    Result failureResult){
+      exit(failureResult.getFailureCount());
     }
   }
-;
+ : new ForwardingListener();
+  core.addListener(forwardingListener);
   if (xmlReport || suppressOutput) {
     if (!outdir.exists()) {
       if (!outdir.mkdirs()) {
@@ -15,14 +16,13 @@
       }
     }
     StreamCapturingListener streamCapturingListener=new StreamCapturingListener(outdir);
-    listenerRegistry.addListener(streamCapturingListener);
-    listenerRegistry=streamCapturingListener;
+    forwardingListener.addListener(streamCapturingListener);
     if (xmlReport) {
       AntJunitXmlReportListener xmlReportListener=new AntJunitXmlReportListener(outdir,streamCapturingListener);
-      listenerRegistry.addListener(xmlReportListener);
+      forwardingListener.addListener(xmlReportListener);
     }
   }
-  listenerRegistry.addListener(new ConsoleListener(out));
+  forwardingListener.addListener(new ConsoleListener(out));
   int failures=0;
   for (  Request request : requests) {
     Result result=core.run(request);

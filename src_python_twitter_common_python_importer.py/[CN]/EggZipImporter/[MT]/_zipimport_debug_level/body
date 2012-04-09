@@ -1,0 +1,9 @@
+@classmethod
+def _zipimport_debug_level(cls):
+    if ('ZIPIMPORT_DEBUG' not in os.environ):
+        return 0
+    elif ('ZIPIMPORT_DEBUG' in os.environ):
+        try:
+            return int(os.environ['ZIPIMPORT_DEBUG'])
+        except ValueError:
+            return 1

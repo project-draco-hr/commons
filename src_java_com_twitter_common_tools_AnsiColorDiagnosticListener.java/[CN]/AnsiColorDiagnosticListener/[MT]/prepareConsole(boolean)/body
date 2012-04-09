@@ -1,0 +1,9 @@
+{
+  colorOutput=color;
+  if (color) {
+    AnsiConsole.systemInstall();
+  }
+ else {
+    System.setProperty(Ansi.DISABLE,"true");
+  }
+}

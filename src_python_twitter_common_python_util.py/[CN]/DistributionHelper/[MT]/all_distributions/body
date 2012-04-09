@@ -1,0 +1,6 @@
+@staticmethod
+def all_distributions(path=sys.path):
+    from pkg_resources import find_distributions
+    for element in path:
+        for dist in find_distributions(element):
+            yield dist

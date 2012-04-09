@@ -1,4 +1,0 @@
-def write(self):
-    rval = super(SubmoduleConfigParser, self).write()
-    self.flush_to_index()
-    return rval

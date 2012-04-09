@@ -1,0 +1,32 @@
+{
+  final AttributeInputStream input=new AttributeInputStream(bais);
+  final Version version=readVersionAndCheckFingerprint(input,attributeSerializersFingerprint);
+  final int numTokens=input.readVInt();
+  TokenStream tokenStream=new TokenStream(){
+    CharSequence chars;
+    int token=0;
+    @Override public boolean incrementToken(){
+      if (token < numTokens) {
+        token++;
+        try {
+          deserializeAttributes(input,chars);
+        }
+ catch (        IOException e) {
+          throw new RuntimeException(e);
+        }
+        return true;
+      }
+      return false;
+    }
+    @Override public void reset(    CharSequence input){
+      chars=input;
+      token=0;
+    }
+  }
+;
+  for (  AttributeSerializer deserializer : attributeSerializers) {
+    deserializer.initialize(tokenStream,version);
+  }
+  tokenStream.reset(charSequence);
+  return tokenStream;
+}

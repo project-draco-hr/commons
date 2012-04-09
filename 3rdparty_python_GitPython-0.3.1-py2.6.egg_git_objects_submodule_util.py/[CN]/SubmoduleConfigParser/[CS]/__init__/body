@@ -1,5 +1,0 @@
-def __init__(self, *args, **kwargs):
-    self._smref = None
-    self._index = None
-    self._auto_write = True
-    super(SubmoduleConfigParser, self).__init__(*args, **kwargs)

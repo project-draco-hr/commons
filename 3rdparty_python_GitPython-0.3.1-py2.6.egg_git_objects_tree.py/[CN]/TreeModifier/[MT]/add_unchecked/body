@@ -1,3 +1,0 @@
-def add_unchecked(self, binsha, mode, name):
-    'Add the given item to the tree, its correctness is assumed, which \n\t\tputs the caller into responsibility to assure the input is correct. \n\t\tFor more information on the parameters, see ``add``\n\t\t:param binsha: 20 byte binary sha'
-    self._cache.append((binsha, mode, name))

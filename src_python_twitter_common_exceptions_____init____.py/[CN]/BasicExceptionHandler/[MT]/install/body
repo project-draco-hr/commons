@@ -1,0 +1,3 @@
+@staticmethod
+def install():
+    sys.excepthook = BasicExceptionHandler.handle_error

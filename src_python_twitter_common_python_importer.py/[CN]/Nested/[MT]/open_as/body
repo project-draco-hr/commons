@@ -1,0 +1,6 @@
+@staticmethod
+def open_as(zf, subpath):
+    "\n      Open a zipfile and synthesize its filename for things that rely upon 'filename'.\n    "
+    new_zf = zipfile.ZipFile(StringIO(zf.read(subpath)))
+    new_zf.filename = os.path.join(zf.filename, subpath)
+    return new_zf

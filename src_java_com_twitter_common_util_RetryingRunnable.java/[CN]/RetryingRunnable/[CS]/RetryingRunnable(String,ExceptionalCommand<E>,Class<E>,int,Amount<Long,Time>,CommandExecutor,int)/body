@@ -1,10 +1,10 @@
 {
-  this.name=Preconditions.checkNotNull(name);
-  this.task=Preconditions.checkNotNull(task);
-  this.exceptionClass=Preconditions.checkNotNull(exceptionClass);
-  this.retryDelay=Preconditions.checkNotNull(retryDelay);
-  this.commandExecutor=Preconditions.checkNotNull(commandExecutor);
-  Preconditions.checkArgument(numTries > 0);
+  this.name=checkNotNull(name);
+  this.task=checkNotNull(task);
+  this.exceptionClass=checkNotNull(exceptionClass);
+  this.retryDelay=checkNotNull(retryDelay);
+  this.commandExecutor=checkNotNull(commandExecutor);
+  checkArgument(numTries > 0);
   this.tryNum=tryNum;
   this.numTries=numTries;
 }

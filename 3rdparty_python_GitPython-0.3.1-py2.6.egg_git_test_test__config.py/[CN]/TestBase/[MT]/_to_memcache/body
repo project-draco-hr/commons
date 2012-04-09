@@ -1,5 +1,0 @@
-def _to_memcache(self, file_path):
-    fp = open(file_path, 'r')
-    sio = StringIO.StringIO(fp.read())
-    sio.name = file_path
-    return sio

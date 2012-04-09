@@ -1,0 +1,4 @@
+def publish(self, review_request):
+    '\n    Publishes a review request.\n    '
+    self.debug('Publishing')
+    self.api_call(('api/review-requests/%s/publish/' % review_request['id']))

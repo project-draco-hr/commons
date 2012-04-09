@@ -8,7 +8,7 @@ from twitter.common import log
 from twitter.common.dirutil import safe_open
 from twitter.pants import get_buildroot
 from twitter.pants.java import NailgunClient, NailgunError
-from twitter.pants.tasks import Task
+from twitter.pants.tasks import binary_utils, Task
 try:
     import psutil
 

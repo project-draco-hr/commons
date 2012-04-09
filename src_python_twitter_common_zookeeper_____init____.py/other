@@ -1,2 +1,3 @@
+__author__ = 'Alec Thomas'
 from .client import ZooKeeper
 __all__ = ['ZooKeeper']

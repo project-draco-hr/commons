@@ -1,0 +1,7 @@
+@staticmethod
+def _split_zf_existing(zf, path):
+    namelist = _zipfile_namecache[zf.filename]
+    subpath = os.path.normpath(path)
+    while (subpath and (subpath not in namelist)):
+        (subpath, _) = os.path.split(subpath)
+    return (subpath, os.path.relpath(path, subpath))

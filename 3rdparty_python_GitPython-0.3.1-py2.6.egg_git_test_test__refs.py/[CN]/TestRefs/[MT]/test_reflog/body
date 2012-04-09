@@ -1,2 +1,0 @@
-def test_reflog(self):
-    assert isinstance(self.rorepo.heads.master.log(), RefLog)

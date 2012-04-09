@@ -1,2 +1,0 @@
-TrafficMonitor<InetSocketAddress> monitor
-int requestCount

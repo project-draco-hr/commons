@@ -1,0 +1,22 @@
+def _unsafe_source(self):
+    not_zip_safe = set()
+    for fn in self._installed_files:
+        rel_fn = self._relpath(fn)
+        if (not self._is_top_level(fn)):
+            continue
+        if (not os.path.exists(fn)):
+            continue
+        if (not fn.endswith('.py')):
+            continue
+        with open(fn) as fn_fp:
+            try:
+                parsed_fn = ast.parse(fn_fp.read())
+            except SyntaxError as e:
+                self._log(('WARNING: Syntax error in %s: %s' % (fn, e)))
+                continue
+        for ast_node in ast.walk(parsed_fn):
+            if (isinstance(ast_node, ast.Name) and (ast_node.id in Distiller.BAD_SYMBOLS)):
+                self._log(('WARNING: Detected not-zip-safe code: %s' % fn))
+                not_zip_safe.add(fn)
+                break
+    return not_zip_safe

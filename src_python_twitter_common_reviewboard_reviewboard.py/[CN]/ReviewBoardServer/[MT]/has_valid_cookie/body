@@ -1,0 +1,20 @@
+def has_valid_cookie(self):
+    "\n    Load the user's cookie file and see if they have a valid\n    'rbsessionid' cookie for the current Review Board server.  Returns\n    true if so and false otherwise.\n    "
+    try:
+        parsed_url = urlparse(self.url)
+        host = parsed_url[1]
+        path = (parsed_url[2] or '/')
+        host = host.split(':')[0]
+        self.debug(('Looking for "%s %s" cookie in %s' % (host, path, self.cookie_file)))
+        self.cookie_jar.load(self.cookie_file, ignore_expires=True)
+        try:
+            cookie = self.cookie_jar._cookies[host][path]['rbsessionid']
+            if (not cookie.is_expired()):
+                self.debug('Loaded valid cookie -- no login required')
+                return True
+            self.debug('Cookie file loaded, but cookie has expired')
+        except KeyError:
+            self.debug('Cookie file loaded, but no cookie for this server')
+    except IOError as error:
+        self.debug(("Couldn't load cookie file: %s" % error))
+    return False

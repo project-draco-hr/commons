@@ -1,8 +1,0 @@
-'Package with general repository related functions'
-import os
-from gitdb.exc import BadObject
-from git.refs import SymbolicReference
-from git.objects import Object
-from gitdb.util import join, isdir, isfile, hex_to_bin, bin_to_hex
-from string import digits
-__all__ = ('rev_parse', 'is_git_dir', 'touch')

@@ -1,3 +1,0 @@
-def _assure_writable(self, method_name):
-    if self.read_only:
-        raise IOError(('Cannot execute non-constant method %s.%s' % (self, method_name)))

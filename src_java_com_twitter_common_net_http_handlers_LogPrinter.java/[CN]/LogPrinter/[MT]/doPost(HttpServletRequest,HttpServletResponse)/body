@@ -1,5 +1,5 @@
 {
-  resp.setContentType("text/xml");
+  resp.setContentType("text/xml; charset=utf-8");
   try {
     LogViewRequest request=new LogViewRequest(req);
     if (request.file == null) {

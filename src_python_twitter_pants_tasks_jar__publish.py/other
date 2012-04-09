@@ -6,7 +6,8 @@ import os
 import pkgutil
 import shutil
 import subprocess
-from twitter.common.collections import OrderedSet
+from collections import defaultdict
+from twitter.common.collections import OrderedDict, OrderedSet
 from twitter.common.config import Properties
 from twitter.common.dirutil import safe_open, safe_rmtree
 from twitter.pants import get_buildroot, is_exported as provides, is_internal, is_java, pants

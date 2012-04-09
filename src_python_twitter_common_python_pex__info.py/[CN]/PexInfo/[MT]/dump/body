@@ -1,0 +1,7 @@
+def dump(self):
+    pex_info_copy = self._pex_info.copy()
+    pex_info_copy['requirements'] = list(self._requirements)
+    pex_info_copy['indices'] = list(self._indices)
+    pex_info_copy['repositories'] = list(self._repositories)
+    pex_info_copy['egg_caches'] = list(self._egg_caches)
+    return json.dumps(pex_info_copy)

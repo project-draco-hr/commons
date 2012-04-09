@@ -1,0 +1,8 @@
+def test_versioning(self):
+    assert (not Platform.compatible('macosx-9.1-x86_64', 'macosx-10.0-x86_64'))
+    assert (not Platform.compatible('macosx-10.0-x86_64', 'macosx-9.1-x86_64'))
+    assert Platform.compatible('macosx-10.0-x86_64', 'macosx-10.0-x86_64')
+    assert Platform.compatible('macosx-10.0-x86_64', 'macosx-10.1-x86_64')
+    assert (not Platform.compatible('macosx-10.1-x86_64', 'macosx-10.0-x86_64'))
+    assert Platform.compatible('macosx-10.9-x86_64', 'macosx-10.10-x86_64')
+    assert (not Platform.compatible('macosx-10.10-x86_64', 'macosx-10.9-x86_64'))

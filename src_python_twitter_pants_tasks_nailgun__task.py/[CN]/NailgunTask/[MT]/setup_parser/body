@@ -1,0 +1,5 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    if (not NailgunTask._DAEMON_OPTION_PRESENT):
+        option_group.parser.add_option('--ng-daemons', '--no-ng-daemons', dest='nailgun_daemon', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Use nailgun daemons to execute java tasks.')
+        NailgunTask._DAEMON_OPTION_PRESENT = True

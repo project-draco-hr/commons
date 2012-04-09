@@ -1,0 +1,8 @@
+@staticmethod
+def _split_existing(path):
+    "\n      Split a path by its existing / non-existing components.\n\n      If the path is a file or directory, the non-existing component will be\n      '.'\n    "
+    path = os.path.normpath(path)
+    for subpath in Nested._generate_prefixes(path):
+        if os.path.lexists(subpath):
+            return (subpath, os.path.relpath(path, subpath))
+    return (path, '.')

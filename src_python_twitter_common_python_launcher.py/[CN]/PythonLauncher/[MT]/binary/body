@@ -1,7 +1,0 @@
-def binary(self):
-    '\n      Translate the entry point module spec into its equivalent python script.\n    '
-    entry_point = self.entry()
-    if (entry_point is None):
-        return None
-    entry_point = os.path.sep.join(entry_point.split('.'))
-    return ('%s.py' % entry_point)

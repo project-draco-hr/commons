@@ -1,2 +1,0 @@
-def test_user_id(self):
-    assert ('@' in get_user_id())

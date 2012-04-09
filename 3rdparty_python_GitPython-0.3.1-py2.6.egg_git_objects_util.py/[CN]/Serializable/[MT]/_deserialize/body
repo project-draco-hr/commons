@@ -1,3 +1,0 @@
-def _deserialize(self, stream):
-    'Deserialize all information regarding this object from the stream\n\t\t:param stream: a file-like object\n\t\t:return: self'
-    raise NotImplementedError('To be implemented in subclass')

@@ -1,3 +1,0 @@
-def __init__(self, uname=EggParserOsModule.uname(), version_info=EggParserOsModule.version_info()):
-    self._uname = uname
-    self._version_info = version_info

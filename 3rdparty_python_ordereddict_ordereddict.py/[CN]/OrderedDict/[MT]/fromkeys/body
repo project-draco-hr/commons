@@ -1,7 +1,0 @@
-@classmethod
-def fromkeys(cls, iterable, value=None):
-    'OD.fromkeys(S[, v]) -> New ordered dictionary with keys from S\n        and values equal to v (which defaults to None).\n\n        '
-    d = cls()
-    for key in iterable:
-        d[key] = value
-    return d

@@ -1,0 +1,2 @@
+from twitter.pants.tasks.console_task import ConsoleTask
+__author__ = 'Dave Buchfuhrer'

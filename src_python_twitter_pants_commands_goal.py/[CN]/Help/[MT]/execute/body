@@ -5,8 +5,9 @@ def execute(self, targets):
     phase = Phase(goal)
     if (not phase.goals()):
         return self.list_goals(('Goal %s is unknown.' % goal))
-    parser = Help.parser()
+    parser = OptionParser()
     parser.set_usage(('%s goal %s ([target]...)' % (sys.argv[0], goal)))
     parser.epilog = phase.description
+    Goal.add_global_options(parser)
     Phase.setup_parser(parser, [], [phase])
     parser.parse_args(['--help'])

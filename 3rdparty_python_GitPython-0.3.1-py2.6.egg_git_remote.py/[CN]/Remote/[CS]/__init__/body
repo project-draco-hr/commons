@@ -1,6 +1,0 @@
-def __init__(self, repo, name):
-    "Initialize a remote instance\n\t\t\n\t\t:param repo: The repository we are a remote of\n\t\t:param name: the name of the remote, i.e. 'origin'"
-    self.repo = repo
-    self.name = name
-    if (os.name == 'nt'):
-        dir(self)

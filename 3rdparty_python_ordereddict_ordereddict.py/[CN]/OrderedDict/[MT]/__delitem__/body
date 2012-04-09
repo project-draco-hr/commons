@@ -1,6 +1,0 @@
-def __delitem__(self, key, dict_delitem=dict.__delitem__):
-    'od.__delitem__(y) <==> del od[y]'
-    dict_delitem(self, key)
-    (link_prev, link_next, key) = self.__map.pop(key)
-    link_prev[1] = link_next
-    link_next[0] = link_prev

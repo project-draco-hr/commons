@@ -1,0 +1,3 @@
+def fetch_reviews(self, rb_id, start=0, max_results=25):
+    '\n    Fetches reviews in response to a review request.\n    '
+    return self.api_call(('/api/review-requests/%s/reviews/?start=%s&max-results=%s' % (rb_id, start, max_results)))['reviews']

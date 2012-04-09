@@ -1,4 +1,0 @@
-@property
-def size(self):
-    ':return: Uncompressed size of the blob '
-    return self[10]

@@ -1,5 +1,5 @@
 def add(self, *filesets):
     for fileset in filesets:
         paths = (fileset() if isinstance(fileset, Fileset) else (fileset if hasattr(fileset, '__iter__') else [fileset]))
-        self.filemap.update(((self.mapper(path), path) for path in paths))
+        self.filemap.update(((os.path.abspath(path), self.mapper(path)) for path in paths))
     return self

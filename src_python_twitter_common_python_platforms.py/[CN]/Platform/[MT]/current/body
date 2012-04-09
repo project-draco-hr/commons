@@ -1,0 +1,3 @@
+@staticmethod
+def current():
+    return pkg_resources.get_supported_platform()

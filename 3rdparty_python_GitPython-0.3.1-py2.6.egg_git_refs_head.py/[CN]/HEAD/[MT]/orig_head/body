@@ -1,3 +1,0 @@
-def orig_head(self):
-    '\n\t\t:return: SymbolicReference pointing at the ORIG_HEAD, which is maintained \n\t\t\tto contain the previous value of HEAD'
-    return SymbolicReference(self.repo, self._ORIG_HEAD_NAME)

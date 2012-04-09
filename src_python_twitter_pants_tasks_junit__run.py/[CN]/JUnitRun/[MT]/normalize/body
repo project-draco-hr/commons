@@ -8,8 +8,7 @@ def normalize(self, classname_or_file, basedir=None):
         classes = classes_by_source.get(path)
         for (base, classes) in classes.items():
             for cls in classes:
-                (clsname, _) = cls.replace('/', '.').rsplit('.class', 1)
-                yield clsname
+                yield JUnitRun.classfile_to_classname(cls)
     if basedir:
         for classname in relpath_toclassname(classname):
             yield (classname + methodname)

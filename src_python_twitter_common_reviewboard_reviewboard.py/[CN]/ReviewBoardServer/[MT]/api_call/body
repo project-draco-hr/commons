@@ -1,0 +1,3 @@
+def api_call(self, path, fields=None, files=None, method=None):
+    '\n    Performs an API call at the specified path. By default, if there are no field or files a GET is\n    issued, otherwise a POST is used. The HTTP verb can be customized by specifying method.\n    '
+    return self.process_json(self.http_request(path, fields, files, {'Accept': 'application/json', }, method=method))

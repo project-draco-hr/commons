@@ -2,3 +2,12 @@ self
 name
 source
 dependencies
+entry_point
+inherit_path
+zip_safe
+repositories
+indices
+ignore_errors
+allow_pypi
+platforms
+interpreters

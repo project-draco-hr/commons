@@ -1,0 +1,18 @@
+def get_data(self, fullpath):
+    'Return (binary) content of a data file in the zipfile.'
+    with self._log_nested(('entering get_data(archive: %s, path:%s)' % (self.archive, fullpath)), at_level=3):
+        prefix = os.path.join(self.archive, '')
+        if fullpath.startswith(prefix):
+            relpath = fullpath[len(prefix):]
+        elif os.path.isabs(fullpath):
+            raise IOError(("Absolute path %r doesn't start with zipfile name %r" % (fullpath, prefix)))
+        else:
+            relpath = fullpath
+        self._log(('nested_read: %s' % fullpath), at_level=4)
+        content = Nested.read(fullpath)
+        if (content is not None):
+            self._log(('content: %s bytes' % len(content)), at_level=4)
+            return content
+        else:
+            self._log('content not found', at_level=4)
+            raise IOError(('Path %r not found in zipfile %r' % (relpath, self.archive)))

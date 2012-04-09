@@ -1,8 +1,0 @@
-def _to_relative_path(self, path):
-    ':return: Version of path relative to our git directory or raise ValueError\n\t\tif it is not within our git direcotory'
-    if (not os.path.isabs(path)):
-        return path
-    relative_path = path.replace((self.repo.working_tree_dir + os.sep), '')
-    if (relative_path == path):
-        raise ValueError(('Absolute path %r is not in git repository at %r' % (path, self.repo.working_tree_dir)))
-    return relative_path

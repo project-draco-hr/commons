@@ -1,0 +1,31 @@
+def monkeypatch_pkg_resources():
+    '\n    There is a bug in pkg_resources ZipProvider, so fix it.\n    Filed https://bitbucket.org/tarek/distribute/issue/274\n  '
+    import pkg_resources
+    _EggMetadata = pkg_resources.EggMetadata
+
+    def normalized_elements(path):
+        path_split = path.split('/')
+        while (path_split[(-1)] in ('', '.')):
+            path_split.pop((-1))
+        return path_split
+
+
+    class EggMetadata(_EggMetadata):
+
+        def __init__(self, *args, **kw):
+            _EggMetadata.__init__(self, *args, **kw)
+
+        def _fn(self, base, resource_name):
+            return '/'.join(normalized_elements(_EggMetadata._fn(self, base, resource_name)))
+
+        def _zipinfo_name(self, fspath):
+            fspath = normalized_elements(fspath)
+            zip_pre = normalized_elements(self.zip_pre)
+            if (fspath[:len(zip_pre)] == zip_pre):
+                return '/'.join(fspath[len(zip_pre):])
+            raise AssertionError(('%s is not a subpath of %s' % (fspath, self.zip_pre)))
+    pkg_resources.zipimport = sys.modules[__name__]
+    pkg_resources.EggMetadata = EggMetadata
+    pkg_resources.register_finder(EggZipImporter, pkg_resources.find_in_zip)
+    pkg_resources.register_namespace_handler(EggZipImporter, pkg_resources.file_ns_handler)
+    pkg_resources.register_loader_type(EggZipImporter, pkg_resources.ZipProvider)

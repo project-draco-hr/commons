@@ -1,7 +1,0 @@
-def iter_parents(self, paths='', **kwargs):
-    'Iterate _all_ parents of this commit.\n\t\t\n\t\t:param paths:\n\t\t\tOptional path or list of paths limiting the Commits to those that \n\t\t\tcontain at least one of the paths\n\t\t:param kwargs: All arguments allowed by git-rev-list\n\t\t:return: Iterator yielding Commit objects which are parents of self '
-    skip = kwargs.get('skip', 1)
-    if (skip == 0):
-        skip = 1
-    kwargs['skip'] = skip
-    return self.iter_items(self.repo, self, paths, **kwargs)

@@ -1,0 +1,5 @@
+{
+  super.testFailure(failure);
+  testRunFinished(result);
+  failFast(result);
+}

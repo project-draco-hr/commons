@@ -1,7 +1,0 @@
-def test_config_writer(self):
-    for config_level in self.rorepo.config_level:
-        try:
-            writer = self.rorepo.config_writer(config_level)
-            assert (not writer.read_only)
-        except IOError:
-            pass

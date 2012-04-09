@@ -1,5 +1,5 @@
 def __init__(self, name, initial_value=0):
-    if (not isinstance(initial_value, (int, long))):
+    if (not isinstance(initial_value, Compatibility.integer)):
         raise TypeError('AtomicGauge must be initialized with an integer.')
     NamedGauge.__init__(self, name)
     MutableGauge.__init__(self, initial_value)

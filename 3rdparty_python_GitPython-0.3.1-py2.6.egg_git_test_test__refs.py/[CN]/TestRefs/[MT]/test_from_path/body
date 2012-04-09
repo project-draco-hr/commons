@@ -1,6 +1,0 @@
-def test_from_path(self):
-    for ref_type in (Reference, Head, TagReference, RemoteReference):
-        for name in ('rela_name', 'path/rela_name'):
-            full_path = ref_type.to_full_path(name)
-            instance = ref_type.from_path(self.rorepo, full_path)
-            assert isinstance(instance, ref_type)

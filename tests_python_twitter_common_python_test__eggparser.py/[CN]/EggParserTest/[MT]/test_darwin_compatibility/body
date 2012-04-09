@@ -1,6 +1,0 @@
-def test_darwin_compatibility(self):
-    parser = EggParserTestHelper.get_darwin_platform()
-    for egg in (EggParserTest.DARWIN_SPECIFIC + EggParserTest.ARCH_INSPECIFIC):
-        self.assertTrue(parser.is_compatible(egg))
-    for egg in EggParserTest.LINUX_SPECIFIC:
-        self.assertFalse(parser.is_compatible(egg))

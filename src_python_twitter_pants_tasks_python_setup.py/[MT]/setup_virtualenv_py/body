@@ -1,5 +1,5 @@
 def setup_virtualenv_py(context):
-    virtualenv_cache = context.config.get('python-setup', 'cache')
+    virtualenv_cache = context.config.get('python-setup', 'bootstrap_cache')
     virtualenv_target = context.config.get('python-setup', 'virtualenv_target')
     if (not os.path.exists(virtualenv_cache)):
         safe_mkdir(virtualenv_cache)

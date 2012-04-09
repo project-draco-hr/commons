@@ -1,8 +1,0 @@
-def _fprogress(self, path, done, item):
-    self._fprogress_map.setdefault(path, 0)
-    curval = self._fprogress_map[path]
-    if (curval == 0):
-        assert (not done)
-    if (curval == 1):
-        assert done
-    self._fprogress_map[path] = (curval + 1)

@@ -1,5 +1,0 @@
-def _assert_entries(self, entries):
-    for entry in entries:
-        assert isinstance(entry, BaseIndexEntry)
-        assert (not os.path.isabs(entry.path))
-        assert (not ('\\' in entry.path))

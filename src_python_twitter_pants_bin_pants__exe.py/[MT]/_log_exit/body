@@ -1,0 +1,5 @@
+def _log_exit(result):
+    if (result == 0):
+        print('Pants executed successfully')
+    else:
+        print(('Pants failed with error %s' % result))

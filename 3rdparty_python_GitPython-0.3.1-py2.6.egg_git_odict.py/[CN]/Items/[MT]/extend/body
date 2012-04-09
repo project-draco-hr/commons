@@ -1,4 +1,0 @@
-def extend(self, other):
-    for item in other:
-        (key, value) = item
-        self._main[key] = value

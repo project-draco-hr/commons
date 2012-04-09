@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+from collections import defaultdict
 if (not hasattr(__builtins__, 'any')):
 
     def any(genexpr):

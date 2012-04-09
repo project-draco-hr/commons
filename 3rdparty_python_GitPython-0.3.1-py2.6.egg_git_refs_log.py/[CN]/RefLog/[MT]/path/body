@@ -1,4 +1,0 @@
-@classmethod
-def path(cls, ref):
-    '\n\t\t:return: string to absolute path at which the reflog of the given ref \n\t\t\tinstance would be found. The path is not guaranteed to point to a valid \n\t\t\tfile though.\n\t\t:param ref: SymbolicReference instance'
-    return join(ref.repo.git_dir, 'logs', to_native_path(ref.path))

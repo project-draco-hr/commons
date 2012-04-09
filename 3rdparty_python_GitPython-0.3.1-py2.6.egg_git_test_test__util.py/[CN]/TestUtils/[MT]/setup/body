@@ -1,2 +1,0 @@
-def setup(self):
-    self.testdict = {'string': '42', 'int': 42, 'array': [42], }

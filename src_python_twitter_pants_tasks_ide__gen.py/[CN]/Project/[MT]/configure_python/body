@@ -1,0 +1,7 @@
+def configure_python(self, source_roots, test_roots, lib_roots):
+    self.py_sources.extend((SourceSet(get_buildroot(), root, None, False) for root in source_roots))
+    self.py_sources.extend((SourceSet(get_buildroot(), root, None, True) for root in test_roots))
+    for root in lib_roots:
+        for path in os.listdir(os.path.join(get_buildroot(), root)):
+            if (os.path.isdir(os.path.join(get_buildroot(), root, path)) or path.endswith('.egg')):
+                self.py_libs.append(SourceSet(get_buildroot(), root, path, False))

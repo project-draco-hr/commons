@@ -1,4 +1,0 @@
-@property
-def stage(self):
-    "Stage of the entry, either:\n\t\t\n\t\t\t* 0 = default stage\n\t\t\t* 1 = stage before a merge or common ancestor entry in case of a 3 way merge\n\t\t\t* 2 = stage of entries from the 'left' side of the merge\n\t\t\t* 3 = stage of entries from the right side of the merge\n\t\t\n\t\t:note: For more information, see http://www.kernel.org/pub/software/scm/git/docs/git-read-tree.html\n\t\t"
-    return ((self[2] & CE_STAGEMASK) >> CE_STAGESHIFT)

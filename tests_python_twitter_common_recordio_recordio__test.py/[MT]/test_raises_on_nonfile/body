@@ -1,5 +1,0 @@
-def test_raises_on_nonfile():
-    with pytest.raises(RecordIO.InvalidFileHandle):
-        RecordWriter('/tmp/poop')
-    with pytest.raises(RecordIO.InvalidFileHandle):
-        RecordReader('/tmp/poop')

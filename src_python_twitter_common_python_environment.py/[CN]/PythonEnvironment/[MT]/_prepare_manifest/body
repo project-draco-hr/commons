@@ -1,2 +1,0 @@
-def _prepare_manifest(self):
-    self._chroot.write(self._manifest(), 'PEX-INFO', label='manifest')

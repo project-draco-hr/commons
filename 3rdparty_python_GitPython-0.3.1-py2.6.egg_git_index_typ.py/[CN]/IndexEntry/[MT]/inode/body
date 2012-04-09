@@ -1,4 +1,0 @@
-@property
-def inode(self):
-    ' Inode ID '
-    return self[7]

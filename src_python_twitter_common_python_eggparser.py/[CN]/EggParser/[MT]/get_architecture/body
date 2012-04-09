@@ -1,7 +1,0 @@
-def get_architecture(self):
-    py_version = self._version_info[0:2]
-    platform = self._uname[0].lower()
-    arch = self._uname[(-1)].lower()
-    if (platform == 'darwin'):
-        platform = 'macosx'
-    return (platform, arch, py_version)

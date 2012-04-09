@@ -1,4 +1,0 @@
-@property
-def branch_name(self):
-    ':return: the name of the branch, which is the shortest possible branch name'
-    return git.Head(self.repo, self._branch_path).name

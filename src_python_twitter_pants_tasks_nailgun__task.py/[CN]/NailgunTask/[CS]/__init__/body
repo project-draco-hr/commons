@@ -6,6 +6,7 @@ def __init__(self, context, classpath=None, workdir=None, nailgun_jar=None, args
     self._stdin = stdin
     self._stderr = stderr
     self._stdout = stdout
+    self._daemon = context.options.nailgun_daemon
     workdir = (workdir or context.config.get('nailgun', 'workdir'))
     self._pidfile = os.path.join(workdir, 'pid')
     self._ng_out = os.path.join(workdir, 'stdout')

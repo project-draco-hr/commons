@@ -1,2 +1,0 @@
-def __repr__(self):
-    return ('<git.%s "%s">' % (self.__class__.__name__, self.path))

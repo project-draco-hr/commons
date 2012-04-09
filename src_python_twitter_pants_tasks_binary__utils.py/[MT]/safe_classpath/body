@@ -1,0 +1,9 @@
+@contextmanager
+def safe_classpath(logger=None):
+    '\n    Yields to a block in an environment with no CLASSPATH.  This is useful to ensure hermetic java\n    invocations.\n  '
+    classpath = os.getenv('CLASSPATH')
+    if classpath:
+        logger = (logger or log.warn)
+        logger(('Scrubbing CLASSPATH=%s' % classpath))
+    with environment_as(CLASSPATH=None):
+        yield

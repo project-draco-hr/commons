@@ -1,4 +1,4 @@
-def __init__(self, name, sources, dependencies, excludes=None, buildflags=None, is_meta=False):
+def __init__(self, name, sources, dependencies, excludes=None, buildflags=None, is_meta=False, configurations=None):
     InternalTarget.__init__(self, name, dependencies, is_meta)
     TargetWithSources.__init__(self, name, is_meta)
     self.sources = (self._resolve_paths(self.target_base, sources) or [])
@@ -8,3 +8,4 @@ def __init__(self, name, sources, dependencies, excludes=None, buildflags=None, 
     buildfile = self.address.buildfile.full_path
     custom_antxml_path = os.path.join(os.path.dirname(buildfile), custom_antxml)
     self.custom_antxml_path = (custom_antxml_path if os.path.exists(custom_antxml_path) else None)
+    self.configurations = configurations

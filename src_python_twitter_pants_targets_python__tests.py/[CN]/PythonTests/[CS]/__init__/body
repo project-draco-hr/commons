@@ -1,2 +1,5 @@
-def __init__(self, name, sources, resources=None, dependencies=None):
+def __init__(self, name, sources, resources=None, dependencies=None, timeout=Amount(2, Time.MINUTES), soft_dependencies=False):
+    '\n      name / sources / resources / dependencies: See PythonLibrary target\n\n      timeout: Amount of time before this test should be considered timed-out\n                [Default: 2 minutes]\n      soft_dependencies: Whether or not we should ignore dependency resolution\n                         errors for this test.  [Default: False]\n    '
+    self._timeout = timeout
+    self._soft_dependencies = bool(soft_dependencies)
     PythonTarget.__init__(self, name, sources, resources, dependencies)

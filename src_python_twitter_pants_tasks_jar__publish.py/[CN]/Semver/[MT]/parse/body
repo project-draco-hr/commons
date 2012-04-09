@@ -4,4 +4,10 @@ def parse(version):
     if (len(components) != 3):
         raise ValueError
     (major, minor, patch) = components
-    return Semver(major, minor, patch)
+
+    def to_i(component):
+        try:
+            return int(component)
+        except (TypeError, ValueError):
+            raise ValueError(('Invalid revision component %s in %s - must be an integer' % (component, version)))
+    return Semver(to_i(major), to_i(minor), to_i(patch))

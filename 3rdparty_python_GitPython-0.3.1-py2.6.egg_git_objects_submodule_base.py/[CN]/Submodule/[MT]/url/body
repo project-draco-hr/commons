@@ -1,4 +1,0 @@
-@property
-def url(self):
-    ':return: The url to the repository which our module-repository refers to'
-    return self._url

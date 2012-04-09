@@ -1,23 +1,22 @@
 def dump(self):
     self.debug(('Building PythonBinary %s:' % self._target))
-    (libraries, eggs, reqs, binaries, thrifts, antlrs) = self.aggregate_targets(([self._target] + self._extra_targets))
-    bare_reqs = set([pkg_resources.Requirement.parse('distribute')])
-    bare_reqs.update(self._additional_reqs)
-    for lib in libraries:
+    targets = self._resolver.resolve()
+    for lib in targets['libraries']:
         self._dump_library(lib)
-    for req in bare_reqs:
-        self._dump_req(req)
-    for egg in eggs:
-        self._dump_egg(egg)
-    for req in reqs:
-        self._dump_python_req(req)
-    for thr in thrifts:
+    for req in targets['reqs']:
+        if (not req.should_build()):
+            self.debug(('Skipping %s based upon version filter' % req))
+            continue
+        self._dump_requirement(req._requirement, req._dynamic, req._repository)
+    for dist in ReqResolver.resolve((req._requirement for req in targets['reqs'] if req.should_build()), self._config, self._platforms, self._pythons, ignore_errors=self._builder.info().ignore_errors):
+        self._dump_distribution(dist)
+    for thr in targets['thrifts']:
         self._dump_thrift_library(thr)
-    for antlr in antlrs:
+    for antlr in targets['antlrs']:
         self._dump_antlr_library(antlr)
-    if (len(binaries) > 1):
+    if (len(targets['binaries']) > 1):
         print('WARNING: Target has multiple python_binary targets!', file=sys.stderr)
-    for binary in binaries:
-        self._dump_bin(binary.sources[0], binary.target_base)
-    self.env.freeze()
-    return self.env
+    for binary in targets['binaries']:
+        if (len(binary.sources) > 0):
+            self._dump_bin(binary.sources[0], binary.target_base)
+    return self._builder

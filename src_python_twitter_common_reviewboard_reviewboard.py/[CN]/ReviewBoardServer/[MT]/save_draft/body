@@ -1,0 +1,4 @@
+def save_draft(self, review_request):
+    '\n    Saves a draft of a review request.\n    '
+    self.api_call(('api/review-requests/%s/draft/save/' % review_request['id']))
+    self.debug('Review request draft saved')

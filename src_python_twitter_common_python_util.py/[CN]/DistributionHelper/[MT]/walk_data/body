@@ -1,0 +1,9 @@
+@staticmethod
+def walk_data(dist, path='/'):
+    for rel_fn in filter(None, dist.resource_listdir(path)):
+        full_fn = os.path.join(path, rel_fn)
+        if dist.resource_isdir(full_fn):
+            for (fn, content) in DistributionHelper.walk_data(dist, full_fn):
+                yield (fn, content)
+        else:
+            yield (full_fn[1:], dist.get_resource_string(dist._provider, full_fn))

@@ -1,3 +1,0 @@
-def create_eggdrop_chroot(dep):
-    target = Target.get(Address.parse(get_buildroot(), ('tests/python/twitter/pants/python/resources:%s' % dep)))
-    return PythonChroot(target, get_buildroot())

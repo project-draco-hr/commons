@@ -1,3 +1,0 @@
-@classmethod
-def entry_key(cls, *entry):
-    return entry_key(*entry)

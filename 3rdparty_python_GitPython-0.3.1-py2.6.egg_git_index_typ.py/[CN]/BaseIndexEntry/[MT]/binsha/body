@@ -1,4 +1,0 @@
-@property
-def binsha(self):
-    'binary sha of the blob '
-    return self[1]

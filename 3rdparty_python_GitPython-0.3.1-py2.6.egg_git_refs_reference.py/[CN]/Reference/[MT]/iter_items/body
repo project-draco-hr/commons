@@ -1,4 +1,0 @@
-@classmethod
-def iter_items(cls, repo, common_path=None):
-    'Equivalent to SymbolicReference.iter_items, but will return non-detached\n\t\treferences as well.'
-    return cls._iter_items(repo, common_path)

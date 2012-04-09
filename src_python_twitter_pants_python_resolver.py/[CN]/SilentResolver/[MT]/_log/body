@@ -1,0 +1,4 @@
+@classmethod
+def _log(cls, msg):
+    if ('PANTS_VERBOSE' in os.environ):
+        print(('  Resolver: %s' % msg))

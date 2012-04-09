@@ -1,9 +1,0 @@
-'Module for general utility functions'
-from git.util import IterableList, Actor
-import re
-from collections import deque as Deque
-from string import digits
-import time
-import os
-__all__ = ('get_object_type_by_name', 'parse_date', 'parse_actor_and_date', 'ProcessStreamAdapter', 'Traversable', 'altz_to_utctz_str', 'utctz_to_altz', 'verify_utctz', 'Actor')
-_re_actor_epoch = re.compile('^.+? (.*) (\\d+) ([+-]\\d+).*$')

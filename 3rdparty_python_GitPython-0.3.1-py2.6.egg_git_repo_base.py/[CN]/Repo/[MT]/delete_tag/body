@@ -1,3 +1,0 @@
-def delete_tag(self, *tags):
-    'Delete the given tag references'
-    return TagReference.delete(self, *tags)

@@ -1,2 +1,0 @@
-def __imul__(self, n):
-    raise TypeError("Can't multiply values in place")

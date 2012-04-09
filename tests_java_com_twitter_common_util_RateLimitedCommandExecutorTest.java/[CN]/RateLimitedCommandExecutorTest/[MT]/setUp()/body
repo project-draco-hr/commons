@@ -1,5 +1,5 @@
 {
-  exceptionalCommand=createMock(ExceptionalCommand.class);
+  command=createMock(Command.class);
   taskExecutor=createMock(ScheduledExecutorService.class);
   queue=createMock(new Clazz<BlockingQueue<RetryingRunnable>>(){
   }

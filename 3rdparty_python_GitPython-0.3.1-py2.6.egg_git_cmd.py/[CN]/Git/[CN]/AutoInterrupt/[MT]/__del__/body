@@ -1,9 +1,0 @@
-def __del__(self):
-    if (self.proc.poll() is not None):
-        return
-    if (os is None):
-        return
-    try:
-        os.kill(self.proc.pid, 2)
-    except AttributeError:
-        call(('TASKKILL /F /T /PID %s 2>nul 1>nul' % str(self.proc.pid)), shell=True)

@@ -1,0 +1,4 @@
+def __init__(self, targets):
+    self._config = Config.load()
+    self._targets = targets
+    self._resolver = SilentResolver(caches=(self._config.getlist('python-setup', 'local_eggs') + [self._config.get('python-setup', 'install_cache')]), install_cache=self._config.get('python-setup', 'install_cache'), fetcher=fetcher_from_config(self._config))

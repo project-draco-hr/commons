@@ -1,3 +1,0 @@
-def assert_match(pattern, string, msg=None):
-    'verify that the pattern matches the string'
-    assert_not_none(re.search(pattern, string), msg)

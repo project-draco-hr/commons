@@ -1,8 +1,0 @@
-def checkout(self, force=False, **kwargs):
-    "Checkout this head by setting the HEAD to this reference, by updating the index\n\t\tto reflect the tree we point to and by updating the working tree to reflect \n\t\tthe latest index.\n\t\t\n\t\tThe command will fail if changed working tree files would be overwritten.\n\t\t\n\t\t:param force:\n\t\t\tIf True, changes to the index and the working tree will be discarded.\n\t\t\tIf False, GitCommandError will be raised in that situation.\n\t\t\t\n\t\t:param kwargs:\n\t\t\tAdditional keyword arguments to be passed to git checkout, i.e.\n\t\t\tb='new_branch' to create a new branch at the given spot.\n\t\t\n\t\t:return:\n\t\t\tThe active branch after the checkout operation, usually self unless\n\t\t\ta new branch has been created.\n\t\t\n\t\t:note:\n\t\t\tBy default it is only allowed to checkout heads - everything else\n\t\t\twill leave the HEAD detached which is allowed and possible, but remains\n\t\t\ta special state that some tools might not be able to handle."
-    args = list()
-    kwargs['f'] = force
-    if (kwargs['f'] == False):
-        kwargs.pop('f')
-    self.repo.git.checkout(self, **kwargs)
-    return self.repo.active_branch

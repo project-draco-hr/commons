@@ -1,0 +1,12 @@
+def test_basic():
+    eviction_queue = []
+
+    def on_eviction(element):
+        eviction_queue.append(element)
+
+    @lru_cache(10, on_eviction=on_eviction)
+    def double(value):
+        return (value * 2)
+    for k in range(15):
+        double(k)
+    assert (eviction_queue == [0, 2, 4, 6, 8])

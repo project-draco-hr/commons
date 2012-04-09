@@ -1,0 +1,15 @@
+def main(args, options):
+    from pkg_resources import WorkingSet, Requirement, find_distributions
+    if (not options.site_dir):
+        app.error('Must supply --site')
+    distributions = list(find_distributions(options.site_dir))
+    working_set = WorkingSet()
+    for dist in distributions:
+        working_set.add(dist)
+    for arg in args:
+        arg_req = Requirement.parse(arg)
+        found_dist = working_set.find(arg_req)
+        if (not found_dist):
+            print(('Could not find %s!' % arg_req))
+        out_zip = Distiller(found_dist).distill()
+        print(('Dumped %s => %s' % (arg_req, out_zip)))

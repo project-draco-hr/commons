@@ -1,4 +1,0 @@
-def test_from_string_should_handle_just_name(self):
-    a = Actor._from_string('Michael Trier')
-    assert_equal('Michael Trier', a.name)
-    assert_equal(None, a.email)

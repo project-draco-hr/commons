@@ -1,13 +1,13 @@
 {
   test(CustomArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CustomArgs.nameVal.get(),is(new Name("jane")));
+      assertThat(CustomArgs.NAME_VAL.get(),is(new Name("jane")));
     }
   }
 ,"custom1","jane");
   test(CustomArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(CustomArgs.meaningVal.get(),is(new MeaningOfLife(42L)));
+      assertThat(CustomArgs.MEANING_VAL.get(),is(new MeaningOfLife(42L)));
     }
   }
 ,"custom2","jim");

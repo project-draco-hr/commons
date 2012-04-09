@@ -1,5 +1,6 @@
 def __init__(self, context):
     Task.__init__(self, context)
+    self.open = context.options.markdown_to_html_open
     self.outdir = (context.options.markdown_to_html_outdir or context.config.get('markdown-to-html', 'workdir'))
     self.extensions = set((context.options.markdown_to_html_extensions or context.config.getlist('markdown-to-html', 'extensions', ['.md'])))
     self.standalone = context.options.markdown_to_html_standalone

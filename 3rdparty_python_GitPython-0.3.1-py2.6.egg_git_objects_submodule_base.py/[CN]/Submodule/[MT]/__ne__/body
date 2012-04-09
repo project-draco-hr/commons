@@ -1,3 +1,0 @@
-def __ne__(self, other):
-    'Compare with another submodule for inequality'
-    return (not (self == other))

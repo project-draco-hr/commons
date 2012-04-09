@@ -1,10 +1,10 @@
 {
   parse(StandardArgs.class,"-string=");
-  assertThat(StandardArgs.stringVal.get(),is(""));
+  assertThat(StandardArgs.STRING_VAL.get(),is(""));
   resetArgs(StandardArgs.class);
   parse(StandardArgs.class,"-string=''");
-  assertThat(StandardArgs.stringVal.get(),is(""));
+  assertThat(StandardArgs.STRING_VAL.get(),is(""));
   resetArgs(StandardArgs.class);
   parse(StandardArgs.class,"-string=\"\"");
-  assertThat(StandardArgs.stringVal.get(),is(""));
+  assertThat(StandardArgs.STRING_VAL.get(),is(""));
 }

@@ -1,7 +1,8 @@
 def __init__(self, context):
     Task.__init__(self, context)
     self.confs = context.config.getlist('junit-run', 'confs')
-    self.profile = context.config.get('junit-run', 'profile')
+    self.junit_profile = context.config.get('junit-run', 'junit_profile')
+    self.emma_profile = context.config.get('junit-run', 'emma_profile')
     self.java_args = context.config.getlist('junit-run', 'args', default=[])
     if context.options.junit_run_jvmargs:
         self.java_args.extend(context.options.junit_run_jvmargs)
@@ -10,8 +11,24 @@ def __init__(self, context):
     self.test_classes = context.options.junit_run_tests
     self.context.products.require('classes')
     self.outdir = (context.options.junit_run_outdir or context.config.get('junit-run', 'workdir'))
+    self.coverage = context.options.junit_run_coverage
+    self.coverage_filters = (context.options.junit_run_coverage_patterns or [])
+    self.coverage_dir = os.path.join(self.outdir, 'coverage')
+    self.coverage_instrument_dir = os.path.join(self.coverage_dir, 'classes')
+    self.coverage_metadata_file = os.path.join(self.coverage_dir, 'coverage.em')
+    self.coverage_file = os.path.join(self.coverage_dir, 'coverage.ec')
+    self.coverage_report_console = context.options.junit_run_coverage_console
+    self.coverage_console_file = os.path.join(self.coverage_dir, 'coverage.txt')
+    self.coverage_report_xml = context.options.junit_run_coverage_xml
+    self.coverage_xml_file = os.path.join(self.coverage_dir, 'coverage.xml')
+    self.coverage_report_html_open = context.options.junit_run_coverage_html_open
+    self.coverage_report_html = (self.coverage_report_html_open or context.options.junit_run_coverage_html)
+    self.coverage = (self.coverage or self.coverage_report_html_open)
+    self.coverage_html_file = os.path.join(self.coverage_dir, 'html', 'index.html')
     self.flags = []
     if (context.options.junit_run_xmlreport or context.options.junit_run_suppress_output):
+        if context.options.junit_run_fail_fast:
+            self.flags.append('-fail-fast')
         if context.options.junit_run_xmlreport:
             self.flags.append('-xmlreport')
         self.flags.append('-suppress-output')

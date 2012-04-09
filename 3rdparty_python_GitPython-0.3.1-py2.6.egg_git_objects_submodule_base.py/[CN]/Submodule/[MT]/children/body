@@ -1,3 +1,0 @@
-def children(self):
-    '\n\t\t:return: IterableList(Submodule, ...) an iterable list of submodules instances\n\t\t\twhich are children of this submodule or 0 if the submodule is not checked out'
-    return self._get_intermediate_items(self)

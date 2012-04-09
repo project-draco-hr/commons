@@ -1,0 +1,2 @@
+StringWriter writer
+Iterable<String> lines

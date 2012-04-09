@@ -1,0 +1,2 @@
+def console_output(self, targets):
+    raise NotImplementedError('console_output must be implemented by subclasses of ConsoleTask')

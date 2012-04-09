@@ -1,23 +1,6 @@
-def list_jar_dependencies(self, binary):
+def list_jar_dependencies(self, binary, confs=None):
     jardepmap = (self.context.products.get('jar_dependencies') or {})
-    excludes = set()
-    for exclude_key in (((e.org, e.name) if e.name else e.org) for e in binary.deploy_excludes):
-        exclude = jardepmap.get(exclude_key)
-        if exclude:
-            for (basedir, jars) in exclude.items():
-                for jar in jars:
-                    excludes.add((basedir, jar))
-    self.context.log.debug(('Calculated excludes:\n\t%s' % '\n\t'.join((str(e) for e in excludes))))
-    externaljars = OrderedSet()
-
-    def add_jars(target):
-        mapped = jardepmap.get(target)
-        if mapped:
-            for (basedir, jars) in mapped.items():
-                for externaljar in jars:
-                    if ((basedir, externaljar) not in excludes):
-                        externaljars.add((basedir, externaljar))
-                    else:
-                        self.context.log.debug(('Excluding %s from binary' % externaljar))
-    binary.walk(add_jars, is_internal)
-    return externaljars
+    if confs:
+        return self._mapped_dependencies(jardepmap, binary, confs)
+    else:
+        return self._unexcluded_dependencies(jardepmap, binary)

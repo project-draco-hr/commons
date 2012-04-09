@@ -3,4 +3,9 @@
   requireBinding(ShutdownRegistry.class);
   requireBinding(LocalServiceRegistry.class);
   LifecycleModule.bindStartupAction(binder(),ServerSetJoiner.class);
+  bind(new TypeLiteral<Supplier<EndpointStatus>>(){
+  }
+).to(EndpointSupplier.class);
+  bind(EndpointSupplier.class).in(Singleton.class);
+  bind(Status.class).annotatedWith(InitialStatus.class).toInstance(initialStatus);
 }

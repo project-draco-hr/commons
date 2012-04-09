@@ -1,3 +1,0 @@
-from mimetypes import guess_type
-import base
-__all__ = ('Blob',)

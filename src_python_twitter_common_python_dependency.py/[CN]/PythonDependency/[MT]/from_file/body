@@ -1,9 +1,0 @@
-@staticmethod
-def from_file(filename, interpreter=PythonInterpreter.get()):
-    if filename.lower().endswith('.egg'):
-        return PythonDependency.from_eggs(filename, interpreter=interpreter)
-    else:
-        for suffix in VALID_SOURCE_EXTENSIONS:
-            if filename.lower().endswith(suffix):
-                return PythonDependency.from_source(filename, interpreter=interpreter)
-    raise PythonDependency.RequirementError(('Unrecognized Python dependency file format: %s!' % filename))

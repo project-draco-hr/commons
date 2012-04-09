@@ -1,4 +1,0 @@
-@classmethod
-def clone_from(cls, url, to_path, **kwargs):
-    'Create a clone from the given URL\n\t\t:param url: valid git url, see http://www.kernel.org/pub/software/scm/git/docs/git-clone.html#URLS\n\t\t:param to_path: Path to which the repository should be cloned to\n\t\t:param kwargs: see the ``clone`` method\n\t\t:return: Repo instance pointing to the cloned directory'
-    return cls._clone(Git(os.getcwd()), url, to_path, GitCmdObjectDB, **kwargs)

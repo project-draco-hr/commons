@@ -1,0 +1,7 @@
+def execute(self, targets):
+    'Stages IDE project artifacts to a project directory and generates IDE configuration files.'
+    self.map_internal_jars(targets)
+    self.map_external_jars()
+    idefile = self.generate_project(self._project)
+    if idefile:
+        binary_utils.open(idefile)

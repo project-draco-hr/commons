@@ -1,5 +1,0 @@
-def setvalues(self, values):
-    '\n        You can pass in a list of values, which will replace the\n        current list. The value list must be the same len as the OrderedDict.\n        \n        (Or a ``ValueError`` is raised.)\n        \n        >>> d = OrderedDict(((1, 3), (3, 2), (2, 1)))\n        >>> d.setvalues((1, 2, 3))\n        >>> d\n        OrderedDict([(1, 1), (3, 2), (2, 3)])\n        >>> d.setvalues([6])\n        Traceback (most recent call last):\n        ValueError: Value list is not the same length as the OrderedDict.\n        '
-    if (len(values) != len(self)):
-        raise ValueError('Value list is not the same length as the OrderedDict.')
-    self.update(zip(self, values))

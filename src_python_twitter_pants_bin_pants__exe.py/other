@@ -1,11 +1,8 @@
 from __future__ import print_function
 from twitter.pants import get_buildroot, get_version
 from twitter.pants.base import Address
+from twitter.pants.base.rcfile import RcFile
 from twitter.pants.commands import Command
-try:
-    import ConfigParser
-except ImportError:
-    import configparser as ConfigParser
 import optparse
 import os
 import sys
@@ -13,6 +10,6 @@ import traceback
 _HELP_ALIASES = set(['-h', '--help', 'help'])
 _BUILD_COMMAND = 'build'
 _BUILD_ALIASES = set(['-s', '--spec', '-f'])
-_DISABLE_PANTS_RC_OPTION = '--no-pantsrc'
+_LOG_EXIT_OPTION = '--log-exit'
 if (__name__ == '__main__'):
     main()

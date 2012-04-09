@@ -1,5 +1,5 @@
 def check(self, target):
     'Checks if a target has changed and invalidates it if so.'
     cache_key = self._key_for(target)
-    if self._cache.needs_update(cache_key):
+    if (cache_key and self._cache.needs_update(cache_key)):
         self._invalidate(target, cache_key)

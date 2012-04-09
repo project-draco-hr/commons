@@ -1,4 +1,0 @@
-def close(self):
-    sha = self.write_sha()
-    self.f.close()
-    return sha

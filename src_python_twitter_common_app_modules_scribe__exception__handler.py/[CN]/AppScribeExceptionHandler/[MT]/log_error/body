@@ -1,0 +1,7 @@
+@staticmethod
+def log_error(msg):
+    try:
+        from twitter.common import log
+        log.error(msg)
+    except ImportError:
+        sys.stderr.write((msg + '\n'))

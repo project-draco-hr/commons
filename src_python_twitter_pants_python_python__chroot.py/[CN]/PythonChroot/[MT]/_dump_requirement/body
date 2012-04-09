@@ -1,0 +1,3 @@
+def _dump_requirement(self, req, dynamic, repo):
+    self.debug(('  Dumping requirement: %s%s%s' % (str(req), (' (dynamic)' if dynamic else ''), (' (repo: %s)' if repo else ''))))
+    self._builder.add_requirement(req, dynamic, repo)

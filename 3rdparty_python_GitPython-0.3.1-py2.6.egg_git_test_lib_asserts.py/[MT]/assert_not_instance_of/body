@@ -1,3 +1,0 @@
-def assert_not_instance_of(expected, actual, msg=None):
-    'Verify that object is not an instance of expected '
-    assert (not isinstance(actual, expected, msg))

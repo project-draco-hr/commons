@@ -1,7 +1,7 @@
 def _getinstance(self, section, option, type, default=None):
-    if (not self.config.has_option(section, option)):
+    if (not self.configparser.has_option(section, option)):
         return default
-    raw_value = self.config.get(section, option)
+    raw_value = self.configparser.get(section, option)
     if issubclass(type, str):
         return raw_value
     try:

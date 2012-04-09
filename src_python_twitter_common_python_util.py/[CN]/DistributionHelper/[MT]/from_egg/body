@@ -1,0 +1,6 @@
+@staticmethod
+def from_egg(egg_path):
+    from twitter.common.python.importer import EggZipImporter
+    from pkg_resources import EggMetadata, Distribution
+    metadata = EggMetadata(EggZipImporter(egg_path))
+    return Distribution.from_filename(egg_path, metadata)

@@ -1,10 +1,6 @@
 def setup_parser(self, parser, args):
     self.config = Config.load()
-    parser.add_option('-x', '--time', action='store_true', dest='time', default=False, help='Times goal phases and outputs a report.')
-    parser.add_option('-v', '--log', action='store_true', dest='log', default=False, help='[%default] Logs extra build output.')
-    parser.add_option('-l', '--level', dest='log_level', type='choice', choices=['debug', 'info', 'warn'], help="[info] Sets the logging level to one of 'debug', 'info' or 'warn', implies -v if set.")
-    parser.add_option('--all', dest='target_directory', action='append', help="Adds all targets found in the given directory's BUILD file.  Can be specified more than once.")
-    parser.add_option('--all-recursive', dest='recursive_directory', action='append', help='Adds all targets found recursively under the given directory.  Can be specified more than once to add more than one root target directory to scan.')
+    Goal.add_global_options(parser)
     if (not args):
         args.append('goals')
     if ((len(args) == 1) and (args[0] in set(['-h', '--help', 'help']))):
@@ -19,55 +15,39 @@ def setup_parser(self, parser, args):
             return '\n'.join(lines)
         usages = [('%prog goal goals ([spec]...)', Phase('goals').description), ('%prog goal help [goal] ([spec]...)', Phase('help').description), ('%prog goal [goal] [spec]...', 'Attempt goal against one or more targets.'), ('%prog goal [goal] ([goal]...) -- [spec]...', 'Attempts all the specified goals.')]
         parser.set_usage(('\n%s' % format_usage(usages)))
-        parser.epilog = 'Either lists all installed goals, provides extra help for a goal or else attempts to achieve the specified goal for the listed targets.'
+        parser.epilog = 'Either lists all installed goals, provides extra help for a goal or else attempts to achieve the specified goal for the listed targets.\n                       Note that target specs accept two special forms:\n                         [dir]:  to include all targets in the specified directory\n                         [dir]:: to include all targets found in all BUILD files recursively under\n                                 the directory'
         parser.print_help()
         sys.exit(0)
     else:
-        goals = []
-        help = False
-        multi = False
-        for (i, arg) in enumerate(args):
-            help = (help or ('help' == arg))
-            goals.append(arg)
-            if ('--' == arg):
-                multi = True
-                del args[i]
-                goals.pop()
-                break
-            if arg.startswith('-'):
-                break
-        if (not multi):
-            goals = [goals[0]]
-        spec_offset = ((len(goals) + 1) if help else len(goals))
-        specs = [arg for arg in args[spec_offset:] if (not arg.startswith('-'))]
-
-        def parse_build(buildfile):
-            ParseContext(buildfile).parse(PANTS_NEW=True)
+        (goals, specs) = Goal.parse_args(args)
+        ParseContext.enable_pantsnew()
         with self.check_errors('The following bootstrap_buildfiles cannot be loaded:') as error:
             for path in self.config.getlist('goals', 'bootstrap_buildfiles', default=[]):
                 try:
                     buildfile = BuildFile(get_buildroot(), os.path.relpath(path, get_buildroot()))
-                    parse_build(buildfile)
+                    ParseContext(buildfile).parse()
                 except (TypeError, ImportError, TaskError, GoalError):
                     error(path, include_traceback=True)
                 except (IOError, SyntaxError):
                     error(path)
-        self.targets = []
         with self.check_errors('The following targets could not be loaded:') as error:
             for spec in specs:
-                try:
-                    address = Address.parse(get_buildroot(), spec)
-                    parse_build(address.buildfile)
-                    target = Target.get(address)
-                    if target:
-                        self.targets.append(target)
-                    else:
-                        siblings = Target.get_all_addresses(address.buildfile)
-                        prompt = ('did you mean' if (len(siblings) == 1) else 'maybe you meant one of these')
-                        error(('%s => %s?:\n    %s' % (address, prompt, '\n    '.join((str(a) for a in siblings)))))
-                except (TypeError, ImportError, TaskError, GoalError):
-                    error(spec, include_traceback=True)
-                except (IOError, SyntaxError):
-                    error(spec)
+                self.parse_spec(error, spec)
         self.phases = [Phase(goal) for goal in goals]
+        rcfiles = self.config.getdefault('rcfiles', type=list, default=[])
+        if rcfiles:
+            rcfile = RcFile(rcfiles, default_prepend=False, process_default=True)
+            all_goals = Phase.execution_order((Phase(goal) for goal in goals))
+            sections = OrderedSet()
+            for goal in all_goals:
+                sections.add(goal.name)
+                for clazz in goal.task_type.mro():
+                    if (clazz == Task):
+                        break
+                    sections.add(('%s.%s' % (clazz.__module__, clazz.__name__)))
+            augmented_args = rcfile.apply_defaults(sections, args)
+            if (augmented_args != args):
+                del args[:]
+                args.extend(augmented_args)
+                print ('(using pantsrc expansion: pants goal %s)' % ' '.join(augmented_args))
         Phase.setup_parser(parser, args, self.phases)

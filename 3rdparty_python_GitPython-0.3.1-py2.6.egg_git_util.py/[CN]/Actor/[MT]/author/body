@@ -1,4 +1,0 @@
-@classmethod
-def author(cls, config_reader=None):
-    'Same as committer(), but defines the main author. It may be specified in the environment, \n\t\tbut defaults to the committer'
-    return cls._main_actor(cls.env_author_name, cls.env_author_email, config_reader)

@@ -1,15 +1,7 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
-    if (not hasattr(cls, '_setup_parser')):
-        cls._setup_parser = True
-
-        def parser():
-            parser = copy(option_group.parser)
-            parser.option_groups.remove(option_group)
-            return parser
-        Help.parser = staticmethod(parser)
-        default = None
-        if ((len(args) > 1) and (not args[1].startswith('-'))):
-            default = args[1]
-            del args[1]
-        option_group.add_option(mkflag('goal'), dest='help_goal', default=default)
+    default = None
+    if ((len(args) > 1) and (not args[1].startswith('-'))):
+        default = args[1]
+        del args[1]
+    option_group.add_option(mkflag('goal'), dest='help_goal', default=default)

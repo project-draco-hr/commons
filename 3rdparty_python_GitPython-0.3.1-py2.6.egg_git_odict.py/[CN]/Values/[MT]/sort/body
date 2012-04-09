@@ -1,5 +1,0 @@
-def sort(self, *args, **kwds):
-    'Sort the values.'
-    vals = self._main.values()
-    vals.sort(*args, **kwds)
-    self[:] = vals

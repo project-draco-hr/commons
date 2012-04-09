@@ -1,5 +1,0 @@
-def test_diff_patch_format(self):
-    fixtures = ('diff_2', 'diff_2f', 'diff_f', 'diff_i', 'diff_mode_only', 'diff_new_mode', 'diff_numstat', 'diff_p', 'diff_rename', 'diff_tree_numstat_root')
-    for fixture_name in fixtures:
-        diff_proc = StringProcessAdapter(fixture(fixture_name))
-        diffs = Diff._index_from_patch_format(self.rorepo, diff_proc.stdout)

@@ -1,0 +1,21 @@
+def monkeypatch_zipimport():
+    from pkgutil import iter_importer_modules, iter_zipimport_modules
+    sys.modules['zipimport'] = sys.modules[__name__]
+    try:
+        zi_index = sys.path_hooks.index(builtin_zipimport.zipimporter)
+        sys.path_hooks[zi_index] = zipimporter
+    except ValueError:
+        sys.path_hooks.append(zipimporter)
+    path_elements_to_kill = set()
+    for (path_element, cached_importer) in sys.path_importer_cache.items():
+        if isinstance(cached_importer, builtin_zipimport.zipimporter):
+            path_elements_to_kill.add(path_element)
+    for element in path_elements_to_kill:
+        sys.path_importer_cache.pop(element)
+
+    def iter_zipimport_modules_proxy(*args, **kw):
+        EggZipImporter._log(('Proxying iter_zipimport_modules(%s, %r)' % (', '.join(map(repr, args)), kw)), at_level=3)
+        for mod in iter_zipimport_modules(*args, **kw):
+            EggZipImporter._log(('  Yielding => %s' % repr(mod)), at_level=4)
+            yield mod
+    iter_importer_modules.register(EggZipImporter, iter_zipimport_modules_proxy)

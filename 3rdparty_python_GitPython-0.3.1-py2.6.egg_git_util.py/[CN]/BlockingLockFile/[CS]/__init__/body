@@ -1,5 +1,0 @@
-def __init__(self, file_path, check_interval_s=0.3, max_block_time_s=sys.maxint):
-    'Configure the instance\n\t\t\n\t\t:parm check_interval_s:\n\t\t\tPeriod of time to sleep until the lock is checked the next time.\n\t\t\tBy default, it waits a nearly unlimited time\n\t\t\n\t\t:parm max_block_time_s: Maximum amount of seconds we may lock'
-    super(BlockingLockFile, self).__init__(file_path)
-    self._check_interval = check_interval_s
-    self._max_block_time = max_block_time_s

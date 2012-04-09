@@ -1,0 +1,4 @@
+@staticmethod
+def disable_disk_logging():
+    '\n      Disables disk logging altogether.\n    '
+    app.set_option(_DISK_LOG_LEVEL_OPTION, LogOptions._LOG_LEVEL_NONE_KEY, force=True)

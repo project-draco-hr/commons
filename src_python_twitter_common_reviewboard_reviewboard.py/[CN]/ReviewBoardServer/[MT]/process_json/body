@@ -1,0 +1,6 @@
+def process_json(self, data):
+    '\n    Loads in a JSON file and returns the data if successful. On failure,\n    APIError is raised.\n    '
+    rsp = json.loads(data)
+    if (rsp['stat'] == 'fail'):
+        raise APIError, rsp
+    return rsp

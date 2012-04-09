@@ -1,24 +1,17 @@
 {
-  Stat<Integer> statA=control.createMock(Stat.class);
-  Stat<Integer> statB=control.createMock(Stat.class);
-  Stat<Integer> statC=control.createMock(Stat.class);
-  Stat<Integer> statD=control.createMock(Stat.class);
+  RecordingStat<Integer> statA=mockedStat();
+  RecordingStat<Integer> statB=mockedStat();
+  RecordingStat<Integer> statC=mockedStat();
+  RecordingStat<Integer> statD=mockedStat();
+  expect(statRegistry.getStats()).andReturn(ImmutableList.<RecordingStat<? extends Number>>of(statB,statA,statC,statD));
   expect(statB.getName()).andReturn("statB");
-  expectLastCall().atLeastOnce();
+  expect(statB.sample()).andReturn(1);
   expect(statA.getName()).andReturn("statA");
-  expectLastCall().atLeastOnce();
+  expect(statA.sample()).andReturn(2);
   expect(statC.getName()).andReturn("statC");
-  expectLastCall().atLeastOnce();
+  expect(statC.sample()).andReturn(3);
   expect(statD.getName()).andReturn("statD");
-  expectLastCall().atLeastOnce();
-  expect(statB.read()).andReturn(1);
-  expect(statA.read()).andReturn(2);
-  expect(statC.read()).andReturn(3);
-  expect(statD.read()).andReturn(4);
+  expect(statD.sample()).andReturn(4);
   control.replay();
-  Stats.export(statB);
-  Stats.export(statA);
-  Stats.export(statC);
-  Stats.export(statD);
   repo.runSampler(clock);
 }

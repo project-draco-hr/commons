@@ -1,4 +1,0 @@
-def freeze(self):
-    self._prepare_inits()
-    self._prepare_manifest()
-    self._prepare_main()

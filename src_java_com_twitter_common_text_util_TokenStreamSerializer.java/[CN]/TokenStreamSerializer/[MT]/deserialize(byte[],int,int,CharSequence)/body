@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(data);
+  Preconditions.checkState(length > 0);
+  Preconditions.checkState(data.length >= length);
+  ByteArrayInputStream bais=new ByteArrayInputStream(data,offset,length);
+  return deserialize(bais,charSequence);
+}

@@ -1,2 +1,0 @@
-def __iadd__(self, other):
-    raise TypeError("Can't add in place to values")

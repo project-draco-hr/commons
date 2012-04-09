@@ -1,5 +1,0 @@
-def __init__(self, filepath=None):
-    'Initialize this instance with an optional filepath, from which we will\n\t\tinitialize our data. The path is also used to write changes back using \n\t\tthe write() method'
-    self._path = filepath
-    if (filepath is not None):
-        self._read_from_file()

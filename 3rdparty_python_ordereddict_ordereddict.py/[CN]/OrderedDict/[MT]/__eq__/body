@@ -1,5 +1,0 @@
-def __eq__(self, other):
-    'od.__eq__(y) <==> od==y.  Comparison to another OD is order-sensitive\n        while comparison to a regular mapping is order-insensitive.\n\n        '
-    if isinstance(other, OrderedDict):
-        return ((len(self) == len(other)) and (self.items() == other.items()))
-    return dict.__eq__(self, other)

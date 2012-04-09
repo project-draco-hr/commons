@@ -1,8 +1,9 @@
-import os
+__author__ = 'Alec Thomas, Brian Wickman'
+import contextlib
 import copy
-import shutil
 import errno
+import os
+import shutil
 import tempfile
-import sys
 import zipfile
 from . import safe_mkdir

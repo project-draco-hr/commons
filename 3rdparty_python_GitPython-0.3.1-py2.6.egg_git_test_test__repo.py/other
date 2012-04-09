@@ -1,9 +1,0 @@
-from git.test.lib import *
-from git import *
-from git.util import join_path_native
-from git.exc import BadObject
-from gitdb.util import hex_to_bin, bin_to_hex
-import os, sys
-import tempfile
-import shutil
-from cStringIO import StringIO

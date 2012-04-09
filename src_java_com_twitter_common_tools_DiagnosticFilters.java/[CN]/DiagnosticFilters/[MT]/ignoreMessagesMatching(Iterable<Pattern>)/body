@@ -1,0 +1,14 @@
+{
+  return new DiagnosticFilter<T>(){
+    @Override public Treatment categorize(    Diagnostic<? extends T> diagnostic){
+      String message=diagnostic.getMessage(Locale.getDefault());
+      for (      Pattern regex : regexes) {
+        if (regex.matcher(message).matches()) {
+          return Treatment.IGNORE;
+        }
+      }
+      return Treatment.PASS;
+    }
+  }
+;
+}

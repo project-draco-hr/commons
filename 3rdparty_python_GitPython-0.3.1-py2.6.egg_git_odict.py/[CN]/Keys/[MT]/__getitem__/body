@@ -1,3 +1,0 @@
-def __getitem__(self, index):
-    'Fetch the key at position i.'
-    return self._main._sequence[index]

@@ -1,5 +1,0 @@
-from git.test.lib import *
-from git import *
-import StringIO
-from copy import copy
-from ConfigParser import NoSectionError

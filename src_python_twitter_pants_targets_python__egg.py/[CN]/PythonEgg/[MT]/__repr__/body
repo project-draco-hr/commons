@@ -1,2 +1,0 @@
-def __repr__(self):
-    return ('Egg(%s @ %s)' % (self.name, '+'.join((os.path.relpath(egg) for egg in self.eggs))))

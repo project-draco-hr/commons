@@ -1,0 +1,10 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    IdeGen.setup_parser(option_group, args, mkflag)
+    supported_versions = sorted(list(_VERSIONS.keys()))
+    option_group.add_option(mkflag('idea-version'), dest='idea_gen_version', default='11', type='choice', choices=supported_versions, help=('[%%default] The IntelliJ IDEA version the project configuration should be generated for; can be one of: %s' % supported_versions))
+    option_group.add_option(mkflag('merge'), mkflag('merge', negate=True), default=True, action='callback', callback=mkflag.set_bool, dest='idea_gen_merge', help='[%default] Merge any manual customizations in existing Intellij IDEA configuration. If False, manual customizations will be over-written.')
+    option_group.add_option(mkflag('open'), mkflag('open', negate=True), default=True, action='callback', callback=mkflag.set_bool, dest='idea_gen_open', help='[%default] Attempts top open the generated project in IDEA.')
+    option_group.add_option(mkflag('bash'), mkflag('bash', negate=True), default=False, action='callback', callback=mkflag.set_bool, dest='idea_gen_bash', help='Adds a bash facet to the generated project configuration.')
+    option_group.add_option(mkflag('fsc'), mkflag('fsc', negate=True), default=False, action='callback', callback=mkflag.set_bool, dest='idea_gen_fsc', help='If the project contains any scala targets this specifies the fsc compiler should be enabled.')
+    option_group.add_option(mkflag('java-encoding'), default='UTF-8', dest='idea_gen_java_encoding', help='[%default] Sets the file encoding for java files in this project.')

@@ -1,9 +1,0 @@
-def iteritems(self):
-    '\n        >>> ii = OrderedDict(((1, 3), (3, 2), (2, 1))).iteritems()\n        >>> ii.next()\n        (1, 3)\n        >>> ii.next()\n        (3, 2)\n        >>> ii.next()\n        (2, 1)\n        >>> ii.next()\n        Traceback (most recent call last):\n        StopIteration\n        '
-
-    def make_iter(self=self):
-        keys = self.iterkeys()
-        while True:
-            key = keys.next()
-            yield (key, self[key])
-    return make_iter()

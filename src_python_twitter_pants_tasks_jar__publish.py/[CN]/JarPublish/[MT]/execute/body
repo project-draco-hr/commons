@@ -3,11 +3,13 @@ def execute(self, targets):
     pushdbs = {}
 
     def get_db(target):
+        if (target.provides is None):
+            raise TaskError(('trying to publish target %r which does not provide an artifact' % target))
         dbfile = target.provides.repo.push_db
         result = pushdbs.get(dbfile)
         if (not result):
             db = PushDb.load(dbfile)
-            repo = self.repos[(self.repo_prefix + target.provides.repo.name)]
+            repo = self.repos[target.provides.repo.name]
             result = (db, dbfile, repo)
             pushdbs[dbfile] = result
         return result
@@ -55,6 +57,8 @@ def execute(self, targets):
         if (skip and ((jar.org, jar.name) == self.restart_at)):
             skip = False
         newver = (self.overrides.get((jar.org, jar.name)) or semver.bump())
+        if self.snapshot:
+            newver = newver.make_snapshot()
         if (newver <= semver):
             raise TaskError(('Requested version %s must be greater than the current version %s' % (newver.version(), semver.version())))
         newfingerprint = self.fingerprint(target, fingerprint_internal)
@@ -85,6 +89,7 @@ def execute(self, targets):
                 print(('Skipping publish of %s in test mode.' % jar_coordinate(jar, newver.version())))
             else:
                 resolver = repo['resolver']
+                path = repo.get('path')
                 jvmargs = []
                 auth = repo['auth']
                 if auth:
@@ -95,10 +100,13 @@ def execute(self, targets):
                     credentials = ParseContext(buildfile).do_in_context(load_credentials)
                     jvmargs.append(credentials.username())
                     jvmargs.append(credentials.password())
-                ivysettings = self.generate_ivysettings(published)
+                ivysettings = self.generate_ivysettings(published, publish_local=path)
                 args = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
+                if self.snapshot:
+                    args.append('-overwrite')
                 result = binary_utils.runjava(jvmargs=jvmargs, classpath=self.ivycp, args=args)
                 if (result != 0):
                     raise TaskError(('Failed to push %s - ivy failed with %d' % (jar_coordinate(jar, newver.version()), result)))
-                pushdb.dump(dbfile)
-                self.commit_push(jar.org, jar.name, newver.version(), head_sha)
+                if self.commit:
+                    pushdb.dump(dbfile)
+                    self.commit_push(jar.org, jar.name, newver.version(), head_sha)

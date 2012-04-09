@@ -1,8 +1,0 @@
-@staticmethod
-def from_distributions(*distributions):
-    if (not distributions):
-        raise PythonDependency.BuildError('Cannot extract PythonDependency from empty distribution!')
-    else:
-        if any(((not dist.location.endswith('.egg')) for dist in distributions)):
-            raise PythonDependency.RequirementError('PythonDependency.from_distribution requires Egg distributions!')
-        return PythonDependency.from_eggs(*[dist.location for dist in distributions])

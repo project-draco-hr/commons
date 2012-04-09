@@ -1,5 +1,0 @@
-def _set_cache_(self, attr):
-    if (attr in IndexObject.__slots__):
-        raise AttributeError(('path and mode attributes must have been set during %s object creation' % type(self).__name__))
-    else:
-        super(IndexObject, self)._set_cache_(attr)

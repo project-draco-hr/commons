@@ -1,9 +1,0 @@
-def __init__(self, init_val=(), strict=True):
-    OrderedDict.__init__(self, init_val, strict=strict)
-    self._keys = self.keys
-    self._values = self.values
-    self._items = self.items
-    self.keys = Keys(self)
-    self.values = Values(self)
-    self.items = Items(self)
-    self._att_dict = {'keys': self.setkeys, 'items': self.setitems, 'values': self.setvalues, }

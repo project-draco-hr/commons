@@ -1,8 +1,5 @@
 def profile_classpath(profile, java_runner=None, config=None, ivy_jar=None, ivy_settings=None):
-
-    def call_java(classpath, main, args):
-        return runjava(classpath=classpath, main=main, args=args)
-    java_runner = (java_runner or call_java)
+    java_runner = (java_runner or runjava)
     config = (config or Config.load())
     profile_dir = config.get('ivy-profiles', 'workdir')
     profile_libdir = os.path.join(profile_dir, ('%s.libs' % profile))

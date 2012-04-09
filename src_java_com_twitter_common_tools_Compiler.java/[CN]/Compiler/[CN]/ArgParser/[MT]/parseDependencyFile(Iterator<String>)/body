@@ -1,0 +1,6 @@
+{
+  if (!iter.hasNext()) {
+    throw new IllegalArgumentException(String.format("%s requires an argument specifying the output path",DEPENDENCYFILE_FLAG));
+  }
+  dependencyFile=new File(iter.next());
+}

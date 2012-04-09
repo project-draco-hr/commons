@@ -1,3 +1,0 @@
-def __call__(self):
-    'Pretend to be the keys method.'
-    return self._main._keys()

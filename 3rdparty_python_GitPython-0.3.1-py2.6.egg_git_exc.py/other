@@ -1,2 +1,0 @@
-' Module containing all exceptions thrown througout the git package, '
-from gitdb.exc import *

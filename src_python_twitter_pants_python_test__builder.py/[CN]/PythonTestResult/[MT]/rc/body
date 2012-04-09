@@ -1,0 +1,3 @@
+@staticmethod
+def rc(value):
+    return PythonTestResult(('SUCCESS' if (value == 0) else 'FAILURE'), rc=value)

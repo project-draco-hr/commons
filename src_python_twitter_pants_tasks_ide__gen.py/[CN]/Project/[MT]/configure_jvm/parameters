@@ -1,0 +1,4 @@
+self
+scala_compiler_profile
+extra_source_paths
+extra_test_paths

@@ -4,27 +4,23 @@ import copy
 import errno
 import os
 import pkgutil
-import shutil
 import sys
 import tempfile
 import pkg_resources
+from twitter.common.collections import OrderedSet
 from twitter.common.contextutil import temporary_dir
-from twitter.common.dirutil import safe_mkdir
+from twitter.common.dirutil import safe_mkdir, safe_rmtree
 from twitter.common.lang import Compatibility
-from twitter.common.python.dependency import PythonDependency
-from twitter.common.python.environment import PythonEnvironment
-from twitter.common.python.reqfetcher import ReqFetcher
-from twitter.common.python.reqbuilder import ReqBuilder
 from twitter.common.python.interpreter import PythonIdentity
+from twitter.common.python.platforms import Platform
 from twitter.common.quantity import Time, Amount
 from twitter.pants.base import Target, Address
-from twitter.pants.targets import PythonBinary, PythonEgg, PythonLibrary, PythonAntlrLibrary, PythonRequirement, PythonThriftLibrary, PythonTests
+from twitter.pants.targets import PythonBinary, PythonLibrary, PythonAntlrLibrary, PythonThriftLibrary, PythonTests
 from twitter.pants.base import Config
 from twitter.pants.base.build_cache import BuildCache
 from twitter.pants.python.antlr_builder import PythonAntlrBuilder
 from twitter.pants.python.thrift_builder import PythonThriftBuilder
-if Compatibility.PY3:
-    from urllib.request import urlopen
-    from urllib.error import URLError
-else:
-    from urllib2 import urlopen, URLError
+from twitter.common.python.fetcher import Fetcher
+from twitter.common.python.resolver import Resolver
+from twitter.common.python.pex_builder import PEXBuilder
+from twitter.pants.python.resolver import PythonResolver, SilentResolver

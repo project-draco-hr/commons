@@ -1,4 +1,0 @@
-def _serialize(self, stream):
-    'Serialize this tree into the stream. Please note that we will assume \n\t\tour tree data to be in a sorted state. If this is not the case, serialization\n\t\twill not generate a correct tree representation as these are assumed to be sorted\n\t\tby algorithms'
-    tree_to_stream(self._cache, stream.write)
-    return self

@@ -1,4 +1,0 @@
-@classmethod
-def from_file(cls, filepath):
-    '\n\t\t:return: a new RefLog instance containing all entries from the reflog \n\t\t\tat the given filepath\n\t\t:param filepath: path to reflog \n\t\t:raise ValueError: If the file could not be read or was corrupted in some way'
-    return cls(filepath)

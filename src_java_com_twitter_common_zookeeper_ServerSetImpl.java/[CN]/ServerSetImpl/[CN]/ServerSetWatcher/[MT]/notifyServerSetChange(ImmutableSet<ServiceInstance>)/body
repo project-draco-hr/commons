@@ -1,12 +1,19 @@
 {
   if (!currentServerSet.equals(serverSet)) {
-    serverSet=currentServerSet;
-    if (serverSet.isEmpty()) {
+    if (currentServerSet.isEmpty()) {
       LOG.warning("server set empty!");
     }
  else {
-      LOG.info("server set change to:\n\t" + Joiner.on("\n\t").join(serverSet));
+      if (LOG.isLoggable(Level.INFO)) {
+        if (serverSet == null) {
+          LOG.info("received initial membership " + currentServerSet);
+        }
+ else {
+          logChange(Level.INFO,currentServerSet);
+        }
+      }
     }
+    serverSet=currentServerSet;
     monitor.onChange(serverSet);
   }
 }

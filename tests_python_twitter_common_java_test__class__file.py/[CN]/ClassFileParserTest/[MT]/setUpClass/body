@@ -1,0 +1,5 @@
+@classmethod
+def setUpClass(cls):
+    cls._class_data = pkgutil.get_data('twitter.common.java', _EXAMPLE_RESOURCE)
+    assert (cls._class_data is not None)
+    cls._class_file = ClassFile(cls._class_data)

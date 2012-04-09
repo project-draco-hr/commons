@@ -2,7 +2,7 @@
   if (path == null) {
     return false;
   }
-  if (path.exists()) {
+  if (path.exists() && path.isDirectory()) {
     File[] files=path.listFiles();
     for (    File file : files) {
       if (file.isDirectory()) {
@@ -13,5 +13,5 @@
       }
     }
   }
-  return (path.delete());
+  return path.delete();
 }

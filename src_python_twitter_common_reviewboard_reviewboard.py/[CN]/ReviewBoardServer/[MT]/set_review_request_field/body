@@ -1,0 +1,5 @@
+def set_review_request_field(self, review_request, field, value):
+    '\n    Sets a field in a review request to the specified value.\n    '
+    rid = review_request['id']
+    self.debug(('Attempting to set field "%s" to "%s" for review request "%s"' % (field, value, rid)))
+    self.api_call(('api/review-requests/%s/draft/set/' % rid), {field: value, })

@@ -1,5 +1,0 @@
-def line_dropped(self, line):
-    try:
-        self._seen_lines.remove(line)
-    except ValueError:
-        pass

@@ -2,9 +2,9 @@ from __future__ import print_function
 import os
 import sys
 from twitter.common.collections import OrderedSet
-from twitter.common.python import PythonLauncher
+from twitter.common.python.pex import PEX
+from twitter.pants.base import Target, Address
 from twitter.pants.python.python_chroot import PythonChroot
-from twitter.pants.targets import PythonEgg
 try:
     import pylint
     _HAVE_PYLINT = True

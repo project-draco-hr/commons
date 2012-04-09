@@ -1,0 +1,3 @@
+@staticmethod
+def fetcher(config):
+    return Fetcher(repositories=config.getlist('python-setup', 'repos', []), indices=config.getlist('python-setup', 'indices', []), external=config.getbool('python-setup', 'allow_pypi', True), download_cache=config.get('python-setup', 'cache', default=None))

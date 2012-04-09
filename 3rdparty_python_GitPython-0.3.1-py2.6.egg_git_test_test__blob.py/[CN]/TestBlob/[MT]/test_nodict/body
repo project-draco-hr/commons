@@ -1,2 +1,0 @@
-def test_nodict(self):
-    self.failUnlessRaises(AttributeError, setattr, self.rorepo.tree()['AUTHORS'], 'someattr', 2)

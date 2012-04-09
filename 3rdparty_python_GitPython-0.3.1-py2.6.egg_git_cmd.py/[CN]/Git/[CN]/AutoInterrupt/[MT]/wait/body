@@ -1,6 +1,0 @@
-def wait(self):
-    'Wait for the process and return its status code. \n\t\t\t\n\t\t\t:raise GitCommandError: if the return status is not 0'
-    status = self.proc.wait()
-    if (status != 0):
-        raise GitCommandError(self.args, status, self.proc.stderr.read())
-    return status

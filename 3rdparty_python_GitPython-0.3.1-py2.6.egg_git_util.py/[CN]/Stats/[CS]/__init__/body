@@ -1,3 +1,0 @@
-def __init__(self, total, files):
-    self.total = total
-    self.files = files

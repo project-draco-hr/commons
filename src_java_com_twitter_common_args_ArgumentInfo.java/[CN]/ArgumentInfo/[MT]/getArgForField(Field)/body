@@ -3,7 +3,7 @@
   checkArgument(Modifier.isStatic(field.getModifiers()),"Non-static argument fields are not supported, found " + field);
   field.setAccessible(true);
   try {
-    return ((Arg<?>)field.get(null));
+    return (Arg<?>)field.get(null);
   }
  catch (  IllegalAccessException e) {
     throw new RuntimeException("Cannot get arg value for " + field);

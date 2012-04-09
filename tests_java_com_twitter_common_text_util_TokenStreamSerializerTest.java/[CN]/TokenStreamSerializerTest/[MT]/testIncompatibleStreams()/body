@@ -1,0 +1,17 @@
+{
+  final String text="Test that incompatible streams are - actually -incompatible.";
+  TextTokenizer tokenizer=new DefaultTextTokenizer.Builder().setKeepPunctuation(false).build();
+  TokenStream stream=tokenizer.getDefaultTokenStream();
+  stream.reset(text);
+  TokenStreamSerializer serializer=TokenStreamSerializer.builder().add(new CharSequenceTermAttributeSerializer()).add(new TokenTypeAttributeSerializer()).add(new PositionIncrementAttributeSerializer()).build();
+  byte[] data=serializer.serialize(stream);
+  TokenStreamSerializer incompatibleSerializer=TokenStreamSerializer.builder().add(new CharSequenceTermAttributeSerializer()).add(new PositionIncrementAttributeSerializer()).add(new TokenTypeAttributeSerializer()).build();
+  boolean exceptionWasThrown=false;
+  try {
+    incompatibleSerializer.deserialize(data,text);
+  }
+ catch (  IOException e) {
+    exceptionWasThrown=true;
+  }
+  assertTrue("The expected exception was not thrown!",exceptionWasThrown);
+}

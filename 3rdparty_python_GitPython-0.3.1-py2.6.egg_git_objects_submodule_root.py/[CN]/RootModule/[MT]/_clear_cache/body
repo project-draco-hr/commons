@@ -1,3 +1,0 @@
-def _clear_cache(self):
-    'May not do anything'
-    pass

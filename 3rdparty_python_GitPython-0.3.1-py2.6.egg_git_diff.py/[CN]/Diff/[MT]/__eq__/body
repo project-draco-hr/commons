@@ -1,5 +1,0 @@
-def __eq__(self, other):
-    for name in self.__slots__:
-        if (getattr(self, name) != getattr(other, name)):
-            return False
-    return True

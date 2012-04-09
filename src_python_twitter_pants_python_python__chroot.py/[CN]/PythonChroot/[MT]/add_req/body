@@ -1,3 +1,0 @@
-def add_req(self, req):
-    assert isinstance(req, pkg_resources.Requirement)
-    self._additional_reqs.add(req)

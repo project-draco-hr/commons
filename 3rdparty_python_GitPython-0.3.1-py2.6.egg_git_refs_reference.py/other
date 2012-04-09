@@ -1,6 +1,0 @@
-from symbolic import SymbolicReference
-import os
-from git.objects import Object
-from git.util import LazyMixin, Iterable
-from gitdb.util import isfile, hex_to_bin
-__all__ = ['Reference']

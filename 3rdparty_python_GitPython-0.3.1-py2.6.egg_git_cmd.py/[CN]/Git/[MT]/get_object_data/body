@@ -1,6 +1,0 @@
-def get_object_data(self, ref):
-    ' As get_object_header, but returns object data as well\n\t\t:return: (hexsha, type_string, size_as_int,data_string)\n\t\t:note: not threadsafe'
-    (hexsha, typename, size, stream) = self.stream_object_data(ref)
-    data = stream.read(size)
-    del stream
-    return (hexsha, typename, size, data)

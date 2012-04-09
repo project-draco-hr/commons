@@ -4,6 +4,6 @@
   queueDrainer.run();
   expectLastCall().andThrow(new RuntimeException());
   control.replay();
-  rateLimiter=new RateLimitedCommandExecutor(taskExecutor,intervalBetweenRequests,queueDrainer,queue);
+  rateLimiter=createLimiter();
   runnableCapture.getValue().run();
 }

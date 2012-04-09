@@ -1,3 +1,6 @@
 self
 requirement
+dynamic
+repository
 name
+version_filter

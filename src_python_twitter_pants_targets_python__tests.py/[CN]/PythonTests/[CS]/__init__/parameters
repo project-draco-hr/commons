@@ -3,3 +3,5 @@ name
 sources
 resources
 dependencies
+timeout
+soft_dependencies

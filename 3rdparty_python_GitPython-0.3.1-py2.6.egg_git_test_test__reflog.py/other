@@ -1,7 +1,0 @@
-from git.test.lib import *
-from git.objects import IndexObject
-from git.refs import *
-from git.util import Actor
-import tempfile
-import shutil
-import os

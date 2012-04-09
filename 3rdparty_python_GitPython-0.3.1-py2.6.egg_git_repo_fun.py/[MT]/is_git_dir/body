@@ -1,6 +1,0 @@
-def is_git_dir(d):
-    ' This is taken from the git setup.c:is_git_directory\n\tfunction.'
-    if (isdir(d) and isdir(join(d, 'objects')) and isdir(join(d, 'refs'))):
-        headref = join(d, 'HEAD')
-        return (isfile(headref) or (os.path.islink(headref) and os.readlink(headref).startswith('refs')))
-    return False

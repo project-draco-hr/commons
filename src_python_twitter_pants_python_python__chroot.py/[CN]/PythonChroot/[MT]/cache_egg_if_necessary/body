@@ -1,7 +1,0 @@
-def cache_egg_if_necessary(self, egg):
-    target_file = os.path.join(self._eggcache, os.path.basename(egg))
-    if (not os.path.exists(target_file)):
-        if os.path.isdir(egg):
-            shutil.copytree(egg, target_file)
-        else:
-            shutil.copyfile(egg, target_file)

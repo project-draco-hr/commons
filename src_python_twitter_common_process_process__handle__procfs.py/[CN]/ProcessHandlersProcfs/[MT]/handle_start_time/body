@@ -1,4 +1,4 @@
 @staticmethod
 def handle_start_time(key, value):
-    seconds = ProcessHandlersProcfs.handle_time(key, value)
-    return (seconds - ProcessHandlersProcfs.boot_time())
+    elapsed_after_system_boot = ProcessHandlersProcfs.handle_time(key, value)
+    return (time.time() - (ProcessHandlersProcfs.boot_time() + elapsed_after_system_boot))

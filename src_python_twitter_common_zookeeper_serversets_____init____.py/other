@@ -1,2 +1,3 @@
+__author__ = 'Alec Thomas'
 from client import ServerSetClient
 __all__ = ['ServerSetClient', 'get_random_host']

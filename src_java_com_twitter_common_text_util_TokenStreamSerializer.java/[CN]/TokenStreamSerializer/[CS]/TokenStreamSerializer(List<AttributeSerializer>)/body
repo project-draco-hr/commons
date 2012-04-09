@@ -1,3 +1,4 @@
 {
   this.attributeSerializers=attributeSerializers;
+  this.attributeSerializersFingerprint=computeFingerprint(attributeSerializers);
 }

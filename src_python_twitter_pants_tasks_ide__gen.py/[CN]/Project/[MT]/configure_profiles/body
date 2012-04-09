@@ -1,0 +1,5 @@
+def configure_profiles(self, scala_compiler_profile):
+    self.checkstyle_classpath = profile_classpath('checkstyle')
+    self.scala_compiler_classpath = []
+    if self.has_scala:
+        self.scala_compiler_classpath.extend(profile_classpath(scala_compiler_profile))

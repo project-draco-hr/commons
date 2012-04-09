@@ -1,0 +1,2 @@
+def create_exclude(self, exclude):
+    return TemplateData(org=exclude.org, name=exclude.name)

@@ -1,3 +1,0 @@
-def __repr__(self):
-    '\n        Used for __repr__ and __str__\n        \n        >>> r1 = repr(OrderedDict(((\'a\', \'b\'), (\'c\', \'d\'), (\'e\', \'f\'))))\n        >>> r1\n        "OrderedDict([(\'a\', \'b\'), (\'c\', \'d\'), (\'e\', \'f\')])"\n        >>> r2 = repr(OrderedDict(((\'a\', \'b\'), (\'e\', \'f\'), (\'c\', \'d\'))))\n        >>> r2\n        "OrderedDict([(\'a\', \'b\'), (\'e\', \'f\'), (\'c\', \'d\')])"\n        >>> r1 == str(OrderedDict(((\'a\', \'b\'), (\'c\', \'d\'), (\'e\', \'f\'))))\n        True\n        >>> r2 == str(OrderedDict(((\'a\', \'b\'), (\'e\', \'f\'), (\'c\', \'d\'))))\n        True\n        '
-    return ('%s([%s])' % (self.__class__.__name__, ', '.join([('(%r, %r)' % (key, self[key])) for key in self._sequence])))

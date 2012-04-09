@@ -1,4 +1,0 @@
-@classmethod
-def iter_items(cls, repo, *args, **kwargs):
-    'For more information about the arguments, see list_items\n\t\t:return:  iterator yielding Items'
-    raise NotImplementedError('To be implemented by Subclass')

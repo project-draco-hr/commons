@@ -1,0 +1,24 @@
+def __init__(self, url, cookie_file=None, info=None, repository=None, username=None, password=None, debug=False):
+    self._debug = debug
+    if (cookie_file is None):
+        if ('USERPROFILE' in os.environ):
+            homepath = os.path.join(os.environ['USERPROFILE'], 'Local Settings', 'Application Data')
+        elif ('HOME' in os.environ):
+            homepath = os.environ['HOME']
+        else:
+            homepath = ''
+        cookie_file = os.path.join(homepath, '.post-review-cookies.txt')
+    if (info is None):
+        info = RepositoryInfo(path=repository, base_path='/')
+    self.url = url
+    if (self.url[(-1)] != '/'):
+        self.url += '/'
+    self.info = info
+    self.cookie_file = cookie_file
+    self.cookie_jar = cookielib.MozillaCookieJar(self.cookie_file)
+    if ((not self.has_valid_cookie()) and ((not username) or (not password))):
+        print('==> Review Board Login Required')
+        print(('Enter username and password for Review Board at %s' % self.url))
+        username = raw_input('Username: ')
+        password = getpass.getpass('Password: ')
+    self._add_auth_params(username, password)

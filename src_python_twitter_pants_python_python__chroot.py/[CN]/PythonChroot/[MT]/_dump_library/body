@@ -11,6 +11,6 @@ def _dump_library(self, library):
         add_function(src, dst)
     self.debug(('  Dumping library: %s [relative module: %s]' % (library, library.module)))
     for filename in library.sources:
-        copy_to_chroot(library.target_base, filename, library.module, self.env.add_source)
+        copy_to_chroot(library.target_base, filename, library.module, self._builder.add_source)
     for filename in library.resources:
-        copy_to_chroot(library.target_base, filename, library.module, self.env.add_resource)
+        copy_to_chroot(library.target_base, filename, library.module, self._builder.add_resource)

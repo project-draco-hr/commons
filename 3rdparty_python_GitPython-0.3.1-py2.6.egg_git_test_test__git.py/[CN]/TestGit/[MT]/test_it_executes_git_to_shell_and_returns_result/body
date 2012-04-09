@@ -1,2 +1,0 @@
-def test_it_executes_git_to_shell_and_returns_result(self):
-    assert_match('^git version [\\d\\.]{2}.*$', self.git.execute(['git', 'version']))

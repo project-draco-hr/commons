@@ -1,0 +1,7 @@
+{
+  expectDiagnostic(Kind.NOTE,"aside",null,Diagnostic.NOPOS,Diagnostic.NOPOS,Diagnostic.NOPOS);
+  control.replay();
+  listener.reportOn(diagnostic);
+  assertOut("aside");
+  assertNoErr();
+}

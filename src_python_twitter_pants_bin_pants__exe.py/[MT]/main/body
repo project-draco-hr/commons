@@ -7,7 +7,10 @@ def main():
         _help(version, root_dir)
     (command_class, command_args) = _parse_command(root_dir, sys.argv[1:])
     parser = optparse.OptionParser(version=('%%prog %s' % version))
-    parser.add_option(_DISABLE_PANTS_RC_OPTION, action='store_false', dest='pantsrc', default=True, help='Specifies that ~/.pantsrc should be ignored.')
+    RcFile.install_disable_rc_option(parser)
+    parser.add_option(_LOG_EXIT_OPTION, action='store_true', dest='log_exit', default=False, help='Log an exit message on success or failure')
     command = command_class(root_dir, parser, command_args)
     result = command.execute()
+    if (_LOG_EXIT_OPTION in command_args):
+        _log_exit(result)
     sys.exit(result)

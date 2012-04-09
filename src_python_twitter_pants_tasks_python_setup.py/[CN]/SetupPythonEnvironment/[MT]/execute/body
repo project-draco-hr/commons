@@ -6,4 +6,7 @@ def execute(self, _):
     setup_virtualenv_py(self.context)
     for interpreter in interpreters:
         self.context.log.debug(('Preparing %s' % interpreter))
-        install_virtualenv(self.context, interpreter)
+        try:
+            install_virtualenv(self.context, interpreter)
+        except TaskError as e:
+            print ('Failed to install %s, continuing anyway.' % interpreter)

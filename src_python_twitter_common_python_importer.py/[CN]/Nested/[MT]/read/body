@@ -1,0 +1,14 @@
+@staticmethod
+def read(path):
+    '\n      Read the contents of a potentially nested file.\n    '
+    if os.path.isfile(path):
+        with open(path) as fp:
+            return fp.read()
+    (dirname, basename) = os.path.split(path)
+    if (not basename):
+        raise Nested.FileNotFound(path)
+    (archive, prefix, zf) = Nested.open(dirname)
+    try:
+        return zf.read(os.path.join(prefix, basename))
+    except KeyError as e:
+        raise Nested.FileNotFound(path)

@@ -1,4 +1,0 @@
-@staticmethod
-def version_info():
-    import sys
-    return sys.version_info

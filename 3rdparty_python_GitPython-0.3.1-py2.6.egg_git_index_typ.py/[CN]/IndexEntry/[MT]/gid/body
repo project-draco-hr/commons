@@ -1,4 +1,0 @@
-@property
-def gid(self):
-    ' Group ID '
-    return self[9]

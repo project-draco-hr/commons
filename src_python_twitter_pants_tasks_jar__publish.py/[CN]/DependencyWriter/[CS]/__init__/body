@@ -1,0 +1,3 @@
+def __init__(self, get_db, template_relpath):
+    self.get_db = get_db
+    self.template_relpath = template_relpath

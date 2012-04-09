@@ -1,5 +1,0 @@
-@classmethod
-def create(cls, repo, name, url, **kwargs):
-    "Create a new remote to the given repository\n\t\t:param repo: Repository instance that is to receive the new remote\n\t\t:param name: Desired name of the remote\n\t\t:param url: URL which corresponds to the remote's name\n\t\t:param kwargs:\n\t\t\tAdditional arguments to be passed to the git-remote add command\n\t\t\t\n\t\t:return: New Remote instance\n\t\t\t\n\t\t:raise GitCommandError: in case an origin with that name already exists"
-    repo.git.remote('add', name, url, **kwargs)
-    return cls(repo, name)

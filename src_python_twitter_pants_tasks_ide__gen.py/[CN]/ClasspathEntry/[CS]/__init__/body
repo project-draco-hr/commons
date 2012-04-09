@@ -1,0 +1,3 @@
+def __init__(self, jar, source_jar=None):
+    self.jar = jar
+    self.source_jar = source_jar

@@ -1,0 +1,13 @@
+import os
+import pkgutil
+import shutil
+from collections import defaultdict
+from twitter.common.collections import OrderedSet
+from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.pants import get_buildroot
+from twitter.pants.base.generator import TemplateData, Generator
+from twitter.pants.tasks.ide_gen import IdeGen
+__author__ = 'John Sirois'
+_TEMPLATE_BASEDIR = os.path.join('eclipse', 'templates')
+_VERSIONS = {'3.5': '3.7', '3.6': '3.7', '3.7': '3.7', }
+_SETTINGS = ('org.eclipse.jdt.core.prefs', 'org.eclipse.core.resources.prefs')

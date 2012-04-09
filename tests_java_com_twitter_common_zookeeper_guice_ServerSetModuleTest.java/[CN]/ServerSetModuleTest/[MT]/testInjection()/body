@@ -1,0 +1,11 @@
+{
+  MockitoAnnotations.initMocks(this);
+  Guice.createInjector(ImmutableList.of(new ServerSetModule(),new AbstractModule(){
+    @Override protected void configure(){
+      bind(ZooKeeperClient.class).toInstance(zooKeeperClient);
+      bind(ShutdownRegistry.class).toInstance(shutdownRegistry);
+      bind(LocalServiceRegistry.class).toInstance(localServiceRegistry);
+    }
+  }
+));
+}

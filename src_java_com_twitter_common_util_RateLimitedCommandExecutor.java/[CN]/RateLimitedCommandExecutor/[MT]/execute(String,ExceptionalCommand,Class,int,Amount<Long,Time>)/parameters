@@ -1,5 +1,0 @@
-String name
-ExceptionalCommand task
-Class exceptionClass
-int numTries
-Amount<Long,Time> retryDelay

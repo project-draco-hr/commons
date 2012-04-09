@@ -1,0 +1,10 @@
+{
+  Assert.assertEquals(0,TokenType.TOKEN.ordinal());
+  Assert.assertEquals(1,TokenType.PUNCTUATION.ordinal());
+  Assert.assertEquals(2,TokenType.HASHTAG.ordinal());
+  Assert.assertEquals(3,TokenType.USERNAME.ordinal());
+  Assert.assertEquals(4,TokenType.EMOTICON.ordinal());
+  Assert.assertEquals(5,TokenType.URL.ordinal());
+  Assert.assertEquals(6,TokenType.STOCK.ordinal());
+  Assert.assertEquals(7,TokenType.values().length);
+}

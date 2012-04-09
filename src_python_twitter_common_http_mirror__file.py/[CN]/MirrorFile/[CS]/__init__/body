@@ -6,3 +6,4 @@ def __init__(self, http_host, http_path, local_file, https=False):
     self._connection_class = (httplib.HTTPSConnection if https else httplib.HTTPConnection)
     self._local_mtime = None
     self._web_mtime = None
+    self._exists = os.path.exists(local_file)

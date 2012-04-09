@@ -1,0 +1,3 @@
+def debug(self, message):
+    '\n    Does nothing by default but can be oferwritten on an Repository info object\n    to print the message to the screen and such.\n    '
+    pass

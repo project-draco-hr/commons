@@ -1,0 +1,3 @@
+{
+  assertEquals(ImmutableList.builder().addAll(lines).add("").build(),ImmutableList.copyOf(Splitter.on(NEWLINE).split(writer.toString())));
+}

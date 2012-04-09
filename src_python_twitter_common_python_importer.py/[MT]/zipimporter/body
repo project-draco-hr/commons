@@ -1,0 +1,12 @@
+def zipimporter(path):
+    try:
+        with timed(('EggZipImporting %s' % path)):
+            ezi = EggZipImporter(path)
+        return ezi
+    except Exception as e:
+        with timed(('ZipImporting %s' % path), at_level=1):
+            bzi = builtin_zipimport.zipimporter(path)
+        with EggZipImporter._log_nested(("Couldn't EggZipImport %s. " % path), at_level=1):
+            for line in traceback.format_exc().splitlines():
+                EggZipImporter._log(line, at_level=2)
+        return bzi

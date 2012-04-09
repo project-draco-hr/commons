@@ -1,8 +1,0 @@
-def assure_directory_exists(path, is_file=False):
-    'Assure that the directory pointed to by path exists.\n\t\n\t:param is_file: If True, path is assumed to be a file and handled correctly.\n\t\tOtherwise it must be a directory\n\t:return: True if the directory was created, False if it already existed'
-    if is_file:
-        path = os.path.dirname(path)
-    if (not os.path.isdir(path)):
-        os.makedirs(path)
-        return True
-    return False

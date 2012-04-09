@@ -1,0 +1,3 @@
+def __lt__(self, other):
+    self._raise_if_incompatible(other)
+    return (self._calc() < other._calc())

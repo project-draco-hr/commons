@@ -1,3 +1,0 @@
-def _lock_file_path(self):
-    ':return: Path to lockfile'
-    return ('%s.lock' % self._file_path)

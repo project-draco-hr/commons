@@ -1,0 +1,7 @@
+def test_platform_subsets(self):
+    assert Platform.compatible('macosx-10.0-i386', 'macosx-10.0-intel')
+    assert Platform.compatible('macosx-10.0-i386', 'macosx-10.1-intel')
+    assert Platform.compatible('macosx-10.0-x86_64', 'macosx-10.1-intel')
+    assert Platform.compatible('macosx-10.0-fat', 'macosx-10.1-intel')
+    assert (not Platform.compatible('macosx-10.0-ppc', 'macosx-10.1-intel'))
+    assert Platform.compatible('macosx-10.4-x86_64', 'macosx-10.7-intel')

@@ -1,4 +1,0 @@
-@property
-def blobs(self):
-    ':return: list(Blob, ...) list of blobs directly below this tree'
-    return [i for i in self if (i.type == 'blob')]

@@ -1,4 +1,4 @@
-def write(self, data, dst, label=None, mode='w'):
+def write(self, data, dst, label=None, mode='wb'):
     '\n      Write data to {chroot}/dest with optional label.\n\n      Has similar exceptional cases as Chroot.copy\n    '
     self._tag(dst, label)
     self._mkdir_for(dst)

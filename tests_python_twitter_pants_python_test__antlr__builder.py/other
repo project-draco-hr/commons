@@ -1,9 +1,9 @@
 import unittest
 import antlr3
 import antlr3.tree
-from twitter.pants.python.test.ExprLexer import ExprLexer
-from twitter.pants.python.test.ExprParser import ExprParser
-from twitter.pants.python.test.Eval import Eval
-from twitter.pants.python.test2.csvLexer import csvLexer
+from twitter.common.python.test.ExprLexer import ExprLexer
+from twitter.common.python.test.ExprParser import ExprParser
+from twitter.common.python.test.Eval import Eval
+from twitter.common.python.test2.csvLexer import csvLexer
 if (__name__ == '__main__'):
     unittest.main()

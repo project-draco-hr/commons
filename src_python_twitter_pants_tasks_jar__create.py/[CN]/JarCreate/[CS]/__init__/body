@@ -13,3 +13,4 @@ def __init__(self, context):
     if self.jar_javadoc:
         products.require('javadoc')
     self.jar_sources = (products.isrequired('source_jars') or options.jar_create_sources)
+    self._jars = {}

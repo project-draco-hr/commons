@@ -1,6 +1,0 @@
-def test_daemon_export(self):
-    orig_val = self.rorepo.daemon_export
-    self.rorepo.daemon_export = (not orig_val)
-    assert (self.rorepo.daemon_export == (not orig_val))
-    self.rorepo.daemon_export = orig_val
-    assert (self.rorepo.daemon_export == orig_val)

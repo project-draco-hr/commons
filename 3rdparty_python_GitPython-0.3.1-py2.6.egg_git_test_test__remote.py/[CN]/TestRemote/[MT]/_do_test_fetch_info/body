@@ -1,3 +1,0 @@
-def _do_test_fetch_info(self, repo):
-    self.failUnlessRaises(ValueError, FetchInfo._from_line, repo, 'nonsense', '')
-    self.failUnlessRaises(ValueError, FetchInfo._from_line, repo, '? [up to date]      0.1.7RC    -> origin/0.1.7RC', '')

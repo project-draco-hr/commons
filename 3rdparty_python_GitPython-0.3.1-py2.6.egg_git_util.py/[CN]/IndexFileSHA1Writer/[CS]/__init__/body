@@ -1,3 +1,0 @@
-def __init__(self, f):
-    self.f = f
-    self.sha1 = make_sha('')

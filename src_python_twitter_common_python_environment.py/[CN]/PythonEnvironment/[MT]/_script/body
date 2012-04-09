@@ -1,7 +1,0 @@
-def _script(self):
-    "\n      Returns the module-form of the entry point or None if it's not there.\n    "
-    if self.executable():
-        source = self.executable()
-        source.replace(os.path.sep, '.')
-        source = source.rpartition('.')[0]
-        return source

@@ -2,7 +2,7 @@ def _fetch(self):
     conn = self._connection_class(self._http_host)
     try:
         conn.request('GET', self._http_path)
-    except httplib.CannotSendRequest:
+    except (httplib.CannotSendRequest, socket.error):
         return None
     try:
         res = conn.getresponse()
@@ -12,4 +12,5 @@ def _fetch(self):
         with open(self._local_filename, 'w') as fp:
             fp.write(res.read())
         os.utime(self._local_filename, (self._web_mtime, self._web_mtime))
+        self._exists = True
         return True

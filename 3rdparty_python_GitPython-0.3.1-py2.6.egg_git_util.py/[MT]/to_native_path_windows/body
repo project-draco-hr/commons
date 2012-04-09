@@ -1,2 +1,0 @@
-def to_native_path_windows(path):
-    return path.replace('/', '\\')

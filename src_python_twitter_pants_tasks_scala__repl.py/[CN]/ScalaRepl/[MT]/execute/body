@@ -1,5 +1,2 @@
 def execute(self, targets):
-    classpath = profile_classpath(self.profile)
-    with self.context.state('classpath', []) as cp:
-        classpath.extend((jar for (conf, jar) in cp if (conf in self.confs)))
-    result = runjava(jvmargs=self.jvm_args, classpath=classpath, main=self.main, args=[])
+    runjava(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=[])

@@ -1,2 +1,6 @@
 def run(self):
-    return self._run_tests(self.targets)
+    self.successes = {}
+    rv = self._run_tests(self.targets)
+    for target in sorted(self.successes):
+        print(('%-80s.....%10s' % (target, self.successes[target])))
+    return (0 if rv.success else 1)
