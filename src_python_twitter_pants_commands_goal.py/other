@@ -56,7 +56,7 @@ if NailgunTask.killall:
     ng_killall = goal(name='ng-killall', action=NailgunKillall)
     ng_killall.install().with_description('Kill any running nailgun servers spawned by pants.')
     ng_killall.install('clean-all', first=True)
-goal(name='ivy', action=IvyResolve).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')
+goal(name='ivy', action=IvyResolve, dependencies=['gen']).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')
 goal(name='thrift', action=ThriftGen).install('gen').with_description('Generate code.')
 goal(name='protoc', action=ProtobufGen).install('gen')
 goal(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']).install().with_description('Run checkstyle against java source code.')
