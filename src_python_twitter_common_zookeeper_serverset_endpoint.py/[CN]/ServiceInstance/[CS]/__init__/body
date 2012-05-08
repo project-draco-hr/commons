@@ -1,0 +1,20 @@
+def __init__(self, service_endpoint, additional_endpoints=None, status='ALIVE'):
+    if (not isinstance(service_endpoint, Endpoint)):
+        raise ValueError(('Expected service_endpoint to be an Endpoint, got %r' % service_endpoint))
+    self._service_endpoint = service_endpoint
+    self._additional_endpoints = (additional_endpoints or {})
+    if (not isinstance(self._additional_endpoints, dict)):
+        raise ValueError('Additional endpoints must be a dictionary.')
+    for (name, endpoint) in self._additional_endpoints.items():
+        if (not isinstance(name, Compatibility.string)):
+            raise ValueError('Expected additional endpoints to be named by strings.')
+        if (not isinstance(endpoint, Endpoint)):
+            raise ValueError('Endpoints must be of type Endpoint.')
+    if isinstance(status, Compatibility.string):
+        self._status = Status.from_string(status)
+        if (self._status is None):
+            raise ValueError(('Unknown status: %s' % status))
+    elif isinstance(status, Status):
+        self._status = status
+    else:
+        raise ValueError('Status must be of type ServiceInstance.Status or string.')

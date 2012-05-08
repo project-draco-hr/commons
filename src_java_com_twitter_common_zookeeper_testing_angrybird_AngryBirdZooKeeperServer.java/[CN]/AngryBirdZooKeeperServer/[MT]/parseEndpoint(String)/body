@@ -1,0 +1,19 @@
+{
+  ImmutableList<String> endpointComponents=ImmutableList.copyOf(AT_SPLITTER.split(data));
+  if (endpointComponents.size() != 2) {
+    throw new ParseException("Unknown znode data: Expected format id@host:port",0);
+  }
+  int nodeId=Integer.parseInt(endpointComponents.get(0));
+  HostAndPort pair;
+  try {
+    pair=HostAndPort.fromString(endpointComponents.get(1));
+  }
+ catch (  IllegalArgumentException e) {
+    throw new ParseException("Failed to parse endpoint data: " + endpointComponents.get(1),data.indexOf('@'));
+  }
+  TestEndpoint endpoint=new TestEndpoint();
+  endpoint.setNodeId(nodeId);
+  endpoint.setHost(pair.getHostText());
+  endpoint.setPort(pair.getPort());
+  return endpoint;
+}

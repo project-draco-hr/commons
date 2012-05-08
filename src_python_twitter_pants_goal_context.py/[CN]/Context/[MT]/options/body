@@ -1,0 +1,4 @@
+@property
+def options(self):
+    'Returns the command line options parsed at startup.'
+    return self._options

@@ -1,0 +1,3 @@
+@classmethod
+def unpack_thrift(cls, blob):
+    return cls(blob.host, blob.port)

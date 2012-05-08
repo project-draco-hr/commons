@@ -25,5 +25,5 @@ def create_chunks(context, goals):
         chunks.append(OrderedSet(coalesced[chunk_start:]))
     context.log.debug(('::: created chunks(%d)' % len(chunks)))
     for (i, chunk) in enumerate(chunks):
-        context.log.debug(('  chunk(%d):\n    %s' % (i, '\n    '.join((str(t) for t in chunk)))))
+        context.log.debug(('  chunk(%d):\n\t%s' % (i, '\n\t'.join(sorted(map(str, chunk))))))
     return chunks

@@ -4,6 +4,9 @@ def _init(self):
         prefix.append(component)
         path = ('/' + '/'.join(prefix))
         try:
+            sync_log(('Creating %s' % path))
             self._zk.create(path, 'dir', [ZOO_OPEN_ACL_UNSAFE], 0)
+            sync_log('  => OK')
         except zookeeper.NodeExistsException:
+            sync_log('  => exists')
             pass

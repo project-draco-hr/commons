@@ -1,0 +1,3 @@
+@HttpServer.route('/health')
+def handle_health(self):
+    return 'OK'

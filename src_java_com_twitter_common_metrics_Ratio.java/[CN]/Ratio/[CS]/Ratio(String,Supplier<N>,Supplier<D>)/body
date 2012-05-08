@@ -1,5 +1,0 @@
-{
-  super(name);
-  this.numeratorAccessor=Preconditions.checkNotNull(numeratorAccessor);
-  this.denominatorAccessor=Preconditions.checkNotNull(denominatorAccessor);
-}

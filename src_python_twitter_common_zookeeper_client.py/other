@@ -1,12 +1,43 @@
+import posixpath
 import socket
 import threading
 import zookeeper
 from functools import wraps
-from twitter.common import app
-from twitter.common import log
-from twitter.common.log.options import LogOptions
-from twitter.common.quantity import Amount, Time
-app.add_option('--zookeeper', default='zookeeper.local.twitter.com:2181', metavar='HOST:PORT[,HOST:PORT,...]', help='Comma-separated list of host:port of ZooKeeper servers')
-app.add_option('--zookeeper_timeout', type='float', default=5.0, help='default timeout (in seconds) for ZK operations')
-app.add_option('--enable_zookeeper_debug_logging', dest='twitter_common_zookeeper_debug', default=False, action='store_true', help='whether to enable ZK debug logging to stderr')
-app.register_module(ZookeeperLoggingSubsystem())
+try:
+    from twitter.common import app
+    WITH_APP = True
+except ImportError:
+    WITH_APP = False
+try:
+    from twitter.common import log
+    from twitter.common.log.options import LogOptions
+except ImportError:
+    import logging as log
+try:
+    from Queue import Queue, Empty
+except ImportError:
+    from queue import Queue, Empty
+from .named_value import NamedValue
+if WITH_APP:
+    app.add_option('--zookeeper', default='zookeeper.local.twitter.com:2181', metavar='HOST:PORT[,HOST:PORT,...]', help='Comma-separated list of host:port of ZooKeeper servers')
+    app.add_option('--zookeeper_timeout', type='float', default=5.0, help='default timeout (in seconds) for ZK operations')
+    app.add_option('--enable_zookeeper_debug_logging', dest='twitter_common_zookeeper_debug', default=False, action='store_true', help='whether to enable ZK debug logging to stderr')
+
+
+    class ZookeeperLoggingSubsystem(app.Module):
+        _ZK_LOG_LEVEL_MAP = {log.DEBUG: zookeeper.LOG_LEVEL_DEBUG, log.INFO: zookeeper.LOG_LEVEL_INFO, log.WARN: zookeeper.LOG_LEVEL_WARN, log.ERROR: zookeeper.LOG_LEVEL_ERROR, log.FATAL: zookeeper.LOG_LEVEL_ERROR, }
+
+        def __init__(self):
+            app.Module.__init__(self, __name__, description='Zookeeper logging subsystem.')
+
+        def setup_function(self):
+            if app.get_options().twitter_common_zookeeper_debug:
+                zookeeper.set_debug_level(zookeeper.LOG_LEVEL_DEBUG)
+            else:
+                self._set_default_log_level()
+
+        def _set_default_log_level(self):
+            log_level = LogOptions.stderr_log_level()
+            zk_log_level = ZookeeperLoggingSubsystem._ZK_LOG_LEVEL_MAP.get(log_level, zookeeper.LOG_LEVEL_ERROR)
+            zookeeper.set_debug_level(zk_log_level)
+    app.register_module(ZookeeperLoggingSubsystem())

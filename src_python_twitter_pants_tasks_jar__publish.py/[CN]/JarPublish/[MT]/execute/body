@@ -93,13 +93,10 @@ def execute(self, targets):
                 jvmargs = []
                 auth = repo['auth']
                 if auth:
-                    buildfile = BuildFile(get_buildroot(), '.', must_exist=False)
-
-                    def load_credentials():
-                        return list(pants(auth).resolve()).pop()
-                    credentials = ParseContext(buildfile).do_in_context(load_credentials)
-                    jvmargs.append(credentials.username())
-                    jvmargs.append(credentials.password())
+                    with ParseContext.temp():
+                        credentials = pants(auth).resolve().next()
+                        jvmargs.append(credentials.username())
+                        jvmargs.append(credentials.password())
                 ivysettings = self.generate_ivysettings(published, publish_local=path)
                 args = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
                 if self.snapshot:

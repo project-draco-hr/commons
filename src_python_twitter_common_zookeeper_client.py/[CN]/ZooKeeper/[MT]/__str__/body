@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('ZooKeeper(status=%s,queued=%d,servers=%r)' % (self.STATUS_MATRIX[(self._live.is_set(), self._stopped.is_set())], self._completions.qsize(), self._servers))

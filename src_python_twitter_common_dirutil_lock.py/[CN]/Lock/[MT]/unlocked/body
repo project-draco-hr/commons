@@ -1,0 +1,4 @@
+@staticmethod
+def unlocked():
+    'Creates a Lock that is already released.'
+    return Lock(None)

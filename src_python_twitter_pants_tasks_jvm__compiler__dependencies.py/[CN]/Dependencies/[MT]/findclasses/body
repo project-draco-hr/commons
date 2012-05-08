@@ -1,0 +1,21 @@
+def findclasses(self, targets):
+    "\n      Returns a mapping from a target to its source to classes mapping.\n      For example:\n\n      dependencies = Dependencies(outdir, depfile)\n      mapping = dependencies.findclasses(targets)\n      for target, src_to_classes in mapping.items():\n        for source, classes in src_to_classes.items():\n          print('source: %s produces classes: %s' % (\n            os.path.join(target.target_base, source),\n            [os.path.join(outdir, cls) for cls in classes]\n          ))\n    "
+    sources = set()
+    target_by_source = dict()
+    for target in targets:
+        for source in target.sources:
+            src = os.path.normpath(os.path.join(target.target_base, source))
+            target_by_source[src] = target
+            sources.add(src)
+    classes_by_target_by_source = defaultdict((lambda : defaultdict(set)))
+    if os.path.exists(self.depfile):
+        with open(self.depfile, 'r') as deps:
+            for dep in deps.readlines():
+                (src, cls) = dep.strip().split('->')
+                sourcefile = os.path.relpath(os.path.join(self.outputdir, src.strip()), get_buildroot())
+                if (sourcefile in sources):
+                    classfile = os.path.relpath(os.path.join(self.outputdir, cls.strip()), self.outputdir)
+                    target = target_by_source[sourcefile]
+                    relsrc = os.path.relpath(sourcefile, target.target_base)
+                    classes_by_target_by_source[target][relsrc].add(classfile)
+    return classes_by_target_by_source

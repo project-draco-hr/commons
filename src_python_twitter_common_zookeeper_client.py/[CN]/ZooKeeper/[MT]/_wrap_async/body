@@ -1,0 +1,13 @@
+def _wrap_async(self, function_name):
+    'Wrap an asynchronous zookeeper module function in an error-handling\n       completion that injects the current zookeeper handle as the first\n       parameter and puts it on a completion queue if the current connection\n       state is unhealthy.'
+    function = getattr(zookeeper, function_name)
+
+    @wraps(function)
+    def _curry(*args, **kwargs):
+        completion = self.Completion(self, function, logger=self._log, *args, **kwargs)
+        if self._live.is_set():
+            return completion()
+        else:
+            self._completions.put(self.Completion(self, function, logger=self._log, *args, **kwargs))
+            return zookeeper.OK
+    return _curry

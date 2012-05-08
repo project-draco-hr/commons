@@ -1,7 +1,7 @@
 def _help(version, root_dir):
     print(('Pants %s @ PANTS_BUILD_ROOT: %s' % (version, root_dir)))
     print()
-    print(('Available subcommands:\n\t%s' % '\n\t'.join(find_all_commands())))
+    print(('Available subcommands:\n\t%s' % '\n\t'.join(_find_all_commands())))
     print()
     print("Default subcommand flags can be stored in ~/.pantsrc using the 'options' key of a\nsection named for the subcommand in ini style format, ie:\n  [build]\n  options: --fast")
-    exit_and_fail()
+    _exit_and_fail()

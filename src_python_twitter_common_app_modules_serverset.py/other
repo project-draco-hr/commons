@@ -1,0 +1,6 @@
+import sys
+from twitter.common import app, options
+try:
+    from twitter.common import log
+except ImportError:
+    import logging as log

@@ -1,0 +1,8 @@
+def documented_by(documenting_abc):
+
+    def document(cls):
+        cls_dict = cls.__dict__.copy()
+        for attr in documenting_abc.__abstractmethods__:
+            cls_dict[attr].__doc__ = getattr(documenting_abc, attr).__doc__
+        return type(cls.__name__, cls.__mro__[1:], cls_dict)
+    return document

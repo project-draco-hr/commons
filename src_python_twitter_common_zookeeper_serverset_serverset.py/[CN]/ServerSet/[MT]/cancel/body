@@ -1,0 +1,3 @@
+def cancel(self, membership, callback=None):
+    'Cancel membership in the ServerSet.'
+    return self._group.cancel(membership, callback=callback)

@@ -1,0 +1,5 @@
+{
+  if (VAR_MAP.put(name,stat) != null) {
+    LOG.warning("Warning - exported variable collision on " + name);
+  }
+}

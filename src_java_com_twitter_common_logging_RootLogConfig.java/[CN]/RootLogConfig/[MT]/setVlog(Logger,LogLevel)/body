@@ -1,0 +1,13 @@
+{
+  final Level newLevel=logLevel.getLevel();
+  logger.setLevel(newLevel);
+  do {
+    for (    Handler handler : logger.getHandlers()) {
+      Level handlerLevel=handler.getLevel();
+      if (newLevel.intValue() < handlerLevel.intValue()) {
+        handler.setLevel(newLevel);
+      }
+    }
+  }
+ while (logger.getUseParentHandlers() && (logger=logger.getParent()) != null);
+}

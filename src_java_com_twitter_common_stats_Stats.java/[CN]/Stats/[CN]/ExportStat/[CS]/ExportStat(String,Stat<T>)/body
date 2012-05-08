@@ -1,0 +1,4 @@
+{
+  this.name=name;
+  this.stat=(stat instanceof RecordingStat) ? (RecordingStat<? extends Number>)stat : new RecordingStatImpl<T>(stat);
+}

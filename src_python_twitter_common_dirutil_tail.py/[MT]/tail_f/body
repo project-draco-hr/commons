@@ -1,11 +1,15 @@
-def tail_f(filename, forever=True, clock=time):
+def tail_f(filename, forever=True, include_last=False, clock=time):
     fd = wait_until_opened(filename, forever, clock)
-    _tail_lines(fd, 10)
+    last_lines = _tail_lines(fd, 10)
     while True:
         if (fd is None):
             return
         where = fd.tell()
-        line = fd.readline()
+        if last_lines:
+            yield last_lines.pop(0)
+            continue
+        else:
+            line = fd.readline()
         if line:
             yield line
         else:

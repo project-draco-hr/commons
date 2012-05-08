@@ -1,6 +1,0 @@
-@staticmethod
-def _bootstrap_tempdir(server_id):
-    tempdir = tempfile.mkdtemp()
-    with open(os.path.join(tempdir, 'myid'), 'w') as myid_file:
-        myid_file.write(('%s' % server_id))
-    return tempdir

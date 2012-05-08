@@ -1,0 +1,9 @@
+def safe_create(self, path, acl=DEFAULT_ACL):
+    child = '/'
+    for component in filter(None, path.split('/')):
+        child = posixpath.join(child, component)
+        try:
+            self.create(child, '', acl, 0)
+        except zookeeper.NodeExistsException:
+            continue
+    return child

@@ -1,0 +1,21 @@
+{
+  AngryBirdZooKeeperServer zooKeeperServer;
+  try {
+    zooKeeperServer=new AngryBirdZooKeeperServer(ZK_PORT.get(),shutdownRegistry);
+    int port=zooKeeperServer.startNetwork();
+    LOG.info(String.format("ZooKeeper server started on: %d",port));
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Failed to start server: " + e);
+  }
+catch (  InterruptedException e) {
+    throw new RuntimeException("Failed to start server: " + e);
+  }
+  final Server thriftServer=ServerBuilder.safeBuild(new ZooKeeperThriftServer.Service(new AngryBirdZooKeeperThriftService(zooKeeperServer),new TBinaryProtocol.Factory()),ServerBuilder.get().name("AngryBirdZooKeeperServer").codec(ThriftServerFramedCodec.get()).bindTo(new InetSocketAddress(THRIFT_PORT.get())));
+  shutdownRegistry.addAction(new Command(){
+    @Override public void execute(){
+      thriftServer.close(Duration.forever());
+    }
+  }
+);
+}

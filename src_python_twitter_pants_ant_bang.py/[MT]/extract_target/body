@@ -13,8 +13,7 @@ def extract_target(java_targets, name=None):
         def name(name):
             return ('%s-%s-%d' % (target_name, name, target_index))
         (target_type, base) = category
-
-        def create():
+        with ParseContext.temp(base):
             if (target_type == JavaProtobufLibrary):
                 return _aggregate(JavaProtobufLibrary, name('protobuf'), targets, buildflags=buildflags)
             elif (target_type == JavaThriftLibrary):
@@ -31,7 +30,6 @@ def extract_target(java_targets, name=None):
                 return _aggregate(ScalaTests, name('scala-tests'), targets, buildflags=buildflags)
             else:
                 raise Exception(('Cannot aggregate targets of type: %s' % target_type))
-        return ParseContext(BuildFile(get_buildroot(), base, must_exist=False)).do_in_context(create)
 
     def resolve_conflicts(target):
         dependencies = {}

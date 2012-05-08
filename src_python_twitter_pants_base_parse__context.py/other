@@ -1,7 +1,7 @@
 import collections
 import copy
 import os
-import sys
+from contextlib import contextmanager
 from twitter.common.lang import Compatibility
-from twitter.common.contextutil import temporary_file, temporary_dir
+from twitter.pants import get_buildroot
 from twitter.pants.base import BuildFile

@@ -1,0 +1,2 @@
+def make_zk(server, **kw):
+    return ZooKeeper(('localhost:%d' % server.zookeeper_port), timeout_secs=CONNECT_TIMEOUT_SECS, max_reconnects=CONNECT_RETRIES, **kw)

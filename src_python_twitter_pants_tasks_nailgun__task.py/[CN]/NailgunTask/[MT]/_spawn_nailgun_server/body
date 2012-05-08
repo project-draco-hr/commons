@@ -13,7 +13,7 @@ def _spawn_nailgun_server(self):
     if self._ng_server_args:
         args.extend(self._ng_server_args)
     args.append(NailgunTask.PANTS_NG_ARG)
-    args.append(('-Dpidfile=%s' % os.path.relpath(self._pidfile, get_buildroot())))
+    args.append(NailgunTask.create_pidfile_arg(self._pidfile))
     args.extend(['-jar', self._nailgun_jar, ':0'])
     log.debug(('Executing: %s' % ' '.join(args)))
     with binary_utils.safe_classpath(logger=log.warn):

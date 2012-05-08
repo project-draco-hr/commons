@@ -1,0 +1,7 @@
+{
+  String gname="p" + (int)(quantile * 10000);
+  if (3 < gname.length() && "00".equals(gname.substring(3))) {
+    gname=gname.substring(0,3);
+  }
+  return gname;
+}

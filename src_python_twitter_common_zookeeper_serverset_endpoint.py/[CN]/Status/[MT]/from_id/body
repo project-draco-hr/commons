@@ -1,0 +1,5 @@
+@staticmethod
+def from_id(_id):
+    if (_id not in Status.MAP):
+        raise ValueError('from_id got an invalid Status!')
+    return Status(Status.MAP.get(_id), _id)

@@ -1,0 +1,3 @@
+{
+  return sessionIdToExpireResponse(zkServer.expireSession(expireRequest.sessionId));
+}

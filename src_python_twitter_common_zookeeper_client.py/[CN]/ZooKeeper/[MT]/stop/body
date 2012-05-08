@@ -1,0 +1,6 @@
+def stop(self):
+    'Gracefully stop this Zookeeper session.'
+    self._log('Shutting down ZooKeeper')
+    self._stopped.set()
+    self._safe_close()
+    self._completions = Queue()

@@ -1,0 +1,7 @@
+@staticmethod
+@contextmanager
+def temp(basedir=None):
+    'Activates a temporary parse context in the given basedir relative to the build root or else\n    in the build root dir itself if no basedir is specified.'
+    context = ParseContext(BuildFile(get_buildroot(), (basedir or 'BUILD.temp'), must_exist=False))
+    with ParseContext.activate(context):
+        yield

@@ -1,0 +1,3 @@
+@property
+def additional_endpoints(self):
+    return self._additional_endpoints

@@ -1,0 +1,10 @@
+self
+name
+classname
+plugin
+sources
+java_sources
+provides
+dependencies
+excludes
+resources

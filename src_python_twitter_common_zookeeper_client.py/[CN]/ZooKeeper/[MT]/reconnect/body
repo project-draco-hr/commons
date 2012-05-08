@@ -1,20 +1,45 @@
 def reconnect(self):
     'Attempt to reconnect to ZK.'
-    if (self._zh is not None):
-        zh = self._zh
-        self._zh = None
-        zookeeper.close(zh)
-    ready = threading.Event()
+    if self._stopped.is_set():
+        self._safe_close()
+        return
 
-    def on_ready(handle, type, state, path):
+    def connection_handler(handle, type, state, path):
+        if (self._zh != handle):
+            try:
+                zookeeper.close(handle)
+            except:
+                pass
+            return
+        if self._stopped.is_set():
+            return
+        if self._watch:
+            self._watch(self, type, state, path)
         if (state == zookeeper.CONNECTED_STATE):
-            ready.set()
-    timeout = self._timeout
-    timeout_ms = Amount(timeout, Time.SECONDS).as_(Time.MILLISECONDS)
-    servers = _expand_server_port_list(self._servers)
-    log.info(('Connecting to ZK hosts at %s' % servers))
-    self._zh = zookeeper.init(servers, on_ready, int(timeout_ms))
-    ready.wait((timeout + 1))
-    if (not ready.is_set()):
-        raise ZooKeeper.ConnectionTimeout(('Timed out waiting for ZK connection to %s' % servers))
-    log.info(('Successfully connected to ZK at %s' % servers))
+            self._logger('Connection started, setting live.')
+            self._live.set()
+            self._clear_completions()
+        elif (state == zookeeper.EXPIRED_SESSION_STATE):
+            self._logger('Session lost, clearing live state.')
+            self._live.clear()
+            self._zh = None
+            self._init_count = 0
+            self.reconnect()
+        else:
+            self._logger('Connection lost, clearing live state.')
+            self._live.clear()
+    self._handler = connection_handler
+    timeout_ms = int((self._timeout_secs * 1000))
+    while True:
+        self._safe_close()
+        servers = self.expand_ensemble(self._servers)
+        self._log(('Connecting to ZK hosts at %s' % servers))
+        self._zh = zookeeper.init(servers, connection_handler, timeout_ms)
+        self._init_count += 1
+        self._live.wait((self._timeout_secs + 1))
+        if self._live.is_set():
+            break
+        elif (self._init_count >= self._max_reconnects):
+            self._safe_close()
+            raise ZooKeeper.ConnectionTimeout(('Timed out waiting for ZK connection to %s' % servers))
+    self._log(('Successfully connected to ZK at %s' % servers))

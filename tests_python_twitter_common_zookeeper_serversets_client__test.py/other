@@ -1,13 +1,29 @@
+import os
 import posixpath
-import pytest
 import threading
+import time
+import unittest
 import zookeeper
 import thrift.TSerialization as codec
 from twitter.common.zookeeper import ZooKeeper
-from twitter.common.zookeeper.test_cluster import ZookeeperClusterBootstrapper
+from twitter.common.zookeeper.test_server import ZookeeperServer
 from twitter.common.zookeeper.serversets import ServerSetClient
 from gen.twitter.thrift.endpoint.ttypes import ServiceInstance, Endpoint
 ZOO_OPEN_ACL_UNSAFE = {'perms': zookeeper.PERM_ALL, 'scheme': 'world', 'id': 'anyone', }
 SERVICE_PATH = '/twitter/service/test'
 INSTANCE1 = ServiceInstance(status=2, additionalEndpoints={}, serviceEndpoint=Endpoint(host='127.0.0.1', port=1234))
 INSTANCE2 = ServiceInstance(status=2, additionalEndpoints={}, serviceEndpoint=Endpoint(host='127.0.0.1', port=1235))
+if os.environ.get('ZOOKEEPER_TEST_DEBUGGING'):
+    LAST_TIME = time.time()
+
+    def sync_log(msg):
+        global LAST_TIME
+        now = time.time()
+        with open('/tmp/zk_test.log', 'a+') as fp:
+            fp.write(('%10s - ' % ('%.1fms:' % (1000.0 * (now - LAST_TIME)))))
+            fp.write((msg + '\n'))
+        LAST_TIME = now
+else:
+
+    def sync_log(msg):
+        pass

@@ -1,0 +1,19 @@
+{
+  fakeErrorLog=new ByteArrayOutputStream();
+  errPrintStream=new PrintStream(fakeErrorLog);
+  System.setErr(errPrintStream);
+  consoleHandler=new ConsoleHandler();
+  fakeFileLog=new FakeHandler();
+  fakeRootLogger=Logger.getLogger("FakeRoot-" + UUID.randomUUID().toString());
+  fakeRootLogger.setUseParentHandlers(false);
+  for (  Handler h : fakeRootLogger.getHandlers()) {
+    fakeRootLogger.removeHandler(h);
+  }
+  fakeRootLogger.addHandler(consoleHandler);
+  testLogger=Logger.getLogger(RootLogConfigTest.class.getName());
+  testLogger.setUseParentHandlers(true);
+  testLogger.setParent(fakeRootLogger);
+  setFakeRootForLogger(ClassA.logger);
+  setFakeRootForLogger(ClassB.logger);
+  resetLogs();
+}

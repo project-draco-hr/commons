@@ -4,7 +4,7 @@ import os
 import subprocess
 from contextlib import contextmanager
 from twitter.common import log
-from twitter.common.contextutil import environment_as, temporary_file
+from twitter.common.contextutil import environment_as, open_zip, temporary_file
 from twitter.common.dirutil import safe_mkdir, safe_open, touch
 from twitter.pants.base import Config
 from twitter.pants.tasks import TaskError

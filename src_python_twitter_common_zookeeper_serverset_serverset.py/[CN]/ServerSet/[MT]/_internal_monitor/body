@@ -1,0 +1,17 @@
+def _internal_monitor(self, members):
+    cached = set(self._members)
+    new_members = (members - cached)
+    old_members = (cached - members)
+    for service_instance in map(self._members.pop, old_members):
+        self._on_leave(service_instance)
+    for member_id in new_members:
+
+        def on_finish(service_instance):
+            try:
+                self._members[member_id] = ServiceInstance.unpack(service_instance)
+            except Exception as e:
+                log.warning(('Failed to deserialize endpoint: %s' % e))
+                return
+            self._on_join(self._members[member_id])
+        self._group.info(member_id, on_finish)
+    self._group.monitor(members, self._internal_monitor)

@@ -1,0 +1,5 @@
+{
+  ServerPortResponse response=new ServerPortResponse();
+  int port=zkServer.getPort();
+  return Future.value(response.setResponseCode(OK).setPort(port));
+}

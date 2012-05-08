@@ -1,0 +1,10 @@
+{
+  if (!sessionId.isPresent()) {
+    LOG.warning("No session found for expiration!");
+  }
+ else {
+    LOG.info("Closing session: " + sessionId);
+    zooKeeperServer.closeSession(sessionId.get().longValue());
+  }
+  return sessionId;
+}

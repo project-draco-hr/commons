@@ -1,0 +1,2 @@
+def list(self):
+    return sorted(map((lambda znode: Membership(self.znode_to_id(znode))), filter(self.znode_owned, self._zk.get_children(self._path))))

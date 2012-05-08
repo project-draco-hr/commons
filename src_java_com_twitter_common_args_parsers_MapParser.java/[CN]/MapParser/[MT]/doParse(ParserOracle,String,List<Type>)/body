@@ -1,8 +1,8 @@
 {
   Type keyType=typeParams.get(0);
-  Parser keyParser=parserOracle.get(TypeToken.create(keyType));
+  Parser keyParser=parserOracle.get(TypeToken.of(keyType));
   Type valueType=typeParams.get(1);
-  Parser valueParser=parserOracle.get(TypeToken.create(valueType));
+  Parser valueParser=parserOracle.get(TypeToken.of(valueType));
   ImmutableMap.Builder map=ImmutableMap.builder();
   for (  String keyAndValue : Parsers.MULTI_VALUE_SPLITTER.split(raw)) {
     List<String> fields=ImmutableList.copyOf(KEY_VALUE_SPLITTER.split(keyAndValue));

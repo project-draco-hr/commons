@@ -5,7 +5,7 @@ def __init__(self, context):
 
     def resolve_deps(key):
         deps = OrderedSet()
-        for dep in context.config.getlist('protobuf-gen', 'javadeps'):
+        for dep in context.config.getlist('protobuf-gen', key):
             deps.update(context.resolve(dep))
         return deps
     self.javadeps = resolve_deps('javadeps')

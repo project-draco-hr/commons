@@ -1,0 +1,2 @@
+def _type_name(ftype):
+    return TType._VALUES_TO_NAMES[ftype]

@@ -1,0 +1,2 @@
+def _add_completion(self, function, *args, **kw):
+    self._completions.put(self.Completion(self, function, logger=self._log, *args, **kw))

@@ -1,0 +1,15 @@
+{
+  StartupResponse response=new StartupResponse();
+  try {
+    zkServer.startNetwork();
+    response.setResponseCode(OK);
+    response.setResponseMessage("OK");
+  }
+ catch (  IOException e) {
+    response.setResponseCode(ERROR).setResponseMessage(e.getMessage());
+  }
+catch (  InterruptedException e) {
+    response.setResponseCode(ERROR).setResponseMessage(e.getMessage());
+  }
+  return Future.value(response);
+}

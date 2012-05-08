@@ -1,0 +1,8 @@
+{
+  logger.config("Config");
+  logger.fine("Fine");
+  logger.finer("Finer");
+  logger.finest("Finest");
+  assertHasNotLoggedToStderr();
+  assertHasNotLoggedToFile();
+}

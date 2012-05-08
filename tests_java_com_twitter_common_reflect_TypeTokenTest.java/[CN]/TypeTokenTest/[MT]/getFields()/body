@@ -1,3 +1,0 @@
-{
-  stringSupplierField=TypeTokenTest.class.getField("STRING_SUPPLIER_FIELD");
-}

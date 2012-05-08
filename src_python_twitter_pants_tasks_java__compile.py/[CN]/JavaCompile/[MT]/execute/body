@@ -26,8 +26,8 @@ def execute(self, targets):
                         self.write_processor_info(processor_info_file, processors)
         if self.context.products.isrequired('classes'):
             genmap = self.context.products.get('classes')
-            compiler = DependencyCompiler(self._classes_dir, self._dependencies_file)
-            for (target, classes_by_source) in compiler.findclasses(targets).items():
+            dependencies = Dependencies(self._classes_dir, self._dependencies_file)
+            for (target, classes_by_source) in dependencies.findclasses(targets).items():
                 for (source, classes) in classes_by_source.items():
                     genmap.add(source, self._classes_dir, classes)
                     genmap.add(target, self._classes_dir, classes)

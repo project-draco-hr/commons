@@ -1,0 +1,6 @@
+def setup_function(self):
+    options = app.get_options()
+    if options.serverset_module_enable:
+        self._assert_valid_inputs(options)
+        self._construct_serverset(options)
+        self._join()

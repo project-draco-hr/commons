@@ -5,6 +5,8 @@ except ImportError:
 from collections import defaultdict
 from contextlib import contextmanager
 import os
+from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_rmtree, safe_mkdir, safe_open
-from twitter.pants.base.build_cache import BuildCache
+from twitter.pants.base.build_cache import BuildCache, NO_SOURCES, TARGET_SOURCES
+from twitter.pants.targets import JarDependency
 __all__ = ('TaskError', 'TargetError', 'Task')

@@ -1,0 +1,7 @@
+def __init__(self):
+    app.Module.__init__(self, __name__, description='ServerSet module')
+    self._zookeeper = None
+    self._serverset = None
+    self._membership = None
+    self._join_args = None
+    self._torndown = False

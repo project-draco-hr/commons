@@ -1,0 +1,13 @@
+{
+  List<Level> levels=Arrays.asList(Level.SEVERE,Level.WARNING,Level.INFO,Level.CONFIG,Level.FINE,Level.FINER,Level.FINEST);
+  for (  Level l : levels) {
+    logger.log(l,"Message");
+    if (level.intValue() <= l.intValue()) {
+      assertHasLoggedToStderr();
+    }
+ else {
+      assertHasNotLoggedToStderr();
+    }
+    resetLogs();
+  }
+}

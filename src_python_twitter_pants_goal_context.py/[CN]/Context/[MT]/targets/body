@@ -1,2 +1,3 @@
 def targets(self, predicate=None):
+    'Selects targets in-play in this run from the target roots and their transitive dependencies.\n\n    If specified, the predicate will be used to narrow the scope of targets returned.\n    '
     return filter(predicate, self._targets)

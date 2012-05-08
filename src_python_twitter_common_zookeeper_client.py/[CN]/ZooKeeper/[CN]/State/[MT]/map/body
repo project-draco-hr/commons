@@ -1,0 +1,3 @@
+@property
+def map(self):
+    return self.MAP

@@ -1,0 +1,11 @@
+def test_sync_join_with_cancel(self):
+    zkg1 = self.GroupImpl(self._zk, '/test')
+    zkg2 = self.GroupImpl(self._zk, '/test')
+    cancel_event = threading.Event()
+
+    def on_cancel():
+        cancel_event.set()
+    membership = zkg1.join('hello world', expire_callback=on_cancel)
+    assert zkg2.cancel(membership)
+    cancel_event.wait(timeout=self.MAX_EVENT_WAIT_SECS)
+    assert cancel_event.is_set()

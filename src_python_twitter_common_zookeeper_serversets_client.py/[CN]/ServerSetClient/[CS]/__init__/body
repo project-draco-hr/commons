@@ -7,4 +7,4 @@ def __init__(self, endpoint, zk=None, watcher=None, retries=None):
     options = app.get_options()
     self._retries = (options.serverset_retries if (retries is None) else retries)
     self._zk = (zk or ZooKeeper())
-    self._update_endpoints()
+    self._start()

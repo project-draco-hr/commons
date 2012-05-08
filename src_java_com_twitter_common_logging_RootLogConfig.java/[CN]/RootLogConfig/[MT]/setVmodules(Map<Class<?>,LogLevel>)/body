@@ -1,0 +1,7 @@
+{
+  for (  Map.Entry<Class<?>,LogLevel> entry : vmodules.entrySet()) {
+    String className=entry.getKey().getName();
+    Logger logger=Logger.getLogger(className);
+    setVlog(logger,entry.getValue());
+  }
+}

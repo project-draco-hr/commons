@@ -1,3 +1,0 @@
-def exit_and_fail(msg=''):
-    print(msg, file=sys.stderr)
-    sys.exit(1)

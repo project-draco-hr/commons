@@ -1,0 +1,4 @@
+def __eq__(self, other):
+    if (not isinstance(other, Membership)):
+        return False
+    return (self._id == other._id)

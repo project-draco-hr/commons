@@ -1,0 +1,8 @@
+{
+  final ZooKeeperClient zkClient=zkServer.createClient();
+  ZooKeeperUtils.ensurePath(zkClient,ACL,ROOT_PATH);
+  String path=zkClient.get().create(ROOT_PATH,data,ACL,CreateMode.EPHEMERAL_SEQUENTIAL);
+  LOG.info("Created ephemeral node: " + path);
+  zkPaths.put(zkClient,path);
+  return zkClient;
+}

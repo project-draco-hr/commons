@@ -1,0 +1,9 @@
+@staticmethod
+def for_selector(selector):
+
+
+    class Scope(SourceScope):
+
+        def select(self, target):
+            return selector(target)
+    return Scope()

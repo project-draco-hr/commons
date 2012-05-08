@@ -1,0 +1,3 @@
+String name
+Amount<Long,Data> maxMemory
+MetricRegistry registry

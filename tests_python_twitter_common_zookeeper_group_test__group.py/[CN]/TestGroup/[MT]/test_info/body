@@ -1,0 +1,5 @@
+def test_info(self):
+    zkg1 = self.GroupImpl(self._zk, '/test')
+    zkg2 = self.GroupImpl(self._zk, '/test')
+    membership = zkg1.join('hello world')
+    assert (zkg2.info(membership) == 'hello world')

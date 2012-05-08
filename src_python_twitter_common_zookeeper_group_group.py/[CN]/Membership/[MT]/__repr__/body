@@ -1,0 +1,5 @@
+def __repr__(self):
+    if (self._id == Membership.ERROR_ID):
+        return 'Membership.error()'
+    else:
+        return ('Membership(%r)' % self._id)

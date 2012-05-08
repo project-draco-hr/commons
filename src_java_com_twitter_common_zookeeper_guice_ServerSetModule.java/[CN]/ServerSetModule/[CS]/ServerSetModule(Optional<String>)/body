@@ -1,0 +1,3 @@
+{
+  this(Status.ALIVE,auxPortAsPrimary);
+}

@@ -1,0 +1,16 @@
+def setup_thrift(self):
+    if (self._service is None):
+        time.sleep(self.INITIAL_BACKOFF)
+        for _ in range(self.CONNECT_RETRIES):
+            try:
+                self._service = make_client(ZooKeeperThriftServer, 'localhost', self.thrift_port, protocol=TFinagleProtocol)
+                break
+            except TTransportException:
+                time.sleep(self.CONNECT_BACKOFF_SECS)
+                continue
+        else:
+            raise self.NotStarted('Could not start Zookeeper cluster!')
+        serverPortResponse = self._service.getZooKeeperServerPort()
+        assert (serverPortResponse.responseCode == ResponseCode.OK)
+        self.zookeeper_port = serverPortResponse.port
+    return self._service

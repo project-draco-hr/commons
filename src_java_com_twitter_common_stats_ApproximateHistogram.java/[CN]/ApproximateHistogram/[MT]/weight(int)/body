@@ -1,0 +1,13 @@
+{
+  int w=0;
+  if (level < 2) {
+    w=1;
+  }
+ else   if (level == maxDepth) {
+    w=rootWeight;
+  }
+ else {
+    w=1 << (level - 1);
+  }
+  return w;
+}

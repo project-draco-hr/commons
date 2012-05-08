@@ -1,4 +1,3 @@
 {
-  clock=new FakeClock();
   root=new Metrics();
 }

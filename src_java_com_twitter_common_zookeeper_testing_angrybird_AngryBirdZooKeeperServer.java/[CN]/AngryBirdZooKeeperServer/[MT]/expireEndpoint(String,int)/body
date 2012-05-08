@@ -1,0 +1,3 @@
+{
+  return closeSession(getSessionIdFromHostPair(host,port));
+}

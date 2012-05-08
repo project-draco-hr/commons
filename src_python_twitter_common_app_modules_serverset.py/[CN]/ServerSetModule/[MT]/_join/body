@@ -1,0 +1,4 @@
+def _join(self):
+    log.debug('ServerSet module joining serverset.')
+    (primary, additional) = self._join_args
+    self._membership = self._serverset.join(primary, additional, expire_callback=self.on_expiration)

@@ -1,0 +1,4 @@
+{
+  this.initialStatus=Preconditions.checkNotNull(initialStatus);
+  this.auxPortAsPrimary=Preconditions.checkNotNull(auxPortAsPrimary);
+}

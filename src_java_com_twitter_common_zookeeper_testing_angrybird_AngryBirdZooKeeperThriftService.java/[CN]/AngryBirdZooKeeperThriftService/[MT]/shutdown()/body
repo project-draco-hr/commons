@@ -1,0 +1,5 @@
+{
+  ShutdownResponse response=new ShutdownResponse();
+  zkServer.shutdownNetwork();
+  return Future.value(response.setResponseCode(OK).setResponseMessage("OK"));
+}

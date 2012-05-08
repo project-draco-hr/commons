@@ -1,0 +1,9 @@
+def set(self, value=None):
+    self._value = value
+    self._event.set()
+    if self._callback:
+        if (value is not None):
+            self._callback(value)
+        else:
+            self._callback()
+        self._callback = None

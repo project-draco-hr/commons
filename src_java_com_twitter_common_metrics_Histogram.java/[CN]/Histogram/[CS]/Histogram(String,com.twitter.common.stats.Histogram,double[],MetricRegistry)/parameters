@@ -1,0 +1,4 @@
+String name
+com.twitter.common.stats.Histogram histogram
+double[] quantiles
+MetricRegistry registry

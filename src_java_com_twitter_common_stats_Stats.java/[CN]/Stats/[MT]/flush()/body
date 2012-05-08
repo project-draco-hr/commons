@@ -1,4 +1,5 @@
 {
   VAR_MAP.clear();
-  NUMERIC_STATS.clear();
+  ORDERED_NUMERIC_STATS.clear();
+  NUMERIC_STATS.invalidateAll();
 }

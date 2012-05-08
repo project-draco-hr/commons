@@ -1,0 +1,8 @@
+import json
+from thrift.TSerialization import deserialize as thrift_deserialize
+from gen.twitter.thrift.endpoint.ttypes import Endpoint as ThriftEndpoint, ServiceInstance as ThriftServiceInstance
+try:
+    from twitter.common import log
+except ImportError:
+    import logging as log
+from twitter.common.lang import Compatibility

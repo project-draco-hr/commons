@@ -1,0 +1,4 @@
+@property
+def target_roots(self):
+    'Returns the targets specified on the command line.\n\n    This set is strictly a subset of all targets in play for the run as returned by self.targets().\n    Note that for a command line invocation that uses wildcard selectors : or ::, the targets\n    globbed by the wildcards are considered to be target roots.\n    '
+    return self._target_roots

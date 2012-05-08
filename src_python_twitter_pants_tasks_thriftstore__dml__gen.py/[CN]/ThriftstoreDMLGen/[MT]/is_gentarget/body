@@ -1,0 +1,2 @@
+def is_gentarget(self, target):
+    return isinstance(target, JavaThriftstoreDMLLibrary)

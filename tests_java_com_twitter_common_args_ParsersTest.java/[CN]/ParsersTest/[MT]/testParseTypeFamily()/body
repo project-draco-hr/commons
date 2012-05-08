@@ -1,11 +1,11 @@
 {
-  assertNotNull(defaultParsers.get(TypeToken.create(String.class)));
+  assertNotNull(defaultParsers.get(TypeToken.of(String.class)));
 class Credentials extends Pair<String,String> {
     public Credentials(    String first,    String second){
       super(first,second);
     }
   }
-  Parser parser=defaultParsers.get(TypeToken.create(Credentials.class));
+  Parser parser=defaultParsers.get(TypeToken.of(Credentials.class));
   assertNotNull(parser);
-  assertSame(parser,defaultParsers.get(TypeToken.create(Pair.class)));
+  assertSame(parser,defaultParsers.get(TypeToken.of(Pair.class)));
 }

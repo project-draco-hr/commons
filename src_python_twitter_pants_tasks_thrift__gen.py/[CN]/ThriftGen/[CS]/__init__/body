@@ -1,6 +1,6 @@
 def __init__(self, context):
     CodeGen.__init__(self, context)
-    self.thrift_binary = select_binary(context.config.get('thrift-gen', 'supportdir'), context.config.get('thrift-gen', 'version'), 'thrift')
+    self.thrift_binary = select_binary(context.config.get('thrift-gen', 'supportdir'), (context.options.thrift_version or context.config.get('thrift-gen', 'version')), 'thrift')
     self.output_dir = (context.options.thrift_gen_create_outdir or context.config.get('thrift-gen', 'workdir'))
     self.strict = context.config.getbool('thrift-gen', 'strict')
     self.verbose = context.config.getbool('thrift-gen', 'verbose')

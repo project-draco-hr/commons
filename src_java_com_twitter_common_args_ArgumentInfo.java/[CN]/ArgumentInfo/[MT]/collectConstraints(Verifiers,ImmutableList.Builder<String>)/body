@@ -2,7 +2,7 @@
   for (  Pair<? extends Verifier<? super T>,Annotation> pair : getVerifiers(verifierOracle)) {
     Verifier<? super T> verifier=pair.getFirst();
     Annotation annotation=pair.getSecond();
-    Class<T> rawType=type.getRawType();
+    @SuppressWarnings("unchecked") Class<? extends T> rawType=(Class<? extends T>)type.getType();
     String constraint=verifier.toString(rawType,annotation);
     constraints.add(constraint);
   }

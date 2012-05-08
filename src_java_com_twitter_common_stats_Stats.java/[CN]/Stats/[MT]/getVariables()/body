@@ -1,5 +1,3 @@
 {
-synchronized (VAR_MAP) {
-    return ImmutableList.copyOf(VAR_MAP.values());
-  }
+  return ImmutableList.copyOf(VAR_MAP.values());
 }

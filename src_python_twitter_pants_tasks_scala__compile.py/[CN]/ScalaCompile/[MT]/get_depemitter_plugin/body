@@ -1,0 +1,6 @@
+def get_depemitter_plugin(self):
+    depemitter_classpath = nailgun_profile_classpath(self, self._depemitter_profile)
+    depemitter_jar = depemitter_classpath.pop()
+    if depemitter_classpath:
+        raise TaskError(('Expected only 1 jar for the depemitter plugin, found these extra: ' % depemitter_classpath))
+    return depemitter_jar

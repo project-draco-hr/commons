@@ -1,0 +1,7 @@
+{
+  super.testFailure(failure);
+  if (failFast) {
+    finish();
+    abort(result);
+  }
+}

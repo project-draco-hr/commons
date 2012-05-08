@@ -1,0 +1,12 @@
+def _update_children(self, children):
+    '\n      Given a new child list [znode strings], return a tuple of sets of Memberships:\n        left: the children that left the set\n        new: the children that joined the set\n    '
+    cached_children = set(self._members)
+    current_children = set((Membership(self.znode_to_id(znode)) for znode in filter(self.znode_owned, children)))
+    new = (current_children - cached_children)
+    left = (cached_children - current_children)
+    for child in left:
+        future = self._members.pop(child, Future())
+        future.set_result(Membership.error())
+    for child in new:
+        self._members[child] = Future()
+    return (left, new)

@@ -1,12 +1,22 @@
 {
-  ServerSet serverSet=new ServerSetImpl(zkClient,SERVERSET_PATH.get());
   Optional<InetSocketAddress> primarySocket=serviceRegistry.getPrimarySocket();
-  if (!primarySocket.isPresent()) {
-    throw new IllegalStateException("No primary service registered with LocalServiceRegistry.");
+  Map<String,InetSocketAddress> auxSockets=serviceRegistry.getAuxiliarySockets();
+  InetSocketAddress primary;
+  if (primarySocket.isPresent()) {
+    primary=primarySocket.get();
+  }
+ else   if (auxPortAsPrimary.isPresent()) {
+    primary=auxSockets.get(auxPortAsPrimary.get());
+    if (primary == null) {
+      throw new IllegalStateException("No auxiliary port named " + auxPortAsPrimary.get());
+    }
+  }
+ else {
+    throw new IllegalStateException("No primary service registered with LocalServiceRegistry," + " and -aux_port_as_primary was not specified.");
   }
   final EndpointStatus endpointStatus;
   try {
-    endpointStatus=serverSet.join(primarySocket.get(),serviceRegistry.getAuxiliarySockets(),initialStatus);
+    endpointStatus=serverSet.join(primary,auxSockets,initialStatus);
     endpointSupplier.set(endpointStatus);
   }
  catch (  JoinException e) {

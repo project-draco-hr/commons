@@ -1,6 +1,0 @@
-{
-  valueSupplier=createMock(new Clazz<Supplier<Number>>(){
-  }
-);
-  clock=new FakeClock();
-}

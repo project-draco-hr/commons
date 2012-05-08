@@ -1,0 +1,6 @@
+ServerSet serverSet
+LocalServiceRegistry serviceRegistry
+ShutdownRegistry shutdownRegistry
+EndpointSupplier endpointSupplier
+Status initialStatus
+Optional<String> auxPortAsPrimary

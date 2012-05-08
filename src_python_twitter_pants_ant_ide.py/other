@@ -1,7 +1,6 @@
 from collections import deque
 from twitter.common.collections import OrderedSet
-from twitter.pants import is_internal, is_java, is_scala, get_buildroot
-from twitter.pants.base.build_file import BuildFile
+from twitter.pants import is_internal, is_java, is_scala
 from twitter.pants.base.parse_context import ParseContext
 from twitter.pants.targets import JavaLibrary, ScalaLibrary
 from twitter.pants.targets.internal import InternalTarget

@@ -1,0 +1,12 @@
+def test_async_join(self):
+    zkg = self.GroupImpl(self._zk, '/test')
+    event = threading.Event()
+    memberships = []
+
+    def on_join(membership):
+        memberships.append(membership)
+        event.set()
+    zkg.join('hello world', callback=on_join)
+    event.wait()
+    assert ((len(memberships) == 1) and (memberships[0] != Membership.error()))
+    zkg.cancel(memberships[0])

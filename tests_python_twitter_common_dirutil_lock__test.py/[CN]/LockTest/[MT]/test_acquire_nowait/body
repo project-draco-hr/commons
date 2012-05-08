@@ -1,0 +1,15 @@
+def test_acquire_nowait(self):
+    with temporary_file() as fd:
+
+        def throw(pid):
+            self.fail(('Did not expect to wait for the 1st lock, held by %d' % pid))
+        lock = Lock.acquire(fd.name, onwait=throw)
+        try:
+
+            def onwait(pid):
+                self.assertEquals(os.getpid(), pid, 'This process should hold the lock.')
+                return False
+            self.assertFalse(Lock.acquire(fd.name, onwait=onwait))
+        finally:
+            self.assertTrue(lock.release())
+            self.assertFalse(lock.release())

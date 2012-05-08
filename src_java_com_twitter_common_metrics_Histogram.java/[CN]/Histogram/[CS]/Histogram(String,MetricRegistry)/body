@@ -1,0 +1,3 @@
+{
+  this(name,new ApproximateHistogram(),DEFAULT_QUANTILES,registry);
+}

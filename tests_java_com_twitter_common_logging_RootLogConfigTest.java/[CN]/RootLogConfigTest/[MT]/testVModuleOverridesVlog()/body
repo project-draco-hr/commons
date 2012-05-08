@@ -1,0 +1,9 @@
+{
+  Map<Class<?>,RootLogConfig.LogLevel> vmoduleMap=ImmutableMap.of(ClassA.class,RootLogConfig.LogLevel.FINEST,ClassB.class,RootLogConfig.LogLevel.INFO);
+  getConfig().logToStderr(true).vlog(RootLogConfig.LogLevel.FINER).vmodule(vmoduleMap).apply();
+  resetLogs();
+  assertErrorLogAtLevel(testLogger,Level.FINER);
+  assertErrorLogAtLevel(ClassA.logger,Level.FINEST);
+  resetLogs();
+  assertErrorLogAtLevel(ClassB.logger,Level.INFO);
+}

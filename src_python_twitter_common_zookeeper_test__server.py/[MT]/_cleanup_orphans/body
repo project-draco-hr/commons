@@ -1,0 +1,8 @@
+@atexit.register
+def _cleanup_orphans():
+    for pid in ZookeeperServer._orphaned_pids:
+        try:
+            os.kill(pid, signal.SIGKILL)
+        except OSError as e:
+            if (e.errno != errno.ESRCH):
+                print(('warning: error killing orphaned ZK server %d: %s' % (pid, e)), file=sys.stderr)

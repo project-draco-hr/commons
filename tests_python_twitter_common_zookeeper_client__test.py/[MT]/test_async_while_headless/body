@@ -1,0 +1,23 @@
+def test_async_while_headless():
+    server = ZookeeperServer()
+    disconnected = threading.Event()
+
+    def on_event(zk, event, state, _):
+        if (zk._live.is_set() and (state != zookeeper.CONNECTED_STATE)):
+            disconnected.set()
+    zk = make_zk(server, watch=on_event)
+    children = []
+    completion_event = threading.Event()
+
+    def children_completion(_, rc, results):
+        children.extend(results)
+        completion_event.set()
+    assert server.shutdown()
+    disconnected.wait(timeout=MAX_EVENT_WAIT_SECS)
+    assert disconnected.is_set()
+    zk.aget_children('/', None, children_completion)
+    assert server.start()
+    completion_event.wait(timeout=MAX_EVENT_WAIT_SECS)
+    assert completion_event.is_set()
+    assert (children == ['zookeeper'])
+    server.stop()

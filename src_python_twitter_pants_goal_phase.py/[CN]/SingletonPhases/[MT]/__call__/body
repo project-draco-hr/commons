@@ -1,4 +1,5 @@
 def __call__(cls, name):
+    name = cls.renames.get(name, name)
     if (name not in cls.phases):
         cls.phases[name] = super(SingletonPhases, cls).__call__(name)
     return cls.phases[name]

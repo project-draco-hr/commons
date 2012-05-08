@@ -1,0 +1,11 @@
+def safe_delete(self, path):
+    try:
+        if (not self.exists(path)):
+            return True
+        for child in self.get_children(path):
+            if (not self.safe_delete(posixpath.join(path, child))):
+                return False
+        self.delete(path)
+    except zookeeper.ZooKeeperException:
+        return False
+    return True

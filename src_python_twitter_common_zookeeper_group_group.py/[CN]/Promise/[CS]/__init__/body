@@ -1,0 +1,4 @@
+def __init__(self, callback=None):
+    self._value = None
+    self._event = threading.Event()
+    self._callback = callback

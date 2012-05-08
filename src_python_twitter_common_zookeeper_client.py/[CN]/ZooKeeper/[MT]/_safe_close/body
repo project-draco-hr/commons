@@ -1,0 +1,8 @@
+def _safe_close(self):
+    if (self._zh is not None):
+        (zh, self._zh) = (self._zh, None)
+        try:
+            zookeeper.close(zh)
+        except zookeeper.ZooKeeperException:
+            pass
+        self._live.clear()

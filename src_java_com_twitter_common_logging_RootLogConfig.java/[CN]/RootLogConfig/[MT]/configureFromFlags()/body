@@ -1,0 +1,3 @@
+{
+  builder().logToStderr(LOGTOSTDERR.get()).alsoLogToStderr(ALSOLOGTOSTDERR.get()).useGLogFormatter(USE_GLOG_FORMATTER.get()).vlog(VLOG.get()).vmodule(VMODULE.get()).apply();
+}

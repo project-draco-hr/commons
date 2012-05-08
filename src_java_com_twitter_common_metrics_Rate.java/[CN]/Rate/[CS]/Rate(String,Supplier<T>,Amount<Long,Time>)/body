@@ -1,3 +1,0 @@
-{
-  this(name,valueAccessor,windowLength,Clock.SYSTEM_CLOCK);
-}

@@ -1,0 +1,13 @@
+def sleep(self, amount):
+    wait_until = (self._time + amount)
+    assert (amount >= 0)
+    if (amount == 0):
+        return
+    my_condition = threading.Condition()
+    self._waiters.append((wait_until, my_condition))
+    with my_condition:
+        my_condition.wait()
+    self._waiters.remove((wait_until, my_condition))
+    with self._cond:
+        self._awaken = True
+        self._cond.notify()

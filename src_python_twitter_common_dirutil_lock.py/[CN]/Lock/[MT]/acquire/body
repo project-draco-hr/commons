@@ -1,0 +1,18 @@
+@staticmethod
+def acquire(path, onwait=None):
+    "Attempts to lock the given path which need not exist ahead of time.\n\n    By default acquire blocks as long as needed for the lock to be released if already held.\n\n    If an onwait function is supplied, it will be passed the lock owner's pid when the lock cannot\n    be acquired immediately.  In this case the onwait function should return True if it wishes to\n    block on acquisition of the Lock.  Otherwise None will be returned as a signal to acquire's\n    caller that the lock failed.\n    "
+    touch(path)
+    lock_fd = lock_file(path, blocking=False)
+    if (not lock_fd):
+        blocking = True
+        with open(path, 'r') as fd:
+            pid = int(fd.read().strip())
+            if onwait:
+                blocking = onwait(pid)
+        if (not blocking):
+            return None
+        lock_fd = lock_file(path, blocking=blocking)
+    lock_fd.truncate(0)
+    lock_fd.write(('%d\n' % os.getpid()))
+    lock_fd.flush()
+    return Lock(lock_fd)

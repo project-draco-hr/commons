@@ -1,0 +1,5 @@
+def restart(self):
+    'Stop and restart this Zookeeper session.  Unfinished completions will be retried\n       on reconnection.'
+    self._safe_close()
+    self._stopped.clear()
+    self.reconnect()

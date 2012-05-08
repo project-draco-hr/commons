@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(logger != fakeRootLogger);
+  logger.setUseParentHandlers(true);
+  logger.setParent(fakeRootLogger);
+}

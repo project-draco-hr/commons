@@ -1,0 +1,2 @@
+String path
+Optional<Integer> nodeId

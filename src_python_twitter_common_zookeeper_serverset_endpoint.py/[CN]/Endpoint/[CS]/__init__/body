@@ -1,0 +1,7 @@
+def __init__(self, host, port):
+    if (not isinstance(host, Compatibility.string)):
+        raise ValueError('Expected host to be a string!')
+    if (not isinstance(port, int)):
+        raise ValueError('Expected port to be an integer!')
+    self._host = host
+    self._port = port

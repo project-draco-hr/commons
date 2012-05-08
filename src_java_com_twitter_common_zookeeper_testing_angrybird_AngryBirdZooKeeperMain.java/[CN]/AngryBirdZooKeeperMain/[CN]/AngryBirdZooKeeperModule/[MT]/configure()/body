@@ -1,0 +1,3 @@
+{
+  LifecycleModule.bindStartupAction(binder(),ThriftServiceStarter.class);
+}

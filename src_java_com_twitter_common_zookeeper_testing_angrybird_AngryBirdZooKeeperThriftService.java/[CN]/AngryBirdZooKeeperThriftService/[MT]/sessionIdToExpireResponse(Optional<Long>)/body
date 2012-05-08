@@ -1,0 +1,10 @@
+{
+  ExpireResponse response=new ExpireResponse();
+  if (sessionId.isPresent()) {
+    response.setResponseCode(OK).setSessionId(sessionId.get().longValue());
+  }
+ else {
+    response.setResponseCode(ERROR).setSessionId(0);
+  }
+  return Future.value(response);
+}

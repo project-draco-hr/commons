@@ -6,6 +6,7 @@ def __init__(self, context):
     self.skip_scala = (not context.options.ide_gen_scala)
     self.work_dir = (context.options.ide_gen_project_dir or os.path.join(context.config.get('ide', 'workdir'), self.__class__.__name__, self.project_name))
     self.cwd = (context.options.ide_gen_project_cwd or self.work_dir)
+    self.intransitive = context.options.ide_gen_intransitive
     checkstyle_suppression_files = context.config.getdefault('checkstyle_suppression_files', type=list, default=[])
     debug_port = context.config.getint('ide', 'debug_port')
     self.classes_conf = context.config.get('ide', 'classes_conf')

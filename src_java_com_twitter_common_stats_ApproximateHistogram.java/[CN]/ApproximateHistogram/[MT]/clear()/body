@@ -1,0 +1,6 @@
+{
+  count=0L;
+  buffer.clear();
+  buffer.add(new ArrayList<Long>(bufferSize));
+  buffer.add(new ArrayList<Long>(bufferSize));
+}

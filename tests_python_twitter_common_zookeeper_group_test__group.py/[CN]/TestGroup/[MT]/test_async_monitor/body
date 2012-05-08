@@ -1,0 +1,14 @@
+def test_async_monitor(self):
+    zkg1 = self.GroupImpl(self._zk, '/test')
+    zkg2 = self.GroupImpl(self._zk, '/test')
+    membership_event = threading.Event()
+    members = set()
+
+    def new_membership(m):
+        members.update(m)
+        membership_event.set()
+    zkg1.monitor(callback=new_membership)
+    membership = zkg2.join('hello world')
+    membership_event.wait(timeout=self.MAX_EVENT_WAIT_SECS)
+    assert membership_event.is_set()
+    assert (members == set([membership]))

@@ -1,0 +1,11 @@
+{
+  getConfig().logToStderr(true).useGLogFormatter(true).apply();
+  resetLogs();
+  testLogger.severe("Severe Log Message");
+  assertHasLoggedToStderr();
+  String output=fakeErrorLog.toString();
+  assertTrue(output.split("\n").length == 1);
+  assertTrue(output.endsWith("\n"));
+  output=output.replaceAll("\n","");
+  assertTrue(output.matches(new StringBuilder().append("S\\d+ ").append("\\d\\d:\\d\\d:\\d\\d\\.\\d+ ").append("THREAD\\d\\d ").append(RootLogConfigTest.class.getName() + "\\.testUseGLogFormatter: ").append("Severe Log Message").toString()));
+}

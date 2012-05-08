@@ -1,0 +1,3 @@
+def get(self):
+    self._event.wait()
+    return self._value

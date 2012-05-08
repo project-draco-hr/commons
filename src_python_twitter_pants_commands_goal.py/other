@@ -39,6 +39,7 @@ from twitter.pants.tasks.scala_compile import ScalaCompile
 from twitter.pants.tasks.scala_repl import ScalaRepl
 from twitter.pants.tasks.specs_run import SpecsRun
 from twitter.pants.tasks.thrift_gen import ThriftGen
+from twitter.pants.tasks.thriftstore_dml_gen import ThriftstoreDMLGen
 goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all caches')
 goal(name='clean-all', action=(lambda ctx: safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output')
 if NailgunTask.killall:

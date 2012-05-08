@@ -1,0 +1,13 @@
+@property
+def zh(self):
+    if (self._po is None):
+        raise self.NotStarted('Cluster has not been started!')
+    if (self._zh is None):
+        start_event = threading.Event()
+
+        def alive(zh, event, state, _):
+            if ((event == zookeeper.SESSION_EVENT) and (state == zookeeper.CONNECTED_STATE)):
+                start_event.set()
+        self._zh = zookeeper.init(self.ensemble, alive)
+        start_event.wait()
+    return self._zh

@@ -1,0 +1,2 @@
+def __init__(self, lock_fd):
+    self._lock_fd = lock_fd

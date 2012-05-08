@@ -1,0 +1,4 @@
+def __call__(self):
+    if self._callback:
+        return None
+    return self.get()

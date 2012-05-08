@@ -1,0 +1,7 @@
+def test_stopped():
+    with ZookeeperServer() as server:
+        zk = ZooKeeper(('localhost:%d' % server.zookeeper_port))
+        assert (zk.get_children('/') == ['zookeeper'])
+        zk.stop()
+        with pytest.raises(ZooKeeper.Stopped):
+            zk.get_children('/')

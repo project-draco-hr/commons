@@ -1,0 +1,13 @@
+def _assert_valid_inputs(self, options):
+    if (not options.serverset_module_enable):
+        return
+    assert (options.serverset_module_path is not None), 'If serverset module enabled, serverset path must be specified.'
+    assert (options.serverset_module_primary_port is not None), 'If serverset module enabled, serverset primary port must be specified.'
+    assert isinstance(options.serverset_module_extra, dict), 'Serverset additional endpoints must be a dictionary!'
+    for (name, value) in options.serverset_module_extra.items():
+        assert isinstance(name, str), 'Additional endpoints must be named by strings!'
+        assert isinstance(value, int), 'Additional endpoint ports must be integers!'
+    try:
+        primary_port = int(options.serverset_module_primary_port)
+    except ValueError as e:
+        raise ValueError(('Could not parse serverset primary port: %s' % e))

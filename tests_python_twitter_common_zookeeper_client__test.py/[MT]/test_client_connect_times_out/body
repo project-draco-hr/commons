@@ -1,5 +1,8 @@
 def test_client_connect_times_out():
-    ports = EphemeralPortAllocator()
-    port = ports.allocate_port('zk')
+    import socket
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(('localhost', 0))
+    (_, port) = sock.getsockname()
+    sock.close()
     with pytest.raises(ZooKeeper.ConnectionTimeout):
-        ZooKeeper(('localhost:%d' % port), timeout=1.0)
+        ZooKeeper(('localhost:%d' % port), timeout_secs=1.0)

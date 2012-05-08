@@ -1,0 +1,4 @@
+@abstractmethod
+def join(self, blob, callback=None, expire_callback=None):
+    '\n      Joins the Group using the blob.  Returns Membership synchronously if\n      callback is None, otherwise returned to callback.  Returns\n      Membership.error() on failure to join.\n\n      If expire_callback is provided, it is called with no arguments when\n      the membership is terminated for any reason.\n    '
+    pass

@@ -1,3 +1,6 @@
 self
 servers
-timeout
+timeout_secs
+watch
+max_reconnects
+logger

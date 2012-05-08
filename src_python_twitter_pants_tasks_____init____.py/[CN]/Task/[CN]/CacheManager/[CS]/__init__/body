@@ -1,7 +1,7 @@
-def __init__(self, cache, targets, only_buildfiles):
+def __init__(self, cache, targets, only_externaldeps):
     self._cache = cache
-    self._only_buildfiles = only_buildfiles
     self._targets = set(targets)
+    self._sources = (NO_SOURCES if only_externaldeps else TARGET_SOURCES)
     self.changed_files = 0
     self.invalidated_files = 0
     self.invalidated_targets = 0

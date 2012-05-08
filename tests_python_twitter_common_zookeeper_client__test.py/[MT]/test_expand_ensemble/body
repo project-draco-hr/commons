@@ -1,0 +1,2 @@
+def test_expand_ensemble():
+    assert (ZooKeeper.expand_ensemble('localhost:1234') == '127.0.0.1:1234')

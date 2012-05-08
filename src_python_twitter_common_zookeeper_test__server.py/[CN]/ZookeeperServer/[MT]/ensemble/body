@@ -1,0 +1,5 @@
+@property
+def ensemble(self):
+    if (not self.zookeeper_port):
+        raise self.NotStarted('Server not started!')
+    return ('localhost:%d' % self.zookeeper_port)

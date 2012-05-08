@@ -1,0 +1,5 @@
+@classmethod
+def znode_to_id(cls, znode):
+    znode_name = posixpath.basename(znode)
+    assert znode_name.startswith(cls.MEMBER_PREFIX)
+    return int(znode_name[len(cls.MEMBER_PREFIX):])

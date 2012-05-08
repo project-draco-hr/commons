@@ -1,5 +1,5 @@
 {
-  statSupplier=createMock(new Clazz<Supplier<Iterable<Stat>>>(){
+  statSupplier=createMock(new Clazz<Supplier<Iterable<Stat<?>>>>(){
   }
 );
   request=createMock(HttpServletRequest.class);

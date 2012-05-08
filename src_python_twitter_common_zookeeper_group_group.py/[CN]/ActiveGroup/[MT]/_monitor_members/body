@@ -1,0 +1,31 @@
+def _monitor_members(self):
+
+    def do_monitor():
+        self._zk.aget_children(self._path, membership_watch, membership_completion)
+
+    def membership_watch(_, event, state, path):
+        if (state == zookeeper.CONNECTING_STATE):
+            return
+        do_monitor()
+
+    def membership_completion(_, rc, children):
+        if (rc in self._zk.COMPLETION_RETRY):
+            do_monitor()
+            return
+        if (rc != zookeeper.OK):
+            return
+        (_, new) = self._update_children(children)
+        for child in new:
+
+            def devnull(*args, **kw):
+                pass
+            self.info(child, callback=devnull)
+        monitor_queue = self._monitor_queue[:]
+        self._monitor_queue = []
+        members = set((Membership(self.znode_to_id(child)) for child in children))
+        for (membership, promise) in monitor_queue:
+            if (set(membership) != members):
+                promise.set(members)
+            else:
+                self._monitor_queue.append((membership, promise))
+    do_monitor()

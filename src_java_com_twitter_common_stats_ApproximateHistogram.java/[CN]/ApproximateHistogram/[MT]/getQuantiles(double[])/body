@@ -1,0 +1,26 @@
+{
+  long[] output=new long[qs.length];
+  if (count == 0) {
+    Arrays.fill(output,0L);
+    return output;
+  }
+  int io=0;
+  long qsum=0;
+  long[] qss=quantilesSums(qs);
+  int iq=0;
+  Collections.sort(buffer.get(0));
+  Collections.sort(buffer.get(1));
+  int[] indices=new int[buffer.size()];
+  Arrays.fill(indices,0);
+  while (io < output.length || qsum < count) {
+    int i=smallest(indices);
+    long x=buffer.get(i).get(indices[i] - 1);
+    qsum+=weight(i);
+    while (iq < qss.length && qss[iq] <= qsum) {
+      output[io]=x;
+      io+=1;
+      iq+=1;
+    }
+  }
+  return output;
+}

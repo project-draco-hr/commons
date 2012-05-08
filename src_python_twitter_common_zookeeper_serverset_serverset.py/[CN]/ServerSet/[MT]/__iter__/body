@@ -1,0 +1,8 @@
+def __iter__(self):
+    'Iterate over the services (ServiceInstance objects) in this ServerSet.'
+    for member in self._group.list():
+        try:
+            yield ServiceInstance.unpack(self._group.info(member))
+        except Exception as e:
+            log.warning(('Failed to deserialize endpoint: %s' % e))
+            continue

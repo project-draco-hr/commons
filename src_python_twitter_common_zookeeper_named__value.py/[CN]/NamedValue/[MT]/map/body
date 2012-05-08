@@ -1,0 +1,4 @@
+@abstractproperty
+def map(self):
+    'Returns the map from id => string'
+    pass

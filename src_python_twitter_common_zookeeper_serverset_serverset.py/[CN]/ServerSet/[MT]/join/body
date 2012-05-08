@@ -1,0 +1,4 @@
+def join(self, endpoint, additional=None, callback=None, expire_callback=None):
+    "\n      Given 'endpoint' (twitter.common.zookeeper.serverset.Endpoint) and an\n      optional map 'additional' of string => endpoint (also Endpoint), create a\n      ServiceInstance and join it into this ServerSet.\n\n      If 'callback' is provided, the join will be done asynchronously and\n      'callback' will be called with the Membership object associated with\n      the ServiceInstance.  If joining fails, Membership.error() will be\n      returned.  If 'callback' is not provided, join will return with this\n      information synchronously.\n\n      If 'expire_callback' is provided, it will be called if the membership\n      is severed for any reason such as session expiration or malice.\n    "
+    service_instance = ServiceInstance.pack(ServiceInstance(endpoint, additional))
+    return self._group.join(service_instance, callback=callback, expire_callback=expire_callback)

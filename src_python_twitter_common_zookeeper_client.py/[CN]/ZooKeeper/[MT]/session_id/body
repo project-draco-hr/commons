@@ -1,0 +1,3 @@
+def session_id(self):
+    (session_id, _) = zookeeper.client_id(self._zh)
+    return session_id

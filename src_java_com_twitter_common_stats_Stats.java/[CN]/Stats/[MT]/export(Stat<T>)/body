@@ -1,20 +1,16 @@
 {
-  Preconditions.checkNotNull(var);
-  MorePreconditions.checkNotBlank(var.getName());
-  if (var instanceof RecordingStat) {
-    String validatedName=validateName(var.getName());
-    @SuppressWarnings("unchecked") Stat<T> stat=(Stat<T>)NUMERIC_STATS.get(validatedName);
-    if (stat != null) {
-      LOG.warning("Re-using already registered variable for key " + validatedName);
-      return stat;
-    }
- else {
-      NUMERIC_STATS.put(validatedName,(RecordingStat<T>)var);
-      exportStatic(var);
-      return var;
-    }
+  String validatedName=validateName(MorePreconditions.checkNotBlank(var.getName()));
+  ExportStat exportStat=new ExportStat(validatedName,var);
+  try {
+    @SuppressWarnings("unchecked") Stat<T> exported=(Stat<T>)NUMERIC_STATS.get(validatedName,exportStat);
+    return exported;
   }
- else {
-    return export(new RecordingStatImpl<T>(var));
+ catch (  ExecutionException e) {
+    throw new IllegalStateException("Unexpected error exporting stat " + validatedName,e.getCause());
+  }
+ finally {
+    if (!exportStat.called.get()) {
+      LOG.warning("Re-using already registered variable for key " + validatedName);
+    }
   }
 }

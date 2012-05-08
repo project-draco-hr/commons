@@ -1,0 +1,10 @@
+{
+  try {
+    exportStaticInternal(name,stat);
+    ORDERED_NUMERIC_STATS.add(stat);
+    return stat;
+  }
+  finally {
+    called.set(true);
+  }
+}

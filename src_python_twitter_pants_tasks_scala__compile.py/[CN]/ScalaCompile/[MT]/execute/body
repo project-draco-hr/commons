@@ -3,7 +3,8 @@ def execute(self, targets):
     if scala_targets:
         with self.context.state('classpath', []) as cp:
             for conf in self._confs:
-                cp.insert(0, (conf, self._output_dir))
+                cp.insert(0, (conf, self._resources_dir))
+                cp.insert(0, (conf, self._classes_dir))
         with self.changed(scala_targets, invalidate_dependants=True) as changed_targets:
             sources_by_target = self.calculate_sources(changed_targets)
             if sources_by_target:
@@ -17,8 +18,12 @@ def execute(self, targets):
                         raise TaskError(('%s returned %d' % (self._main, result)))
         if self.context.products.isrequired('classes'):
             genmap = self.context.products.get('classes')
-            compiler = ScalaCompiler(self._output_dir, self._depfile)
-            for (target, classes_by_source) in compiler.findclasses(targets).items():
+            dependencies = Dependencies(self._classes_dir, self._depfile)
+            for (target, classes_by_source) in dependencies.findclasses(targets).items():
                 for (source, classes) in classes_by_source.items():
-                    genmap.add(source, self._output_dir, classes)
-                    genmap.add(target, self._output_dir, classes)
+                    genmap.add(source, self._classes_dir, classes)
+                    genmap.add(target, self._classes_dir, classes)
+            for target in targets:
+                if (is_scalac_plugin(target) and target.classname):
+                    basedir = self.write_plugin_info(target)
+                    genmap.add(target, basedir, [_PLUGIN_INFO_FILE])

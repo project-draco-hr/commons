@@ -1,0 +1,15 @@
+@staticmethod
+def create_znode(zh, path, acl=[ZOO_OPEN_ACL_UNSAFE]):
+    'Safely create a znode for :path, creating all parent znodes if necessary.\n\n    Returns False if path creation fails.  Returns the created path if successful.\n    '
+    components = path.split('/')
+    real_path = path
+    path = '/'
+    for component in filter(None, components):
+        path = posixpath.join(path, component)
+        try:
+            real_path = zookeeper.create(zh, path, '', acl, 0)
+        except zookeeper.NodeExistsException as e:
+            continue
+        except zookeeper.ZooKeeperException as e:
+            return False
+    return real_path

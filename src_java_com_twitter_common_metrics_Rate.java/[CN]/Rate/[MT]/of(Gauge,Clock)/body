@@ -1,3 +1,0 @@
-{
-  return new Rate(gauge.getName(),Gauges.asSupplier(gauge),ONE_SECOND,clock);
-}

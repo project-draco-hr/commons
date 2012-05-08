@@ -1,5 +1,6 @@
 import os
 import collections
 from twitter.common.collections import OrderedSet
+from twitter.common.decorators import deprecated_with_warning
 from twitter.pants.base.address import Address
 from twitter.pants.base.parse_context import ParseContext

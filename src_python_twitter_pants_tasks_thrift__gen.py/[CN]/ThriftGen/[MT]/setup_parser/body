@@ -1,4 +1,5 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('outdir'), dest='thrift_gen_create_outdir', help='Emit generated code in to this directory.')
+    option_group.add_option(mkflag('version'), dest='thrift_version', help='Thrift compiler version.')
     option_group.add_option(mkflag('lang'), dest='thrift_gen_langs', default=[], action='append', type='choice', choices=['python', 'java'], help="Force generation of thrift code for these languages.  Both 'python' and 'java' are supported")

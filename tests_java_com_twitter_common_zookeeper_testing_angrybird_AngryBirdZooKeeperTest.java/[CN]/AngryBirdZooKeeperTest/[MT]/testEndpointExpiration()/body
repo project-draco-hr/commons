@@ -1,0 +1,10 @@
+{
+  ZooKeeperClient zkClient1=createZKClient("1@1234:81".getBytes());
+  ZooKeeperClient zkClient2=createZKClient("2@1234:82".getBytes());
+  ZooKeeperClient zkClient3=createZKClient("3@1235:81".getBytes());
+  zkServer.expireEndpoint("1234",81);
+  zkClient2.get().exists(zkPaths.get(zkClient2),null);
+  zkClient3.get().exists(zkPaths.get(zkClient3),null);
+  zkClient1.get().exists(zkPaths.get(zkClient1),null);
+  fail("Matching session has not expired!");
+}

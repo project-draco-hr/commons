@@ -1,16 +1,5 @@
 def main():
-    root_dir = get_buildroot()
-    version = get_version()
-    if (not os.path.exists(root_dir)):
-        exit_and_fail(('PANTS_BUILD_ROOT does not point to a valid path: %s' % root_dir))
-    if ((len(sys.argv) < 2) or ((len(sys.argv) == 2) and (sys.argv[1] in _HELP_ALIASES))):
-        _help(version, root_dir)
-    (command_class, command_args) = _parse_command(root_dir, sys.argv[1:])
-    parser = optparse.OptionParser(version=('%%prog %s' % version))
-    RcFile.install_disable_rc_option(parser)
-    parser.add_option(_LOG_EXIT_OPTION, action='store_true', dest='log_exit', default=False, help='Log an exit message on success or failure')
-    command = command_class(root_dir, parser, command_args)
-    result = command.execute()
-    if (_LOG_EXIT_OPTION in command_args):
-        _log_exit(result)
-    sys.exit(result)
+    try:
+        _run()
+    except KeyboardInterrupt:
+        _exit_and_fail('Interrupted by user.')

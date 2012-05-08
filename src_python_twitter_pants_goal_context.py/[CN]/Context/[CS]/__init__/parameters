@@ -2,4 +2,5 @@ self
 config
 options
 target_roots
+lock
 log

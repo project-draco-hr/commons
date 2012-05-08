@@ -1,0 +1,3 @@
+@staticmethod
+def error():
+    return Membership(_id=Membership.ERROR_ID)

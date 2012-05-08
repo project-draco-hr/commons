@@ -1,0 +1,3 @@
+{
+  return sessionIdToExpireResponse(zkServer.expireFollower(request.zkPath,Optional.of(request.nodeId)));
+}

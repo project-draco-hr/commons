@@ -7,5 +7,8 @@ def select_binary(base_path, version, name):
         if middle_path:
             binary_path = os.path.join(base_path, *(middle_path + [version, name]))
             log.debug(('Selected %s binary at: %s' % (name, binary_path)))
-            return binary_path
+            if os.path.exists(binary_path):
+                return binary_path
+            else:
+                raise TaskError(('Selected binary %s does not exist!' % binary_path))
     raise TaskError(('Cannot generate thrift code for: %s' % [sysname, release, machine]))

@@ -1,0 +1,10 @@
+{
+  ZooKeeperClient zkClient1=createZKClient();
+  ZooKeeperClient zkClient2=createZKClient();
+  ZooKeeperClient zkClient3=createZKClient();
+  zkServer.expireLeader(ROOT_PATH);
+  zkClient2.get().exists(zkPaths.get(zkClient2),null);
+  zkClient3.get().exists(zkPaths.get(zkClient3),null);
+  zkClient1.get().exists(zkPaths.get(zkClient1),null);
+  fail("Leader session has not expired!");
+}

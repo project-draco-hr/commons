@@ -1,0 +1,17 @@
+{
+  Handler consoleHandler=null;
+  for (  Handler h : logger.getHandlers()) {
+    if (h instanceof ConsoleHandler) {
+      consoleHandler=h;
+    }
+ else     if (removeOtherHandlers) {
+      logger.removeHandler(h);
+    }
+  }
+  if (consoleHandler == null) {
+    consoleHandler=new ConsoleHandler();
+    logger.addHandler(new ConsoleHandler());
+  }
+  consoleHandler.setLevel(Level.ALL);
+  consoleHandler.setFilter(null);
+}

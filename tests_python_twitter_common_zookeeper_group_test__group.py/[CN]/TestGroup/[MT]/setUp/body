@@ -1,0 +1,3 @@
+def setUp(self):
+    self._server = ZookeeperServer()
+    self._zk = self.make_zk(self._server.ensemble)

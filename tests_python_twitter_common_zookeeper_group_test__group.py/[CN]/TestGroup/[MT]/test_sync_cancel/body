@@ -1,0 +1,33 @@
+def test_sync_cancel(self):
+    zkg = self.GroupImpl(self._zk, '/test')
+
+
+    class BackgroundMonitor(threading.Thread):
+
+        def __init__(self, *memberships):
+            self.memberships = set(memberships)
+            self.new_memberships = None
+            super(BackgroundMonitor, self).__init__()
+
+        def run(self):
+            self.new_memberships = zkg.monitor(membership=self.memberships)
+    membership = zkg.join('hello world')
+    bm = BackgroundMonitor(membership)
+    assert zkg.cancel(membership)
+    bm.start()
+    bm.join()
+    assert (bm.new_memberships == set())
+    membership = zkg.join('hello world')
+    bm = BackgroundMonitor(membership)
+    bm.start()
+    time.sleep(0.1)
+    assert zkg.cancel(membership)
+    bm.join()
+    assert (bm.new_memberships == set())
+    membership1 = zkg.join('hello world')
+    membership2 = zkg.join('herpes derpes')
+    bm = BackgroundMonitor(membership1, membership2)
+    bm.start()
+    assert zkg.cancel(membership1)
+    bm.join()
+    assert (bm.new_memberships == set([membership2]))

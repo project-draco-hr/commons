@@ -1,0 +1,8 @@
+def __init__(self, zk, function, *args, **kw):
+    self._zk = zk
+    self._logger = kw.pop('logger', log.debug)
+
+    @wraps(function)
+    def wrapper(zh):
+        return function(zh, *args, **kw)
+    self._fn = wrapper

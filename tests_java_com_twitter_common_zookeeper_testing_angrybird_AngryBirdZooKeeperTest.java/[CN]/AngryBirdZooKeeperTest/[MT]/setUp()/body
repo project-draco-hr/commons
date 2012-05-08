@@ -1,0 +1,6 @@
+{
+  final ShutdownRegistry shutdownRegistry=new TearDownRegistry(this);
+  zkServer=new AngryBirdZooKeeperServer(0,shutdownRegistry);
+  zkServer.startNetwork();
+  zkPaths=Maps.newHashMap();
+}

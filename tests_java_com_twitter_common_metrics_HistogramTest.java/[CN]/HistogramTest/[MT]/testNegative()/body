@@ -1,0 +1,11 @@
+{
+  Histogram hist=new Histogram(name,metrics);
+  for (int i=-100; i <= 100; ++i) {
+    hist.add(i);
+  }
+  Map<String,Number> sample=metrics.sample();
+  assertEquals(-100L,sample.get(name + "_min"));
+  assertEquals(100L,sample.get(name + "_max"));
+  long[] expected={-51L,-1L,49L,79L,89L,97L,99L,99L};
+  checkQuantiles(expected,sample);
+}

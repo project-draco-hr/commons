@@ -1,0 +1,41 @@
+def test_safe_operations():
+    with ZookeeperServer() as server:
+        zk = ZooKeeper(server.ensemble)
+        assert (zk.safe_create('/a/b/c/d') == '/a/b/c/d')
+        session_id = zk.session_id()
+        finish_event = threading.Event()
+
+
+        class CreateThread(threading.Thread):
+
+            def run(self):
+                zk.safe_create('/foo/bar/baz/bak')
+                finish_event.set()
+        server.shutdown()
+        server.expire(session_id)
+        ct = CreateThread()
+        ct.start()
+        server.start()
+        finish_event.wait(timeout=MAX_EXPIRE_WAIT_SECS)
+        assert finish_event.is_set()
+        assert zk.exists('/a/b/c/d')
+        assert zk.exists('/foo/bar/baz/bak')
+        session_id = zk.session_id()
+        assert zk.safe_delete('/a')
+        delete_event = threading.Event()
+
+
+        class DeleteThread(threading.Thread):
+
+            def run(self):
+                zk.safe_delete('/foo')
+                delete_event.set()
+        server.shutdown()
+        server.expire(session_id)
+        dt = DeleteThread()
+        dt.start()
+        server.start()
+        delete_event.wait(timeout=MAX_EXPIRE_WAIT_SECS)
+        assert delete_event.is_set()
+        assert (not zk.exists('/a'))
+        assert (not zk.exists('/foo'))

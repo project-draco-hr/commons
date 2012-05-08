@@ -1,0 +1,14 @@
+{
+  int bm=0;
+  long n=maxMemory.as(Data.BYTES) - 100 - (elemSize * bufferSize);
+  if (n < 0) {
+    bm=2;
+  }
+ else {
+    bm=(int)(n / (16 + elemSize * bufferSize));
+  }
+  if (bm < 2) {
+    bm=2;
+  }
+  return bm;
+}

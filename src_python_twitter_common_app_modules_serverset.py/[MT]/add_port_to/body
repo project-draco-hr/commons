@@ -1,0 +1,15 @@
+def add_port_to(option_name):
+
+    def add_port_callback(option, opt, value, parser):
+        if (not getattr(parser.values, option_name, None)):
+            setattr(parser.values, option_name, {})
+        try:
+            (name, port) = value.split(':')
+        except (ValueError, TypeError):
+            raise ParseError(('Invalid value for %s: %s should be of form NAME:PORT' % (opt, value)))
+        try:
+            port = int(port)
+        except ValueError:
+            raise ParseError(('Port does not appear to be an integer: %s' % port))
+        getattr(parser.values, option_name)[name] = port
+    return add_port_callback

@@ -1,0 +1,5 @@
+@classmethod
+def build(cls):
+    if (not cls.BUILT):
+        assert (subprocess.call(cls.BUILD_COMMAND.split()) == 0)
+        cls.BUILT = True

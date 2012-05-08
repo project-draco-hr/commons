@@ -11,7 +11,14 @@ def _get_nailgun_endpoint(self):
                 return invalid_pidfile()
             (pid, port) = endpoint
             try:
-                return (int(pid), int(port))
+                return (int(pid.strip()), int(port.strip()))
             except ValueError:
                 return invalid_pidfile()
+    elif NailgunTask._find:
+        pid_port = NailgunTask._find(self._pidfile)
+        if pid_port:
+            self.context.log.info(('found ng server @ pid:%d port:%d' % pid_port))
+            with safe_open(self._pidfile, 'w') as pidfile:
+                pidfile.write(('%d:%d\n' % pid_port))
+        return pid_port
     return None

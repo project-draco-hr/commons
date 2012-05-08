@@ -1,0 +1,31 @@
+def __init__(self, context):
+    CodeGen.__init__(self, context)
+    self.thriftstore_admin = context.config.get('thriftstore-dml-gen', 'thriftstore-admin')
+    self.output_dir = (context.options.thriftstore_gen_create_outdir or context.config.get('thriftstore-dml-gen', 'workdir'))
+    self.verbose = context.config.getbool('thriftstore-dml-gen', 'verbose')
+
+    def create_javadeps():
+        gen_info = context.config.getlist('thriftstore-dml-gen', 'javadeps')
+        deps = OrderedSet()
+        for dep in gen_info:
+            deps.update(context.resolve(dep))
+        return deps
+
+    def is_thriftstore_dml_instance(target):
+        return isinstance(target, JavaThriftstoreDMLLibrary)
+    self.javadeps = create_javadeps()
+    self.gen_thriftstore_java_dir = os.path.join(self.output_dir, 'gen-thriftstore-java')
+
+    def insert_java_dml_targets():
+        self.gen_dml_jls = {}
+        for dml_lib_target in context.targets(is_thriftstore_dml_instance):
+            thrift_dml_lib = self.context.add_new_target(dml_lib_target.target_base, JavaThriftLibrary, name=dml_lib_target.id, sources=dml_lib_target.sources, dependencies=dml_lib_target.dependencies)
+            java_dml_lib = self.context.add_new_target(self.gen_thriftstore_java_dir, JavaLibrary, name=dml_lib_target.id, sources=[], dependencies=self.javadeps)
+            java_dml_lib.id = dml_lib_target.id
+            java_dml_lib.is_codegen = True
+            java_dml_lib.update_dependencies([thrift_dml_lib])
+            self.gen_dml_jls[dml_lib_target] = java_dml_lib
+        for (dependee, dmls) in context.dependants(is_thriftstore_dml_instance).items():
+            jls = map((lambda dml: self.gen_dml_jls[dml]), dmls)
+            dependee.update_dependencies(jls)
+    insert_java_dml_targets()

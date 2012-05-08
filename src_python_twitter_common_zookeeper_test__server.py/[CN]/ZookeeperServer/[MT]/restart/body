@@ -1,0 +1,2 @@
+def restart(self):
+    return (self.angrybird.restart().responseCode == ResponseCode.OK)

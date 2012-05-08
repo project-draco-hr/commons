@@ -1,0 +1,6 @@
+{
+  if (started != null) {
+    super.testFailure(new Failure(started,reason));
+  }
+  finish();
+}

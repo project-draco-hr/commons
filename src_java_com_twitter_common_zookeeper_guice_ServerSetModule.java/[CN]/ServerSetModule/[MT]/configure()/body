@@ -7,5 +7,15 @@
   }
 ).to(EndpointSupplier.class);
   bind(EndpointSupplier.class).in(Singleton.class);
-  bind(Status.class).annotatedWith(InitialStatus.class).toInstance(initialStatus);
+  bind(Status.class).annotatedWith(Default.class).toInstance(initialStatus);
+  Optional<String> primaryPortName;
+  if (AUX_PORT_AS_PRIMARY.hasAppliedValue()) {
+    primaryPortName=Optional.of(AUX_PORT_AS_PRIMARY.get());
+  }
+ else {
+    primaryPortName=auxPortAsPrimary;
+  }
+  bind(new TypeLiteral<Optional<String>>(){
+  }
+).annotatedWith(Default.class).toInstance(primaryPortName);
 }

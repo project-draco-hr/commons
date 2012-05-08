@@ -1,0 +1,2 @@
+def __lt__(self, other):
+    return (self._id < other._id)

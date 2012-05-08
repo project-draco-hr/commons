@@ -5,4 +5,4 @@ def _sources_hash(self, paths):
         with open(filename, 'rb') as fd:
             sha.update(Compatibility.to_bytes(relative_filename))
             sha.update(fd.read())
-    return sha.hexdigest()
+    return sha

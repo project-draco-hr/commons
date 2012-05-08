@@ -1,0 +1,35 @@
+def test_async_join_with_cancel(self):
+    zkg1 = self.GroupImpl(self._zk, '/test')
+    zkg2 = self.GroupImpl(self._zk, '/test')
+    event = threading.Event()
+    cancel_event = threading.Event()
+    memberships = []
+
+    def on_join(membership):
+        memberships.append(membership)
+        event.set()
+
+    def on_cancel():
+        cancel_event.set()
+    zkg1.join('hello world', callback=on_join, expire_callback=on_cancel)
+    event.wait()
+    zkg2.cancel(memberships[0])
+    cancel_event.wait(timeout=self.MAX_EVENT_WAIT_SECS)
+    assert cancel_event.is_set()
+    event.clear()
+    cancel_event.clear()
+    memberships = []
+    zkg1.join('hello world', callback=on_join, expire_callback=on_cancel)
+    event.wait()
+    client_cancel = threading.Event()
+    successes = []
+
+    def on_client_side_cancel(troof):
+        successes.append(troof)
+        client_cancel.set()
+    zkg2.cancel(memberships[0], callback=on_client_side_cancel)
+    client_cancel.wait(timeout=self.MAX_EVENT_WAIT_SECS)
+    cancel_event.wait(timeout=self.MAX_EVENT_WAIT_SECS)
+    assert client_cancel.is_set()
+    assert ((len(successes) == 1) and (successes[0] == True))
+    assert cancel_event.is_set()

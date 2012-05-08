@@ -1,0 +1,28 @@
+{
+  ZKDatabase zkDb=zooKeeperServer.getZKDatabase();
+  for (  long sessionId : zkDb.getSessions()) {
+    for (    String path : zkDb.getEphemerals(sessionId)) {
+      LOG.info("SessionId:" + sessionId + " Path:"+ path);
+      try {
+        String data=new String(zkDb.getData(path,new Stat(),null));
+        LOG.info("Data in znode: " + data);
+        TestEndpoint endpoint=parseEndpoint(data);
+        LOG.info("Extracted endpoint " + endpoint);
+        if (endpoint.getHost().equals(host) && endpoint.getPort() == port) {
+          LOG.info(String.format("Matching session id %s found for endpoint %s:%s",sessionId,host,port));
+          return Optional.of(sessionId);
+        }
+      }
+ catch (      NoNodeException e) {
+        LOG.severe("Exception getting data for Path:" + path + " : "+ e);
+      }
+catch (      ParseException e) {
+        LOG.severe("Exception parsing data: " + e);
+      }
+catch (      NumberFormatException e) {
+        LOG.severe("Exception in url format " + e);
+      }
+    }
+  }
+  return Optional.absent();
+}

@@ -1,3 +1,4 @@
 __author__ = 'John Sirois'
 from collections import defaultdict
-from twitter.pants.tasks import Task, TaskError
+from twitter.pants import get_buildroot
+from twitter.pants.tasks import Task

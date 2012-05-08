@@ -1,0 +1,12 @@
+@HttpServer.route('/profile')
+def handle_profile(self):
+    if (HAS_APP and (app.profiler() is not None)):
+        output_stream = StringIO.StringIO()
+        stats = pstats.Stats(app.profiler(), stream=output_stream)
+        stats.sort_stats('time', 'name')
+        stats.print_stats()
+        output = output_stream.getvalue()
+        output = output.replace('\n', '<br>')
+        return (('<pre>' + output) + '</pre>')
+    else:
+        return 'Profiling is disabled'

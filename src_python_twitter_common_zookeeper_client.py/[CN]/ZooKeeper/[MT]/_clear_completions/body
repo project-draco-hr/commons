@@ -1,0 +1,8 @@
+def _clear_completions(self):
+    while self._live.is_set():
+        try:
+            completion = self._completions.get_nowait()
+            completion()
+            self._completions.task_done()
+        except Empty:
+            return

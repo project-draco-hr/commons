@@ -1,3 +1,3 @@
 def execute(self):
-    'Subcommands should override to perform the command action.  The value\n    returned should be an int, 0 indicating success and any other value\n    indicating failure.'
-    pass
+    'Subcommands that do not require serialization should override to perform the command action.\n    The value returned should be an int, 0 indicating success and any other value indicating\n    failure.'
+    raise NotImplementedError('Either run(lock) or execute() must be over-ridden.')

@@ -1,0 +1,17 @@
+def test_info_after_expiration(self):
+    zkg = self.GroupImpl(self._zk, '/test')
+    membership = zkg.join('hello world')
+    assert (zkg.info(membership) == 'hello world')
+    membership_event = threading.Event()
+    members = [membership]
+
+    def on_membership(new_membership):
+        members[:] = new_membership
+        membership_event.set()
+    zkg.monitor(members, on_membership)
+    self._server.expire(self._zk.session_id())
+    membership_event.wait()
+    assert (members == [])
+    assert (zkg.info(membership) == Membership.error())
+    membership = zkg.join('herp derp')
+    assert (zkg.info(membership) == 'herp derp')

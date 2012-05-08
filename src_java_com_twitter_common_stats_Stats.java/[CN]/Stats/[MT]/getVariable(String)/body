@@ -1,4 +1,5 @@
 {
   MorePreconditions.checkNotBlank(name);
-  return VAR_MAP.get(name);
+  @SuppressWarnings("unchecked") Stat<T> stat=(Stat<T>)VAR_MAP.get(name);
+  return stat;
 }

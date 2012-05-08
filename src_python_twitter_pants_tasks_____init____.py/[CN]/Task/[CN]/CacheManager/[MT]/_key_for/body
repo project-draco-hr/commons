@@ -1,8 +1,2 @@
 def _key_for(self, target):
-    if self._only_buildfiles:
-        if (not os.path.exists(target.address.buildfile.full_path)):
-            return None
-        absolute_sources = [target.address.buildfile.full_path]
-    else:
-        absolute_sources = sorted(target.expand_files(recursive=False))
-    return self._cache.key_for(target.id, absolute_sources)
+    return self._cache.key_for_target(target, sources=self._sources, fingerprint_extra=(lambda sha: self._fingerprint_jardeps(target, sha)))

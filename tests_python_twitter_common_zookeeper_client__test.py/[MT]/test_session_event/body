@@ -1,0 +1,24 @@
+def test_session_event():
+    with ZookeeperServer() as server:
+        disconnected = threading.Event()
+
+        def on_event(zk, event, state, _):
+            if (zk._live.is_set() and (state != zookeeper.CONNECTED_STATE)):
+                disconnected.set()
+        zk = ZooKeeper(server.ensemble, watch=on_event)
+        session_id = zk.session_id()
+        children = []
+        completion_event = threading.Event()
+
+        def children_completion(_, rc, results):
+            children.extend(results)
+            completion_event.set()
+        server.shutdown()
+        disconnected.wait(timeout=MAX_EVENT_WAIT_SECS)
+        assert disconnected.is_set()
+        zk.aget_children('/', None, children_completion)
+        server.expire(session_id)
+        server.start()
+        completion_event.wait(timeout=MAX_EVENT_WAIT_SECS)
+        assert completion_event.is_set()
+        assert (children == ['zookeeper'])

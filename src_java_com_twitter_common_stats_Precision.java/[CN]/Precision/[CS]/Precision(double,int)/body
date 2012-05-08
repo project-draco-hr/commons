@@ -1,0 +1,4 @@
+{
+  this.epsilon=epsilon;
+  this.n=n;
+}

@@ -1,0 +1,8 @@
+def release(self):
+    'Releases this lock if held and returns True; otherwise, returns False to indicate the lock\n    was already released.\n    '
+    if self._lock_fd:
+        unlock_file(self._lock_fd, close=True)
+        self._lock_fd = None
+        return True
+    else:
+        return False

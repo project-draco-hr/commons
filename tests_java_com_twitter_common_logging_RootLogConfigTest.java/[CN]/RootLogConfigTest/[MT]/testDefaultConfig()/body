@@ -1,0 +1,5 @@
+{
+  assertErrorLogAtLevel(testLogger,Level.INFO);
+  resetLogs();
+  assertNoVerboseLogging(testLogger);
+}

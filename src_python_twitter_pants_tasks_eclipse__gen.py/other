@@ -10,4 +10,4 @@ from twitter.pants.tasks.ide_gen import IdeGen
 __author__ = 'John Sirois'
 _TEMPLATE_BASEDIR = os.path.join('eclipse', 'templates')
 _VERSIONS = {'3.5': '3.7', '3.6': '3.7', '3.7': '3.7', }
-_SETTINGS = ('org.eclipse.jdt.core.prefs', 'org.eclipse.core.resources.prefs')
+_SETTINGS = ('org.eclipse.core.resources.prefs', 'org.eclipse.jdt.core.prefs', 'org.eclipse.jdt.ui.prefs')

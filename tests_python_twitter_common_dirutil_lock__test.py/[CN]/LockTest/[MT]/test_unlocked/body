@@ -1,0 +1,6 @@
+def test_unlocked(self):
+    lock1 = Lock.unlocked()
+    lock2 = Lock.unlocked()
+    self.assertFalse(lock1.release())
+    self.assertFalse(lock1.release())
+    self.assertFalse(lock2.release())

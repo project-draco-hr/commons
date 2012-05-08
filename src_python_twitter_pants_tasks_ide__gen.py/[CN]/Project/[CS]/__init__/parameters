@@ -7,3 +7,4 @@ root_dir
 checkstyle_suppression_files
 debug_port
 targets
+transitive

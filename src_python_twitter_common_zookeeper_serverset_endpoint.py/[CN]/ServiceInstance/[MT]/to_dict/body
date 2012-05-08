@@ -1,0 +1,3 @@
+@classmethod
+def to_dict(cls, service_instance):
+    return dict(serviceEndpoint=Endpoint.to_dict(service_instance.service_endpoint), additionalEndpoints=dict(((name, Endpoint.to_dict(endpoint)) for (name, endpoint) in service_instance.additional_endpoints.items())), status=service_instance.status.name())

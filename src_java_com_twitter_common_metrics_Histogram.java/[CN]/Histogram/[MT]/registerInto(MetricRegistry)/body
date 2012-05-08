@@ -1,0 +1,39 @@
+{
+  metricRegistry.register(new AbstractGauge<Long>(name + "_count"){
+    @Override public Long read(){
+      return stats.populationSize();
+    }
+  }
+);
+  metricRegistry.register(new AbstractGauge<Long>(name + "_min"){
+    @Override public Long read(){
+      if (stats.populationSize() == 0) {
+        return 0L;
+      }
+ else {
+        return stats.min();
+      }
+    }
+  }
+);
+  metricRegistry.register(new AbstractGauge<Long>(name + "_max"){
+    @Override public Long read(){
+      if (stats.populationSize() == 0) {
+        return 0L;
+      }
+ else {
+        return stats.max();
+      }
+    }
+  }
+);
+  for (  final double p : quantiles) {
+    metricRegistry.register(new AbstractGauge<Long>(name + "_" + gaugeName(p)){
+      @Override public Long read(){
+        double[] qs={p};
+        return histogram.getQuantiles(qs)[0];
+      }
+    }
+);
+  }
+}

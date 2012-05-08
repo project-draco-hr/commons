@@ -1,0 +1,3 @@
+@classmethod
+def pack(cls, service_instance):
+    return json.dumps(cls.to_dict(service_instance))

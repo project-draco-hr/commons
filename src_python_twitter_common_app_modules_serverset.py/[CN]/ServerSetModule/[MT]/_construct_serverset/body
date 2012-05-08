@@ -1,0 +1,14 @@
+def _construct_serverset(self, options):
+    import socket
+    import threading
+    import zookeeper
+    from twitter.common.zookeeper.client import ZooKeeper
+    from twitter.common.zookeeper.serverset import Endpoint, ServerSet
+    log.debug('ServerSet module constructing serverset.')
+    hostname = socket.gethostname()
+    primary_port = int(options.serverset_module_primary_port)
+    primary = Endpoint(hostname, primary_port)
+    additional = dict(((port_name, Endpoint(hostname, port_number)) for (port_name, port_number) in options.serverset_module_extra.items()))
+    self._zookeeper = ZooKeeper(options.serverset_module_ensemble)
+    self._serverset = ServerSet(self._zookeeper, options.serverset_module_path)
+    self._join_args = (primary, additional)

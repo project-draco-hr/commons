@@ -1,3 +1,3 @@
 {
-  return TypeToken.extractTypeToken(field.getGenericType());
+  return extractTypeToken(field.getGenericType());
 }

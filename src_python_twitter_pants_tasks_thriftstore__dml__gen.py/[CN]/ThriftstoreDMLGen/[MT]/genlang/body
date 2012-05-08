@@ -1,0 +1,11 @@
+def genlang(self, lang, targets):
+    (bases, sources) = self._calculate_sources(targets)
+    safe_mkdir(self.gen_thriftstore_java_dir)
+    args = [self.thriftstore_admin, 'dml', '-o', self.gen_thriftstore_java_dir]
+    if self.verbose:
+        args.append('-verbose')
+    args.extend(sources)
+    self.context.log.debug(('Executing: %s' % ' '.join(args)))
+    result = subprocess.call(args)
+    if (result != 0):
+        raise TaskError()

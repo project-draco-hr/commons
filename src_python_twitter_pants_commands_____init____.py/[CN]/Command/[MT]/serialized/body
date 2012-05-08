@@ -1,0 +1,3 @@
+@classmethod
+def serialized(cls):
+    return False

@@ -1,5 +1,0 @@
-{
-  assertEquals(new TypeToken<String>(){
-  }
-,TypeToken.create(TypeToken.extractTypeToken(stringSupplierField.getGenericType())));
-}

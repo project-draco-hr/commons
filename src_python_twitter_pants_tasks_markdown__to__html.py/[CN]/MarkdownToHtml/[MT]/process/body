@@ -23,7 +23,7 @@ def process(self, outdir, base, source, standalone, url_builder, get_config, css
     (path, ext) = os.path.splitext(source)
     with safe_open(os.path.join(outdir, (path + '.html')), 'w') as output:
         with open(os.path.join(get_buildroot(), base, source), 'r') as input:
-            md_html = markdown.markdown(input.read(), extensions=['codehilite', 'extra', 'tables', 'toc', wikilinks])
+            md_html = markdown.markdown(input.read(), extensions=['codehilite(guess_lang=False)', 'extra', 'tables', 'toc', wikilinks])
             if standalone:
                 if css:
                     css_relpath = os.path.relpath(css, outdir)

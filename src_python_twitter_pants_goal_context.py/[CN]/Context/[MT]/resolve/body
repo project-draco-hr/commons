@@ -1,2 +1,4 @@
 def resolve(self, spec):
-    return self._do_in_context((lambda : Pants(spec).resolve()))
+    'Returns an iterator over the target(s) the given address points to.'
+    with ParseContext.temp():
+        return Pants(spec).resolve()

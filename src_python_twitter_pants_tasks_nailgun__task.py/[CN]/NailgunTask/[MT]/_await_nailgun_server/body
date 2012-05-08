@@ -6,7 +6,7 @@ def _await_nailgun_server(self):
             if started:
                 port = self._parse_nailgun_port(started)
                 with open(self._pidfile, 'a') as pidfile:
-                    pidfile.write((':%d' % port))
+                    pidfile.write((':%d\n' % port))
                 nailgun = self._create_ngclient(port)
                 log.debug(('Detected ng server up on port %d' % port))
                 break

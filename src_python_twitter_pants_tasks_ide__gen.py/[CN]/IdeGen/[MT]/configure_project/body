@@ -1,6 +1,8 @@
 def configure_project(self, targets, checkstyle_suppression_files, debug_port, scala_compiler_profile):
     jvm_targets = extract_jvm_targets(targets)
-    project = Project(self.project_name, self.python, self.skip_java, self.skip_scala, get_buildroot(), checkstyle_suppression_files, debug_port, jvm_targets)
+    if self.intransitive:
+        jvm_targets = set(self.context.target_roots).intersection(jvm_targets)
+    project = Project(self.project_name, self.python, self.skip_java, self.skip_scala, get_buildroot(), checkstyle_suppression_files, debug_port, jvm_targets, (not self.intransitive))
     if self.python:
         python_source_paths = self.context.config.getlist('ide', 'python_source_paths', default=[])
         python_test_paths = self.context.config.getlist('ide', 'python_test_paths', default=[])

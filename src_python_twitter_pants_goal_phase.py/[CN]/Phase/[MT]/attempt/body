@@ -24,9 +24,25 @@ def attempt(context, phases, timer=None):
             timer.log(('total: %.3fs' % elapsed))
     try:
         tasks_by_goal = {}
-        for goal in reversed(list(Phase.execution_order(phases))):
-            task = goal.prepare(context)
-            tasks_by_goal[goal] = task
+        expanded = OrderedSet()
+        prepared = set()
+        round = 0
+        while True:
+            goals = list(Phase.execution_order(phases))
+            if (set(goals) == prepared):
+                break
+            else:
+                round += 1
+                context.log.debug(('Preparing goals in round %d' % round))
+                for goal in reversed(goals):
+                    if (goal not in prepared):
+                        phase = Phase.of(goal)
+                        expanded.add(phase)
+                        context.log.debug(('preparing: %s:%s' % (phase, goal.name)))
+                        prepared.add(goal)
+                        task = goal.prepare(context)
+                        tasks_by_goal[goal] = task
+        context.log.debug(('Executing goals in phases %s' % ' -> '.join(map(str, reversed(expanded)))))
         for phase in phases:
             Group.execute(phase, tasks_by_goal, context, executed, timer=timer)
         print_timings()

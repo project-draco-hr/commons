@@ -1,0 +1,3 @@
+@classmethod
+def znode_owned(cls, znode):
+    return posixpath.basename(znode).startswith(cls.MEMBER_PREFIX)

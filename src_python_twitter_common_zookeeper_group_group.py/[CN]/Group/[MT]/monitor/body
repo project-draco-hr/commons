@@ -1,0 +1,30 @@
+def monitor(self, membership=frozenset(), callback=None):
+    promise = Promise(callback)
+
+    def do_monitor():
+        self._zk.aget_children(self._path, get_watch, get_completion)
+
+    def get_watch(_, event, state, path):
+        if ((event == zookeeper.SESSION_EVENT) and (state == zookeeper.EXPIRED_SESSION_STATE)):
+            do_monitor()
+            return
+        if (state != zookeeper.CONNECTED_STATE):
+            return
+        if (event != zookeeper.CHILD_EVENT):
+            return
+        if set_different(promise, membership, self._members):
+            return
+        do_monitor()
+
+    def get_completion(_, rc, children):
+        if (rc in self._zk.COMPLETION_RETRY):
+            do_monitor()
+            return
+        if (rc != zookeeper.OK):
+            log.warning(('Unexpected get_completion return code: %s' % ZooKeeper.ReturnCode(rc)))
+            promise.set(set([Membership.error()]))
+            return
+        self._update_children(children)
+        set_different(promise, membership, self._members)
+    do_monitor()
+    return promise()

@@ -1,0 +1,23 @@
+{
+  fakeRootLogger.removeHandler(consoleHandler);
+  fakeRootLogger.addHandler(fakeFileLog);
+  testLogger.info("Info");
+  assertHasNotLoggedToStderr();
+  assertHasLoggedToFile();
+  resetLogs();
+  getConfig().alsoLogToStderr(true).apply();
+  resetLogs();
+  testLogger.severe("Severe");
+  assertHasLoggedToStderr();
+  assertHasLoggedToFile();
+  resetLogs();
+  testLogger.warning("Warning");
+  assertHasLoggedToStderr();
+  assertHasLoggedToFile();
+  resetLogs();
+  testLogger.info("Info");
+  assertHasLoggedToStderr();
+  assertHasLoggedToFile();
+  resetLogs();
+  assertNoVerboseLogging(testLogger);
+}

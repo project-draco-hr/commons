@@ -1,0 +1,9 @@
+{
+  long[] qss=new long[qs.length];
+  int i=0;
+  while (i < qss.length) {
+    qss[i]=(long)(qs[i] * count);
+    i+=1;
+  }
+  return qss;
+}

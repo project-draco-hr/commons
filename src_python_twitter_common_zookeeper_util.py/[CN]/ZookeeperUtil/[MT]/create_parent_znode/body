@@ -1,0 +1,4 @@
+@staticmethod
+def create_parent_znode(zh, path, acl=[ZOO_OPEN_ACL_UNSAFE]):
+    'Safely create all the parent znodes necessary to create :path.'
+    return ZookeeperUtil.create_znode(zh, posixpath.dirname(path), acl)

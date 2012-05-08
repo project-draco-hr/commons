@@ -1,0 +1,4 @@
+{
+  LOG.info("Starting AngryBird ZooKeeper Server");
+  lifecycle.awaitShutdown();
+}

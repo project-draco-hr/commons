@@ -1,0 +1,7 @@
+def expire(self, session_id=None):
+    if (session_id is None):
+        if (self._zh is None):
+            raise self.NotStarted('Must specify session id if no client connection available!')
+        (session_id, _) = zookeeper.client_id(self._zh)
+    expireResponse = self.angrybird.expireSession(ExpireSessionRequest(sessionId=session_id))
+    return (expireResponse.responseCode == ResponseCode.OK)

@@ -1,0 +1,6 @@
+def test_sync_join(self):
+    zkg = self.GroupImpl(self._zk, '/test')
+    membership = zkg.join('hello world')
+    assert isinstance(membership, Membership)
+    assert (membership != Membership.error())
+    assert (zkg.info(membership) == 'hello world')

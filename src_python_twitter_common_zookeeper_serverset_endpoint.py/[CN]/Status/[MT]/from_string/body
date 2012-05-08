@@ -1,0 +1,6 @@
+@staticmethod
+def from_string(string):
+    for (_id, name) in Status.MAP.items():
+        if (name == string):
+            return Status(name, _id)
+    raise ValueError('from_string got an invalid Status!')

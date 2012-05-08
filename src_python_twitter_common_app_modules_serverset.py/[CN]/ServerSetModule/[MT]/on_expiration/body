@@ -1,0 +1,10 @@
+def on_expiration(self):
+    if self._torndown:
+        return
+    log.debug('Serverset session expired.')
+    if (not app.get_options().serverset_module_persistence):
+        log.debug('Committing seppuku...')
+        sys.exit(1)
+    else:
+        log.debug('Rejoining...')
+    self._join()

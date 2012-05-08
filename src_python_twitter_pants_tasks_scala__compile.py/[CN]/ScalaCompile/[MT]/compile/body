@@ -1,7 +1,7 @@
 def compile(self, classpath, sources):
-    safe_mkdir(self._output_dir)
-    compiler_classpath = (self._compiler_classpath or nailgun_profile_classpath(self, self._compile_profile))
-    args = ['-classpath', ':'.join((compiler_classpath + classpath)), '-d', self._output_dir, '-dependencyfile', self._depfile, '-make:transitivenocp']
+    safe_mkdir(self._classes_dir)
+    compiler_classpath = nailgun_profile_classpath(self, self._compile_profile)
+    args = ['-classpath', ':'.join((compiler_classpath + classpath)), '-d', self._classes_dir, ('-Xplugin:%s' % self.get_depemitter_plugin()), ('-P:depemitter:file:%s' % self._depfile)]
     args.extend(self._args)
     args.extend(sources)
     self.context.log.debug(('Executing: %s %s' % (self._main, ' '.join(args))))

@@ -1,0 +1,4 @@
+def tail(filename, lines=10):
+    with open(filename, 'r') as fp:
+        for line in _tail_lines(fp, lines):
+            yield line

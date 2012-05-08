@@ -1,4 +1,0 @@
-{
-  @SuppressWarnings("unchecked") Class<T> rawType=(Class<T>)getRawType(type);
-  return rawType;
-}

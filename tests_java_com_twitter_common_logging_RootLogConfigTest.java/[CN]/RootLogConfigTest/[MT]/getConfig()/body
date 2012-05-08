@@ -1,0 +1,3 @@
+{
+  return RootLogConfig.builder().rootLoggerName(fakeRootLogger.getName());
+}

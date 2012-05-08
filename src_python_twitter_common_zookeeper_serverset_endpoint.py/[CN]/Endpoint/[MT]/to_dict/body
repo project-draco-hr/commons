@@ -1,0 +1,3 @@
+@classmethod
+def to_dict(cls, endpoint):
+    return {'host': endpoint.host, 'port': endpoint.port, }

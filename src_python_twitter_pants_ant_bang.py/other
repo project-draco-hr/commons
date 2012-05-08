@@ -1,5 +1,5 @@
 from __future__ import print_function
 from twitter.common.collections import OrderedSet
-from twitter.pants import get_buildroot, is_internal, is_jvm
-from twitter.pants.base import BuildFile, ParseContext
+from twitter.pants import is_internal, is_jvm
+from twitter.pants.base import ParseContext
 from twitter.pants.targets import AnnotationProcessor, InternalTarget, JavaLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, ScalaLibrary, ScalaTests

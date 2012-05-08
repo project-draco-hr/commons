@@ -1,0 +1,30 @@
+{
+  ZKDatabase zkDb=zooKeeperServer.getZKDatabase();
+  Long leaderSessionId=null;
+  Long masterSeq=Long.MAX_VALUE;
+  Pattern pattern=Pattern.compile("\\d+$");
+  for (  long sessionId : zkDb.getSessions()) {
+    for (    String path : zkDb.getEphemerals(sessionId)) {
+      if (StringUtils.startsWith(path,zkPath)) {
+        try {
+          Matcher matcher=pattern.matcher(path);
+          if (matcher.find()) {
+            LOG.info("Pattern matched path: " + path + " session: "+ sessionId);
+            Long seq=Long.parseLong(matcher.group());
+            if (seq < masterSeq) {
+              masterSeq=seq;
+              leaderSessionId=sessionId;
+            }
+          }
+        }
+ catch (        NumberFormatException e) {
+          LOG.severe("Exception formatting sequence number " + e);
+        }
+      }
+    }
+  }
+  if (leaderSessionId != null) {
+    LOG.info(String.format("Found session leader for %s: %s",zkPath,leaderSessionId));
+  }
+  return Optional.of(leaderSessionId);
+}

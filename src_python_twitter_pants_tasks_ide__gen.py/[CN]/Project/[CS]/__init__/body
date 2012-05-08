@@ -1,8 +1,9 @@
-def __init__(self, name, has_python, skip_java, skip_scala, root_dir, checkstyle_suppression_files, debug_port, targets):
+def __init__(self, name, has_python, skip_java, skip_scala, root_dir, checkstyle_suppression_files, debug_port, targets, transitive):
     'Creates a new, unconfigured, Project based at root_dir and comprised of the sources visible\n    to the given targets.'
     self.name = name
     self.root_dir = root_dir
     self.targets = OrderedSet(targets)
+    self.transitive = transitive
     self.sources = []
     self.py_sources = []
     self.py_libs = []

@@ -1,0 +1,14 @@
+{
+  count+=1;
+  if (buffer.get(0).size() == bufferSize && buffer.get(1).size() == bufferSize) {
+    Collections.sort(buffer.get(0));
+    Collections.sort(buffer.get(1));
+    recCollapse(buffer.get(0),1);
+    buffer.get(0).clear();
+  }
+  int i=1;
+  if (buffer.get(0).size() < bufferSize) {
+    i=0;
+  }
+  buffer.get(i).add(x);
+}

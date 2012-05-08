@@ -1,0 +1,8 @@
+def stop(self):
+    if (self._po is None):
+        raise self.NotStarted('Cluster not started!')
+    self._po.kill()
+    self._orphaned_pids.remove(self._po.pid)
+    self._po = None
+    self.thrift_port = None
+    self.zookeeper_port = None

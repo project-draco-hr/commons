@@ -1,0 +1,4 @@
+{
+  this.alsoLogToStderr=flag;
+  return this;
+}

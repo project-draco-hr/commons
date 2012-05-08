@@ -1,0 +1,2 @@
+def shutdown(self):
+    return (self.angrybird.shutdown().responseCode == ResponseCode.OK)

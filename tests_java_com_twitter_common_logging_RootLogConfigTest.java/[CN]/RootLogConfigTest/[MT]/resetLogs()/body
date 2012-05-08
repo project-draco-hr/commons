@@ -1,0 +1,5 @@
+{
+  errPrintStream.flush();
+  fakeErrorLog.reset();
+  fakeFileLog.reset();
+}

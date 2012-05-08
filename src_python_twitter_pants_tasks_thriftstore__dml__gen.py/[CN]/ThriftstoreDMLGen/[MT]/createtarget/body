@@ -1,0 +1,5 @@
+def createtarget(self, lang, gentarget, dependees):
+    if (lang == 'java'):
+        return self._create_java_target(gentarget)
+    else:
+        raise TaskError(('Unrecognized thrift gen lang: %s' % lang))

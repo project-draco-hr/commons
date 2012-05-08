@@ -21,7 +21,7 @@ def changed(self, targets, only_buildfiles=False, invalidate_dependants=False):
         if cache_manager.foreign_invalidated_targets:
             self.context.log.info(('Invalidated %d dependant targets for the next round' % cache_manager.foreign_invalidated_targets))
         if cache_manager.changed_files:
-            msg = ('Operating on %d files in %d changed targets' % (cache_manager.changed_files, (len(cache_manager.changed) - cache_manager.invalidated_targets)))
+            msg = ('Operating on %d files in %d changed targets' % (cache_manager.changed_files, len(cache_manager.changed)))
             if cache_manager.invalidated_files:
                 msg += (' and %d files in %d invalidated dependant targets' % (cache_manager.invalidated_files, cache_manager.invalidated_targets))
             self.context.log.info(msg)

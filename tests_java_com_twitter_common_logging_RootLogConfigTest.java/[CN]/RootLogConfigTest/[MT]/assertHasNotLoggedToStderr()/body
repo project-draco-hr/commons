@@ -1,0 +1,4 @@
+{
+  errPrintStream.flush();
+  assertEquals(fakeErrorLog.size(),0);
+}

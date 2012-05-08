@@ -1,2 +1,3 @@
 def register(self, instance):
+    sync_log(('Registering instance: %s' % instance))
     return self._zk.create(posixpath.join(self._path, 'member_'), codec.serialize(instance), [ZOO_OPEN_ACL_UNSAFE], zookeeper.SEQUENCE)

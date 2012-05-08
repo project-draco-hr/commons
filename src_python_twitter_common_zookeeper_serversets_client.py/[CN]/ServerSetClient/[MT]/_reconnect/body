@@ -2,8 +2,8 @@ def _reconnect(self):
     'Reconnect to ZK and update endpoints once complete.'
     for _ in range(self._retries):
         try:
-            self._zk.reconnect()
-            self._update_endpoints()
+            self._zk.restart()
+            self._start()
             break
         except ZooKeeper.ConnectionTimeout:
             log.warning(('Connection establishment to %r timed out, retrying.' % self._zk))

@@ -1,13 +1,17 @@
 def test_client_reconnect():
-    cluster = ZookeeperClusterBootstrapper()
-    port = cluster.start(1)
-    zk = ZooKeeper(('localhost:%d' % port))
-    zk.get_children('/')
-    cluster.stop(1)
-    with pytest.raises(zookeeper.ConnectionLossException):
+    with ZookeeperServer() as server:
+        zk = make_zk(server)
         zk.get_children('/')
-    cluster.start(1)
-    with pytest.raises(zookeeper.ConnectionLossException):
-        zk.get_children('/')
-    zk.reconnect()
-    assert (zk.get_children('/') == ['zookeeper'])
+        assert server.shutdown()
+        children = []
+
+
+        class GetThread(threading.Thread):
+
+            def run(self):
+                children.extend(zk.get_children('/'))
+        gt = GetThread()
+        gt.start()
+        assert server.start()
+        gt.join()
+        assert (children == ['zookeeper'])

@@ -1,7 +1,19 @@
-def __init__(self, servers=None, timeout=None):
-    'Create new ZooKeeper object.\n\n    Blocks until ZK negotation completes, or the timeout expires.\n    '
-    options = app.get_options()
-    self._servers = (servers or options.zookeeper)
-    self._timeout = (options.zookeeper_timeout if (timeout is None) else timeout)
+def __init__(self, servers=None, timeout_secs=None, watch=None, max_reconnects=MAX_RECONNECTS, logger=log.debug):
+    "Create new ZooKeeper object.\n\n    Blocks until ZK negotation completes, or the timeout expires. By default\n    only tries to connect once.  Use a larger 'max_reconnects' if you want\n    to be resilient to things such as DNS outages/changes.\n\n    If watch is set to a function, it is called whenever the global\n    zookeeper watch is dispatched using the same function signature, with the\n    exception that this object is used in place of the zookeeper handle.\n    "
+    default_ensemble = self.DEFAULT_ENSEMBLE
+    default_timeout = self.DEFAULT_TIMEOUT_SECONDS
+    if WITH_APP:
+        options = app.get_options()
+        default_ensemble = options.zookeeper
+        default_timeout = options.zookeeper_timeout
+    self._servers = (servers or default_ensemble)
+    self._timeout_secs = (timeout_secs or default_timeout)
+    self._init_count = 0
+    self._live = threading.Event()
+    self._stopped = threading.Event()
+    self._completions = Queue()
     self._zh = None
+    self._watch = watch
+    self._logger = logger
+    self._max_reconnects = max_reconnects
     self.reconnect()

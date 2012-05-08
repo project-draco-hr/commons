@@ -1,5 +1,0 @@
-{
-  Preconditions.checkNotNull(numerator);
-  Preconditions.checkNotNull(denominator);
-  return new Ratio(name,Suppliers.ofInstance(numerator),Suppliers.ofInstance(denominator));
-}

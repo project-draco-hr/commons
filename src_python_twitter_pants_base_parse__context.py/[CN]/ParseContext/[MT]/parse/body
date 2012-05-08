@@ -8,8 +8,7 @@ def parse(self, **globalargs):
         ast2 = compile('from twitter.common.quantity import Amount, Time', '<string>', 'exec')
         Compatibility.exec_function(ast1, pants_context)
         Compatibility.exec_function(ast2, pants_context)
-
-        def _parse():
+        with ParseContext.activate(self):
             start = os.path.abspath(os.curdir)
             try:
                 os.chdir(self.buildfile.parent_path)
@@ -21,4 +20,3 @@ def parse(self, **globalargs):
                     Compatibility.exec_function(buildfile.code(), eval_globals)
             finally:
                 os.chdir(start)
-        self.do_in_context(_parse)

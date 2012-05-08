@@ -1,0 +1,6 @@
+def teardown_function(self):
+    import zookeeper
+    self._torndown = True
+    if self._membership:
+        self._serverset.cancel(self._membership)
+        self._zookeeper.stop()

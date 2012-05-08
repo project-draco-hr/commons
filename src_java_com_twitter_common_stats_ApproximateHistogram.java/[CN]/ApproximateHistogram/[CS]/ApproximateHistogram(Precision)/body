@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(precision);
+  int b=computeB(precision.getEpsilon(),precision.getN());
+  int bufSize=computeBufferSize(b,precision.getN());
+  init(bufSize,b);
+}

@@ -1,0 +1,2 @@
+def _log(self, msg):
+    self._logger(('[zh:%s] %s' % (self._zh, msg)))

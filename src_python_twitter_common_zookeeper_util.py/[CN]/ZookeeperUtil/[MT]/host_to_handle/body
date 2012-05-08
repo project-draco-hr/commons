@@ -1,0 +1,11 @@
+@staticmethod
+def host_to_handle(host, timeout_seconds=5):
+    'Given a host or host:port pair, return a zookeeper handle.'
+    alive = threading.Event()
+
+    def on_alive(_1, event, state, _2):
+        if (state == zookeeper.CONNECTED_STATE):
+            alive.set()
+    zh = zookeeper.init(ZookeeperUtil.host_to_ensemble(host), on_alive)
+    alive.wait(timeout=timeout_seconds)
+    return zh

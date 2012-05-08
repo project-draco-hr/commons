@@ -1,0 +1,3 @@
+@classmethod
+def make_zk(cls, ensemble, **kw):
+    return ZooKeeper(ensemble, timeout_secs=cls.CONNECT_TIMEOUT_SECS, max_reconnects=cls.CONNECT_RETRIES, **kw)

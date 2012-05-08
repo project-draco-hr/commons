@@ -1,0 +1,33 @@
+def test_acquire_wait(self):
+    with temporary_dir() as path:
+        lockfile = os.path.join(path, 'lock')
+        childpid = os.fork()
+        if (childpid == 0):
+            lock = Lock.acquire(lockfile)
+            try:
+                while True:
+                    time.sleep(1)
+            except KeyboardInterrupt:
+                lock.release()
+        else:
+
+            def childup():
+                if (not os.path.exists(lockfile)):
+                    return False
+                else:
+                    with open(lockfile) as fd:
+                        pid = fd.read().strip()
+                        return (pid and (pid == str(childpid)))
+            while (not childup()):
+                time.sleep(0.1)
+
+            def onwait(pid):
+                self.assertEquals(childpid, pid)
+                return False
+            self.assertFalse(Lock.acquire(lockfile, onwait=onwait))
+            os.kill(childpid, signal.SIGINT)
+            lock = Lock.acquire(lockfile)
+            try:
+                self.assertTrue(lock)
+            finally:
+                self.assertTrue(lock.release())

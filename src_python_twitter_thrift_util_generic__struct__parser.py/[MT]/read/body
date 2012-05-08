@@ -1,0 +1,17 @@
+def read(iprot):
+    'Reads arbitrary thrift structs from a thrift protocol.\n\n  Returns a dictionary where:\n    - keys are constructed from the id of the field as "FIELD_" + id\n    - values are a tuple (type_name, data) where data is:\n      - in the case of STRUCTs the dictionary created calling this function\n      - in the case of simple data (I*, STRING, DOUBLE, ...) just the value\n      - for containters, respectively:\n        - a tuple ((key_type_name, value_type_name), dict)\n        - a tuple (value_type_name, list)\n        - a tuple (value_type_name, set)\n        where the elements in the dict, list and set are parsed using the same\n        rules.\n  '
+    data = {}
+    iprot.readStructBegin()
+    while True:
+        (fname, ftype, fid) = iprot.readFieldBegin()
+        if (ftype == TType.STOP):
+            break
+        else:
+            try:
+                val = _read_one_field(iprot, ftype)
+                data[('FIELD_%d' % fid)] = (_type_name(ftype), val)
+            except:
+                traceback.print_exc()
+        iprot.readFieldEnd()
+    iprot.readStructEnd()
+    return data

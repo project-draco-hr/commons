@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(maxMemory);
+  int b=computeB(DEFAULT_PRECISION.getEpsilon(),DEFAULT_PRECISION.getN());
+  int bufSize=computeBufferSize(b,DEFAULT_PRECISION.getN());
+  int maxDepth=computeMaxDepth(maxMemory,bufSize);
+  init(bufSize,maxDepth);
+}

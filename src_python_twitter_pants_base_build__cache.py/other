@@ -1,8 +1,12 @@
-from collections import namedtuple
 import errno
 import hashlib
 import os
 import shutil
+from abc import ABCMeta, abstractmethod
+from collections import namedtuple
 from twitter.common.lang import Compatibility
 from twitter.common.dirutil import safe_rmtree
-CacheKey = namedtuple('CacheKey', 'target_name, sources, hash, filename')
+CacheKey = namedtuple('CacheKey', ['sources', 'hash', 'filename'])
+NO_SOURCES = SourceScope.for_selector((lambda t: ()))
+TARGET_SOURCES = SourceScope.for_selector((lambda t: t.expand_files(recursive=False, include_buildfile=False)))
+TRANSITIVE_SOURCES = SourceScope.for_selector((lambda t: t.expand_files(recursive=True, include_buildfile=False)))

@@ -1,0 +1,3 @@
+@classmethod
+def id_to_znode(cls, _id):
+    return ('%s%010d' % (cls.MEMBER_PREFIX, _id))

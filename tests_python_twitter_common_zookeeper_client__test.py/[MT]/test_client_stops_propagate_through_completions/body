@@ -1,0 +1,20 @@
+def test_client_stops_propagate_through_completions():
+    with ZookeeperServer() as server:
+        zk = ZooKeeper(('localhost:%d' % server.zookeeper_port))
+        server.shutdown()
+        stopped_event = threading.Event()
+
+
+        class GetThread(threading.Thread):
+
+            def run(self):
+                try:
+                    zk.get_children('/')
+                except ZooKeeper.Stopped:
+                    stopped_event.set()
+        gt = GetThread()
+        gt.start()
+        time.sleep(0.1)
+        zk.stop()
+        stopped_event.wait(timeout=MAX_EVENT_WAIT_SECS)
+        assert stopped_event.is_set()

@@ -1,2 +1,3 @@
+@deprecated_with_warning("you're using deprecated pants commands, http://go/pantsmigration")
 def do_in_context(self, work):
     return ParseContext(self.address.buildfile).do_in_context(work)

@@ -1,0 +1,10 @@
+def __init__(self):
+    self.build()
+    self.thrift_port = None
+    self._service = None
+    self._zh = None
+    self.thrift_port = get_random_port()
+    command = (self.COMMAND % {'thrift_port': self.thrift_port, })
+    self._po = subprocess.Popen(command.split())
+    self._orphaned_pids.add(self._po.pid)
+    self.angrybird = self.setup_thrift()

@@ -1,5 +1,3 @@
 {
-synchronized (NUMERIC_STATS) {
-    return ImmutableList.copyOf(NUMERIC_STATS.values());
-  }
+  return ImmutableList.copyOf(ORDERED_NUMERIC_STATS);
 }

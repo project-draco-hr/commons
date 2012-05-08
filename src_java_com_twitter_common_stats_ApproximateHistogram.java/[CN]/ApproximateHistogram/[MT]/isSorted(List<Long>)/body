@@ -1,0 +1,11 @@
+{
+  boolean sorted=true;
+  int i=0;
+  while (sorted && i < list.size() - 1) {
+    if (list.get(i) > list.get(i + 1)) {
+      sorted=false;
+    }
+    i+=1;
+  }
+  return sorted;
+}

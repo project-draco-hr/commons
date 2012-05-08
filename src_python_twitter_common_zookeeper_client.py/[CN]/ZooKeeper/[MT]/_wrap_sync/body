@@ -1,0 +1,8 @@
+def _wrap_sync(self, function_name):
+    'Wrap a zookeeper module function in an error-handling completion that injects the\n       current zookeeper handle as the first parameter.'
+    function = getattr(zookeeper, function_name)
+
+    @wraps(function)
+    def _curry(*args, **kwargs):
+        return self.BlockingCompletion(self, function, logger=self._log, *args, **kwargs)()
+    return _curry

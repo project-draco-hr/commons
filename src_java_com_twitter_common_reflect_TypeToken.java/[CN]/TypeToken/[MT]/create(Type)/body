@@ -1,6 +1,0 @@
-{
-  Preconditions.checkNotNull(type);
-  return new TypeToken(type){
-  }
-;
-}

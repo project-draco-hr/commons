@@ -1,0 +1,35 @@
+def test_container_idioms(self):
+    zkg1 = self.GroupImpl(self._zk, '/test')
+    zkg2 = self.GroupImpl(self._zk, '/test')
+
+    def devnull(*args, **kw):
+        pass
+
+    def cancel_by_value(group, cancel_group, value):
+        for member in group:
+            if (group[member] == value):
+                cancel_group.cancel(member, callback=devnull)
+                break
+
+    def assert_iter_equals(membership, max_wait=self.MAX_EVENT_WAIT_SECS):
+        total_wait = 0.0
+        while (total_wait < max_wait):
+            members = list(zkg1)
+            if (len(members) == len(membership)):
+                break
+            time.sleep(0.1)
+            total_wait += 0.1
+        for member in members:
+            assert (zkg1[member] in membership)
+    zkg2.join('hello 1', callback=devnull)
+    zkg2.join('hello 2', callback=devnull)
+    zkg2.join('hello 3', callback=devnull)
+    assert_iter_equals(['hello 1', 'hello 2', 'hello 3'])
+    cancel_by_value(zkg1, zkg2, 'hello 2')
+    assert_iter_equals(['hello 1', 'hello 3'])
+    cancel_by_value(zkg1, zkg1, 'hello 3')
+    assert_iter_equals(['hello 1'])
+    zkg1.join('hello 4', callback=devnull)
+    assert_iter_equals(['hello 1', 'hello 4'])
+    zkg2.join('hello 5', callback=devnull)
+    assert_iter_equals(['hello 1', 'hello 4', 'hello 5'])
