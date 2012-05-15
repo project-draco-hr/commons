@@ -1,9 +1,9 @@
-def _identify(self):
-    if (len(self.context.target_roots) == 1):
-        target = self.context.target_roots[0]
+def identify(self):
+    if (len(self._context.target_roots) == 1):
+        target = self._context.target_roots[0]
         if (hasattr(target, 'provides') and target.provides):
             return (target.provides.org, target.provides.name)
         else:
             return ('internal', target.id)
     else:
-        return ('internal', self.context.id)
+        return ('internal', self._context.id)

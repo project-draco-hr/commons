@@ -1,0 +1,3 @@
+def is_jar_library(target):
+    'Returns True if the target is an external jar library.'
+    return isinstance(target, JarLibrary)

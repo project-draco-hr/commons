@@ -1,2 +1,0 @@
-def is_jvm(target):
-    return (isinstance(target, JavaLibrary) or isinstance(target, JavaTests) or isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests))

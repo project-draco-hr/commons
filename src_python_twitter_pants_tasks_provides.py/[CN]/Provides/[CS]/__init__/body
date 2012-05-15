@@ -1,0 +1,9 @@
+def __init__(self, context):
+    Task.__init__(self, context)
+    self.ivy_utils = IvyUtils(context, context.config.get('ivy', 'cache_dir'))
+    self.confs = context.config.getlist('ivy', 'confs')
+    self.target_roots = context.target_roots
+    self.transitive = context.options.provides_transitive
+    self.workdir = context.config.get('provides', 'workdir')
+    context.add_new_target(self.workdir, JvmBinary, name='provides', dependencies=self.target_roots, configurations=self.confs)
+    context.products.require('jars')

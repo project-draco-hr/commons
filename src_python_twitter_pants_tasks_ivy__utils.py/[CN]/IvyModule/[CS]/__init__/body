@@ -1,0 +1,4 @@
+def __init__(self, ref, artifacts, callers):
+    self.ref = ref
+    self.artifacts = artifacts
+    self.callers = callers

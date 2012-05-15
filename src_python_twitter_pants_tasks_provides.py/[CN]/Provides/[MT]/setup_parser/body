@@ -1,0 +1,3 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('transitive'), default=False, action='store_true', dest='provides_transitive', help='Shows the symbols provided not just by the specified targets but by all their transitive dependencies.')

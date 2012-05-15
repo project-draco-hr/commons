@@ -1,0 +1,3 @@
+def __init__(self):
+    self.modules_by_ref = {}
+    self.deps_by_caller = {}

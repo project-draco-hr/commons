@@ -82,5 +82,7 @@ from twitter.pants.tasks.idea_gen import IdeaGen
 goal(name='idea', action=IdeaGen, dependencies=['jar']).install().with_description('Create an IntelliJ IDEA project from the given targets.')
 from twitter.pants.tasks.eclipse_gen import EclipseGen
 goal(name='eclipse', action=EclipseGen, dependencies=['jar']).install().with_description('Create an Eclipse project from the given targets.')
+from twitter.pants.tasks.provides import Provides
+goal(name='provides', action=Provides, dependencies=['jar']).install().with_description('Emit the list of symbols provided by the given targets.')
 from twitter.pants.tasks.python.setup import SetupPythonEnvironment
 goal(name='python-setup', action=SetupPythonEnvironment).install('setup').with_description("Setup the target's build environment.")

@@ -1,0 +1,15 @@
+def get_jar_paths(self, ivyinfo, target, conf):
+    jar_paths = OrderedSet()
+    if is_jar_library(target):
+        for paths in [self.get_jar_paths(ivyinfo, dep, conf) for dep in target.dependencies]:
+            jar_paths.update(paths)
+    elif is_jar_dependency(target):
+        ref = IvyModuleRef(target.org, target.name, target.rev, conf)
+        jar_paths.update(self.get_jar_paths_for_ivy_module(ivyinfo, ref))
+    elif is_jvm(target):
+        for (basedir, jars) in self.context.products.get('jars').get(target).items():
+            jar_paths.update([os.path.join(basedir, jar) for jar in jars])
+        if self.transitive:
+            for dep in target.dependencies:
+                jar_paths.update(self.get_jar_paths(ivyinfo, dep, conf))
+    return jar_paths

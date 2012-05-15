@@ -1,12 +1,12 @@
 def _generate_ivy_report(self):
     classpath = binary_utils.nailgun_profile_classpath(self, self._profile)
     reports = []
-    (org, name) = self._identify()
+    (org, name) = self._ivy_utils.identify()
     xsl = os.path.join(self._cachedir, 'ivy-report.xsl')
     safe_mkdir(self._outdir, clean=True)
     for conf in self._confs:
         params = dict(org=org, name=name, conf=conf)
-        xml = os.path.join(self._cachedir, ('%(org)s-%(name)s-%(conf)s.xml' % params))
+        xml = self._ivy_utils.xml_report_path(conf)
         out = os.path.join(self._outdir, ('%(org)s-%(name)s-%(conf)s.html' % params))
         args = ['-IN', xml, '-XSL', xsl, '-OUT', out]
         self.runjava('org.apache.xalan.xslt.Process', classpath=classpath, args=args)

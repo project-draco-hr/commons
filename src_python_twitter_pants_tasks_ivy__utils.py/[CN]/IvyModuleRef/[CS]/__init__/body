@@ -1,0 +1,5 @@
+def __init__(self, org, name, rev, conf):
+    self.org = org
+    self.name = name
+    self.rev = rev
+    self.conf = conf

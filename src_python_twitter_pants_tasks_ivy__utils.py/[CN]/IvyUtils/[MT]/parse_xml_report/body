@@ -1,0 +1,21 @@
+def parse_xml_report(self, conf):
+    'Returns the IvyInfo representing the info in the xml report.'
+    ret = IvyInfo()
+    etree = xml.etree.ElementTree.parse(self.xml_report_path(conf))
+    doc = etree.getroot()
+    for module in doc.findall('dependencies/module'):
+        org = module.get('organisation')
+        name = module.get('name')
+        for revision in module.findall('revision'):
+            rev = revision.get('name')
+            confs = self._split_conf(revision.get('conf'))
+            artifacts = []
+            for artifact in revision.findall('artifacts/artifact'):
+                artifacts.append(IvyArtifact(artifact.get('location')))
+            callers = []
+            for caller in revision.findall('caller'):
+                for caller_conf in self._split_conf(caller.get('conf')):
+                    callers.append(IvyModuleRef(caller.get('organisation'), caller.get('name'), caller.get('callerrev'), caller_conf))
+            for conf in confs:
+                ret.add_module(IvyModule(IvyModuleRef(org, name, rev, conf), artifacts, callers))
+    return ret

@@ -1,0 +1,3 @@
+def is_jar_dependency(dep):
+    'Returns True if the dependency is an external jar.'
+    return isinstance(dep, JarDependency)
