@@ -5,5 +5,7 @@ def __init__(self, context):
     self.target_roots = context.target_roots
     self.transitive = context.options.provides_transitive
     self.workdir = context.config.get('provides', 'workdir')
+    self.outdir = (context.options.provides_outdir or self.workdir)
+    self.also_write_to_stdout = (context.options.provides_also_write_to_stdout or False)
     context.add_new_target(self.workdir, JvmBinary, name='provides', dependencies=self.target_roots, configurations=self.confs)
     context.products.require('jars')

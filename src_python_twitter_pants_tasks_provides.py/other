@@ -1,5 +1,6 @@
 __author__ = 'Benjy Weinberger'
 import os
+import sys
 from twitter.common.collections import OrderedSet
 from twitter.common.contextutil import open_zip as open_jar
 from twitter.pants import is_jar_dependency, is_jar_library, is_jvm
