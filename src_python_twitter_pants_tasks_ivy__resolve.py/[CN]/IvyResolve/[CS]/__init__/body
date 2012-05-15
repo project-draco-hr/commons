@@ -3,7 +3,7 @@ def __init__(self, context):
     nailgun_dir = context.config.get('ivy-resolve', 'nailgun_dir')
     NailgunTask.__init__(self, context, classpath=classpath, workdir=nailgun_dir)
     self._ivy_settings = context.config.get('ivy', 'ivy_settings')
-    self._cachedir = context.config.get('ivy-resolve', 'cache_dir')
+    self._cachedir = context.config.get('ivy', 'cache_dir')
     self._confs = context.config.getlist('ivy-resolve', 'confs')
     self._transitive = context.config.getbool('ivy-resolve', 'transitive')
     self._args = context.config.getlist('ivy-resolve', 'args')
@@ -15,6 +15,7 @@ def __init__(self, context):
     self._outdir = (context.options.ivy_resolve_outdir or os.path.join(self._work_dir, 'reports'))
     self._open = context.options.ivy_resolve_open
     self._report = (self._open or context.options.ivy_resolve_report)
+    self._ivy_utils = IvyUtils(context, self._cachedir)
 
     def parse_override(override):
         match = re.match('^([^#]+)#([^=]+)=([^\\s]+)$', override)

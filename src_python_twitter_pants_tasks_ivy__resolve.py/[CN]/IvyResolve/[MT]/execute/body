@@ -25,12 +25,13 @@ def execute(self, targets):
         ivyxml_symlink = os.path.join(self._work_dir, 'ivy.xml')
         target_ivyxml = os.path.join(target_workdir, 'ivy.xml')
         safe_link(target_ivyxml, ivyxml_symlink)
-    with self._cachepath(self._classpath_file) as classpath:
-        with self.context.state('classpath', []) as cp:
-            for path in classpath:
-                if self._is_jar(path):
-                    for conf in self._confs:
-                        cp.append((conf, path.strip()))
+    if os.path.exists(self._classpath_file):
+        with self._cachepath(self._classpath_file) as classpath:
+            with self.context.state('classpath', []) as cp:
+                for path in classpath:
+                    if self._is_jar(path):
+                        for conf in self._confs:
+                            cp.append((conf, path.strip()))
     if self._report:
         self._generate_ivy_report()
     create_jardeps_for = self.context.products.isrequired('jar_dependencies')

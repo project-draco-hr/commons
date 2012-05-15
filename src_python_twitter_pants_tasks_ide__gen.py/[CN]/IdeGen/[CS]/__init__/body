@@ -1,5 +1,5 @@
 def __init__(self, context):
-    Task.__init__(self, context)
+    JvmBinaryTask.__init__(self, context)
     self.project_name = context.options.ide_gen_project_name
     self.python = context.options.ide_gen_python
     self.skip_java = (not context.options.ide_gen_java)

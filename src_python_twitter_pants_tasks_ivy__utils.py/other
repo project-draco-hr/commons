@@ -1,0 +1,7 @@
+from collections import namedtuple, defaultdict
+import os
+import xml
+from twitter.common.collections import OrderedSet
+IvyModuleRef = namedtuple('IvyModuleRef', ['org', 'name', 'rev', 'conf'])
+IvyArtifact = namedtuple('IvyArtifact', ['path'])
+IvyModule = namedtuple('IvyModule', ['ref', 'artifacts', 'callers'])

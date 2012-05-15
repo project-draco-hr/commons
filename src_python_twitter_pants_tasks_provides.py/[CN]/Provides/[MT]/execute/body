@@ -1,0 +1,23 @@
+def execute(self, targets):
+    for conf in self.confs:
+        outpath = os.path.join(self.outdir, ('%s.%s.provides' % (self.ivy_utils.identify()[1], conf)))
+        if self.transitive:
+            outpath += '.transitive'
+        ivyinfo = self.ivy_utils.parse_xml_report(conf)
+        jar_paths = OrderedSet()
+        for root in self.target_roots:
+            jar_paths.update(self.get_jar_paths(ivyinfo, root, conf))
+        with open(outpath, 'w') as outfile:
+
+            def do_write(s):
+                outfile.write(s)
+                if self.also_write_to_stdout:
+                    sys.stdout.write(s)
+            for jar in jar_paths:
+                do_write(('# from jar %s\n' % jar))
+                for line in self.list_jar(jar):
+                    if line.endswith('.class'):
+                        class_name = line[:(-6)].replace('/', '.')
+                        do_write(class_name)
+                        do_write('\n')
+        print ('Wrote provides information to %s' % outpath)

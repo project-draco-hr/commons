@@ -1,0 +1,2 @@
+def _split_conf(self, conf):
+    return [c.strip() for c in conf.split(',')]
