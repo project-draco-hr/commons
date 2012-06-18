@@ -1,0 +1,4 @@
+ZooKeeperClient zkClient
+String path
+byte[] membershipData
+ImmutableList<ACL> acl

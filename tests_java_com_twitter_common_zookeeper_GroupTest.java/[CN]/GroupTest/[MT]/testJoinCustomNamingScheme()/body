@@ -1,0 +1,11 @@
+{
+  group=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group",new CustomNamingScheme());
+  listener=new RecordingListener();
+  group.watch(listener);
+  assertEmptyMembershipObserved();
+  Membership membership=group.join();
+  String memberId=membership.getMemberId();
+  assertEquals("Wrong member ID.",CustomNamingScheme.NODENAME,memberId);
+  assertMembershipObserved(memberId);
+  expireSession(zkClient);
+}
