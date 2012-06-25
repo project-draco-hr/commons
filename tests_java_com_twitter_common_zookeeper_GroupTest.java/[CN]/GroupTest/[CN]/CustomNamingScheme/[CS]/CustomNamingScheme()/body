@@ -1,0 +1,9 @@
+{
+  final Pattern groupNodeNamePattern=Pattern.compile("^" + Pattern.quote(NODENAME));
+  nodeNameFilter=new Predicate<String>(){
+    @Override public boolean apply(    String childNodeName){
+      return groupNodeNamePattern.matcher(childNodeName).matches();
+    }
+  }
+;
+}

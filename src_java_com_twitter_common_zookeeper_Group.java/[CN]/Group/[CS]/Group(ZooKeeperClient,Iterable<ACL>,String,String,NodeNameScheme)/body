@@ -1,0 +1,8 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.acl=ImmutableList.copyOf(acl);
+  this.path=normalizePath(Preconditions.checkNotNull(path));
+  this.nodeNamePrefix=MorePreconditions.checkNotBlank(nodeNamePrefix);
+  this.nodeNameScheme=Preconditions.checkNotNull(nodeNameScheme);
+  backoffHelper=new BackoffHelper();
+}

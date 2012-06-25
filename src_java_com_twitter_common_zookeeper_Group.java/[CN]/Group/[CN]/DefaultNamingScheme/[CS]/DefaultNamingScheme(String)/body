@@ -1,0 +1,10 @@
+{
+  this.nodeNamePrefix=MorePreconditions.checkNotBlank(nodeNamePrefix);
+  final Pattern groupNodeNamePattern=Pattern.compile("^" + Pattern.quote(nodeNamePrefix) + "[0-9]+$");
+  nodeNameFilter=new Predicate<String>(){
+    @Override public boolean apply(    String childNodeName){
+      return groupNodeNamePattern.matcher(childNodeName).matches();
+    }
+  }
+;
+}
