@@ -12,4 +12,5 @@ def __init__(self, context):
         self._args.extend(context.config.getlist('java-compile', 'warning_args'))
     else:
         self._args.extend(context.config.getlist('java-compile', 'no_warning_args'))
+    self._flatten = context.options.java_compile_flatten
     self._confs = context.config.getlist('java-compile', 'confs')

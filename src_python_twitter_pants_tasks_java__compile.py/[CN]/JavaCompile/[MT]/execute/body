@@ -1,4 +1,10 @@
 def execute(self, targets):
+    if ((not self._flatten) and (len(targets) > 1)):
+        topologically_sorted_targets = filter(JavaCompile._is_java, reversed(InternalTarget.sort_targets(targets)))
+        for target in topologically_sorted_targets:
+            self.execute([target])
+        return
+    self.context.log.info(('Compiling targets %s' % str(targets)))
     java_targets = filter(JavaCompile._is_java, targets)
     if java_targets:
         with self.context.state('classpath', []) as cp:
