@@ -5,6 +5,7 @@ from twitter.common import log
 from twitter.common.dirutil import safe_open, safe_mkdir
 from twitter.pants import is_apt
 from twitter.pants.targets import JavaLibrary, JavaTests
+from twitter.pants.targets.internal import InternalTarget
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.binary_utils import nailgun_profile_classpath
 from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
