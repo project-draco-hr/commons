@@ -8,14 +8,9 @@ def findclasses(self, targets):
             target_by_source[src] = target
             sources.add(src)
     classes_by_target_by_source = defaultdict((lambda : defaultdict(set)))
-    if os.path.exists(self.depfile):
-        with open(self.depfile, 'r') as deps:
-            for dep in deps.readlines():
-                (src, cls) = dep.strip().split('->')
-                sourcefile = os.path.relpath(os.path.join(self.outputdir, src.strip()), get_buildroot())
-                if (sourcefile in sources):
-                    classfile = os.path.relpath(os.path.join(self.outputdir, cls.strip()), self.outputdir)
-                    target = target_by_source[sourcefile]
-                    relsrc = os.path.relpath(sourcefile, target.target_base)
-                    classes_by_target_by_source[target][relsrc].add(classfile)
+    for (sourcefile, classfiles) in self.classes_by_source.items():
+        if (sourcefile in sources):
+            target = target_by_source[sourcefile]
+            relsrc = os.path.relpath(sourcefile, target.target_base)
+            classes_by_target_by_source[target][relsrc] = classfiles
     return classes_by_target_by_source

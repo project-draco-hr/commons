@@ -2,4 +2,4 @@
 def setup_parser(cls, option_group, args, mkflag):
     NailgunTask.setup_parser(option_group, args, mkflag)
     option_group.add_option(mkflag('warnings'), mkflag('warnings', negate=True), dest='java_compile_warnings', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Compile java code with all configured warnings enabled.')
-    option_group.add_option(mkflag('flatten'), mkflag('flatten', negate=True), dest='java_compile_flatten', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Compile java code for all dependencies in a single pass.')
+    option_group.add_option(mkflag('flatten'), mkflag('flatten', negate=True), dest='java_compile_flatten', action='callback', callback=mkflag.set_bool, help='[%default] Compile java code for all dependencies in a single compilation.')

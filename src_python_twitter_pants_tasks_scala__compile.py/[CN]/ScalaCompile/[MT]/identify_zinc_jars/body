@@ -1,0 +1,6 @@
+@staticmethod
+def identify_zinc_jars(compiler_classpath, zinc_classpath):
+    ret = OrderedDict()
+    ret.update(ScalaCompile.identify_jars(ScalaCompile.compiler_jar_names, compiler_classpath))
+    ret.update(ScalaCompile.identify_jars(ScalaCompile.zinc_jar_names, zinc_classpath))
+    return ret

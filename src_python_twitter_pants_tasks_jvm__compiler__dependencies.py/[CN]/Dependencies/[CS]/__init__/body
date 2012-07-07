@@ -1,3 +1,4 @@
-def __init__(self, outputdir, depfile):
+def __init__(self, outputdir):
     self.outputdir = outputdir
-    self.depfile = depfile
+    self.classes_by_source = defaultdict(set)
+    self.buildroot = get_buildroot()
