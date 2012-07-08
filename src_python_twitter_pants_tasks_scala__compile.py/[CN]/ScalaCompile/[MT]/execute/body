@@ -8,7 +8,7 @@ def execute(self, targets):
                 cp.insert(0, (conf, self._resources_dir))
                 if (not (self._incremental and (not self._flatten))):
                     cp.insert(0, (conf, self._classes_dir))
-        if ((not self._flatten) and (len(scala_targets) > 1)):
+        if (not self._flatten):
             upstream_analysis_caches = OrderedDict()
             for target in scala_targets:
                 self.execute_single_compilation([target], cp, upstream_analysis_caches)

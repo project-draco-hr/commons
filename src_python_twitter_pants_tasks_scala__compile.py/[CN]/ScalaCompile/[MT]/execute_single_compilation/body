@@ -3,10 +3,8 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
     self.context.log.info(('Compiling targets %s' % str(scala_targets)))
     if (len(scala_targets) == 1):
         compilation_id = scala_targets[0].id
-    elif (len(self.context.target_roots) == 1):
-        compilation_id = self.context.target_roots[0].id
     else:
-        compilation_id = self.context.id
+        compilation_id = self.context.identify(scala_targets)
     depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
     if self._incremental:
         if self._flatten:
@@ -41,6 +39,7 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
                                 os.mkdir(dir)
                         for f in [os.path.join(dirpath, x) for x in filenames]:
                             shutil.copy(f, os.path.join(self._classes_dir, os.path.relpath(f, output_dir)))
+    self.context.log.debug(('Reading dependencies from ' + depfile))
     deps = Dependencies(output_dir)
     deps.load(depfile)
     self._deps.merge(deps)

@@ -7,7 +7,7 @@ def execute(self, targets):
             for conf in self._confs:
                 cp.insert(0, (conf, self._resources_dir))
                 cp.insert(0, (conf, self._classes_dir))
-        if ((not self._flatten) and (len(java_targets) > 1)):
+        if (not self._flatten):
             for target in java_targets:
                 self.execute_single_compilation([target], cp)
         else:
