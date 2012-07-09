@@ -7,7 +7,7 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
     if self._incremental:
         args = [('-S' + x) for x in compiler_args]
         if (len(upstream_analysis_caches) > 0):
-            args.extend(['-analysis-map', ','.join([('%s:%s' % (k, v)) for (k, v) in upstream_analysis_caches.items()])])
+            args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in upstream_analysis_caches.items()])])
         upstream_jars = upstream_analysis_caches.keys()
         zinc_classpath = nailgun_profile_classpath(self, self._zinc_profile)
         zinc_jars = ScalaCompile.identify_zinc_jars(compiler_classpath, zinc_classpath)

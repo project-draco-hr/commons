@@ -28,5 +28,3 @@ def __init__(self, context):
     self._confs = context.config.getlist('scala-compile', 'confs')
     self._depfile_dir = os.path.join(workdir, 'depfiles')
     self._deps = Dependencies(self._classes_dir)
-    self._zinc_home = os.path.join(context.config.get('ivy-profiles', 'workdir'), (self._zinc_profile + '.libs'))
-    self._jar_workdir = context.config.get('jar-create', 'workdir')
