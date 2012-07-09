@@ -38,7 +38,10 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
                             if (not os.path.isdir(dir)):
                                 os.mkdir(dir)
                         for f in [os.path.join(dirpath, x) for x in filenames]:
-                            os.link(f, os.path.join(self._classes_dir, os.path.relpath(f, output_dir)))
+                            outfile = os.path.join(self._classes_dir, os.path.relpath(f, output_dir))
+                            if os.path.exists(outfile):
+                                os.unlink(outfile)
+                            os.link(f, outfile)
     self.context.log.debug(('Reading dependencies from ' + depfile))
     deps = Dependencies(output_dir)
     deps.load(depfile)
