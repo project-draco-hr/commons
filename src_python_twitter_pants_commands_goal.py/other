@@ -14,6 +14,7 @@ from twitter.pants import get_buildroot, goal, group, is_apt, is_scala
 from twitter.pants.base import Address, BuildFile, Config, ParseContext, Target
 from twitter.pants.base.rcfile import RcFile
 from twitter.pants.commands import Command
+from twitter.pants.targets import InternalTarget
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.goal import Context, GoalError, Phase
 StringIO = Compatibility.StringIO

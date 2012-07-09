@@ -1,4 +1,10 @@
 def run(self, lock):
+    with self.check_errors('Target contains a dependency cycle') as error:
+        for target in self.targets:
+            try:
+                InternalTarget.check_cycles(target)
+            except InternalTarget.CycleException as e:
+                error(target.id)
     timer = None
     if self.options.time:
 
