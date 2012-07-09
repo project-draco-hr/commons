@@ -2,10 +2,11 @@ def __init__(self, root_dir, parser, args):
     'root_dir: The root directory of the pants workspace\n    parser: an OptionParser\n    argv: the subcommand arguments to parse'
     self.root_dir = root_dir
 
-    def error(message=None):
+    def error(message=None, show_help=True):
         if message:
             print((message + '\n'))
-        parser.print_help()
+        if show_help:
+            parser.print_help()
         parser.exit(status=1)
     parser.error = error
     self.error = error

@@ -26,4 +26,4 @@ def check_errors(self, banner):
         for (key, exc) in errors.items():
             if exc:
                 msg.write(('\n  %s =>\n    %s' % (key, '\n      '.join(exc.splitlines()))))
-        self.error(msg.getvalue())
+        self.error(msg.getvalue(), show_help=False)
