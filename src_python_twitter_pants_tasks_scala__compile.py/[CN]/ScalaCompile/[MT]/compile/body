@@ -1,8 +1,24 @@
-def compile(self, classpath, sources):
-    safe_mkdir(self._classes_dir)
+def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile):
+    safe_mkdir(output_dir)
     compiler_classpath = nailgun_profile_classpath(self, self._compile_profile)
-    args = ['-classpath', ':'.join((compiler_classpath + classpath)), '-d', self._classes_dir, ('-Xplugin:%s' % self.get_depemitter_plugin()), ('-P:depemitter:file:%s' % self._depfile)]
-    args.extend(self._args)
+    compiler_args = []
+    compiler_args.extend([('-Xplugin:%s' % self.get_depemitter_plugin()), ('-P:depemitter:file:%s' % depfile)])
+    compiler_args.extend(self._args)
+    if self._incremental:
+        args = [('-S' + x) for x in compiler_args]
+        if (len(upstream_analysis_caches) > 0):
+            args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in upstream_analysis_caches.items()])])
+        upstream_jars = upstream_analysis_caches.keys()
+        zinc_classpath = nailgun_profile_classpath(self, self._zinc_profile)
+        zinc_jars = ScalaCompile.identify_zinc_jars(compiler_classpath, zinc_classpath)
+        for (name, jarpath) in zinc_jars.items():
+            args.extend([('-%s' % name), jarpath])
+        args.extend(['-analysis-cache', analysis_cache, '-log-level', (self.context.options.log_level or 'info'), '-classpath', ':'.join(((zinc_classpath + classpath) + upstream_jars))])
+        run_classpath = zinc_classpath
+    else:
+        args = (compiler_args + ['-classpath', ':'.join((compiler_classpath + classpath))])
+        run_classpath = compiler_classpath
+    args.extend(['-d', output_dir])
     args.extend(sources)
     self.context.log.debug(('Executing: %s %s' % (self._main, ' '.join(args))))
-    return self.runjava(self._main, classpath=compiler_classpath, args=args)
+    return self.runjava(self._main, classpath=run_classpath, args=args, jvmargs=self._jvm_args)

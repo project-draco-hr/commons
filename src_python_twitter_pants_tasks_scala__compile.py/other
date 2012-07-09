@@ -2,7 +2,8 @@ __author__ = 'John Sirois'
 import os
 import textwrap
 from collections import defaultdict
-from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.common.collections import OrderedDict
+from twitter.common.dirutil import safe_mkdir, safe_open, safe_rmtree
 from twitter.pants import is_scala, is_scalac_plugin
 from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.targets.scala_tests import ScalaTests
@@ -10,6 +11,7 @@ from twitter.pants.targets import resolve_target_sources
 from twitter.pants.targets.internal import InternalTarget
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.binary_utils import nailgun_profile_classpath
+from twitter.pants.tasks.jar_create import JarCreate, jarname
 from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
 from twitter.pants.tasks.nailgun_task import NailgunTask
 _PLUGIN_INFO_FILE = 'scalac-plugin.xml'

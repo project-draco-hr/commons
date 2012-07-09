@@ -1,0 +1,29 @@
+def execute_single_compilation(self, java_targets, cp):
+    self.context.log.info(('Compiling targets %s' % str(java_targets)))
+    if (len(java_targets) == 1):
+        compilation_id = java_targets[0].id
+    else:
+        compilation_id = self.context.identify(java_targets)
+    depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
+    with self.changed(java_targets, invalidate_dependants=True) as changed:
+        (sources_by_target, processors, fingerprint) = self.calculate_sources(changed)
+        if sources_by_target:
+            sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
+            if (not sources):
+                self.context.log.warn(('Skipping java compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
+            else:
+                classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
+                result = self.compile(classpath, sources, fingerprint, depfile)
+                if (result != 0):
+                    default_message = ('Unexpected error - %s returned %d' % (_JMAKE_MAIN, result))
+                    raise TaskError(_JMAKE_ERROR_CODES.get(result, default_message))
+            if processors:
+                processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
+                if os.path.exists(processor_info_file):
+                    with safe_open(processor_info_file, 'r') as f:
+                        for processor in f:
+                            processors.add(processor.strip())
+                self.write_processor_info(processor_info_file, processors)
+    deps = Dependencies(self._classes_dir)
+    deps.load(depfile)
+    self._deps.merge(deps)

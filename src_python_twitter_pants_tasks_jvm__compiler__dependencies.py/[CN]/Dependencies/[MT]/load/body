@@ -1,0 +1,10 @@
+def load(self, depfile):
+    'Load an existing depfile, if any, into this object. Any existing mappings are discarded.'
+    self.classes_by_source = defaultdict(set)
+    if os.path.exists(depfile):
+        with open(depfile, 'r') as deps:
+            for dep in deps.readlines():
+                (src, cls) = dep.strip().split('->')
+                sourcefile = os.path.relpath(os.path.join(self.outputdir, src.strip()), self.buildroot)
+                classfile = os.path.relpath(os.path.join(self.outputdir, cls.strip()), self.outputdir)
+                self.classes_by_source[sourcefile].add(classfile)

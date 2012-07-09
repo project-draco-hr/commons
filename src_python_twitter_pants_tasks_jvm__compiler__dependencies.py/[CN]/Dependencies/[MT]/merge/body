@@ -1,0 +1,4 @@
+def merge(self, other_deps):
+    "\n    Merges the other deps into this object. The other deps will take precedence. In other words, if the other\n    deps provide any mapping for a source file, all that source file's existing mappings will be dropped.\n    "
+    for (sourcefile, classfiles) in other_deps.classes_by_source.items():
+        self.classes_by_source[sourcefile] = classfiles.copy()
