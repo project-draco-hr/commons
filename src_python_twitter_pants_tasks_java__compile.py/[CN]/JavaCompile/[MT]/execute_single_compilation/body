@@ -4,7 +4,10 @@ def execute_single_compilation(self, java_targets, cp):
         compilation_id = java_targets[0].id
     else:
         compilation_id = self.context.identify(java_targets)
-    depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
+    if self._flatten:
+        depfile = os.path.join(self._depfile_dir, 'dependencies.flat')
+    else:
+        depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
     with self.changed(java_targets, invalidate_dependants=True) as changed:
         (sources_by_target, processors, fingerprint) = self.calculate_sources(changed)
         if sources_by_target:
