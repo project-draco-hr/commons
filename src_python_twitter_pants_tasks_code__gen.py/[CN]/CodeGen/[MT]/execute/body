@@ -36,3 +36,5 @@ def execute(self, targets):
                 for dep in self.getdependencies(gentarget):
                     if self.is_gentarget(dep):
                         self.updatedependencies(langtarget, langtarget_by_gentarget[dep])
+                    else:
+                        self.updatedependencies(langtarget, dep)
