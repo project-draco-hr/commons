@@ -4,6 +4,7 @@ except ImportError:
     import pickle
 from collections import defaultdict
 from contextlib import contextmanager
+import hashlib
 import os
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_rmtree, safe_mkdir, safe_open

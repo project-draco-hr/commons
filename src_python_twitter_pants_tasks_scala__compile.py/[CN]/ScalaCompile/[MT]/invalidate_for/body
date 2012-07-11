@@ -1,0 +1,2 @@
+def invalidate_for(self):
+    return [self._incremental, self._flatten]
