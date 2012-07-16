@@ -1,0 +1,2 @@
+def invalidate_for_files(self):
+    '\n      Subclasses can override and return a list of full paths to extra files that should be checked\n      for changes when using changed to manage target invalidation. This is useful for tracking\n      changes to pre-built build tools, e.g., the thrift compiler.\n    '

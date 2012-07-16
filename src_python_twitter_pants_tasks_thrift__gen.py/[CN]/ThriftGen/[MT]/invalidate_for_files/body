@@ -1,0 +1,2 @@
+def invalidate_for_files(self):
+    return [self.thrift_binary]
