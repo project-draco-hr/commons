@@ -1,4 +1,5 @@
 __author__ = 'jsirois'
+import daemon
 import inspect
 import os
 import sys
@@ -43,6 +44,7 @@ from twitter.pants.tasks.thrift_gen import ThriftGen
 from twitter.pants.tasks.thriftstore_dml_gen import ThriftstoreDMLGen
 goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all caches')
 goal(name='clean-all', action=(lambda ctx: safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output')
+goal(name='clean-all-async', action=(lambda ctx: async_safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output in a background process')
 if NailgunTask.killall:
 
 
