@@ -1,8 +1,7 @@
 from __future__ import print_function
+import os.path
 import pkgutil
 import pytest
-import unittest
-import os.path
 from twitter.thrift.descriptors.thrift_parser import ThriftParser
 from twitter.thrift.descriptors.thrift_parser_error import ThriftParserError
 from twitter.thrift.text import thrift_json_encoder
