@@ -1,0 +1,6 @@
+def maybe_readable_identify(self, targets):
+    if (len(targets) == 1):
+        id = targets[0].id
+    else:
+        id = self.identify(targets)
+    return id
