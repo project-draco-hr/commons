@@ -1,10 +1,7 @@
 def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches):
     'Execute a single compilation, updating upstream_analysis_caches if needed.'
     self.context.log.info(('Compiling targets %s' % str(scala_targets)))
-    if (len(scala_targets) == 1):
-        compilation_id = scala_targets[0].id
-    else:
-        compilation_id = self.context.identify(scala_targets)
+    compilation_id = self.context.maybe_readable_identify(scala_targets)
     if self._flatten:
         depfile = os.path.join(self._depfile_dir, 'dependencies.flat')
     else:
