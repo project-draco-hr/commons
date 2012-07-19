@@ -6,17 +6,13 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
         depfile = os.path.join(self._depfile_dir, 'dependencies.flat')
     else:
         depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
-    if self._incremental:
-        if self._flatten:
-            output_dir = self._classes_dir
-            analysis_cache = (os.path.join(self._analysis_cache_dir, compilation_id) + '.flat')
-        else:
-            output_dir = os.path.join(self._incremental_classes_dir, compilation_id)
-            analysis_cache = os.path.join(self._analysis_cache_dir, compilation_id)
-    else:
+    if self._flatten:
         output_dir = self._classes_dir
-        analysis_cache = None
-    if (self._incremental and self._flatten):
+        analysis_cache = (os.path.join(self._analysis_cache_dir, compilation_id) + '.flat')
+    else:
+        output_dir = os.path.join(self._incremental_classes_dir, compilation_id)
+        analysis_cache = os.path.join(self._analysis_cache_dir, compilation_id)
+    if self._flatten:
         invalidate_globally = True
     else:
         invalidate_globally = False
@@ -46,5 +42,5 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
     deps = Dependencies(output_dir)
     deps.load(depfile)
     self._deps.merge(deps)
-    if (self._incremental and (not self._flatten)):
+    if (not self._flatten):
         upstream_analysis_caches[output_dir] = analysis_cache

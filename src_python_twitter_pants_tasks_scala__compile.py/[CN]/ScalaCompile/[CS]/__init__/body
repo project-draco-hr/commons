@@ -1,6 +1,5 @@
 def __init__(self, context):
     NailgunTask.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
-    self._incremental = (context.options.scala_compile_incremental if (context.options.scala_compile_incremental is not None) else context.config.getbool('scala-compile', 'default_to_incremental'))
     self._flatten = (context.options.scala_compile_flatten if (context.options.scala_compile_flatten is not None) else context.config.getbool('scala-compile', 'default_to_flatten'))
     self._compile_profile = context.config.get('scala-compile', 'compile-profile')
     self._zinc_profile = context.config.get('scala-compile', 'zinc-profile')
@@ -15,10 +14,7 @@ def __init__(self, context):
     self._classes_dir = os.path.join(workdir, 'classes')
     self._analysis_cache_dir = os.path.join(workdir, 'analysis_cache')
     self._resources_dir = os.path.join(workdir, 'resources')
-    if self._incremental:
-        self._main = context.config.get('scala-compile', 'zinc-main')
-    else:
-        self._main = context.config.get('scala-compile', 'main')
+    self._main = context.config.get('scala-compile', 'main')
     self._args = context.config.getlist('scala-compile', 'args')
     self._jvm_args = context.config.getlist('scala-compile', 'jvm_args')
     if context.options.scala_compile_warnings:
