@@ -1,5 +1,6 @@
 __author__ = 'John Sirois'
 import os
+import shutil
 import textwrap
 from collections import defaultdict
 from twitter.common.collections import OrderedDict
