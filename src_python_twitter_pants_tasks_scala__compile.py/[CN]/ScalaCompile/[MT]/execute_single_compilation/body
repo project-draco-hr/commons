@@ -23,5 +23,6 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
     deps.load(depfile)
     self._deps.merge(deps)
     analysis_cache_parts = os.path.split(analysis_cache)
-    upstream_analysis_caches.add(output_dir, analysis_cache_parts[0], [analysis_cache_parts[1]])
+    if (not upstream_analysis_caches.has(output_dir)):
+        upstream_analysis_caches.add(output_dir, analysis_cache_parts[0], [analysis_cache_parts[1]])
     return compilation_id
