@@ -13,7 +13,7 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
         if (len(analysis_cache_files) != 1):
             raise TaskError('There can only be one analysis cache file per output directory')
         return os.path.join(analysis_cache_dir, analysis_cache_files[0])
-    analysis_map = OrderedDict([(k, analysis_cache_full_path(v)) for (k, v) in upstream_analysis_caches.by_target.items()])
+    analysis_map = OrderedDict([(k, analysis_cache_full_path(v)) for (k, v) in upstream_analysis_caches.itermappings()])
     if (len(analysis_map) > 0):
         args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in analysis_map.items()])])
     upstream_classes_dirs = analysis_map.keys()
