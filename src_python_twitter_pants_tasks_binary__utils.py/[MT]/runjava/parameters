@@ -2,3 +2,4 @@ jvmargs
 classpath
 main
 args
+only_print_cmd_line
