@@ -11,4 +11,4 @@ def __init__(self, context):
     if context.options.run_debug:
         self.jvm_args.extend(context.config.getlist('jvm', 'debug_args'))
     self.confs = context.config.getlist('jvm-run', 'confs')
-    self.only_print_cmd_line = context.options.only_print_cmd_line
+    self.only_dump_cmd_line = context.options.only_dump_cmd_line

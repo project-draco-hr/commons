@@ -2,6 +2,6 @@ def execute(self, targets):
     binaries = filter(is_binary, targets)
     if (len(binaries) > 0):
         main = binaries[0].main
-        result = runjava(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args, only_print_cmd_line=self.only_print_cmd_line)
+        result = runjava(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args, only_dump_cmd_line=self.only_dump_cmd_line)
         if (result != 0):
             raise TaskError()
