@@ -1,0 +1,3 @@
+def itermappings(self):
+    '\n        Returns an iterable over all pairs (target, product) in this mapping.\n        Each product is itself a map of <basedir> -> <products list>.\n      '
+    return self.by_target.iteritems()
