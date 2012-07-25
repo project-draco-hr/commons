@@ -3,3 +3,4 @@ def setup_parser(cls, option_group, args, mkflag):
     NailgunTask.setup_parser(option_group, args, mkflag)
     option_group.add_option(mkflag('warnings'), mkflag('warnings', negate=True), dest='scala_compile_warnings', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Compile scala code with all configured warnings enabled.')
     option_group.add_option(mkflag('flatten'), mkflag('flatten', negate=True), dest='scala_compile_flatten', action='callback', callback=mkflag.set_bool, help='[%default] Compile scala code for all dependencies in a single compilation.')
+    option_group.add_option(mkflag('color'), mkflag('color', negate=True), dest='scala_compile_color', action='callback', callback=mkflag.set_bool, help='[True] Enable color in logging.')
