@@ -2,4 +2,4 @@ jvmargs
 classpath
 main
 args
-only_dump_cmd_line
+only_write_cmd_line_to
