@@ -3,4 +3,4 @@ def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('jvmargs'), dest='run_jvmargs', action='append', help='Run binary in a jvm with these extra jvm args.')
     option_group.add_option(mkflag('args'), dest='run_args', action='append', help='Run binary with these main() args.')
     option_group.add_option(mkflag('debug'), mkflag('debug', negate=True), dest='run_debug', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Run binary with a debugger')
-    option_group.add_option(mkflag('only-print-cmd-line'), dest='only_print_cmd_line', action='store_true', default=False, help='[%default] Instead of running, just print the cmd line needed to run')
+    option_group.add_option(mkflag('only-write-cmd-line'), dest='only_write_cmd_line', action='store', default=None, help='[%default] Instead of running, just write the cmd line to this file')
