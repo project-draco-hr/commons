@@ -1,2 +1,2 @@
 def execute(self, targets):
-    runjava(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=[])
+    runjava(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=self.args)
