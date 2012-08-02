@@ -1,4 +1,5 @@
 def execute(self, targets):
+    self.context.lock.release()
     binaries = filter(is_binary, targets)
     if (len(binaries) > 0):
         main = binaries[0].main
