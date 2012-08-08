@@ -1,12 +1,15 @@
 def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches):
     'Execute a single compilation, updating upstream_analysis_caches if needed.'
     self.context.log.info(('Compiling targets %s' % str(scala_targets)))
-    compilation_id = self.context.maybe_readable_identify(scala_targets)
-    output_dir = os.path.join(self._incremental_classes_dir, compilation_id)
+    if self._flatten:
+        compilation_id = 'flat'
+        output_dir = self._classes_dir
+    else:
+        compilation_id = Target.maybe_readable_identify(scala_targets)
+        output_dir = os.path.join(self._incremental_classes_dir, compilation_id)
     depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
     analysis_cache = (os.path.join(self._analysis_cache_dir, compilation_id) + '.analysis_cache')
-    invalidate_globally = self._flatten
-    with self.changed(scala_targets, invalidate_dependants=True, invalidate_globally=invalidate_globally) as changed_targets:
+    with self.changed(scala_targets, invalidate_dependants=True, invalidate_globally=True) as changed_targets:
         sources_by_target = self.calculate_sources(changed_targets)
         if sources_by_target:
             sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
@@ -17,7 +20,8 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
                 result = self.compile(classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile)
                 if (result != 0):
                     raise TaskError(('%s returned %d' % (self._main, result)))
-                self.link_all(output_dir, self._classes_dir)
+                if (output_dir != self._classes_dir):
+                    self.link_all(output_dir, self._classes_dir)
     self.context.log.debug(('Reading dependencies from ' + depfile))
     deps = Dependencies(output_dir)
     deps.load(depfile)
