@@ -4,7 +4,7 @@ import shutil
 import textwrap
 from collections import defaultdict
 from twitter.common.collections import OrderedDict
-from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.common.dirutil import safe_mkdir, safe_open, touch
 from twitter.pants import is_scala, is_scalac_plugin
 from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.targets.scala_tests import ScalaTests
