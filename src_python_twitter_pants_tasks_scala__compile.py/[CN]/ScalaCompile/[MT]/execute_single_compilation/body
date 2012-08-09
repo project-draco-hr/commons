@@ -14,6 +14,8 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
         if sources_by_target:
             sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
             if (not sources):
+                with open(depfile, 'w'):
+                    pass
                 self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
             else:
                 classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
