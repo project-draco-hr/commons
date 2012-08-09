@@ -20,7 +20,11 @@ def _run():
     else:
         lock = Lock.unlocked()
     try:
-        result = command.run(lock)
-        _do_exit(result)
+        try:
+            result = command.run(lock)
+            _do_exit(result)
+        except KeyboardInterrupt:
+            command.cleanup()
+            raise
     finally:
         lock.release()
