@@ -2,7 +2,7 @@ __author__ = 'John Sirois'
 from . import Command
 from twitter.common.collections import OrderedSet
 from twitter.common.config import Properties
-from twitter.pants import extract_jvm_targets, get_buildroot, has_sources, is_apt, is_java, is_scala, is_test
+from twitter.pants import extract_jvm_targets, get_buildroot, has_sources, is_apt, is_codegen, is_java, is_scala, is_test
 from twitter.pants.base import Address, Target
 from twitter.pants.targets import JavaLibrary, ScalaLibrary, ExportableJvmLibrary
 from twitter.pants.tasks.binary_utils import profile_classpath

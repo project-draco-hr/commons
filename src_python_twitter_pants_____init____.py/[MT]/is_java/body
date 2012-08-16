@@ -1,3 +1,3 @@
 def is_java(target):
     'Returns True if the target has or generates java sources.'
-    return (isinstance(target, JavaLibrary) or isinstance(target, AnnotationProcessor) or isinstance(target, JavaProtobufLibrary) or isinstance(target, JavaTests) or is_thrift(target))
+    return target.has_label('java')

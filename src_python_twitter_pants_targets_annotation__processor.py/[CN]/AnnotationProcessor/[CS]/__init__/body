@@ -1,5 +1,7 @@
 def __init__(self, name, sources, provides=None, dependencies=None, excludes=None, resources=None, processors=None, is_meta=False):
     "name: The name of this module target, addressable via pants via the portion of the spec\n        following the colon\n    sources: A list of paths containing the java source files this modules jar is compiled from\n    provides: An optional Dependency object indicating the The ivy artifact to export\n    dependencies: An optional list of Dependency objects specifying the binary (jar) dependencies of\n        this module.\n    excludes: An optional list of dependency exclude patterns to filter all of this module's\n        transitive dependencies against.\n    resources: An optional list of paths containing (filterable) text file resources to place in\n        this module's jar\n    processors: a list of the fully qualified class names of the annotation processors this library\n        exports"
     ExportableJvmLibrary.__init__(self, name, sources, provides, dependencies, excludes, (), is_meta)
+    self.add_label('java')
+    self.add_label('apt')
     self.resources = self._resolve_paths(ExportableJvmLibrary.RESOURCES_BASE_DIR, resources)
     self.processors = processors

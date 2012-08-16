@@ -1,3 +1,4 @@
 def __init__(self, name, sources, provides=None, dependencies=None, excludes=None, buildflags=None, is_meta=False):
     self.provides = provides
     JvmTarget.__init__(self, name, sources, dependencies, excludes, buildflags, is_meta)
+    self.add_label('exportable')

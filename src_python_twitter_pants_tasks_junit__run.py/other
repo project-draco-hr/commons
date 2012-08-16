@@ -3,7 +3,7 @@ import os
 import re
 import sys
 from twitter.common.dirutil import safe_mkdir, safe_open
-from twitter.pants import get_buildroot, is_java, is_scala, is_test
+from twitter.pants import is_codegen, is_java, is_scala, is_test
 from twitter.pants.tasks import binary_utils, Task, TaskError
 from twitter.pants.tasks.binary_utils import profile_classpath, runjava, safe_args
 from twitter.pants.tasks.jvm_task import JvmTask

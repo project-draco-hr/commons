@@ -10,7 +10,7 @@ def execute(self):
     foil = list(all_targets)[0]
 
     def is_cp(target):
-        return (target.is_codegen or is_apt(target) or (skip_java and is_java(target)) or (skip_scala and is_scala(target)))
+        return (is_codegen(target) or is_apt(target) or (skip_java and is_java(target)) or (skip_scala and is_scala(target)))
     ide_target = foil.do_in_context((lambda : extract_target(all_targets, is_cp)))
     (ivyfile, ivysettingsfile) = self._generate_ivy(ide_target)
     return self._generate_project_files(project, ivyfile, ivysettingsfile)

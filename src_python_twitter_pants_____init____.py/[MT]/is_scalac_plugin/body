@@ -1,2 +1,3 @@
 def is_scalac_plugin(target):
-    return isinstance(target, ScalacPlugin)
+    'Returns True if the target builds a scalac plugin.'
+    return target.has_label('scalac_plugin')

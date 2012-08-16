@@ -1,0 +1,3 @@
+def is_codegen(target):
+    'Returns True if the target is a codegen target.'
+    return target.has_label('codegen')

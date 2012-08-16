@@ -2,7 +2,7 @@ import os
 import shutil
 from twitter.common.collections.orderedset import OrderedSet
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants import extract_jvm_targets, get_buildroot, has_sources, is_java, is_scala, is_test, is_apt
+from twitter.pants import extract_jvm_targets, get_buildroot, has_sources, is_codegen, is_java, is_scala, is_test, is_apt
 from twitter.pants.base.target import Target
 from twitter.pants.targets.exportable_jvm_library import ExportableJvmLibrary
 from twitter.pants.targets.java_library import JavaLibrary

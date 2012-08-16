@@ -4,7 +4,7 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
     targeted = set()
 
     def source_target(target):
-        return ((self.transitive or (target in self.targets)) and has_sources(target) and ((not target.is_codegen) and (not (self.skip_java and is_java(target))) and (not (self.skip_scala and is_scala(target)))))
+        return ((self.transitive or (target in self.targets)) and has_sources(target) and ((not is_codegen(target)) and (not (self.skip_java and is_java(target))) and (not (self.skip_scala and is_scala(target)))))
 
     def configure_source_sets(relative_base, sources, is_test):
         absolute_base = os.path.join(self.root_dir, relative_base)
