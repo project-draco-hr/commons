@@ -1,5 +1,5 @@
 def execute(self, targets):
-    scala_targets = filter(is_scala, reversed(InternalTarget.sort_targets(targets)))
+    scala_targets = filter(ScalaCompile._has_scala_sources, reversed(InternalTarget.sort_targets(targets)))
     if scala_targets:
         safe_mkdir(self._depfile_dir)
         safe_mkdir(self._analysis_cache_dir)
