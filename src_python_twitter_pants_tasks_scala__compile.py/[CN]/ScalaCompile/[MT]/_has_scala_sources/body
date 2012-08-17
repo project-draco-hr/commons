@@ -1,0 +1,3 @@
+@staticmethod
+def _has_scala_sources(target):
+    return (isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests))
