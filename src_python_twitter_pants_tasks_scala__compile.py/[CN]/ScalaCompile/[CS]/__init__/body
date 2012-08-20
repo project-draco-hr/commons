@@ -12,7 +12,7 @@ def __init__(self, context, workdir=None):
         target.update_dependencies(scaladeps)
     self._workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
     self._incremental_classes_dir = os.path.join(self._workdir, 'incremental.classes')
-    self._classes_dir = os.path.join(self._workdir, 'classes')
+    self._flat_classes_dir = os.path.join(self._workdir, 'classes')
     self._analysis_cache_dir = os.path.join(self._workdir, 'analysis_cache')
     self._resources_dir = os.path.join(self._workdir, 'resources')
     self._main = context.config.get('scala-compile', 'main')
@@ -24,4 +24,3 @@ def __init__(self, context, workdir=None):
         self._args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
     self._confs = context.config.getlist('scala-compile', 'confs')
     self._depfile_dir = os.path.join(self._workdir, 'depfiles')
-    self._deps = Dependencies(self._classes_dir)

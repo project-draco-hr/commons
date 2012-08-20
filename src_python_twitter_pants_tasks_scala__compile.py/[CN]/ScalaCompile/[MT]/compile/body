@@ -15,12 +15,11 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
     analysis_map = OrderedDict([(k, analysis_cache_full_path(v)) for (k, v) in upstream_analysis_caches.itermappings()])
     if (len(analysis_map) > 0):
         args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in analysis_map.items()])])
-    upstream_classes_dirs = analysis_map.keys()
     zinc_classpath = nailgun_profile_classpath(self, self._zinc_profile)
     zinc_jars = ScalaCompile.identify_zinc_jars(compiler_classpath, zinc_classpath)
     for (name, jarpath) in zinc_jars.items():
         args.extend([('-%s' % name), jarpath])
-    args.extend(['-analysis-cache', analysis_cache, '-log-level', (self.context.options.log_level or 'info'), '-classpath', ':'.join(((zinc_classpath + classpath) + upstream_classes_dirs)), '-d', output_dir])
+    args.extend(['-analysis-cache', analysis_cache, '-log-level', (self.context.options.log_level or 'info'), '-classpath', ':'.join((zinc_classpath + classpath)), '-d', output_dir])
     if (not self._color):
         args.append('-no-color')
     args.extend(sources)
