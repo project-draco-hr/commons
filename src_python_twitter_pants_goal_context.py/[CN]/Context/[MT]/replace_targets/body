@@ -4,4 +4,4 @@ def replace_targets(self, target_roots):
     self._targets = OrderedSet()
     for target in target_roots:
         self.add_target(target)
-    self.id = self.identify(self._targets)
+    self.id = Target.identify(self._targets)

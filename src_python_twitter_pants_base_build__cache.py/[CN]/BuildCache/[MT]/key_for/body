@@ -1,3 +1,0 @@
-def key_for(self, id, sources):
-    "Get a cache key representing the given id'd entity and its associated source files."
-    return self._key_for(id, self._sources_hash(sources), sources)

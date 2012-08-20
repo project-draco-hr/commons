@@ -1,0 +1,13 @@
+def test_needs_update_after_change():
+    with test_env() as (f, keygen, cache):
+        key = keygen.key_for('test', [f.name])
+        assert cache.needs_update(key)
+        cache.update(key)
+        assert (not cache.needs_update(key))
+        f.truncate()
+        f.write('elmo')
+        f.flush()
+        key = keygen.key_for('test', [f.name])
+        assert cache.needs_update(key)
+        cache.update(key)
+        assert (not cache.needs_update(key))

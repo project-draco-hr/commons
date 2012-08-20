@@ -1,15 +1,16 @@
-def execute_single_compilation(self, java_targets, cp):
-    self.context.log.info(('Compiling targets %s' % str(java_targets)))
-    compilation_id = self.context.maybe_readable_identify(java_targets)
+def execute_single_compilation(self, versioned_targets, cp):
+    compilation_id = Target.maybe_readable_identify(versioned_targets.targets)
     if self._flatten:
         depfile = os.path.join(self._depfile_dir, 'dependencies.flat')
     else:
         depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
-    with self.changed(java_targets, invalidate_dependants=True) as changed:
-        (sources_by_target, processors, fingerprint) = self.calculate_sources(changed)
+    if (not versioned_targets.valid):
+        self.context.log.info(('Compiling targets %s' % str(versioned_targets.targets)))
+        (sources_by_target, processors, fingerprint) = self.calculate_sources(versioned_targets.targets)
         if sources_by_target:
             sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
             if (not sources):
+                touch(depfile)
                 self.context.log.warn(('Skipping java compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
             else:
                 classpath = [jar for (conf, jar) in cp if (conf in self._confs)]

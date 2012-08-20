@@ -1,3 +1,0 @@
-def update(self, cache_key):
-    'Mark a changed or invalidated target as successfully processed.'
-    self._cache.update(cache_key)

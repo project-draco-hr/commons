@@ -1,4 +1,0 @@
-def test_cache_key_hash():
-    with test_env() as (f, cache):
-        key = cache.key_for('test', [f.name])
-        assert (key.hash == expected_hash(f))

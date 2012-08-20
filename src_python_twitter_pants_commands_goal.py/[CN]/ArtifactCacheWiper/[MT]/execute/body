@@ -1,0 +1,3 @@
+def execute(self, targets):
+    artifact_cache_dir = self.context.config.get('tasks', 'artifact_cache')
+    safe_rmtree(artifact_cache_dir)

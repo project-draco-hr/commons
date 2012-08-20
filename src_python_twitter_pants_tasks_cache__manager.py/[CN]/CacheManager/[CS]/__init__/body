@@ -1,0 +1,11 @@
+def __init__(self, cache_key_generator, build_invalidator_dir, targets, extra_data, only_externaldeps):
+    self._cache_key_generator = cache_key_generator
+    self._targets = set(targets)
+    self._extra_data = pickle.dumps(extra_data)
+    self._sources = (NO_SOURCES if only_externaldeps else TARGET_SOURCES)
+    self._invalidator = BuildInvalidator(build_invalidator_dir)
+    self.changed_files = 0
+    self.changed_targets = 0
+    self.invalidated_files = 0
+    self.invalidated_targets = 0
+    self.foreign_invalidated_targets = 0

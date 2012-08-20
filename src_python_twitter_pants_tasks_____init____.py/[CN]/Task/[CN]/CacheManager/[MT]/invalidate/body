@@ -1,3 +1,0 @@
-def invalidate(self, target, cache_key=None):
-    'Forcefully mark a target as changed.'
-    self._invalidate(target, (cache_key or self._key_for(target)), indirect=True)

@@ -1,0 +1,7 @@
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+from twitter.common.collections import OrderedSet
+from twitter.pants.base.build_invalidator import BuildInvalidator, NO_SOURCES, TARGET_SOURCES
+from twitter.pants.targets import JarDependency

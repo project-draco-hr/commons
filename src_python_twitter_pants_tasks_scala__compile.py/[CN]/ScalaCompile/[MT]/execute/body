@@ -7,11 +7,12 @@ def execute(self, targets):
         with self.context.state('classpath', []) as cp:
             for conf in self._confs:
                 cp.insert(0, (conf, self._resources_dir))
-        if self._flatten:
-            self.execute_single_compilation(scala_targets, cp, upstream_analysis_caches)
-        else:
-            for target in scala_targets:
-                self.execute_single_compilation([target], cp, upstream_analysis_caches)
+        with self.invalidated(scala_targets, invalidate_dependants=True) as invalidated:
+            if self._flatten:
+                self.execute_single_compilation(invalidated.combined_all_versioned_targets(), cp, upstream_analysis_caches)
+            else:
+                for vt in invalidated.all_versioned_targets():
+                    self.execute_single_compilation(vt, cp, upstream_analysis_caches)
         with self.context.state('classpath', []) as cp:
             for conf in self._confs:
                 cp.insert(0, (conf, self._classes_dir))

@@ -1,3 +1,0 @@
-def _key_for(self, id, sha, sources):
-    filename = os.path.join(self._root, id)
-    return CacheKey(sources, sha.hexdigest(), filename)

@@ -1,0 +1,8 @@
+def use_cached_files(self, cache_key, copy_fn):
+    'Use cached files, typically by hard-linking them from the cache into a staging area.\n\n    :param cache_key: A CacheKey object.\n    :param copy_fn: A function with the signature copy_fn(absolute_src_path, relative_dst_path) that\n        will copy cached files into the desired destination.\n    '
+    cache_dir = self._cache_dir_for_key(cache_key)
+    for (dir_name, _, filenames) in os.walk(cache_dir):
+        for filename in filenames:
+            filename = os.path.join(dir_name, filename)
+            relative_filename = os.path.relpath(filename, cache_dir)
+            copy_fn(filename, relative_filename)

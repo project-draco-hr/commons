@@ -1,4 +1,4 @@
 self
-scala_targets
+versioned_target_set
 cp
 upstream_analysis_caches

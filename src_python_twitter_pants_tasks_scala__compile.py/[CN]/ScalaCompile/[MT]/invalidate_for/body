@@ -1,2 +1,2 @@
 def invalidate_for(self):
-    return [self._flatten]
+    return self._flatten

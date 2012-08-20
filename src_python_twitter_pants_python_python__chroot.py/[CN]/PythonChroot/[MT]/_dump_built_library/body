@@ -1,10 +1,10 @@
 def _dump_built_library(self, library, builder):
     absolute_sources = library.expand_files()
     absolute_sources.sort()
-    cache_key = self._cache.key_for(library.id, absolute_sources)
-    if (not self._cache.needs_update(cache_key)):
+    cache_key = self._key_generator.key_for(library.id, absolute_sources)
+    if self._artifact_cache.has(cache_key):
         self.debug(('  Generating (cached) %s...' % library))
-        self._cache.use_cached_files(cache_key, self._builder.add_dependency_file)
+        self._artifact_cache.use_cached_files(cache_key, self._builder.add_dependency_file)
     else:
         self.debug(('  Generating %s...' % library))
         egg_file = builder.build_egg()
@@ -14,5 +14,5 @@ def _dump_built_library(self, library, builder):
         dst_egg_file = os.path.join(os.path.dirname(egg_file), ((cache_key.hash + '_') + os.path.basename(egg_file)))
         self.debug(('       %s => %s' % (src_egg_file, dst_egg_file)))
         os.rename(src_egg_file, dst_egg_file)
-        self._cache.update(cache_key, [dst_egg_file])
+        self._artifact_cache.insert(cache_key, [dst_egg_file])
         self._builder.add_egg(dst_egg_file)

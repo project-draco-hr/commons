@@ -1,0 +1,3 @@
+def invalid_versioned_targets(self):
+    'A list of VersionedTargetSet objects, one per invalid target.'
+    return self._invalid_versioned_targets
