@@ -1,3 +1,4 @@
 def __init__(self, name, is_meta=False):
     Target.__init__(self, name, is_meta)
+    self.add_label('sources')
     self.target_base = SourceRoot.find(self)

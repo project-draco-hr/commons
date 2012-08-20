@@ -1,6 +1,7 @@
 def __init__(self, name, sources, dependencies, excludes=None, buildflags=None, is_meta=False, configurations=None):
     InternalTarget.__init__(self, name, dependencies, is_meta)
     TargetWithSources.__init__(self, name, is_meta)
+    self.add_label('jvm')
     self.sources = (self._resolve_paths(self.target_base, sources) or [])
     self.excludes = (excludes or [])
     self.buildflags = (buildflags or [])

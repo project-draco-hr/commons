@@ -2,7 +2,7 @@ def configure_compile_context(self, targets):
     "\n      Trims the context's target set to just those targets needed as jars on the IDE classpath.\n      All other targets only contribute their external jar dependencies and excludes to the\n      classpath definition.\n    "
 
     def is_cp(target):
-        return (target.is_codegen or is_apt(target) or (self.skip_java and is_java(target)) or (self.skip_scala and is_scala(target)) or (self.intransitive and (target not in self.context.target_roots)))
+        return (is_codegen(target) or is_apt(target) or (self.skip_java and is_java(target)) or (self.skip_scala and is_scala(target)) or (self.intransitive and (target not in self.context.target_roots)))
     jars = OrderedSet()
     excludes = OrderedSet()
     compile = OrderedSet()
