@@ -1,0 +1,13 @@
+def __init__(self, all_versioned_targets):
+
+    def combine_versioned_targets(vts):
+        targets = []
+        for vt in vts:
+            targets.extend(vt.targets)
+        cache_key = CacheKeyGenerator.combine_cache_keys([vt.cache_key for vt in vts])
+        valid = all([vt.valid for vt in vts])
+        return VersionedTargetSet(targets, cache_key, valid)
+    self._all_versioned_targets = all_versioned_targets
+    self._combined_all_versioned_targets = combine_versioned_targets(self._all_versioned_targets)
+    self._invalid_versioned_targets = filter((lambda x: (not x.valid)), all_versioned_targets)
+    self._combined_invalid_versioned_targets = combine_versioned_targets(self._invalid_versioned_targets)

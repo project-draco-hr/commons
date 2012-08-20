@@ -1,5 +1,4 @@
 def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile):
-    safe_mkdir(output_dir)
     compiler_classpath = nailgun_profile_classpath(self, self._compile_profile)
     compiler_args = []
     compiler_args.extend([('-Xplugin:%s' % self.get_depemitter_plugin()), ('-P:depemitter:file:%s' % depfile)])

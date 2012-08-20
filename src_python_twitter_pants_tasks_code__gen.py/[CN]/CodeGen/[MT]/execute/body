@@ -19,12 +19,12 @@ def execute(self, targets):
         gentargets_bylang[lang] = (gentargets if self.is_forced(lang) else find_gentargets(predicate))
     if gentargets_by_dependee:
         self.context.log.warn(('Left with unexpected unconsumed gen targets:\n\t%s' % '\n\t'.join((('%s -> %s' % (dependee, gentargets)) for (dependee, gentargets) in gentargets_by_dependee.items()))))
-    with self.changed(gentargets, invalidate_dependants=True) as changed_targets:
-        changed = set(changed_targets)
+    with self.invalidated(gentargets, invalidate_dependants=True) as invalidated:
+        invalid_targets = set(invalidated.invalid_targets())
         for (lang, tgts) in gentargets_bylang.items():
-            lang_changed = changed.intersection(tgts)
-            if lang_changed:
-                self.genlang(lang, lang_changed)
+            lang_invalid = invalid_targets.intersection(tgts)
+            if lang_invalid:
+                self.genlang(lang, lang_invalid)
     for (lang, tgts) in gentargets_bylang.items():
         if tgts:
             langtarget_by_gentarget = {}

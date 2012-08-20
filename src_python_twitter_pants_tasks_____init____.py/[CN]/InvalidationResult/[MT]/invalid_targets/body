@@ -1,0 +1,3 @@
+def invalid_targets(self):
+    'A list of all underlying targets that are invalid.'
+    return self._combined_invalid_versioned_targets.targets

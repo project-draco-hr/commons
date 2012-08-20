@@ -1,0 +1,3 @@
+def update(self, cache_key):
+    'Mark a changed or invalidated target as successfully processed.'
+    self._invalidator.update(cache_key)

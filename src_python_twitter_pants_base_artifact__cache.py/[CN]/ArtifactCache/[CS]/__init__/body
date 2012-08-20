@@ -1,0 +1,3 @@
+def __init__(self, root):
+    self._root = root
+    safe_mkdir(self._root)

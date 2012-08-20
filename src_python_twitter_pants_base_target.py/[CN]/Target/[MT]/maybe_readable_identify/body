@@ -1,0 +1,8 @@
+@staticmethod
+def maybe_readable_identify(targets):
+    'Generates an id for a set of targets, but if the set is a single target, makes it the target id.'
+    if (len(targets) == 1):
+        id = targets[0].id
+    else:
+        id = Target.identify(targets)
+    return id

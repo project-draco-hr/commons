@@ -1,0 +1,44 @@
+@contextmanager
+def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=False):
+    "\n      Checks targets for invalidation.\n\n      Yields the result to a with block. If no exceptions are thrown by work in the block, the\n      cache is updated for the targets, otherwise if a TargetError is thrown by the work in the\n      block all targets except those in the TargetError are cached.\n\n      :targets The targets to check for changes.\n      :only_buildfiles If True, then just the target's BUILD files are checked for changes.\n      :invalidate_dependants If True then any targets depending on changed targets are invalidated.\n      :returns: an InvalidationResult reflecting the invalidated targets.\n    "
+    extra_data = []
+    extra_data.append(self.invalidate_for())
+    for f in self.invalidate_for_files():
+        sha = hashlib.sha1()
+        with open(f, 'rb') as fd:
+            sha.update(fd.read())
+        extra_data.append(sha.hexdigest())
+    cache_manager = CacheManager(self._cache_key_generator, self._build_invalidator_dir, targets, extra_data, only_buildfiles)
+    all_versioned_targets = [cache_manager.check(target) for target in targets]
+    directly_changed_targets = set((vt.targets[0] for vt in all_versioned_targets if (not vt.valid)))
+    versioned_targets_by_target = dict([(vt.targets[0], vt) for vt in all_versioned_targets])
+    if invalidate_dependants:
+        for target in self.context.dependants((lambda t: (t in directly_changed_targets))).keys():
+            if (target in versioned_targets_by_target):
+                vt = versioned_targets_by_target.get(target)
+                cache_key = vt.cache_key
+                vt.valid = False
+            else:
+                cache_key = None
+            cache_manager.invalidate(target, cache_key)
+    invalidation_result = InvalidationResult(all_versioned_targets)
+    num_invalid_targets = len(invalidation_result.invalid_targets())
+    if cache_manager.foreign_invalidated_targets:
+        self.context.log.info(('Invalidated %d dependent targets for the next round' % cache_manager.foreign_invalidated_targets))
+    if cache_manager.changed_files:
+        msg = ('Operating on %d files in %d changed targets' % (cache_manager.changed_files, cache_manager.changed_targets))
+        if cache_manager.invalidated_files:
+            msg += (' and %d files in %d invalidated dependent targets' % (cache_manager.invalidated_files, cache_manager.invalidated_targets))
+        self.context.log.info(msg)
+    try:
+        if (num_invalid_targets > 0):
+            self.context.log.debug(('Invalidated targets %s' % invalidation_result.invalid_targets()))
+        yield invalidation_result
+        for vt in invalidation_result.invalid_versioned_targets():
+            cache_manager.update(vt.cache_key)
+    except TargetError as e:
+        for vt in invalidation_result.invalid_versioned_targets():
+            if (len(vt.targets) != 1):
+                raise Exception, 'Logic error: vt should represent a single target'
+            if (vt.targets[0] not in e.targets):
+                cache_manager.update(vt.cache_key)

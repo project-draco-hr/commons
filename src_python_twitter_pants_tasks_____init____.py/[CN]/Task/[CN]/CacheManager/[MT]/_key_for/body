@@ -1,2 +1,0 @@
-def _key_for(self, target):
-    return self._cache.key_for_target(target, sources=self._sources, fingerprint_extra=(lambda sha: self._fingerprint_jardeps(target, sha)))

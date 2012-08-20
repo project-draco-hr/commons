@@ -4,7 +4,7 @@ def _create_java_target(self, target, dependees):
         path = os.path.join(target.target_base, source)
         genfiles.extend(calculate_genfiles(path, source).get('java', []))
     tgt = self.context.add_new_target(self.java_out, JavaLibrary, name=target.id, provides=target.provides, sources=genfiles, dependencies=self.javadeps)
-    tgt.id = target.id
+    tgt.id = (target.id + '.protobuf_gen')
     tgt.add_label('codegen')
     for dependee in dependees:
         dependee.update_dependencies([tgt])

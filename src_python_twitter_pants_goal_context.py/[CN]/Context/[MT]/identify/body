@@ -1,5 +1,0 @@
-def identify(self, targets):
-    id = hashlib.md5()
-    for target in targets:
-        id.update(target.id)
-    return id.hexdigest()

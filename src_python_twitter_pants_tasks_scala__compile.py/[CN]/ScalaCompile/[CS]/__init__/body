@@ -10,12 +10,11 @@ def __init__(self, context, workdir=None):
         scaladeps.extend(context.resolve(spec))
     for target in context.targets(is_scala):
         target.update_dependencies(scaladeps)
-    if (workdir is None):
-        workdir = context.config.get('scala-compile', 'workdir')
-    self._incremental_classes_dir = os.path.join(workdir, 'incremental.classes')
-    self._classes_dir = os.path.join(workdir, 'classes')
-    self._analysis_cache_dir = os.path.join(workdir, 'analysis_cache')
-    self._resources_dir = os.path.join(workdir, 'resources')
+    self._workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
+    self._incremental_classes_dir = os.path.join(self._workdir, 'incremental.classes')
+    self._classes_dir = os.path.join(self._workdir, 'classes')
+    self._analysis_cache_dir = os.path.join(self._workdir, 'analysis_cache')
+    self._resources_dir = os.path.join(self._workdir, 'resources')
     self._main = context.config.get('scala-compile', 'main')
     self._args = context.config.getlist('scala-compile', 'args')
     self._jvm_args = context.config.getlist('scala-compile', 'jvm_args')
@@ -24,5 +23,5 @@ def __init__(self, context, workdir=None):
     else:
         self._args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
     self._confs = context.config.getlist('scala-compile', 'confs')
-    self._depfile_dir = os.path.join(workdir, 'depfiles')
+    self._depfile_dir = os.path.join(self._workdir, 'depfiles')
     self._deps = Dependencies(self._classes_dir)

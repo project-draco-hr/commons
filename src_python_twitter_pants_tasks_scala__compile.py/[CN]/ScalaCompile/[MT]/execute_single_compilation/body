@@ -1,28 +1,31 @@
-def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches):
+def execute_single_compilation(self, versioned_target_set, cp, upstream_analysis_caches):
     'Execute a single compilation, updating upstream_analysis_caches if needed.'
-    self.context.log.info(('Compiling targets %s' % str(scala_targets)))
     if self._flatten:
         compilation_id = 'flat'
         output_dir = self._classes_dir
     else:
-        compilation_id = Target.maybe_readable_identify(scala_targets)
+        compilation_id = Target.maybe_readable_identify(versioned_target_set.targets)
         output_dir = os.path.join(self._incremental_classes_dir, compilation_id)
     depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
     analysis_cache = (os.path.join(self._analysis_cache_dir, compilation_id) + '.analysis_cache')
-    with self.changed(scala_targets, invalidate_dependants=True, invalidate_globally=True) as changed_targets:
-        sources_by_target = self.calculate_sources(changed_targets)
-        if sources_by_target:
-            sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
-            if (not sources):
-                touch(depfile)
-                self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
-            else:
-                classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
-                result = self.compile(classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile)
-                if (result != 0):
-                    raise TaskError(('%s returned %d' % (self._main, result)))
-                if (output_dir != self._classes_dir):
-                    self.link_all(output_dir, self._classes_dir)
+    safe_mkdir(output_dir)
+    if (not versioned_target_set.valid):
+        with self.check_artifact_cache(versioned_target_set, build_artifacts=[output_dir, depfile, analysis_cache], artifact_root=self._workdir) as needs_building:
+            if needs_building:
+                self.context.log.info(('Compiling targets %s' % versioned_target_set.targets))
+                sources_by_target = self.calculate_sources(versioned_target_set.targets)
+                if sources_by_target:
+                    sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
+                    if (not sources):
+                        touch(depfile)
+                        self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
+                    else:
+                        classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
+                        result = self.compile(classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile)
+                        if (result != 0):
+                            raise TaskError(('%s returned %d' % (self._main, result)))
+            if (output_dir != self._classes_dir):
+                self.link_all(output_dir, self._classes_dir)
     self.context.log.debug(('Reading dependencies from ' + depfile))
     deps = Dependencies(output_dir)
     deps.load(depfile)
@@ -30,4 +33,3 @@ def execute_single_compilation(self, scala_targets, cp, upstream_analysis_caches
     analysis_cache_parts = os.path.split(analysis_cache)
     if (not upstream_analysis_caches.has(output_dir)):
         upstream_analysis_caches.add(output_dir, analysis_cache_parts[0], [analysis_cache_parts[1]])
-    return compilation_id

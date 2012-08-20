@@ -41,7 +41,8 @@ from twitter.pants.tasks.scala_compile import ScalaCompile
 from twitter.pants.tasks.scala_repl import ScalaRepl
 from twitter.pants.tasks.specs_run import SpecsRun
 from twitter.pants.tasks.thrift_gen import ThriftGen
-goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all caches')
+goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all targets')
+goal(name='wipe-local-artifact-cache', action=ArtifactCacheWiper).install().with_description('Delete all cached artifacts')
 goal(name='clean-all', action=(lambda ctx: safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output')
 goal(name='clean-all-async', action=(lambda ctx: async_safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output in a background process')
 if NailgunTask.killall:

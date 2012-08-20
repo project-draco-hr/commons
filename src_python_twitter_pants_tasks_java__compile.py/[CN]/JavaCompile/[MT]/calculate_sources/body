@@ -10,4 +10,4 @@ def calculate_sources(self, targets):
                 processors.update(target.processors)
     for target in targets:
         collect_sources(target)
-    return (sources, processors, self.context.identify(targets))
+    return (sources, processors, Target.identify(targets))

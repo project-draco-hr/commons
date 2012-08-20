@@ -1,0 +1,6 @@
+self
+cache_key_generator
+build_invalidator_dir
+targets
+extra_data
+only_externaldeps

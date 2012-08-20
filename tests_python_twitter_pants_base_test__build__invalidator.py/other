@@ -1,0 +1,7 @@
+from twitter.pants.base.build_invalidator import BuildInvalidator, CacheKeyGenerator
+from twitter.common.contextutil import temporary_dir
+from contextlib import contextmanager
+import os
+import hashlib
+import tempfile
+TEST_CONTENT = 'muppet'
