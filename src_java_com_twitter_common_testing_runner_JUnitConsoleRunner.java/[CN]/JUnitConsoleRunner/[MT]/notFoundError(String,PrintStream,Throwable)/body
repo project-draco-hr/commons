@@ -1,0 +1,4 @@
+{
+  out.printf("FATAL: Error during test discovery for %s: %s\n",spec,t);
+  throw new RuntimeException("Classloading error during test discovery for " + spec,t);
+}

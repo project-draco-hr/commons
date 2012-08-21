@@ -30,10 +30,10 @@ class TestMethod {
       }
     }
  catch (    NoClassDefFoundError e) {
-      warnNotFound(spec,out,e);
+      notFoundError(spec,out,e);
     }
 catch (    ClassNotFoundException e) {
-      warnNotFound(spec,out,e);
+      notFoundError(spec,out,e);
     }
   }
   List<Request> requests=Lists.newArrayList();
