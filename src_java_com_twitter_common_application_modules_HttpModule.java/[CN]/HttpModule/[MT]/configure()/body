@@ -8,7 +8,7 @@
   }
 ).annotatedWith(Names.named(HealthHandler.HEALTH_CHECKER_KEY)).toInstance(DEFAULT_HEALTH_CHECKER);
   bindConstant().annotatedWith(CacheTemplates.class).to(CACHE_TEMPLATES);
-  bind(HttpServerDispatch.class).to(DefaultJettyHttpServerDispatch.class).in(Singleton.class);
+  bind(HttpServerDispatch.class).to(JettyHttpServerDispatch.class).in(Singleton.class);
   Registration.registerServlet(binder(),"/abortabortabort",AbortHandler.class,true);
   Registration.registerServlet(binder(),"/contention",ContentionPrinter.class,false);
   Registration.registerServlet(binder(),"/graphdata",TimeSeriesDataSource.class,true);
