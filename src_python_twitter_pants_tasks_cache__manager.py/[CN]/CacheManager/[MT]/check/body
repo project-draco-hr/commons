@@ -1,6 +1,6 @@
 def check(self, targets):
     'Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns a list of VersionedTargetSets, one per input target, regardless of whether\n    it was invalidated or not. Note that the returned list is in topologically-sorted order.\n    That is, if B depends on A then B is later than A.\n    '
-    ordered_targets = reversed(InternalTarget.sort_targets(targets))
+    ordered_targets = self._order_target_list(targets)
     versioned_targets = []
     id_to_hash = {}
     for target in ordered_targets:
