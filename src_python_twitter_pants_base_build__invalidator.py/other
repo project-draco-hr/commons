@@ -3,6 +3,7 @@ import hashlib
 import os
 from abc import ABCMeta, abstractmethod
 from collections import namedtuple
+from twitter.common.dirutil import safe_mkdir
 from twitter.common.lang import Compatibility
 from twitter.pants.base.hash_utils import hash_all
 CacheKey = namedtuple('CacheKey', ['id', 'hash', 'num_sources'])

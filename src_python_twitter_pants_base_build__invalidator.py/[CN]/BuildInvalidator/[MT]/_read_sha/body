@@ -1,7 +1,2 @@
 def _read_sha(self, cache_key):
-    try:
-        with open(self._sha_file(cache_key), 'rb') as fd:
-            return fd.read().strip()
-    except IOError as e:
-        if (e.errno != errno.ENOENT):
-            raise
+    return self._read_sha_by_id(cache_key.id)

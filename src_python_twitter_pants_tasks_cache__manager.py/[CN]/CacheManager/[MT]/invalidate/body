@@ -1,5 +1,0 @@
-def invalidate(self, target, cache_key=None):
-    'Forcibly mark a target as changed.\n\n    If cache_key is unspecified, computes it. As an optimization, caller can specify the\n    cache key if it knows it, to prevent needless recomputation.\n    '
-    if (cache_key is None):
-        cache_key = self._key_for(target)
-    self._invalidate(target, cache_key, indirect=True)
