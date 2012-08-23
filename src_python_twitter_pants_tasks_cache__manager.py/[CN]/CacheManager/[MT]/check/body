@@ -11,9 +11,8 @@ def check(self, targets):
                     hash = id_to_hash.get(dep.id, None)
                     if (hash is None):
                         hash = self._invalidator.existing_hash(dep.id)
-                        if (hash is None):
-                            raise Exception, ('Logic error: no hash for target %s that is a dependency of %s' % (dep, target))
-                    dependency_keys.add(hash)
+                    if (hash is not None):
+                        dependency_keys.add(hash)
                 elif isinstance(dep, JarDependency):
                     jarid = ''
                     for key in CacheManager._JAR_HASH_KEYS:
