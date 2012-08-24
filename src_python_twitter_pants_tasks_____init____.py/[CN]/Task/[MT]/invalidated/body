@@ -8,28 +8,13 @@ def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=Fals
         with open(f, 'rb') as fd:
             sha.update(fd.read())
         extra_data.append(sha.hexdigest())
-    cache_manager = CacheManager(self._cache_key_generator, self._build_invalidator_dir, targets, extra_data, only_buildfiles)
-    all_versioned_targets = [cache_manager.check(target) for target in targets]
-    directly_changed_targets = set((vt.targets[0] for vt in all_versioned_targets if (not vt.valid)))
-    versioned_targets_by_target = dict([(vt.targets[0], vt) for vt in all_versioned_targets])
-    if invalidate_dependants:
-        for target in self.context.dependants((lambda t: (t in directly_changed_targets))).keys():
-            if (target in versioned_targets_by_target):
-                vt = versioned_targets_by_target.get(target)
-                cache_key = vt.cache_key
-                vt.valid = False
-            else:
-                cache_key = None
-            cache_manager.invalidate(target, cache_key)
+    cache_manager = CacheManager(self._cache_key_generator, self._build_invalidator_dir, targets, invalidate_dependants, extra_data, only_buildfiles)
+    all_versioned_targets = cache_manager.check(targets)
     invalidation_result = InvalidationResult(all_versioned_targets)
     num_invalid_targets = len(invalidation_result.invalid_targets())
-    if cache_manager.foreign_invalidated_targets:
-        self.context.log.info(('Invalidated %d dependent targets for the next round' % cache_manager.foreign_invalidated_targets))
-    if cache_manager.changed_files:
-        msg = ('Operating on %d files in %d changed targets' % (cache_manager.changed_files, cache_manager.changed_targets))
-        if cache_manager.invalidated_files:
-            msg += (' and %d files in %d invalidated dependent targets' % (cache_manager.invalidated_files, cache_manager.invalidated_targets))
-        self.context.log.info(msg)
+    if (num_invalid_targets > 0):
+        num_files = reduce((lambda x, y: (x + y)), [vt.cache_key.num_sources for vt in all_versioned_targets if (not vt.valid)], 0)
+        self.context.log.info(('Operating on %d files in %d invalidated targets' % (num_files, num_invalid_targets)))
     try:
         if (num_invalid_targets > 0):
             self.context.log.debug(('Invalidated targets %s' % invalidation_result.invalid_targets()))

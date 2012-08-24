@@ -1,7 +1,3 @@
 def __init__(self, root):
     self._root = os.path.join(root, str(BuildInvalidator.VERSION))
-    try:
-        os.makedirs(self._root)
-    except OSError as e:
-        if (e.errno != errno.EEXIST):
-            raise
+    safe_mkdir(self._root)
