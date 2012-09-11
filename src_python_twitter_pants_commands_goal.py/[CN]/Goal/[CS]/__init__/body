@@ -1,3 +1,4 @@
 def __init__(self, root_dir, parser, args):
     self.targets = []
+    self.timer = Timer()
     Command.__init__(self, root_dir, parser, args)
