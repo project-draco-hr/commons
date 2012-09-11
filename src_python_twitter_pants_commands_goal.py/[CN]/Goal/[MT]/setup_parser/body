@@ -22,17 +22,19 @@ def setup_parser(self, parser, args):
         (goals, specs) = Goal.parse_args(args)
         ParseContext.enable_pantsnew()
         with self.check_errors('The following bootstrap_buildfiles cannot be loaded:') as error:
-            for path in self.config.getlist('goals', 'bootstrap_buildfiles', default=[]):
-                try:
-                    buildfile = BuildFile(get_buildroot(), os.path.relpath(path, get_buildroot()))
-                    ParseContext(buildfile).parse()
-                except (TypeError, ImportError, TaskError, GoalError):
-                    error(path, include_traceback=True)
-                except (IOError, SyntaxError):
-                    error(path)
+            with self.timer.timing('parse:bootstrap'):
+                for path in self.config.getlist('goals', 'bootstrap_buildfiles', default=[]):
+                    try:
+                        buildfile = BuildFile(get_buildroot(), os.path.relpath(path, get_buildroot()))
+                        ParseContext(buildfile).parse()
+                    except (TypeError, ImportError, TaskError, GoalError):
+                        error(path, include_traceback=True)
+                    except (IOError, SyntaxError):
+                        error(path)
         with self.check_errors('The following targets could not be loaded:') as error:
-            for spec in specs:
-                self.parse_spec(error, spec)
+            with self.timer.timing('parse:BUILD'):
+                for spec in specs:
+                    self.parse_spec(error, spec)
         self.phases = [Phase(goal) for goal in goals]
         rcfiles = self.config.getdefault('rcfiles', type=list, default=[])
         if rcfiles:
