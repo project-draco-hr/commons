@@ -13,6 +13,7 @@ def execute(self, targets):
             else:
                 for vt in invalidated.all_versioned_targets():
                     self.execute_single_compilation(vt, cp)
+                    invalidated.update_versioned_target(vt)
         if self.context.products.isrequired('classes'):
             genmap = self.context.products.get('classes')
             for (target, classes_by_source) in self._deps.findclasses(java_targets).items():
