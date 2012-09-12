@@ -4,5 +4,5 @@
     return null;
   }
   byte[] data=group.getMemberData(leaderId);
-  return data == null ? UNKOWN_CANDIDATE_DATA : new String(data);
+  return data == null ? new byte[0] : data;
 }
