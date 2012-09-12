@@ -13,3 +13,4 @@ def execute(self, targets):
             else:
                 for vt in invalidated.all_versioned_targets():
                     self.execute_single_compilation(vt, cp, upstream_analysis_caches)
+                    invalidated.update_versioned_target(vt)

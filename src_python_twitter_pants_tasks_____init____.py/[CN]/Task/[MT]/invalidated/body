@@ -1,6 +1,6 @@
 @contextmanager
 def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=False):
-    "\n      Checks targets for invalidation.\n\n      Yields the result to a with block. If no exceptions are thrown by work in the block, the\n      cache is updated for the targets, otherwise if a TargetError is thrown by the work in the\n      block all targets except those in the TargetError are cached.\n\n      :targets The targets to check for changes.\n      :only_buildfiles If True, then just the target's BUILD files are checked for changes.\n      :invalidate_dependants If True then any targets depending on changed targets are invalidated.\n      :returns: an InvalidationResult reflecting the invalidated targets.\n    "
+    "\n      Checks targets for invalidation.\n\n      Yields the result to a with block. If no exceptions are thrown by work in the block, the\n      cache is updated for the targets.\n\n      :targets The targets to check for changes.\n      :only_buildfiles If True, then just the target's BUILD files are checked for changes.\n      :invalidate_dependants If True then any targets depending on changed targets are invalidated.\n      :returns: an InvalidationResult reflecting the invalidated targets.\n    "
     extra_data = []
     extra_data.append(self.invalidate_for())
     for f in self.invalidate_for_files():
@@ -10,20 +10,13 @@ def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=Fals
         extra_data.append(sha.hexdigest())
     cache_manager = CacheManager(self._cache_key_generator, self._build_invalidator_dir, targets, invalidate_dependants, extra_data, only_buildfiles)
     all_versioned_targets = cache_manager.check(targets)
-    invalidation_result = InvalidationResult(all_versioned_targets)
+    invalidation_result = InvalidationResult(cache_manager, all_versioned_targets)
     num_invalid_targets = len(invalidation_result.invalid_targets())
     if (num_invalid_targets > 0):
         num_files = reduce((lambda x, y: (x + y)), [vt.cache_key.num_sources for vt in all_versioned_targets if (not vt.valid)], 0)
         self.context.log.info(('Operating on %d files in %d invalidated targets' % (num_files, num_invalid_targets)))
-    try:
-        if (num_invalid_targets > 0):
-            self.context.log.debug(('Invalidated targets %s' % invalidation_result.invalid_targets()))
-        yield invalidation_result
-        for vt in invalidation_result.invalid_versioned_targets():
-            cache_manager.update(vt.cache_key)
-    except TargetError as e:
-        for vt in invalidation_result.invalid_versioned_targets():
-            if (len(vt.targets) != 1):
-                raise Exception, 'Logic error: vt should represent a single target'
-            if (vt.targets[0] not in e.targets):
-                cache_manager.update(vt.cache_key)
+    if (num_invalid_targets > 0):
+        self.context.log.debug(('Invalidated targets %s' % invalidation_result.invalid_targets()))
+    yield invalidation_result
+    for vt in invalidation_result.invalid_versioned_targets():
+        cache_manager.update(vt.cache_key)

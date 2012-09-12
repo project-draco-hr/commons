@@ -1,3 +1,0 @@
-def __init__(self, targets, *args, **kwargs):
-    TaskError.__init__(self, *args, **kwargs)
-    self.targets = targets

@@ -5,4 +5,4 @@ import shutil
 from twitter.pants.base.artifact_cache import ArtifactCache
 from twitter.pants.base.build_invalidator import CacheKeyGenerator
 from twitter.pants.tasks.cache_manager import CacheManager, VersionedTargetSet
-__all__ = ('TaskError', 'TargetError', 'Task')
+__all__ = ('TaskError', 'Task')
