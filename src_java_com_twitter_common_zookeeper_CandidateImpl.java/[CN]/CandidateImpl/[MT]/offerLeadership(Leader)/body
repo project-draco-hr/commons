@@ -1,6 +1,5 @@
 {
-  Supplier<byte[]> leaderAddress=Suppliers.ofInstance(getAddress().getBytes());
-  final Membership membership=group.join(leaderAddress,new Command(){
+  final Membership membership=group.join(dataSupplier,new Command(){
     @Override public void execute(){
       leader.onDefeated();
     }

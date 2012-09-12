@@ -1,3 +1,14 @@
 {
-  this(group,MOST_RECENT_JUDGE);
+  this(group,MOST_RECENT_JUDGE,new Supplier<byte[]>(){
+    @Override public byte[] get(){
+      try {
+        return InetAddress.getLocalHost().getHostAddress().getBytes();
+      }
+ catch (      UnknownHostException e) {
+        LOG.log(Level.WARNING,"Failed to determine local address!",e);
+        return UNKOWN_CANDIDATE_DATA.getBytes();
+      }
+    }
+  }
+);
 }

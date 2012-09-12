@@ -1,2 +1,3 @@
 Group group
 Function<Iterable<String>,String> judge
+Supplier<byte[]> dataSupplier

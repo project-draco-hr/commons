@@ -4,6 +4,6 @@
   }
  catch (  UnknownHostException e) {
     LOG.log(Level.WARNING,"Failed to determine local address!",e);
-    return UNKOWN_CANDIDATE_ADDRESS;
+    return UNKOWN_CANDIDATE_DATA;
   }
 }
