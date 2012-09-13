@@ -1,2 +1,2 @@
-def has_label(self):
+def has_label(self, label):
     return False
