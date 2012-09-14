@@ -1,0 +1,20 @@
+{
+  final String suppliedValue="SAMPLE_DATA";
+  ZooKeeperClient zkClient1=createZkClient(TIMEOUT);
+  final CandidateImpl candidate1=new CandidateImpl(createGroup(zkClient1),CandidateImpl.MOST_RECENT_JUDGE,new Supplier<byte[]>(){
+    @Override public byte[] get(){
+      return suppliedValue.getBytes();
+    }
+  }
+){
+    @Override public String toString(){
+      return "Leader1";
+    }
+  }
+;
+  Reign candidate1Reign=new Reign("1",candidate1);
+  Supplier<Boolean> candidate1Leader=candidate1.offerLeadership(candidate1Reign);
+  candidateBuffer.takeLast();
+  assertTrue(candidate1Leader.get());
+  assertArrayEquals(candidate1.getLeaderData(),suppliedValue.getBytes());
+}
