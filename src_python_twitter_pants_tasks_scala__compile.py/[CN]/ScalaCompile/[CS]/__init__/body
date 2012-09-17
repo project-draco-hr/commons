@@ -23,3 +23,5 @@ def __init__(self, context, workdir=None):
         self._args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
     self._confs = context.config.getlist('scala-compile', 'confs')
     self._depfile_dir = os.path.join(self._workdir, 'depfiles')
+    artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches')
+    self.setup_artifact_cache(artifact_cache_spec)

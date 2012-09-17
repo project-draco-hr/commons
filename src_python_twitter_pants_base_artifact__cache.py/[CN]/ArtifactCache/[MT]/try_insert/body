@@ -1,0 +1,3 @@
+def try_insert(self, cache_key, build_artifacts):
+    'Attempt to cache the output of a build, without error-handling.\n\n    If there is an existing set of artifacts for this key they are deleted.\n\n    cache_key: A CacheKey object.\n    build_artifacts: List of paths to generated artifacts. These must be under pants_workdir.\n    '
+    pass

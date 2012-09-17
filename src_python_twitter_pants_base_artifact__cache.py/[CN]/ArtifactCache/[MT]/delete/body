@@ -1,0 +1,3 @@
+def delete(self, cache_key):
+    'Delete the artifacts for the specified key.\n\n    Deleting non-existent artifacts is a no-op.\n    '
+    pass

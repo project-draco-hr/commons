@@ -1,0 +1,2 @@
+def do_HEAD(self):
+    return SimpleHTTPServer.SimpleHTTPRequestHandler.do_HEAD(self)

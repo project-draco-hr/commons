@@ -3,13 +3,13 @@ def __init__(self, target, root_dir, extra_targets=None, builder=None):
     self._target = target
     self._root = root_dir
     self._key_generator = CacheKeyGenerator()
-    artifact_cache_root = os.path.join(self._config.get('python-setup', 'artifact_cache'), ('%s' % PythonIdentity.get()))
-    self._artifact_cache = ArtifactCache(artifact_cache_root)
     self._extra_targets = (list(extra_targets) if (extra_targets is not None) else [])
     self._resolver = PythonResolver(([self._target] + self._extra_targets))
     self._builder = (builder or PEXBuilder(tempfile.mkdtemp()))
     self._platforms = (Platform.current(),)
     self._pythons = (sys.version[:3],)
+    artifact_cache_root = os.path.join(self._config.get('python-setup', 'artifact_cache'), ('%s' % PythonIdentity.get()))
+    self._artifact_cache = FileBasedArtifactCache(None, self._root, artifact_cache_root, self._builder.add_dependency_file)
     if isinstance(self._target, PythonBinary):
         self._platforms = self._target._platforms
         self._pythons = self._target._interpreters

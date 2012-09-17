@@ -4,7 +4,7 @@ def _dump_built_library(self, library, builder):
     cache_key = self._key_generator.key_for(library.id, absolute_sources)
     if self._artifact_cache.has(cache_key):
         self.debug(('  Generating (cached) %s...' % library))
-        self._artifact_cache.use_cached_files(cache_key, self._builder.add_dependency_file)
+        self._artifact_cache.use_cached_files(cache_key)
     else:
         self.debug(('  Generating %s...' % library))
         egg_file = builder.build_egg()

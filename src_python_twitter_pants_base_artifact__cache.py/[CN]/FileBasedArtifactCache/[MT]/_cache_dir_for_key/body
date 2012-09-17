@@ -1,0 +1,2 @@
+def _cache_dir_for_key(self, cache_key):
+    return os.path.join(self._cache_root, cache_key.id, cache_key.hash)

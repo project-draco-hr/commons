@@ -1,19 +1,21 @@
 @contextmanager
-def check_artifact_cache(self, versioned_targets, build_artifacts, artifact_root):
-    "\n      See if we have required artifacts in the cache.\n\n      If we do (and reading from the artifact cache is enabled) then we copy the artifacts from the cache.\n      If we don't (and writing to the artifact cache is enabled) then we will copy the artifacts into\n      the cache when the context is exited.\n\n      Therefore the usage idiom is as follows:\n\n      with self.check_artifact_cache(...) as build:\n        if build:\n          ... build the necessary artifacts ...\n\n      :versioned_targets a VersionedTargetSet representing a specific version of a set of targets.\n      :build_artifacts a list of paths to which the artifacts will be written.\n      :artifact_root If not None, the artifact paths will be cached relative to this dir.\n      :returns: True if the caller must build the artifacts, False otherwise.\n    "
+def check_artifact_cache(self, versioned_targets, build_artifacts):
+    "\n      See if we have required artifacts in the cache.\n\n      If we do (and reading from the artifact cache is enabled) then we copy the artifacts from the cache.\n      If we don't (and writing to the artifact cache is enabled) then we will copy the artifacts into\n      the cache when the context is exited.\n\n      Therefore the usage idiom is as follows:\n\n      with self.check_artifact_cache(...) as build:\n        if build:\n          ... build the necessary artifacts ...\n\n      :versioned_targets a VersionedTargetSet representing a specific version of a set of targets.\n      :build_artifacts a list of paths to which the artifacts will be written. These must be under pants_workdir.\n      :returns: False if the caller must build the artifacts, True otherwise.\n    "
+    if (self._artifact_cache is None):
+        yield False
+        return
     artifact_key = versioned_targets.cache_key
     targets = versioned_targets.targets
-    if (self.context.options.read_from_artifact_cache and self._artifact_cache.has(artifact_key)):
-        self.context.log.info(('Using cached artifacts for %s' % targets))
-        self._artifact_cache.use_cached_files(artifact_key, (lambda src, reldest: shutil.copy(src, os.path.join(artifact_root, reldest))))
-        yield False
-    else:
-        self.context.log.info(('No cached artifacts for %s' % targets))
-        yield True
-        if self.context.options.write_to_artifact_cache:
-            if self._artifact_cache.has(artifact_key):
-                if self.context.options.verify_artifact_cache:
-                    pass
-            else:
-                self.context.log.info(('Caching artifacts for %s' % str(targets)))
-                self._artifact_cache.insert(artifact_key, build_artifacts, artifact_root)
+    using_cached = False
+    if self.context.options.read_from_artifact_cache:
+        if self._artifact_cache.use_cached_files(artifact_key):
+            self.context.log.info(('Using cached artifacts for %s' % targets))
+            using_cached = True
+        else:
+            self.context.log.info(('No cached artifacts for %s' % targets))
+    yield using_cached
+    if ((not using_cached) and self.context.options.write_to_artifact_cache):
+        if self.context.options.verify_artifact_cache:
+            pass
+        self.context.log.info(('Caching artifacts for %s' % str(targets)))
+        self._artifact_cache.insert(artifact_key, build_artifacts)

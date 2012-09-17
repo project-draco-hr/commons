@@ -1,0 +1,12 @@
+def _request(self, method, path, body=None):
+    if self.context:
+        self.context.log.info(('Sending %s request to http://%s%s' % (method, self._netloc, path)))
+    self._conn = self._connect()
+    self._conn.request(method, path, body=body)
+    response = self._conn.getresponse()
+    if (response.status == 200):
+        return response
+    elif (response.status == 404):
+        return None
+    else:
+        raise Exception, ('Failed to %s to http://%s/%s. Error: %d %s' % (method, self._netloc, path, response.status, response.reason))

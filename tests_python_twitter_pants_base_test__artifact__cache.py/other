@@ -1,8 +1,9 @@
+import SimpleHTTPServer
+import SocketServer
 import os
-import shutil
-import tempfile
-from twitter.pants.base.artifact_cache import ArtifactCache
+from threading import Thread
+from twitter.pants.base.artifact_cache import CombinedArtifactCache, FileBasedArtifactCache, RESTfulArtifactCache, create_artifact_cache
 from twitter.pants.base.build_invalidator import CacheKey
-from twitter.common.contextutil import temporary_dir
-from contextlib import contextmanager
-TEST_CONTENT = 'muppet'
+from twitter.common.contextutil import pushd, temporary_dir, temporary_file
+TEST_CONTENT1 = 'muppet'
+TEST_CONTENT2 = 'kermit'
