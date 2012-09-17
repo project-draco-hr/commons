@@ -5,8 +5,7 @@ def try_insert(self, cache_key, build_artifacts):
         rel_path = os.path.relpath(artifact, self.artifact_root)
         assert (not rel_path.startswith('..')), ('Artifact %s is not under artifact root %s' % (artifact, self.artifact_root))
         artifact_dest = os.path.join(cache_dir, rel_path)
-        dir_name = os.path.dirname(artifact_dest)
-        safe_mkdir(dir_name)
+        safe_mkdir(os.path.dirname(artifact_dest))
         if os.path.isdir(artifact):
             shutil.copytree(artifact, artifact_dest)
         else:

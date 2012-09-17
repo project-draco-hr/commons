@@ -18,7 +18,8 @@ def use_cached_files(self, cache_key):
             if (len(data) < read_size):
                 done = True
             total_bytes += len(data)
-            self.context.log.debug(('Read %d bytes' % total_bytes))
+            if self.context:
+                self.context.log.debug(('Read %d bytes' % total_bytes))
         outfile.close()
         if (total_bytes != expected_size):
             raise Exception, ('Read only %d bytes from %d expected' % (total_bytes, expected_size))

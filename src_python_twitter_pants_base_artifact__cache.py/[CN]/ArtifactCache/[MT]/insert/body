@@ -7,5 +7,8 @@ def insert(self, cache_key, build_artifacts):
             self.delete(cache_key)
         except Exception:
             print ('IMPORTANT: failed to delete %s on error. Your artifact cache may be corrupted. Please delete manually.' % cache_key)
-        self.context.log.error(traceback.format_exc())
+        if self.context:
+            self.context.log.error(traceback.format_exc())
+        else:
+            traceback.print_exc()
         raise e
