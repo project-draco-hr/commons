@@ -1,0 +1,3 @@
+def delete(self, cache_key):
+    for cache in self._artifact_caches:
+        cache.delete(cache_key)

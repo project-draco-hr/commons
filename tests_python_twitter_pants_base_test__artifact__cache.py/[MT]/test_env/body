@@ -1,7 +1,0 @@
-@contextmanager
-def test_env(content=TEST_CONTENT):
-    with temporary_dir() as d:
-        with tempfile.NamedTemporaryFile() as f:
-            f.write(content)
-            f.flush()
-            yield (f, ArtifactCache(d))

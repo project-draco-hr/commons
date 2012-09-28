@@ -1,5 +1,5 @@
 def __init__(self, context):
     self.context = context
     self._cache_key_generator = CacheKeyGenerator()
-    self._artifact_cache = ArtifactCache(context.config.get('tasks', 'artifact_cache'))
+    self._artifact_cache = None
     self._build_invalidator_dir = os.path.join(context.config.get('tasks', 'build_invalidator'), self.product_type())

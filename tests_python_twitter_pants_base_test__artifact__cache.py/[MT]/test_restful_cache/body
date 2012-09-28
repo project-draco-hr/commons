@@ -1,0 +1,18 @@
+def test_restful_cache():
+    httpd = None
+    httpd_thread = None
+    try:
+        with temporary_dir() as cache_root:
+            with pushd(cache_root):
+                httpd = SocketServer.TCPServer(('localhost', 0), SimpleRESTHandler)
+                port = httpd.server_address[1]
+                httpd_thread = Thread(target=httpd.serve_forever)
+                httpd_thread.start()
+                with temporary_dir() as artifact_root:
+                    artifact_cache = RESTfulArtifactCache(None, artifact_root, ('http://localhost:%d' % port))
+                    do_test_artifact_cache(artifact_cache)
+    finally:
+        if httpd:
+            httpd.shutdown()
+        if httpd_thread:
+            httpd_thread.join()

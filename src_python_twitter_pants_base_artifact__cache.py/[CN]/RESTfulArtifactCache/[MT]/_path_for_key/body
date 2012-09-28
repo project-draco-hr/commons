@@ -1,0 +1,2 @@
+def _path_for_key(self, cache_key):
+    return ('%s/%s/%s.tar.bz2' % (self._path_prefix, cache_key.id, cache_key.hash))

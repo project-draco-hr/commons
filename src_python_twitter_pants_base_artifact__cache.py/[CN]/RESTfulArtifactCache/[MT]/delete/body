@@ -1,0 +1,3 @@
+def delete(self, cache_key):
+    path = self._path_for_key(cache_key)
+    self._request('DELETE', path)

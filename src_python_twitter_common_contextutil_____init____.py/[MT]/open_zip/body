@@ -1,5 +1,5 @@
 @contextmanager
-def open_zip(path, *args, **kwargs):
+def open_zip(path_or_file, *args, **kwargs):
     '\n    A with-context for zip files.  Passes through positional and kwargs to zipfile.ZipFile.\n  '
-    with closing(zipfile.ZipFile(path, *args, **kwargs)) as zip:
+    with closing(zipfile.ZipFile(path_or_file, *args, **kwargs)) as zip:
         yield zip

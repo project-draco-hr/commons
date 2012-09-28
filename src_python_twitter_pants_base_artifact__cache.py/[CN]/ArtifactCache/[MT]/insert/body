@@ -1,21 +1,14 @@
-def insert(self, cache_key, build_artifacts, artifact_root=None):
-    "Cache the output of a build.\n\n    If there is an existing set of artifacts for this key they are deleted.\n\n    TODO: Check that they're equal? If they aren't it's a grave bug, since the key is supposed\n    to be a fingerprint of all possible inputs to the build.\n\n    :param cache_key: A CacheKey object.\n    :param build_artifacts: List of paths to generated artifacts under artifact_root.\n    :param artifact_root: Optional root directory under which artifacts are stored.\n    "
-    cache_dir = self._cache_dir_for_key(cache_key)
+def insert(self, cache_key, build_artifacts):
+    "Cache the output of a build.\n\n    If there is an existing set of artifacts for this key they are deleted.\n\n    TODO: Check that they're equal? If they aren't it's a grave bug, since the key is supposed\n    to be a fingerprint of all possible inputs to the build.\n\n    cache_key: A CacheKey object.\n    build_artifacts: List of paths to generated artifacts. These must be under pants_workdir.\n    "
     try:
-        safe_rmtree(cache_dir)
-        for artifact in (build_artifacts or ()):
-            rel_path = (os.path.basename(artifact) if (artifact_root is None) else os.path.relpath(artifact, artifact_root))
-            assert (not rel_path.startswith('..')), ('Weird: artifact=%s, rel_path=%s' % (artifact, rel_path))
-            artifact_dest = os.path.join(cache_dir, rel_path)
-            dir_name = os.path.dirname(artifact_dest)
-            safe_mkdir(dir_name)
-            if os.path.isdir(artifact):
-                shutil.copytree(artifact, artifact_dest)
-            else:
-                shutil.copy(artifact, artifact_dest)
+        self.try_insert(cache_key, build_artifacts)
     except Exception as e:
         try:
-            safe_rmtree(cache_dir)
-        except Exception as e:
-            print ('IMPORTANT: failed to delete %s on error. Your artifact cache may be corrupted. Please delete manually.' % cache_dir)
+            self.delete(cache_key)
+        except Exception:
+            print ('IMPORTANT: failed to delete %s on error. Your artifact cache may be corrupted. Please delete manually.' % cache_key)
+        if self.context:
+            self.context.log.error(traceback.format_exc())
+        else:
+            traceback.print_exc()
         raise e
