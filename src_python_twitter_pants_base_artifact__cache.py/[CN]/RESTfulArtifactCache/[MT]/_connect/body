@@ -1,2 +1,5 @@
 def _connect(self):
-    return httplib.HTTPConnection(self._netloc)
+    if self._ssl:
+        return httplib.HTTPSConnection(self._netloc)
+    else:
+        return httplib.HTTPConnection(self._netloc)

@@ -1,0 +1,2 @@
+def _url_string(self, path):
+    return ('%s://%s%s' % (('https' if self._ssl else 'http'), self._netloc, path))

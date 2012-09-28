@@ -5,7 +5,7 @@ def create_artifact_cache(context, artifact_root, spec):
     if isinstance(spec, basestring):
         if spec.startswith('/'):
             return FileBasedArtifactCache(context, artifact_root, spec)
-        elif spec.startswith('http://'):
+        elif (spec.startswith('http://') or spec.startswith('https://')):
             return RESTfulArtifactCache(context, artifact_root, spec)
         else:
             raise Exception, ('Invalid artifact cache spec: %s' % spec)
