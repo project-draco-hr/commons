@@ -1,0 +1,2 @@
+def needs_update(self, cache_key):
+    return self._invalidator.needs_update(cache_key)

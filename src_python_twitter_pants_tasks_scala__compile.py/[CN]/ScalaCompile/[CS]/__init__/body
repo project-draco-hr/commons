@@ -1,17 +1,22 @@
 def __init__(self, context, workdir=None):
     NailgunTask.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
-    self._flatten = (context.options.scala_compile_flatten if (context.options.scala_compile_flatten is not None) else context.config.getbool('scala-compile', 'default_to_flatten'))
+    self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint'))
     self._color = (context.options.scala_compile_color if (context.options.scala_compile_color is not None) else context.config.getbool('scala-compile', 'color', default=True))
     self._compile_profile = context.config.get('scala-compile', 'compile-profile')
     self._zinc_profile = context.config.get('scala-compile', 'zinc-profile')
+    self._zinc_classpath = nailgun_profile_classpath(self, self._zinc_profile)
+    compiler_classpath = nailgun_profile_classpath(self, self._compile_profile)
+    zinc_jars = ScalaCompile.identify_zinc_jars(compiler_classpath, self._zinc_classpath)
+    self._zinc_jar_args = []
+    for (name, jarpath) in zinc_jars.items():
+        self._zinc_jar_args.extend([('-%s' % name), jarpath])
     scaladeps = []
     for spec in context.config.getlist('scala-compile', 'scaladeps'):
         scaladeps.extend(context.resolve(spec))
     for target in context.targets(is_scala):
         target.update_dependencies(scaladeps)
     self._workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
-    self._incremental_classes_dir = os.path.join(self._workdir, 'incremental.classes')
-    self._flat_classes_dir = os.path.join(self._workdir, 'classes')
+    self._classes_dir = os.path.join(self._workdir, 'classes')
     self._analysis_cache_dir = os.path.join(self._workdir, 'analysis_cache')
     self._resources_dir = os.path.join(self._workdir, 'resources')
     self._main = context.config.get('scala-compile', 'main')

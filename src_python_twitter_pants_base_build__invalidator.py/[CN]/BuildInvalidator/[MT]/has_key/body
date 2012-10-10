@@ -1,2 +1,0 @@
-def has_key(self, cache_key):
-    return os.path.exists(self._sha_file(cache_key))

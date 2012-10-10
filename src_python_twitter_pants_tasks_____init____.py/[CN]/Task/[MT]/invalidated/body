@@ -1,6 +1,6 @@
 @contextmanager
-def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=False):
-    "\n      Checks targets for invalidation.\n\n      Yields the result to a with block. If no exceptions are thrown by work in the block, the\n      cache is updated for the targets.\n\n      :targets The targets to check for changes.\n      :only_buildfiles If True, then just the target's BUILD files are checked for changes.\n      :invalidate_dependants If True then any targets depending on changed targets are invalidated.\n      :returns: an InvalidationResult reflecting the invalidated targets.\n    "
+def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=False, partition_size_hint=sys.maxint):
+    "Checks targets for invalidation. Subclasses call this to figure out what to work on.\n\n    targets: The targets to check for changes.\n\n    only_buildfiles: If True, then only the target's BUILD files are checked for changes, not its sources.\n\n    invalidate_dependants: If True then any targets depending on changed targets are invalidated.\n\n    partition_size_hint: Each VersionedTargetSet in the yielded list will represent targets containing roughly\n    this number of source files, if possible. Set to sys.maxint for a single VersionedTargetSet. Set to 0 for\n    one VersionedTargetSet per target. It is up to the caller to do the right thing with whatever partitioning\n    it asks for.\n\n    Yields an InvalidationCheck object reflecting the (partitioned) targets. If no exceptions are\n    thrown by work in the block, the cache is updated for the targets.\n    "
     extra_data = []
     extra_data.append(self.invalidate_for())
     for f in self.invalidate_for_files():
@@ -8,15 +8,18 @@ def invalidated(self, targets, only_buildfiles=False, invalidate_dependants=Fals
         with open(f, 'rb') as fd:
             sha.update(fd.read())
         extra_data.append(sha.hexdigest())
-    cache_manager = CacheManager(self._cache_key_generator, self._build_invalidator_dir, targets, invalidate_dependants, extra_data, only_buildfiles)
-    all_versioned_targets = cache_manager.check(targets)
-    invalidation_result = InvalidationResult(cache_manager, all_versioned_targets)
-    num_invalid_targets = len(invalidation_result.invalid_targets())
-    if (num_invalid_targets > 0):
-        num_files = reduce((lambda x, y: (x + y)), [vt.cache_key.num_sources for vt in all_versioned_targets if (not vt.valid)], 0)
-        self.context.log.info(('Operating on %d files in %d invalidated targets' % (num_files, num_invalid_targets)))
-    if (num_invalid_targets > 0):
-        self.context.log.debug(('Invalidated targets %s' % invalidation_result.invalid_targets()))
-    yield invalidation_result
-    for vt in invalidation_result.invalid_versioned_targets():
-        cache_manager.update(vt.cache_key)
+    cache_manager = CacheManager(self._cache_key_generator, self._build_invalidator_dir, invalidate_dependants, extra_data, only_buildfiles)
+    invalidation_check = cache_manager.check(targets, partition_size_hint)
+    num_invalid_partitions = len(invalidation_check.invalid_vts_partitioned)
+    num_invalid_targets = 0
+    num_invalid_sources = 0
+    for vt in invalidation_check.invalid_vts:
+        if (not vt.valid):
+            num_invalid_targets += len(vt.targets)
+            num_invalid_sources += vt.cache_key.num_sources
+    if (num_invalid_partitions > 0):
+        self.context.log.info(('Operating on %d files in %d invalidated targets in %d target partitions' % (num_invalid_sources, num_invalid_targets, num_invalid_partitions)))
+    yield invalidation_check
+    if (not self.dry_run):
+        for vt in invalidation_check.invalid_vts:
+            vt.update()

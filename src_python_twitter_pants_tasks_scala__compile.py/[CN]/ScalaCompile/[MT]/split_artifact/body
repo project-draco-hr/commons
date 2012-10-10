@@ -1,0 +1,38 @@
+def split_artifact(self, deps, versioned_target_set):
+    if (len(versioned_target_set.targets) <= 1):
+        return
+    buildroot = get_buildroot()
+    classes_by_source_by_target = deps.findclasses(versioned_target_set.targets)
+    (src_output_dir, _, src_analysis_cache) = self.create_output_paths(versioned_target_set.targets)
+    analysis_splits = []
+    for target in versioned_target_set.targets:
+        classes_by_source = classes_by_source_by_target.get(target, {})
+        (dst_output_dir, dst_depfile, dst_analysis_cache) = self.create_output_paths([target])
+        safe_rmtree(dst_output_dir)
+        safe_mkdir(dst_output_dir)
+        sources = []
+        dst_deps = Dependencies(dst_output_dir)
+        for (source, classes) in classes_by_source.items():
+            src = os.path.join(target.target_base, source)
+            dst_deps.add(src, classes)
+            source_abspath = os.path.join(buildroot, target.target_base, source)
+            sources.append(source_abspath)
+            for cls in classes:
+                dst = os.path.join(dst_output_dir, cls)
+                safe_mkdir(os.path.dirname(dst))
+                os.link(os.path.join(src_output_dir, cls), dst)
+        dst_deps.save(dst_depfile)
+        analysis_splits.append((sources, dst_output_dir, dst_analysis_cache))
+    if os.path.exists(src_analysis_cache):
+        analysis_args = []
+        analysis_args.extend(self._zinc_jar_args)
+        analysis_args.extend(['-log-level', (self.context.options.log_level or 'info'), '-analysis'])
+        split_args = (analysis_args + ['-cache', src_analysis_cache, '-split', ','.join([('{%s}:%s' % (':'.join(x[0]), x[2])) for x in analysis_splits])])
+        if self.runjava(self._main, classpath=self._zinc_classpath, args=split_args, jvmargs=self._jvm_args):
+            raise TaskError, ('zinc failed to split analysis files %s from %s' % (':'.join([x[2] for x in analysis_splits]), src_analysis_cache))
+        for split in analysis_splits:
+            dst_analysis_cache = split[2]
+            if os.path.exists(dst_analysis_cache):
+                rebase_args = (analysis_args + ['-cache', dst_analysis_cache, '-rebase', ('%s:%s' % (src_output_dir, split[1]))])
+                if self.runjava(self._main, classpath=self._zinc_classpath, args=rebase_args, jvmargs=self._jvm_args):
+                    raise TaskError, ('In split_artifact: zinc failed to rebase analysis file %s' % dst_analysis_cache)

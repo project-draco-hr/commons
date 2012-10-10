@@ -1,11 +1,11 @@
 @staticmethod
-def combine_cache_keys(per_target_cache_keys):
-    "Returns a cache key for a set of targets that already have cache keys.\n\n    This operation is 'idempotent' in the sense that if per_target_cache_keys contains a single key\n    then that key is returned.\n\n    Note that this operation is commutative but not associative.  We use the term 'combine' rather than\n    'merge' or 'union' to remind the user of this. Associativity is not a necessary property, in practice.\n    "
-    if (len(per_target_cache_keys) == 1):
-        return per_target_cache_keys[0]
+def combine_cache_keys(cache_keys):
+    "Returns a cache key for a list of target sets that already have cache keys.\n\n    This operation is 'idempotent' in the sense that if cache_keys contains a single key\n    then that key is returned.\n\n    Note that this operation is commutative but not associative.  We use the term 'combine' rather than\n    'merge' or 'union' to remind the user of this. Associativity is not a necessary property, in practice.\n    "
+    if (len(cache_keys) == 1):
+        return cache_keys[0]
     else:
-        cache_keys = sorted(per_target_cache_keys)
-        combined_id = hash_all([cache_key.id for cache_key in cache_keys])
-        combined_hash = hash_all([cache_key.hash for cache_key in cache_keys])
-        combined_num_sources = reduce((lambda x, y: (x + y)), [cache_key.num_sources for cache_key in cache_keys], 0)
+        sorted_cache_keys = sorted(cache_keys)
+        combined_id = hash_all([cache_key.id for cache_key in sorted_cache_keys])
+        combined_hash = hash_all([cache_key.hash for cache_key in sorted_cache_keys])
+        combined_num_sources = reduce((lambda x, y: (x + y)), [cache_key.num_sources for cache_key in sorted_cache_keys], 0)
         return CacheKey(combined_id, combined_hash, combined_num_sources)

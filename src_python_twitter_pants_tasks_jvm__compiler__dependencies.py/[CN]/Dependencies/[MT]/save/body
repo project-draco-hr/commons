@@ -1,0 +1,10 @@
+def save(self, depfile):
+    'Save this object to a depfile. Any existing mappings in the file are overwitten.'
+    with open(depfile, 'w') as deps:
+        for (sourcefile, classfiles) in self.classes_by_source.items():
+            src = os.path.relpath(os.path.join(self.buildroot, sourcefile), self.outputdir)
+            for cls in classfiles:
+                deps.write(src)
+                deps.write(' -> ')
+                deps.write(cls)
+                deps.write('\n')

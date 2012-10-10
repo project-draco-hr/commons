@@ -1,16 +1,12 @@
 def execute_single_compilation(self, versioned_targets, cp):
-    compilation_id = Target.maybe_readable_identify(versioned_targets.targets)
-    if self._flatten:
-        depfile = os.path.join(self._depfile_dir, 'dependencies.flat')
-    else:
-        depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
+    depfile = self.create_depfile_path(versioned_targets.targets)
     if (not versioned_targets.valid):
+        self.merge_depfile(versioned_targets)
         self.context.log.info(('Compiling targets %s' % str(versioned_targets.targets)))
         (sources_by_target, processors, fingerprint) = self.calculate_sources(versioned_targets.targets)
         if sources_by_target:
             sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
             if (not sources):
-                touch(depfile)
                 self.context.log.warn(('Skipping java compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
             else:
                 classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
@@ -18,13 +14,11 @@ def execute_single_compilation(self, versioned_targets, cp):
                 if (result != 0):
                     default_message = ('Unexpected error - %s returned %d' % (_JMAKE_MAIN, result))
                     raise TaskError(_JMAKE_ERROR_CODES.get(result, default_message))
-            if processors:
+            if (processors and (not self.dry_run)):
                 processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
                 if os.path.exists(processor_info_file):
                     with safe_open(processor_info_file, 'r') as f:
                         for processor in f:
                             processors.add(processor.strip())
                 self.write_processor_info(processor_info_file, processors)
-    deps = Dependencies(self._classes_dir)
-    deps.load(depfile)
-    self._deps.merge(deps)
+    self.post_process(versioned_targets)

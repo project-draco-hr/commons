@@ -1,4 +1,4 @@
 self
+cache_manager
 targets
-cache_key
-valid
+per_target_cache_keys

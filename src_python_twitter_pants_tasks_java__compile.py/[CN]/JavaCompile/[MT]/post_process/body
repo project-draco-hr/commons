@@ -1,0 +1,7 @@
+def post_process(self, versioned_targets):
+    depfile = self.create_depfile_path(versioned_targets.targets)
+    if ((not self.dry_run) and os.path.exists(depfile)):
+        deps = Dependencies(self._classes_dir)
+        deps.load(depfile)
+        self.split_depfile(deps, versioned_targets)
+        self._deps.merge(deps)

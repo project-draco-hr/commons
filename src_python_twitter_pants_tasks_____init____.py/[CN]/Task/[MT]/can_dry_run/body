@@ -1,0 +1,3 @@
+def can_dry_run(self):
+    "Subclasses can override this to indicate that they respect the --dry-run flag.\n\n    It's the subclass task's responsibility to do the right thing if this flag is set.\n\n    Note that tasks such as codegen and ivy resolution cannot dry-run, because subsequent\n    cache key computation will fail on missing sources/external deps.\n    "
+    return False

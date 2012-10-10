@@ -1,4 +1,5 @@
 __author__ = 'John Sirois'
+import StringIO
 import os
 import re
 import subprocess

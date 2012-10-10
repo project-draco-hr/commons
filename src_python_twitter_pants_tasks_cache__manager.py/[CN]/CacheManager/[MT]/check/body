@@ -1,31 +1,7 @@
-def check(self, targets):
-    'Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns a list of VersionedTargetSets, one per input target, regardless of whether\n    it was invalidated or not. Note that the returned list is in topologically-sorted order.\n    That is, if B depends on A then B is later than A.\n    '
-    ordered_targets = self._order_target_list(targets)
-    versioned_targets = []
-    id_to_hash = {}
-    for target in ordered_targets:
-        dependency_keys = set()
-        if (self._invalidate_dependents and hasattr(target, 'dependencies')):
-            for dep in target.dependencies:
-                if isinstance(dep, Target):
-                    hash = id_to_hash.get(dep.id, None)
-                    if (hash is None):
-                        hash = self._invalidator.existing_hash(dep.id)
-                    if (hash is not None):
-                        dependency_keys.add(hash)
-                elif isinstance(dep, JarDependency):
-                    jarid = ''
-                    for key in CacheManager._JAR_HASH_KEYS:
-                        jarid += str(getattr(dep, key))
-                    dependency_keys.add(jarid)
-                else:
-                    dependency_keys.add(str(dep))
-        cache_key = self._key_for(target, dependency_keys)
-        id_to_hash[target.id] = cache_key.hash
-        if self._invalidator.needs_update(cache_key):
-            self._invalidator.invalidate(cache_key)
-            valid = False
-        else:
-            valid = True
-        versioned_targets.append(VersionedTargetSet([target], cache_key, valid))
-    return versioned_targets
+def check(self, targets, partition_size_hint):
+    "Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns a list of VersionedTargetSet objects (either valid or invalid). The returned sets 'cover'\n    the input targets, possibly partitioning them, and are in topological order.\n    The caller can inspect these in order and, e.g., rebuild the invalid ones.\n    "
+    all_vts = self._validate(targets)
+    invalid_vts = filter((lambda vt: (not vt.valid)), all_vts)
+    all_vts_partitioned = self._partition_versioned_targets(all_vts, partition_size_hint)
+    invalid_vts_partitioned = self._partition_versioned_targets(invalid_vts, partition_size_hint)
+    return InvalidationCheck(all_vts, all_vts_partitioned, invalid_vts, invalid_vts_partitioned)

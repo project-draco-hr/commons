@@ -1,3 +1,0 @@
-def all_versioned_targets(self):
-    'A list of VersionedTargetSet objects, one per target.\n\n    Targets are in topological order, that is if B depends on A then B comes after A in the list.\n    '
-    return self._all_versioned_targets

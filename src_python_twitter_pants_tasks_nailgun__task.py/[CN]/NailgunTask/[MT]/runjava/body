@@ -11,4 +11,9 @@ def runjava(self, main, classpath=None, args=None, jvmargs=None):
             self._ng_shutdown()
             raise e
     else:
-        return binary_utils.runjava(main=main, classpath=cp, args=args, jvmargs=jvmargs)
+        only_write_cmd_line_to = (StringIO.StringIO() if self.dry_run else None)
+        ret = binary_utils.runjava(main=main, classpath=cp, args=args, jvmargs=jvmargs, only_write_cmd_line_to=only_write_cmd_line_to)
+        if only_write_cmd_line_to:
+            print ('********** Direct Java dry run: %s' % only_write_cmd_line_to.getvalue())
+            only_write_cmd_line_to.close()
+        return ret
