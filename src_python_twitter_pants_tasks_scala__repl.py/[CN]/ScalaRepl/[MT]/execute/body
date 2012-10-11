@@ -1,2 +1,3 @@
 def execute(self, targets):
+    self.context.lock.release()
     runjava(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=self.args)
