@@ -1,9 +1,9 @@
 def test_dependants_direct(self):
     a = MockTarget('a')
-    b = MockTarget('b', a)
-    c = MockTarget('c', b)
-    d = MockTarget('d', c, a)
-    e = MockTarget('e', d)
+    b = MockTarget('b', [a])
+    c = MockTarget('c', [b])
+    d = MockTarget('d', [c, a])
+    e = MockTarget('e', [d])
     context = Context(ContextTest.config, options={}, target_roots=[a, b, c, d, e])
     dependees = context.dependants((lambda t: (t in set([e, c]))))
     self.assertEquals(set([c]), dependees.pop(d))
