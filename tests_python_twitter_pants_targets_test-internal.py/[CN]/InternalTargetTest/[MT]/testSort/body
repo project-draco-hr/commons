@@ -1,0 +1,9 @@
+def testSort(self):
+    a = MockTarget('a', [])
+    b = MockTarget('b', [a])
+    c = MockTarget('c', [b])
+    d = MockTarget('d', [c, a])
+    e = MockTarget('e', [d])
+    self.assertEquals(InternalTarget.sort_targets([a, b, c, d, e]), [e, d, c, b, a])
+    self.assertEquals(InternalTarget.sort_targets([b, d, a, e, c]), [e, d, c, b, a])
+    self.assertEquals(InternalTarget.sort_targets([e, d, c, b, a]), [e, d, c, b, a])

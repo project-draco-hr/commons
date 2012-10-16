@@ -1,7 +1,7 @@
 def testDetectIndirect(self):
     c = MockTarget('c')
-    b = MockTarget('b', c)
-    a = MockTarget('a', c, b)
+    b = MockTarget('b', [c])
+    a = MockTarget('a', [c, b])
     InternalTarget.sort_targets([a])
     c.internal_dependencies = [a]
     try:
