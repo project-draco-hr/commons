@@ -1,0 +1,9 @@
+def acquire_lock(self):
+    ' Acquire the global lock for the root directory associated with this context. When\n    a goal requires serialization, it will call this to acquire the lock.\n    '
+
+    def onwait(pid):
+        print(('Waiting on pants process %s to complete' % _process_info(pid)), file=sys.stderr)
+        return True
+    if self._lock.is_unlocked():
+        runfile = os.path.join(self._buildroot, '.pants.run')
+        self._lock = Lock.acquire(runfile, onwait=onwait)

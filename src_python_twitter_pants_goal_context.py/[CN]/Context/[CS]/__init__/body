@@ -1,8 +1,9 @@
-def __init__(self, config, options, target_roots, lock=None, log=None):
+def __init__(self, config, options, target_roots, lock=Lock.unlocked(), log=None):
     self._config = config
     self._options = options
-    self._lock = (lock or Lock.unlocked())
+    self._lock = lock
     self._log = (log or Context.Log())
     self._state = {}
     self._products = Products()
+    self._buildroot = get_buildroot()
     self.replace_targets(target_roots)
