@@ -1,4 +1,5 @@
 def __init__(self, name, action, group=None, dependencies=None, serialize=True):
+    'Parameters:\n       name: the name of the goal.\n       action: the goal action object to invoke this goal.\n       dependencies: the names of other goals which must be achieved\n          before invoking this goal.\n       serialize: a flag indicating whether or not the action to achieve\n          this goal requires the global lock. If true, the action will\n          block until it can acquire the lock.\n    '
     self.serialize = serialize
     self.name = name
     self.group = group
