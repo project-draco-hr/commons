@@ -1,4 +1,5 @@
-def __init__(self, name, action, group=None, dependencies=None):
+def __init__(self, name, action, group=None, dependencies=None, serialize=True):
+    self.serialize = serialize
     self.name = name
     self.group = group
     self.dependencies = ([Phase(d) for d in dependencies] if dependencies else [])

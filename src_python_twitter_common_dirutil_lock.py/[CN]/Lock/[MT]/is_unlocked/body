@@ -1,0 +1,3 @@
+def is_unlocked(self):
+    'Checks whether or not this lock object is currently actively holding a lock.'
+    return (self._lock_fd is None)

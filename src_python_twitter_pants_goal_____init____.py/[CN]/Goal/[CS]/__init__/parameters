@@ -3,3 +3,4 @@ name
 action
 group
 dependencies
+serialize
