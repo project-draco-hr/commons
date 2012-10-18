@@ -1,4 +1,4 @@
-def dependants(self, on_predicate=None, from_predicate=None):
+def dependents(self, on_predicate=None, from_predicate=None):
     'Returns  a map from targets that satisfy the from_predicate to targets they depend on that\n      satisfy the on_predicate.\n    '
     core = set(self.targets(on_predicate))
     dependees = defaultdict(set)

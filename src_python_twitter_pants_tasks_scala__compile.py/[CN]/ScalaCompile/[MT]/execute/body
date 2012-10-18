@@ -9,7 +9,7 @@ def execute(self, targets):
                 cp.insert(0, (conf, self._resources_dir))
                 for jar in self._plugin_jars:
                     cp.insert(0, (conf, jar))
-        with self.invalidated(scala_targets, invalidate_dependants=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
+        with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
             for vt in invalidation_check.all_vts:
                 if vt.valid:
                     self.post_process(vt, upstream_analysis_caches, split_artifact=False)
