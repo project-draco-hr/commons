@@ -1,6 +1,6 @@
 def create_artifact_cache(context, artifact_root, spec):
     "\n    Returns an artifact cache for the specified spec. If config is a string, it's interpreted\n    as a path or URL prefix to a cache root. If it's a list of strings, it returns an appropriate\n    combined cache.\n  "
-    if (len(spec) == 0):
+    if (not spec):
         raise Exception, 'Empty artifact cache spec'
     if isinstance(spec, basestring):
         if spec.startswith('/'):
