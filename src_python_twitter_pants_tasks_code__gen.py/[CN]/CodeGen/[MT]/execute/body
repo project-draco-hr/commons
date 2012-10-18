@@ -1,7 +1,7 @@
 def execute(self, targets):
     gentargets = [t for t in targets if self.is_gentarget(t)]
     capabilities = self.genlangs()
-    gentargets_by_dependee = self.context.dependants(on_predicate=self.is_gentarget, from_predicate=(lambda t: (not self.is_gentarget(t))))
+    gentargets_by_dependee = self.context.dependents(on_predicate=self.is_gentarget, from_predicate=(lambda t: (not self.is_gentarget(t))))
     dependees_by_gentarget = defaultdict(set)
     for (dependee, tgts) in gentargets_by_dependee.items():
         for gentarget in tgts:
@@ -19,7 +19,7 @@ def execute(self, targets):
         gentargets_bylang[lang] = (gentargets if self.is_forced(lang) else find_gentargets(predicate))
     if gentargets_by_dependee:
         self.context.log.warn(('Left with unexpected unconsumed gen targets:\n\t%s' % '\n\t'.join((('%s -> %s' % (dependee, gentargets)) for (dependee, gentargets) in gentargets_by_dependee.items()))))
-    with self.invalidated(gentargets, invalidate_dependants=True) as invalidation_check:
+    with self.invalidated(gentargets, invalidate_dependents=True) as invalidation_check:
         invalid_targets = set()
         for vt in invalidation_check.invalid_vts:
             invalid_targets.update(vt.targets)
