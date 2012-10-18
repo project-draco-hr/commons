@@ -1,0 +1,2 @@
+def key_for_target(self, target, sources=None, fingerprint_extra=None):
+    return CacheKey(target.id, target.id, target.num_sources)

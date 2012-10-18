@@ -1,0 +1,2 @@
+def __init__(self, tmpdir):
+    CacheManager.__init__(self, AppendingCacheKeyGenerator(), tmpdir, True, None, False)
