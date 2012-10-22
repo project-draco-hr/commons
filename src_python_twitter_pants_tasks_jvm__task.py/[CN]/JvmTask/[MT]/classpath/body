@@ -2,5 +2,11 @@ def classpath(self, cp=None, confs=None):
     classpath = (cp or [])
     with self.context.state('classpath', []) as cp:
         classpath.extend((jar for (conf, jar) in cp if ((not confs) or (conf in confs))))
-    classpath.extend((os.path.join(get_buildroot(), path) for path in ('src/resources', 'tests/resources')))
+    bases = set()
+    for target in self.context.targets():
+        if (isinstance(target, JvmTarget) and (is_test(target) or hasattr(target, 'resources'))):
+            if (target.target_base not in bases):
+                sibling_resources_base = os.path.join(os.path.dirname(target.target_base), 'resources')
+                classpath.append(os.path.join(get_buildroot(), sibling_resources_base))
+                bases.add(target.target_base)
     return classpath

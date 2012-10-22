@@ -1,4 +1,5 @@
 __author__ = 'John Sirois'
 import os
-from twitter.pants import get_buildroot
+from twitter.pants import get_buildroot, is_test
+from twitter.pants.targets import JvmTarget
 from twitter.pants.tasks import Task
