@@ -1,3 +1,0 @@
-def all_targets(self):
-    'A list of all underlying targets, in topological order.'
-    return self._combined_all_versioned_targets.targets

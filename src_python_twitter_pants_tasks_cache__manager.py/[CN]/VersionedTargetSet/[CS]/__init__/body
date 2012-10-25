@@ -1,4 +1,6 @@
-def __init__(self, targets, cache_key, valid):
+def __init__(self, cache_manager, targets, per_target_cache_keys):
+    self._cache_manager = cache_manager
+    self.per_target_cache_keys = per_target_cache_keys
     self.targets = targets
-    self.cache_key = cache_key
-    self.valid = valid
+    self.cache_key = CacheKeyGenerator.combine_cache_keys(per_target_cache_keys)
+    self.valid = (not cache_manager.needs_update(self.cache_key))

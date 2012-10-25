@@ -1,6 +1,5 @@
-def __init__(self, cache_key_generator, build_invalidator_dir, targets, invalidate_dependents, extra_data, only_externaldeps):
+def __init__(self, cache_key_generator, build_invalidator_dir, invalidate_dependents, extra_data, only_externaldeps):
     self._cache_key_generator = cache_key_generator
-    self._targets = set(targets)
     self._invalidate_dependents = invalidate_dependents
     self._extra_data = pickle.dumps(extra_data)
     self._sources = (NO_SOURCES if only_externaldeps else TARGET_SOURCES)

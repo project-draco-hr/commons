@@ -2,7 +2,7 @@ __author__ = 'John Sirois'
 from collections import defaultdict
 import os
 from twitter.common import log
-from twitter.common.dirutil import safe_open, safe_mkdir, touch
+from twitter.common.dirutil import safe_open, safe_mkdir
 from twitter.pants import is_apt
 from twitter.pants.base.target import Target
 from twitter.pants.targets import JavaLibrary, JavaTests

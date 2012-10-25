@@ -1,0 +1,3 @@
+def add(self, sourcefile, classfiles):
+    'Add a mapping to this object.\n\n    sourcefile is assumed to be relative to the build root (note: unlike in depfiles).\n    classfiles are assumed to be relative to the output directory.\n    '
+    self.classes_by_source[sourcefile].update(classfiles)

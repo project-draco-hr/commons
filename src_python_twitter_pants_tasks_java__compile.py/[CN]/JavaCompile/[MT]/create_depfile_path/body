@@ -1,0 +1,3 @@
+def create_depfile_path(self, targets):
+    compilation_id = Target.maybe_readable_identify(targets)
+    return (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')

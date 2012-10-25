@@ -1,3 +1,0 @@
-def update_versioned_target(self, vt):
-    "Subclasses may call this when building target-by-target, to mark partial progress as valid.\n\n    This is useful so that a failure on a later target doesn't require the earlier targets to be rebuilt."
-    self._cache_manager.update(vt.cache_key)

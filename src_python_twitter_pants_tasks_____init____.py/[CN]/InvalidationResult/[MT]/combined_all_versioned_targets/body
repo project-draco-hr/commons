@@ -1,3 +1,0 @@
-def combined_all_versioned_targets(self):
-    'A single VersionedTargetSet representing all targets together.'
-    return self._combined_all_versioned_targets

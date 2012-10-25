@@ -1,0 +1,12 @@
+def merge_depfile(self, versioned_target_set):
+    if (len(versioned_target_set.targets) <= 1):
+        return
+    dst_depfile = self.create_depfile_path(versioned_target_set.targets)
+    dst_deps = Dependencies(self._classes_dir)
+    for target in versioned_target_set.targets:
+        src_depfile = self.create_depfile_path([target])
+        if os.path.exists(src_depfile):
+            src_deps = Dependencies(self._classes_dir)
+            src_deps.load(src_depfile)
+            dst_deps.merge(src_deps)
+    dst_deps.save(dst_depfile)
