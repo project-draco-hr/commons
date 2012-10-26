@@ -1,11 +1,11 @@
 __author__ = 'John Sirois'
-import errno
 import os
 import shutil
 import textwrap
 from collections import defaultdict
+from xml.etree import ElementTree
 from twitter.common.collections import OrderedDict
-from twitter.common.contextutil import temporary_dir
+from twitter.common.contextutil import open_zip as open_jar, temporary_dir
 from twitter.common.dirutil import safe_mkdir, safe_open, safe_rmtree
 from twitter.pants import get_buildroot, is_scala, is_scalac_plugin
 from twitter.pants.base.target import Target
