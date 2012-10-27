@@ -3,6 +3,7 @@ import os
 import shutil
 import textwrap
 from collections import defaultdict
+from contextlib import closing
 from xml.etree import ElementTree
 from twitter.common.collections import OrderedDict
 from twitter.common.contextutil import open_zip as open_jar, temporary_dir

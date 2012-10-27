@@ -28,8 +28,8 @@ def __init__(self, context, workdir=None):
         self._args.extend(context.config.getlist('scala-compile', 'warning_args'))
     else:
         self._args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
-    plugin_names = (context.options.plugins.split(',') if (context.options.plugins is not None) else context.config.getlist('scala-compile', 'scalac-plugins', default=[]))
-    plugin_args = dict(context.config.getlist('scala-compile', 'scalac-plugin-args', default=[]))
+    plugin_names = ([p for val in context.options.plugins for p in val.split(',')] if (context.options.plugins is not None) else context.config.getlist('scala-compile', 'scalac-plugins', default=[]))
+    plugin_args = context.config.getdict('scala-compile', 'scalac-plugin-args', default={})
     active_plugins = ScalaCompile.find_plugins(plugin_names, self._plugin_jars)
     for (name, jar) in active_plugins.items():
         self._args.append(('-Xplugin:%s' % jar))
