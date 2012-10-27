@@ -2,5 +2,6 @@
 def setup_parser(cls, option_group, args, mkflag):
     NailgunTask.setup_parser(option_group, args, mkflag)
     option_group.add_option(mkflag('warnings'), mkflag('warnings', negate=True), dest='scala_compile_warnings', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Compile scala code with all configured warnings enabled.')
+    option_group.add_option(mkflag('plugins'), dest='plugins', default=None, action='append', help='Use these scalac plugins. Default is set in pants.ini.')
     option_group.add_option(mkflag('partition-size-hint'), dest='scala_compile_partition_size_hint', action='store', type='int', default=(-1), help='Roughly how many source files to attempt to compile together. Set to a large number to compile all sources together. Set this to 0 to compile target-by-target. Default is set in pants.ini.')
     option_group.add_option(mkflag('color'), mkflag('color', negate=True), dest='scala_compile_color', action='callback', callback=mkflag.set_bool, help='[True] Enable color in logging.')
