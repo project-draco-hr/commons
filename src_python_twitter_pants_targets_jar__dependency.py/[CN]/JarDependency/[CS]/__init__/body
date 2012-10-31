@@ -1,4 +1,4 @@
-def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None, test_jar=False):
+def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None, classifiers=[]):
     self.org = org
     self.name = name
     self.rev = rev
@@ -9,7 +9,7 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
     self.url = url
     self.apidocs = apidocs
     self.id = None
-    self.test_jar = test_jar
+    self.classifiers = (classifiers if (type(classifiers) == list) else [classifiers])
     self._configurations = ['default']
     self.withSources = self.with_sources
     self.withDocs = self.with_sources
