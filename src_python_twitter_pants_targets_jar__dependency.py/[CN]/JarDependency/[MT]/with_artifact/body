@@ -1,0 +1,3 @@
+def with_artifact(self, name=None, ext=None, url=None, type_=None, classifier=None, configuration=None):
+    self.artifacts.append(Artifact(name, ext, url, type_, classifier, configuration))
+    return self
