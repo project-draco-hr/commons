@@ -1,0 +1,7 @@
+def __init__(self, name=None, ext=None, url=None, type_=None, classifier=None, conf=None):
+    self.name = name
+    self.ext = ext
+    self.url = url
+    self.type_ = type_
+    self.classifier = classifier
+    self.conf = conf

@@ -1,10 +1,7 @@
 self
-org
 name
-rev
-force
 ext
 url
-apidocs
 type_
 classifier
+conf
