@@ -1,4 +1,4 @@
 def _generate_jar_template(self, jar):
-    template = TemplateData(org=jar.org, module=jar.name, version=jar.rev, force=jar.force, excludes=[self._generate_exclude_template(exclude) for exclude in jar.excludes], transitive=jar.transitive, ext=jar.ext, url=jar.url, test_jar=jar.test_jar, configurations=';'.join(jar._configurations))
+    template = TemplateData(org=jar.org, module=jar.name, version=jar.rev, force=jar.force, excludes=[self._generate_exclude_template(exclude) for exclude in jar.excludes], transitive=jar.transitive, artifacts=jar.artifacts, configurations=';'.join(jar._configurations))
     override = self._overrides.get((jar.org, jar.name))
     return (override(template) if override else template)

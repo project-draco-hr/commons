@@ -1,2 +1,2 @@
 def _create_template_data(self):
-    return TemplateData(org=self.org, module=self.name, version=self.rev, force=self.force, excludes=self.excludes, transitive=self.transitive, ext=self.ext, url=self.url, configurations=';'.join(self._configurations))
+    return TemplateData(org=self.org, module=self.name, version=self.rev, force=self.force, excludes=self.excludes, transitive=self.transitive, artifacts=self.artifacts, configurations=';'.join(self._configurations))
