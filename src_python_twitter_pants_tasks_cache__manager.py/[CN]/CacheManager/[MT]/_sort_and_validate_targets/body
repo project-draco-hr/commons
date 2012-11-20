@@ -2,6 +2,7 @@ def _sort_and_validate_targets(self, targets):
     'Validate each target.\n\n    Returns a topologically ordered set of VersionedTargets, each representing one input target.\n    '
     ordered_targets = self._order_target_list(targets)
     versioned_targets = []
+    versioned_targets_by_target = {}
     id_to_hash = {}
     for target in ordered_targets:
         dependency_keys = set()
@@ -22,5 +23,24 @@ def _sort_and_validate_targets(self, targets):
                     dependency_keys.add(str(dep))
         cache_key = self._key_for(target, dependency_keys)
         id_to_hash[target.id] = cache_key.hash
-        versioned_targets.append(VersionedTargetSet(self, [target], [cache_key]))
+        versioned_target = VersionedTarget(self, target, cache_key)
+        versioned_targets.append(versioned_target)
+        versioned_targets_by_target[target] = versioned_target
+    versioned_target_deps_by_target = {}
+
+    def get_versioned_target_deps_for_target(target):
+        versioned_target_deps = set([])
+        if hasattr(target, 'dependencies'):
+            for dep in target.dependencies:
+                for dependency in dep.resolve():
+                    if (dependency in versioned_targets_by_target):
+                        versioned_target_deps.add(versioned_targets_by_target[dependency])
+                    elif (dependency in versioned_target_deps_by_target):
+                        versioned_target_deps.update(versioned_target_deps_by_target[dependency])
+                    else:
+                        versioned_target_deps_by_target[dependency] = get_versioned_target_deps_for_target(dependency)
+                        versioned_target_deps.update(versioned_target_deps_by_target[dependency])
+        return versioned_target_deps
+    for versioned_target in versioned_targets:
+        versioned_target.dependencies = get_versioned_target_deps_for_target(versioned_target.target)
     return versioned_targets

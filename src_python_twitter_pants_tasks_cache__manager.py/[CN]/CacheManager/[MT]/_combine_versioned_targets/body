@@ -1,5 +1,0 @@
-def _combine_versioned_targets(self, vts):
-    targets = []
-    for vt in vts:
-        targets.extend(vt.targets)
-    return VersionedTargetSet(self, targets, [vt.cache_key for vt in vts])
