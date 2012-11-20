@@ -1,5 +1,5 @@
 def _partition_versioned_targets(self, versioned_targets, partition_size_hint):
-    'Groups versioned targets so that each group has roughly the same number of sources.\n\n    versioned_targets is a list of VersionedTargetSet objects  [ vt1, vt2, vt3, vt4, vt5, vt6, ...].\n\n    Returns a list of VersionedTargetSet objects, e.g., [ VT1, VT2, VT3, ...] representing the\n    same underlying targets. E.g., VT1 is the combination of [vt1, vt2, vt3], VT2 is the combination\n    of [vt4, vt5] and VT3 is [vt6].\n\n    The new versioned targets are chosen to have roughly partition_size_hint sources.\n\n    This is useful as a compromise between flat mode, where we build all targets in a\n    single compiler invocation, and non-flat mode, where we invoke a compiler for each target,\n    which may lead to lots of compiler startup overhead. A task can choose instead to build one\n    group at a time.\n    '
+    'Groups versioned targets so that each group has roughly the same number of sources.\n\n    versioned_targets is a list of VersionedTarget objects  [ vt1, vt2, vt3, vt4, vt5, vt6, ...].\n\n    Returns a list of VersionedTargetSet objects, e.g., [ VT1, VT2, VT3, ...] representing the\n    same underlying targets. E.g., VT1 is the combination of [vt1, vt2, vt3], VT2 is the combination\n    of [vt4, vt5] and VT3 is [vt6].\n\n    The new versioned targets are chosen to have roughly partition_size_hint sources.\n\n    This is useful as a compromise between flat mode, where we build all targets in a\n    single compiler invocation, and non-flat mode, where we invoke a compiler for each target,\n    which may lead to lots of compiler startup overhead. A task can choose instead to build one\n    group at a time.\n    '
     res = []
 
 
@@ -12,11 +12,11 @@ def _partition_versioned_targets(self, versioned_targets, partition_size_hint):
 
     def add_to_current_group(vt):
         current_group.vts.append(vt)
-        current_group.total_sources += vt.cache_key.num_sources
+        current_group.total_sources += vt.num_sources
 
     def close_current_group():
         if (len(current_group.vts) > 0):
-            new_vt = self._combine_versioned_targets(current_group.vts)
+            new_vt = VersionedTargetSet.from_versioned_targets(current_group.vts)
             res.append(new_vt)
             current_group.vts = []
             current_group.total_sources = 0
