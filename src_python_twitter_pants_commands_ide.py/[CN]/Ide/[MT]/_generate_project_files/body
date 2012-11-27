@@ -1,3 +1,0 @@
-def _generate_project_files(self, project, ivyfile, ivysettingsfile):
-    'Generates project files that configure the IDE given a configured project and ivy files.'
-    raise NotImplementedError('Subclasses must implement this method')

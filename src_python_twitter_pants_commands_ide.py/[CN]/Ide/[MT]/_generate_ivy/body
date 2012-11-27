@@ -1,7 +1,0 @@
-def _generate_ivy(self, ide_target):
-    jvmbuilder = AntBuilder(self.error, self.root_dir)
-    antargs = []
-    if self.options.clean:
-        antargs.extend(['clean-all', 'compile'])
-    (_, ivyfile, _) = jvmbuilder.generate_and_build([ide_target], antargs, name=self.project_name)
-    return (ivyfile, os.path.join(self.root_dir, 'build-support', 'ivy', 'ivysettings.xml'))

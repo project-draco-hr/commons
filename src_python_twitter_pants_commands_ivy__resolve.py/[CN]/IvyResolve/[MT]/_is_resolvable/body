@@ -1,3 +1,0 @@
-@staticmethod
-def _is_resolvable(target):
-    return is_jvm(target)

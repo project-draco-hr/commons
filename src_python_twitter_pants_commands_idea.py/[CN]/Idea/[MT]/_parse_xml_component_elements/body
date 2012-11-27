@@ -1,6 +1,0 @@
-def _parse_xml_component_elements(self, path):
-    'Returns a list of pairs (component_name, xml_fragment) where xml_fragment is the xml text of\n    that <component> in the specified xml file.'
-    if (not os.path.exists(path)):
-        return []
-    dom = minidom.parse(path)
-    return [(x.getAttribute('name'), x.toxml()) for x in dom.getElementsByTagName('component')]

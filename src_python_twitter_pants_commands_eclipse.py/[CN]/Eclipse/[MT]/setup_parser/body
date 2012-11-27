@@ -1,6 +1,0 @@
-def setup_parser(self, parser, args):
-    Ide.setup_parser(self, parser, args)
-    supported_versions = list(_VERSIONS.keys())
-    supported_versions.sort()
-    parser.add_option('-i', '--eclipse-version', dest='version', default='3.5', type='choice', choices=supported_versions, help=('[%%default] The Eclipse version the project configuration should be generated for; can be one of: %s' % supported_versions))
-    parser.epilog = 'Creates an Eclipse project appropriate for editing, debugging and testing\n    the specified BUILD targets.'

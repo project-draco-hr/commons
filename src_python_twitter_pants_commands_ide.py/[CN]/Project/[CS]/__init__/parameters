@@ -1,8 +1,0 @@
-self
-name
-has_python
-skip_java
-skip_scala
-root_dir
-checkstyle_suppression_files
-targets
