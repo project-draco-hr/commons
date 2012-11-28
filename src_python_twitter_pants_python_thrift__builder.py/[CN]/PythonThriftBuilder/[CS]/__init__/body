@@ -7,3 +7,5 @@ def __init__(self, target, root_dir):
     self.codegen_root = os.path.relpath(codegen_root, self.chroot.path())
     self.detected_packages = set()
     self.detected_namespace_packages = set()
+    config = Config.load()
+    self.platmap = config.getdict('py', 'thrift-platmap')

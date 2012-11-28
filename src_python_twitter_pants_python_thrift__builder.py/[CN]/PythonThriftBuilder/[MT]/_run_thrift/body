@@ -2,7 +2,7 @@ def _run_thrift(self, source):
     thrift_file = source
     thrift_abs_path = os.path.join(self.root, self.target.target_base, thrift_file)
     thrift_abs_path = os.path.abspath(thrift_abs_path)
-    args = [PythonThriftBuilder.thrift_binary(self.root), '--gen', 'py:new_style', '-o', self.codegen_root, thrift_abs_path]
+    args = [self.thrift_binary(self.root), '--gen', 'py:new_style', '-o', self.codegen_root, thrift_abs_path]
     cwd = os.getcwd()
     os.chdir(self.chroot.path())
     try:

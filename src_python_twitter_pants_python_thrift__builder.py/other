@@ -6,4 +6,5 @@ import tempfile
 import subprocess
 from twitter.common.dirutil import safe_rmtree
 from twitter.common.dirutil.chroot import RelativeChroot
+from twitter.pants import Config
 from twitter.pants.python.egg_builder import EggBuilder
