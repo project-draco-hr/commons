@@ -1,0 +1,5 @@
+def execute(self, targets):
+    if NailgunTask.killall:
+        NailgunTask.killall(self.context.log, everywhere=self.context.options.ng_killall_everywhere)
+    else:
+        raise NotImplementedError, 'NailgunKillall not implemented on this platform'

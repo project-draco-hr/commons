@@ -1,0 +1,6 @@
+def cmdline(self):
+    try:
+        with open(('/proc/%s/cmdline' % self.pid()), 'r') as infile:
+            return infile.read().replace('\x00', ' ')
+    except OSError:
+        return None
