@@ -1,3 +1,4 @@
 @staticmethod
-def from_fp(fp):
-    return ClassFile(fp.read())
+def from_fp(fp, decode_full=True):
+    '\n    Parameters:\n      fp: a file pointer for reading the contents of a classfile\n      decode_full: optimization flag. If True, the entire classfile is decoded.\n         If false, then decoding stops once the constant pool has been decoded.\n    '
+    return ClassFile(fp.read(), decode_full)

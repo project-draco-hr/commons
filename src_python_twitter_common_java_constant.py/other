@@ -1,3 +1,5 @@
 from .util import javaify
 from .java_types import *
+import re
 '\n  Parse constants as defined in\n  http://java.sun.com/docs/books/jvms/second_edition/html/ClassFile.doc.html#20080\n'
+ClassPatternRE = re.compile('L([A-Za-z_0-9/$]*)[<>;]')

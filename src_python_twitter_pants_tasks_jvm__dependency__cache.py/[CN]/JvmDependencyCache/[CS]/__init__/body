@@ -1,0 +1,11 @@
+def __init__(self, compile_task, targets):
+    "\n    Parameters:\n      compile_task: the compilation task which is producing the build products that\n        we'll use to perform the analysis.\n      targets: the set of targets to analyze. These should all be target types that\n         inherit from jvm_target, and contain source files that will be compiled into\n          jvm class files.\n    "
+    self.task = compile_task
+    self.targets = targets
+    self.class_deps_by_target = defaultdict(set)
+    self.targets_by_class = defaultdict(set)
+    self.deps_by_source = defaultdict(set)
+    self.jars_by_target = defaultdict(set)
+    self.jar_targets_by_class = defaultdict(set)
+    self.computed_deps = None
+    self.computed_jar_deps = None

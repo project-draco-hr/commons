@@ -1,0 +1,7 @@
+def get_external_class_references(self):
+    '\n    Retrieve all of the classes referenced by this class.\n    All class references appear in the constant pool, so to get this list, we only need\n    to retrieve the pool.\n\n    Returns: a set of class specifier strings in JVM format (e.g., "java/util/String")\n    '
+    result = set()
+    for c in self._constant_pool:
+        if (c is not None):
+            result = result.union(c.get_external_class_references(self._constant_pool))
+    return result

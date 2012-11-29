@@ -1,0 +1,10 @@
+def get_external_class_references(self, constants):
+    classname = self(constants)
+    if classname.startswith('['):
+        matches = ClassPatternRE.findall(classname)
+        if (matches is None):
+            return set()
+        else:
+            return set(matches)
+    else:
+        return set([self(constants)])

@@ -1,0 +1,2 @@
+def get_external_class_references(self, constants):
+    return constants[self._class_index].get_external_class_references(constants).union(constants[self._name_and_type_index].get_external_class_references(constants))

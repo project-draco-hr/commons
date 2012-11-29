@@ -1,0 +1,3 @@
+def get_external_class_references(self, constants):
+    '\n    Retrieve all of the classes referenced by this class.\n\n    Parameters:\n      constants: the constant pool that this constant is a member of.\n    Returns: a set of all classes referenced by this pool entry.\n    '
+    return set([])

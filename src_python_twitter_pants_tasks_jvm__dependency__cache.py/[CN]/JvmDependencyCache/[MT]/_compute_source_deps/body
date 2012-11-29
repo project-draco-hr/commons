@@ -1,0 +1,21 @@
+def _compute_source_deps(self):
+    '\n    Compute the set of dependencies actually used by the source files in the targets\n    for the compilation task being analyzed.\n    '
+    class_products = self.task.context.products.get('classes')
+    for target in self.targets:
+        if (target not in class_products.by_target):
+            continue
+        for outdir in class_products.by_target[target]:
+            for cl in class_products.by_target[target][outdir]:
+                self.targets_by_class[cl].add(target)
+        for source in target.sources:
+            source_file_deps = set()
+            class_files = set()
+            for dir in class_products.by_target[source]:
+                class_files |= set([(clfile, dir) for clfile in class_products.by_target[source][dir]])
+            for (cname, cdir) in class_files:
+                cf = ClassFile.from_file(os.path.join(cdir, cname), False)
+                dep_set = cf.get_external_class_references()
+                dep_classfiles = [('%s.class' % s) for s in dep_set]
+                source_file_deps = source_file_deps.union(dep_classfiles)
+            self.deps_by_source[source] = source_file_deps
+            self.class_deps_by_target[target].update(source_file_deps)

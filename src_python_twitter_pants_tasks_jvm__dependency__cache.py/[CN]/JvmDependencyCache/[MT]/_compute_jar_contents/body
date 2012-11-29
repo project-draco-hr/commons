@@ -1,0 +1,25 @@
+def _compute_jar_contents(self):
+    '\n    Compute the information needed by deps analysis for the set of classes that come from\n    jars in jar_dependency targets. This is messier that it should be, because of\n    the strange way that jar_dependency targets are treated by pants.\n    '
+    found_jar_deps = set()
+    for jt in self.targets:
+        jars = self._get_jardep_dependencies(jt)
+        found_jar_deps = found_jar_deps.union(jars)
+    jardeps_by_id = {}
+    for jardep in found_jar_deps:
+        jardeps_by_id[(jardep.org, jardep.name)] = jardep
+    jar_products = self.task.context.products.get('jar_dependencies')
+    for (target_key, product) in jar_products.itermappings():
+        if isinstance(target_key, tuple):
+            if (target_key in jardeps_by_id):
+                target = jardeps_by_id[target_key]
+                jars_for_target = set([])
+                for dir in jar_products.by_target[target_key]:
+                    for j in jar_products.by_target[target_key][dir]:
+                        jars_for_target.add(os.path.join(dir, j))
+                self.jars_by_target[target] = jars_for_target
+    for target in self.jars_by_target:
+        for jar in self.jars_by_target[target]:
+            jarfile = ZipFile(jar)
+            for f in jarfile.filelist:
+                if f.filename.endswith('.class'):
+                    self.jar_targets_by_class[f.filename].add(target)

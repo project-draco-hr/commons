@@ -1,0 +1,16 @@
+def get_compilation_dependencies(self):
+    '\n    Computes a map from the source files in a target to class files that the source file\n    depends on.\n\n    Parameters:\n      targets: a list of the targets from the current compile run whose\n         dependencies should be analyzed.\n    Returns: a target-to-target mapping from targets to targets that they depend on.\n       If this was already computed, return the already computed result.\n    '
+    if (self.computed_deps is not None):
+        return (self.computed_deps, self.computed_jar_deps)
+    self._compute_source_deps()
+    self._compute_jar_contents()
+    self.computed_deps = defaultdict(set)
+    self.computed_jar_deps = defaultdict(set)
+    for target in self.class_deps_by_target:
+        target_dep_classes = self.class_deps_by_target[target]
+        for cl in target_dep_classes:
+            if (cl in self.targets_by_class):
+                self.computed_deps[target] = self.computed_deps[target].union(self.targets_by_class[cl])
+            elif (cl in self.jar_targets_by_class):
+                self.computed_jar_deps[target] = self.computed_jar_deps[target].union(self.jar_targets_by_class[cl])
+    return (self.computed_deps, self.computed_jar_deps)

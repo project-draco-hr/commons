@@ -1,9 +1,11 @@
-def _decode(self):
+def _decode(self, decode_full):
     data = self._data
     ((self._magic, self._minor_version, self._major_version), data) = JavaNativeType.parse(data, u4, u2, u2)
     assert (self._magic == 3405691582)
     ((self._constant_pool_count,), data) = JavaNativeType.parse(data, u2)
     (self._constant_pool, data) = ClassDecoders.decode_constant_pool(data, self._constant_pool_count)
+    if (not decode_full):
+        return
     ((access_flags, this_class, super_class), data) = JavaNativeType.parse(data, u2, u2, u2)
     self._access_flags = ClassFlags(access_flags)
     self._this_class = self._constant_pool[this_class]
