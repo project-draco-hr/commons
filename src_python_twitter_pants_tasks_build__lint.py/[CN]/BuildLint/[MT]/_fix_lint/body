@@ -1,0 +1,35 @@
+def _fix_lint(self, buildfile_path, missing_dep_map):
+    if os.path.exists(buildfile_path):
+        with open(buildfile_path, 'r') as infile:
+            old_buildfile_source = infile.read()
+        names = []
+        for m in BuildLint.NAMES_RE.finditer(old_buildfile_source):
+            names.append(m.group(1))
+        nameiter = iter(names)
+
+        def sort_deps(m):
+            try:
+                name = nameiter.next()
+            except StopIteration:
+                name = '-UNKNOWN-'
+            deps = m.group(1).split('\n')
+            deps = filter((lambda x: x), [x.strip().replace('"', "'") for x in deps])
+            missing_deps = [("pants('%s')," % x) for x in missing_dep_map[name]]
+            deps.extend(missing_deps)
+            if deps:
+                if ((len(deps) == 1) and BuildLint.INLINE_SINGLE_DEP_RE.match(m.group(0))):
+                    return ('  dependencies = [%s]' % deps[0])
+                parts = [x.strip() for x in deps[(-1)].split('#')]
+                if (not parts[0].rstrip().endswith(',')):
+                    deps[(-1)] = ('%s,%s' % (parts[0], ((' #' + parts[1]) if (len(parts) > 1) else '')))
+            deps = sorted(deps, key=(lambda x: (('zzz' + x) if x.startswith("pants(':") else x)))
+            res = (('  dependencies = [\n    %s\n  ]' % '\n    '.join(deps)) if deps else 'dependencies = []')
+            return res
+        new_buildfile_source = BuildLint.DEPS_RE.sub(sort_deps, old_buildfile_source)
+        if (new_buildfile_source != old_buildfile_source):
+            if ('rewrite' in self.actions):
+                with open(buildfile_path, 'w') as outfile:
+                    outfile.write(new_buildfile_source)
+            if ('diff' in self.actions):
+                diff = '\n'.join(difflib.unified_diff(old_buildfile_source.split('\n'), new_buildfile_source.split('\n'), buildfile_path))
+                print diff

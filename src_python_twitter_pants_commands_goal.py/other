@@ -24,6 +24,7 @@ goal(name='goals', action=List).install().with_description('List all documented 
 goal(name='help', action=Help).install().with_description('Provide help for the specified goal.')
 from twitter.pants.targets import JavaLibrary, JavaTests
 from twitter.pants.tasks.binary_create import BinaryCreate
+from twitter.pants.tasks.build_lint import BuildLint
 from twitter.pants.tasks.bundle_create import BundleCreate
 from twitter.pants.tasks.checkstyle import Checkstyle
 from twitter.pants.tasks.filedeps import FileDeps
@@ -71,6 +72,7 @@ goal(name='scala-repl', action=ScalaRepl, dependencies=['compile'], serialize=Fa
 goal(name='scala-repl-dirty', action=ScalaRepl, serialize=False).install('repl-dirty').with_description(('Run a (currently Scala only) REPL with the classpath set according to the targets, \n' + 'using the currently existing binaries, skipping compilation'))
 goal(name='filedeps', action=FileDeps).install('filedeps').with_description('Print out a list of all files the target depends on')
 goal(name='pathdeps', action=PathDeps).install('pathdeps').with_description('Print out a list of all paths containing build files the target depends on')
+goal(name='buildlint', action=BuildLint, dependencies=['compile']).install()
 from twitter.pants.tasks.idea_gen import IdeaGen
 goal(name='idea', action=IdeaGen, dependencies=['jar']).install().with_description('Create an IntelliJ IDEA project from the given targets.')
 from twitter.pants.tasks.eclipse_gen import EclipseGen
