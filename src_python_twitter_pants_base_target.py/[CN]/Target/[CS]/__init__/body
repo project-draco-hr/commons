@@ -8,3 +8,4 @@ def __init__(self, name, is_meta, reinit_check=True):
         self.labels = set()
         self.register()
         self._initialized = True
+        self.derived_from = self

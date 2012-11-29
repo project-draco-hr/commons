@@ -1,0 +1,3 @@
+@staticmethod
+def is_buildfile(name):
+    return BuildFile._is_buildfile_name(os.path.basename(name))

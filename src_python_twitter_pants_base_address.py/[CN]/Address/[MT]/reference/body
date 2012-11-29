@@ -1,0 +1,8 @@
+def reference(self):
+    'How to reference this address in a BUILD file.'
+    dirname = os.path.dirname(self.buildfile.relpath)
+    if (os.path.basename(dirname) != self.target_name):
+        ret = ('%s:%s' % (dirname, self.target_name))
+    else:
+        ret = dirname
+    return ret

@@ -1,0 +1,3 @@
+def __getitem__(self, target):
+    '\n        Support for subscripting into this mapping. Returns the product mapping for the given target\n        as a map of <basedir> -> <products list>.\n        If no mapping exists, returns an empty map whose values default to empty lists. So you\n        can use the result without checking for None.\n      '
+    return self.by_target[target]
