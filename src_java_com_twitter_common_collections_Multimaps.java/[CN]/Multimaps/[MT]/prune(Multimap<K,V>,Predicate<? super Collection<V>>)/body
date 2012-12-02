@@ -1,0 +1,14 @@
+{
+  Preconditions.checkNotNull(map);
+  Preconditions.checkNotNull(filterRule);
+  Multimap<K,V> pruned=ArrayListMultimap.create();
+  Iterator<Map.Entry<K,Collection<V>>> asMapItr=map.asMap().entrySet().iterator();
+  while (asMapItr.hasNext()) {
+    Map.Entry<K,Collection<V>> asMapEntry=asMapItr.next();
+    if (!filterRule.apply(asMapEntry.getValue())) {
+      pruned.putAll(asMapEntry.getKey(),asMapEntry.getValue());
+      asMapItr.remove();
+    }
+  }
+  return pruned;
+}

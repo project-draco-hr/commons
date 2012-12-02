@@ -1,0 +1,4 @@
+{
+  checkArgument(minSize >= 0);
+  this.minSize=minSize;
+}
