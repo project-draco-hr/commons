@@ -1,0 +1,3 @@
+def is_unlocked(self):
+    'Whether the global lock object is actively holding the lock.'
+    return self._lock.is_unlocked()

@@ -1,5 +1,5 @@
 @staticmethod
-def execute(phase, tasks_by_goal, context, executed, already_locked=False, timer=None):
+def execute(phase, tasks_by_goal, context, executed, timer=None):
     'Executes the named phase against the current context tracking goal executions in executed.'
 
     def execute_task(name, task, targets):
@@ -17,16 +17,16 @@ def execute(phase, tasks_by_goal, context, executed, already_locked=False, timer
                     phase_timings[name] = []
                 phase_timings[name].append(elapsed)
     if (phase not in executed):
-        locked = False
-        if ((not already_locked) and phase.serialize()):
+        locked_by_me = False
+        if (context.is_unlocked() and phase.serialize()):
             context.acquire_lock()
-            locked = True
+            locked_by_me = True
         goals = phase.goals()
         if (not goals):
             raise TaskError(('No goals installed for phase %s' % phase))
         for goal in goals:
             for dependency in goal.dependencies:
-                Group.execute(dependency, tasks_by_goal, context, executed, already_locked=locked, timer=timer)
+                Group.execute(dependency, tasks_by_goal, context, executed, timer=timer)
         runqueue = []
         goals_by_group = {}
         for goal in goals:
@@ -52,5 +52,5 @@ def execute(phase, tasks_by_goal, context, executed, already_locked=False, timer
                         if (len(goal_chunk) > 0):
                             context.log.info(('[%s:%s:%s]' % (phase, group_name, goal.name)))
                             execute_task(goal.name, tasks_by_goal[goal], goal_chunk)
-        if locked:
+        if locked_by_me:
             context.release_lock()
