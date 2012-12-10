@@ -1,4 +1,4 @@
 {
-  checkArgument(minSize >= 0);
+  Preconditions.checkArgument(minSize >= 0);
   this.minSize=minSize;
 }
