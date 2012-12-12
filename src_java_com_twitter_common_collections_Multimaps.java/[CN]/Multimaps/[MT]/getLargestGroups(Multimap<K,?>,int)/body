@@ -1,38 +1,13 @@
 {
-  /** 
- * A grouping of values in the multimap.
- */
-class Grouping implements Comparable<Grouping> {
-    private K key;
-    private int size;
-    public Grouping(    K key,    int size){
-      this.key=key;
-      this.size=size;
-    }
-    @Override public int hashCode(){
-      return size;
-    }
-    @Override public int compareTo(    Grouping grouping){
-      return size - grouping.size;
-    }
-    @Override public boolean equals(    Object o){
-      if (!(o instanceof Grouping)) {
-        return false;
-      }
-      Grouping other=(Grouping)o;
-      return key.equals(other.key);
+  Ordering<Multiset.Entry<K>> groupOrdering=new Ordering<Multiset.Entry<K>>(){
+    @Override public int compare(    Multiset.Entry<K> entry1,    Multiset.Entry<K> entry2){
+      return entry1.getCount() - entry2.getCount();
     }
   }
-  SortedSet<Grouping> topGroups=Sets.newTreeSet();
-  for (  K key : map.keySet()) {
-    topGroups.add(new Grouping(key,map.get(key).size()));
-    if (topGroups.size() > topValues) {
-      topGroups.remove(topGroups.first());
-    }
-  }
-  Set<K> topKeys=Sets.newHashSet();
-  for (  Grouping group : topGroups) {
-    topKeys.add(group.key);
+;
+  Set<K> topKeys=Sets.newHashSetWithExpectedSize(topValues);
+  for (  Multiset.Entry<K> entry : groupOrdering.greatestOf(map.keys().entrySet(),topValues)) {
+    topKeys.add(entry.getElement());
   }
   return topKeys;
 }

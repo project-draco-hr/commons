@@ -1,8 +1,3 @@
 {
-  return prune(map,new Predicate<Collection<V>>(){
-    @Override public boolean apply(    Collection<V> input){
-      return input.size() >= minSize;
-    }
-  }
-);
+  return prune(map,new AtLeastSize(minSize));
 }
