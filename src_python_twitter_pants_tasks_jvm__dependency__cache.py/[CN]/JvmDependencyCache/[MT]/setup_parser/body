@@ -1,0 +1,6 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    '\n    Set up command-line options for dependency checking.\n    Any jvm compilation task that wants to use dependency analysis can call this from\n    its setup_parser method to add the appropriate options for dependency testing.\n\n    See scala_compile.py for an example.\n    '
+    option_group.add_option(mkflag('check-missing-deps'), mkflag('check-missing-deps', negate=True), dest='scala_check_missing_deps', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Check for undeclared dependencies in scala code')
+    option_group.add_option(mkflag('check-missing-intransitive-deps'), type='choice', action='store', dest='scala_check_intransitive_deps', choices=['none', 'warn', 'error'], default='none', help="[%default] Enable errors for undeclared deps that don't cause compilationerrors, because the dependencies are provided transitively.")
+    option_group.add_option(mkflag('check-unnecessary-deps'), mkflag('check-unnecessary-deps', negate=True), dest='scala_check_unnecessary_deps', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Enable warnings for declared dependencies that are not needed.')
