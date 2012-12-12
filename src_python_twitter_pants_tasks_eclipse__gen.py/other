@@ -1,6 +1,5 @@
 import os
 import pkgutil
-import shutil
 from collections import defaultdict
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_open

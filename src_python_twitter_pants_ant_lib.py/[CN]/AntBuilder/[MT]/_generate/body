@@ -2,5 +2,5 @@
 def _generate(cls, root_dir, template, template_data, output_filename):
     with open(output_filename, 'w') as output:
         template_path = os.path.join(_TEMPLATE_BASEDIR, ('%s.mk' % template))
-        generator = Generator(pkgutil.get_data(__name__, template_path), root_dir=root_dir, lib=template_data)
+        generator = MakoGenerator(pkgutil.get_data(__name__, template_path), root_dir=root_dir, lib=template_data)
         generator.write(output)

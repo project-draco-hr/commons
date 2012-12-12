@@ -1,2 +1,2 @@
 def __init__(self, get_db):
-    super(IvyWriter, self).__init__(get_db, os.path.join('ivy_resolve', 'ivy.mk'))
+    super(IvyWriter, self).__init__(get_db, os.path.join('ivy_resolve', 'ivy.mustache'))

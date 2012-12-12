@@ -1,0 +1,11 @@
+def _expand(map):
+
+    def set_to_map(x):
+        if isinstance(x, set):
+            return dict([(k, True) for k in x])
+        else:
+            return x
+    items = [(key, set_to_map(val)) for (key, val) in map.items()]
+    ret = dict([(('has_' + key), True) for (key, val) in items if val])
+    ret.update(dict(items))
+    return ret

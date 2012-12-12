@@ -8,7 +8,7 @@ def __init__(self, context):
     self._transitive = context.config.getbool('ivy-resolve', 'transitive')
     self._args = context.config.getlist('ivy-resolve', 'args')
     self._profile = context.config.get('ivy-resolve', 'profile')
-    self._template_path = os.path.join('ivy_resolve', 'ivy.mk')
+    self._template_path = os.path.join('ivy_resolve', 'ivy.mustache')
     self._work_dir = context.config.get('ivy-resolve', 'workdir')
     self._classpath_file = os.path.join(self._work_dir, 'classpath')
     self._classpath_dir = os.path.join(self._work_dir, 'mapped')
