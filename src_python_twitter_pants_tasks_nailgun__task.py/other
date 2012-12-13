@@ -67,51 +67,5 @@ if (plat.startswith('linux') or plat.startswith('macosx')):
         return (pid, int(port))
     NailgunTask._find = staticmethod(_find)
 else:
-    try:
-        import psutil
-
-        def _find_ngs(everywhere=False):
-
-            def cmdline_matches(cmdline):
-                if everywhere:
-                    return any(filter((lambda arg: arg.startswith(NailgunTask.PANTS_NG_ARG_PREFIX)), cmdline))
-                else:
-                    return (NailgunTask.PANTS_NG_ARG in cmdline)
-            for proc in psutil.process_iter():
-                try:
-                    if (('java' == proc.name) and cmdline_matches(proc.cmdline)):
-                        yield proc
-                except (psutil.AccessDenied, psutil.NoSuchProcess):
-                    pass
-
-        def killall(log, everywhere=False):
-            for proc in _find_ngs(everywhere=everywhere):
-                try:
-                    NailgunTask._log_kill(log, proc.pid)
-                    proc.kill()
-                except (psutil.AccessDenied, psutil.NoSuchProcess):
-                    pass
-        NailgunTask.killall = staticmethod(killall)
-
-        def _find_ng_listen_port(proc):
-            for connection in proc.get_connections(kind='tcp'):
-                if (connection.status == 'LISTEN'):
-                    (host, port) = connection.local_address
-                    return port
-            return None
-
-        def _find(pidfile):
-            pidfile_arg = NailgunTask.create_pidfile_arg(pidfile)
-            for proc in _find_ngs(everywhere=False):
-                try:
-                    if (pidfile_arg in proc.cmdline):
-                        port = _find_ng_listen_port(proc)
-                        if port:
-                            return (proc.pid, port)
-                except (psutil.AccessDenied, psutil.NoSuchProcess):
-                    pass
-            return None
-        NailgunTask._find = staticmethod(_find)
-    except ImportError:
-        NailgunTask.killall = None
-        NailgunTask._find = None
+    NailgunTask.killall = None
+    NailgunTask._find = None
