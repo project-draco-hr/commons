@@ -35,6 +35,8 @@ def execute(self, targets):
                         cp.append((conf, path.strip()))
     if self._report:
         self._generate_ivy_report()
+    if self.context.products.isrequired('ivy_jar_products'):
+        self._populate_ivy_jar_products()
     create_jardeps_for = self.context.products.isrequired('jar_dependencies')
     if create_jardeps_for:
         genmap = self.context.products.get('jar_dependencies')

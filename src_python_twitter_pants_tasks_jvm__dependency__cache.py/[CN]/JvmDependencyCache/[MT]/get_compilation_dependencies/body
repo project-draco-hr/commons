@@ -1,16 +1,40 @@
 def get_compilation_dependencies(self):
     '\n    Computes a map from the source files in a target to class files that the source file\n    depends on.\n\n    Parameters:\n      targets: a list of the targets from the current compile run whose\n         dependencies should be analyzed.\n    Returns: a target-to-target mapping from targets to targets that they depend on.\n       If this was already computed, return the already computed result.\n    '
-    if (self.computed_deps is not None):
-        return (self.computed_deps, self.computed_jar_deps)
-    self._compute_source_deps()
-    self._compute_jar_contents()
-    self.computed_deps = defaultdict(set)
+    if (self.computed_src_deps is not None):
+        return (self.computed_src_deps, self.computed_jar_deps)
+    self.computed_src_deps = defaultdict(set)
     self.computed_jar_deps = defaultdict(set)
-    for target in self.class_deps_by_target:
-        target_dep_classes = self.class_deps_by_target[target]
-        for cl in target_dep_classes:
-            if (cl in self.targets_by_class):
-                self.computed_deps[target] = self.computed_deps[target].union(self.targets_by_class[cl])
-            elif (cl in self.jar_targets_by_class):
-                self.computed_jar_deps[target] = self.computed_jar_deps[target].union(self.jar_targets_by_class[cl])
-    return (self.computed_deps, self.computed_jar_deps)
+    (_, _, analysis_cache) = self.task.create_output_paths(self.targets)
+    self.merged_analysis_cache = ZincMergedAnalysisCache(self.task.generated_caches, self.upstream_analysis_caches)
+    targets_by_source = defaultdict(set)
+    for target in self.targets:
+        for src in target.sources:
+            srcpath = self._normalize_source_path(target, src)
+            classes = self.merged_analysis_cache.class_names[srcpath]
+            self.zinc_classes_provided_by_target[target] |= classes
+            for cl in classes:
+                self.zinc_targets_by_provided_class[cl].add(target)
+            targets_by_source[src].add(target)
+    overlapping_sources = set()
+    for s in targets_by_source:
+        if (len(targets_by_source[s]) > 1):
+            overlapping_sources.add(s)
+            print ('Error: source file %s included in multiple targets %s' % (s, targets_by_source[s]))
+    for target in self.targets:
+        for src in target.sources:
+            srcpath = self._normalize_source_path(target, src)
+            self.zinc_class_deps_by_target[target] |= self.merged_analysis_cache.external_deps[srcpath]
+    for fromtarget in self.zinc_class_deps_by_target:
+        depclasses = self.zinc_class_deps_by_target[fromtarget]
+        for cl in depclasses:
+            if (cl in self.zinc_targets_by_provided_class):
+                totarget = self.zinc_targets_by_provided_class[cl]
+                self.computed_src_deps[fromtarget] |= totarget
+    (self.ivy_jars_by_target, self.ivy_targets_by_jar) = self._compute_jardep_contents()
+    for target in self.targets:
+        for src in target.sources:
+            srcpath = self._normalize_source_path(target, src)
+            jardeps = self.merged_analysis_cache.binary_deps[srcpath]
+            for j in jardeps:
+                self.computed_jar_deps[target] |= self.ivy_targets_by_jar[j]
+    return (self.computed_src_deps, self.computed_jar_deps)

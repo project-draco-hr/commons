@@ -12,7 +12,7 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
     args.extend(self._zinc_jar_args)
     if (len(analysis_map) > 0):
         args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in analysis_map.items()])])
-    args.extend(['-analysis-cache', analysis_cache, '-log-level', (self.context.options.log_level or 'info'), '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-d', output_dir])
+    args.extend(['-analysis-cache', analysis_cache, '-log-level', (self.context.options.log_level or 'info'), '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-mirror-analysis', '-d', output_dir])
     if (not self._color):
         args.append('-no-color')
     args.extend(sources)

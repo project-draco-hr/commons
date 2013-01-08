@@ -1,0 +1,6 @@
+def _populate_ivy_jar_products(self):
+    '\n    Populate the build products with an IvyInfo object for each\n    generated ivy report.\n    For each configuration used to run ivy, a build product entry\n    is generated for the tuple ("ivy", configuration, ivyinfo)\n    '
+    genmap = self.context.products.get('ivy_jar_products')
+    for conf in self._confs:
+        ivyinfo = self._ivy_utils.parse_xml_report(conf)
+        genmap.add('ivy', conf, [ivyinfo])
