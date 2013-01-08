@@ -17,5 +17,10 @@ def execute(self, targets):
                 self.execute_single_compilation(vt, cp, upstream_analysis_caches)
                 if (not self.dry_run):
                     vt.update()
-        deps_cache = JvmDependencyCache(self, scala_targets)
+        upstream_cache_files = set()
+        for (_, cache_list_entry) in upstream_analysis_caches.itermappings():
+            for d in cache_list_entry.keys():
+                for cache in cache_list_entry[d]:
+                    upstream_cache_files.add(os.path.join(d, cache))
+        deps_cache = JvmDependencyCache(self, scala_targets, upstream_cache_files)
         deps_cache.check_undeclared_dependencies()

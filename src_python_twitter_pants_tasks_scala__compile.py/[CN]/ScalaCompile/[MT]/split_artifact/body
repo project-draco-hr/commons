@@ -23,10 +23,11 @@ def split_artifact(self, deps, versioned_target_set):
                 os.link(os.path.join(src_output_dir, cls), dst)
         dst_deps.save(dst_depfile)
         analysis_splits.append((sources, dst_output_dir, dst_analysis_cache))
+        self.generated_caches.add(os.path.join(dst_output_dir, dst_analysis_cache))
     if os.path.exists(src_analysis_cache):
         analysis_args = []
         analysis_args.extend(self._zinc_jar_args)
-        analysis_args.extend(['-log-level', (self.context.options.log_level or 'info'), '-analysis'])
+        analysis_args.extend(['-log-level', (self.context.options.log_level or 'info'), '-analysis', '-mirror-analysis'])
         split_args = (analysis_args + ['-cache', src_analysis_cache, '-split', ','.join([('{%s}:%s' % (':'.join(x[0]), x[2])) for x in analysis_splits])])
         if self.runjava(self._main, classpath=self._zinc_classpath, args=split_args, jvmargs=self._jvm_args):
             raise TaskError, ('zinc failed to split analysis files %s from %s' % (':'.join([x[2] for x in analysis_splits]), src_analysis_cache))

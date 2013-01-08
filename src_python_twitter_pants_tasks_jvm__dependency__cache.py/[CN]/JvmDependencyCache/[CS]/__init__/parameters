@@ -1,3 +1,4 @@
 self
 compile_task
 targets
+upstream_analysis_caches

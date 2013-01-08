@@ -8,7 +8,7 @@ def merge_artifact(self, versioned_target_set):
         src_analysis_caches = []
         analysis_args = []
         analysis_args.extend(self._zinc_jar_args)
-        analysis_args.extend(['-log-level', (self.context.options.log_level or 'info'), '-analysis'])
+        analysis_args.extend(['-log-level', (self.context.options.log_level or 'info'), '-analysis', '-mirror-analysis'])
         dst_deps = Dependencies(dst_output_dir)
         for target in versioned_target_set.targets:
             (src_output_dir, src_depfile, src_analysis_cache) = self.create_output_paths([target])

@@ -10,6 +10,7 @@ def __init__(self, context, workdir=None):
     self._compile_profile = context.config.get('scala-compile', 'compile-profile')
     self._zinc_profile = context.config.get('scala-compile', 'zinc-profile')
     plugins_profile = context.config.get('scala-compile', 'scalac-plugins-profile')
+    self.generated_caches = set()
     self._zinc_classpath = nailgun_profile_classpath(self, self._zinc_profile)
     compiler_classpath = nailgun_profile_classpath(self, self._compile_profile)
     zinc_jars = ScalaCompile.identify_zinc_jars(compiler_classpath, self._zinc_classpath)

@@ -1,14 +1,17 @@
-def __init__(self, compile_task, targets):
+def __init__(self, compile_task, targets, upstream_analysis_caches):
     "\n    Parameters:\n      compile_task: the compilation task which is producing the build products that\n        we'll use to perform the analysis. Flag settings are also retrieved from the\n        task context.\n      targets: the set of targets to analyze. These should all be target types that\n         inherit from jvm_target, and contain source files that will be compiled into\n          jvm class files.\n    "
+    self.upstream_analysis_caches = upstream_analysis_caches
+    self.merged_analysis_cache = None
     self.check_missing_deps = compile_task.context.options.scala_check_missing_deps
     self.check_intransitive_deps = compile_task.context.options.scala_check_intransitive_deps
     self.check_unnecessary_deps = compile_task.context.options.scala_check_unnecessary_deps
     self.task = compile_task
     self.targets = targets
-    self.class_deps_by_target = defaultdict(set)
-    self.targets_by_class = defaultdict(set)
-    self.deps_by_source = defaultdict(set)
-    self.jars_by_target = defaultdict(set)
-    self.jar_targets_by_class = defaultdict(set)
-    self.computed_deps = None
+    self.ivy_jars_by_target = defaultdict(set)
+    self.ivy_targets_by_jar = defaultdict(set)
+    self.zinc_class_deps_by_target = defaultdict(set)
+    self.zinc_classes_provided_by_target = defaultdict(set)
+    self.zinc_targets_by_provided_class = defaultdict(set)
+    self.zinc_jardeps_by_target = defaultdict(set)
+    self.computed_src_deps = None
     self.computed_jar_deps = None

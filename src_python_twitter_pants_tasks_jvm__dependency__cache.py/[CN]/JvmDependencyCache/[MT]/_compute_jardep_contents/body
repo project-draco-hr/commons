@@ -1,0 +1,22 @@
+def _compute_jardep_contents(self):
+    '\n    Compute the information needed by deps analysis for the set of classes that come from\n    jars in jar_dependency targets. This is messier that it should be, because of\n    the strange way that jar_dependency targets are treated by pants.\n\n    Returns: a pair of maps, (jars_by_target, targets_by_jar) describing the mappings between jars\n       and the targets that contain those jars.\n    '
+    found_jar_deps = set()
+    for jt in self.targets:
+        jars = self._get_jardep_dependencies(jt)
+        found_jar_deps = found_jar_deps.union(jars)
+    jardeps_by_id = {}
+    for jardep in found_jar_deps:
+        jardeps_by_id[(jardep.org, jardep.name)] = jardep
+    ivy_products = self.task.context.products.get('ivy_jar_products').get('ivy')
+    ivy_jars_by_target = defaultdict(set)
+    ivy_targets_by_jar = defaultdict(set)
+    for ivy_report_list in ivy_products.values():
+        for report in ivy_report_list:
+            for ref in report.modules_by_ref:
+                target_key = (ref.org, ref.name)
+                if (target_key in jardeps_by_id):
+                    jardep_target = jardeps_by_id[target_key]
+                    for jar in report.modules_by_ref[ref].artifacts:
+                        ivy_jars_by_target[jardep_target].add(jar.path)
+                        ivy_targets_by_jar[jar.path].add(jardep_target)
+    return (ivy_jars_by_target, ivy_targets_by_jar)
