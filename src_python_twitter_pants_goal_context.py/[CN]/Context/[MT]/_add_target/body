@@ -1,4 +1,4 @@
-def add_target(self, target):
+def _add_target(self, target):
     'Adds a target and its transitive dependencies to the run context.\n\n    The target is not added to the target roots.\n    '
 
     def add_targets(tgt):
