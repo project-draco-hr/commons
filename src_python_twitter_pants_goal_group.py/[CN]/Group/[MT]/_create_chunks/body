@@ -1,5 +1,5 @@
 @staticmethod
-def create_chunks(context, goals):
+def _create_chunks(context, goals):
 
     def discriminator(target):
         for (i, goal) in enumerate(goals):
