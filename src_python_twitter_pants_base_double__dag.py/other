@@ -1,0 +1,2 @@
+__author__ = 'Ryan Williams'
+from abbreviate_target_ids import abbreviate_target_ids

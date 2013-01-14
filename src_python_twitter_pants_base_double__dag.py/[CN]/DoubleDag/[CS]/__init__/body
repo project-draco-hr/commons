@@ -1,0 +1,28 @@
+def __init__(self, objects, child_fn, logger):
+    self._child_fn = child_fn
+    self._logger = logger
+    self.nodes = [DoubleDagNode(object) for object in objects]
+    node_ids = [node.data.id for node in self.nodes]
+    abbreviated_id_map = abbreviate_target_ids(node_ids)
+    for node in self.nodes:
+        node.short_id = abbreviated_id_map[node.data.id]
+        node.data.short_id = abbreviated_id_map[node.data.id]
+    self._nodes_by_data_map = {}
+    for node in self.nodes:
+        self._nodes_by_data_map[node.data] = node
+    self._roots = set([])
+    self.leaves = set([])
+    self._logger.debug(('%d nodes:' % len(self.nodes)))
+    for node in self.nodes:
+        self._logger.debug(node.data.id)
+    self._logger.debug('')
+    self._init_parent_and_child_relationships()
+    self._find_roots_and_leaves()
+    self._logger.debug(('%d roots:' % len(self._roots)))
+    for root in self._roots:
+        self._logger.debug(root.data.id)
+    self._logger.debug('')
+    self._logger.debug(('%d leaves:' % len(self.leaves)))
+    for leaf in self.leaves:
+        self._logger.debug(leaf.data.id)
+    self._logger.debug('')
