@@ -1,4 +1,4 @@
-def _validate(self, targets):
+def _sort_and_validate_targets(self, targets):
     'Validate each target.\n\n    Returns a topologically ordered set of VersionedTargets, each representing one input target.\n    '
     ordered_targets = self._order_target_list(targets)
     versioned_targets = []
