@@ -1,0 +1,14 @@
+def print_tree(self, use_short_ids=True):
+    "This method prints out a python dictionary representing this DAG in a format suitable for eval'ing and useful\n    for debugging."
+
+    def short_id(node):
+        return node.short_id
+
+    def id(node):
+        return node.data.id
+    node_fn = (short_id if use_short_ids else id)
+    self._logger.debug('deps = {')
+    for node in self.nodes:
+        self._logger.debug(('  "%s": {"num": %d, "children": [%s]},' % (node_fn(node), node.data.num_sources, ','.join([('"%s"' % node_fn(child)) for child in node.children]))))
+    self._logger.debug('}')
+    self._logger.debug('')
