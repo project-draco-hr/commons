@@ -1,0 +1,3 @@
+def __init__(self, all_vts, invalid_vts, invalid_target_tree):
+    InvalidationCheck.__init__(self, all_vts, invalid_vts)
+    self._invalid_target_tree = invalid_target_tree

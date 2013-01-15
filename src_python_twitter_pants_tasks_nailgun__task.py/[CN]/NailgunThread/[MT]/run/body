@@ -1,0 +1,2 @@
+def run(self):
+    self.returncode = self.nailgun(self.main, *self.args)

@@ -1,0 +1,15 @@
+def _spawn_target_compile(self, target_node_set):
+    'Given a set of nodes, make a VersionedTargetSet and fork a compilation process.'
+    if (not target_node_set):
+        return
+    self._logger.debug(('\n*** Spawning compile: %s\n' % str(target_node_set)))
+    versioned_target_set = versioned_target_nodes_to_versioned_target_set(target_node_set)
+    compile_process = self._compile_cmd(versioned_target_set)
+    self._frontier_nodes -= target_node_set
+    if compile_process:
+        self._compiling_nodes_by_process[compile_process] = target_node_set
+        self._versioned_target_sets_by_process[compile_process] = versioned_target_set
+        self._compile_processes.add(compile_process)
+        self._in_flight_target_nodes.update(target_node_set)
+    else:
+        self._handle_processed_node_set(versioned_target_set, target_node_set, was_compiled=False, was_successful=True)

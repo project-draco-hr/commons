@@ -1,0 +1,4 @@
+def _kill_running_compiles(self):
+    'Terminate all running compile processes. Currently unused as we prefer to let all running compiles finish, even\n    when we find a failure.'
+    for compile_process in self._compile_processes:
+        compile_process.terminate()

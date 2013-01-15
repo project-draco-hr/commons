@@ -1,4 +1,4 @@
-def compile(self, classpath, sources, fingerprint, depfile):
+def compile(self, classpath, sources, fingerprint, depfile, run_async=False):
     jmake_classpath = nailgun_profile_classpath(self, self._jmake_profile)
     args = ['-classpath', ':'.join(classpath), '-d', self._classes_dir, '-pdb', os.path.join(self._classes_dir, ('%s.dependencies.pdb' % fingerprint))]
     compiler_classpath = nailgun_profile_classpath(self, self._compiler_profile)
@@ -6,4 +6,6 @@ def compile(self, classpath, sources, fingerprint, depfile):
     args.extend(self._args)
     args.extend(sources)
     log.debug(('Executing: %s %s' % (_JMAKE_MAIN, ' '.join(args))))
-    return self.runjava(_JMAKE_MAIN, classpath=jmake_classpath, args=args, jvmargs=self._jvm_args)
+    if run_async:
+        log.info(('\nRunning async: %s\n' % ' '.join(sources)))
+    return self.runjava(_JMAKE_MAIN, classpath=jmake_classpath, args=args, jvmargs=self._jvm_args, run_async=run_async)

@@ -6,6 +6,8 @@ def __init__(self, context, workdir=None):
     self.check_unnecessary_deps = context.options.scala_check_unnecessary_deps
     if self.check_missing_deps:
         JvmDependencyCache.init_product_requirements(self)
+    self._parallelize_compilation = (True if (context.options.scala_compile_max_num_parallel_compiles > 0) else False)
+    self._num_parallel_compiles = context.options.scala_compile_max_num_parallel_compiles
     self._color = (context.options.scala_compile_color if (context.options.scala_compile_color is not None) else context.config.getbool('scala-compile', 'color', default=True))
     self._compile_profile = context.config.get('scala-compile', 'compile-profile')
     self._zinc_profile = context.config.get('scala-compile', 'zinc-profile')

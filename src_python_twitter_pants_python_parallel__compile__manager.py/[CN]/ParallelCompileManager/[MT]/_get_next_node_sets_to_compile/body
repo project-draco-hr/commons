@@ -1,0 +1,2 @@
+def _get_next_node_sets_to_compile(self, num_compile_workers_available):
+    "Abstract: subclasses implement different strategies for selecting next nodes to be compiled.\n\n    Return a list of sets of nodes, up to one set per available compile worker. Presumably these should be nodes that\n    don't depend on anything that is currently compiling or yet to be compiled."

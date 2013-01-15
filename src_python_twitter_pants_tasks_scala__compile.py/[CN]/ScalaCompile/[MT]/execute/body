@@ -1,4 +1,7 @@
 def execute(self, targets):
+    self.context.log.info(('scala compiling %d targets in %s' % (len(targets), (('parallel (%s)' % str(self._num_parallel_compiles)) if self._parallelize_compilation else 'serial'))))
+    for target in targets:
+        self.context.log.debug(('\t%s' % target.id))
     scala_targets = filter(ScalaCompile._has_scala_sources, targets)
     if scala_targets:
         safe_mkdir(self._depfile_dir)
@@ -9,14 +12,32 @@ def execute(self, targets):
                 cp.insert(0, (conf, self._resources_dir))
                 for jar in self._plugin_jars:
                     cp.insert(0, (conf, jar))
-        with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
+        with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint, is_parallel_compile=self._parallelize_compilation) as invalidation_check:
             for vt in invalidation_check.all_vts:
                 if vt.valid:
                     self.post_process(vt, upstream_analysis_caches, split_artifact=False)
-            for vt in invalidation_check.invalid_vts_partitioned:
-                self.execute_single_compilation(vt, cp, upstream_analysis_caches)
-                if (not self.dry_run):
-                    vt.update()
+                    continue
+            if self._parallelize_compilation:
+
+                def live_compile_cmd(versioned_target_set):
+                    return self.execute_single_compilation(versioned_target_set, cp, upstream_analysis_caches, True)
+
+                def live_post_compile_cmd(versioned_target_set):
+                    if (not self.dry_run):
+                        self.post_process(versioned_target_set, upstream_analysis_caches, split_artifact=True)
+                        versioned_target_set.update()
+
+                def dry_run_compile_cmd(versioned_target_nodes):
+                    print ('dry run compiling nodes: {%s}' % ','.join([t.data.id for t in versioned_target_nodes]))
+                    return None
+                compile_cmd = (dry_run_compile_cmd if self.dry_run else live_compile_cmd)
+                post_compile_cmd = (None if self.dry_run else live_post_compile_cmd)
+                NaiveParallelizer(self.context.log, invalidation_check._invalid_target_tree, self._num_parallel_compiles, compile_cmd, post_compile_cmd).execute()
+            else:
+                for vt in invalidation_check.invalid_vts_partitioned:
+                    self.execute_single_compilation(vt, cp, upstream_analysis_caches)
+                    if (not self.dry_run):
+                        vt.update()
         upstream_cache_files = set()
         for (_, cache_list_entry) in upstream_analysis_caches.itermappings():
             for d in cache_list_entry.keys():

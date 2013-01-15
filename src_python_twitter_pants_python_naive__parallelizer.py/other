@@ -1,0 +1,2 @@
+__author__ = 'Ryan Williams'
+from parallel_compile_manager import ParallelCompileManager

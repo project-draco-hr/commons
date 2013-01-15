@@ -3,6 +3,7 @@ try:
 except ImportError:
     import pickle
 from twitter.pants.base.build_invalidator import BuildInvalidator, CacheKeyGenerator, NO_SOURCES, TARGET_SOURCES
+from twitter.pants.base.double_dag import DoubleDag
 from twitter.pants.base.target import Target
 from twitter.pants.targets import JarDependency, TargetWithSources
 from twitter.pants.targets.internal import InternalTarget

@@ -3,3 +3,4 @@ classpath
 sources
 fingerprint
 depfile
+run_async
