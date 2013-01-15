@@ -6,6 +6,6 @@ def _expand(map):
         else:
             return x
     items = [(key, set_to_map(val)) for (key, val) in map.items()]
-    ret = dict([(('has_' + key), True) for (key, val) in items if val])
+    ret = dict([((key + '?'), True) for (key, val) in items if (val and (not key.endswith('?')))])
     ret.update(dict(items))
     return ret
