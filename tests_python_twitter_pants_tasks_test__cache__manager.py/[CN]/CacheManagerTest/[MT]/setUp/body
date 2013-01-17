@@ -1,2 +1,3 @@
 def setUp(self):
-    self.cache_manager = TestCacheManager()
+    self._dir = tempfile.mkdtemp()
+    self.cache_manager = TestCacheManager(self._dir)

@@ -1,5 +1,7 @@
 __author__ = 'Ryan Williams'
 import unittest
+import shutil
+import tempfile
 from twitter.pants.base.build_invalidator import CacheKey, CacheKeyGenerator
 from twitter.pants.goal.context import Context
 from twitter.pants.tasks import CacheManager
