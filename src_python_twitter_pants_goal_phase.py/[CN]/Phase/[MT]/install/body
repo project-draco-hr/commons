@@ -1,6 +1,6 @@
 def install(self, goal, first=False, replace=False, before=None, after=None):
     "\n      Installs the given goal in this phase.  The placement of the goal in this phases' execution\n      list defaults to the end but its position can be influence by specifying exactly one of the\n      following arguments:\n\n      first: Places the goal 1st in the execution list\n      replace: Removes all existing goals in this phase and installs this goal\n      before: Places the goal before the named goal in the execution list\n      after: Places the goal after the named goal in the execution list\n    "
-    if ((first or replace or before or after) and ((((int(first) + int(replace)) + int(bool(before))) + int(bool(after))) > 1)):
+    if ((((int(first) + int(replace)) + int(bool(before))) + int(bool(after))) > 1):
         raise GoalError('Can only specify one of first, replace, before or after')
     Phase._phase_by_goal[goal] = self
     g = self.goals()
