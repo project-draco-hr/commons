@@ -1,7 +1,0 @@
-def invalidate_and_partition(self, targets, partition_size_hint):
-    "Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns a list of VersionedTargetSet objects (either valid or invalid). The returned sets 'cover'\n    the input targets, possibly partitioning them, and are in topological order.\n    The caller can inspect these in order and, e.g., rebuild the invalid ones.\n    "
-    all_vts = self._sort_and_validate_targets(targets)
-    invalid_vts = filter((lambda vt: (not vt.valid)), all_vts)
-    all_vts_partitioned = self._partition_versioned_targets(all_vts, partition_size_hint)
-    invalid_vts_partitioned = self._partition_versioned_targets(invalid_vts, partition_size_hint)
-    return PartitionedInvalidationCheck(all_vts, all_vts_partitioned, invalid_vts, invalid_vts_partitioned)

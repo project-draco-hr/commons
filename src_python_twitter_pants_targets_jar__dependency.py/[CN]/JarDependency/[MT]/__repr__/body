@@ -1,2 +1,2 @@
 def __repr__(self):
-    return self.id
+    return ('%s-%s-%s' % (self.org, self.name, self.rev))

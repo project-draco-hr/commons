@@ -22,7 +22,7 @@ def run(self, lock):
         log.warn('--all is deprecated, use a target spec with the form [dir]: instead')
         for dir in self.options.target_directory:
             self.add_target_directory(dir)
-    context = Context(self.config, self.options, self.targets, lock=lock, log=logger, timer=(self.timer if self.options.time else None))
+    context = Context(self.config, self.options, self.targets, lock=lock, log=logger)
     unknown = []
     for phase in self.phases:
         if (not phase.goals()):
@@ -33,7 +33,7 @@ def run(self, lock):
         return Phase.execute(context, 'goals')
     if logger:
         logger.debug('Operating on targets: %s', self.targets)
-    ret = Phase.attempt(context, self.phases)
+    ret = Phase.attempt(context, self.phases, timer=(self.timer if self.options.time else None))
     if self.options.time:
         print 'Timing report'
         print '============='

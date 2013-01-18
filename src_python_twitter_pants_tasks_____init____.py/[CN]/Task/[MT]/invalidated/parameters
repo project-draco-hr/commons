@@ -1,6 +1,5 @@
 self
 targets
 only_buildfiles
-invalidate_dependents
+invalidate_dependants
 partition_size_hint
-is_parallel_compile

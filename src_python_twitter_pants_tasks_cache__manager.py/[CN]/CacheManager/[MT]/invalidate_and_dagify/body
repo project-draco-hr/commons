@@ -1,7 +1,0 @@
-def invalidate_and_dagify(self, targets):
-    'Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns lists of valid and invalid VersionedTarget objects as well as a doubly-linked DAG of the invalid targets\n    that the caller can use to plan compilation partitions.\n    '
-    all_vts = self._sort_and_validate_targets(targets)
-    invalid_vts = filter((lambda vt: (not vt.valid)), all_vts)
-    self._logger.info(('got %d invalid vts' % len(invalid_vts)))
-    invalid_target_tree = DoubleDag(invalid_vts, (lambda t: filter((lambda d: (not d.valid)), t.dependencies)), self._logger)
-    return DagifiedInvalidationCheck(all_vts, invalid_vts, invalid_target_tree)

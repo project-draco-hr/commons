@@ -1,3 +1,5 @@
-def __init__(self, all_vts, invalid_vts):
+def __init__(self, all_vts, all_vts_partitioned, invalid_vts, invalid_vts_partitioned):
     self.all_vts = all_vts
+    self.all_vts_partitioned = all_vts_partitioned
     self.invalid_vts = invalid_vts
+    self.invalid_vts_partitioned = invalid_vts_partitioned

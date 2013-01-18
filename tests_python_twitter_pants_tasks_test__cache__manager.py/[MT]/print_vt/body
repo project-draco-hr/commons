@@ -1,2 +1,0 @@
-def print_vt(vt):
-    print ('%d (%s) %s: [ %s ]' % (len(vt.targets), vt.cache_key, vt.valid, ', '.join([('%s(%s)' % (vt.targets[i].id, vt.per_target_cache_keys[i])) for i in range(len(vt.targets))])))

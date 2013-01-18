@@ -5,4 +5,3 @@ output_dir
 analysis_cache
 upstream_analysis_caches
 depfile
-run_async

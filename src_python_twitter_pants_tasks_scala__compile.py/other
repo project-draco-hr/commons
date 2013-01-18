@@ -16,9 +16,7 @@ from twitter.pants.targets.scala_tests import ScalaTests
 from twitter.pants.targets import resolve_target_sources
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.binary_utils import nailgun_profile_classpath
-from twitter.pants.tasks.cache_manager import VersionedTargetSet
 from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
 from twitter.pants.tasks.jvm_dependency_cache import JvmDependencyCache
 from twitter.pants.tasks.nailgun_task import NailgunTask
-from twitter.pants.python import NaiveParallelizer
 _PLUGIN_INFO_FILE = 'scalac-plugin.xml'

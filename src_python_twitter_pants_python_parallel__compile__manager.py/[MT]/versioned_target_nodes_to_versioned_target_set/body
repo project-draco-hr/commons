@@ -1,3 +1,0 @@
-def versioned_target_nodes_to_versioned_target_set(versioned_target_nodes):
-    versioned_targets = [node.data for node in versioned_target_nodes]
-    return VersionedTargetSet.from_versioned_targets(versioned_targets)

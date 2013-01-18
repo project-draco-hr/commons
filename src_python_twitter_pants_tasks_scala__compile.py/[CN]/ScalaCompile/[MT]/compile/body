@@ -1,4 +1,4 @@
-def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile, run_async=False):
+def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile):
     args = [('-S' + x) for x in self._args]
 
     def analysis_cache_full_path(analysis_cache_product):
@@ -17,4 +17,4 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
         args.append('-no-color')
     args.extend(sources)
     self.context.log.debug(('Executing: %s %s' % (self._main, ' '.join(args))))
-    return self.runjava(self._main, classpath=self._zinc_classpath, args=args, jvmargs=self._jvm_args, run_async=run_async)
+    return self.runjava(self._main, classpath=self._zinc_classpath, args=args, jvmargs=self._jvm_args)

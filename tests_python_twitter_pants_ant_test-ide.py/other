@@ -1,4 +1,4 @@
-__author__ = 'John Sirois'
+__author__ = 'John Sirios'
 from twitter.common.collections import OrderedSet
 from twitter.pants import is_codegen
 from twitter.pants.ant.ide import _extract_target

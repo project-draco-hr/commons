@@ -1,6 +1,0 @@
-def __init__(self, nailgun, main, *args):
-    threading.Thread.__init__(self, group=None, target=None, name=None)
-    self.args = args
-    self.main = main
-    self.nailgun = nailgun
-    self.returncode = None

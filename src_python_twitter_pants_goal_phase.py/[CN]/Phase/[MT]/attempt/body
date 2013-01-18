@@ -1,13 +1,13 @@
 @staticmethod
-def attempt(context, phases):
+def attempt(context, phases, timer=None):
     '\n      Attempts to reach the goals for the supplied phases, optionally recording phase timings and\n      then logging then when all specified phases have completed.\n    '
     executed = OrderedDict()
 
     def emit_timings():
-        if context.timer:
+        if timer:
             for (phase, timings) in executed.items():
                 for (goal, times) in timings.items():
-                    context.timer.log(('%s:%s' % (phase, goal)), times)
+                    timer.log(('%s:%s' % (phase, goal)), times)
     try:
         tasks_by_goal = {}
         expanded = OrderedSet()
@@ -30,7 +30,7 @@ def attempt(context, phases):
                         tasks_by_goal[goal] = task
         context.log.debug(('Executing goals in phases %s' % ' -> '.join(map(str, reversed(expanded)))))
         for phase in phases:
-            Group.execute(phase, tasks_by_goal, context, executed)
+            Group.execute(phase, tasks_by_goal, context, executed, timer=timer)
         emit_timings()
         return 0
     except (TaskError, GoalError) as e:

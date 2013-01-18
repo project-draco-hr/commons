@@ -1,2 +1,0 @@
-def tearDown(self):
-    shutil.rmtree(self._dir, ignore_errors=True)

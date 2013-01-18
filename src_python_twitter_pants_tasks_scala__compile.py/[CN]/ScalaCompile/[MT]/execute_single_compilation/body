@@ -1,8 +1,7 @@
-def execute_single_compilation(self, versioned_target_set, cp, upstream_analysis_caches, run_async=False):
+def execute_single_compilation(self, versioned_target_set, cp, upstream_analysis_caches):
     'Execute a single compilation, updating upstream_analysis_caches if needed.'
     (output_dir, depfile, analysis_cache) = self.create_output_paths(versioned_target_set.targets)
     safe_mkdir(output_dir)
-    result = None
     if (not versioned_target_set.valid):
         with self.check_artifact_cache(versioned_target_set, build_artifacts=[output_dir, depfile, analysis_cache]) as in_cache:
             if (not in_cache):
@@ -15,9 +14,7 @@ def execute_single_compilation(self, versioned_target_set, cp, upstream_analysis
                         self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
                     else:
                         classpath = [jar for (conf, jar) in cp if (conf in self._confs)]
-                        result = self.compile(classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile, run_async=run_async)
-                        if ((result != 0) and (not run_async)):
+                        result = self.compile(classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile)
+                        if (result != 0):
                             raise TaskError(('%s returned %d' % (self._main, result)))
-    if (not run_async):
-        self.post_process(versioned_target_set, upstream_analysis_caches, split_artifact=True)
-    return result
+    self.post_process(versioned_target_set, upstream_analysis_caches, split_artifact=True)

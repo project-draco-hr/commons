@@ -1,6 +1,0 @@
-self
-logger
-invalid_target_tree
-max_num_parallel_compiles
-compile_cmd
-post_compile_cmd

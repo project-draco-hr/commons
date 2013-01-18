@@ -1,3 +1,5 @@
 self
 all_vts
+all_vts_partitioned
 invalid_vts
+invalid_vts_partitioned

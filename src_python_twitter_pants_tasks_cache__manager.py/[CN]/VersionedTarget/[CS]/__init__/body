@@ -1,7 +1,0 @@
-def __init__(self, cache_manager, target, cache_key):
-    VersionedTargetSet.__init__(self, cache_manager, [target], [cache_key])
-    self.target = target
-    self.id = target.id
-    self.dependencies = set([])
-    if (not isinstance(target, TargetWithSources)):
-        raise Exception(("Making VersionedTarget for target %s that doesn't have any sources" % target.id))

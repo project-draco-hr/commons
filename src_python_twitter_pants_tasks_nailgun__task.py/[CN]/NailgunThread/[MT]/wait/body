@@ -1,3 +1,0 @@
-def wait(self):
-    self.join()
-    return self.returncode

@@ -1,5 +1,5 @@
 def __init__(self, artifact_caches):
-    if (not artifact_caches):
+    if (len(artifact_caches) == 0):
         raise Exception, 'Must provide at least one underlying artifact cache'
     context = artifact_caches[0].context
     artifact_root = artifact_caches[0].artifact_root
