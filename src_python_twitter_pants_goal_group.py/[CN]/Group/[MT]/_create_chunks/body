@@ -1,0 +1,29 @@
+@staticmethod
+def _create_chunks(context, goals):
+
+    def discriminator(target):
+        for (i, goal) in enumerate(goals):
+            if goal.group.predicate(target):
+                return i
+        return 'other'
+    coalesced = InternalTarget.coalesce_targets(context.targets(is_internal), discriminator)
+    coalesced = list(reversed(coalesced))
+
+    def not_internal(target):
+        return (not is_internal(target))
+    rest = OrderedSet(context.targets(not_internal))
+    chunks = ([rest] if rest else [])
+    flavor = None
+    chunk_start = 0
+    for (i, target) in enumerate(coalesced):
+        target_flavor = discriminator(target)
+        if ((target_flavor != flavor) and (i > chunk_start)):
+            chunks.append(OrderedSet(coalesced[chunk_start:i]))
+            chunk_start = i
+        flavor = target_flavor
+    if (chunk_start < len(coalesced)):
+        chunks.append(OrderedSet(coalesced[chunk_start:]))
+    context.log.debug(('::: created chunks(%d)' % len(chunks)))
+    for (i, chunk) in enumerate(chunks):
+        context.log.debug(('  chunk(%d):\n\t%s' % (i, '\n\t'.join(sorted(map(str, chunk))))))
+    return chunks

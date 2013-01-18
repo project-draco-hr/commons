@@ -1,4 +1,0 @@
-def test_dependants_empty(self):
-    context = Context(ContextTest.config, options={}, target_roots=[])
-    dependees = context.dependants()
-    self.assertEquals(0, len(dependees))

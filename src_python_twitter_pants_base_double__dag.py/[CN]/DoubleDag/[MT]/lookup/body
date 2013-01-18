@@ -1,0 +1,4 @@
+def lookup(self, data):
+    if (data in self._nodes_by_data_map):
+        return self._nodes_by_data_map[data]
+    return None

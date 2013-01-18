@@ -1,0 +1,15 @@
+def remove_nodes(self, nodes):
+    'Removes the given nodes, updates self.leaves accordingly, and returns any nodes that have become leaves as a\n    result of this removal.'
+    new_leaves = set()
+    for node in nodes:
+        if (node not in self.nodes):
+            raise Exception(('Attempting to remove invalid node: %s' % node.data.id))
+        for parent_node in node.parents:
+            if (parent_node in nodes):
+                continue
+            parent_node.children.remove(node)
+            if (not parent_node.children):
+                new_leaves.add(parent_node)
+    self.leaves -= nodes
+    self.leaves.update(new_leaves)
+    return new_leaves

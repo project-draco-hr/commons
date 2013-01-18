@@ -9,7 +9,7 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
     self.artifacts = []
     if (ext or url or type_ or classifier):
         self.with_artifact(name=name, ext=ext, url=url, type_=type_, classifier=classifier)
-    self.id = None
+    self.id = ('%s-%s-%s' % (self.org, self.name, self.rev))
     self._configurations = ['default']
     self.withSources = self.with_sources
     self.withDocs = self.with_sources

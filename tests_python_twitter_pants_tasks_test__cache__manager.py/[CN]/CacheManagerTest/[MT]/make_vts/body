@@ -1,0 +1,2 @@
+def make_vts(self, target):
+    return VersionedTargetSet(self.cache_manager, [target], [target.id])
