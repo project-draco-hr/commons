@@ -1,6 +1,6 @@
 def resolve(arg, clazz=Pants):
     'Wraps strings in Pants() targets, for BUILD file convenience.\n\n    - single string literal gets wrapped in Pants() target\n    - single object is left alone\n    - list of strings and other miscellaneous objects gets its strings wrapped in Pants() targets\n  '
-    if isinstance(arg, basestring):
+    if isinstance(arg, Compatibility.string):
         return clazz(arg)
     try:
         [e for e in arg]
