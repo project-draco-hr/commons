@@ -14,7 +14,7 @@ def _fix_lint(self, buildfile_path, missing_dep_map):
                 name = '-UNKNOWN-'
             deps = m.group(1).split('\n')
             deps = filter((lambda x: x), [x.strip().replace('"', "'") for x in deps])
-            missing_deps = [("pants('%s')," % x) for x in missing_dep_map[name]]
+            missing_deps = [("'%s'," % x) for x in missing_dep_map[name]]
             deps.extend(missing_deps)
             if deps:
                 if ((len(deps) == 1) and BuildLint.INLINE_SINGLE_DEP_RE.match(m.group(0))):
@@ -22,7 +22,7 @@ def _fix_lint(self, buildfile_path, missing_dep_map):
                 parts = [x.strip() for x in deps[(-1)].split('#')]
                 if (not parts[0].rstrip().endswith(',')):
                     deps[(-1)] = ('%s,%s' % (parts[0], ((' #' + parts[1]) if (len(parts) > 1) else '')))
-            deps = sorted(deps, key=(lambda x: (('zzz' + x) if x.startswith("pants(':") else x)))
+            deps = sorted(deps, key=(lambda x: (('zzz' + x) if (x.startswith("':") or x.startswith("pants(':")) else x)))
             res = (('  dependencies = [\n    %s\n  ]' % '\n    '.join(deps)) if deps else 'dependencies = []')
             return res
         new_buildfile_source = BuildLint.DEPS_RE.sub(sort_deps, old_buildfile_source)
