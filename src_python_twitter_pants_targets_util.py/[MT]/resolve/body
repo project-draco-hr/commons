@@ -1,9 +1,9 @@
 def resolve(arg, clazz=Pants):
-    'Wraps strings in Pants() targets, for BUILD file convenience.\n\n    - single string literal gets wrapped in Pants() target\n    - single Target is left alone\n    - list of strings and Targets gets its strings wrapped in Pants() targets, returning a list Targets\n  '
-    if (arg is None):
-        return None
+    'Wraps strings in Pants() targets, for BUILD file convenience.\n\n    - single string literal gets wrapped in Pants() target\n    - single object is left alone\n    - list of strings and other miscellaneous objects gets its strings wrapped in Pants() targets\n  '
     if isinstance(arg, str):
         return clazz(arg)
-    if isinstance(arg, Target):
+    try:
+        [e for e in arg]
+    except TypeError:
         return arg
-    return [(clazz(dependency) if isinstance(dependency, str) else dependency) for dependency in arg]
+    return [resolve(dependency, clazz=clazz) for dependency in arg]

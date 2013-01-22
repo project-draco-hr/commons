@@ -1,3 +1,2 @@
 __author__ = 'Ryan Williams'
 from twitter.pants.targets.pants_target import Pants
-from twitter.pants.base import Target
