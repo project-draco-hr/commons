@@ -1,0 +1,3 @@
+__author__ = 'Ryan Williams'
+import unittest
+from twitter.pants.targets.util import resolve

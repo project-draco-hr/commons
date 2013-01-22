@@ -1,0 +1,2 @@
+def testString(self):
+    self.assertEquals(resolve('asdf', clazz=MockPantsTarget).foo, 'asdf')

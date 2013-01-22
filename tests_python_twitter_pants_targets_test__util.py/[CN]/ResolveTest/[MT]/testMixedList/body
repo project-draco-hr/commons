@@ -1,0 +1,2 @@
+def testMixedList(self):
+    self.assertEquals(resolve([MockPantsTarget('1'), '2', MockPantsTarget('3'), '4', '5'], clazz=MockPantsTarget), [MockPantsTarget('1'), MockPantsTarget('2'), MockPantsTarget('3'), MockPantsTarget('4'), MockPantsTarget('5')])

@@ -1,0 +1,2 @@
+def testNonTarget(self):
+    self.assertEquals(resolve([MockPantsTarget(1), [4, 'asdf'], 'qwer'], clazz=MockPantsTarget), [MockPantsTarget(1), [4, MockPantsTarget('asdf')], MockPantsTarget('qwer')])
