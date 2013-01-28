@@ -1,0 +1,2 @@
+def add_injected_dependency(self, spec):
+    self._injected_deps.append(spec)

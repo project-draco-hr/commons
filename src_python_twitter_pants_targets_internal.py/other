@@ -1,4 +1,4 @@
 from twitter.common.collections import OrderedSet
 import collections
-from twitter.pants.base import Target
+from twitter.pants.base import Config, Target
 from twitter.pants.targets.util import resolve
