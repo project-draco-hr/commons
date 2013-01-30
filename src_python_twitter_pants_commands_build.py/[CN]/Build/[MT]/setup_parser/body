@@ -1,7 +1,0 @@
-def setup_parser(self, parser, args):
-    parser.set_usage('\n  %prog build (options) [spec] (build args)\n  %prog build (options) [spec]... -- (build args)')
-    parser.disable_interspersed_args()
-    parser.add_option('--fast', action='store_true', dest='is_meta', default=False, help='Specifies the build should be flattened before executing, this can help speed up many builds.  Equivalent to the ! suffix BUILD target modifier')
-    parser.add_option('-q', '--quiet', action='store_true', dest='quiet', default=False, help="Don't output result of empty targets")
-    parser.add_option('-x', '--time', action='store_true', dest='time', default=False, help='Times jvm build steps and outputs a report')
-    parser.epilog = 'Builds the specified target(s).  Currently any additional arguments are\n    passed straight through to the ant build system.'

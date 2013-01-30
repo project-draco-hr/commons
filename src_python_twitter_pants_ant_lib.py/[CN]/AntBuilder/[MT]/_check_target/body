@@ -1,3 +1,0 @@
-@classmethod
-def _check_target(cls, target):
-    assert has_jvm_targets([target]), ('AntBuilder can only build jvm targets, given %s' % str(target))

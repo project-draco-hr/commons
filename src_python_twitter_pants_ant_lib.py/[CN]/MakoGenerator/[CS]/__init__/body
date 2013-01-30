@@ -1,3 +1,0 @@
-def __init__(self, template_text, **template_data):
-    self._template = Template(text=template_text, module_directory=MakoGenerator._module_directory)
-    self.template_data = template_data

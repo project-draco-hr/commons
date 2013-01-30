@@ -1,8 +1,0 @@
-def __init__(self, name, is_apt=False, is_codegen=False, internal_dependencies=None, jar_dependencies=None, rev=None):
-    self.name = name
-    self.is_apt = is_apt
-    self.is_codegen = is_codegen
-    self.internal_dependencies = OrderedSet(internal_dependencies)
-    self.jar_dependencies = OrderedSet(jar_dependencies)
-    self.excludes = []
-    self.rev = rev

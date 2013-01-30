@@ -1,2 +1,0 @@
-from twitter.pants.ant.lib import AntBuilder
-__all__ = (AntBuilder,)

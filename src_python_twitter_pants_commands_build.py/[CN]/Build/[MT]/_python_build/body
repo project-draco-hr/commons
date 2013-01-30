@@ -1,6 +1,0 @@
-def _python_build(self, targets):
-    try:
-        executor = PythonBuilder(self.error, self.root_dir)
-        return executor.build(targets, self.build_args)
-    except:
-        self.error(('Problem executing PythonBuilder for targets %s: %s' % (targets, traceback.format_exc())))
