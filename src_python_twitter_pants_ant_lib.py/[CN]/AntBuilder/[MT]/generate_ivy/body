@@ -1,6 +1,0 @@
-@classmethod
-def generate_ivy(cls, root_dir, output_filename, target):
-    'Outputs an ivy.xml file to output_filename for the given java target'
-    AntBuilder._check_target(target)
-    library_template_data = target._create_template_data()
-    AntBuilder._generate(root_dir, 'ivy', library_template_data, output_filename)

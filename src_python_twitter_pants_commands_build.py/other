@@ -2,8 +2,6 @@ from __future__ import print_function
 import traceback
 from . import Command
 from twitter.common.collections import OrderedSet
-from twitter.pants import is_python, extract_jvm_targets
-from twitter.pants.ant import AntBuilder
+from twitter.pants import is_python
 from twitter.pants.base import Address, Target
-from twitter.pants.targets import InternalTarget
 from twitter.pants.python import PythonBuilder

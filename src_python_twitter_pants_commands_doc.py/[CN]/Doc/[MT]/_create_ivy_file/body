@@ -1,4 +1,8 @@
 def _create_ivy_file(self, target, target_path):
     ivy_file = os.path.abspath(os.path.join(target_path, 'ivy.xml'))
-    AntBuilder.generate_ivy(self.root_dir, ivy_file, target)
+    template_data = target._create_template_data()
+    template_path = os.path.join('ivy_resolve', 'ivy.mustache')
+    generator = Generator(pkgutil.get_data('twitter.pants.tasks', template_path), root_dir=self.root_dir, lib=template_data)
+    with open(ivy_file, 'w') as outfile:
+        generator.write(outfile)
     return ivy_file

@@ -1,19 +1,13 @@
 def execute(self):
     print(('Build operating on targets: %s' % self.targets))
-    jvm_targets = OrderedSet()
     python_targets = OrderedSet()
     for target in self.targets:
-        targets = list(extract_jvm_targets([target]))
-        if targets:
-            jvm_targets.update(targets)
-        elif is_python(target):
+        if is_python(target):
             python_targets.add(target)
         else:
             self.error(('Cannot build target %s' % target))
-    if jvm_targets:
-        status = self._jvm_build(jvm_targets)
-        if (status != 0):
-            return status
     if python_targets:
         status = self._python_build(python_targets)
+    else:
+        status = (-1)
     return status

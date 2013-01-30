@@ -1,8 +1,0 @@
-def _resolve_targets(self, targets, name=None):
-    for target in targets:
-        AntBuilder._check_target(target)
-    foil = list(targets)[0]
-    if ((len(targets) > 1) or foil.address.is_meta):
-        return bang.extract_target(targets, name)
-    else:
-        return foil

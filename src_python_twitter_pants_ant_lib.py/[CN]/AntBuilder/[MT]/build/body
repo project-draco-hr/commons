@@ -1,3 +1,0 @@
-def build(self, targets, args):
-    (_, _, result) = self.generate_and_build(targets, args)
-    return result
