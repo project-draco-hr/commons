@@ -1,0 +1,4 @@
+def setup_parser(self, parser, args):
+    parser.set_usage('\n  %prog build [spec] (build args)\n  %prog build [spec]... -- (build args)')
+    parser.disable_interspersed_args()
+    parser.epilog = 'Builds the specified Python target(s). Use ./pants goal for JVM and other targets.'

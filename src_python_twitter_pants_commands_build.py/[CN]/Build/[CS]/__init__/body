@@ -1,0 +1,28 @@
+def __init__(self, root_dir, parser, argv):
+    Command.__init__(self, root_dir, parser, argv)
+    if (not self.args):
+        self.error('A spec argument is required')
+    try:
+        specs_end = self.args.index('--')
+        if (len(self.args) > specs_end):
+            self.build_args = self.args[(specs_end + 1):(len(self.args) + 1)]
+        else:
+            self.build_args = []
+    except ValueError:
+        specs_end = 1
+        self.build_args = (self.args[1:] if (len(self.args) > 1) else [])
+    self.targets = OrderedSet()
+    for spec in self.args[0:specs_end]:
+        try:
+            address = Address.parse(root_dir, spec)
+        except:
+            self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
+            raise
+        try:
+            target = Target.get(address)
+        except:
+            self.error(('Problem parsing BUILD target %s: %s' % (address, traceback.format_exc())))
+            raise
+        if (not target):
+            self.error(('Target %s does not exist' % address))
+        self.targets.add(target)
