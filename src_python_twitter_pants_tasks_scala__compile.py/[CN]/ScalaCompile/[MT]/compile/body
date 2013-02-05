@@ -9,12 +9,11 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
             raise TaskError('There can only be one analysis cache file per output directory')
         return os.path.join(analysis_cache_dir, analysis_cache_files[0])
     analysis_map = OrderedDict([(k, analysis_cache_full_path(v)) for (k, v) in upstream_analysis_caches.itermappings()])
-    args.extend(self._zinc_jar_args)
     if (len(analysis_map) > 0):
         args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in analysis_map.items()])])
-    args.extend(['-analysis-cache', analysis_cache, '-log-level', (self.context.options.log_level or 'info'), '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-mirror-analysis', '-d', output_dir])
+    args.extend(['-analysis-cache', analysis_cache, '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-mirror-analysis', '-d', output_dir])
     if (not self._color):
         args.append('-no-color')
     args.extend(sources)
     self.context.log.debug(('Executing: %s %s' % (self._main, ' '.join(args))))
-    return self.runjava(self._main, classpath=self._zinc_classpath, args=args, jvmargs=self._jvm_args)
+    return self.run_zinc(args)

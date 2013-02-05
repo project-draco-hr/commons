@@ -6,16 +6,15 @@ from collections import defaultdict
 from contextlib import closing
 from xml.etree import ElementTree
 from twitter.common.collections import OrderedDict
-from twitter.common.contextutil import open_zip as open_jar, temporary_dir
+from twitter.common.contextutil import open_zip as open_jar, temporary_dir, temporary_file_path
 from twitter.common.dirutil import safe_mkdir, safe_open, safe_rmtree
 from twitter.pants import get_buildroot, is_scala, is_scalac_plugin
 from twitter.pants.base.target import Target
-from twitter.pants.targets.jvm_target import JvmTarget
 from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.targets.scala_tests import ScalaTests
 from twitter.pants.targets import resolve_target_sources
 from twitter.pants.tasks import TaskError
-from twitter.pants.tasks.binary_utils import nailgun_profile_classpath
+from twitter.pants.tasks.binary_utils import find_java_home, nailgun_profile_classpath
 from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
 from twitter.pants.tasks.jvm_dependency_cache import JvmDependencyCache
 from twitter.pants.tasks.nailgun_task import NailgunTask

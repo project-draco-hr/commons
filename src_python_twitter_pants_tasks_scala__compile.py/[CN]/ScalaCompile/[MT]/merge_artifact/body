@@ -6,9 +6,6 @@ def merge_artifact(self, versioned_target_set):
         safe_rmtree(dst_output_dir)
         safe_mkdir(dst_output_dir)
         src_analysis_caches = []
-        analysis_args = []
-        analysis_args.extend(self._zinc_jar_args)
-        analysis_args.extend(['-log-level', (self.context.options.log_level or 'info'), '-analysis', '-mirror-analysis'])
         dst_deps = Dependencies(dst_output_dir)
         for target in versioned_target_set.targets:
             (src_output_dir, src_depfile, src_analysis_cache) = self.create_output_paths([target])
@@ -28,10 +25,8 @@ def merge_artifact(self, versioned_target_set):
                     src_analysis_cache_tmp = os.path.join(tmpdir, os.path.relpath(src_analysis_cache, self._analysis_cache_dir))
                     shutil.copyfile(src_analysis_cache, src_analysis_cache_tmp)
                     src_analysis_caches.append(src_analysis_cache_tmp)
-                    rebase_args = (analysis_args + ['-cache', src_analysis_cache_tmp, '-rebase', ('%s:%s' % (src_output_dir, dst_output_dir))])
-                    if self.runjava(self._main, classpath=self._zinc_classpath, args=rebase_args, jvmargs=self._jvm_args):
+                    if self.run_zinc_rebase(cache=src_analysis_cache_tmp, rebasings=[(src_output_dir, dst_output_dir)]):
                         self.context.log.warn(('In merge_artifact: zinc failed to rebase analysis file %s. Target may require a full rebuild.' % src_analysis_cache_tmp))
         dst_deps.save(dst_depfile)
-        merge_args = (analysis_args + ['-cache', dst_analysis_cache, '-merge', ':'.join(src_analysis_caches)])
-        if self.runjava(self._main, classpath=self._zinc_classpath, args=merge_args, jvmargs=self._jvm_args):
+        if self.run_zinc_merge(src_caches=src_analysis_caches, dst_cache=dst_analysis_cache):
             raise TaskError, ('zinc failed to merge analysis files %s to %s' % (':'.join(src_analysis_caches), dst_analysis_cache))
