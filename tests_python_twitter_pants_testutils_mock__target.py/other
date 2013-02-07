@@ -1,2 +1,2 @@
 __author__ = 'Ryan Williams'
-from twitter.pants.targets import InternalTarget
+from twitter.pants.targets import InternalTarget, TargetWithSources
