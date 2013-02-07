@@ -1,5 +1,6 @@
 def __init__(self, context, workdir=None):
     NailgunTask.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
+    self._pants_home = get_buildroot()
     self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint'))
     self.check_missing_deps = context.options.scala_check_missing_deps
     self.check_intransitive_deps = context.options.scala_check_intransitive_deps
@@ -31,7 +32,7 @@ def __init__(self, context, workdir=None):
         self._args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
     plugin_names = ([p for val in context.options.plugins for p in val.split(',')] if (context.options.plugins is not None) else context.config.getlist('scala-compile', 'scalac-plugins', default=[]))
     plugin_args = context.config.getdict('scala-compile', 'scalac-plugin-args', default={})
-    active_plugins = ScalaCompile.find_plugins(plugin_names, self._plugin_jars)
+    active_plugins = self.find_plugins(plugin_names)
     for (name, jar) in active_plugins.items():
         self._args.append(('-Xplugin:%s' % jar))
         for arg in plugin_args.get(name, []):
@@ -40,3 +41,5 @@ def __init__(self, context, workdir=None):
     self._depfile_dir = os.path.join(self._workdir, 'depfiles')
     artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches')
     self.setup_artifact_cache(artifact_cache_spec)
+    self._java_home = os.path.dirname(find_java_home())
+    self._ivy_home = context.config.get('ivy', 'cache_dir')

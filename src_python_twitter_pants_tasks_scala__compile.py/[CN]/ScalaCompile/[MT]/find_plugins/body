@@ -1,9 +1,8 @@
-@staticmethod
-def find_plugins(plugin_names, plugin_jars):
+def find_plugins(self, plugin_names):
     'Returns a map from plugin name to plugin jar.'
     plugin_names = set(plugin_names)
     plugins = {}
-    for jar in plugin_jars:
+    for jar in self._plugin_jars:
         with open_jar(jar, 'r') as jarfile:
             try:
                 with closing(jarfile.open(_PLUGIN_INFO_FILE, 'r')) as plugin_info_file:
@@ -14,7 +13,7 @@ def find_plugins(plugin_names, plugin_jars):
                 if (name in plugin_names):
                     if (name in plugins):
                         raise TaskError, ('Plugin %s defined in %s and in %s' % (name, plugins[name], jar))
-                    plugins[name] = jar
+                    plugins[name] = os.path.relpath(jar, self._pants_home)
             except KeyError:
                 pass
     unresolved_plugins = (plugin_names - set(plugins.keys()))

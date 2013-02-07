@@ -1,6 +1,6 @@
 @contextmanager
 def temporary_file(root_dir=None, cleanup=True):
-    '\n    A with-context that creates a temporary file.\n\n    You may specify the following keyword args:\n      root_dir [path]: The parent directory to create the temporary file.\n      cleanup [True/False]: Whether or not to clean up the temporary file.\n  '
+    '\n    A with-context that creates a temporary file and returns a writeable file descriptor to it.\n\n    You may specify the following keyword args:\n      root_dir [path]: The parent directory to create the temporary file.\n      cleanup [True/False]: Whether or not to clean up the temporary file.\n\n    Important note: If you fork inside the context, make sure only one tine\n    performs cleanup (e.g., by calling os._exit() in the child).\n  '
     (fh, path) = tempfile.mkstemp(dir=root_dir)
     os.close(fh)
     fd = open(path, 'w+')

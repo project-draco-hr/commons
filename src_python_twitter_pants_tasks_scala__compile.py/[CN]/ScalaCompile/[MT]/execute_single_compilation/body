@@ -1,10 +1,17 @@
 def execute_single_compilation(self, versioned_target_set, cp, upstream_analysis_caches):
     'Execute a single compilation, updating upstream_analysis_caches if needed.'
     (output_dir, depfile, analysis_cache) = self.create_output_paths(versioned_target_set.targets)
+    portable_analysis_cache = (analysis_cache + '.portable')
     safe_mkdir(output_dir)
     if (not versioned_target_set.valid):
-        with self.check_artifact_cache(versioned_target_set, build_artifacts=[output_dir, depfile, analysis_cache]) as in_cache:
-            if (not in_cache):
+        with self.check_artifact_cache(versioned_target_set, build_artifacts=[output_dir, depfile, portable_analysis_cache]) as in_cache:
+            if in_cache:
+                with temporary_file_path() as tmp_analysis_cache:
+                    shutil.copy(portable_analysis_cache, tmp_analysis_cache)
+                    rebasings = [(ScalaCompile.IVY_HOME_PLACEHOLDER, self._ivy_home), (ScalaCompile.PANTS_HOME_PLACEHOLDER, self._pants_home)]
+                    self.run_zinc_rebase(cache=tmp_analysis_cache, rebasings=rebasings)
+                    shutil.copy(tmp_analysis_cache, analysis_cache)
+            else:
                 self.merge_artifact(versioned_target_set)
                 self.context.log.info(('Compiling targets %s' % versioned_target_set.targets))
                 sources_by_target = self.calculate_sources(versioned_target_set.targets)
@@ -17,4 +24,9 @@ def execute_single_compilation(self, versioned_target_set, cp, upstream_analysis
                         result = self.compile(classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile)
                         if (result != 0):
                             raise TaskError(('%s returned %d' % (self._main, result)))
+                        with temporary_file_path() as tmp_analysis_cache:
+                            shutil.copy(analysis_cache, tmp_analysis_cache)
+                            rebasings = [(self._java_home, ''), (self._ivy_home, ScalaCompile.IVY_HOME_PLACEHOLDER), (self._pants_home, ScalaCompile.PANTS_HOME_PLACEHOLDER)]
+                            self.run_zinc_rebase(cache=tmp_analysis_cache, rebasings=rebasings)
+                            shutil.copy(tmp_analysis_cache, portable_analysis_cache)
     self.post_process(versioned_target_set, upstream_analysis_caches, split_artifact=True)
