@@ -1,5 +1,5 @@
 def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile):
-    args = [('-S' + x) for x in self._args]
+    args = [('-S' + x) for x in self._scalac_args]
 
     def analysis_cache_full_path(analysis_cache_product):
         if (len(analysis_cache_product) != 1):
@@ -12,8 +12,5 @@ def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analy
     if (len(analysis_map) > 0):
         args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in analysis_map.items()])])
     args.extend(['-analysis-cache', analysis_cache, '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-mirror-analysis', '-d', output_dir])
-    if (not self._color):
-        args.append('-no-color')
     args.extend(sources)
-    self.context.log.debug(('Executing: %s %s' % (self._main, ' '.join(args))))
     return self.run_zinc(args)

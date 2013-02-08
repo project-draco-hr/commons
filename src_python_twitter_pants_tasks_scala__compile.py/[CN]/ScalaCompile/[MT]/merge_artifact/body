@@ -25,8 +25,8 @@ def merge_artifact(self, versioned_target_set):
                     src_analysis_cache_tmp = os.path.join(tmpdir, os.path.relpath(src_analysis_cache, self._analysis_cache_dir))
                     shutil.copyfile(src_analysis_cache, src_analysis_cache_tmp)
                     src_analysis_caches.append(src_analysis_cache_tmp)
-                    if self.run_zinc_rebase(cache=src_analysis_cache_tmp, rebasings=[(src_output_dir, dst_output_dir)]):
+                    if self._zinc_utils.run_zinc_rebase(cache=src_analysis_cache_tmp, rebasings=[(src_output_dir, dst_output_dir)]):
                         self.context.log.warn(('In merge_artifact: zinc failed to rebase analysis file %s. Target may require a full rebuild.' % src_analysis_cache_tmp))
         dst_deps.save(dst_depfile)
-        if self.run_zinc_merge(src_caches=src_analysis_caches, dst_cache=dst_analysis_cache):
-            raise TaskError, ('zinc failed to merge analysis files %s to %s' % (':'.join(src_analysis_caches), dst_analysis_cache))
+        if self._zinc_utils.run_zinc_merge(src_caches=src_analysis_caches, dst_cache=dst_analysis_cache):
+            self.context.log.warn(('zinc failed to merge analysis files %s to %s. Target may require a full rebuild.' % (':'.join(src_analysis_caches), dst_analysis_cache)))

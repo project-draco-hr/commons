@@ -14,8 +14,7 @@ def split_artifact(self, deps, versioned_target_set):
         for (source, classes) in classes_by_source.items():
             src = os.path.join(target.target_base, source)
             dst_deps.add(src, classes)
-            source_abspath = os.path.join(self._pants_home, target.target_base, source)
-            sources.append(source_abspath)
+            sources.append(os.path.join(target.target_base, source))
             for cls in classes:
                 dst = os.path.join(dst_output_dir, cls)
                 safe_mkdir(os.path.dirname(dst))
@@ -24,12 +23,12 @@ def split_artifact(self, deps, versioned_target_set):
         analysis_splits.append((sources, dst_output_dir, dst_analysis_cache))
         self.generated_caches.add(os.path.join(dst_output_dir, dst_analysis_cache))
     if os.path.exists(src_analysis_cache):
-        if self.run_zinc_split(src_cache=src_analysis_cache, splits=[(x[0], x[2]) for x in analysis_splits]):
+        if self._zinc_utils.run_zinc_split(src_cache=src_analysis_cache, splits=[(x[0], x[2]) for x in analysis_splits]):
             raise TaskError, ('zinc failed to split analysis files %s from %s' % (':'.join([x[2] for x in analysis_splits]), src_analysis_cache))
         for split in analysis_splits:
             dst_analysis_cache = split[2]
             dst_output_dir = split[1]
             if os.path.exists(dst_analysis_cache):
                 rebasings = [(src_output_dir, dst_output_dir)]
-                if self.run_zinc_rebase(cache=dst_analysis_cache, rebasings=rebasings):
+                if self._zinc_utils.run_zinc_rebase(cache=dst_analysis_cache, rebasings=rebasings):
                     raise TaskError, ('In split_artifact: zinc failed to rebase analysis file %s' % dst_analysis_cache)

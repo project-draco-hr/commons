@@ -1,45 +1,19 @@
 def __init__(self, context, workdir=None):
     NailgunTask.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
-    self._pants_home = get_buildroot()
+    color = (context.options.scala_compile_color or context.config.getbool('scala-compile', 'color', default=True))
+    self._zinc_utils = ZincUtils(context=context, java_runner=self.runjava, color=color)
     self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint'))
     self.check_missing_deps = context.options.scala_check_missing_deps
     self.check_intransitive_deps = context.options.scala_check_intransitive_deps
     self.check_unnecessary_deps = context.options.scala_check_unnecessary_deps
     if self.check_missing_deps:
         JvmDependencyCache.init_product_requirements(self)
-    self._color = (context.options.scala_compile_color if (context.options.scala_compile_color is not None) else context.config.getbool('scala-compile', 'color', default=True))
-    self._compile_profile = context.config.get('scala-compile', 'compile-profile')
-    self._zinc_profile = context.config.get('scala-compile', 'zinc-profile')
-    plugins_profile = context.config.get('scala-compile', 'scalac-plugins-profile')
     self.generated_caches = set()
-    self._zinc_classpath = nailgun_profile_classpath(self, self._zinc_profile)
-    compiler_classpath = nailgun_profile_classpath(self, self._compile_profile)
-    zinc_jars = ScalaCompile.identify_zinc_jars(compiler_classpath, self._zinc_classpath)
-    self._zinc_jar_args = []
-    for (name, jarpath) in zinc_jars.items():
-        self._zinc_jar_args.extend([('-%s' % name), jarpath])
-    self._plugin_jars = (nailgun_profile_classpath(self, plugins_profile) if plugins_profile else [])
-    self._workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
-    self._classes_dir = os.path.join(self._workdir, 'classes')
-    self._analysis_cache_dir = os.path.join(self._workdir, 'analysis_cache')
-    self._resources_dir = os.path.join(self._workdir, 'resources')
-    self._main = context.config.get('scala-compile', 'main')
-    self._args = context.config.getlist('scala-compile', 'args')
-    self._jvm_args = context.config.getlist('scala-compile', 'jvm_args')
-    if context.options.scala_compile_warnings:
-        self._args.extend(context.config.getlist('scala-compile', 'warning_args'))
-    else:
-        self._args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
-    plugin_names = ([p for val in context.options.plugins for p in val.split(',')] if (context.options.plugins is not None) else context.config.getlist('scala-compile', 'scalac-plugins', default=[]))
-    plugin_args = context.config.getdict('scala-compile', 'scalac-plugin-args', default={})
-    active_plugins = self.find_plugins(plugin_names)
-    for (name, jar) in active_plugins.items():
-        self._args.append(('-Xplugin:%s' % jar))
-        for arg in plugin_args.get(name, []):
-            self._args.append(('-P:%s:%s' % (name, arg)))
+    workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
+    self._classes_dir = os.path.join(workdir, 'classes')
+    self._analysis_cache_dir = os.path.join(workdir, 'analysis_cache')
+    self._resources_dir = os.path.join(workdir, 'resources')
+    self._depfile_dir = os.path.join(workdir, 'depfiles')
     self._confs = context.config.getlist('scala-compile', 'confs')
-    self._depfile_dir = os.path.join(self._workdir, 'depfiles')
     artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches')
     self.setup_artifact_cache(artifact_cache_spec)
-    self._java_home = os.path.dirname(find_java_home())
-    self._ivy_home = context.config.get('ivy', 'cache_dir')

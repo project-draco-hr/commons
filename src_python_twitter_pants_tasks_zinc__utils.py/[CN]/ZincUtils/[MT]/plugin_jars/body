@@ -1,0 +1,3 @@
+def plugin_jars(self):
+    'The jars containing code for enabled plugins.'
+    return self._plugin_jars
