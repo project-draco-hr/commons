@@ -1,5 +1,0 @@
-def run_zinc(self, args):
-    zinc_args = ['-log-level', (self.context.options.log_level or 'info')]
-    zinc_args.extend(self._zinc_jar_args)
-    zinc_args.extend(args)
-    return self.runjava(self._main, classpath=self._zinc_classpath, args=zinc_args, jvmargs=self._jvm_args)

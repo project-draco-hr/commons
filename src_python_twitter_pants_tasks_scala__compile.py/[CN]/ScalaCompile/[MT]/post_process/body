@@ -15,7 +15,7 @@ def post_process(self, vt, upstream_analysis_caches, split_artifact):
                         genmap.add(target, output_dir, classes)
                 for target in vt.targets:
                     if (is_scalac_plugin(target) and target.classname):
-                        basedir = self.write_plugin_info(target)
+                        basedir = self._zinc_utils.write_plugin_info(self._resources_dir, target)
                         genmap.add(target, basedir, [_PLUGIN_INFO_FILE])
     if os.path.exists(analysis_cache):
         analysis_cache_parts = os.path.split(analysis_cache)
