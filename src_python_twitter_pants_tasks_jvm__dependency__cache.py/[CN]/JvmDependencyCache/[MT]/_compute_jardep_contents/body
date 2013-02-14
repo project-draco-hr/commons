@@ -7,7 +7,7 @@ def _compute_jardep_contents(self):
     jardeps_by_id = {}
     for jardep in found_jar_deps:
         jardeps_by_id[(jardep.org, jardep.name)] = jardep
-    ivy_products = self.task.context.products.get('ivy_jar_products').get('ivy')
+    ivy_products = self.context.products.get('ivy_jar_products').get('ivy')
     ivy_jars_by_target = defaultdict(set)
     ivy_targets_by_jar = defaultdict(set)
     for ivy_report_list in ivy_products.values():

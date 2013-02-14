@@ -1,16 +1,7 @@
-def compile(self, classpath, sources, output_dir, analysis_cache, upstream_analysis_caches, depfile):
+def compile(self, classpath, sources, output_dir, analysis_file, upstream_analysis_files, depfile):
     args = [('-S' + x) for x in self._scalac_args]
-
-    def analysis_cache_full_path(analysis_cache_product):
-        if (len(analysis_cache_product) != 1):
-            raise TaskError('There can only be one analysis cache file per output directory')
-        (analysis_cache_dir, analysis_cache_files) = analysis_cache_product.iteritems().next()
-        if (len(analysis_cache_files) != 1):
-            raise TaskError('There can only be one analysis cache file per output directory')
-        return os.path.join(analysis_cache_dir, analysis_cache_files[0])
-    analysis_map = OrderedDict([(k, analysis_cache_full_path(v)) for (k, v) in upstream_analysis_caches.itermappings()])
-    if (len(analysis_map) > 0):
-        args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in analysis_map.items()])])
-    args.extend(['-analysis-cache', analysis_cache, '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-mirror-analysis', '-d', output_dir])
+    if (len(upstream_analysis_files) > 0):
+        args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in upstream_analysis_files.items()])])
+    args.extend(['-analysis-cache', analysis_file, '-classpath', ':'.join((self._zinc_classpath + classpath)), '-output-products', depfile, '-d', output_dir])
     args.extend(sources)
     return self.run_zinc(args)

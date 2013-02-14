@@ -1,0 +1,5 @@
+def _add_globally_required_classpath_entries(self, cp):
+    for conf in self._confs:
+        cp.insert(0, (conf, self._resources_dir))
+        for jar in self._zinc_utils.plugin_jars():
+            cp.insert(0, (conf, jar))

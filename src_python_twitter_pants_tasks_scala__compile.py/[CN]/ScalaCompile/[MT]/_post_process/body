@@ -1,0 +1,18 @@
+def _post_process(self, target, cp):
+    'Must be called on all targets, whether they needed compilation or not.'
+    (classes_dir, depfile, _) = self._output_paths([target])
+    if os.path.exists(classes_dir):
+        for conf in self._confs:
+            cp.insert(0, (conf, classes_dir))
+    if (os.path.exists(depfile) and self.context.products.isrequired('classes')):
+        self.context.log.debug(('Reading dependencies from ' + depfile))
+        deps = Dependencies(classes_dir)
+        deps.load(depfile)
+        genmap = self.context.products.get('classes')
+        for classes_by_source in deps.findclasses([target]).values():
+            for (source, classes) in classes_by_source.items():
+                genmap.add(source, classes_dir, classes)
+                genmap.add(target, classes_dir, classes)
+            if (is_scalac_plugin(target) and target.classname):
+                (basedir, plugin_info_file) = self._zinc_utils.write_plugin_info(self._resources_dir, target)
+                genmap.add(target, basedir, [plugin_info_file])

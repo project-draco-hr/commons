@@ -1,4 +1,3 @@
 self
 cache_manager
-targets
-per_target_cache_keys
+versioned_targets

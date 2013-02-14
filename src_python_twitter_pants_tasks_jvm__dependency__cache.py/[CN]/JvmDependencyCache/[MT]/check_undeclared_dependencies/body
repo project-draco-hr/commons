@@ -13,15 +13,15 @@ def check_undeclared_dependencies(self):
         immediate_missing_deps = computed_deps.difference(target.dependencies).difference([target])
         if (len(undeclared_deps) > 0):
             found_missing_deps = True
-            genmap = self.task.context.products.get('missing_deps')
-            genmap.add(target, self.task.context._buildroot, [x.derived_from.address.reference() for x in undeclared_deps])
+            genmap = self.context.products.get('missing_deps')
+            genmap.add(target, self.context._buildroot, [x.derived_from.address.reference() for x in undeclared_deps])
             for dep_target in undeclared_deps:
                 print ('Error: target %s has undeclared compilation dependency on %s,' % (target.address, dep_target.derived_from.address.reference()))
                 print ('       because source file %s depends on class %s' % self.get_dependency_blame(target, dep_target))
                 immediate_missing_deps.discard(dep_target)
         if (self.check_intransitive_deps != 'none'):
             if (len(immediate_missing_deps) > 0):
-                genmap = self.task.context.products.get('missing_deps')
+                genmap = self.context.products.get('missing_deps')
                 if (self.check_intransitive_deps == 'error'):
                     found_missing_deps = True
                     genmap.add(target, self.context._buildroot, [x.derived_from.address.reference() for x in immediate_missing_deps])

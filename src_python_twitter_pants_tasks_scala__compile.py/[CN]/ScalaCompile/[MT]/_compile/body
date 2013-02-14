@@ -1,0 +1,28 @@
+def _compile(self, versioned_target_set, classpath, upstream_analysis_files):
+    'Actually compile some targets.\n\n    May be invoked concurrently on independent target sets.\n\n    Postcondition: The individual targets in versioned_target_set are up-to-date, as if each\n                   were compiled individually.\n    '
+    (classes_dir, depfile, analysis_file) = self._output_paths(versioned_target_set.targets)
+    safe_mkdir(classes_dir)
+    self._merge_artifact(versioned_target_set)
+    sources_by_target = ScalaCompile._calculate_sources(versioned_target_set.targets)
+    if sources_by_target:
+        sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
+        if (not sources):
+            self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % '\n  '.join((str(t) for t in sources_by_target.keys()))))
+        else:
+            self.context.log.info(('Compiling targets %s' % versioned_target_set.targets))
+            if self._zinc_utils.compile(classpath, sources, classes_dir, analysis_file, upstream_analysis_files, depfile):
+                raise TaskError('Compile failed.')
+            self.context.log.debug(('Reading dependencies from ' + depfile))
+            deps = Dependencies(classes_dir)
+            deps.load(depfile)
+            self._split_artifact(deps, versioned_target_set)
+            for vt in versioned_target_set.versioned_targets:
+                (vt_classes_dir, vt_depfile, vt_analysis_file) = self._output_paths(vt.targets)
+                vt_portable_analysis_file = _portable(vt_analysis_file)
+                if (self._artifact_cache and self.context.options.write_to_artifact_cache):
+                    if self._zinc_utils.relativize_analysis_file(vt_analysis_file, vt_portable_analysis_file):
+                        raise TaskError(('Zinc failed to relativize analysis file: %s' % vt_analysis_file))
+                    artifacts = [vt_classes_dir, vt_depfile, vt_portable_analysis_file]
+                    self.update_artifact_cache(vt, artifacts)
+                else:
+                    safe_rmtree(vt_portable_analysis_file)

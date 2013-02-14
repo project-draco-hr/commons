@@ -1,6 +1,0 @@
-def create_output_paths(self, targets):
-    compilation_id = Target.maybe_readable_identify(targets)
-    output_dir = os.path.join(self._classes_dir, compilation_id)
-    depfile = (os.path.join(self._depfile_dir, compilation_id) + '.dependencies')
-    analysis_cache = (os.path.join(self._analysis_cache_dir, compilation_id) + '.analysis_cache')
-    return (output_dir, depfile, analysis_cache)

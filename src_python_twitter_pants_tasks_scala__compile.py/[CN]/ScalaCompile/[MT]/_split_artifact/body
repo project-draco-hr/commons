@@ -1,0 +1,39 @@
+def _split_artifact(self, deps, versioned_target_set):
+    "Splits an artifact representing several targets into target-by-target artifacts.\n    Creates an output classes dir, a depfile and an analysis file for each target.\n    Note that it's not OK to create incomplete artifacts here: this is run *after* a zinc invocation,\n    and the expectation is that the result is complete.\n\n    NOTE: This method is reentrant.\n    "
+    if (len(versioned_target_set.targets) <= 1):
+        return
+    classes_by_source_by_target = deps.findclasses(versioned_target_set.targets)
+    (src_classes_dir, _, src_analysis_file) = self._output_paths(versioned_target_set.targets)
+    SplitInfo = namedtuple('SplitInfo', ['sources', 'dst_classes_dir', 'dst_analysis_file'])
+    analysis_splits = []
+    portable_analysis_splits = []
+    for target in versioned_target_set.targets:
+        classes_by_source = classes_by_source_by_target.get(target, {})
+        (dst_classes_dir, dst_depfile, dst_analysis_file) = self._output_paths([target])
+        safe_rmtree(dst_classes_dir)
+        safe_mkdir(dst_classes_dir)
+        sources = []
+        dst_deps = Dependencies(dst_classes_dir)
+        for (source, classes) in classes_by_source.items():
+            src = os.path.join(target.target_base, source)
+            dst_deps.add(src, classes)
+            sources.append(os.path.join(target.target_base, source))
+            for cls in classes:
+                dst = os.path.join(dst_classes_dir, cls)
+                safe_mkdir(os.path.dirname(dst))
+                os.link(os.path.join(src_classes_dir, cls), dst)
+        dst_deps.save(dst_depfile)
+        analysis_splits.append(SplitInfo(sources, dst_classes_dir, dst_analysis_file))
+        portable_analysis_splits.append(SplitInfo(sources, dst_classes_dir, _portable(dst_analysis_file)))
+
+    def do_split(src_analysis_file, splits):
+        if os.path.exists(src_analysis_file):
+            splits = [(x.sources, x.dst_analysis_file) for x in splits]
+            if self._zinc_utils.run_zinc_split(src_analysis_file, splits):
+                raise TaskError, ('zinc failed to split analysis files %s from %s' % (':'.join([x.dst_analysis_file for x in splits]), src_analysis_file))
+            for split in splits:
+                if os.path.exists(split.dst_analysis_file):
+                    if self._zinc_utils.run_zinc_rebase(split.dst_analysis_file, [(src_classes_dir, split.dst_classes_dir)]):
+                        raise TaskError, ('In split_artifact: zinc failed to rebase analysis file %s' % split.dst_analysis_file)
+    do_split(src_analysis_file, analysis_splits)
+    do_split(_portable(src_analysis_file), portable_analysis_splits)

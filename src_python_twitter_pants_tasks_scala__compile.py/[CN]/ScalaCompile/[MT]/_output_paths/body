@@ -1,0 +1,7 @@
+def _output_paths(self, targets):
+    'Returns the full paths to the classes dir, depfile and analysis file for the given target set.'
+    compilation_id = Target.maybe_readable_identify(targets)
+    classes_dir = os.path.join(self._classes_dir_base, compilation_id)
+    depfile = (os.path.join(self._depfiles_base, compilation_id) + '.dependencies')
+    analysis_file = (os.path.join(self._analysis_files_base, compilation_id) + '.analysis')
+    return (classes_dir, depfile, analysis_file)

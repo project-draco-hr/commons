@@ -1,11 +1,11 @@
-def __init__(self, compile_task, targets, upstream_analysis_caches):
-    "\n    Parameters:\n      compile_task: the compilation task which is producing the build products that\n        we'll use to perform the analysis. Flag settings are also retrieved from the\n        task context.\n      targets: the set of targets to analyze. These should all be target types that\n         inherit from jvm_target, and contain source files that will be compiled into\n          jvm class files.\n    "
-    self.upstream_analysis_caches = upstream_analysis_caches
-    self.merged_analysis_cache = None
-    self.check_missing_deps = compile_task.context.options.scala_check_missing_deps
-    self.check_intransitive_deps = compile_task.context.options.scala_check_intransitive_deps
-    self.check_unnecessary_deps = compile_task.context.options.scala_check_unnecessary_deps
-    self.task = compile_task
+def __init__(self, context, targets, all_analysis_files):
+    '\n    Parameters:\n      context: The task context instance.\n      targets: The set of targets to analyze. These should all be target types that\n               inherit from jvm_target, and contain source files that will be compiled into\n               jvm class files.\n      all_analysis_files: The analysis files of the targets to analyze, and all their deps.\n    '
+    self.all_analysis_files = all_analysis_files
+    self.zinc_analysis_collection = None
+    self.context = context
+    self.check_missing_deps = self.context.options.scala_check_missing_deps
+    self.check_intransitive_deps = self.context.options.scala_check_intransitive_deps
+    self.check_unnecessary_deps = self.context.options.scala_check_unnecessary_deps
     self.targets = targets
     self.ivy_jars_by_target = defaultdict(set)
     self.ivy_targets_by_jar = defaultdict(set)

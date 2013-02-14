@@ -1,3 +1,3 @@
-def run_zinc_split(self, src_cache, splits):
+def run_zinc_split(self, src_analysis_file, splits):
     zinc_split_args = ['-split', ','.join([('{%s}:%s' % (':'.join(x[0]), x[1])) for x in splits])]
-    return self.run_zinc_analysis(cache=src_cache, args=zinc_split_args)
+    return self.run_zinc_analysis(src_analysis_file, zinc_split_args)

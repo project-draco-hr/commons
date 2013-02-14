@@ -1,0 +1,3 @@
+def _portable(analysis_file):
+    'Returns the path to the portable version of the zinc analysis file.'
+    return (analysis_file + '.portable')

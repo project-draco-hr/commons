@@ -4,7 +4,7 @@ def combine_cache_keys(cache_keys):
         return cache_keys[0]
     else:
         sorted_cache_keys = sorted(cache_keys)
-        combined_id = [cache_key.id for cache_key in sorted_cache_keys].join(',')
-        combined_hash = [cache_key.hash for cache_key in sorted_cache_keys].join(',')
+        combined_id = ','.join([cache_key.id for cache_key in sorted_cache_keys])
+        combined_hash = ','.join([cache_key.hash for cache_key in sorted_cache_keys])
         combined_num_sources = reduce((lambda x, y: (x + y)), [cache_key.num_sources for cache_key in sorted_cache_keys], 0)
         return CacheKey(combined_id, combined_hash, combined_num_sources)

@@ -1,0 +1,5 @@
+self
+targets
+only_buildfiles
+invalidate_dependents
+partition_size_hint

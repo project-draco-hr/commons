@@ -1,8 +1,0 @@
-def localize_analysis_cache(self, src, dst):
-    with temporary_file_path() as tmp_analysis_cache:
-        shutil.copy(src, tmp_analysis_cache)
-        rebasings = [(ZincUtils.IVY_HOME_PLACEHOLDER, self._ivy_home), (ZincUtils.PANTS_HOME_PLACEHOLDER, self._pants_home)]
-        exit_code = self.run_zinc_rebase(cache=tmp_analysis_cache, rebasings=rebasings)
-        if (not exit_code):
-            shutil.copy(tmp_analysis_cache, dst)
-        return exit_code

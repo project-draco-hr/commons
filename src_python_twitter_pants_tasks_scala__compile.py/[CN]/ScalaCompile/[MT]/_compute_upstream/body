@@ -1,0 +1,14 @@
+def _compute_upstream(self, scala_targets, cp, vts):
+    upstream_analysis_files = {}
+    upstream_classpath = OrderedSet([jar for (conf, jar) in cp if (conf in self._confs)])
+
+    def add_upstream(target):
+        (classes_dir, _, analysis_file) = self._output_paths([target])
+        if os.path.isdir(classes_dir):
+            upstream_classpath.add(classes_dir)
+            if os.path.isfile(analysis_file):
+                upstream_analysis_files[classes_dir] = analysis_file
+    all_other_targets = set(scala_targets).difference(vts.targets)
+    for target in vts.targets:
+        target.walk(add_upstream, (lambda t: (t in all_other_targets)))
+    return (upstream_analysis_files, list(upstream_classpath))

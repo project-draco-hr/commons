@@ -2,6 +2,6 @@ self
 classpath
 sources
 output_dir
-analysis_cache
-upstream_analysis_caches
+analysis_file
+upstream_analysis_files
 depfile
