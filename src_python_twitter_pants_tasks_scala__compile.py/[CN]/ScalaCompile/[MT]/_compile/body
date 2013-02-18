@@ -20,7 +20,7 @@ def _compile(self, versioned_target_set, classpath, upstream_analysis_files):
                 (vt_classes_dir, vt_depfile, vt_analysis_file) = self._output_paths(vt.targets)
                 vt_portable_analysis_file = _portable(vt_analysis_file)
                 if (self._artifact_cache and self.context.options.write_to_artifact_cache):
-                    if self._zinc_utils.relativize_analysis_file(vt_analysis_file, vt_portable_analysis_file):
+                    if (os.path.exists(vt_analysis_file) and self._zinc_utils.relativize_analysis_file(vt_analysis_file, vt_portable_analysis_file)):
                         raise TaskError(('Zinc failed to relativize analysis file: %s' % vt_analysis_file))
                     artifacts = [vt_classes_dir, vt_depfile, vt_portable_analysis_file]
                     self.update_artifact_cache(vt, artifacts)
