@@ -1,11 +1,11 @@
 {
-  if (!optionaEndpointName.isPresent()) {
+  if (!optionalEndpointName.isPresent()) {
     return GET_ADDRESS;
   }
+  final String endpointName=optionalEndpointName.get();
   return getAddress(new Function<ServiceInstance,Endpoint>(){
     @Override public Endpoint apply(    @Nullable ServiceInstance serviceInstance){
       Map<String,Endpoint> endpoints=serviceInstance.getAdditionalEndpoints();
-      String endpointName=optionaEndpointName.get();
       Preconditions.checkArgument(endpoints.containsKey(endpointName),"Did not find end-point %s on %s",endpointName,serviceInstance);
       return endpoints.get(endpointName);
     }
