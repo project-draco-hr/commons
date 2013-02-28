@@ -4,6 +4,6 @@
   ManagedThreadPool managedThreadPool=createManagedThreadpool(1);
   LoadBalancer<InetSocketAddress> loadBalancer=createLoadBalancer();
   Function<TTransport,T> clientFactory=getClientFactory();
-  ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool=createConnectionPool(hostSet,loadBalancer,managedThreadPool,false);
+  ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool=createConnectionPool(hostSet,loadBalancer,managedThreadPool,false,endpointName);
   return new Thrift<T>(managedThreadPool,connectionPool,loadBalancer,serviceName,serviceInterface,clientFactory,false,sslTransport);
 }

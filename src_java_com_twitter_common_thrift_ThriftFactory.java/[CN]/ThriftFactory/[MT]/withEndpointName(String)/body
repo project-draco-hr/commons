@@ -1,0 +1,4 @@
+{
+  this.endpointName=endpointName;
+  return this;
+}

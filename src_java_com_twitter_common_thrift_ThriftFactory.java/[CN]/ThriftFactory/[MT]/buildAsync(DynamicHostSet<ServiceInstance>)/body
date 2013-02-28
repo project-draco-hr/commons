@@ -4,6 +4,6 @@
   LoadBalancer<InetSocketAddress> loadBalancer=createLoadBalancer();
   Closure<Collection<InetSocketAddress>> noop=Closures.noop();
   Function<TTransport,T> asyncClientFactory=getAsyncClientFactory();
-  ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool=createConnectionPool(hostSet,loadBalancer,noop,true);
+  ObjectPool<Connection<TTransport,InetSocketAddress>> connectionPool=createConnectionPool(hostSet,loadBalancer,noop,true,endpointName);
   return new Thrift<T>(connectionPool,loadBalancer,serviceName,serviceInterface,asyncClientFactory,true);
 }
