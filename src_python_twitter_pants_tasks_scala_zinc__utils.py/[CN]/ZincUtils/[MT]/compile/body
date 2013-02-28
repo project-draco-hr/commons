@@ -1,0 +1,7 @@
+def compile(self, classpath, sources, output_dir, analysis_file, upstream_analysis_files):
+    args = [('-S' + x) for x in self._scalac_args]
+    if (len(upstream_analysis_files) > 0):
+        args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in upstream_analysis_files.items()])])
+    args.extend(['-analysis-cache', analysis_file, '-classpath', ':'.join((self._zinc_classpath + classpath)), '-d', output_dir])
+    args.extend(sources)
+    return self.run_zinc(args)

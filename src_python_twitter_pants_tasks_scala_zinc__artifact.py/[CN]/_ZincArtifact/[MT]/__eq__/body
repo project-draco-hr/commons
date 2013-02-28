@@ -1,0 +1,2 @@
+def __eq__(self, other):
+    return (self.artifact_id == other.artifact_id)

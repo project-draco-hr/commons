@@ -5,11 +5,10 @@ def __init__(self, context, workdir=None):
     self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint'))
     if context.options.scala_check_missing_deps:
         JvmDependencyCache.init_product_requirements(self)
+    self._buildroot = get_buildroot()
     workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
     self._resources_dir = os.path.join(workdir, 'resources')
-    self._classes_dir_base = os.path.join(workdir, 'classes')
-    self._depfiles_base = os.path.join(workdir, 'depfiles')
-    self._analysis_files_base = os.path.join(workdir, 'analysis_cache')
+    self._artifact_factory = ZincArtifactFactory(workdir, self.context, self._zinc_utils)
     self._confs = context.config.getlist('scala-compile', 'confs')
     artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches')
     self.setup_artifact_cache(artifact_cache_spec)

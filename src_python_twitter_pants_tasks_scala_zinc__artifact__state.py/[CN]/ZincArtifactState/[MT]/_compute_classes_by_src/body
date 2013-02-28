@@ -1,0 +1,11 @@
+@staticmethod
+def _compute_classes_by_src(artifact):
+    'Compute src->classes.'
+    if (not os.path.exists(artifact.analysis_file)):
+        return {}
+    len_rel_classes_dir = (len(artifact.classes_dir) - len(get_buildroot()))
+    analysis = ZincAnalysisCollection([artifact.analysis_file], stop_after='products')
+    classes_by_src = {}
+    for (src, classes) in analysis.products.items():
+        classes_by_src[src] = [cls[len_rel_classes_dir:] for cls in classes]
+    return classes_by_src

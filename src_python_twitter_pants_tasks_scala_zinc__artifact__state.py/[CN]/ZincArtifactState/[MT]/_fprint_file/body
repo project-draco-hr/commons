@@ -1,0 +1,7 @@
+@staticmethod
+def _fprint_file(path):
+    'Compute the md5 hash of a file.'
+    hasher = hashlib.md5()
+    with open(path, 'r') as f:
+        hasher.update(f.read())
+    return hasher.hexdigest()

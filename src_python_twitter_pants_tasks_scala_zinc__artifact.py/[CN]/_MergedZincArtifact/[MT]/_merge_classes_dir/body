@@ -1,0 +1,28 @@
+def _merge_classes_dir(self, state):
+    "Merge the classes dirs from the underlying artifacts into a single dir.\n\n    May symlink instead of copying, when it's OK to do so.\n\n    Postcondition: symlinks are of leaf packages only.\n    "
+    if (len(self.underlying_artifacts) <= 1):
+        return
+    symlinkable_packages = self._symlinkable_packages(state)
+    for artifact in self.underlying_artifacts:
+        classnames_by_package = defaultdict(list)
+        for cls in state.classes_by_target.get(artifact.targets[0], []):
+            classnames_by_package[os.path.dirname(cls)].append(os.path.basename(cls))
+        for (package, classnames) in classnames_by_package.items():
+            artifact_package_dir = os.path.join(artifact.classes_dir, package)
+            merged_package_dir = os.path.join(self.classes_dir, package)
+            if (package in symlinkable_packages):
+                if os.path.islink(merged_package_dir):
+                    assert (os.readlink(merged_package_dir) == artifact_package_dir)
+                elif os.path.exists(merged_package_dir):
+                    safe_rmtree(merged_package_dir)
+                    os.symlink(artifact_package_dir, merged_package_dir)
+                else:
+                    safe_mkdir(os.path.dirname(merged_package_dir))
+                    os.symlink(artifact_package_dir, merged_package_dir)
+            else:
+                safe_mkdir(merged_package_dir)
+                for classname in classnames:
+                    src = os.path.join(artifact_package_dir, classname)
+                    dst = os.path.join(merged_package_dir, classname)
+                    if (os.path.exists(src) and (not os.path.exists(dst))):
+                        os.link(src, dst)

@@ -1,5 +1,0 @@
-def _localize_portable_artifact_files(self, vts):
-    for vt in vts:
-        (_, _, analysis_file) = self._output_paths(vt.targets)
-        if self._zinc_utils.localize_analysis_file(_portable(analysis_file), analysis_file):
-            self.context.log.warn(('Zinc failed to localize analysis file: %s. Incremental rebuild of that target may not be possible.' % analysis_file))

@@ -1,0 +1,5 @@
+def _update_artifact_cache(self, artifact, vt):
+    if (os.path.exists(artifact.analysis_file) and self._zinc_utils.relativize_analysis_file(artifact.analysis_file, artifact.portable_analysis_file)):
+        raise TaskError(('Zinc failed to relativize analysis file: %s' % artifact.analysis_file))
+    artifact_files = [artifact.classes_dir, artifact.portable_analysis_file]
+    self.update_artifact_cache(vt, artifact_files)

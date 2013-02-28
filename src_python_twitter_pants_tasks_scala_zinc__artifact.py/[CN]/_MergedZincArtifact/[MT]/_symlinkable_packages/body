@@ -1,0 +1,14 @@
+def _symlinkable_packages(self, state):
+    targets_by_pkg = self._targets_by_package(state)
+    package_targets_pairs = sorted(targets_by_pkg.items(), key=(lambda x: len(x[0])), reverse=True)
+    ret = set(targets_by_pkg.keys())
+    for (package, targets) in package_targets_pairs:
+        parent = os.path.dirname(package)
+        while parent:
+            if (parent in ret):
+                ret.remove(parent)
+                ret.discard(package)
+            parent = os.path.dirname(parent)
+        if (len(targets) > 1):
+            ret.discard(package)
+    return ret

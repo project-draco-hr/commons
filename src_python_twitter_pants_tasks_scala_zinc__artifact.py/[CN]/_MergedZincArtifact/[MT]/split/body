@@ -1,0 +1,10 @@
+def split(self, old_state=None, portable=False):
+    'Actually split the merged artifact into per-target artifacts.'
+    current_state = self.current_state()
+    diff = (ZincArtifactStateDiff(old_state, current_state) if old_state else None)
+    if ((not diff) or diff.analysis_changed):
+        self._split_analysis('analysis_file')
+        if portable:
+            self._split_analysis('portable_analysis_file')
+    self._split_classes_dir(current_state, diff)
+    return current_state

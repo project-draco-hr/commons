@@ -1,0 +1,2 @@
+def find_filesystem_classes(self):
+    return ZincArtifactState._find_filesystem_classes(self.artifact)
