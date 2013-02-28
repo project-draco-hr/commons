@@ -1,0 +1,9 @@
+{
+  return new Function<ServiceInstance,InetSocketAddress>(){
+    @Override public InetSocketAddress apply(    ServiceInstance serviceInstance){
+      Endpoint endpoint=serviceToEndpoint.apply(serviceInstance);
+      return InetSocketAddress.createUnresolved(endpoint.getHost(),endpoint.getPort());
+    }
+  }
+;
+}

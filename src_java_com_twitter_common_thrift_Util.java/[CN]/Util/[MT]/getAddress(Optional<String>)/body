@@ -1,10 +1,14 @@
 {
-  return new Function<ServiceInstance,InetSocketAddress>(){
-    @Override public InetSocketAddress apply(    ServiceInstance serviceInstance){
-      Endpoint endpoint=endpointName.isPresent() ? serviceInstance.getAdditionalEndpoints().get(endpointName.get()) : serviceInstance.getServiceEndpoint();
-      Preconditions.checkNotNull(endpoint,"Did not find end-point %s on %s",endpointName.get(),serviceInstance);
-      return InetSocketAddress.createUnresolved(endpoint.getHost(),endpoint.getPort());
+  if (!optionaEndpointName.isPresent()) {
+    return GET_ADDRESS;
+  }
+  return getAddress(new Function<ServiceInstance,Endpoint>(){
+    @Override public Endpoint apply(    @Nullable ServiceInstance serviceInstance){
+      Map<String,Endpoint> endpoints=serviceInstance.getAdditionalEndpoints();
+      String endpointName=optionaEndpointName.get();
+      Preconditions.checkArgument(endpoints.containsKey(endpointName),"Did not find end-point %s on %s",endpointName,serviceInstance);
+      return endpoints.get(endpointName);
     }
   }
-;
+);
 }
