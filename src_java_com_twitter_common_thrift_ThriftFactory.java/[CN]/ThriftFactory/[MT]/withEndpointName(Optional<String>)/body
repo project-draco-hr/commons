@@ -1,0 +1,4 @@
+{
+  this.endpointName=Preconditions.checkNotNull(endpointName);
+  return this;
+}
