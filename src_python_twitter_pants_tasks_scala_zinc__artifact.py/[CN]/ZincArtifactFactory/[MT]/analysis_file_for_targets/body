@@ -1,2 +1,3 @@
 def analysis_file_for_targets(self, targets):
-    return self._artifact_args(targets)[2]
+    artifact_data = self._artifact_args(targets)
+    return AnalysisFileSpec(artifact_data[2], artifact_data[1])

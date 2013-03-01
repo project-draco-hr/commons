@@ -1,5 +1,8 @@
 def __init__(self, context, targets, all_analysis_files):
     '\n    Parameters:\n      context: The task context instance.\n      targets: The set of targets to analyze. These should all be target types that\n               inherit from jvm_target, and contain source files that will be compiled into\n               jvm class files.\n      all_analysis_files: The analysis files of the targets to analyze, and all their deps.\n    '
+    self.package_prefixes = context.config.getlist('scala-compile', 'dep-analysis-package-prefixes')
+    if (self.package_prefixes is None):
+        self.package_prefixes = ['com', 'org', 'net', 'scala']
     self.all_analysis_files = all_analysis_files
     self.zinc_analysis_collection = None
     self.context = context
@@ -9,9 +12,10 @@ def __init__(self, context, targets, all_analysis_files):
     self.targets = targets
     self.ivy_jars_by_target = defaultdict(set)
     self.ivy_targets_by_jar = defaultdict(set)
-    self.zinc_class_deps_by_target = defaultdict(set)
-    self.zinc_classes_provided_by_target = defaultdict(set)
-    self.zinc_targets_by_provided_class = defaultdict(set)
-    self.zinc_jardeps_by_target = defaultdict(set)
-    self.computed_src_deps = None
-    self.computed_jar_deps = None
+    self.targets_by_source = None
+    self.sources_by_target = None
+    self.targets_by_class = None
+    self.classes_by_target = None
+    self.binary_deps_by_target = None
+    self.class_deps_by_target = None
+    self.computed_deps = None

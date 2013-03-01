@@ -1,0 +1,5 @@
+def get_binary_deps_by_target(self):
+    '\n    Memoizing getter for a map from targets to their binary dependencies.\n    '
+    if (self.binary_deps_by_target is None):
+        self._compute_classfile_dependency_relations()
+    return self.binary_deps_by_target

@@ -1,0 +1,16 @@
+def _compute_classfile_dependency_relations(self):
+    '\n    Walk through the zinc analysis relations that are expressed in terms of\n    dependencies on class files, and translate class file references to class\n    references.\n\n    This is an internal implementation which populates instance variables that\n    store cached analysis results. It updates two values:\n\n     - targets_by_class is a map from product classes to the targets that provided them, and\n     -  binary_deps_by_target is a map from targets to the classes that zinc reported they\n       have a binary dependence on.\n    '
+    zinc_analysis = self.get_analysis_collection()
+    targets_by_class = defaultdict(set)
+    binary_deps_by_target = defaultdict(set)
+    for target in self.targets:
+        for src in target.sources:
+            srcpath = self._normalize_source_path(target, src)
+            for product in zinc_analysis.product_classes[srcpath]:
+                targets_by_class[product].add(target)
+            for classname in zinc_analysis.class_names[srcpath]:
+                targets_by_class[classname].add(target)
+            for bindep in zinc_analysis.binary_dep_classes[srcpath]:
+                binary_deps_by_target[target].add(bindep)
+    self.targets_by_class = targets_by_class
+    self.binary_deps_by_target = binary_deps_by_target

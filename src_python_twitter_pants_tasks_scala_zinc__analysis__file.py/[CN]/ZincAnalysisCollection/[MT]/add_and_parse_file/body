@@ -1,5 +1,5 @@
-def parse(self, analysis_file_path, stop_after):
-    zincfile = ('%s.relations' % analysis_file_path)
+def add_and_parse_file(self, analysis_file, classes_dir):
+    zincfile = ('%s.relations' % analysis_file)
     try:
         zincfile = open(zincfile, 'r')
     except IOError:
@@ -8,7 +8,7 @@ def parse(self, analysis_file_path, stop_after):
     mode = None
 
     def change_mode_to(new_mode):
-        if (mode == stop_after):
+        if (mode == self.stop_after):
             return 'done'
         else:
             return new_mode
@@ -32,8 +32,14 @@ def parse(self, analysis_file_path, stop_after):
                 continue
             if (mode == 'products'):
                 self.products[src].add(dep)
+                cl = self._classfile_to_classname(dep, classes_dir)
+                if (cl is not None):
+                    self.product_classes[src].add(cl)
             elif (mode == 'binary'):
                 self.binary_deps[src].add(dep)
+                cl = self._classfile_to_classname(dep, classes_dir)
+                if (cl is not None):
+                    self.binary_dep_classes[src].add(cl)
             elif (mode == 'source'):
                 self.source_deps[src].add(dep)
             elif (mode == 'external'):

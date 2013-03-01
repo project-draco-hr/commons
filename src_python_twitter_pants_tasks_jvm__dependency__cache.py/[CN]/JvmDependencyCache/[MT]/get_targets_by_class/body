@@ -1,0 +1,5 @@
+def get_targets_by_class(self):
+    '\n    Memoizing getter for a map from classes to the targets that provide them.\n    '
+    if (self.targets_by_class is None):
+        self._compute_classfile_dependency_relations()
+    return self.targets_by_class

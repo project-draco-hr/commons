@@ -1,0 +1,11 @@
+def get_computed_jar_dependency_relations(self):
+    '\n    Compute maps from target to the jars that the target provides, and\n    the inverse from jars to the target that provides them.\n    '
+    (self.ivy_jars_by_target, self.ivy_targets_by_jar) = self._compute_jardep_contents()
+    computed_jar_deps = defaultdict(set)
+    for target in self.targets:
+        for src in target.sources:
+            srcpath = self._normalize_source_path(target, src)
+            jardeps = self.zinc_analysis_collection.binary_deps[srcpath]
+            for j in jardeps:
+                computed_jar_deps[target] |= self.ivy_targets_by_jar[j]
+    return computed_jar_deps

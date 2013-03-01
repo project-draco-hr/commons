@@ -1,0 +1,9 @@
+def check_unnecessary_deps(self, target, computed_deps):
+    '\n    Generate warning messages about unnecessary declared dependencies.\n    Params:\n      target: the target to be checked for undeclared dependencies\n      computed_deps: the actual dependencies computed for that target.\n    '
+    if (target.processed_dependencies is not None):
+        declared_deps = [t for t in target.processed_dependencies if hasattr(t, 'address')]
+        overdeps = set(declared_deps).difference(computed_deps)
+        if (len(overdeps) > 0):
+            for deptarget in overdeps:
+                if (isinstance(deptarget, JvmTarget) and (not deptarget.has_label('synthetic'))):
+                    print ('Warning: target %s declares un-needed dependency on: %s' % (target, deptarget))

@@ -1,3 +1,4 @@
 self
 from_target
 to_target
+targets_by_class

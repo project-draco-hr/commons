@@ -1,5 +1,5 @@
 def _compute_jardep_contents(self):
-    '\n    Compute the information needed by deps analysis for the set of classes that come from\n    jars in jar_dependency targets. This is messier that it should be, because of\n    the strange way that jar_dependency targets are treated by pants.\n\n    Returns: a pair of maps, (jars_by_target, targets_by_jar) describing the mappings between jars\n       and the targets that contain those jars.\n    '
+    '\n    Compute the information needed by deps analysis for the set of classes that come from\n    jars in jar_dependency targets. This is messier that it should be, because of\n    the strange way that jar_dependency targets are treated by pants.\n\n    Returns: a pair of maps, (jars_by_target, targets_by_jar) describing the mappings between \n       jars and the targets that contain those jars.\n    '
     found_jar_deps = set()
     for jt in self.targets:
         jars = self._get_jardep_dependencies(jt)
