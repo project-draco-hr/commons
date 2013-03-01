@@ -6,7 +6,7 @@
   }
 ;
   try {
-    return new DynamicPool<ServiceInstance,TTransport,InetSocketAddress>(hostSet,endpointPoolFactory,loadBalancer,onBackendsChosen,connectionRestoreInterval,Util.GET_ADDRESS,Util.IS_ALIVE);
+    return new DynamicPool<ServiceInstance,TTransport,InetSocketAddress>(hostSet,endpointPoolFactory,loadBalancer,onBackendsChosen,connectionRestoreInterval,Util.getAddress(serviceEndpointName),Util.IS_ALIVE);
   }
  catch (  DynamicHostSet.MonitorException e) {
     throw new ThriftFactoryException("Failed to monitor host set.",e);

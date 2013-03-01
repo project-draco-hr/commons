@@ -2,3 +2,4 @@ DynamicHostSet<ServiceInstance> hostSet
 LoadBalancer<InetSocketAddress> loadBalancer
 Closure<Collection<InetSocketAddress>> onBackendsChosen
 boolean nonblocking
+Optional<String> serviceEndpointName
