@@ -1,5 +1,5 @@
 def check_undeclared_dependencies(self):
-    '\n    Performs the undeclared dependencies/overdeclared dependencies checks,\n    generating warnings/error messages and (depending on flag settings),\n    setting build products for the detected errors.\n    '
+    ' Performs the undeclared dependencies/overdeclared dependencies checks.\n\n    For each dependency issue discovered, generates warnings/error messages and\n    (depending on flag settings), setting build products.\n    '
     if (not self.check_missing_deps):
         return
     sources_by_target = self.get_sources_by_target()

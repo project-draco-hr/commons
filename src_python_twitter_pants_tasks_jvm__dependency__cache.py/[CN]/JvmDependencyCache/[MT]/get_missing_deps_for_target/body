@@ -1,5 +1,5 @@
 def get_missing_deps_for_target(self, target, computed_deps, computed_jar_deps, targets_by_class):
-    '\n    Compute the missing dependencies for a specific target.\n    Parameters:\n      target: the target\n      computed_deps: the computed dependencies for the target.\n      computed_jar_deps: the computed jar dependencies for the target.\n      targets_by_class: a mapping specifying which classes are produced by which targets.\n\n    Return:\n      (undeclared_deps, undeclared_immediate_deps)\n    '
+    '  Compute the missing dependencies for a specific target.\n\n    Parameters:\n      target: the target\n      computed_deps: the computed dependencies for the target.\n      computed_jar_deps: the computed jar dependencies for the target.\n      targets_by_class: a mapping specifying which classes are produced by which targets.\n\n    Return:\n      (undeclared_deps, undeclared_immediate_deps)\n    '
     undeclared_deps = computed_deps.copy()
     undeclared_jar_deps = computed_jar_deps.copy()
     target.walk((lambda target: self._dependency_walk_work(undeclared_deps, undeclared_jar_deps, target)))

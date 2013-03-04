@@ -1,5 +1,5 @@
 def get_analysis_collection(self):
-    '\n    Populates and retrieves the merged analysis collection for the targets\n    covered by a compilation session.\n    '
+    ' Populates and retrieves the merged analysis collection for this compilation '
     if (self.zinc_analysis_collection is None):
         self.zinc_analysis_collection = ZincAnalysisCollection(False, package_prefixes=self.package_prefixes)
         for af in self.all_analysis_files:

@@ -1,5 +1,5 @@
 def _compute_source_relations(self):
-    '\n    The code that actually computes the values of targets_by_source and sources_by_target.\n    '
+    ' Compute the targets_by_source and sources_by_target maps. '
     self.sources_by_target = defaultdict(set)
     self.targets_by_source = defaultdict(set)
     for target in self.targets:

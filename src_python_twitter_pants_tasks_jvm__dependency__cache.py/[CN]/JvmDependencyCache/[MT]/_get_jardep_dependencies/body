@@ -1,5 +1,5 @@
 def _get_jardep_dependencies(self, target):
-    '\n    Walks the dependency graph for a target, getting the transitive closure of\n    its set of declared jar dependencies.\n    '
+    ' Gets the transitive closure of the the set of declared jar dependencies. '
     result = []
     target.walk((lambda t: self._walk_jardeps(t, result)))
     return set(result)
