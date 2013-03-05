@@ -8,4 +8,4 @@ def try_insert(self, cache_key, build_artifacts):
         tarfile.close()
         with open(tarfile.name, 'rb') as infile:
             if (not self._request('PUT', path, body=infile)):
-                raise Exception, ('Failed to PUT to %s. Error: 404' % self._url_string(path))
+                raise ArtifactCacheError(('Failed to PUT to %s. Error: 404' % self._url_string(path)))

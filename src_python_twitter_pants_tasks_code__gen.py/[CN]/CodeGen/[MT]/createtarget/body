@@ -1,3 +1,3 @@
 def createtarget(self, lang, gentarget, dependees):
-    '\n      Subclasses must override and create a synthetic target containing the sources generated for\n      the given :gentarget.\n    '
+    'Subclass must override and create a synthetic target.\n\n     The target must contain the sources generated for the given gentarget.\n    '
     raise NotImplementedError

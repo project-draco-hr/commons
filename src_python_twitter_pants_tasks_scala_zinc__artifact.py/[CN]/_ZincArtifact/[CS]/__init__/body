@@ -8,3 +8,4 @@ def __init__(self, factory, targets, sources_by_target, artifact_id, classes_dir
     self.analysis_file = analysis_file
     self.portable_analysis_file = ZincArtifactFactory.portable(analysis_file)
     self.relations_file = (analysis_file + '.relations')
+    self.log = self.factory.context.log

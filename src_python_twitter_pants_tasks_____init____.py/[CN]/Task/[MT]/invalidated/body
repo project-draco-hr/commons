@@ -3,7 +3,7 @@ def invalidated(self, targets, only_buildfiles=False, invalidate_dependents=Fals
     "Checks targets for invalidation, first checking the artifact cache.\n    Subclasses call this to figure out what to work on.\n\n    targets: The targets to check for changes.\n\n    only_buildfiles: If True, then only the target's BUILD files are checked for changes,\n                     not its sources.\n\n    invalidate_dependents: If True then any targets depending on changed targets are invalidated.\n\n    partition_size_hint: Each VersionedTargetSet in the yielded list will represent targets\n                         containing roughly this number of source files, if possible. Set to\n                         sys.maxint for a single VersionedTargetSet. Set to 0 for one\n                         VersionedTargetSet per target. It is up to the caller to do the right\n                         thing with whatever partitioning it asks for.\n\n    Yields an InvalidationCheck object reflecting the (partitioned) targets.\n\n    If no exceptions are thrown by work in the block, the build cache is updated for the targets.\n    Note: the artifact cache is not updated, that must be done manually.\n    "
     extra_data = []
     extra_data.append(self.invalidate_for())
-    for f in self.invalidate_for_files():
+    for f in sorted(self.invalidate_for_files()):
         sha = hashlib.sha1()
         with open(f, 'rb') as fd:
             sha.update(fd.read())

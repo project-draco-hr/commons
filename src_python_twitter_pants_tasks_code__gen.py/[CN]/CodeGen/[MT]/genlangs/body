@@ -1,3 +1,3 @@
 def genlangs(self):
-    '\n      Subclasses must override and return a dict mapping supported generation target language names\n      to a predicate that can select targets consuming that language.\n    '
+    'Subclass must use this to identify the targets consuming each language it generates for.\n\n    Return value is a dict mapping supported generation target language names\n    to a predicate that can select targets consuming that language.\n    '
     raise NotImplementedError

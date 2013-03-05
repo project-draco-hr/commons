@@ -15,3 +15,5 @@ def __init__(self, context):
     else:
         self._args.extend(context.config.getlist('java-compile', 'no_warning_args'))
     self._confs = context.config.getlist('java-compile', 'confs')
+    artifact_cache_spec = context.config.getlist('java-compile', 'artifact_caches')
+    self.setup_artifact_cache(artifact_cache_spec)

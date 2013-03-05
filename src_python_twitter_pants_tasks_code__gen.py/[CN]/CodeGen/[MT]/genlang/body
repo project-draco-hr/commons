@@ -1,3 +1,3 @@
 def genlang(self, lang, targets):
-    '\n      Subclasses must override and generate code in :lang for the given targets.\n    '
+    'Subclass must override and generate code in :lang for the given targets.\n\n    May return a list of dirs/files to be stored in the artifact cache.\n    '
     raise NotImplementedError

@@ -3,6 +3,7 @@ import itertools
 import os
 import sys
 from contextlib import contextmanager
+from multiprocessing.pool import ThreadPool
 from twitter.common.collections.orderedset import OrderedSet
 from twitter.pants.base.artifact_cache import create_artifact_cache
 from twitter.pants.base.build_invalidator import CacheKeyGenerator

@@ -6,10 +6,12 @@ def _merge_analysis(self):
         artifact_analysis_files = []
         for artifact in self.underlying_artifacts:
             if (os.path.exists(artifact.classes_dir) and os.path.exists(artifact.analysis_file)):
+                self.log.debug(('Rebasing analysis file %s before merging' % artifact.analysis_file))
                 analysis_file_tmp = os.path.join(tmpdir, artifact.artifact_id)
                 shutil.copyfile(artifact.analysis_file, analysis_file_tmp)
                 artifact_analysis_files.append(analysis_file_tmp)
                 if self.factory.zinc_utils.run_zinc_rebase(analysis_file_tmp, [(artifact.classes_dir, self.classes_dir)]):
-                    self.factory.context.log.warn(('Zinc failed to rebase analysis file %s. Target may require a full rebuild.' % analysis_file_tmp))
+                    self.log.warn(('Zinc failed to rebase analysis file %s. Target may require a full rebuild.' % analysis_file_tmp))
+        self.log.debug(('Merging into analysis file %s' % self.analysis_file))
         if self.factory.zinc_utils.run_zinc_merge(artifact_analysis_files, self.analysis_file):
-            self.factory.context.log.warn(('zinc failed to merge analysis files %s to %s. Target may require a full rebuild.' % (':'.join(artifact_analysis_files), self.analysis_file)))
+            self.log.warn(('zinc failed to merge analysis files %s to %s. Target may require a full rebuild.' % (':'.join(artifact_analysis_files), self.analysis_file)))
