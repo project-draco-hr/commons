@@ -3,7 +3,7 @@ def add_and_parse_file(self, analysis_file, classes_dir):
     try:
         zincfile = open(zincfile, 'r')
     except IOError:
-        print ('Warning: analysis file %s not found' % analysis_file_path)
+        print ('Warning: analysis file %s not found' % analysis_file)
         return
     mode = None
 
