@@ -1,17 +1,10 @@
 __author__ = 'Benjy Weinberger'
 import os
-import shutil
-from collections import defaultdict, namedtuple
-from twitter.common.collections.orderedset import OrderedSet
-from twitter.common.contextutil import temporary_dir
-from twitter.common.dirutil import safe_mkdir, safe_rmtree
-from twitter.pants import is_scalac_plugin
-from twitter.pants.base.target import Target
+from twitter.pants import is_scalac_plugin, get_buildroot
 from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.targets.scala_tests import ScalaTests
-from twitter.pants.targets import resolve_target_sources
-from twitter.pants.tasks import TaskError
-from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
+from twitter.pants.tasks import Task, TaskError
 from twitter.pants.tasks.jvm_dependency_cache import JvmDependencyCache
 from twitter.pants.tasks.nailgun_task import NailgunTask
-from twitter.pants.tasks.zinc_utils import ZincUtils
+from twitter.pants.tasks.scala.zinc_artifact import ZincArtifactFactory
+from twitter.pants.tasks.scala.zinc_utils import ZincUtils

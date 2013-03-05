@@ -1,0 +1,4 @@
+@staticmethod
+def combine_ids(ids):
+    'Generates a combined id for a set of ids.'
+    return hash_all(sorted(ids))

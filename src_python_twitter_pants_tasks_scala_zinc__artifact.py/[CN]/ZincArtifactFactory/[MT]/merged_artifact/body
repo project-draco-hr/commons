@@ -1,0 +1,6 @@
+def merged_artifact(self, artifacts):
+    'The artifact merged from those of the specified artifacts.'
+    targets = list(itertools.chain.from_iterable([a.targets for a in artifacts]))
+    sources_by_target = dict(itertools.chain.from_iterable([a.sources_by_target.items() for a in artifacts]))
+    factory = self
+    return _MergedZincArtifact(artifacts, factory, targets, sources_by_target, *self._artifact_args(targets))

@@ -1,6 +1,0 @@
-def _compile_all(self, vtslist, scala_targets, cp):
-    for vts in vtslist:
-        if (not self.dry_run):
-            (upstream_analysis_files, upstream_classpath) = self._compute_upstream(scala_targets, cp, vts)
-            self._compile(vts, upstream_classpath, upstream_analysis_files)
-            vts.update()

@@ -1,0 +1,46 @@
+def parse(self, analysis_file_path, stop_after):
+    zincfile = ('%s.relations' % analysis_file_path)
+    try:
+        zincfile = open(zincfile, 'r')
+    except IOError:
+        print ('Warning: analysis file %s not found' % analysis_file_path)
+        return
+    mode = None
+
+    def change_mode_to(new_mode):
+        if (mode == stop_after):
+            return 'done'
+        else:
+            return new_mode
+    for line in zincfile:
+        if line.startswith('products:'):
+            mode = change_mode_to('products')
+        elif line.startswith('binary dependencies:'):
+            mode = change_mode_to('binary')
+        elif line.startswith('source dependencies:'):
+            mode = change_mode_to('source')
+        elif line.startswith('external dependencies:'):
+            mode = change_mode_to('external')
+        elif line.startswith('class names:'):
+            mode = change_mode_to('class')
+        else:
+            (src, sep, dep) = line.partition('->')
+            src = src.strip()
+            dep = dep.strip()
+            if ((sep == '') and (line != '\n')):
+                print ('Syntax error: line is neither a modeline nor a dep. "%s"' % line)
+                continue
+            if (mode == 'products'):
+                self.products[src].add(dep)
+            elif (mode == 'binary'):
+                self.binary_deps[src].add(dep)
+            elif (mode == 'source'):
+                self.source_deps[src].add(dep)
+            elif (mode == 'external'):
+                self.external_deps[src].add(dep)
+            elif (mode == 'class'):
+                self.class_names[src].add(dep)
+            else:
+                print ('Unprocessed line, mode = %s' % mode)
+        if (mode == 'done'):
+            return

@@ -1,0 +1,6 @@
+def artifact_for_target(self, target):
+    'The artifact representing the specified target.'
+    targets = [target]
+    sources_by_target = {target: ZincArtifactFactory._calculate_sources(target), }
+    factory = self
+    return _ZincArtifact(factory, targets, sources_by_target, *self._artifact_args([target]))

@@ -1,0 +1,10 @@
+def __init__(self, artifact):
+    self.artifact = artifact
+    relfile = self.artifact.relations_file
+    self.analysis_fprint = (ZincArtifactState._fprint_file(relfile) if os.path.exists(relfile) else None)
+    self.classes_by_src = ZincArtifactState._compute_classes_by_src(self.artifact)
+    self.classes_by_target = ZincArtifactState._compute_classes_by_target(self.classes_by_src, self.artifact.sources_by_target)
+    self.classes = set()
+    for classes in self.classes_by_src.values():
+        self.classes.update(classes)
+    self.timestamp = time.time()

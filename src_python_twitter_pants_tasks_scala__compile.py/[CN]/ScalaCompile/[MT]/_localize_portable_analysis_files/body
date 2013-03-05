@@ -1,0 +1,5 @@
+def _localize_portable_analysis_files(self, vts):
+    for vt in vts:
+        analysis_file = self._artifact_factory.analysis_file_for_targets(vt.targets)
+        if self._zinc_utils.localize_analysis_file(ZincArtifactFactory.portable(analysis_file), analysis_file):
+            self.context.log.warn(('Zinc failed to localize analysis file: %s. Incremental rebuildof that target may not be possible.' % analysis_file))

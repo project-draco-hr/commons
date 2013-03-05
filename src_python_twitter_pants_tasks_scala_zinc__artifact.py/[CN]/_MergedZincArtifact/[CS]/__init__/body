@@ -1,0 +1,3 @@
+def __init__(self, underlying_artifacts, factory, targets, sources_by_target, artifact_id, classes_dir, analysis_file):
+    _ZincArtifact.__init__(self, factory, targets, sources_by_target, artifact_id, classes_dir, analysis_file)
+    self.underlying_artifacts = underlying_artifacts

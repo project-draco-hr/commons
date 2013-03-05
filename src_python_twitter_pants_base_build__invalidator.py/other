@@ -6,6 +6,7 @@ from collections import namedtuple
 from twitter.common.dirutil import safe_mkdir
 from twitter.common.lang import Compatibility
 from twitter.pants.base.hash_utils import hash_all
+from twitter.pants.base.target import Target
 CacheKey = namedtuple('CacheKey', ['id', 'hash', 'num_sources'])
 NO_SOURCES = SourceScope.for_selector((lambda t: ()))
 TARGET_SOURCES = SourceScope.for_selector((lambda t: t.expand_files(recursive=False, include_buildfile=False)))

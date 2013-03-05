@@ -1,0 +1,6 @@
+def _targets_by_package(self, state):
+    targets_by_package = defaultdict(set)
+    for (target, classes) in state.classes_by_target.items():
+        for cls in classes:
+            targets_by_package[os.path.dirname(cls)].add(target)
+    return targets_by_package

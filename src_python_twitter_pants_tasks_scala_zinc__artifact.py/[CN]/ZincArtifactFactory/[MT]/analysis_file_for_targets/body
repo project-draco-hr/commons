@@ -1,0 +1,2 @@
+def analysis_file_for_targets(self, targets):
+    return self._artifact_args(targets)[2]

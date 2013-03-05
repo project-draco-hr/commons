@@ -1,0 +1,8 @@
+def merge(self):
+    'Actually combines the underlying artifacts into a single merged one.\n\n    Creates a single merged analysis file and a single merged classes dir.\n    '
+    if (not os.path.exists(self.analysis_file)):
+        self._merge_analysis()
+    current_state = self.current_state()
+    if (not os.path.exists(self.classes_dir)):
+        self._merge_classes_dir(current_state)
+    return current_state

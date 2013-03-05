@@ -1,4 +1,4 @@
 @staticmethod
 def identify(targets):
     'Generates an id for a set of targets.'
-    return hash_all([target.id for target in targets])
+    return Target.combine_ids((target.id for target in targets))
