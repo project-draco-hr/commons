@@ -13,6 +13,7 @@ def execute_single_compilation(self, vt, cp):
             if (result != 0):
                 default_message = ('Unexpected error - %s returned %d' % (_JMAKE_MAIN, result))
                 raise TaskError(_JMAKE_ERROR_CODES.get(result, default_message))
+            self.split_depfile(vt)
         artifact_files = [self._classes_dir, depfile]
         if (processors and (not self.dry_run)):
             processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
@@ -24,4 +25,3 @@ def execute_single_compilation(self, vt, cp):
             artifact_files.append(processor_info_file)
         if (self._artifact_cache and self.context.options.write_to_artifact_cache):
             self.update_artifact_cache(vt, artifact_files)
-    self.post_process(vt)

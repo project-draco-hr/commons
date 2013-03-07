@@ -8,18 +8,22 @@ def execute(self, targets):
                 cp.insert(0, (conf, self._resources_dir))
                 cp.insert(0, (conf, self._classes_dir))
         with self.invalidated(java_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
-            for vt in invalidation_check.all_vts:
-                if vt.valid:
-                    self.post_process(vt)
             for vt in invalidation_check.invalid_vts_partitioned:
                 self.execute_single_compilation(vt, cp)
                 if (not self.dry_run):
                     vt.update()
+            for vt in invalidation_check.all_vts:
+                depfile = self.create_depfile_path(vt.targets)
+                if ((not self.dry_run) and os.path.exists(depfile)):
+                    deps = Dependencies(self._classes_dir)
+                    deps.load(depfile)
+                    self._deps.merge(deps)
         if (not self.dry_run):
             if self.context.products.isrequired('classes'):
                 genmap = self.context.products.get('classes')
                 for (target, classes_by_source) in self._deps.findclasses(java_targets).items():
                     for (source, classes) in classes_by_source.items():
+                        print ('ADDING %s %s %s' % (source, target, classes))
                         genmap.add(source, self._classes_dir, classes)
                         genmap.add(target, self._classes_dir, classes)
                 for target in java_targets:

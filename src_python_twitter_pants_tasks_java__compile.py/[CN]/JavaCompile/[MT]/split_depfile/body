@@ -1,8 +1,11 @@
-def split_depfile(self, deps, versioned_target_set):
-    if (len(versioned_target_set.targets) <= 1):
+def split_depfile(self, vt):
+    depfile = self.create_depfile_path(vt.targets)
+    if ((len(vt.targets) <= 1) or (not os.path.exists(depfile)) or self.dry_run):
         return
-    classes_by_source_by_target = deps.findclasses(versioned_target_set.targets)
-    for target in versioned_target_set.targets:
+    deps = Dependencies(self._classes_dir)
+    deps.load(depfile)
+    classes_by_source_by_target = deps.findclasses(vt.targets)
+    for target in vt.targets:
         classes_by_source = classes_by_source_by_target.get(target, {})
         dst_depfile = self.create_depfile_path([target])
         dst_deps = Dependencies(self._classes_dir)

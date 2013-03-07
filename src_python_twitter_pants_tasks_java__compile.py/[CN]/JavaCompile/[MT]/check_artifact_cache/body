@@ -1,0 +1,5 @@
+def check_artifact_cache(self, vts):
+    (cached_vts, uncached_vts) = Task.check_artifact_cache(self, vts)
+    for vt in cached_vts:
+        self.split_depfile(vt)
+    return (cached_vts, uncached_vts)
