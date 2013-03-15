@@ -5,11 +5,13 @@ def _await_nailgun_server(self):
             started = ng_out.readline()
             if started:
                 port = self._parse_nailgun_port(started)
-                with open(self._pidfile, 'a') as pidfile:
-                    pidfile.write((':%d\n' % port))
-                nailgun = self._create_ngclient(port)
-                log.debug(('Detected ng server up on port %d' % port))
-                break
+                if os.path.exists(self._pidfile):
+                    with open(self._pidfile, 'a') as pidfile:
+                        pidfile.write((':%d\n' % port))
+                    nailgun = self._create_ngclient(port)
+                    log.debug(('Detected ng server up on port %d' % port))
+                    break
+            time.sleep(0.1)
     attempt = 0
     while True:
         sock = nailgun.try_connect()

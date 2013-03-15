@@ -2,6 +2,8 @@ def _spawn_nailgun_server(self):
     log.info('No ng server found, spawning...')
     with _safe_open(self._ng_out, 'w'):
         pass
+    if os.path.exists(self._pidfile):
+        os.remove(self._pidfile)
     pid = os.fork()
     if (pid != 0):
         return self._await_nailgun_server()
