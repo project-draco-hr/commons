@@ -2,6 +2,7 @@ self
 config
 options
 target_roots
+requested_goals
 lock
 log
 timer

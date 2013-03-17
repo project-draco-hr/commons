@@ -20,6 +20,7 @@ def setup_parser(self, parser, args):
         sys.exit(0)
     else:
         (goals, specs) = Goal.parse_args(args)
+        self.requested_goals = goals
         ParseContext.enable_pantsnew()
         with self.check_errors('The following bootstrap_buildfiles cannot be loaded:') as error:
             with self.timer.timing('parse:bootstrap'):
