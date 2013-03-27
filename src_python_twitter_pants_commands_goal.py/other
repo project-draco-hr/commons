@@ -81,3 +81,6 @@ from twitter.pants.tasks.provides import Provides
 goal(name='provides', action=Provides, dependencies=['jar']).install().with_description('Emit the list of symbols provided by the given targets.')
 from twitter.pants.tasks.python.setup import SetupPythonEnvironment
 goal(name='python-setup', action=SetupPythonEnvironment).install('setup').with_description("Setup the target's build environment.")
+from twitter.pants.tasks.paths import Path, Paths
+goal(name='path', action=Path).install().with_description('Find a dependency path from one target to another')
+goal(name='paths', action=Paths).install().with_description('Find all dependency paths from one target to another')
