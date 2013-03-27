@@ -2,4 +2,5 @@
 def setup_parser(cls, option_group, args, mkflag):
     Task.setup_parser(option_group, args, mkflag)
     option_group.add_option(mkflag('transitive'), mkflag('transitive', negate=True), dest='buildlint_transitive', default=False, action='callback', callback=mkflag.set_bool, help='[%default] apply lint rules transitively to all dependency buildfiles.')
+    option_group.add_option(mkflag('include-intransitive-deps'), mkflag('include-intransitive-deps', negate=True), dest='builtlint_include_intransitive', default=False, action='callback', callback=mkflag.set_bool, help='[%default] correct both simple missing dependencies and intransitive missing deps')
     option_group.add_option(mkflag('action'), dest='buildlint_actions', default=[], action='append', type='choice', choices=['diff', 'rewrite'], help='diff=print out diffs, rewrite=apply changes to BUILD files directly.')
