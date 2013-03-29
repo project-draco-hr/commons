@@ -10,10 +10,12 @@ def execute(self, targets):
     if self.transitive:
         for target in targets:
             add_buildfile_for_target(target, genmap_trans)
-            add_buildfile_for_target(target, genmap_intrans)
+            if self.include_intransitive:
+                add_buildfile_for_target(target, genmap_intrans)
     else:
         for target in self.context.target_roots:
             add_buildfile_for_target(target, genmap_trans)
-            add_buildfile_for_target(target, genmap_intrans)
+            if self.include_intransitive:
+                add_buildfile_for_target(target, genmap_intrans)
     for (buildfile_path, missing_dep_map) in buildfile_paths.items():
         self._fix_lint(buildfile_path, missing_dep_map)
