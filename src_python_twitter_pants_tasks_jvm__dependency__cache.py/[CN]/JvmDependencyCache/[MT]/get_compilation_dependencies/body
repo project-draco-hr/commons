@@ -5,6 +5,7 @@ def get_compilation_dependencies(self, sources_by_target, targets_by_source, tar
     sources_by_target = self.get_sources_by_target()
     targets_by_class = self.get_targets_by_class()
     binary_deps_by_target = self.get_binary_deps_by_target()
+    self.source_deps_by_target = defaultdict(set)
     self._check_overlapping_sources(targets_by_source)
     self.class_deps_by_target = defaultdict(set)
     for target in self.targets:
@@ -13,6 +14,8 @@ def get_compilation_dependencies(self, sources_by_target, targets_by_source, tar
         for src in target.sources:
             srcpath = self._normalize_source_path(target, src)
             self.class_deps_by_target[target] |= zinc_analysis.external_deps[srcpath]
+            for srcdep in zinc_analysis.source_deps[srcpath]:
+                self.source_deps_by_target[target] |= self.targets_by_source[srcdep]
             if (srcpath in zinc_analysis.class_names):
                 self.class_deps_by_target[target] |= zinc_analysis.class_names[srcpath]
     self.computed_deps = defaultdict(set)
@@ -20,5 +23,8 @@ def get_compilation_dependencies(self, sources_by_target, targets_by_source, tar
         for classdep in self.class_deps_by_target[fromtarget]:
             if (classdep in targets_by_class):
                 self.computed_deps[fromtarget] |= targets_by_class[classdep]
+    for fromtarget in self.source_deps_by_target:
+        for totarget in self.source_deps_by_target[fromtarget]:
+            self.computed_deps[fromtarget].add(totarget)
     self.computed_jar_deps = self.get_computed_jar_dependency_relations()
     return (self.computed_deps, self.computed_jar_deps)

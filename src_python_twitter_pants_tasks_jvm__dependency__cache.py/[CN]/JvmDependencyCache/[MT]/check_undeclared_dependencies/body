@@ -11,8 +11,9 @@ def check_undeclared_dependencies(self):
     for target in deps_by_target:
         computed_deps = deps_by_target[target]
         computed_jar_deps = jar_deps_by_target[target]
-        (undeclared_deps, immediate_undeclared_deps) = self.get_missing_deps_for_target(target, computed_deps, computed_jar_deps, targets_by_class)
-        if (self.check_unnecessary_deps and (not target.has_label('synthetic'))):
-            self.check_unnecessary_deps(target, computed_deps)
+        (undeclared_deps, immediate_undeclared_deps) = self.get_missing_deps_for_target(target, computed_deps, computed_jar_deps, targets_by_class, targets_by_source)
+        if self.check_unnecessary_deps:
+            if (not target.has_label('synthetic')):
+                self.check_target_unnecessary_deps(target, computed_deps)
     if found_missing_deps:
         raise TaskError('Missing dependencies detected.')

@@ -4,6 +4,7 @@ def _compute_source_relations(self):
     self.targets_by_source = defaultdict(set)
     for target in self.targets:
         for src in target.sources:
-            self.sources_by_target[target].add(src)
-            self.targets_by_source[src].add(target)
+            srcpath = self._normalize_source_path(target, src)
+            self.sources_by_target[target].add(srcpath)
+            self.targets_by_source[srcpath].add(target)
     return (self.sources_by_target, self.targets_by_source)

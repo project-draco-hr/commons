@@ -1,4 +1,4 @@
-def check_unnecessary_deps(self, target, computed_deps):
+def check_target_unnecessary_deps(self, target, computed_deps):
     ' Generate warning messages about unnecessary declared dependencies.\n\n    Params:\n      target: the target to be checked for undeclared dependencies\n      computed_deps: the actual dependencies computed for that target.\n    '
     if (target.processed_dependencies is not None):
         declared_deps = [t for t in target.processed_dependencies if hasattr(t, 'address')]
