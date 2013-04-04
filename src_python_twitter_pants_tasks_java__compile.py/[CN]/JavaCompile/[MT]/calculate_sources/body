@@ -1,13 +1,10 @@
 def calculate_sources(self, targets):
     sources = defaultdict(set)
-    processors = set()
 
     def collect_sources(target):
         src = (os.path.join(target.target_base, source) for source in target.sources if source.endswith('.java'))
         if src:
             sources[target].update(src)
-            if (is_apt(target) and target.processors):
-                processors.update(target.processors)
     for target in targets:
         collect_sources(target)
-    return (sources, processors, Target.identify(targets))
+    return (sources, Target.identify(targets))

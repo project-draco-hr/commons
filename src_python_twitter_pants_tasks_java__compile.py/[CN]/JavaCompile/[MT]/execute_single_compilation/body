@@ -2,7 +2,7 @@ def execute_single_compilation(self, vt, cp):
     depfile = self.create_depfile_path(vt.targets)
     self.merge_depfile(vt)
     self.context.log.info(('Compiling targets %s' % str(vt.targets)))
-    (sources_by_target, processors, fingerprint) = self.calculate_sources(vt.targets)
+    (sources_by_target, fingerprint) = self.calculate_sources(vt.targets)
     if sources_by_target:
         sources = reduce((lambda all, sources: all.union(sources)), sources_by_target.values())
         if (not sources):
@@ -14,14 +14,17 @@ def execute_single_compilation(self, vt, cp):
                 default_message = ('Unexpected error - %s returned %d' % (_JMAKE_MAIN, result))
                 raise TaskError(_JMAKE_ERROR_CODES.get(result, default_message))
             self.split_depfile(vt)
-        artifact_files = [self._classes_dir, depfile]
-        if (processors and (not self.dry_run)):
-            processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
-            if os.path.exists(processor_info_file):
-                with safe_open(processor_info_file, 'r') as f:
-                    for processor in f:
-                        processors.add(processor.strip())
-            self.write_processor_info(processor_info_file, processors)
-            artifact_files.append(processor_info_file)
+        all_artifact_files = [depfile]
         if (self._artifact_cache and self.context.options.write_to_artifact_cache):
-            self.update_artifact_cache(vt, artifact_files)
+            deps = Dependencies(self._classes_dir)
+            deps.load(depfile)
+            for single_vt in vt.versioned_targets:
+                per_target_depfile = self.create_depfile_path([single_vt.target])
+                per_target_artifact_files = [per_target_depfile]
+                for (_, classes_by_source) in deps.findclasses([single_vt.target]).items():
+                    for (_, classes) in classes_by_source.items():
+                        classfile_paths = [os.path.join(self._classes_dir, cls) for cls in classes]
+                        per_target_artifact_files.extend(classfile_paths)
+                        all_artifact_files.extend(classfile_paths)
+                    self.update_artifact_cache(single_vt, per_target_artifact_files)
+            self.update_artifact_cache(vt, all_artifact_files)

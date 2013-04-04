@@ -1,5 +1,5 @@
 def findclasses(self, targets):
-    "\n      Returns a mapping from a target to its source to classes mapping.\n      For example:\n\n      dependencies = Dependencies(outdir, depfile)\n      mapping = dependencies.findclasses(targets)\n      for target, src_to_classes in mapping.items():\n        for source, classes in src_to_classes.items():\n          print('source: %s produces classes: %s' % (\n            os.path.join(target.target_base, source),\n            [os.path.join(outdir, cls) for cls in classes]\n          ))\n    "
+    "\n      Returns a mapping from a target to its source to classes mapping.\n      For example:\n\n      dependencies = Dependencies(outdir)\n      dependencies.load(depfile)\n      mapping = dependencies.findclasses(targets)\n      for target, src_to_classes in mapping.items():\n        for source, classes in src_to_classes.items():\n          print('source: %s produces classes: %s' % (\n            os.path.join(target.target_base, source),\n            [os.path.join(outdir, cls) for cls in classes]\n          ))\n    "
     sources = set()
     target_by_source = dict()
     for target in targets:

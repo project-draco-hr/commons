@@ -27,7 +27,17 @@ def execute(self, targets):
                         genmap.add(target, self._classes_dir, classes)
                 for target in java_targets:
                     if (is_apt(target) and target.processors):
-                        basedir = os.path.join(self._resources_dir, target.id)
+                        basedir = os.path.join(self._resources_dir, Target.maybe_readable_identify([target]))
                         processor_info_file = os.path.join(basedir, _PROCESSOR_INFO_FILE)
                         self.write_processor_info(processor_info_file, target.processors)
                         genmap.add(target, basedir, [_PROCESSOR_INFO_FILE])
+            all_processors = set()
+            for target in java_targets:
+                if (is_apt(target) and target.processors):
+                    all_processors.update(target.processors)
+            processor_info_file = os.path.join(self._classes_dir, _PROCESSOR_INFO_FILE)
+            if os.path.exists(processor_info_file):
+                with safe_open(processor_info_file, 'r') as f:
+                    for processor in f:
+                        all_processors.add(processor.strip())
+            self.write_processor_info(processor_info_file, all_processors)
