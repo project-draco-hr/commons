@@ -1,0 +1,2 @@
+def force_invalidate(self):
+    self._cache_manager.force_invalidate(self)
