@@ -12,6 +12,7 @@ def check_undeclared_dependencies(self):
         computed_deps = deps_by_target[target]
         computed_jar_deps = jar_deps_by_target[target]
         (undeclared_deps, immediate_undeclared_deps) = self.get_missing_deps_for_target(target, computed_deps, computed_jar_deps, targets_by_class)
+        found_missing_deps = (found_missing_deps or undeclared_deps or immediate_undeclared_deps)
         if (self.check_unnecessary_deps and (not target.has_label('synthetic'))):
             self.check_unnecessary_deps(target, computed_deps)
     if found_missing_deps:
