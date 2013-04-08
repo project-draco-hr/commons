@@ -3,6 +3,7 @@ def _merge_classes_dir(self, state):
     if (len(self.underlying_artifacts) <= 1):
         return
     self.log.debug(('Merging classes dirs into %s' % self.classes_dir))
+    safe_rmtree(self.classes_dir)
     symlinkable_packages = self._symlinkable_packages(state)
     for artifact in self.underlying_artifacts:
         classnames_by_package = defaultdict(list)
