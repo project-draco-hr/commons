@@ -34,6 +34,11 @@ def run(self, lock):
     if logger:
         logger.debug('Operating on targets: %s', self.targets)
     ret = Phase.attempt(context, self.phases)
+    if (self.options.cleanup_nailguns or self.config.get('nailgun', 'autokill', default=False)):
+        if log:
+            log.debug('auto-killing nailguns')
+        if NailgunTask.killall:
+            NailgunTask.killall(log)
     if self.options.time:
         print 'Timing report'
         print '============='
