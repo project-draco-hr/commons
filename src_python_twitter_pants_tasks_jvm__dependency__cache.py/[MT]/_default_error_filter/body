@@ -1,0 +1,3 @@
+def _default_error_filter(target):
+    ' Default filter used to exclude error messages about missing deps for synthetic targets'
+    return (not target.has_label('synthetic'))
