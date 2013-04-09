@@ -17,5 +17,6 @@ def __init__(self, context, targets, all_analysis_files):
     self.targets_by_class = None
     self.classes_by_target = None
     self.binary_deps_by_target = None
+    self.source_deps_by_target = None
     self.class_deps_by_target = None
     self.computed_deps = None
