@@ -19,5 +19,5 @@ def check_undeclared_dependencies(self, errorFilter=_default_error_filter):
         if self.check_unnecessary_deps:
             if (not target.has_label('synthetic')):
                 self.check_target_unnecessary_deps(target, computed_deps)
-    if ((len(all_undeclared_deps) > 0) or (self.check_intransitive_deps and (len(all_intransitive_undeclared_deps) > 0))):
+    if ((len(all_undeclared_deps) > 0) or ((self.check_intransitive_deps is not 'none') and (len(all_intransitive_undeclared_deps) > 0))):
         raise TaskError('Missing dependencies detected.')
