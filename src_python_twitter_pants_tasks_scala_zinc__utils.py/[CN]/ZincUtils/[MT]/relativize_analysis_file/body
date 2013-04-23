@@ -5,4 +5,6 @@ def relativize_analysis_file(self, src, dst):
         exit_code = self.run_zinc_rebase(tmp_analysis_file, rebasings)
         if (not exit_code):
             shutil.copy(tmp_analysis_file, dst)
+        if os.path.exists(temp_analysis_file):
+            os.remove(tmp_analysis_file)
         return exit_code

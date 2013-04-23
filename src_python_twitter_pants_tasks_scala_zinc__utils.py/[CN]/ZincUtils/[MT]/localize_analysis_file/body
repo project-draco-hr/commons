@@ -9,4 +9,5 @@ def localize_analysis_file(self, src, dst):
             dst_relations_file = (dst + '.relations')
             if os.path.exists(tmp_relations_file):
                 shutil.copy(tmp_relations_file, dst_relations_file)
+                os.remove(tmp_relations_file)
         return exit_code
