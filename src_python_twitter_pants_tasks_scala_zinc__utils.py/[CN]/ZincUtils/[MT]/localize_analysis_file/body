@@ -1,5 +1,6 @@
 def localize_analysis_file(self, src, dst):
-    with temporary_file_path() as tmp_analysis_file:
+    with temporary_dir() as tmp_analysis_dir:
+        tmp_analysis_file = os.path.join(tmp_analysis_dir, 'analysis')
         shutil.copy(src, tmp_analysis_file)
         rebasings = [(ZincUtils.IVY_HOME_PLACEHOLDER, self._ivy_home), (ZincUtils.PANTS_HOME_PLACEHOLDER, self._pants_home)]
         exit_code = self.run_zinc_rebase(tmp_analysis_file, rebasings)
@@ -9,5 +10,4 @@ def localize_analysis_file(self, src, dst):
             dst_relations_file = (dst + '.relations')
             if os.path.exists(tmp_relations_file):
                 shutil.copy(tmp_relations_file, dst_relations_file)
-                os.remove(tmp_relations_file)
         return exit_code
