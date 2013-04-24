@@ -2,7 +2,7 @@ def _merge_analysis(self):
     'Merge the analysis files from the underlying artifacts into a single file.'
     if (len(self.underlying_artifacts) <= 1):
         return
-    with temporary_dir(cleanup=False) as tmpdir:
+    with temporary_dir() as tmpdir:
         artifact_analysis_files = []
         for artifact in self.underlying_artifacts:
             if (os.path.exists(artifact.classes_dir) and os.path.exists(artifact.analysis_file)):
