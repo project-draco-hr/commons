@@ -1,0 +1,24 @@
+@classmethod
+def _find_path(cls, from_target, to_target, log):
+    (from_target, to_target) = cls._coerce_to_targets(from_target, to_target)
+    log.debug(('Looking for path from %s to %s' % (from_target.address.reference(), to_target.address.reference())))
+    queue = [([from_target], 0)]
+    while True:
+        if (not queue):
+            print ('no path found from %s to %s!' % (from_target.address.reference(), to_target.address.reference()))
+            break
+        (path, indent) = queue.pop(0)
+        next_target = path[(-1)]
+        if (next_target in cls.examined_targets):
+            continue
+        cls.examined_targets.add(next_target)
+        log.debug(('%sexamining %s' % (('  ' * indent), next_target)))
+        if (next_target == to_target):
+            print ''
+            for target in path:
+                print ('%s' % target.address.reference())
+            break
+        if hasattr(next_target, 'dependency_addresses'):
+            for address in next_target.dependency_addresses:
+                dep = Target.get(address)
+                queue.append(((path + [dep]), (indent + 1)))
