@@ -11,8 +11,8 @@ def __init__(self, root_dir, relpath, must_exist=True):
             raise IOError(('%s is not a BUILD file' % buildfile))
         if (not os.path.exists(buildfile)):
             raise IOError(('BUILD file does not exist at: %s' % buildfile))
-    self.root_dir = root_dir
-    self.full_path = buildfile
+    self.root_dir = os.path.realpath(root_dir)
+    self.full_path = os.path.realpath(buildfile)
     self.name = os.path.basename(self.full_path)
     self.parent_path = os.path.dirname(self.full_path)
     self._bytecode_path = os.path.join(self.parent_path, ('.%s.%s.pyc' % (self.name, PythonIdentity.get())))
