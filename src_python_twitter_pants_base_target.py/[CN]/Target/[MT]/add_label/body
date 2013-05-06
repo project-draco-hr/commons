@@ -1,2 +1,0 @@
-def add_label(self, label):
-    self.labels.add(label)

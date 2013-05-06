@@ -1,3 +1,5 @@
-def with_artifact(self, name=None, ext=None, url=None, type_=None, classifier=None, configuration=None):
-    self.artifacts.append(Artifact(name, ext, url, type_, classifier, configuration))
+def with_artifact(self, name=None, type_=None, ext=None, url=None, configuration=None, classifier=None):
+    'Sets an alternative artifact to fetch or adds additional artifacts if called multiple times.\n    '
+    artifact = Artifact((name or self.name), (type_ or 'jar'), ext=ext, url=url, conf=configuration, classifier=classifier)
+    self.artifacts.append(artifact)
     return self

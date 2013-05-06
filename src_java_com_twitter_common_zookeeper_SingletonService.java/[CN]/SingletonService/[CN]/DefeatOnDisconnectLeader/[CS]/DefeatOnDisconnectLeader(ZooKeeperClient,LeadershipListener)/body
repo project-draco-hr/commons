@@ -1,0 +1,11 @@
+{
+  this.wrapped=Preconditions.checkNotNull(wrapped);
+  zkClient.register(new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if ((event.getType() == EventType.None) && (event.getState() == KeeperState.Disconnected)) {
+        disconnected();
+      }
+    }
+  }
+);
+}

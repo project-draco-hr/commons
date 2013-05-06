@@ -1,2 +1,0 @@
-def external_references(self):
-    return self._external_references

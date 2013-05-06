@@ -1,0 +1,5 @@
+def test_equal(self):
+    self.assertEqual(Version('1'), Version('1.0.0.0'))
+    self.assertEqual(Version('1.0'), Version('1.0.0.0'))
+    self.assertEqual(Version('1.0.0'), Version('1.0.0.0'))
+    self.assertEqual(Version('1.0.0.0'), Version('1.0.0.0'))

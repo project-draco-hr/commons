@@ -1,0 +1,11 @@
+def copy_command_options(self, command_function):
+    '\n      Decorator to copy command options from another command.\n    '
+
+    def register_options(function):
+        if hasattr(command_function, Application.OPTIONS_ATTR):
+            if (not hasattr(function, Application.OPTIONS_ATTR)):
+                setattr(function, Application.OPTIONS_ATTR, deque())
+            command_options = getattr(command_function, Application.OPTIONS_ATTR)
+            getattr(function, Application.OPTIONS_ATTR).extendleft(command_options)
+        return function
+    return register_options

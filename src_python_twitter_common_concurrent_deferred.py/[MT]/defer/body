@@ -1,0 +1,3 @@
+def defer(closure, **kw):
+    'Run a closure with a specified delay on its own thread.\n\n    Args:\n      closure (function)\n    Keyword args:\n      delay (in seconds, or Amount of Time, default 0)\n      clock (the clock to use for time() and sleep(), default time)\n  '
+    Deferred(closure, **kw).start()

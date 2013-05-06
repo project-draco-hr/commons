@@ -1,0 +1,4 @@
+def run_cmd(self, cmd):
+    po = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    (stdout, _) = po.communicate()
+    return stdout

@@ -1,0 +1,4 @@
+{
+  @SuppressWarnings("unchecked") Either<X,R> either=guard(work,exceptionType);
+  return either;
+}

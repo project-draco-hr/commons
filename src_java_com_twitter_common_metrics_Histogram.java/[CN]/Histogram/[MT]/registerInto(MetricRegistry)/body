@@ -1,11 +1,24 @@
 {
-  metricRegistry.register(new AbstractGauge<Long>(name + "_count"){
+  MetricRegistry registry=metrics.scope(name);
+  registry.register(new AbstractGauge<Long>("count"){
     @Override public Long read(){
       return stats.populationSize();
     }
   }
 );
-  metricRegistry.register(new AbstractGauge<Long>(name + "_min"){
+  registry.register(new AbstractGauge<Long>("sum"){
+    @Override public Long read(){
+      return sum;
+    }
+  }
+);
+  registry.register(new AbstractGauge<Long>("avg"){
+    @Override public Long read(){
+      return (long)stats.mean();
+    }
+  }
+);
+  registry.register(new AbstractGauge<Long>("min"){
     @Override public Long read(){
       if (stats.populationSize() == 0) {
         return 0L;
@@ -16,7 +29,7 @@
     }
   }
 );
-  metricRegistry.register(new AbstractGauge<Long>(name + "_max"){
+  registry.register(new AbstractGauge<Long>("max"){
     @Override public Long read(){
       if (stats.populationSize() == 0) {
         return 0L;
@@ -28,7 +41,7 @@
   }
 );
   for (  final double p : quantiles) {
-    metricRegistry.register(new AbstractGauge<Long>(name + "_" + gaugeName(p)){
+    registry.register(new AbstractGauge<Long>(gaugeName(p)){
       @Override public Long read(){
         double[] qs={p};
         return histogram.getQuantiles(qs)[0];

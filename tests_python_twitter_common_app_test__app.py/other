@@ -1,6 +1,7 @@
 import sys
 from twitter.common import app
 from twitter.common import options
+from twitter.common.app import Application
 import pytest
 import unittest
 from collections import defaultdict

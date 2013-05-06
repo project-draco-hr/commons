@@ -34,9 +34,11 @@ def execute(self, targets):
             langtarget_by_gentarget = {}
             for target in tgts:
                 langtarget_by_gentarget[target] = self.createtarget(lang, target, dependees_by_gentarget.get(target, []))
-                langtarget_by_gentarget[target].add_label('synthetic')
+                langtarget_by_gentarget[target].add_labels('synthetic')
             genmap = self.context.products.get(lang)
+            synmap = self.context.products.get((lang + ':rev'))
             for (gentarget, langtarget) in langtarget_by_gentarget.items():
+                synmap.add(langtarget, get_buildroot(), [gentarget])
                 genmap.add(gentarget, get_buildroot(), [langtarget])
                 for dep in self.getdependencies(gentarget):
                     if self.is_gentarget(dep):

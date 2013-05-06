@@ -1,0 +1,2 @@
+def run(self):
+    self.parentq.put(self.event.wait(timeout=self.timeout))

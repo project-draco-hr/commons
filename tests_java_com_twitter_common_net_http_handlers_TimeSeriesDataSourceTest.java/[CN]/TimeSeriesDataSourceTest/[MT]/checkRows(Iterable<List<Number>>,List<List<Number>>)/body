@@ -1,0 +1,10 @@
+{
+  assertEquals(Iterables.size(expected),actual.size());
+  Iterator<List<Number>> actualIterator=actual.iterator();
+  for (  List<Number> expectedRow : expected) {
+    Iterator<Number> actualValueIterator=actualIterator.next().iterator();
+    for (    Number expectedValue : expectedRow) {
+      assertEquals("Expected row data " + expected + ", found "+ actual,expectedValue.doubleValue(),actualValueIterator.next().doubleValue(),1e-9);
+    }
+  }
+}

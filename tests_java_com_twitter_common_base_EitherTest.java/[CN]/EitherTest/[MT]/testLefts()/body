@@ -1,0 +1,5 @@
+{
+  assertEquals(ImmutableList.of("jack","jill"),ImmutableList.copyOf(Either.lefts(LEFT_RESULTS)));
+  assertEquals(ImmutableList.of(),ImmutableList.copyOf(Either.lefts(RIGHT_RESULTS)));
+  assertEquals(ImmutableList.of("jack","jill"),ImmutableList.copyOf(Either.lefts(MIXED_RESULTS)));
+}

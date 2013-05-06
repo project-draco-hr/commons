@@ -1,4 +1,3 @@
 def needs_update(self, cache_key):
     'Check if the given cached item is invalid.\n\n    :param cache_key: A CacheKey object (as returned by BuildInvalidator.key_for().\n    :returns: True if the cached version of the item is out of date.\n    '
-    cached_sha = self._read_sha(cache_key)
-    return (cached_sha != cache_key.hash)
+    return (self._read_sha(cache_key) != cache_key.hash)

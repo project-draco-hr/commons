@@ -4,20 +4,25 @@
     nextState=null;
     return true;
   }
-  if (!getInputStream().incrementToken()) {
+  if (!incrementInputStream()) {
     return false;
   }
-  restoreState(getInputStream().captureState());
-  if (canBeCombinedWithNextToken(inputTermAttr.getTermCharSequence())) {
-    if (getInputStream().incrementToken()) {
-      nextState=getInputStream().captureState();
-      CharSequence term=inputTermAttr.getTermCharSequence();
+  if (canBeCombinedWithNextToken(term())) {
+    State state=captureState();
+    int offset=offset();
+    int length=length();
+    if (incrementInputStream()) {
+      nextState=captureState();
+      CharSequence term=term();
       if (canBeCombinedWithPreviousToken(term)) {
-        termAttr.setLength(termAttr.getLength() + term.length());
-        typeAttr.setType(type);
+        restoreState(state);
+        updateOffsetAndLength(offset,length + term.length());
+        updateType(type);
         nextState=null;
+        return true;
       }
     }
+    restoreState(state);
   }
   return true;
 }

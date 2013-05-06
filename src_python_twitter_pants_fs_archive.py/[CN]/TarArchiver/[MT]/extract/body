@@ -1,0 +1,4 @@
+@classmethod
+def extract(cls, path, outdir):
+    with open_tar(path) as tar:
+        tar.extractall(outdir)

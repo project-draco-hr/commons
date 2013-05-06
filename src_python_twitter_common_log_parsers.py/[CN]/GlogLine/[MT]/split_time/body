@@ -1,0 +1,11 @@
+@classmethod
+def split_time(cls, line):
+    if (len(line) == 0):
+        raise ValueError
+    if (line[0] not in 'IWEFD'):
+        raise ValueError
+    sline = line[1:].split(' ')
+    if (len(sline) < 2):
+        raise ValueError
+    t = datetime.strptime(''.join([_CURRENT_YEAR, sline[0], ' ', sline[1]]), '%Y%m%d %H:%M:%S.%f')
+    return (cls.LEVEL_MAP[line[0]], t, sline[2:])

@@ -1,0 +1,21 @@
+{
+  if (maybeControl.isPresent()) {
+    LOG.warning("Disconnected from ZooKeeper while leading, committing suicide.");
+    try {
+      wrapped.onDefeated(null);
+      maybeControl.get().leave();
+    }
+ catch (    UpdateException e) {
+      LOG.log(Level.WARNING,"Failed to leave singleton service: " + e,e);
+    }
+catch (    JoinException e) {
+      LOG.log(Level.WARNING,"Failed to leave singleton service: " + e,e);
+    }
+ finally {
+      setControl(null);
+    }
+  }
+ else {
+    LOG.info("Disconnected from ZooKeeper, but that's fine because I'm not the leader.");
+  }
+}

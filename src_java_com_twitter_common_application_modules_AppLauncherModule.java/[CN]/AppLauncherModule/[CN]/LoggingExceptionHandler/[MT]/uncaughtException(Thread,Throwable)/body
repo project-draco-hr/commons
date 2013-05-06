@@ -1,3 +1,4 @@
 {
+  UNCAUGHT_EXCEPTIONS.incrementAndGet();
   LOG.log(Level.SEVERE,"Uncaught exception from " + t + ":"+ e,e);
 }

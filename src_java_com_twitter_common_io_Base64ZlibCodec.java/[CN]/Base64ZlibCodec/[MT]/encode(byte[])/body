@@ -1,0 +1,15 @@
+{
+  final ByteArrayOutputStream out=new ByteArrayOutputStream(plain.length / ESTIMATED_PLAINTEXT_TO_ENCODED_RATIO);
+  final OutputStream w=getDeflatingEncodingStream(out);
+  try {
+    w.write(plain);
+    w.close();
+    return out.toString(BASE64_TEXT_ENCODING);
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw reportUnsupportedEncoding();
+  }
+catch (  IOException e) {
+    throw Throwables.propagate(e);
+  }
+}

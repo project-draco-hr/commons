@@ -1,0 +1,3 @@
+{
+  getFilterBinder(binder).addBinding().toInstance(new HttpFilterConfig(filterClass,pathSpec));
+}

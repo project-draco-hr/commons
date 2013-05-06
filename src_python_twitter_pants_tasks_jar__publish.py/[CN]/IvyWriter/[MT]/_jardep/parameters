@@ -2,3 +2,4 @@ self
 jar
 transitive
 configurations
+classifier

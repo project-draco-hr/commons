@@ -1,7 +1,12 @@
 {
   bind(File.class).annotatedWith(Names.named(LogPrinter.LOG_DIR_KEY)).toInstance(getLogDir());
   LifecycleModule.bindStartupAction(binder(),ExportLogDir.class);
+  Configuration configuration=null;
   if (USE_GLOG.get()) {
-    RootLogConfig.configureFromFlags();
+    configuration=RootLogConfig.configurationFromFlags();
+    configuration.apply();
   }
+  bind(new TypeLiteral<Optional<Configuration>>(){
+  }
+).toInstance(Optional.fromNullable(configuration));
 }

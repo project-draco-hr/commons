@@ -1,0 +1,9 @@
+{
+  assertEquals("/",ZooKeeperUtils.normalizePath("/"));
+  assertEquals("/foo",ZooKeeperUtils.normalizePath("/foo/"));
+  assertEquals("/foo/bar",ZooKeeperUtils.normalizePath("/foo//bar"));
+  assertEquals("/foo/bar",ZooKeeperUtils.normalizePath("//foo/bar"));
+  assertEquals("/foo/bar",ZooKeeperUtils.normalizePath("/foo/bar/"));
+  assertEquals("/foo/bar",ZooKeeperUtils.normalizePath("/foo/bar//"));
+  assertEquals("/foo/bar",ZooKeeperUtils.normalizePath("/foo/bar"));
+}

@@ -4,8 +4,13 @@ def __init__(self, context):
     self.python = context.options.ide_gen_python
     self.skip_java = (not context.options.ide_gen_java)
     self.skip_scala = (not context.options.ide_gen_scala)
-    self.work_dir = (context.options.ide_gen_project_dir or os.path.join(context.config.get('ide', 'workdir'), self.__class__.__name__, self.project_name))
-    self.cwd = (context.options.ide_gen_project_cwd or self.work_dir)
+    self.java_language_level = context.options.ide_gen_java_language_level
+    if context.options.ide_gen_java_jdk:
+        self.java_jdk = context.options.ide_gen_java_jdk
+    else:
+        self.java_jdk = ('1.%d' % self.java_language_level)
+    self.work_dir = os.path.abspath((context.options.ide_gen_project_dir or os.path.join(context.config.get('ide', 'workdir'), self.__class__.__name__, self.project_name)))
+    self.cwd = (os.path.abspath(context.options.ide_gen_project_cwd) if context.options.ide_gen_project_cwd else self.work_dir)
     self.intransitive = context.options.ide_gen_intransitive
     checkstyle_suppression_files = context.config.getdefault('checkstyle_suppression_files', type=list, default=[])
     debug_port = context.config.getint('ide', 'debug_port')

@@ -1,4 +1,4 @@
 {
-  tokenizer.setDelimiterPattern(delimiterPattern);
+  this.delimiterPattern=delimiterPattern;
   return self();
 }

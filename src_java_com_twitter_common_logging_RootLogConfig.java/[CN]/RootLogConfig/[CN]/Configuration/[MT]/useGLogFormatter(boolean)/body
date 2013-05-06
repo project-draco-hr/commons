@@ -1,4 +1,0 @@
-{
-  this.useGLogFormatter=flag;
-  return this;
-}

@@ -1,0 +1,5 @@
+def test_append_fails_on_inaccessible_file(self):
+    with RecordioTestBase.EphemeralFile('w') as fp:
+        os.fchmod(fp.fileno(), 0)
+        with pytest.raises(IOError):
+            RecordWriter.append(fp.name, 'hello world!')

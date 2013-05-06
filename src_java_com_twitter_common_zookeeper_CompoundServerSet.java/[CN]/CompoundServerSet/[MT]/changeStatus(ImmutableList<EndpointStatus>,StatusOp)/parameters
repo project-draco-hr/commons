@@ -1,0 +1,2 @@
+ImmutableList<EndpointStatus> statuses
+StatusOp statusOp

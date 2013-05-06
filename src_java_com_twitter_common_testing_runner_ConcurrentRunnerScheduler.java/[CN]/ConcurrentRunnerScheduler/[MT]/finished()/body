@@ -1,0 +1,21 @@
+{
+  try {
+    while (!concurrentTasks.isEmpty()) {
+      concurrentTasks.poll().get();
+    }
+    for (    Runnable task : serialTasks) {
+      task.run();
+    }
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ExecutionException e) {
+    throw Throwables.propagate(e.getCause());
+  }
+ finally {
+    while (!concurrentTasks.isEmpty()) {
+      concurrentTasks.poll().cancel(true);
+    }
+  }
+}

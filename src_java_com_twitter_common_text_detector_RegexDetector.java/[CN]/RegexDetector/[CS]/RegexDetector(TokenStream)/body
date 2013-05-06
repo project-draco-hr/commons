@@ -1,5 +1,3 @@
 {
   super(inputStream);
-  inputCharSeqTermAttr=inputStream.getAttribute(CharSequenceTermAttribute.class);
-  typeAttr=addAttribute(TokenTypeAttribute.class);
 }

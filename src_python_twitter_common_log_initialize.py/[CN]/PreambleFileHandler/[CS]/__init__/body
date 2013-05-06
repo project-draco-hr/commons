@@ -1,0 +1,3 @@
+def __init__(self, filename, preamble=None):
+    self._preamble = preamble
+    logging.FileHandler.__init__(self, filename)

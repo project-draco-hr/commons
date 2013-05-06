@@ -1,0 +1,4 @@
+{
+  LOG.info("ABORTING PROCESS IMMEDIATELY!");
+  System.exit(0);
+}

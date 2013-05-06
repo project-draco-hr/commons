@@ -1,8 +1,9 @@
 from __future__ import print_function
+import inspect
 import sys
 import threading
 import traceback
-import inspect
+from twitter.common.decorators import identify_thread
 from twitter.common.lang import Compatibility
 try:
     import logging
@@ -11,4 +12,4 @@ try:
     _LOG_MODULE = True
 except:
     _LOG_MODULE = False
-__all__ = ('BasicExceptionHandler',)
+__all__ = ('BasicExceptionHandler', 'ExceptionalThread')

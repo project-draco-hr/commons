@@ -1,0 +1,5 @@
+def translate(self, link):
+    for tx in self._translators:
+        dist = tx.translate(link)
+        if dist:
+            return dist

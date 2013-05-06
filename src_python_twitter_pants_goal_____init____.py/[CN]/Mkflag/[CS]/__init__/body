@@ -1,0 +1,3 @@
+def __init__(self, namespace):
+    'Creates a new Mkflag that will use the given namespace to prefix the flags it creates.\n\n    namespace: Either a function accepting a separator string that returns a prefix string for the\n               flag or else a fixed prefix string for all flags.\n    '
+    self._namespace = (namespace if callable(namespace) else (lambda sep: namespace))

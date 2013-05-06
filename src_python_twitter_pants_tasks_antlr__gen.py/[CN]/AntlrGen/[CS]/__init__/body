@@ -1,0 +1,3 @@
+def __init__(self, context):
+    CodeGen.__init__(self, context)
+    NailgunTask.__init__(self, context)

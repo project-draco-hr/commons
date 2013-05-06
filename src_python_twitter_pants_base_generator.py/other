@@ -1,3 +1,5 @@
 from __future__ import print_function
+import collections
 import pprint
 import pystache
+from twitter.common.lang import Compatibility

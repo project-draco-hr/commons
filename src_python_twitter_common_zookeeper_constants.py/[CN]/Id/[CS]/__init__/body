@@ -1,0 +1,5 @@
+def __init__(self, scheme, id_):
+    if ((not isinstance(scheme, str)) or (not isinstance(id_, str))):
+        raise ValueError('Scheme and id must be strings!')
+    self.scheme = scheme
+    self.id = id_

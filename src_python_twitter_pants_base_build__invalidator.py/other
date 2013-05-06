@@ -1,13 +1,14 @@
 import errno
 import hashlib
 import os
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 from collections import namedtuple
+from twitter.common.collections import maybe_list
 from twitter.common.dirutil import safe_mkdir
-from twitter.common.lang import Compatibility
+from twitter.common.lang import Compatibility, Interface
 from twitter.pants.base.hash_utils import hash_all
 from twitter.pants.base.target import Target
 CacheKey = namedtuple('CacheKey', ['id', 'hash', 'num_sources'])
-NO_SOURCES = SourceScope.for_selector((lambda t: ()))
-TARGET_SOURCES = SourceScope.for_selector((lambda t: t.expand_files(recursive=False, include_buildfile=False)))
-TRANSITIVE_SOURCES = SourceScope.for_selector((lambda t: t.expand_files(recursive=True, include_buildfile=False)))
+NO_SOURCES = NoSources()
+TARGET_SOURCES = DefaultSourceScope(recursive=False, include_buildfile=False)
+TRANSITIVE_SOURCES = DefaultSourceScope(recursive=True, include_buildfile=False)

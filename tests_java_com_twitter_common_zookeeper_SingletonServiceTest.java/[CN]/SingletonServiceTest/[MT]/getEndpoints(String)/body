@@ -1,3 +1,0 @@
-{
-  return new Pair<InetSocketAddress,Map<String,InetSocketAddress>>(InetSocketAddress.createUnresolved(host,PORT_A),ImmutableMap.of("http-admin",InetSocketAddress.createUnresolved(host,PORT_B)));
-}

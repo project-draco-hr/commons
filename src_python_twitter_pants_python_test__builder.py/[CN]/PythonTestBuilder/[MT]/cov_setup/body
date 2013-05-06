@@ -1,0 +1,14 @@
+@staticmethod
+def cov_setup(target, chroot):
+    cp = generate_coverage_config(target)
+    with temporary_file(cleanup=False) as fp:
+        cp.write(fp)
+        filename = fp.name
+    if target.coverage:
+        source = target.coverage
+    else:
+        source = set((os.path.dirname(source).replace(os.sep, '.') for source in target.sources))
+    args = ['-p', 'pytest_cov', '--cov-config', filename, '--cov-report', 'html', '--cov-report', 'term']
+    for module in source:
+        args.extend(['--cov', module])
+    return (filename, args)

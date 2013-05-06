@@ -1,0 +1,16 @@
+{
+  Iterable<String> nameAndLinks=Lists.newArrayList(Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings().split(names));
+  MorePreconditions.checkNotBlank(nameAndLinks);
+  Iterator<String> paths=Iterators.consumingIterator(nameAndLinks.iterator());
+  name=paths.next();
+  Function<String,File> createPath=new Function<String,File>(){
+    @Override public File apply(    String item){
+      return new File(basedir,item);
+    }
+  }
+;
+  file=createPath.apply(name);
+  links=ImmutableSet.copyOf(Iterators.transform(paths,createPath));
+  this.loadable=loadable;
+  this.deleteOnExit=deleteOnExit;
+}

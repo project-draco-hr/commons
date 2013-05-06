@@ -1,0 +1,12 @@
+@classmethod
+def globs(cls, *globspecs, **kw):
+    'Returns a Fileset that combines the lists of files returned by\n       glob.glob for each globspec.  rcfiles starting with \'.\' are not\n       returned unless explicitly globbed.  For example, ".*" matches\n       ".bashrc" but "*" does not, mirroring the semantics of \'ls\' without\n       \'-a\'.\n\n       Walks the current working directory by default, can be overrided with\n       the \'root\' keyword argument.\n    '
+    root = kw.pop('root', os.curdir)
+
+    def relative_glob(globspec):
+        for fn in glob.glob(os.path.join(root, globspec)):
+            yield os.path.relpath(fn, root)
+
+    def combine(files, globspec):
+        return (files ^ set(relative_glob(globspec)))
+    return cls((lambda : reduce(combine, globspecs, set())))

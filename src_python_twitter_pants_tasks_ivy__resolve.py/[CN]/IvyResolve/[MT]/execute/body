@@ -8,16 +8,18 @@ def execute(self, targets):
             sha.update(t.id)
         return sha.hexdigest()
 
-    def is_classpath(t):
-        return (is_internal(t) and any((jar for jar in t.jar_dependencies if jar.rev)))
-    classpath_targets = filter(is_classpath, targets)
+    def is_classpath(target):
+        return (is_jar(target) or (is_internal(target) and any((jar for jar in target.jar_dependencies if jar.rev))))
+    classpath_targets = OrderedSet()
+    for target in targets:
+        classpath_targets.update(filter(is_classpath, filter(is_concrete, target.resolve())))
     target_workdir = os.path.join(self._work_dir, dirname_for_requested_targets(targets))
     target_classpath_file = os.path.join(target_workdir, 'classpath')
     with self.invalidated(classpath_targets, only_buildfiles=True, invalidate_dependents=True) as invalidation_check:
         if ((len(invalidation_check.invalid_vts) > 0) or (not os.path.exists(target_classpath_file))):
             self._exec_ivy(target_workdir, targets, (['-cachepath', target_classpath_file, '-confs'] + self._confs))
     if (not os.path.exists(target_classpath_file)):
-        raise TaskError, ('Ivy failed to create classpath file at %s' % target_classpath_file)
+        raise TaskError(('Ivy failed to create classpath file at %s' % target_classpath_file))
 
     def safe_link(src, dest):
         if os.path.exists(dest):
@@ -27,18 +29,19 @@ def execute(self, targets):
     ivyxml_symlink = os.path.join(self._work_dir, 'ivy.xml')
     target_ivyxml = os.path.join(target_workdir, 'ivy.xml')
     safe_link(target_ivyxml, ivyxml_symlink)
-    with self._cachepath(self._classpath_file) as classpath:
-        with self.context.state('classpath', []) as cp:
-            for path in classpath:
-                if self._is_jar(path):
-                    for conf in self._confs:
-                        cp.append((conf, path.strip()))
+    if os.path.exists(self._classpath_file):
+        with self._cachepath(self._classpath_file) as classpath:
+            with self.context.state('classpath', []) as cp:
+                for path in classpath:
+                    if self._map_jar(path):
+                        for conf in self._confs:
+                            cp.append((conf, path.strip()))
     if self._report:
         self._generate_ivy_report()
     if self.context.products.isrequired('ivy_jar_products'):
         self._populate_ivy_jar_products()
-    create_jardeps_for = self.context.products.isrequired('jar_dependencies')
+    create_jardeps_for = self.context.products.isrequired(self._mapfor_typename())
     if create_jardeps_for:
-        genmap = self.context.products.get('jar_dependencies')
+        genmap = self.context.products.get(self._mapfor_typename())
         for target in filter(create_jardeps_for, targets):
             self._mapjars(genmap, target)

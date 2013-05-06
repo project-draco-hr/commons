@@ -1,3 +1,2 @@
-@staticmethod
-def to_request_header(trace_id):
-    return RequestHeader(trace_id=trace_id.trace_id.value, parent_span_id=trace_id.parent_id.value, span_id=trace_id.span_id.value, sampled=trace_id.sampled, debug=False)
+def to_request_header(self, trace_id):
+    return RequestHeader(trace_id=trace_id.trace_id.value, parent_span_id=trace_id.parent_id.value, span_id=trace_id.span_id.value, sampled=trace_id.sampled, client_id=self._client_id)

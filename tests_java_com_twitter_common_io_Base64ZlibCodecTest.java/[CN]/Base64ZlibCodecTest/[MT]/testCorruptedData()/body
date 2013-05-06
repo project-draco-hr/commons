@@ -1,0 +1,15 @@
+{
+  final char[] encoded=Base64ZlibCodec.encode(createRandomBytes(1024)).toCharArray();
+  for (int i=100; i < encoded.length; ++i) {
+    if (encoded[i] != 'Z') {
+      ++encoded[i];
+      break;
+    }
+  }
+  try {
+    Base64ZlibCodec.decode(new String(encoded));
+    fail();
+  }
+ catch (  InvalidDataException e) {
+  }
+}

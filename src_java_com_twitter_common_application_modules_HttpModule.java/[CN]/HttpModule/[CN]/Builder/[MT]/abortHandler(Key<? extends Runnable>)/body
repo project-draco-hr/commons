@@ -1,0 +1,4 @@
+{
+  this.abortHandlerKey=key;
+  return this;
+}

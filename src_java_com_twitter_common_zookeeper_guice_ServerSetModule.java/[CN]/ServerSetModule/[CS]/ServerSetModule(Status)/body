@@ -1,3 +1,0 @@
-{
-  this(initialStatus,Optional.<String>absent());
-}

@@ -7,4 +7,3 @@ excludes
 resources
 deployjar
 buildflags
-is_meta

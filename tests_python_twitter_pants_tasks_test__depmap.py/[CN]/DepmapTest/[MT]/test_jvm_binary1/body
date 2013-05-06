@@ -1,0 +1,2 @@
+def test_jvm_binary1(self):
+    self.assert_console_output('internal-common.f.f', targets=[self.target('common/f')])

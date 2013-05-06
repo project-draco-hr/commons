@@ -1,0 +1,11 @@
+def __init__(self, context):
+    ConsoleTask.__init__(self, context)
+    if (self.context.options.depmap_is_internal_only and self.context.options.depmap_is_external_only):
+        cls = self.__class__
+        error_str = ('At most one of %s or %s can be selected.' % (cls.internal_only_flag, cls.external_only_flag))
+        raise TaskError(error_str)
+    self.is_internal_only = self.context.options.depmap_is_internal_only
+    self.is_external_only = self.context.options.depmap_is_external_only
+    self.is_minimal = self.context.options.depmap_is_minimal
+    self.is_graph = self.context.options.depmap_is_graph
+    self.separator = self.context.options.depmap_separator

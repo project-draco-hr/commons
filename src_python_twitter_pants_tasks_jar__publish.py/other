@@ -1,5 +1,5 @@
 from __future__ import print_function
-__author__ = 'John Sirois'
+import copy
 import hashlib
 import getpass
 import os
@@ -10,8 +10,8 @@ from collections import defaultdict
 from twitter.common.collections import OrderedDict, OrderedSet
 from twitter.common.config import Properties
 from twitter.common.dirutil import safe_open, safe_rmtree
-from twitter.pants import get_buildroot, is_exported as provides, is_internal, is_java, pants
-from twitter.pants.base import Address, ParseContext, Target
+from twitter.pants import binary_util, get_buildroot, get_scm, is_exported as provides, is_internal, is_java, is_codegen
+from twitter.pants.base import Address, Target
 from twitter.pants.base.generator import Generator, TemplateData
-from twitter.pants.targets import InternalTarget, AnnotationProcessor, JavaLibrary, ScalaLibrary
-from twitter.pants.tasks import binary_utils, Task, TaskError
+from twitter.pants.targets import InternalTarget, AnnotationProcessor, JavaLibrary, ScalaLibrary, JavaThriftLibrary
+from twitter.pants.tasks import Task, TaskError

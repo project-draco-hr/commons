@@ -1,0 +1,15 @@
+def console_output(self, _):
+    dependees_by_target = defaultdict(set)
+    for buildfile in BuildFile.scan_buildfiles(get_buildroot()):
+        for address in Target.get_all_addresses(buildfile):
+            for target in Target.get(address).resolve():
+                if hasattr(target, 'dependencies'):
+                    for dependencies in target.dependencies:
+                        for dependency in dependencies.resolve():
+                            dependees_by_target[dependency].add(target)
+    roots = set(self.context.target_roots)
+    if self._closed:
+        for root in roots:
+            yield str(root.address)
+    for dependant in self.get_dependants(dependees_by_target, roots):
+        yield str(dependant.address)

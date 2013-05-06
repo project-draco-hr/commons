@@ -3,9 +3,12 @@
     @Override public Treatment categorize(    Diagnostic<? extends T> diagnostic){
       FileObject source=diagnostic.getSource();
       if (source != null) {
-        for (        String pathPrefix : pathPrefixes) {
-          if (source.toUri().getPath().startsWith(pathPrefix)) {
-            return Treatment.IGNORE;
+        String path=source.toUri().getPath();
+        if (path != null) {
+          for (          String pathPrefix : pathPrefixes) {
+            if (path.startsWith(pathPrefix)) {
+              return Treatment.IGNORE;
+            }
           }
         }
       }

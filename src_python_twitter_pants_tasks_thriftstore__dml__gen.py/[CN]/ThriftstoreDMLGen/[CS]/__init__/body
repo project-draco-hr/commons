@@ -1,6 +1,6 @@
 def __init__(self, context):
     CodeGen.__init__(self, context)
-    self.thriftstore_admin = context.config.get('thriftstore-dml-gen', 'thriftstore-admin')
+    self.thriftstore_codegen = context.config.get('thriftstore-dml-gen', 'thriftstore-codegen')
     self.output_dir = (context.options.thriftstore_gen_create_outdir or context.config.get('thriftstore-dml-gen', 'workdir'))
     self.verbose = context.config.getbool('thriftstore-dml-gen', 'verbose')
 
@@ -19,10 +19,10 @@ def __init__(self, context):
     def insert_java_dml_targets():
         self.gen_dml_jls = {}
         for dml_lib_target in context.targets(is_thriftstore_dml_instance):
-            thrift_dml_lib = self.context.add_new_target(dml_lib_target.target_base, JavaThriftLibrary, name=dml_lib_target.id, sources=dml_lib_target.sources, derived_from=dml_lib_target)
+            thrift_dml_lib = self.context.add_new_target(dml_lib_target.target_base, JavaThriftLibrary, name=dml_lib_target.id, sources=dml_lib_target.sources, dependencies=dml_lib_target.dependencies, derived_from=dml_lib_target)
             java_dml_lib = self.context.add_new_target(self.gen_thriftstore_java_dir, JavaLibrary, name=dml_lib_target.id, sources=[], dependencies=self.javadeps, derived_from=dml_lib_target)
             java_dml_lib.id = (dml_lib_target.id + '.thriftstore_dml_gen')
-            java_dml_lib.add_label('codegen')
+            java_dml_lib.add_labels('codegen', 'synthetic')
             java_dml_lib.update_dependencies([thrift_dml_lib])
             self.gen_dml_jls[dml_lib_target] = java_dml_lib
         for (dependee, dmls) in context.dependents(is_thriftstore_dml_instance).items():

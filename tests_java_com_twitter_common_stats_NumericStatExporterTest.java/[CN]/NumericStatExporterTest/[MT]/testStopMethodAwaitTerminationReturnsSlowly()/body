@@ -1,0 +1,7 @@
+{
+  when(mockExecutor.awaitTermination(anyLong(),Matchers.<TimeUnit>anyObject())).thenReturn(false);
+  numericStatExporter.stop();
+  verify(mockExecutor,times(2)).awaitTermination(eq(1L),eq(TimeUnit.SECONDS));
+  verify(mockExecutor).shutdownNow();
+  verifyNoMoreInteractions(mockExecutor);
+}

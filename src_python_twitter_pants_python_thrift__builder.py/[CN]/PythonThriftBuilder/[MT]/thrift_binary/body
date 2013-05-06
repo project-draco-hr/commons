@@ -1,6 +1,0 @@
-def thrift_binary(self, root_dir):
-    uname = os.uname()
-    platform = (uname[0].lower(), uname[4])
-    if (platform not in self.platmap):
-        raise PythonThriftBuilder.UnknownPlatformException(platform)
-    return os.path.join(root_dir, 'build-support', 'bin', 'thrift', *self.platmap[platform])

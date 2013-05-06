@@ -1,2 +1,2 @@
-from twitter.common.lang import Compatibility
+from twitter.common.lang import Compatibility, Singleton
 from .gauge import Gauge, MutatorGauge, NamedGauge, namablegauge

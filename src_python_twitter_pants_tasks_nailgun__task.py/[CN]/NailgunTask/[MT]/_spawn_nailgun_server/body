@@ -16,9 +16,10 @@ def _spawn_nailgun_server(self):
         args.extend(self._ng_server_args)
     args.append(NailgunTask.PANTS_NG_ARG)
     args.append(NailgunTask.create_pidfile_arg(self._pidfile))
-    args.extend(['-jar', self._nailgun_jar, ':0'])
+    ng_classpath = os.pathsep.join(binary_util.profile_classpath(self._nailgun_profile))
+    args.extend(['-cp', ng_classpath, 'com.martiansoftware.nailgun.NGServer', ':0'])
     log.debug(('Executing: %s' % ' '.join(args)))
-    with binary_utils.safe_classpath(logger=log.warn):
+    with binary_util.safe_classpath(logger=log.warn):
         process = subprocess.Popen(args, stdin=in_fd, stdout=out_fd, stderr=err_fd, close_fds=True, cwd=get_buildroot())
         with _safe_open(self._pidfile, 'w') as pidfile:
             pidfile.write(('%d' % process.pid))

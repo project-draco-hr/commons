@@ -1,0 +1,3 @@
+{
+  return new Either<L,R>(Optional.<L>absent(),Optional.of(value));
+}

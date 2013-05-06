@@ -1,0 +1,10 @@
+@staticmethod
+def get(fp):
+    if isinstance(fp, _VALID_STRINGIO_CLASSES):
+        return StringIOFileLike(fp)
+    elif isinstance(fp, file):
+        return FileLike(fp)
+    elif isinstance(fp, FileLike):
+        return fp
+    else:
+        raise ValueError(('Unknown file-like object %s' % fp))

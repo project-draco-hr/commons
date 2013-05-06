@@ -1,0 +1,7 @@
+def test_basic_recordwriter_write_synced(self):
+    test_string = 'hello world'
+    with self.EphemeralFile('r+') as fp:
+        RecordWriter.do_write(fp, test_string, StringCodec(), sync=True)
+        fp.seek(0)
+        rr = RecordReader(fp)
+        assert (rr.read() == test_string)

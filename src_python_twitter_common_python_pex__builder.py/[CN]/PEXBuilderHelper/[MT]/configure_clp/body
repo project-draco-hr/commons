@@ -1,0 +1,16 @@
+@classmethod
+def configure_clp(cls):
+    from optparse import OptionParser
+    usage = '%prog [options]\n\n%prog builds a PEX (Python Executable) file based on the given specifications: sources, requirements, their dependencies and other options'
+    parser = OptionParser(usage=usage, version='%prog 0.1.0')
+    parser.add_option('--no-pypi', dest='use_pypi', default=True, action='store_false', help='Dont use pypi to resolve dependencies; Default: use pypi')
+    parser.add_option('--cache-dir', dest='cache_dir', default='~/.pex/install', help='The local cache directory to use for speeding up requirement lookups; Default: ~/.pex/install')
+    parser.add_option('--pex-name', dest='pex_name', default=None, help='The name of the generated .pex file: Omiting this will run PEX immediately and not save it to a file')
+    parser.add_option('--entry-point', dest='entry_point', default=None, help='The entry point for this pex; Omiting this will enter the python IDLE with sources and requirements available for import')
+    parser.add_option('--requirements-txt', dest='requirements_txt', metavar='FILE', default=None, help='requirements.txt file listing the dependencies; This is in addition to requirements specified by -r; Unless your sources have no requirements, specify this or use -r. Default None')
+    parser.add_option('-r', '--requirement', dest='requirements', metavar='REQUIREMENT', default=[], action='append', help='requirement to be included; include as many as needed in addition to requirements from --requirements-txt')
+    parser.add_option('--lightweight', dest='lightweight', default=False, action='store_true', help='Builds a lightweight PEX with requirements not resolved until runtime; Not implemented')
+    parser.add_option('--source-dir', dest='source_dirs', metavar='DIR', default=[], action='append', help='Source to be packaged; This <DIR> should be pip-installable i.e. it should include a setup.py; Omiting this will create a PEX of requirements alone')
+    parser.add_option('--repo', dest='repos', metavar='TYPE:URL', default=[], action='append', help='repository spec for resolving dependencies; Not implemented')
+    cls.configure_logging_options(parser)
+    return parser

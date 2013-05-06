@@ -1,5 +1,5 @@
 {
-  final Codec<ServiceInstance> json=JsonCodec.create(ServiceInstance.class,new GsonBuilder().setExclusionStrategies(JsonCodec.getThriftExclusionStrategy()).create());
+  final Codec<ServiceInstance> json=new AdaptedJsonCodec();
   final Codec<ServiceInstance> thrift=ThriftCodec.create(ServiceInstance.class,ThriftCodec.BINARY_PROTOCOL);
   final Predicate<byte[]> recognizer=new Predicate<byte[]>(){
     public boolean apply(    byte[] input){

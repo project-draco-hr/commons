@@ -1,0 +1,7 @@
+def _setup_scribe_logging():
+    filter = GenericFilter((lambda r_l: (r_l >= LogOptions.scribe_log_level())))
+    formatter = ProxyFormatter(LogOptions.scribe_log_scheme)
+    scribe_handler = ScribeHandler(buffer=LogOptions.scribe_buffer(), category=LogOptions.scribe_category(), host=LogOptions.scribe_host(), port=LogOptions.scribe_port())
+    scribe_handler.setFormatter(formatter)
+    scribe_handler.addFilter(filter)
+    return [scribe_handler]

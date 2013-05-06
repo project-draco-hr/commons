@@ -1,0 +1,2 @@
+def test_roots(self):
+    self.assert_console_output('common/a/BUILD:a', targets=[self.target('common/a')], extra_targets=[self.target('common/b')])

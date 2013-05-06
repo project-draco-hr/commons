@@ -1,0 +1,14 @@
+@classmethod
+def wait_for_accept(cls, port, timeout=Amount(5, Time.SECONDS)):
+    total_time = Amount(0, Time.SECONDS)
+    timeout = cls.MIN_RETRY
+    while (total_time < timeout):
+        try:
+            accepted_socket = socket.create_connection(('localhost', port), timeout=5.0)
+            accepted_socket.close()
+            return True
+        except socket.error:
+            total_time += timeout
+            time.sleep(timeout.as_(Time.SECONDS))
+            timeout *= 2
+    return False

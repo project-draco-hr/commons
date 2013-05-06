@@ -1,0 +1,8 @@
+{
+  if (normalizedLine.startsWith("*")) {
+    return new NativeResource(libPath,normalizedLine.substring(1),true,deleteOnExit);
+  }
+ else {
+    return new NativeResource(libPath,normalizedLine,false,deleteOnExit);
+  }
+}

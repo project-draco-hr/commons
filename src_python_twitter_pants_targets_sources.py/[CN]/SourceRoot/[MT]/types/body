@@ -1,0 +1,4 @@
+@staticmethod
+def types(root):
+    'Returns the set of target types rooted at root.'
+    return SourceRoot._TYPES_BY_ROOT[root]

@@ -1,0 +1,3 @@
+def test_list_documented(self):
+    self.assert_console_output(args=['--test-documented'], targets=[self.target('a/b')])
+    self.assert_console_output(dedent('\n      f/BUILD:alias\n        Exercises alias resolution.\n        Further description.\n      ').strip(), args=['--test-documented'])

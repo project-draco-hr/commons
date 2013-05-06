@@ -1,0 +1,3 @@
+{
+  return exposing(ImmutableList.of(key),module);
+}

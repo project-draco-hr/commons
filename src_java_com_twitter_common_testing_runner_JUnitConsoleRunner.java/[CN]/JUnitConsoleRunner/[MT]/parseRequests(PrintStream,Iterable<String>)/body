@@ -35,13 +35,26 @@ class TestMethod {
 catch (    ClassNotFoundException e) {
       notFoundError(spec,out,e);
     }
+catch (    LinkageError e) {
+      notFoundError(spec,out,e);
+    }
+catch (    RuntimeException e) {
+      notFoundError(spec,out,e);
+    }
   }
   List<Request> requests=Lists.newArrayList();
   if (!classes.isEmpty()) {
-    requests.add(Request.classes(classes.toArray(new Class<?>[classes.size()])));
+    if (this.perTestTimer || this.parallelThreads > 1) {
+      for (      Class<?> clazz : classes) {
+        requests.add(new AnnotatedClassRequest(clazz));
+      }
+    }
+ else {
+      requests.add(Request.classes(classes.toArray(new Class<?>[classes.size()])));
+    }
   }
   for (  TestMethod testMethod : testMethods) {
-    requests.add(Request.method(testMethod.clazz,testMethod.name));
+    requests.add(new AnnotatedClassRequest(testMethod.clazz).filterWith(Description.createTestDescription(testMethod.clazz,testMethod.name)));
   }
   return requests;
 }

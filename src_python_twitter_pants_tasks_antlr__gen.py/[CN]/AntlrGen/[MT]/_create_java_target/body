@@ -1,0 +1,14 @@
+def _create_java_target(self, target, dependees):
+    antlr_files_suffix = ['Lexer.java', 'Parser.java']
+    if (target.compiler == 'antlr4'):
+        antlr_files_suffix = (['BaseListener.java', 'BaseVisitor.java', 'Listener.java', 'Visitor.java'] + antlr_files_suffix)
+    generated_sources = []
+    for source in target.sources:
+        (source_base, source_ext) = os.path.splitext(source)
+        for suffix in antlr_files_suffix:
+            generated_sources.append((source_base + suffix))
+    deps = self._resolve_java_deps(target)
+    tgt = self.context.add_new_target(os.path.join(self._java_out(target), target.target_base), JavaLibrary, name=target.id, provides=target.provides, sources=generated_sources, dependencies=deps)
+    for dependee in dependees:
+        dependee.update_dependencies([tgt])
+    return tgt

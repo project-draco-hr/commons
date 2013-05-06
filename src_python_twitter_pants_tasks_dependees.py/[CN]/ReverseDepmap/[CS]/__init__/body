@@ -1,0 +1,4 @@
+def __init__(self, context):
+    ConsoleTask.__init__(self, context)
+    self._transitive = context.options.reverse_depmap_transitive
+    self._closed = context.options.reverse_depmap_closed

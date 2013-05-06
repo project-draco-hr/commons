@@ -1,0 +1,7 @@
+{
+  clock=new FakeClock();
+  sink=createMock(LogSink.class);
+  request=createMock(Request.class);
+  response=createMock(Response.class);
+  log=new RequestLogger(clock,sink);
+}

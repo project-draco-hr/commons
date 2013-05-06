@@ -1,0 +1,8 @@
+@identify_thread
+def _excepting_run(self, *args, **kw):
+    try:
+        self.__real_run(*args, **kw)
+    except (KeyboardInterrupt, SystemExit):
+        raise
+    except:
+        sys.excepthook(*sys.exc_info())

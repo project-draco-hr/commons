@@ -1,0 +1,27 @@
+def test_caching():
+    URL = 'http://www.google.com'
+    DATA = 'This is google.com!'
+    clock = ThreadedClock()
+    m = mox.Mox()
+    m.StubOutWithMock(os.path, 'getmtime')
+    os.path.getmtime(mox.IgnoreArg()).MultipleTimes().AndReturn(0)
+    m.ReplayAll()
+    opener = MockOpener(DATA)
+    web = CachedWeb(clock=clock, opener=opener)
+    assert (not os.path.exists(web.translate_url(URL)))
+    with contextlib.closing(web.open(URL)) as fp:
+        assert (fp.read() == DATA)
+    assert os.path.exists(web.translate_url(URL))
+    assert opener.opened.is_set()
+    opener.clear()
+    assert (web.expired(URL, ttl=0.5) is False)
+    clock.tick(1)
+    assert web.expired(URL, ttl=0.5)
+    with contextlib.closing(web.open(URL)) as fp:
+        assert (fp.read() == DATA)
+    assert (not opener.opened.is_set())
+    with contextlib.closing(web.open(URL, ttl=0.5)) as fp:
+        assert (fp.read() == DATA)
+    assert opener.opened.is_set(), 'expect expired url to cause http get'
+    m.UnsetStubs()
+    m.VerifyAll()

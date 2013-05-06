@@ -1,14 +1,15 @@
 @staticmethod
 def do_read(fp, decoder):
-    blob = fp.read(4)
-    if (len(blob) == 0):
-        log.debug(('%s has no data (cur offset = %d)' % (fp.name, fp.tell())))
+    '\n        Read a single record from the given filehandle and decode using the supplied decoder.\n\n        May raise:\n          RecordIO.PrematureEndOfStream if the stream is truncated in the middle of\n            an expected message\n          RecordIO.RecordSizeExceeded if the message exceeds RecordIO.MAXIMUM_RECORD_SIZE\n\n      '
+    header = fp.read(RecordIO.RECORD_HEADER_SIZE)
+    if (len(header) == 0):
+        log.debug(('%s has no data (current offset = %d)' % (fp.name, fp.tell())))
         fp.seek(fp.tell())
         return None
-    if (len(blob) != 4):
-        raise RecordIO.PrematureEndOfStream(('Expected 4 bytes, got %d' % len(blob)))
-    blob_len = struct.unpack('>L', blob)[0]
-    if (blob_len > RecordIO.SANITY_CHECK_BYTES):
+    elif (len(header) != RecordIO.RECORD_HEADER_SIZE):
+        raise RecordIO.PrematureEndOfStream(('Expected %d bytes, got %d' % (RecordIO.RECORD_HEADER_SIZE, len(header))))
+    blob_len = struct.unpack('>L', header)[0]
+    if (blob_len > RecordIO.MAXIMUM_RECORD_SIZE):
         raise RecordIO.RecordSizeExceeded()
     read_blob = fp.read(blob_len)
     if (len(read_blob) != blob_len):

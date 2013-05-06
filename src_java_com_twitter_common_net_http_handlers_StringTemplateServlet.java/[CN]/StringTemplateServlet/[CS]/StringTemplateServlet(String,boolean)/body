@@ -1,11 +1,3 @@
 {
-  MorePreconditions.checkNotBlank(templateName);
-  String templatePath=getClass().getPackage().getName().replace('.','/') + "/" + templateName;
-  StringTemplateGroup group=new StringTemplateGroup(templateName);
-  Preconditions.checkNotNull(group.getInstanceOf(templatePath),"Failed to load template at: %s",templatePath);
-  this.group=group;
-  if (!cacheTemplates) {
-    group.setRefreshInterval(0);
-  }
-  this.templatePath=templatePath;
+  templateHelper=new StringTemplateHelper(getClass(),templateName,cacheTemplates);
 }

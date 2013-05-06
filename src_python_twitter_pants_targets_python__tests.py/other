@@ -1,2 +1,3 @@
+from twitter.common.collections import maybe_list
 from twitter.common.quantity import Amount, Time
 from twitter.pants.targets.python_target import PythonTarget

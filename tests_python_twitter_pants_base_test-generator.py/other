@@ -1,3 +1,0 @@
-__author__ = 'John Sirois'
-from twitter.pants.base.generator import TemplateData
-import unittest

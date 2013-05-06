@@ -1,7 +1,7 @@
-def __init__(self, name, sources, resources=None, dependencies=None, timeout=Amount(2, Time.MINUTES), soft_dependencies=False):
-    '\n      name / sources / resources / dependencies: See PythonLibrary target\n\n      timeout: Amount of time before this test should be considered timed-out\n                [Default: 2 minutes]\n      soft_dependencies: Whether or not we should ignore dependency resolution\n                         errors for this test.  [Default: False]\n    '
+def __init__(self, name, sources, resources=None, dependencies=None, timeout=Amount(2, Time.MINUTES), coverage=None, soft_dependencies=False):
+    "\n      name / sources / resources / dependencies: See PythonLibrary target\n\n      timeout: Amount of time before this test should be considered timed-out\n                [Default: 2 minutes]\n      soft_dependencies: Whether or not we should ignore dependency resolution\n                         errors for this test.  [Default: False]\n      coverage: the module(s) whose coverage should be generated, e.g.\n                'twitter.common.log' or ['twitter.common.log', 'twitter.common.http']\n    "
     self._timeout = timeout
     self._soft_dependencies = bool(soft_dependencies)
+    self._coverage = (maybe_list(coverage) if (coverage is not None) else [])
     PythonTarget.__init__(self, name, sources, resources, dependencies)
-    self.add_label('python')
-    self.add_label('tests')
+    self.add_labels('python', 'tests')

@@ -1,0 +1,4 @@
+{
+  ThrowableInformation throwableInformation=record.getThrowableInformation();
+  return throwableInformation != null ? throwableInformation.getThrowable() : null;
+}

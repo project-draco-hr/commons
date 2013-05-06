@@ -3,8 +3,8 @@
     return backoffHelper.doUntilResult(new Supplier<ServiceInstance>(){
       @Override public ServiceInstance get(){
         try {
-          byte[] data=zkClient.get().getData(nodePath,serviceInstanceWatcher,null);
-          return codec.deserialize(new ByteArrayInputStream(data));
+          byte[] data=zkClient.get().getData(nodePath,false,null);
+          return ServerSets.deserializeServiceInstance(data,codec);
         }
  catch (        InterruptedException e) {
           Thread.currentThread().interrupt();

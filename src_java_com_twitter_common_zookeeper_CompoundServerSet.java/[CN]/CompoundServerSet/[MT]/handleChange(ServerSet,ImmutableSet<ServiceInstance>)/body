@@ -1,0 +1,10 @@
+{
+  instanceCache.put(serverSet,hosts);
+  ImmutableSet<ServiceInstance> currentHosts=ImmutableSet.copyOf(Iterables.concat(instanceCache.values()));
+  if (!currentHosts.equals(allHosts)) {
+    allHosts=currentHosts;
+    for (    HostChangeMonitor<ServiceInstance> monitor : monitors) {
+      monitor.onChange(allHosts);
+    }
+  }
+}

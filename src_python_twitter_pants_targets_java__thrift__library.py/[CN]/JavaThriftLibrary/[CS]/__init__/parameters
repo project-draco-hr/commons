@@ -4,5 +4,8 @@ sources
 provides
 dependencies
 excludes
+compiler
+language
+rpc_style
+namespace_map
 buildflags
-is_meta

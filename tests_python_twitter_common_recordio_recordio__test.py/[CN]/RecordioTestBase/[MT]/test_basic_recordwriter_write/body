@@ -1,0 +1,8 @@
+def test_basic_recordwriter_write(self):
+    test_string = 'hello world'
+    with self.EphemeralFile('r+') as fp:
+        rw = RecordWriter(fp)
+        rw.write(test_string)
+        fp.seek(0)
+        rr = RecordReader(fp)
+        assert (rr.read() == test_string)

@@ -1,6 +1,6 @@
 def _mapjars(self, genmap, target):
     '\n    Parameters:\n      genmap: the jar_dependencies ProductMapping entry for the required products.\n      target: the target whose jar dependencies are being retrieved.\n    '
-    mapdir = os.path.join(self._classpath_dir, target.id)
+    mapdir = os.path.join(self._mapto_dir(), target.id)
     safe_mkdir(mapdir, clean=True)
     ivyargs = ['-retrieve', ('%s/[organisation]/[artifact]/[conf]/[organisation]-[artifact]-[revision](-[classifier]).[ext]' % mapdir), '-symlink', '-confs']
     ivyargs.extend((target.configurations or self._confs))
@@ -14,7 +14,7 @@ def _mapjars(self, genmap, target):
                     for conf in os.listdir(artifactdir):
                         confdir = os.path.join(artifactdir, conf)
                         for file in os.listdir(confdir):
-                            if self._is_jar(file):
+                            if self._map_jar(file):
                                 genmap.add(org, confdir).append(file)
                                 genmap.add((org, name), confdir).append(file)
                                 genmap.add(target, confdir).append(file)

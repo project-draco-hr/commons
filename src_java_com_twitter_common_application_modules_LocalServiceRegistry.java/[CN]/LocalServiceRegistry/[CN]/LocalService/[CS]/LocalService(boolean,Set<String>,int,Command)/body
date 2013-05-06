@@ -1,0 +1,6 @@
+{
+  this.primary=primary;
+  this.names=names;
+  this.port=port;
+  this.shutdownCommand=Preconditions.checkNotNull(shutdownCommand);
+}

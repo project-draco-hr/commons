@@ -1,0 +1,3 @@
+@abstractmethod
+def changed_files(self, from_commit=None, include_untracked=False):
+    'Returns a list of files with uncommitted changes or else files changed since from_commit.\n\n    If include_untracked=True then any workspace files that are un-tracked by the scm and not\n    ignored will be included as well.\n    '

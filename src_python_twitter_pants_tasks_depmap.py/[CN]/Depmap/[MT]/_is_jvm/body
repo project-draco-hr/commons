@@ -1,0 +1,3 @@
+@staticmethod
+def _is_jvm(dep):
+    return (is_jvm(dep) or is_jvm_app(dep))

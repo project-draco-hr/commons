@@ -1,4 +1,5 @@
 {
-  super(inputStream.cloneAttributes());
+  super(Preconditions.checkNotNull(inputStream));
   this.inputStream=inputStream;
+  this.inputProcessor=(inputStream instanceof TokenProcessor) ? (TokenProcessor)inputStream : null;
 }

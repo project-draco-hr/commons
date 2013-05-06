@@ -1,0 +1,10 @@
+{
+  AtomicLong firstExport=Stats.exportLong("somevar");
+  firstExport.incrementAndGet();
+  firstExport.incrementAndGet();
+  assertCounter("somevar",2L);
+  AtomicLong secondExport=Stats.exportLong("somevar");
+  assertNotSame(firstExport,secondExport);
+  secondExport.incrementAndGet();
+  assertCounter("somevar",2L);
+}

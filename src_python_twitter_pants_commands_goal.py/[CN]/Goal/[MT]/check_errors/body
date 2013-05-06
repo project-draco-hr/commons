@@ -6,7 +6,7 @@ def check_errors(self, banner):
         (exc_type, exc_value, _) = sys.exc_info()
         msg = StringIO()
         if include_traceback:
-            frame = inspect.trace()[(-1)]
+            frame = inspect.trace()[(-2)]
             filename = frame[1]
             lineno = frame[2]
             funcname = frame[3]

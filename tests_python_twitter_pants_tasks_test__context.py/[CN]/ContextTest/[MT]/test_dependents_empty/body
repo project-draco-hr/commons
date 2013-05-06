@@ -1,4 +1,4 @@
 def test_dependents_empty(self):
-    context = Context(ContextTest.config, options={}, target_roots=[])
+    context = self.create_context(options={}, target_roots=[])
     dependees = context.dependents()
     self.assertEquals(0, len(dependees))

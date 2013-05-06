@@ -5,7 +5,7 @@
   assertHasNotLoggedToStderr();
   assertHasLoggedToFile();
   resetLogs();
-  getConfig().alsoLogToStderr(true).apply();
+  getConfig().alsoLogToStderr(true).build().apply();
   resetLogs();
   testLogger.severe("Severe");
   assertHasLoggedToStderr();

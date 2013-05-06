@@ -9,4 +9,4 @@ def _request(self, method, path, body=None):
     elif (response.status == 404):
         return None
     else:
-        raise ArtifactCacheError(('Failed to %s %s. Error: %d %s' % (method, self._url_string(path), response.status, response.reason)))
+        raise self.CacheError(('Failed to %s %s. Error: %d %s' % (method, self._url_string(path), response.status, response.reason)))

@@ -1,0 +1,29 @@
+{
+  int totalWeight=leftWeight + rightWeight;
+  int halfTotalWeight=(totalWeight / 2) - 1;
+  int cnt=0;
+  int i=0;
+  int j=0;
+  int k=0;
+  int weight;
+  long smallest;
+  while (i < left.length || j < right.length) {
+    if (i < left.length && (j == right.length || left[i] < right[j])) {
+      smallest=left[i];
+      weight=leftWeight;
+      i++;
+    }
+ else {
+      smallest=right[j];
+      weight=rightWeight;
+      j++;
+    }
+    int cur=(cnt + halfTotalWeight) / totalWeight;
+    cnt+=weight;
+    int next=(cnt + halfTotalWeight) / totalWeight;
+    for (; cur < next; cur++) {
+      output[k]=smallest;
+      k++;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(delimiterPattern);
+  Preconditions.checkArgument(punctuationGroup >= 0);
+  tokenizer.setDelimiterPattern(delimiterPattern);
+  tokenizer.setPunctuationGroupInDelimiterPattern(punctuationGroup);
+  tokenizer.setKeepPunctuation(keepPunctuation);
+}

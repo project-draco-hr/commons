@@ -1,2 +1,0 @@
-def _format_instances(instances):
-    return ', '.join((('%s:%s' % (i.serviceEndpoint.host, i.serviceEndpoint.port)) for i in instances))

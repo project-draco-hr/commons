@@ -1,5 +1,3 @@
-__author__ = 'John Sirois'
-import StringIO
 import os
 import re
 import signal
@@ -9,9 +7,9 @@ import time
 from twitter.common import log
 from twitter.common.dirutil import safe_open
 from twitter.common.python.platforms import Platform
-from twitter.pants import get_buildroot
+from twitter.pants import binary_util, get_buildroot
 from twitter.pants.java import NailgunClient, NailgunError
-from twitter.pants.tasks import binary_utils, Task
+from twitter.pants.tasks import Task
 plat = Platform.current()
 if (plat.startswith('linux') or plat.startswith('macosx')):
 

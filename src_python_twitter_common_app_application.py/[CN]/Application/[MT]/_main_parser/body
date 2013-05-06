@@ -1,0 +1,2 @@
+def _main_parser(self):
+    return options.parser().interspersed_arguments(self._interspersed_args).options(self._main_options).usage(self._usage)

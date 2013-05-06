@@ -1,0 +1,7 @@
+{
+  Preconditions.checkNotNull(libPath);
+  Preconditions.checkArgument(libPath.exists() || libPath.mkdirs(),"%s does not exist and failed to create it",libPath);
+  Preconditions.checkArgument(libPath.canWrite(),"%s exists but cannot write to it",libPath);
+  this.libPath=libPath;
+  this.deleteExtractedOnExit=deleteExtractedOnExit;
+}

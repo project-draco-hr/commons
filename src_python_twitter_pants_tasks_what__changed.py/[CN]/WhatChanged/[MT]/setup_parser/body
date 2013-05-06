@@ -1,0 +1,5 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    super(WhatChanged, cls).setup_parser(option_group, args, mkflag)
+    option_group.add_option(mkflag('parent'), dest='what_changed_create_prefix', default='HEAD', help='[%default] Identifies the parent tree-ish to calculate changes against.')
+    option_group.add_option(mkflag('files'), mkflag('files', negate=True), default=False, action='callback', callback=mkflag.set_bool, dest='what_changed_show_files', help='[%default] Shows changed files instead of the targets that own them.')

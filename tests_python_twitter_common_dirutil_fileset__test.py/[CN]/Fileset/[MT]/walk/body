@@ -1,0 +1,12 @@
+@classmethod
+def walk(cls, path=None, allow_dirs=False, follow_links=False):
+    for filename in cls.FILELIST:
+        if isinstance(filename, Exception):
+            raise filename
+        elif filename.endswith('/'):
+            path = os.path.normpath(filename)
+            if allow_dirs:
+                yield path
+                yield (path + '/')
+        else:
+            yield os.path.normpath(filename)

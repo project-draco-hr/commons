@@ -1,0 +1,11 @@
+def emit(self, record):
+    'Emit a record via Scribe.'
+    fmt_record = self.format(record)
+    self._log_buffer.append(scribe.LogEntry(category=self._category, message=fmt_record))
+    try:
+        self.scribe_write(self._log_buffer)
+    except self.ScribeHandlerException:
+        if (not self._buffer_enabled):
+            self._log_buffer = []
+    else:
+        self._log_buffer = []

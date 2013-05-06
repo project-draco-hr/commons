@@ -1,6 +1,6 @@
 def register(self):
-    existing = Target._targets_by_address.get(self.address)
+    existing = self._targets_by_address.get(self.address)
     if (existing and (existing.address.buildfile != self.address.buildfile)):
-        raise KeyError(('%s already defined in a sibling BUILD file: %s' % (self.address, existing.address)))
-    Target._targets_by_address[self.address] = self
-    Target._addresses_by_buildfile[self.address.buildfile].add(self.address)
+        raise KeyError(('%s defined in %s already defined in a sibling BUILD file: %s' % (self.address, self.address.buildfile.full_path, existing.address.buildfile.full_path)))
+    self._targets_by_address[self.address] = self
+    self._addresses_by_buildfile[self.address.buildfile].add(self.address)

@@ -1,0 +1,2 @@
+def _mac_open(files):
+    subprocess.call((['open'] + list(files)))

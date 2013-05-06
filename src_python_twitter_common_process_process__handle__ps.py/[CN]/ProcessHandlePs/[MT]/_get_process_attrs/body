@@ -1,7 +1,0 @@
-def _get_process_attrs(self, attrs):
-    try:
-        data = os.popen(('ps -p %s -o %s' % (self._pid, ','.join(attrs)))).readlines()
-        if (len(data) > 1):
-            return data[(-1)]
-    except:
-        return None

@@ -1,1 +1,3 @@
 self
+zookeeper_port
+thrift_port

@@ -1,4 +1,5 @@
 {
+  sum+=n;
   stats.accumulate(n);
   histogram.add(n);
 }

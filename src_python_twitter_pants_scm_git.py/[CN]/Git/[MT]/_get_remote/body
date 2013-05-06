@@ -1,0 +1,11 @@
+def _get_remote(self):
+    branch = self.branch_name
+    if (not branch):
+        raise Scm.LocalException('Failed to determine local branch')
+
+    def get_local_config(key):
+        value = self._check_output(['config', '--local', '--get', key], raise_type=Scm.LocalException)
+        return value.strip()
+    self._remote = (self._remote or get_local_config(('branch."%s".remote' % branch)))
+    self._branch = (self._branch or get_local_config(('branch."%s".merge' % branch)))
+    return (self._remote, self._branch)

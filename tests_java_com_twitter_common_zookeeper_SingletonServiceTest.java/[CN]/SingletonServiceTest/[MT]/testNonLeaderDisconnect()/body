@@ -1,0 +1,31 @@
+{
+  CountDownLatch elected=new CountDownLatch(1);
+  listener.onLeading(EasyMock.<LeaderControl>anyObject());
+  expectLastCall().andAnswer(countDownAnswer(elected));
+  listener.onDefeated(null);
+  expectLastCall().anyTimes();
+  control.replay();
+  ZooKeeperClient zkClient=createZkClient();
+  String path="/fake/path";
+  ZooKeeperUtils.ensurePath(zkClient,ZooKeeperUtils.OPEN_ACL_UNSAFE,path);
+  String leaderNode=zkClient.get().create(path + "/" + SingletonService.LEADER_ELECT_NODE_PREFIX,"fake_leader".getBytes(),ZooKeeperUtils.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT_SEQUENTIAL);
+  serverSet=new ServerSetImpl(zkClient,path);
+  candidate=SingletonService.createSingletonCandidate(zkClient,path,ZooKeeperUtils.OPEN_ACL_UNSAFE);
+  DefeatOnDisconnectLeader leader=new DefeatOnDisconnectLeader(zkClient,listener);
+  service=new SingletonService(serverSet,candidate);
+  service.lead(InetSocketAddress.createUnresolved("foo",PORT_A),ImmutableMap.of("http-admin",InetSocketAddress.createUnresolved("foo",PORT_B)),leader);
+  final CountDownLatch disconnected=new CountDownLatch(1);
+  zkClient.register(new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if ((event.getType() == EventType.None) && (event.getState() == KeeperState.Disconnected)) {
+        disconnected.countDown();
+      }
+    }
+  }
+);
+  shutdownNetwork();
+  disconnected.await();
+  restartNetwork();
+  zkClient.get().delete(leaderNode,ZooKeeperUtils.ANY_VERSION);
+  elected.await();
+}

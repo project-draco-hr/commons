@@ -1,5 +1,2 @@
 def use_cached_files(self, cache_key):
-    for cache in self._artifact_caches:
-        if cache.use_cached_files(cache_key):
-            return True
-    return False
+    return any((cache.use_cached_files(cache_key) for cache in self._artifact_caches))

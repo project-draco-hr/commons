@@ -1,0 +1,8 @@
+def generate_coverage_config(target):
+    cp = configparser.ConfigParser()
+    cp.readfp(Compatibility.StringIO(DEFAULT_COVERAGE_CONFIG))
+    cp.add_section('html')
+    target_dir = os.path.join(Config.load().getdefault('pants_distdir'), 'coverage', os.path.dirname(target.address.buildfile.relpath), target.name)
+    safe_mkdir(target_dir)
+    cp.set('html', 'directory', target_dir)
+    return cp

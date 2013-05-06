@@ -1,0 +1,2 @@
+def test_python_library(self):
+    self.assert_console_raises(TaskError, targets=[self.target('common/d')])

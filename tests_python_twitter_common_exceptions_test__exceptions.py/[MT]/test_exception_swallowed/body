@@ -1,0 +1,7 @@
+def test_exception_swallowed():
+    with exception_handler() as queue:
+        thread = TestDefaultThread()
+        thread.start()
+        thread.join()
+        assert queue.empty()
+    assert (sys.excepthook == sys.__excepthook__)

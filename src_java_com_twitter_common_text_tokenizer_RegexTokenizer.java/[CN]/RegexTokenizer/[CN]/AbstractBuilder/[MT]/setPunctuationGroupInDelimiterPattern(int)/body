@@ -1,4 +1,4 @@
 {
-  tokenizer.setPunctuationGroupInDelimiterPattern(group);
+  this.punctuationGroup=group;
   return self();
 }

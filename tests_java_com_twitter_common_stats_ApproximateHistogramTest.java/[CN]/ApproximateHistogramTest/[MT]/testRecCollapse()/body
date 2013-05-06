@@ -1,0 +1,20 @@
+{
+  long[] empty={0,0,0,0,0,0,0,0,0,0};
+  long[] full={1,1,1,1,1,1,1,1,1,1};
+  ApproximateHistogram hist=new ApproximateHistogram();
+  hist.init(b,h);
+  assertArrayEquals(empty,hist.buffer[0]);
+  assertArrayEquals(empty,hist.buffer[1]);
+  addToHist(hist,b);
+  assertArrayEquals(full,hist.buffer[0]);
+  assertArrayEquals(empty,hist.buffer[1]);
+  addToHist(hist,b);
+  assertArrayEquals(full,hist.buffer[0]);
+  assertArrayEquals(full,hist.buffer[1]);
+  hist.add(1);
+  assertEquals(2,hist.currentTop);
+  assertArrayEquals(full,hist.buffer[2]);
+  addToHist(hist,2 * b);
+  assertEquals(3,hist.currentTop);
+  assertArrayEquals(full,hist.buffer[3]);
+}

@@ -1,0 +1,15 @@
+{
+  ServiceInstanceSchema output=gson.fromJson(new InputStreamReader(source,ENCODING),CLASS);
+  Endpoint primary=new Endpoint(output.getServiceEndpoint().getHost(),output.getServiceEndpoint().getPort());
+  Map<String,Endpoint> additional=Maps.transformValues(output.getAdditionalEndpoints(),new Function<EndpointSchema,Endpoint>(){
+    @Override public Endpoint apply(    EndpointSchema endpoint){
+      return new Endpoint(endpoint.getHost(),endpoint.getPort());
+    }
+  }
+);
+  ServiceInstance instance=new ServiceInstance(primary,ImmutableMap.copyOf(additional),output.getStatus());
+  if (output.getShard() != null) {
+    instance.setShard(output.getShard());
+  }
+  return instance;
+}

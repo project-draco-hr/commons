@@ -3,5 +3,9 @@
   this.port=port;
   this.shutdownRegistry=Preconditions.checkNotNull(shutdownRegistry);
   this.defaultSessionTimeout=Preconditions.checkNotNull(defaultSessionTimeout);
-  zooKeeperServer=new ZooKeeperServer(new FileTxnSnapLog(createTempDir(),createTempDir()),new BasicDataTreeBuilder());
+  zooKeeperServer=new ZooKeeperServer(new FileTxnSnapLog(createTempDir(),createTempDir()),new BasicDataTreeBuilder()){
+    @Override protected void registerJMX(){
+    }
+  }
+;
 }

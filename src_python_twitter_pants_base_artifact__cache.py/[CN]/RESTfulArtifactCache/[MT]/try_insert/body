@@ -1,11 +1,10 @@
 def try_insert(self, cache_key, build_artifacts):
-    path = self._path_for_key(cache_key)
-    with temporary_file() as tarfile:
+    with temporary_file_path() as tarfile:
         mode = ('w:bz2' if self.compress else 'w')
         with open_tar(tarfile, mode, dereference=True) as tarout:
             for artifact in build_artifacts:
                 tarout.add(artifact, os.path.relpath(artifact, self.artifact_root))
-        tarfile.close()
-        with open(tarfile.name, 'rb') as infile:
+        with open(tarfile, 'rb') as infile:
+            path = self._path_for_key(cache_key)
             if (not self._request('PUT', path, body=infile)):
-                raise ArtifactCacheError(('Failed to PUT to %s. Error: 404' % self._url_string(path)))
+                raise self.CacheError(('Failed to PUT to %s. Error: 404' % self._url_string(path)))

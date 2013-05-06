@@ -1,19 +1,28 @@
 def run(self, lock):
     if self.options.dry_run:
-        print '****** Dry Run ******'
+        print('****** Dry Run ******')
     logger = None
     if (self.options.log or self.options.log_level):
-        from twitter.common.log import init
-        from twitter.common.log.options import LogOptions
-        LogOptions.set_stderr_log_level((self.options.log_level or 'info').upper())
+        log.LogOptions.set_stderr_log_level((self.options.log_level or 'info').upper())
         logdir = (self.options.logdir or self.config.get('goals', 'logdir', default=None))
         if logdir:
             safe_mkdir(logdir)
-            LogOptions.set_log_dir(logdir)
-            init('goals')
+            log.LogOptions.set_log_dir(logdir)
+            log.init('goals')
         else:
-            init()
+            log.init()
         logger = log
+        if (not self.options.no_color):
+
+            def colorwrapper(func, clrname):
+
+                @wraps(func)
+                def wrapper(msg, *args, **kwargs):
+                    return func(clrname(msg), *args, **kwargs)
+                return wrapper
+            log.info = colorwrapper(log.info, green)
+            log.warn = colorwrapper(log.warn, yellow)
+            log.debug = colorwrapper(log.debug, cyan)
     if self.options.recursive_directory:
         log.warn('--all-recursive is deprecated, use a target spec with the form [dir]:: instead')
         for dir in self.options.recursive_directory:
@@ -28,11 +37,11 @@ def run(self, lock):
         if (not phase.goals()):
             unknown.append(phase)
     if unknown:
-        print ('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown)))
-        print ''
+        print(('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown))))
+        print('')
         return Phase.execute(context, 'goals')
     if logger:
-        logger.debug('Operating on targets: %s', self.targets)
+        logger.debug(('Operating on targets: %s' % self.targets))
     ret = Phase.attempt(context, self.phases)
     if (self.options.cleanup_nailguns or self.config.get('nailgun', 'autokill', default=False)):
         if log:
@@ -40,7 +49,7 @@ def run(self, lock):
         if NailgunTask.killall:
             NailgunTask.killall(log)
     if self.options.time:
-        print 'Timing report'
-        print '============='
+        print('Timing report')
+        print('=============')
         self.timer.print_timings()
     return ret

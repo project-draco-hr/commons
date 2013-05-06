@@ -1,5 +1,2 @@
 def has(self, cache_key):
-    for cache in self._artifact_caches:
-        if cache.has(cache_key):
-            return True
-    return False
+    return any((cache.has(cache_key) for cache in self._artifact_caches))

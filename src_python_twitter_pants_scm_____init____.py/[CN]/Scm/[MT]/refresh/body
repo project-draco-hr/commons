@@ -1,0 +1,3 @@
+@abstractmethod
+def refresh(self):
+    'Refreshes the local workspace with any changes on the server.\n\n    Subclasses should raise some form of ScmException to indicate a refresh error whether it be\n    a conflict or a communication channel error.\n    '

@@ -1,0 +1,4 @@
+def mkdir_suppress_err(self, path):
+    '\n    Creates a directory if it does not exists\n    '
+    if (not self.exists(path)):
+        return self.mkdir(path)

@@ -1,0 +1,4 @@
+{
+  LocationInfo locationInformation=record.getLocationInformation();
+  return (locationInformation != null) ? record.getLocationInformation().getMethodName() : null;
+}

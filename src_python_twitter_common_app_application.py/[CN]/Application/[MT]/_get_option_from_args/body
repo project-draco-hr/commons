@@ -2,4 +2,4 @@ def _get_option_from_args(self, args, kwargs):
     if ((len(args) == 1) and (kwargs == {}) and isinstance(args[0], options.Option)):
         return args[0]
     else:
-        return options.Option(*args, **kwargs)
+        return options.TwitterOption(*args, **kwargs)

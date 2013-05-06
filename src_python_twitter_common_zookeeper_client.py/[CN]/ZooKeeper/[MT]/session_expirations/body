@@ -1,0 +1,3 @@
+@property
+def session_expirations(self):
+    return self._gauge_session_expirations.read()

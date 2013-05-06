@@ -1,0 +1,5 @@
+{
+  N tokenizer=buildTokenizer(attributeSource);
+  initialize(tokenizer);
+  return tokenizer;
+}

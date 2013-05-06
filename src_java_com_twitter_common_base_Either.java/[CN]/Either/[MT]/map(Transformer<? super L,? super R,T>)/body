@@ -1,0 +1,8 @@
+{
+  if (isLeft()) {
+    return transformer.mapLeft(getLeft());
+  }
+ else {
+    return transformer.mapRight(getRight());
+  }
+}

@@ -3,8 +3,6 @@ def _parse_options(self, force_args=None):
     argv = (sys.argv[1:] if (force_args is None) else force_args)
     if (argv and (argv[0] in self._commands)):
         self._command = argv.pop(0)
-    elif (None in self._commands):
-        self._command = self._commands[None].__name__
     else:
         self._command = None
     parser = self._construct_full_parser()

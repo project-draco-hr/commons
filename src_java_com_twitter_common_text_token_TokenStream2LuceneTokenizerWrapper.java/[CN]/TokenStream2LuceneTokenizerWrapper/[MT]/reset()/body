@@ -1,0 +1,4 @@
+{
+  clearAttributes();
+  inputStream.reset(IOUtils.toString(input));
+}

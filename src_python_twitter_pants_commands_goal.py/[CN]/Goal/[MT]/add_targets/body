@@ -1,7 +1,0 @@
-def add_targets(self, error, dir, buildfile):
-    try:
-        self.targets.extend((Target.get(addr) for addr in Target.get_all_addresses(buildfile)))
-    except (TypeError, ImportError):
-        error(dir, include_traceback=True)
-    except (IOError, SyntaxError):
-        error(dir)

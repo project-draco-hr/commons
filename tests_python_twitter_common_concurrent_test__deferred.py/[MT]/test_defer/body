@@ -1,0 +1,12 @@
+def test_defer():
+    clock = ThreadedClock()
+    DELAY = 3
+    results = Queue(maxsize=1)
+
+    def func():
+        results.put_nowait('success')
+    defer(func, delay=DELAY, clock=clock)
+    with Timer(clock=clock) as timer:
+        clock.tick(4)
+        assert (results.get() == 'success')
+    assert (timer.elapsed >= DELAY)

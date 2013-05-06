@@ -1,2 +1,2 @@
 def cpu_time(self):
-    return self.get('time')
+    return (self.get('time') or 0.0)

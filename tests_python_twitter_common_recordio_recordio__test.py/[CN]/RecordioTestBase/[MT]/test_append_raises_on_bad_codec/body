@@ -1,0 +1,4 @@
+def test_append_raises_on_bad_codec(self):
+    fn = tempfile.mktemp()
+    with pytest.raises(RecordIO.InvalidCodec):
+        RecordIO.Writer.append(fn, 'hello world!', 'not a codec!')

@@ -1,6 +1,6 @@
 def get(self):
-    '\n      De-reference this pants pointer to a single target.  If the pointer aliases more than one\n      target a LookupError is raised.\n    '
-    resolved = list(self.resolve())
+    'De-reference this pants pointer to a single target.\n\n    If the pointer aliases more than one target a LookupError is raised.\n    '
+    resolved = list(filter(is_concrete, self.resolve()))
     if (len(resolved) > 1):
         raise LookupError(('%s points to more than one target: %s' % (self, resolved)))
     return resolved.pop()

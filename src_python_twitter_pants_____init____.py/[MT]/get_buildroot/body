@@ -1,15 +1,16 @@
 def get_buildroot():
-    global _BUILD_ROOT
-    if (not _BUILD_ROOT):
+    'Returns the pants ROOT_DIR, calculating it if needed.'
+    global _BUILDROOT
+    if (not _BUILDROOT):
         if ('PANTS_BUILD_ROOT' in os.environ):
-            _BUILD_ROOT = os.path.realpath(os.environ['PANTS_BUILD_ROOT'])
+            set_buildroot(os.environ['PANTS_BUILD_ROOT'])
         else:
-            build_root = os.path.abspath(os.getcwd())
-            while (not os.path.exists(os.path.join(build_root, '.git'))):
-                if (build_root != os.path.dirname(build_root)):
-                    build_root = os.path.dirname(build_root)
+            buildroot = os.path.abspath(os.getcwd())
+            while (not os.path.exists(os.path.join(buildroot, 'pants.ini'))):
+                if (buildroot != os.path.dirname(buildroot)):
+                    buildroot = os.path.dirname(buildroot)
                 else:
-                    print('Could not find .git root!', file=sys.stderr)
+                    print('Could not find pants.ini!', file=sys.stderr)
                     sys.exit(1)
-            _BUILD_ROOT = os.path.realpath(build_root)
-    return _BUILD_ROOT
+            set_buildroot(buildroot)
+    return _BUILDROOT

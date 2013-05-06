@@ -1,0 +1,4 @@
+def execute(self, targets):
+    exit_code = runjava_indivisible(jvmargs=self.java_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main='com.google.caliper.Runner', opts=self.caliper_args)
+    if (exit_code != 0):
+        raise TaskError()

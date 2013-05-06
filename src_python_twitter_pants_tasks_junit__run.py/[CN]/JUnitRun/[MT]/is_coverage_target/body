@@ -1,0 +1,2 @@
+def is_coverage_target(self, tgt):
+    return ((is_java(tgt) or is_scala(tgt)) and (not is_test(tgt)) and (not is_codegen(tgt)))

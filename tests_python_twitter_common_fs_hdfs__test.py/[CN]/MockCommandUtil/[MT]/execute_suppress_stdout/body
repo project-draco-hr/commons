@@ -1,0 +1,3 @@
+@staticmethod
+def execute_suppress_stdout(cmd):
+    return MockCommandUtil.execute(cmd, get_output=False)

@@ -1,0 +1,3 @@
+def safe_size(path, on_error=None):
+    '\n    Safely get the size of a file:\n      - the size of symlinks are treated as the length of the symlink\n      - the size of regular files / directories are treated as such\n      - the size of all other files are zero (sockets, dev, etc.)\n      - the size of sparse files are estimated based upon st_blocks * st_blksize\n\n    A callable on_error may be supplied that will be called with\n    on_error(path, exception) if an OSError is raised by the stat (e.g.\n    permission denied or file does not exist.)  In this case, safe_size will\n    return with zero.\n  '
+    return _size_base(path, on_error=on_error, calculate_usage=_calculate_size)

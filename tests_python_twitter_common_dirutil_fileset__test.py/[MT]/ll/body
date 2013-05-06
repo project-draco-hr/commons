@@ -1,0 +1,2 @@
+def ll(foo):
+    return len(list(foo))

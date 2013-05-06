@@ -1,5 +1,5 @@
 {
-  return new Amount<Float,U>(number,unit){
+  return new Amount<Float,U>(number,unit,Float.MAX_VALUE){
     @Override protected Float scale(    double multiplier){
       return (float)(getValue() * multiplier);
     }

@@ -1,0 +1,4 @@
+def print_stderr(message):
+    'Emit a message on standard error if logging to stderr is permitted.'
+    if (LogOptions.stderr_log_level() != LogOptions.LOG_LEVEL_NONE):
+        print(message, file=sys.stderr)

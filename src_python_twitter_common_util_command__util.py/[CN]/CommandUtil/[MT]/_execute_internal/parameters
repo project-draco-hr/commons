@@ -1,0 +1,6 @@
+cmd
+log_std_out
+log_std_err
+log_cmd
+also_output_to_file
+return_output

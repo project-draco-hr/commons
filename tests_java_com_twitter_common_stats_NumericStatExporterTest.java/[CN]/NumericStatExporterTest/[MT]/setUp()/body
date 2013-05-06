@@ -1,0 +1,7 @@
+{
+  when(mockRecordingStat.getName()).thenReturn(MOCK_STAT_NAME);
+  when(mockRecordingStat.read()).thenReturn(MOCK_STAT_READ_VALUE);
+  when(mockRecordingStat.sample()).thenReturn(MOCK_STAT_SAMPLED_VALUE);
+  Stats.export(mockRecordingStat);
+  numericStatExporter=new NumericStatExporter(mockExportSink,mockExecutor,TEST_EXPORT_INTERVAL);
+}

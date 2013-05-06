@@ -26,13 +26,13 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
         if (target not in analyzed):
             analyzed.add(target)
             self.has_scala = ((not self.skip_scala) and (self.has_scala or is_scala(target)))
-            if (isinstance(target, JavaLibrary) or isinstance(target, ScalaLibrary)):
-                resources = set()
-                if target.resources:
-                    resources.update(target.resources)
-                if resources:
+            if has_resources(target):
+                resources_by_basedir = defaultdict(set)
+                for resources in target.resources:
+                    resources_by_basedir[resources.target_base].update(resources.sources)
+                for (basedir, resources) in resources_by_basedir.items():
                     self.resource_extensions.update(Project.extract_resource_extensions(resources))
-                    configure_source_sets(target.sibling_resources_base, resources, is_test=False)
+                    configure_source_sets(basedir, resources, is_test=False)
             if target.sources:
                 test = is_test(target)
                 self.has_tests = (self.has_tests or test)

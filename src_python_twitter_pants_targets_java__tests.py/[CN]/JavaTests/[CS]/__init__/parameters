@@ -3,5 +3,5 @@ name
 sources
 dependencies
 excludes
+resources
 buildflags
-is_meta

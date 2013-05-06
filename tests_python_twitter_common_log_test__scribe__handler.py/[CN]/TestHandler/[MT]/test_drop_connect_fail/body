@@ -1,0 +1,9 @@
+@unittest.skipUnless(_SCRIBE_PRESENT, 'Scribe Modules Not Present')
+def test_drop_connect_fail(self):
+    self.setup_mock_transport()
+    self.set_handler(self.handler_drop)
+    self.mock_transport.open().AndRaise(TTransport.TTransportException)
+    self.mock_transport.close()
+    self.mox.ReplayAll()
+    logging.debug(_TEST_MSG)
+    self.assertFalse(self.handler.messages_pending)

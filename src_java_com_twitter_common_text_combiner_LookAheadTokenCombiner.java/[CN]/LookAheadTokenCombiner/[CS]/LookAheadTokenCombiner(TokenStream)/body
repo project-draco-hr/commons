@@ -1,6 +1,3 @@
 {
   super(inputStream);
-  inputTermAttr=inputStream.getAttribute(CharSequenceTermAttribute.class);
-  termAttr=getAttribute(CharSequenceTermAttribute.class);
-  typeAttr=getAttribute(TokenTypeAttribute.class);
 }

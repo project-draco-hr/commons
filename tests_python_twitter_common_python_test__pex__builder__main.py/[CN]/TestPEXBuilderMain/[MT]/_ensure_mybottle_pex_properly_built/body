@@ -1,0 +1,6 @@
+def _ensure_mybottle_pex_properly_built(self, setup_py, requirements_txt):
+    logging.basicConfig(level=getattr(logging, 'INFO', None))
+    files = [setup_py, _mybottle_src_mybottle_init_py, _mybottle_src_mybottle_server_py, _mybottle_src_mybottle_resources_en_US_hello_mako]
+    with PexPexRun(working_dir=tempfile.mkdtemp(), pkg_name='mybottle', source_dir='mybottle', requirements_txt=requirements_txt, files=files, entry_point='mybottle.server:main') as pex_pex_run:
+        pex_pex_run.run()
+        self._ensure_mybottle_pex_runs((pex_pex_run.pex_name + '.pex'))

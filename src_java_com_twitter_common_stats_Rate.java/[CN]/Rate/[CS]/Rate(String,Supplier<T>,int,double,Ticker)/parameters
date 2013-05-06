@@ -1,0 +1,5 @@
+String name
+Supplier<T> inputAccessor
+int windowSize
+double scaleFactor
+Ticker ticker

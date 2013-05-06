@@ -1,4 +1,0 @@
-{
-  resp.getWriter().println("WARNING - aborting via HTTP GET is deprecated, please POST instead!");
-  doPost(req,resp);
-}

@@ -1,2 +1,2 @@
 def now(self):
-    return time.time()
+    return (time.monotonic() if Compatibility.PY3 else time.time())

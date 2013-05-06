@@ -8,4 +8,4 @@ def __init__(self, spec):
         else:
             return Address.parse(parse_context.buildfile.root_dir, spec, False)
     self.address = parse_address()
-    Target.__init__(self, self.address.target_name, False, reinit_check=False)
+    Target.__init__(self, self.address.target_name, reinit_check=False)

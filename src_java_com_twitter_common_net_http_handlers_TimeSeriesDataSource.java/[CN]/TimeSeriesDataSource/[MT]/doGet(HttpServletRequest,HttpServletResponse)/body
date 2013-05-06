@@ -1,0 +1,11 @@
+{
+  resp.setContentType(MediaType.JSON_UTF_8.toString());
+  PrintWriter out=resp.getWriter();
+  try {
+    out.write(getResponse(req.getParameter(METRICS),req.getParameter(SINCE)));
+  }
+ catch (  MetricException e) {
+    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+    out.write(e.getMessage());
+  }
+}

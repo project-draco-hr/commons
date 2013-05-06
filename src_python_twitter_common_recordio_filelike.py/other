@@ -1,0 +1,14 @@
+'Encapsulate a file-like object to provide a common interface for RecordIO streams'
+import errno
+import os
+from twitter.common import log
+_VALID_STRINGIO_CLASSES = []
+from StringIO import StringIO
+_VALID_STRINGIO_CLASSES.append(StringIO)
+try:
+    from cStringIO import StringIO
+    _VALID_STRINGIO_CLASSES.append(type(StringIO()))
+    _VALID_STRINGIO_CLASSES.append(type(StringIO('foo')))
+except ImportError:
+    pass
+_VALID_STRINGIO_CLASSES = tuple(_VALID_STRINGIO_CLASSES)

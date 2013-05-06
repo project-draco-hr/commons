@@ -1,0 +1,4 @@
+@staticmethod
+def check_call(cmd):
+    '\n    Calls subprocess.check_call instead of subprocess.call\n    '
+    return subprocess.check_call(cmd)

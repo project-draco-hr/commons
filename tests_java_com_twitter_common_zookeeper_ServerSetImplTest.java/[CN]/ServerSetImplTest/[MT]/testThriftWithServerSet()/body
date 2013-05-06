@@ -22,19 +22,9 @@
   serverSetImpl.monitor(serverSetMonitor);
   assertChangeFiredEmpty();
   InetSocketAddress localSocket=new InetSocketAddress(server.getLocalPort());
-  EndpointStatus status=serverSetImpl.join(localSocket,Maps.<String,InetSocketAddress>newHashMap(),Status.STARTING);
-  assertChangeFired(ImmutableMap.<InetSocketAddress,Status>of(localSocket,Status.STARTING));
-  Service.Iface svc=createThriftClient(serverSetImpl);
-  try {
-    svc.getString();
-    fail("ServerSet is currently empty, should throw exception here.");
-  }
- catch (  TResourceExhaustedException e) {
-    assertTrue(true);
-  }
-  status.update(Status.ALIVE);
+  EndpointStatus status=serverSetImpl.join(localSocket,Maps.<String,InetSocketAddress>newHashMap());
   assertChangeFired(ImmutableMap.<InetSocketAddress,Status>of(localSocket,Status.ALIVE));
-  svc=createThriftClient(serverSetImpl);
+  Service.Iface svc=createThriftClient(serverSetImpl);
   try {
     String value=svc.getString();
     LOG.info("Got value: " + value + " from server");

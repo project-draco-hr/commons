@@ -1,0 +1,4 @@
+@staticmethod
+def execute_and_get_output(cmd, log_cmd=True):
+    '\n    Executes the command and returns the tuple return status and output\n    If the subprocess.call raises an exception then returns error code and None as output\n    If the command is in error returns the tuple return error code and error message\n    return CommandUtil._execute_internal(cmd, True, True, log_cmd, None, True)\n    '
+    return CommandUtil._execute_internal(cmd, True, False, log_cmd, None, True)

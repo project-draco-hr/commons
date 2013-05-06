@@ -1,0 +1,3 @@
+def sha_password_digest(username, password):
+    import base64, hashlib
+    return base64.b64encode(hashlib.sha1(((username + ':') + password)).digest())

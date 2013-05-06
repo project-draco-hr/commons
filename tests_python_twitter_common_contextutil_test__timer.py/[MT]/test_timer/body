@@ -1,0 +1,10 @@
+def test_timer():
+    with Timer() as t:
+        assert (t.start < time.time())
+        assert (t.elapsed > 0)
+        time.sleep(0.1)
+        assert (t.elapsed > 0.1)
+        time.sleep(0.1)
+        assert (t.finish is None)
+    assert (t.elapsed > 0.2)
+    assert (t.finish < time.time())

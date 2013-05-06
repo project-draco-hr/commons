@@ -1,0 +1,5 @@
+pidfile
+stdout
+stderr
+quiet
+exit_parent

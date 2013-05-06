@@ -1,0 +1,6 @@
+def obtain(self, req):
+    with TRACER.timed(('Obtaining %s' % req)):
+        for link in self.iter(req):
+            dist = self._translator.translate(link)
+            if dist:
+                return dist

@@ -1,0 +1,6 @@
+@staticmethod
+def simple():
+    '\n      Whether or not simple logging should be used.\n    '
+    if (LogOptions._SIMPLE is None):
+        LogOptions._SIMPLE = app.get_options().twitter_common_log_simple
+    return LogOptions._SIMPLE

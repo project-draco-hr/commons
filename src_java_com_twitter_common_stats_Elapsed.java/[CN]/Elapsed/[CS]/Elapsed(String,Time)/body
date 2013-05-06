@@ -1,3 +1,3 @@
 {
-  this(name,granularity,Clock.SYSTEM_CLOCK);
+  this(name,granularity,Ticker.systemTicker());
 }

@@ -1,0 +1,28 @@
+def main(args):
+    import random
+    tracer = (Tracer(output=open(args[0], 'w')) if (len(args) > 0) else Tracer())
+
+    def process(name):
+        with tracer.timed(name):
+            with tracer.timed('acquiring'):
+                with tracer.timed('downloading'):
+                    time.sleep((3 * random.random()))
+                    if (random.random() > 0.66):
+                        tracer.log(('%s failed downloading!' % name))
+                        return
+                with tracer.timed('unpacking'):
+                    time.sleep((1 * random.random()))
+            with tracer.timed('configuring'):
+                time.sleep((0.5 * random.random()))
+            with tracer.timed('building'):
+                time.sleep((5.0 * random.random()))
+                if (random.random() > 0.66):
+                    tracer.log(('%s failed building!' % name))
+                    return
+            with tracer.timed('installing'):
+                time.sleep((2.0 * random.random()))
+    workers = [threading.Thread(target=process, args=(('worker %d' % k),)) for k in range(5)]
+    for worker in workers:
+        worker.start()
+    for worker in workers:
+        worker.join()

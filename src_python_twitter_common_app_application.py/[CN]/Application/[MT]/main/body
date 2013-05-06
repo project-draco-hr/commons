@@ -1,5 +1,5 @@
 def main(self):
-    "\n      If called from __main__ module, run script's main() method with arguments passed\n      and global options parsed.\n    "
+    "\n      If called from __main__ module, run script's main() method with arguments passed\n      and global options parsed.\n\n      The following patterns are acceptable for the main method:\n         main()\n         main(args)\n         main(args, options)\n    "
     main_module = Inspection.find_calling_module()
     if (main_module != '__main__'):
         return
@@ -7,6 +7,9 @@ def main(self):
         print('Unable to import twitter app modules!', file=sys.stderr)
         sys.exit(1)
     self.init()
+    if self._option_values.twitter_common_app_rc_filename:
+        print(('RC filename: %s' % self._rc_filename()))
+        return
     try:
         caller_main = Inspection.find_main_from_caller()
     except Inspection.InternalError:

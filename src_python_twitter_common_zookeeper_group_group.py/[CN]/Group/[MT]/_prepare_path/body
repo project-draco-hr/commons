@@ -1,0 +1,27 @@
+def _prepare_path(self, success):
+
+
+    class Background(ExceptionalThread):
+
+        def run(_):
+            child = '/'
+            for component in self._path.split('/')[1:]:
+                child = posixpath.join(child, component)
+                while True:
+                    try:
+                        self._zk.create(child, '', self._acl)
+                        break
+                    except zookeeper.NodeExistsException:
+                        break
+                    except zookeeper.NoAuthException:
+                        if self._zk.exists(child):
+                            break
+                        else:
+                            success.set(False)
+                            return
+                    except zookeeper.OperationTimeoutException:
+                        pass
+            success.set(True)
+    background = Background()
+    background.daemon = True
+    background.start()

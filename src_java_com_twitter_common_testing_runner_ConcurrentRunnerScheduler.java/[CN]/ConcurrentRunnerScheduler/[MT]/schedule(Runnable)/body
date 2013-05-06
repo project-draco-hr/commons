@@ -1,0 +1,3 @@
+{
+  serialTasks.offer(childStatement);
+}

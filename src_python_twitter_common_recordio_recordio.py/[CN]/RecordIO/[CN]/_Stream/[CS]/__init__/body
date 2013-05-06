@@ -1,0 +1,8 @@
+def __init__(self, fp, codec):
+    try:
+        self._fp = FileLike.get(fp)
+    except ValueError as err:
+        raise RecordIO.InvalidFileHandle(err)
+    if (not isinstance(codec, RecordIO.Codec)):
+        raise RecordIO.InvalidCodec('Codec must be subclass of RecordIO.Codec')
+    self._codec = codec

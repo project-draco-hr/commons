@@ -1,0 +1,10 @@
+{
+  final byte[] input=createRandomBytes(10240);
+  ByteArrayOutputStream out=new ByteArrayOutputStream();
+  final OutputStream os=new GZIPOutputStream(new Base64OutputStream(out));
+  os.write(input);
+  os.close();
+  final String encoded=new String(out.toByteArray(),"8859_1");
+  assertTrue(encoded.startsWith("H4sIAAAAAAAAA"));
+  Assert.assertArrayEquals(input,Base64ZlibCodec.decode(encoded));
+}

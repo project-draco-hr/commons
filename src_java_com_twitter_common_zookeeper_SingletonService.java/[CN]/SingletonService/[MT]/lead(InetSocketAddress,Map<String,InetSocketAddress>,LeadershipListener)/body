@@ -1,0 +1,29 @@
+{
+  Preconditions.checkNotNull(listener);
+  candidate.offerLeadership(new Leader(){
+    private EndpointStatus endpointStatus=null;
+    @Override public void onElected(    final ExceptionalCommand<JoinException> abdicate){
+      listener.onLeading(new LeaderControl(){
+        EndpointStatus endpointStatus=null;
+        final AtomicBoolean left=new AtomicBoolean(false);
+        @Override public synchronized void advertise() throws JoinException, InterruptedException {
+          Preconditions.checkState(!left.get(),"Cannot advertise after leaving.");
+          Preconditions.checkState(endpointStatus == null,"Cannot advertise more than once.");
+          endpointStatus=serverSet.join(endpoint,additionalEndpoints);
+        }
+        @Override public synchronized void leave() throws UpdateException, JoinException {
+          Preconditions.checkState(left.compareAndSet(false,true),"Cannot leave more than once.");
+          if (endpointStatus != null) {
+            endpointStatus.leave();
+          }
+          abdicate.execute();
+        }
+      }
+);
+    }
+    @Override public void onDefeated(){
+      listener.onDefeated(endpointStatus);
+    }
+  }
+);
+}

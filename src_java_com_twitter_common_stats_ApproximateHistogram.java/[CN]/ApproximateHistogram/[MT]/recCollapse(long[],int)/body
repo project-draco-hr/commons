@@ -1,0 +1,27 @@
+{
+  if (level == maxDepth) {
+    int mergeWeight=1 << (level - 1);
+    int idx=level % 2;
+    long[] merged=bufferPool[idx];
+    long[] tmp=buffer[level];
+    collapse(buf,mergeWeight,buffer[level],rootWeight,merged);
+    buffer[level]=merged;
+    bufferPool[idx]=tmp;
+    rootWeight+=mergeWeight;
+  }
+ else {
+    if (level == currentTop) {
+      collapse1(buf,buffer[level],buffer[level + 1]);
+      currentTop+=1;
+      rootWeight*=2;
+    }
+ else     if (isBufferEmpty(level + 1)) {
+      collapse1(buf,buffer[level],buffer[level + 1]);
+    }
+ else {
+      long[] merged=bufferPool[level % 2];
+      collapse1(buf,buffer[level],merged);
+      recCollapse(merged,level + 1);
+    }
+  }
+}

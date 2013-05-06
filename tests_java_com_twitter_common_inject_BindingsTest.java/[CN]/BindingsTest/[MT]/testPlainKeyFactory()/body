@@ -1,0 +1,4 @@
+{
+  assertEquals(Key.get(String.class),KeyFactory.PLAIN.create(String.class));
+  assertEquals(Key.get(STRING_LIST),KeyFactory.PLAIN.create(STRING_LIST));
+}

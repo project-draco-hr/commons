@@ -5,11 +5,14 @@
     hist.add(i);
   }
   Map<String,Number> sample=metrics.sample();
-  assertEquals(1L,sample.get(name + "_min"));
-  assertEquals((long)n,sample.get(name + "_max"));
+  assertEquals(1L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "min"));
+  assertEquals((long)n,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "max"));
+  assertEquals((long)n,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "count"));
+  assertEquals((long)(n * (n + 1) / 2),sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "sum"));
+  assertEquals((long)n / 2,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "avg"));
   double errorInPercent=0.0;
   for (  double q : Histogram.DEFAULT_QUANTILES) {
-    String gName=name + "_" + Histogram.gaugeName(q);
+    String gName=name + ScopedMetrics.SCOPE_DELIMITER + Histogram.gaugeName(q);
     errorInPercent+=Math.abs(((q * n) - sample.get(gName).doubleValue()) / (q * n));
   }
   assertTrue(errorInPercent / Histogram.DEFAULT_QUANTILES.length < 0.01);

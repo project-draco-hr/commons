@@ -1,0 +1,8 @@
+def parse_amount_into(parse_function, option_name, default=None):
+
+    def parse_amount_callback(option, opt, value, parser):
+        try:
+            setattr(parser.values, option_name, parse_function((value or default)))
+        except Exception as e:
+            raise OptionValueError(('Failed to parse: %s' % e))
+    return parse_amount_callback

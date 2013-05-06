@@ -1,0 +1,2 @@
+def test_external_dependencies(self):
+    self.assert_console_output('org.apache:apache-jar:12.12.2012', args=['--test-external-only'], targets=[self.target('project:project')])

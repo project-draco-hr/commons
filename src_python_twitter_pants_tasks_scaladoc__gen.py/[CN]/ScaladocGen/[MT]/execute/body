@@ -1,0 +1,2 @@
+def execute(self, targets):
+    self.generate_execute(targets, is_scala, create_scaladoc_command)

@@ -2,3 +2,4 @@
 def setup_parser(cls, option_group, args, mkflag):
     JvmBinaryTask.setup_parser(option_group, args, mkflag)
     option_group.add_option(mkflag('compressed'), mkflag('compressed', negate=True), dest='binary_create_compressed', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Create a compressed binary jar.')
+    option_group.add_option(mkflag('zip64'), mkflag('zip64', negate=True), dest='binary_create_zip64', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Create the binary jar with zip64 extensions.')

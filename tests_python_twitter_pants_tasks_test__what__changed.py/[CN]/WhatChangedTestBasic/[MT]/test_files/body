@@ -1,0 +1,2 @@
+def test_files(self):
+    self.assert_console_output('a/b/c', 'd', 'e/f', args=['--test-files'], workspace=self.workspace(files=['a/b/c', 'd', 'e/f']))

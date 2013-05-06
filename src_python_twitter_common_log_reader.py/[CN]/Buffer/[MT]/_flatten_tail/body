@@ -1,0 +1,5 @@
+def _flatten_tail(self):
+    flattened = self._tail.split('\n')
+    if (len(flattened) > 1):
+        self._buffer.extend(flattened[0:(-1)])
+        self._tail = flattened[(-1)]

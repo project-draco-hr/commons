@@ -1,0 +1,2 @@
+def valid(self, target):
+    return hasattr(target, 'expand_files')

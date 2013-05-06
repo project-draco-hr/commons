@@ -1,0 +1,8 @@
+{
+  if (attributeSource == null) {
+    return new RegexTokenizer();
+  }
+ else {
+    return new RegexTokenizer(attributeSource);
+  }
+}

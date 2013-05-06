@@ -1,0 +1,6 @@
+@staticmethod
+def scribe_buffer():
+    '\n      Get the current buffer setting for scribe logging.\n    '
+    if (LogOptions._SCRIBE_BUFFER is None):
+        LogOptions._SCRIBE_BUFFER = app.get_options().twitter_common_log_scribe_buffer
+    return LogOptions._SCRIBE_BUFFER

@@ -1,5 +1,5 @@
 def execute(self, targets):
-    java_targets = filter(JavaCompile._has_java_sources, targets)
+    java_targets = filter(_is_java, targets)
     if java_targets:
         safe_mkdir(self._classes_dir)
         safe_mkdir(self._depfile_dir)

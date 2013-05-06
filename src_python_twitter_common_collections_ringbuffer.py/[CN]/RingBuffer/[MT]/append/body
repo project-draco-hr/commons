@@ -1,0 +1,7 @@
+def append(self, value):
+    if (self._count < self._size):
+        super(RingBuffer, self).append(value)
+        self._count += 1
+    else:
+        super(RingBuffer, self).__setitem__((self._zero % self._size), value)
+        self._zero += 1

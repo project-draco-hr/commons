@@ -1,6 +1,6 @@
 def _generate_ivy(self, jars, excludes, ivyxml):
     (org, name) = self._ivy_utils.identify()
-    template_data = TemplateData(org=org, module=name, version='latest.integration', publications=None, dependencies=[self._generate_jar_template(jar) for jar in jars], excludes=[self._generate_exclude_template(exclude) for exclude in excludes])
+    template_data = TemplateData(org=org, module=name, version='latest.integration', publications=None, is_idl=False, dependencies=[self._generate_jar_template(jar) for jar in jars], excludes=[self._generate_exclude_template(exclude) for exclude in excludes])
     safe_mkdir(os.path.dirname(ivyxml))
     with open(ivyxml, 'w') as output:
         generator = Generator(pkgutil.get_data(__name__, self._template_path), root_dir=get_buildroot(), lib=template_data)

@@ -1,0 +1,4 @@
+def _append_to_file(self, src, target):
+    if (not self._calls):
+        self._calls = []
+    self._calls.append({src: target, })

@@ -1,0 +1,12 @@
+def __gettid():
+    "Wrapper for the gettid() system call on Linux systems\n\n  This is a lightweight, fail-fast function to obtain the thread ID of the thread from which it is\n  called.  Unfortunately, there's not currently any means of obtaining this information on Linux\n  other than through a direct system call. See man 2 gettid() for more details.\n\n  This function can be called directly, but the more common usage pattern is through use of the\n  identify_thread decorator on the run() function of a threading.Thread-derived object.\n\n  Returns:\n    on success, an int representing the thread ID of the calling thread, as returned from the\n      gettid() system call. In the main thread of a process, this should be equal to the process\n      ID (e.g. as returned by getpid())\n    -1 on any failure (bad platform, error accessing ctypes/libraries, actual system call failure)\n\n  "
+    try:
+        import platform
+        if (not platform.system().startswith('Linux')):
+            raise ValueError
+        syscalls = {'i386': 224, 'x86_64': 186, }
+        import ctypes
+        tid = ctypes.CDLL('libc.so.6').syscall(syscalls[platform.machine()])
+    except:
+        tid = (-1)
+    return tid

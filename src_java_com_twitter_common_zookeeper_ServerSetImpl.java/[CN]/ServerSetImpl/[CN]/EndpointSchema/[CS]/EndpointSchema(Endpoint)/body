@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(endpoint);
+  this.host=endpoint.getHost();
+  this.port=endpoint.getPort();
+}

@@ -1,9 +1,11 @@
 __author__ = 'John Sirois, Brian Wickman'
-import errno
 import os
 import shutil
 import tarfile
 import tempfile
+import time
 import sys
 import zipfile
 from contextlib import closing, contextmanager
+from twitter.common.dirutil import safe_delete
+from twitter.common.lang import Compatibility

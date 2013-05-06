@@ -1,0 +1,8 @@
+{
+  control=EasyMock.createControl();
+  serverSet=control.createMock(ServerSet.class);
+  shutdownRegistry=new ShutdownRegistryImpl();
+  zooKeeperClient=createZkClient();
+  Set<ServiceRunner> localServices=ImmutableSet.of();
+  localServiceRegistry=new LocalServiceRegistry(Providers.of(localServices),shutdownRegistry);
+}

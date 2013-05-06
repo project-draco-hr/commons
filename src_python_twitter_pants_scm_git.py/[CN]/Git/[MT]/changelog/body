@@ -1,0 +1,8 @@
+def changelog(self, from_commit=None, files=None):
+    args = ['whatchanged', '--stat', '--find-renames', '--find-copies']
+    if from_commit:
+        args.append(('%s..HEAD' % from_commit))
+    if files:
+        args.append('--')
+        args.extend(files)
+    return self._check_output(args, raise_type=Scm.LocalException)

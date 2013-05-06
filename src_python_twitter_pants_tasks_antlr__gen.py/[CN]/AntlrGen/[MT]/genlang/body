@@ -1,0 +1,21 @@
+def genlang(self, lang, targets):
+    if (lang != 'java'):
+        raise TaskError(('Unrecognized antlr gen lang: %s' % lang))
+    for target in targets:
+        java_out = self._java_out(target)
+        safe_mkdir(java_out)
+        antlr_profile = self._antlr_profile(target)
+        antlr_classpath = self.profile_classpath(antlr_profile)
+        antlr_opts = ['-o', java_out]
+        java_main = None
+        if (target.compiler == 'antlr3'):
+            java_main = 'org.antlr.Tool'
+        elif (target.compiler == 'antlr4'):
+            antlr_opts.append('-visitor')
+            java_main = 'org.antlr.v4.Tool'
+        else:
+            raise TaskError('Unknown ANTLR compiler: {}'.format(target.compiler))
+        sources = self._calculate_sources([target])
+        result = self.runjava_indivisible(java_main, classpath=antlr_classpath, opts=antlr_opts, args=sources)
+        if (result != 0):
+            raise TaskError

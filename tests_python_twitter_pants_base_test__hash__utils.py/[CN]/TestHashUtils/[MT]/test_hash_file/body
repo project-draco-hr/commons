@@ -1,0 +1,8 @@
+def test_hash_file(self):
+    self.digest.update('jake jones')
+    self.digest.hexdigest().AndReturn('1137')
+    self.mox.ReplayAll()
+    with temporary_file() as fd:
+        fd.write('jake jones')
+        fd.close()
+        self.assertEqual('1137', hash_file(fd.name, digest=self.digest))

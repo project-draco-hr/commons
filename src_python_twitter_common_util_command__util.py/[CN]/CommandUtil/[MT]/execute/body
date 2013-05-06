@@ -1,0 +1,4 @@
+@staticmethod
+def execute(cmd, log_cmd=True, also_output_to_file=None):
+    '\n    Calls logs output and error if any\n    '
+    return CommandUtil._execute_internal(cmd, True, True, log_cmd, also_output_to_file)

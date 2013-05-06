@@ -1,5 +1,0 @@
-{
-  Preconditions.checkNotNull(value);
-  Preconditions.checkNotNull(unit);
-  this.amount=Pair.of(value,unit);
-}

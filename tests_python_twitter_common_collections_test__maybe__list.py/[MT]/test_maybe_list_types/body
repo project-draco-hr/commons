@@ -1,0 +1,17 @@
+def test_maybe_list_types():
+    iml = partial(maybe_list, expected_type=int)
+    (iml(1) == [1])
+    (iml([1, 2]) == [1, 2])
+    (iml((1, 2)) == [1, 2])
+    (iml(OrderedSet([1, 2, 1])) == [1, 2])
+    (iml((k for k in range(3))) == [0, 1, 2])
+    (iml([]) == [])
+    assert (iml([]) == [])
+    assert (iml(()) == [])
+    assert (iml(set()) == [])
+    with pytest.raises(ValueError):
+        iml('hello')
+    with pytest.raises(ValueError):
+        iml([123, 'hello'])
+    with pytest.raises(ValueError):
+        iml(['hello', 123])

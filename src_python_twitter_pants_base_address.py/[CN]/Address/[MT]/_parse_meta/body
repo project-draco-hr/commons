@@ -1,5 +1,0 @@
-@classmethod
-def _parse_meta(cls, string):
-    is_meta = string.endswith(Address._META_SUFFIX)
-    parsed = (string[:(-1)] if is_meta else string)
-    return (parsed, is_meta)

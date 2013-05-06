@@ -1,0 +1,15 @@
+@classmethod
+def setUpClass(cls):
+    super(ReverseDepmapTest, cls).setUpClass()
+
+    def create_target(path, name, alias=False, deps=()):
+        cls.create_target(path, dedent(("\n          %(type)s(name='%(name)s',\n            dependencies=[%(deps)s]\n          )\n          " % dict(type=('dependencies' if alias else 'python_library'), name=name, deps=','.join((("pants('%s')" % dep) for dep in list(deps)))))))
+    create_target('common/a', 'a')
+    create_target('common/b', 'b')
+    create_target('common/c', 'c')
+    create_target('common/d', 'd')
+    create_target('overlaps', 'one', deps=['common/a', 'common/b'])
+    create_target('overlaps', 'two', deps=['common/a', 'common/c'])
+    create_target('overlaps', 'three', deps=['common/a', 'overlaps:one'])
+    create_target('overlaps', 'four', alias=True, deps=['common/b'])
+    create_target('overlaps', 'five', deps=['overlaps:four'])

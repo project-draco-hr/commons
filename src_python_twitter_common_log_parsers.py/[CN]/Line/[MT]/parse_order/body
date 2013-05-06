@@ -1,0 +1,8 @@
+@staticmethod
+def parse_order(line, *line_parsers):
+    'Given a text line and any number of Line implementations, return the first that matches\n       or None if no lines match.'
+    for parser in line_parsers:
+        try:
+            return parser.parse(line)
+        except ValueError:
+            continue

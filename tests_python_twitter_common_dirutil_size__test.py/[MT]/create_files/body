@@ -1,0 +1,4 @@
+def create_files(tempdir, *filenames):
+    for filename in filenames:
+        with open(os.path.join(tempdir, filename), 'w') as fp:
+            fp.close()

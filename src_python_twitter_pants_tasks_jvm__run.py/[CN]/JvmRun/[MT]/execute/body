@@ -4,12 +4,13 @@ def execute(self, targets):
     if (len(binaries) > 0):
         main = binaries[0].main
 
-        def run_binary(only_write_cmd_line_to):
-            result = runjava(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args, only_write_cmd_line_to=only_write_cmd_line_to)
+        def run_binary(dryrun=False):
+            result = runjava_indivisible(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args, dryrun=dryrun)
+            if dryrun:
+                return result
             if (result != 0):
                 raise TaskError()
-        if (self.only_write_cmd_line is None):
-            run_binary(None)
-        else:
+        result = run_binary(dryrun=self.only_write_cmd_line)
+        if self.only_write_cmd_line:
             with safe_open(self.only_write_cmd_line, 'w') as fd:
-                run_binary(fd)
+                fd.write(result)

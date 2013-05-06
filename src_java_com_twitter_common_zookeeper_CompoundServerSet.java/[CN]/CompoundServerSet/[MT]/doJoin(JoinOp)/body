@@ -1,0 +1,26 @@
+{
+  ImmutableList.Builder<EndpointStatus> builder=ImmutableList.builder();
+  for (  ServerSet serverSet : serverSets) {
+    builder.add(joiner.doJoin(serverSet));
+  }
+  final ImmutableList<EndpointStatus> statuses=builder.build();
+  return new EndpointStatus(){
+    @Override public void leave() throws UpdateException {
+      changeStatus(statuses,new StatusOp(){
+        @Override public void changeStatus(        EndpointStatus status) throws UpdateException {
+          status.leave();
+        }
+      }
+);
+    }
+    @Override public void update(    final Status newStatus) throws UpdateException {
+      changeStatus(statuses,new StatusOp(){
+        @Override public void changeStatus(        EndpointStatus status) throws UpdateException {
+          status.update(newStatus);
+        }
+      }
+);
+    }
+  }
+;
+}

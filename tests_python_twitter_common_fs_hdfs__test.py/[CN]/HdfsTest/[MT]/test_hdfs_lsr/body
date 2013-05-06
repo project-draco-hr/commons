@@ -1,0 +1,8 @@
+def test_hdfs_lsr(self):
+    hdfs_helper = HDFSHelper('/etc/hadoop/hadoop-conf-tst-smf1', command_class=MockCommandUtil)
+    expected_output = [['tejal.txt', 6], ['tejal txt', 6]]
+    expected_output_dir = [['hadoop_dir/test_dir', 68]]
+    cmd = hdfs_helper.lsr('path')
+    self.assertEqual(cmd, expected_output)
+    cmd = hdfs_helper.lsr('path', True)
+    self.assertEqual(cmd, expected_output_dir)

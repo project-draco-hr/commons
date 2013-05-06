@@ -1,0 +1,10 @@
+def test_filelike_dup_raises(self):
+    self.mox.StubOutWithMock(os, 'fdopen')
+    self.mox.StubOutWithMock(os, 'close')
+    os.fdopen(mox.IsA(int), mox.IsA(str)).AndRaise(OSError)
+    os.close(mox.IsA(int)).AndRaise(OSError)
+    self.mox.ReplayAll()
+    with RecordioTestBase.EphemeralFile('r+') as fp:
+        fl = FileLike(fp)
+        with pytest.raises(FileLike.Error):
+            fl.dup()

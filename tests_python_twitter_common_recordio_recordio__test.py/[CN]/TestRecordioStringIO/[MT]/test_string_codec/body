@@ -1,0 +1,6 @@
+def test_string_codec(self):
+    for bad_value in (None, 1234, object):
+        with pytest.raises(RecordIO.InvalidTypeException):
+            assert StringCodec().encode(bad_value)
+        with pytest.raises(RecordIO.InvalidTypeException):
+            assert StringCodec().decode(bad_value)

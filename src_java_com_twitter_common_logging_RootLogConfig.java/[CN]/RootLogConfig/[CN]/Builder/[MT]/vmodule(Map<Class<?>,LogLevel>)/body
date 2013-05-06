@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(pairs);
+  configuration.vmodule=ImmutableMap.copyOf(pairs);
+  return this;
+}

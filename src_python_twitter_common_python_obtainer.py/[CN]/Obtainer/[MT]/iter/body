@@ -1,0 +1,4 @@
+def iter(self, req):
+    'Given a req, return a list of links that satisfy the requirement in best match order.'
+    for link in sorted(self.iter_unordered(req), key=self.link_preference, reverse=True):
+        yield link

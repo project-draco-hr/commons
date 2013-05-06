@@ -1,0 +1,9 @@
+def _get_target(address):
+    try:
+        address = Address.parse(get_buildroot(), address, is_relative=False)
+    except IOError as e:
+        raise TaskError(('Failed to parse address: %s: %s' % (address, e)))
+    match = Target.get(address)
+    if (not match):
+        raise TaskError(('Invalid target address: %s' % address))
+    return match

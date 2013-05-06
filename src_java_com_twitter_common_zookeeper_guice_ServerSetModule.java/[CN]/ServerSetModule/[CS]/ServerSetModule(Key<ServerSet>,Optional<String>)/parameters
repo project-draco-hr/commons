@@ -1,0 +1,2 @@
+Key<ServerSet> serverSetKey
+Optional<String> auxPortAsPrimary

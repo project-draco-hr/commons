@@ -1,21 +1,24 @@
 {
-  List<Capture<Leader>> captures=Lists.newArrayList();
+  List<Capture<Leader>> leaderCaptures=Lists.newArrayList();
+  List<Capture<LeaderControl>> leaderControlCaptures=Lists.newArrayList();
   for (int i=0; i < 5; i++) {
-    Pair<InetSocketAddress,Map<String,InetSocketAddress>> endpoints=getEndpoints("foo" + i);
     Capture<Leader> leaderCapture=new Capture<Leader>();
-    captures.add(leaderCapture);
+    leaderCaptures.add(leaderCapture);
+    Capture<LeaderControl> controlCapture=createCapture();
+    leaderControlCaptures.add(controlCapture);
     expect(candidate.offerLeadership(capture(leaderCapture))).andReturn(null);
-    expect(serverSet.join(endpoints.getFirst(),endpoints.getSecond(),Status.STARTING)).andReturn(endpointStatus);
-    listener.onLeading(endpointStatus);
-    endpointStatus.update(Status.ALIVE);
-    endpointStatus.update(Status.STOPPED);
+    listener.onLeading(capture(controlCapture));
+    InetSocketAddress primary=InetSocketAddress.createUnresolved("foo" + i,PORT_A);
+    Map<String,InetSocketAddress> aux=ImmutableMap.of("http-admin",InetSocketAddress.createUnresolved("foo" + i,PORT_B));
+    expect(serverSet.join(primary,aux)).andReturn(endpointStatus);
+    endpointStatus.leave();
+    abdicate.execute();
   }
   control.replay();
   for (int i=0; i < 5; i++) {
     final String leaderName="foo" + i;
-    newLeader(leaderName);
-    endpointStatus.update(Status.ALIVE);
-    endpointStatus.update(Status.STOPPED);
-    captures.get(i).getValue().onElected(abdicate);
+    newLeader(leaderName,leaderCaptures.get(i));
+    leaderControlCaptures.get(i).getValue().advertise();
+    leaderControlCaptures.get(i).getValue().leave();
   }
 }

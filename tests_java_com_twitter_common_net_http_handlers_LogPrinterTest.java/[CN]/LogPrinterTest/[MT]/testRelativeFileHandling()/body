@@ -1,0 +1,7 @@
+{
+  LogPrinter printer=new LogPrinter(new File("/this/is/the/log/dir"),true);
+  LogPrinter.LogFile absFile=printer.new LogFile("/absolute/path.log");
+  assertEquals("/absolute/path.log",absFile.getPath());
+  LogPrinter.LogFile relFile=printer.new LogFile("relative/file.log");
+  assertEquals("/this/is/the/log/dir/relative/file.log",relFile.getPath());
+}

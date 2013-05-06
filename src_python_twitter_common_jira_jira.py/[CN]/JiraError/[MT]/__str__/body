@@ -1,0 +1,7 @@
+def __str__(self):
+    msg = 'JIRA request failed'
+    if self._message:
+        msg += (', message: %s' % self._message)
+    if self._cause:
+        msg += (' due to %s' % self._cause)
+    return msg

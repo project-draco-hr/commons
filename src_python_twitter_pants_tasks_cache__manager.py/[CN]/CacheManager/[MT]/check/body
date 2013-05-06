@@ -1,5 +1,5 @@
 def check(self, targets, partition_size_hint=None):
-    "Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns a list of VersionedTargetSet objects (either valid or invalid). The returned sets 'cover'\n    the input targets, possibly partitioning them, and are in topological order.\n    The caller can inspect these in order and, e.g., rebuild the invalid ones.\n    "
+    "Checks whether each of the targets has changed and invalidates it if so.\n\n    Returns a list of VersionedTargetSet objects (either valid or invalid). The returned sets\n    'cover' the input targets, possibly partitioning them, and are in topological order.\n    The caller can inspect these in order and, e.g., rebuild the invalid ones.\n    "
     all_vts = self._sort_and_validate_targets(targets)
     invalid_vts = filter((lambda vt: (not vt.valid)), all_vts)
     return InvalidationCheck(all_vts, invalid_vts, partition_size_hint)

@@ -1,0 +1,3 @@
+@property
+def platforms(self):
+    return self._platforms

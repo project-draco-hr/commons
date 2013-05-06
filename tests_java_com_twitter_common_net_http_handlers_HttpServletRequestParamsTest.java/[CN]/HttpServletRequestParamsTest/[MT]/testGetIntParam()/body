@@ -1,0 +1,7 @@
+{
+  EasyMock.replay(request);
+  assertEquals(123,HttpServletRequestParams.getInt(request,INT_PARAM,456));
+  assertEquals(456,HttpServletRequestParams.getInt(request,STRING_PARAM,456));
+  assertEquals(456,HttpServletRequestParams.getInt(request,UNSET_PARAM,456));
+  assertEquals(456,HttpServletRequestParams.getInt(request,LONG_PARAM,456));
+}

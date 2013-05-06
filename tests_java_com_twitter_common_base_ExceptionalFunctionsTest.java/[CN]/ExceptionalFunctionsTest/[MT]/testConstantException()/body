@@ -1,0 +1,4 @@
+{
+  ExceptionalFunction<String,String,IllegalArgumentException> badness=ExceptionalFunctions.forException(new IllegalArgumentException());
+  badness.apply("pleaseno");
+}

@@ -1,0 +1,4 @@
+{
+  this.quitHandlerKey=key;
+  return this;
+}

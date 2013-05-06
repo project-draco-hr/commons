@@ -1,12 +1,21 @@
 {
-  super(inputStream.cloneAttributes());
-  this.inputStream=inputStream;
-  termAttr=addAttribute(CharSequenceTermAttribute.class);
-  typeAttr=addAttribute(TokenTypeAttribute.class);
+  super(inputStream);
   if (hasAttribute(PartOfSpeechAttribute.class)) {
     posAttr=getAttribute(PartOfSpeechAttribute.class);
   }
  else {
     posAttr=null;
+  }
+  if (hasAttribute(PositionIncrementAttribute.class)) {
+    incAttr=getAttribute(PositionIncrementAttribute.class);
+  }
+ else {
+    incAttr=null;
+  }
+  if (hasAttribute(TokenGroupAttribute.class)) {
+    groupAttr=(TokenGroupAttributeImpl)getAttribute(TokenGroupAttribute.class);
+  }
+ else {
+    groupAttr=null;
   }
 }

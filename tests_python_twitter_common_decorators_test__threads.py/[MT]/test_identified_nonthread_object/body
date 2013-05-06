@@ -1,0 +1,4 @@
+def test_identified_nonthread_object():
+    obj = TestNonthreadObject()
+    assert hasattr(obj, '__thread_id')
+    assert (isinstance(obj.__thread_id, int) or (obj.__thread_id == 'UNKNOWN'))

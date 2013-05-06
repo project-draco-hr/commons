@@ -1,0 +1,19 @@
+{
+  int i=0, j=0, k=0, cnt=0;
+  long smallest;
+  while (i < left.length || j < right.length) {
+    if (i < left.length && (j == right.length || left[i] < right[j])) {
+      smallest=left[i];
+      i++;
+    }
+ else {
+      smallest=right[j];
+      j++;
+    }
+    if (cnt % 2 == 1) {
+      output[k]=smallest;
+      k++;
+    }
+    cnt++;
+  }
+}

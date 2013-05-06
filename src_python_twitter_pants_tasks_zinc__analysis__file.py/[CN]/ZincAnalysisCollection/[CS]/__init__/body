@@ -1,0 +1,9 @@
+def __init__(self, analysis_files):
+    self.analysis_files = analysis_files
+    self.products = defaultdict(set)
+    self.binary_deps = defaultdict(set)
+    self.source_deps = defaultdict(set)
+    self.external_deps = defaultdict(set)
+    self.class_names = defaultdict(set)
+    for c in self.analysis_files:
+        self.parse(c)

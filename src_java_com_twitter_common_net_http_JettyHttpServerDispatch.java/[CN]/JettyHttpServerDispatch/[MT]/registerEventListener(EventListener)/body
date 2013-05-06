@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(eventListener);
+  getRootContext().addEventListener(eventListener);
+}

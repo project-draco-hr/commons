@@ -1,6 +1,7 @@
 def __init__(self, context):
     CodeGen.__init__(self, context)
-    self.protobuf_binary = select_binary(context.config.get('protobuf-gen', 'supportdir'), context.config.get('protobuf-gen', 'version'), 'protoc')
+    self.protoc_supportdir = self.context.config.get('protobuf-gen', 'supportdir')
+    self.protoc_version = self.context.config.get('protobuf-gen', 'version')
     self.output_dir = (context.options.protobuf_gen_create_outdir or context.config.get('protobuf-gen', 'workdir'))
 
     def resolve_deps(key):
@@ -16,3 +17,4 @@ def __init__(self, context):
     for lang in ('java', 'python'):
         if self.context.products.isrequired(lang):
             self.gen_langs.add(lang)
+    self.protobuf_binary = select_binary(self.protoc_supportdir, self.protoc_version, 'protoc', context.config)

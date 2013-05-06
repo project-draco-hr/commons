@@ -1,0 +1,8 @@
+def test_local_open():
+    m = mox.Mox()
+    m.StubOutWithMock(urllib_request, 'urlopen')
+    urllib_request.urlopen('file:///local/filename').AndReturn('data')
+    m.ReplayAll()
+    assert (Web().open('/local/filename') == 'data')
+    m.UnsetStubs()
+    m.VerifyAll()

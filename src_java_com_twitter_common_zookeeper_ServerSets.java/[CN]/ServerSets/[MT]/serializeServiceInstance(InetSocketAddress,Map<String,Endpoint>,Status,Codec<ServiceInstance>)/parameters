@@ -1,0 +1,4 @@
+InetSocketAddress address
+Map<String,Endpoint> additionalEndpoints
+Status status
+Codec<ServiceInstance> codec

@@ -1,0 +1,12 @@
+def test_basic_recordwriter_write_synced_raises(self):
+    test_string = 'hello world'
+    self.mox.StubOutWithMock(os, 'fsync')
+    with RecordioTestBase.EphemeralFile('r+') as fp:
+        os.fsync(fp.fileno()).AndRaise(OSError)
+        self.mox.ReplayAll()
+        rw = RecordWriter(FileLike(fp))
+        rw.set_sync(True)
+        rw.write(test_string)
+        fp.seek(0)
+        rr = RecordReader(fp)
+        assert (rr.read() == test_string)

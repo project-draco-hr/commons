@@ -6,5 +6,6 @@ import tempfile
 import subprocess
 from twitter.common.dirutil import safe_rmtree
 from twitter.common.dirutil.chroot import RelativeChroot
-from twitter.pants import Config
 from twitter.pants.python.egg_builder import EggBuilder
+from twitter.pants.targets.python_thrift_library import PythonThriftLibrary
+from twitter.pants.thrift_util import calculate_compile_roots, select_thrift_binary

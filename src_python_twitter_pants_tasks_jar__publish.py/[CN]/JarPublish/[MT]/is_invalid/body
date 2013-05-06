@@ -1,0 +1,3 @@
+def is_invalid(self, target):
+    if (not target.sources):
+        return 'No sources'

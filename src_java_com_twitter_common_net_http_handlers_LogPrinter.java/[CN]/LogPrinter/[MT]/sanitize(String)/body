@@ -1,0 +1,13 @@
+{
+  text=StringEscapeUtils.escapeHtml(text);
+  StringBuilder newString=new StringBuilder();
+  for (  char ch : text.toCharArray()) {
+    if ((ch > 0x001F && ch < 0x00FD) || ch == '\t' || ch == '\r') {
+      newString.append(ch);
+    }
+ else {
+      newString.append("&#").append((int)ch).append(";");
+    }
+  }
+  return StringEscapeUtils.escapeXml(newString.toString());
+}

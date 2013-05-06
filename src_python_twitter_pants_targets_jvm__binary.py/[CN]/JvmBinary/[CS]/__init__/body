@@ -1,4 +1,4 @@
-def __init__(self, name, main=None, basename=None, source=None, dependencies=None, excludes=None, deploy_excludes=None, configurations=None):
+def __init__(self, name, main=None, basename=None, source=None, resources=None, dependencies=None, excludes=None, deploy_excludes=None, configurations=None):
     JvmTarget.__init__(self, name=name, sources=([source] if source else None), dependencies=dependencies, excludes=excludes, configurations=configurations)
     if (main and (not isinstance(main, Compatibility.string))):
         raise TargetDefinitionException(self, 'main must be a fully qualified classname')
@@ -6,4 +6,5 @@ def __init__(self, name, main=None, basename=None, source=None, dependencies=Non
         raise TargetDefinitionException(self, 'source must be a single relative file path')
     self.main = main
     self.basename = (basename or name)
+    self.resources = list(self.resolve_all(resources, Resources))
     self.deploy_excludes = (deploy_excludes or [])

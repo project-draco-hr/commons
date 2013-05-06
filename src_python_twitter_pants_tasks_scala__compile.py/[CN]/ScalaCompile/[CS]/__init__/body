@@ -1,14 +1,19 @@
-def __init__(self, context, workdir=None):
+def __init__(self, context):
     NailgunTask.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
     color = (context.options.scala_compile_color if (context.options.scala_compile_color is not None) else context.config.getbool('scala-compile', 'color', default=True))
     self._zinc_utils = ZincUtils(context=context, java_runner=self.runjava, color=color)
-    self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint'))
+    self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint', default=1000))
     if context.options.scala_check_missing_deps:
         JvmDependencyCache.init_product_requirements(self)
-    self._buildroot = get_buildroot()
-    workdir = (context.config.get('scala-compile', 'workdir') if (workdir is None) else workdir)
+    self._opts = context.config.getlist('scala-compile', 'args')
+    if context.options.scala_compile_warnings:
+        self._opts.extend(context.config.getlist('scala-compile', 'warning_args'))
+    else:
+        self._opts.extend(context.config.getlist('scala-compile', 'no_warning_args'))
+    workdir = context.config.get('scala-compile', 'workdir')
     self._resources_dir = os.path.join(workdir, 'resources')
     self._artifact_factory = ZincArtifactFactory(workdir, self.context, self._zinc_utils)
     self._confs = context.config.getlist('scala-compile', 'confs')
     artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches')
     self.setup_artifact_cache(artifact_cache_spec)
+    self._inject_java_cycles()

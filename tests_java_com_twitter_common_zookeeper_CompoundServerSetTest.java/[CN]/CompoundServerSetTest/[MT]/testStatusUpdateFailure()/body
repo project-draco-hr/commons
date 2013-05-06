@@ -1,0 +1,12 @@
+{
+  expect(serverSet1.join(END_POINT,AUX_PORTS,Status.ALIVE)).andReturn(mockStatus1);
+  expect(serverSet2.join(END_POINT,AUX_PORTS,Status.ALIVE)).andReturn(mockStatus2);
+  expect(serverSet3.join(END_POINT,AUX_PORTS,Status.ALIVE)).andReturn(mockStatus3);
+  mockStatus1.update(Status.DEAD);
+  mockStatus2.update(Status.DEAD);
+  expectLastCall().andThrow(new ServerSet.UpdateException("Update exception"));
+  mockStatus3.update(Status.DEAD);
+  control.replay();
+  ServerSet.EndpointStatus status=compoundServerSet.join(END_POINT,AUX_PORTS,Status.ALIVE);
+  status.update(Status.DEAD);
+}

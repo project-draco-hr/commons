@@ -1,4 +1,3 @@
 @abstractmethod
 def info(self, membership, callback=None):
     '\n      Given a membership, return the blob associated with that member or\n      Membership.error() if no membership exists.  If callback is provided,\n      this operation is done asynchronously.\n    '
-    pass

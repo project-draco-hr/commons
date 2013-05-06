@@ -1,0 +1,11 @@
+def test_execute_suppress_stdout(self):
+    temp_filename = tempfile.mktemp()
+    handler = logging.FileHandler(temp_filename)
+    logging.getLogger().addHandler(handler)
+    logging.getLogger().setLevel(logging.INFO)
+    ret = CommandUtil.execute_suppress_stdout(['echo', 'test'], True)
+    self.assertEqual(ret, 0)
+    with open(temp_filename, 'r') as file1:
+        str1 = file1.read()
+    self.assertTrue(bool(re.search('Executing: echo', str1)))
+    self.assertFalse(bool(re.search('\ntest', str1)))

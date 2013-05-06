@@ -6,8 +6,7 @@ def key_for_target(self, target, sources=TARGET_SOURCES, fingerprint_extra=None)
     if (not sources):
         sources = NO_SOURCES
     sha = hashlib.sha1()
-    srcs = sorted(sources.select(target))
-    num_sources = self._sources_hash(sha, srcs)
+    num_sources = self._sources_hash(sha, sorted(sources.select(target)))
     if fingerprint_extra:
         fingerprint_extra(sha)
     return CacheKey(target.id, sha.hexdigest(), num_sources)

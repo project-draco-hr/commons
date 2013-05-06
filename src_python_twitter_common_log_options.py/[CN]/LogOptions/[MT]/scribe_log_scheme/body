@@ -1,0 +1,6 @@
+@staticmethod
+def scribe_log_scheme():
+    '\n      Get the current scribe log scheme.\n    '
+    if (LogOptions._SCRIBE_LOG_SCHEME is None):
+        LogOptions.set_scribe_log_level(app.get_options().twitter_common_log_scribe_log_level)
+    return LogOptions._SCRIBE_LOG_SCHEME

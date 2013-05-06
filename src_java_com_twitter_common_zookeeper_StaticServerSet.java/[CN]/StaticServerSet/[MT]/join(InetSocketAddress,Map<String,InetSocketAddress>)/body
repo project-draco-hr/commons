@@ -1,0 +1,4 @@
+{
+  LOG.warning("Joining a ServerSet without a shard ID is deprecated and will soon break.");
+  return join(endpoint,auxEndpoints,Optional.<Integer>absent());
+}

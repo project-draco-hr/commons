@@ -1,0 +1,7 @@
+@staticmethod
+def create_tunnel(remote_host, remote_port, tunnel_host=None, tunnel_port=None):
+    '\n      Create a tunnel via tunnel_host, tunnel_port to the remote_host, remote_port.\n      If tunnel_port not supplied, a random port will be chosen.\n    '
+    tunnel_key = (remote_host, remote_port)
+    if (tunnel_key in TunnelHelper.TUNNELS):
+        return ('localhost', TunnelHelper.TUNNELS[tunnel_key][0])
+    (tunnel_host, tunnel_port) = TunnelHelper.acquire_host_pair(tunnel_host, tunnel_port)

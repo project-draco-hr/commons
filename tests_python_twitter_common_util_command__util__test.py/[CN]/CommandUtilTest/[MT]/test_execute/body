@@ -1,0 +1,8 @@
+def test_execute(self):
+    temp_filename = tempfile.mktemp()
+    ret = CommandUtil.execute(['echo', 'test'], True, temp_filename)
+    self.assertEqual(ret, 0)
+    with open(temp_filename, 'r') as file1:
+        str1 = file1.read()
+    self.assertEqual('test\n', str1)
+    os.remove(temp_filename)

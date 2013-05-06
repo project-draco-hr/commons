@@ -1,0 +1,10 @@
+def test_record_too_large(self):
+    with self.EphemeralFile('r+') as fp:
+        fpw = FileLike.get(fp)
+        fpw.write(struct.pack('>L', (RecordIO.MAXIMUM_RECORD_SIZE + 1)))
+        fpw.write('a')
+        fpw.flush()
+        fpw.seek(0)
+        rr = RecordReader(fp)
+        with pytest.raises(RecordIO.RecordSizeExceeded):
+            rr.read()

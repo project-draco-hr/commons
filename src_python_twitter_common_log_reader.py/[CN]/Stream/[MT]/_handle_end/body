@@ -1,0 +1,9 @@
+def _handle_end(self):
+    if self._infinite:
+        return
+    elif self._head:
+        rv = self._full_head()
+        (self._head, self._tail) = (None, [])
+        return rv
+    else:
+        return self.EOF

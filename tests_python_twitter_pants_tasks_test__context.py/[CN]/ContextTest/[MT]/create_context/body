@@ -1,0 +1,3 @@
+@classmethod
+def create_context(cls, **kwargs):
+    return Context(cls.config, target_base=MockTarget, **kwargs)

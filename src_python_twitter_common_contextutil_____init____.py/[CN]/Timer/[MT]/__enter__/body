@@ -1,0 +1,4 @@
+def __enter__(self):
+    self.start = self._clock.time()
+    self.finish = None
+    return self

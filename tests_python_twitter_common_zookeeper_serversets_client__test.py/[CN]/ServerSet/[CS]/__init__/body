@@ -1,4 +1,0 @@
-def __init__(self, zk, path):
-    self._zk = zk
-    self._path = path
-    self._init()

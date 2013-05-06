@@ -1,0 +1,9 @@
+def test_append_fails_on_errors(self):
+    record = 'hello'
+    self.mox.StubOutWithMock(RecordIO.Writer, 'do_write')
+    RecordIO.Writer.do_write(mox.IsA(file), record, mox.IsA(StringCodec)).AndRaise(IOError)
+    RecordIO.Writer.do_write(mox.IsA(file), record, mox.IsA(StringCodec)).AndRaise(OSError)
+    self.mox.ReplayAll()
+    with RecordioTestBase.EphemeralFile('r+') as fp:
+        assert (RecordIO.Writer.append(fp.name, record, StringCodec()) == False)
+        assert (RecordIO.Writer.append(fp.name, record, StringCodec()) == False)

@@ -1,3 +1,4 @@
 {
-  this.states=states;
+  this.states=ImmutableList.copyOf(states);
+  this.seq=null;
 }

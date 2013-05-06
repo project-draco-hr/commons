@@ -1,0 +1,6 @@
+{
+  EasyMock.replay(request);
+  assertEquals(false,HttpServletRequestParams.getBool(request,INT_PARAM,true));
+  assertEquals(false,HttpServletRequestParams.getBool(request,LONG_PARAM,false));
+  assertEquals(true,HttpServletRequestParams.getBool(request,BOOL_PARAM,false));
+}

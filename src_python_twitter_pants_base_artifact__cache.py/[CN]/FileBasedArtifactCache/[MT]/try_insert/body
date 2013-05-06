@@ -3,7 +3,8 @@ def try_insert(self, cache_key, build_artifacts):
     safe_rmtree(cache_dir)
     for artifact in (build_artifacts or ()):
         rel_path = os.path.relpath(artifact, self.artifact_root)
-        assert (not rel_path.startswith('..')), ('Artifact %s is not under artifact root %s' % (artifact, self.artifact_root))
+        if rel_path.startswith('..'):
+            raise self.CacheError(('Artifact %s is not under artifact root %s' % (artifact, self.artifact_root)))
         artifact_dest = os.path.join(cache_dir, rel_path)
         safe_mkdir(os.path.dirname(artifact_dest))
         if os.path.isdir(artifact):

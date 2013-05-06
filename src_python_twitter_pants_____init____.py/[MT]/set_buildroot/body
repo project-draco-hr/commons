@@ -1,0 +1,6 @@
+def set_buildroot(path):
+    'Sets the pants ROOT_DIR.\n\n  Generally only useful for tests.\n  '
+    if (not os.path.exists(path)):
+        raise ValueError(('Build root does not exist: %s' % path))
+    global _BUILDROOT
+    _BUILDROOT = os.path.realpath(path)

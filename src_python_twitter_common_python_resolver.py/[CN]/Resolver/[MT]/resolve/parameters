@@ -1,3 +1,4 @@
 self
 requirements
-ignore_errors
+python
+platform

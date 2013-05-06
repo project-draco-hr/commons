@@ -1,0 +1,18 @@
+{
+class ValueEquals {
+    private final String value;
+    ValueEquals(    String value){
+      this.value=Preconditions.checkNotNull(value);
+    }
+    @Override public boolean equals(    Object o){
+      return value.equals(((ValueEquals)o).value);
+    }
+    @Override public int hashCode(){
+      return value.hashCode();
+    }
+  }
+  Supplier<ValueEquals> nullSupplier=MoreSuppliers.ofInstance(new ValueEquals("jake"));
+  ValueEquals actual=nullSupplier.get();
+  assertEquals(new ValueEquals("jake"),actual);
+  assertSame(actual,nullSupplier.get());
+}

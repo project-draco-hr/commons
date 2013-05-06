@@ -1,0 +1,6 @@
+def _is_mutable(self, jar):
+    if (jar.mutable is not None):
+        return jar.mutable
+    if self._mutable_pattern:
+        return self._mutable_pattern.match(jar.rev)
+    return False

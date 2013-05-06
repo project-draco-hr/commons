@@ -1,0 +1,11 @@
+{
+  Injector injector=Guice.createInjector(new AbstractModule(){
+    @Override protected void configure(){
+      Key<Integer> fromKey=Key.get(Integer.class,NAME_KEY);
+      bind(fromKey).toInstance(42);
+      Bindings.rebinder(binder(),BindKey.class).rebind(fromKey);
+    }
+  }
+);
+  assertEquals(42,injector.getInstance(Key.get(Integer.class,BindKey.class)).intValue());
+}

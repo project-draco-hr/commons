@@ -1,0 +1,12 @@
+def best_match(self, req, *ignore_args, **ignore_kwargs):
+    while True:
+        resolved_req = super(PEXEnvironment, self).best_match(req, self._ws)
+        if resolved_req:
+            return resolved_req
+        for subcache in self._subcaches:
+            if (not subcache.activated):
+                subcache.activate()
+                break
+        else:
+            print(('Failed to resolve %s, your installation may not work properly.' % req), file=sys.stderr)
+            break

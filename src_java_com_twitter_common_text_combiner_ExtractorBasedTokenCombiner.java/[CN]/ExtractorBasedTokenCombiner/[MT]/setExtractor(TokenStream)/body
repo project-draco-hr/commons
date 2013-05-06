@@ -1,4 +1,3 @@
 {
   this.extractor=extractor;
-  extractorTermAttr=extractor.getAttribute(CharSequenceTermAttribute.class);
 }

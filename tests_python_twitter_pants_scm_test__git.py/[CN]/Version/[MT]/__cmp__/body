@@ -1,0 +1,6 @@
+def __cmp__(self, other):
+    for (ours, theirs) in izip_longest(self._components, other._components, fillvalue=0):
+        difference = cmp(ours, theirs)
+        if (difference != 0):
+            return difference
+    return 0

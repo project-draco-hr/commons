@@ -1,0 +1,12 @@
+def test(self):
+    self.assertComponents(Revision.lenient('1.2.3'), 1, 2, 3)
+    self.assertComponents(Revision.lenient('1.2.3-SNAPSHOT-eabc'), 1, 2, 3, 'SNAPSHOT', 'eabc')
+    self.assertComponents(Revision.lenient('1.2.3-SNAPSHOT4'), 1, 2, 3, 'SNAPSHOT', 4)
+    self.assertTrue((Revision.lenient('a') < Revision.lenient('b')))
+    self.assertTrue((Revision.lenient('1') < Revision.lenient('2')))
+    self.assertTrue((Revision.lenient('1') < Revision.lenient('a')))
+    self.assertEqual(Revision.lenient('1.2.3'), Revision.lenient('1.2.3'))
+    self.assertTrue((Revision.lenient('1.2.3') < Revision.lenient('1.2.3-SNAPSHOT')))
+    self.assertTrue((Revision.lenient('1.2.3-SNAPSHOT') < Revision.lenient('1.2.3-SNAPSHOT-abc')))
+    self.assertTrue((Revision.lenient('1.2.3-SNAPSHOT-abc') < Revision.lenient('1.2.3-SNAPSHOT-bcd')))
+    self.assertTrue((Revision.lenient('1.2.3-SNAPSHOT-abc6') < Revision.lenient('1.2.3-SNAPSHOT-abc10')))

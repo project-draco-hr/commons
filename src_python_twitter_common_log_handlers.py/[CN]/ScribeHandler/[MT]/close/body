@@ -1,0 +1,8 @@
+def close(self):
+    'Flushes any remaining messages in the queue.'
+    if self.messages_pending:
+        try:
+            self.scribe_write(self._log_buffer)
+        except self.ScribeHandlerException:
+            pass
+    Handler.close(self)

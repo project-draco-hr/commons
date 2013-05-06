@@ -2,9 +2,10 @@
   if (matcher != null && matcher.find()) {
     int start=matcher.start(startGroup);
     int end=matcher.end(endGroup);
-    clearAttributes();
-    charSeqTermAtt.setOffset(start);
-    charSeqTermAtt.setLength(end - start);
+    if (end > 0 && Character.isWhitespace(inputCharSequence().charAt(end - 1))) {
+      end=end - 1;
+    }
+    updateOffsetAndLength(start,end - start);
     return true;
   }
  else {

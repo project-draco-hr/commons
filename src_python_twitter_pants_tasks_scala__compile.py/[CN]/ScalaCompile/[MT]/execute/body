@@ -1,5 +1,5 @@
 def execute(self, targets):
-    scala_targets = filter(ScalaCompile._has_scala_sources, targets)
+    scala_targets = filter(_is_scala, targets)
     if (not scala_targets):
         return
     with self.context.state('classpath', []) as cp:

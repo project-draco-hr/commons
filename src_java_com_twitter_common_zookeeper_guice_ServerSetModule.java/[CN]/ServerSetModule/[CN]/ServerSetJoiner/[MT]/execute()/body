@@ -16,7 +16,12 @@
   }
   final EndpointStatus endpointStatus;
   try {
-    endpointStatus=serverSet.join(primary,auxSockets,initialStatus);
+    if (SHARD_ID.hasAppliedValue()) {
+      endpointStatus=serverSet.join(primary,auxSockets,SHARD_ID.get());
+    }
+ else {
+      endpointStatus=serverSet.join(primary,auxSockets);
+    }
     endpointSupplier.set(endpointStatus);
   }
  catch (  JoinException e) {
@@ -31,7 +36,7 @@ catch (  InterruptedException e) {
   shutdownRegistry.addAction(new ExceptionalCommand<UpdateException>(){
     @Override public void execute() throws UpdateException {
       LOG.info("Leaving ServerSet.");
-      endpointStatus.update(Status.DEAD);
+      endpointStatus.leave();
     }
   }
 );

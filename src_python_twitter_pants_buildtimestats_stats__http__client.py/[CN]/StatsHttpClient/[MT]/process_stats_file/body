@@ -1,0 +1,13 @@
+def process_stats_file(self):
+    for filename in Fileset.walk(self._stats_dir):
+        try:
+            with open(os.path.join(self._stats_dir, filename), 'r') as stats_file:
+                lines = stats_file.readlines()
+                tmp_str = ','.join(lines)
+                tmp_str.strip(',')
+                self.push_stats((('[' + tmp_str) + ']'))
+            os.remove(os.path.join(self._stats_dir, filename))
+        except httplib.HTTPException as e:
+            log.debug(('HTTPException %s' % e))
+        except OSError as e:
+            log.debug(('Error reading or deleting a stats file %s' % e))

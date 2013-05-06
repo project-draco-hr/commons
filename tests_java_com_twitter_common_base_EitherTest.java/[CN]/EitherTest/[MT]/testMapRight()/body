@@ -1,0 +1,5 @@
+{
+  assertRight(4,Either.right("jake").mapRight(LENGTH));
+  RuntimeException left=new RuntimeException();
+  assertLeft(left,Either.left(left).mapRight(HASHCODE));
+}

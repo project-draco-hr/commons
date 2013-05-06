@@ -1,0 +1,11 @@
+def _call(self, cmd, *args, **kwargs):
+    'Runs hadoop fs command  with the given command and args.\n    Checks the result of the call by default but this can be disabled with check=False.\n    '
+    cmd = (['hadoop', '--config', self._config, 'dfs', cmd] + list(args))
+    if kwargs.get('check'):
+        return self._cmd_class.check_call(cmd)
+    elif kwargs.get('return_output'):
+        return self._cmd_class.execute_and_get_output(cmd)
+    elif kwargs.get('supress_output'):
+        return self._cmd_class.execute_suppress_stdout(cmd)
+    else:
+        return self._cmd_class.execute(cmd)

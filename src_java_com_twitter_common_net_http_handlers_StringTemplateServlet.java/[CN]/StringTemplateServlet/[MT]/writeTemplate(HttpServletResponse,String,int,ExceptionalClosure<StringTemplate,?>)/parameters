@@ -1,4 +1,0 @@
-HttpServletResponse response
-String contentType
-int status
-ExceptionalClosure<StringTemplate,?> parameterSetter

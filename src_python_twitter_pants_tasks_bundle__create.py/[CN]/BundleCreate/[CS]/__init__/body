@@ -1,11 +1,12 @@
 def __init__(self, context):
     JvmBinaryTask.__init__(self, context)
     self.outdir = (context.options.jvm_binary_create_outdir or context.config.get('bundle-create', 'outdir'))
+    self.prefix = context.options.bundle_create_prefix
 
     def fill_archiver_type():
         self.archiver_type = context.options.bundle_create_archive
         if (not self.archiver_type):
-            for archive_type in ARCHIVER_BY_TYPE.keys():
+            for archive_type in archive.TYPE_NAMES:
                 if context.products.isrequired(archive_type):
                     self.archiver_type = archive_type
     fill_archiver_type()

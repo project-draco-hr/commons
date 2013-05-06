@@ -1,0 +1,15 @@
+@classmethod
+def from_target(cls, config, target, conn_timeout=None):
+    from twitter.common.python.fetcher import PyPIFetcher, Fetcher
+    from twitter.common.python.resolver import Resolver
+    from twitter.common.python.http import Crawler
+    from twitter.common.quantity import Amount, Time
+    conn_timeout_amount = (Amount(conn_timeout, Time.SECONDS) if (conn_timeout is not None) else None)
+    crawler = Crawler(cache=config.get('python-setup', 'download_cache'), conn_timeout=conn_timeout_amount)
+    fetchers = []
+    fetchers.extend((Fetcher([url]) for url in config.getlist('python-repos', 'repos', [])))
+    fetchers.extend((PyPIFetcher(url) for url in config.getlist('python-repos', 'indices', [])))
+    platforms = config.getlist('python-setup', 'platforms', ['current'])
+    if (isinstance(target, PythonBinary) and target.platforms):
+        platforms = target.platforms
+    return cls(platforms=get_platforms(platforms), resolver=Resolver(cache=config.get('python-setup', 'install_cache'), crawler=crawler, fetchers=fetchers, install_cache=config.get('python-setup', 'install_cache'), conn_timeout=conn_timeout_amount))

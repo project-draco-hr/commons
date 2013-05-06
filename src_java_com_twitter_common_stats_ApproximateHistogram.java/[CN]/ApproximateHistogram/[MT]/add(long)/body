@@ -1,14 +1,16 @@
 {
-  count+=1;
-  if (buffer.get(0).size() == bufferSize && buffer.get(1).size() == bufferSize) {
-    Collections.sort(buffer.get(0));
-    Collections.sort(buffer.get(1));
-    recCollapse(buffer.get(0),1);
-    buffer.get(0).clear();
+  if (leafCount == 2 * bufferSize) {
+    Arrays.sort(buffer[0]);
+    Arrays.sort(buffer[1]);
+    recCollapse(buffer[0],1);
+    leafCount=0;
   }
-  int i=1;
-  if (buffer.get(0).size() < bufferSize) {
-    i=0;
+  if (leafCount < bufferSize) {
+    buffer[0][leafCount]=x;
   }
-  buffer.get(i).add(x);
+ else {
+    buffer[1][leafCount - bufferSize]=x;
+  }
+  leafCount++;
+  count++;
 }

@@ -1,38 +1,39 @@
 {
-  clearAttributes();
-  if (state != null) {
-    restoreState(state);
-    state=null;
+  if (!nextStates.isEmpty()) {
+    restoreState(nextStates.poll());
+    return true;
   }
- else {
-    if (!getInputStream().incrementToken()) {
-      return false;
-    }
-    restoreState(getInputStream().captureState());
+  if (!incrementInputStream()) {
+    return false;
   }
-  if (offsetMap.containsKey(termAttr.getOffset())) {
-    int startOffset=termAttr.getOffset();
+  if (offsetMap.containsKey(offset())) {
+    int startOffset=offset();
     int endOffset=offsetMap.get(startOffset);
-    if (endOffset == inputTermAttr.getOffset() + inputTermAttr.getLength()) {
+    if (endOffset == startOffset + length()) {
       if (type != null) {
-        typeAttr.setType(type);
+        updateType(type);
       }
       return true;
     }
-    while (getInputStream().incrementToken()) {
-      state=getInputStream().captureState();
-      int currentEndOffset=inputTermAttr.getOffset() + inputTermAttr.getLength();
+    nextStates.add(captureState());
+    while (incrementInputStream()) {
+      nextStates.add(captureState());
+      int currentEndOffset=offset() + length();
       if (currentEndOffset == endOffset) {
-        termAttr.setLength(endOffset - startOffset);
+        restoreState(nextStates.poll());
+        updateOffsetAndLength(startOffset,endOffset - startOffset);
         if (type != null) {
-          typeAttr.setType(type);
+          updateType(type);
         }
-        state=null;
+        nextStates.clear();
         break;
       }
  else       if (currentEndOffset > endOffset) {
         break;
       }
+    }
+    if (!nextStates.isEmpty()) {
+      restoreState(nextStates.poll());
     }
   }
   return true;

@@ -1,8 +1,0 @@
-def validate(f):
-    'An internal method decorator used to validate if the ZK connection has been marked bad.'
-
-    def _wrapper(self, *args, **kwargs):
-        if (self._zk is None):
-            raise ServerSetClient.ServerSetMarkedBad(('ServerSetClient for %r has been marked bad: %r' % (self._endpoint, self._error)))
-        return f(self, *args, **kwargs)
-    return _wrapper

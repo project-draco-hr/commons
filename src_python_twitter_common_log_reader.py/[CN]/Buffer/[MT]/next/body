@@ -1,0 +1,16 @@
+def next(self):
+    last_chunk = self.CHUNKSIZE
+    while ((len(self._buffer) == 0) and (last_chunk == self.CHUNKSIZE)):
+        tail_add = self._fp.read(self.CHUNKSIZE)
+        if tail_add:
+            self._tail = ((self._tail + tail_add) if self._tail else tail_add)
+            self._flatten_tail()
+        last_chunk = len(tail_add)
+    if self._buffer:
+        return self._buffer.popleft()
+    if ((last_chunk != self.CHUNKSIZE) and self._infinite):
+        self.reset(self._fp)
+    if ((last_chunk != self.CHUNKSIZE) and (self._tail is not None) and (not self._infinite)):
+        rv = self._tail
+        self._tail = None
+        return rv

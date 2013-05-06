@@ -1,0 +1,9 @@
+@staticmethod
+def create_proxy(proxy_host=None, proxy_port=None):
+    '\n      Create a SOCKS proxy.\n    '
+    if (proxy_host in TunnelHelper.PROXIES):
+        return ('localhost', TunnelHelper.PROXIES[proxy_host][0])
+    (proxy_host, proxy_port) = TunnelHelper.acquire_host_pair(proxy_host, proxy_port)
+    ssh_cmd_args = ('ssh', '-T', '-D', str(proxy_port), proxy_host)
+    TunnelHelper.PROXIES[proxy_host] = (proxy_port, subprocess.Popen(ssh_cmd_args, stdin=subprocess.PIPE))
+    return ('localhost', proxy_port)

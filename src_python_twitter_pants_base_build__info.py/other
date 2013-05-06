@@ -1,7 +1,6 @@
-from collections import namedtuple
 import getpass
-import os
 import socket
-import subprocess
+from collections import namedtuple
 from time import strftime, localtime
-BuildInfo = namedtuple('BuildInfo', 'date time timestamp branch tag sha name machine path')
+from twitter.pants import get_buildroot, get_scm
+BuildInfo = namedtuple('BuildInfo', 'date time timestamp branch tag sha user machine path')

@@ -1,0 +1,23 @@
+@classmethod
+def get_all_valid_reqs(cls, requirements, requirements_txt):
+    from collections import namedtuple
+    from pkg_resources import Requirement
+    import re
+    numbered_item = namedtuple('numbered_item', ['position', 'data'])
+    numbered_list = (lambda dataset: [numbered_item(*ni) for ni in enumerate(dataset)])
+    named_dataset = namedtuple('named_dataset', ['name', 'dataset'])
+    inputs = [named_dataset(name='command line', dataset=numbered_list(requirements))]
+    if (requirements_txt is not None):
+        file_lines = re.split('[\n\r]', open(requirements_txt).read())
+        inputs.append(named_dataset(name='file: {0}'.format(requirements_txt), dataset=numbered_list(file_lines)))
+    valid_reqs = []
+    whitespace = re.compile('^\\s*$')
+    for (name, dataset) in inputs:
+        for (position, req) in dataset:
+            try:
+                Requirement.parse(req)
+                valid_reqs.append(req)
+            except ValueError:
+                if (whitespace.match(req) is None):
+                    cls.logger.warn('Invalid requirement "{0}" at position {1} from {2}\n'.format(req, (position + 1), name))
+    return valid_reqs

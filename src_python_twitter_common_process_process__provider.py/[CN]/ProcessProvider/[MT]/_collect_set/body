@@ -1,3 +1,3 @@
+@abstractmethod
 def _collect_set(self, pidset):
     'Collect and return a subset of process information into unstructured line-based data.'
-    raise NotImplementedError

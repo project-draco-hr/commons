@@ -1,0 +1,2 @@
+def test_disjoint(self):
+    self.assert_console_output('common/a/BUILD:a', 'common/b/BUILD:b', 'common/c/BUILD:c', targets=[self.target('common/a'), self.target('common/b'), self.target('common/c')])

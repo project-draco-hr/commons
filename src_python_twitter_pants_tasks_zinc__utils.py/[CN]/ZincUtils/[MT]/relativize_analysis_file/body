@@ -1,0 +1,8 @@
+def relativize_analysis_file(self, src, dst):
+    with temporary_file_path() as tmp_analysis_file:
+        shutil.copy(src, tmp_analysis_file)
+        rebasings = [(self._java_home, ''), (self._ivy_home, ZincUtils.IVY_HOME_PLACEHOLDER), (self._pants_home, ZincUtils.PANTS_HOME_PLACEHOLDER)]
+        exit_code = self.run_zinc_rebase(tmp_analysis_file, rebasings)
+        if (not exit_code):
+            shutil.copy(tmp_analysis_file, dst)
+        return exit_code

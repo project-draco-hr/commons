@@ -1,0 +1,5 @@
+def __init__(self):
+    threading.Thread.__init__(self)
+    self.start_event = threading.Event()
+    self.stop_event = threading.Event()
+    self.daemon = True

@@ -1,0 +1,4 @@
+def test_intersection(self):
+    self.assert_console_output('overlaps/BUILD:one', 'overlaps/BUILD:two', targets=[self.target('overlaps:one'), self.target('overlaps:two')])
+    self.assert_console_output('overlaps/BUILD:one', 'common/c/BUILD:c', targets=[self.target('common/a'), self.target('common/b'), self.target('common/c'), self.target('overlaps:one')])
+    self.assert_console_output('overlaps/BUILD:two', 'overlaps/BUILD:three', targets=[self.target('common/a'), self.target('common/b'), self.target('common/c'), self.target('overlaps:one'), self.target('overlaps:two'), self.target('overlaps:three')])

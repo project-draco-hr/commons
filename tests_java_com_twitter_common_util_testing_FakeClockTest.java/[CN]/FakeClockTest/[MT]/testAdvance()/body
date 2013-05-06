@@ -1,14 +1,10 @@
 {
-  fakeClock.advance(Amount.of(42L,Time.MILLISECONDS));
-  assertEquals(42L,fakeClock.nowMillis());
-  fakeClock.advance(Amount.of(42L,Time.NANOSECONDS));
-  assertEquals(42000042L,fakeClock.nowNanos());
-  fakeClock.advance(Amount.of(-42L,Time.MILLISECONDS));
-  assertEquals(42L,fakeClock.nowNanos());
-  try {
-    fakeClock.advance(Amount.of(-43L,Time.NANOSECONDS));
-    fail("Should not allow clock to be set to negative time");
-  }
- catch (  IllegalArgumentException e) {
-  }
+  fakeTicker.advance(Amount.of(42L,Time.NANOSECONDS));
+  assertEquals(42L,fakeTicker.read());
+  fakeTicker.advance(Amount.of(42L,Time.NANOSECONDS));
+  assertEquals(84L,fakeTicker.read());
+  fakeTicker.advance(Amount.of(-42L,Time.NANOSECONDS));
+  assertEquals(42L,fakeTicker.read());
+  fakeTicker.advance(Amount.of(-43L,Time.NANOSECONDS));
+  assertEquals(-1L,fakeTicker.read());
 }

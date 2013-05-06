@@ -1,0 +1,36 @@
+def test_tracing_timed():
+    sio = Compatibility.StringIO()
+    clock = ThreadedClock()
+    final_trace = []
+
+
+    class PrintTraceInterceptor(Tracer):
+
+        def print_trace(self, *args, **kw):
+            final_trace.append(self._local.parent)
+    tracer = PrintTraceInterceptor(output=sio, clock=clock, predicate=(lambda v: False))
+    assert (not hasattr(tracer._local, 'parent'))
+    with tracer.timed('hello'):
+        clock.tick(1.0)
+        with tracer.timed('world 1'):
+            clock.tick(1.0)
+        with tracer.timed('world 2'):
+            clock.tick(1.0)
+    assert (len(final_trace) == 1)
+    final_trace = final_trace[0]
+    assert (final_trace._start == 0)
+    assert (final_trace._stop == 3)
+    assert (final_trace.duration() == 3)
+    assert (final_trace.msg == 'hello')
+    assert (len(final_trace.children) == 2)
+    child = final_trace.children[0]
+    assert (child._start == 1)
+    assert (child._stop == 2)
+    assert (child.parent is final_trace)
+    assert (child.msg == 'world 1')
+    child = final_trace.children[1]
+    assert (child._start == 2)
+    assert (child._stop == 3)
+    assert (child.parent is final_trace)
+    assert (child.msg == 'world 2')
+    assert (sio.getvalue() == '')

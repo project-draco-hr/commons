@@ -1,0 +1,7 @@
+def activate(self):
+    if (not self._activated):
+        with TRACER.timed(('Activating cache %s' % self._path)):
+            for dist in find_distributions(self._path):
+                if self._env.can_add(dist):
+                    self._env.add(dist)
+        self._activated = True

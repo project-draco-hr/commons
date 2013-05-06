@@ -10,6 +10,7 @@ synchronized (safeToRewatchLock) {
       }
  catch (      InterruptedException e) {
         LOG.log(Level.WARNING,"Interrupted while trying to re-establish watch.",e);
+        Thread.currentThread().interrupt();
       }
     }
   }
@@ -22,6 +23,7 @@ synchronized (safeToRewatchLock) {
   }
  catch (  InterruptedException e) {
     zkClient.unregister(watcher);
+    Thread.currentThread().interrupt();
     throw e;
   }
 catch (  KeeperException e) {

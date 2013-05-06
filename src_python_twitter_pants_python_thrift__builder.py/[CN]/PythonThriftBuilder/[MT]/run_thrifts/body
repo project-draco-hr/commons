@@ -1,4 +1,8 @@
 def run_thrifts(self):
-    for src in self.target.sources:
-        if (not self._run_thrift(src)):
+
+    def is_py_thrift(target):
+        return isinstance(target, PythonThriftLibrary)
+    (bases, roots) = calculate_compile_roots([self.target], is_py_thrift)
+    for src in roots:
+        if (not self._run_thrift(src, bases)):
             raise PythonThriftBuilder.CodeGenerationException(('Could not generate .py from %s!' % src))

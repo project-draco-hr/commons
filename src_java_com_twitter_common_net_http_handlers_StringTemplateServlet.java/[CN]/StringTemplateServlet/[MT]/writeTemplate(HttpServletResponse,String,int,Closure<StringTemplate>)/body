@@ -1,0 +1,15 @@
+{
+  Preconditions.checkNotNull(response);
+  MorePreconditions.checkNotBlank(contentType);
+  Preconditions.checkArgument(status > 0);
+  Preconditions.checkNotNull(parameterSetter);
+  try {
+    templateHelper.writeTemplate(response.getWriter(),parameterSetter);
+    response.setStatus(status);
+    response.setContentType(contentType);
+  }
+ catch (  TemplateException e) {
+    LOG.log(Level.SEVERE,"Unknown exception.",e);
+    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+  }
+}

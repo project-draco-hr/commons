@@ -1,12 +1,11 @@
 import os
 import pkgutil
 from collections import defaultdict
-from twitter.common.collections import OrderedSet
-from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.common.collections import OrderedSet, OrderedDict
+from twitter.common.dirutil import safe_delete, safe_mkdir, safe_open
 from twitter.pants import get_buildroot
 from twitter.pants.base.generator import TemplateData, Generator
 from twitter.pants.tasks.ide_gen import IdeGen
-__author__ = 'John Sirois'
-_TEMPLATE_BASEDIR = os.path.join('eclipse', 'templates')
+_TEMPLATE_BASEDIR = os.path.join('templates', 'eclipse')
 _VERSIONS = {'3.5': '3.7', '3.6': '3.7', '3.7': '3.7', }
-_SETTINGS = ('org.eclipse.core.resources.prefs', 'org.eclipse.jdt.core.prefs', 'org.eclipse.jdt.ui.prefs')
+_SETTINGS = ('org.eclipse.core.resources.prefs', 'org.eclipse.jdt.ui.prefs')

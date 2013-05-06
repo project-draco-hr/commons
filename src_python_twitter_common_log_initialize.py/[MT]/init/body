@@ -1,20 +1,32 @@
 def init(filebase=None):
-    '\n    Sets up default stderr logging and, if filebase is supplied, sets up disk logging using:\n      {--log_dir}/filebase.{INFO,WARNING,...}\n  '
+    "\n    Sets up default stderr logging and, if filebase is supplied, sets up disk logging using:\n      {--log_dir}/filebase.{INFO,WARNING,...}\n\n    If '--log_simple' is specified, logs are written into a single file:\n      {--log_dir}/filebase.log\n  "
     logging._acquireLock()
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)
+    teardown_scribe_logging()
     teardown_stderr_logging()
     teardown_disk_logging()
     for handler in root_logger.handlers:
         root_logger.removeHandler(handler)
     if filebase:
-        for handler in _setup_disk_logging(filebase):
+        _initialize_disk_logging()
+        initializer = (_setup_aggregated_disk_logging if LogOptions.simple() else _setup_disk_logging)
+        for handler in initializer(filebase):
             root_logger.addHandler(handler)
             _DISK_LOGGERS.append(handler)
+    if LogOptions._is_scribe_logging_required():
+        try:
+            for handler in _setup_scribe_logging():
+                root_logger.addHandler(handler)
+                _SCRIBE_LOGGERS.append(handler)
+        except ScribeHandler.ScribeHandlerException as err:
+            print_stderr(err)
     for handler in _setup_stderr_logging():
         root_logger.addHandler(handler)
         _STDERR_LOGGERS.append(handler)
     logging._releaseLock()
-    if ((len(_DISK_LOGGERS) > 0) and (LogOptions.stderr_log_level() != LogOptions.LOG_LEVEL_NONE)):
-        print(('Writing log files to disk in %s' % LogOptions.log_dir()), file=sys.stderr)
+    if (len(_DISK_LOGGERS) > 0):
+        print_stderr(('Writing log files to disk in %s' % LogOptions.log_dir()))
+    if (len(_SCRIBE_LOGGERS) > 0):
+        print_stderr(('Sending log messages to scribe host=%s:%d category=%s' % (LogOptions.scribe_host(), LogOptions.scribe_port(), LogOptions.scribe_category())))
     return root_logger

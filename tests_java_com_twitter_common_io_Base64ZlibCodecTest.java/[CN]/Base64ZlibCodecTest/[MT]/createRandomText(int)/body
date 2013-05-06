@@ -1,0 +1,5 @@
+{
+  final byte[] msg=new byte[len];
+  new Random().nextBytes(msg);
+  return new String(msg,"8859_1");
+}

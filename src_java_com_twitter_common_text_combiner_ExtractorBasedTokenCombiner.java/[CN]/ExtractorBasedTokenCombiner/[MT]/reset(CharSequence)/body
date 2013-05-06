@@ -4,6 +4,6 @@
   offsetMap.clear();
   extractor.reset(input);
   while (extractor.incrementToken()) {
-    offsetMap.put(extractorTermAttr.getOffset(),extractorTermAttr.getOffset() + extractorTermAttr.getLength());
+    offsetMap.put(extractor.offset(),extractor.offset() + extractor.length());
   }
 }

@@ -1,0 +1,14 @@
+{
+  try {
+    return right(work.get());
+  }
+ catch (  Exception e) {
+    for (    Class<? extends X> exceptionType : exceptionTypes) {
+      if (exceptionType.isInstance(e)) {
+        X exception=exceptionType.cast(e);
+        return left(exception);
+      }
+    }
+    throw new UnguardedException(e);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  this.serviceEndpoint=new EndpointSchema(instance.getServiceEndpoint());
+  if (instance.getAdditionalEndpoints() != null) {
+    this.additionalEndpoints=Maps.transformValues(instance.getAdditionalEndpoints(),new Function<Endpoint,EndpointSchema>(){
+      @Override public EndpointSchema apply(      Endpoint endpoint){
+        return new EndpointSchema(endpoint);
+      }
+    }
+);
+  }
+ else {
+    this.additionalEndpoints=Maps.newHashMap();
+  }
+  this.status=instance.getStatus();
+  this.shard=instance.isSetShard() ? instance.getShard() : null;
+}

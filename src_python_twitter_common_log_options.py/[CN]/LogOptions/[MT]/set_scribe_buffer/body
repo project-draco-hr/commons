@@ -1,0 +1,4 @@
+@staticmethod
+def set_scribe_buffer(buffer_enabled):
+    '\n      Set buffer for scribe logging. Must be called before log.init() for\n      changes to take effect.\n    '
+    LogOptions._SCRIBE_BUFFER = buffer_enabled

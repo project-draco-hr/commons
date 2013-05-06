@@ -1,0 +1,13 @@
+def _ensure_mybottle_pex_runs(self, mybottle_pex_path):
+    max_wait_time = 10
+    step_wait_interval = 0.05
+    server_process = subprocess.Popen(mybottle_pex_path, shell=True)
+    for i in range(int((max_wait_time / step_wait_interval))):
+        try:
+            time.sleep(step_wait_interval)
+            response = urllib2.urlopen('http://localhost:8080/hello/world').read()
+            assert ('Hello world!' in response)
+            break
+        except urllib2.URLError as e:
+            pass
+    server_process.kill()

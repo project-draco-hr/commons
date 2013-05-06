@@ -1,0 +1,4 @@
+@staticmethod
+def set_scribe_category(category):
+    '\n      Set the scribe category for logging. Must be called before log.init() for\n      changes to take effect.\n    '
+    LogOptions._SCRIBE_CATEGORY = category

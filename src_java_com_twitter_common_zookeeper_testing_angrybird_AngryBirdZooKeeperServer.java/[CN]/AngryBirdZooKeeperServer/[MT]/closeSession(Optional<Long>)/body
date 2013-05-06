@@ -3,7 +3,7 @@
     LOG.warning("No session found for expiration!");
   }
  else {
-    LOG.info("Closing session: " + sessionId);
+    LOG.info("Closing session: " + sessionId.get());
     zooKeeperServer.closeSession(sessionId.get().longValue());
   }
   return sessionId;

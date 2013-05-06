@@ -1,7 +1,10 @@
 def sample(self, sample_prefix=''):
     samples = {}
     for (name, metric) in self._metrics.items():
-        samples[(sample_prefix + name)] = str(metric.read())
+        try:
+            samples[(sample_prefix + name)] = self.coerce_value(metric.read())
+        except ValueError as e:
+            continue
     for scope_name in self._children:
         samples.update(self.scope(scope_name).sample(sample_prefix=((sample_prefix + scope_name) + '.')))
     return samples

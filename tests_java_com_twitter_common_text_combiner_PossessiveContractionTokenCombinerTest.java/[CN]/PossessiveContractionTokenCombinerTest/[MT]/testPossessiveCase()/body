@@ -3,4 +3,6 @@
   assertEquals(ImmutableList.of("this","is","Keita's","desk"),stream.toStringList());
   stream.reset("this desk is Keita's.");
   assertEquals(ImmutableList.of("this","desk","is","Keita's","."),stream.toStringList());
+  stream.reset("YELLING THIS DESK IS KEITA'S.");
+  assertEquals(ImmutableList.of("YELLING","THIS","DESK","IS","KEITA'S","."),stream.toStringList());
 }

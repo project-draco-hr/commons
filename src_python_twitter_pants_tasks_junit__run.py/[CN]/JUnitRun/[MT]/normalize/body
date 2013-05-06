@@ -6,8 +6,8 @@ def normalize(self, classname_or_file, basedir=None):
 
     def relpath_toclassname(path):
         classes = classes_by_source.get(path)
-        if (classes is None):
-            self.context.log.warn(('No classes found for file %s' % path))
+        if (not classes):
+            self.context.log.warn(('File %s contains no classes' % os.path.join(basedir, path)))
         else:
             for (base, classes) in classes.items():
                 for cls in classes:

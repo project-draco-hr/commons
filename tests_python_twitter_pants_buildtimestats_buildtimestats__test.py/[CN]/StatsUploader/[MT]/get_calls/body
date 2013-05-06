@@ -1,0 +1,2 @@
+def get_calls(self):
+    return self._calls

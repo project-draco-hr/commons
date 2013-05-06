@@ -1,6 +1,6 @@
 def dump(self):
     self.debug(('Building PythonBinary %s:' % self._target))
-    targets = self._resolver.resolve()
+    targets = self.resolve(([self._target] + self._extra_targets))
     for lib in targets['libraries']:
         self._dump_library(lib)
     for req in targets['reqs']:
@@ -8,10 +8,19 @@ def dump(self):
             self.debug(('Skipping %s based upon version filter' % req))
             continue
         self._dump_requirement(req._requirement, req._dynamic, req._repository)
-    for dist in ReqResolver.resolve((req._requirement for req in targets['reqs'] if req.should_build()), self._config, self._platforms, self._pythons, ignore_errors=self._builder.info().ignore_errors):
+    for dist in self._resolver.resolve((req._requirement for req in targets['reqs'] if req.should_build())):
         self._dump_distribution(dist)
-    for thr in targets['thrifts']:
-        self._dump_thrift_library(thr)
+    if targets['thrifts']:
+        thrift_versions = set()
+        for thr in targets['thrifts']:
+            self._dump_thrift_library(thr)
+            thrift_versions.add(thr.thrift_version)
+        if (len(thrift_versions) > 1):
+            print('WARNING: Target has multiple thrift versions!')
+        for version in thrift_versions:
+            self._builder.add_requirement(('thrift==%s' % version))
+            for dist in self._resolver.resolve((('thrift==%s' % version) for version in thrift_versions)):
+                self._dump_distribution(dist)
     for antlr in targets['antlrs']:
         self._dump_antlr_library(antlr)
     if (len(targets['binaries']) > 1):

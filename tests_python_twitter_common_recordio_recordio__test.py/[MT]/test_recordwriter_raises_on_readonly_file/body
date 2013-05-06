@@ -1,4 +1,0 @@
-def test_recordwriter_raises_on_readonly_file():
-    with EphemeralFile('r') as fp:
-        with pytest.raises(RecordIO.InvalidFileHandle):
-            RecordWriter(fp)

@@ -1,5 +1,0 @@
-@property
-def fetcher(self):
-    if (not self._fetcher):
-        self._fetcher = self._fetcher_provider()
-    return self._fetcher

@@ -1,5 +1,5 @@
 {
-  int w=0;
+  int w;
   if (level < 2) {
     w=1;
   }

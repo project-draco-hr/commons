@@ -1,0 +1,8 @@
+def __init__(self, *events):
+    if (not all((isinstance(arg, threading._Event) for arg in events))):
+        raise ValueError('arguments must be threading.Events()!')
+    self._lock = threading.Lock()
+    self._queue = Queue()
+    self._wait_events = [self.WaitThread(event, self._queue) for event in events]
+    self._started = False
+    self._finished = False

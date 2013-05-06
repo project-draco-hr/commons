@@ -1,0 +1,20 @@
+def translate(self, link):
+    'From a link, translate a distribution.'
+    if (not isinstance(link, SourceLink)):
+        return None
+    (unpack_path, installer) = (None, None)
+    try:
+        unpack_path = link.fetch(conn_timeout=self._conn_timeout)
+        with TRACER.timed(('Installing %s' % link.name)):
+            installer = Installer(unpack_path, strict=(link.name != 'distribute'))
+        with TRACER.timed(('Distilling %s' % link.name)):
+            try:
+                dist = installer.distribution()
+            except Installer.InstallFailure as e:
+                return None
+            return dist_from_egg(Distiller(dist).distill(into=self._install_cache))
+    finally:
+        if installer:
+            installer.cleanup()
+        if unpack_path:
+            safe_rmtree(unpack_path)

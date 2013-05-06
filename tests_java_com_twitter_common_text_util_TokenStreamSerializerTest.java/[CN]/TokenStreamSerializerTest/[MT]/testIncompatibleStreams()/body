@@ -10,7 +10,7 @@
   try {
     incompatibleSerializer.deserialize(data,text);
   }
- catch (  IOException e) {
+ catch (  TokenStreamSerializer.VersionMismatchException e) {
     exceptionWasThrown=true;
   }
   assertTrue("The expected exception was not thrown!",exceptionWasThrown);

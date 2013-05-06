@@ -1,0 +1,18 @@
+def _size_base(path, on_error=None, calculate_usage=_calculate_size):
+    assert ((on_error is None) or callable(on_error)), 'on_error must be a callable!'
+    assert callable(calculate_usage)
+    try:
+        stat_result = os.lstat(path)
+        stat_mode = stat_result.st_mode
+        if stat.S_ISREG(stat_mode):
+            return calculate_usage(stat_result)
+        elif stat.S_ISDIR(stat_mode):
+            return stat_result.st_size
+        elif stat.S_ISLNK(stat_mode):
+            return len(os.readlink(path))
+        else:
+            return 0
+    except OSError as e:
+        if on_error:
+            on_error(path, e)
+        return 0

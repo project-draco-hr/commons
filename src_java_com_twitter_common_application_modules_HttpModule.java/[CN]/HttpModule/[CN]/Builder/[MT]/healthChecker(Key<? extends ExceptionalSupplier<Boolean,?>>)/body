@@ -1,0 +1,4 @@
+{
+  this.healthCheckerKey=key;
+  return this;
+}

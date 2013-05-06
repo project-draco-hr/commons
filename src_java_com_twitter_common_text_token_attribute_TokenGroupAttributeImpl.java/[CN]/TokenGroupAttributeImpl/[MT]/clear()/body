@@ -1,3 +1,5 @@
 {
   states=Collections.emptyList();
+  seq=null;
+  tokenGroupStream=null;
 }

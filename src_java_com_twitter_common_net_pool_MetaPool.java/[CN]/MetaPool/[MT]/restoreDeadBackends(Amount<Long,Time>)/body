@@ -1,13 +1,23 @@
 {
-  for (  E backend : backends.keySet()) {
+  for (  E backend : snapshotBackends()) {
+    ObjectPool<Connection<T,E>> pool;
+    backendsReadLock.lock();
     try {
-      release(get(backend,restoreInterval));
+      pool=backends.get(backend);
     }
- catch (    TimeoutException e) {
-      LOG.warning("Backend restorer failed to revive backend: " + backend + " -> "+ e);
+  finally {
+      backendsReadLock.unlock();
     }
-catch (    ResourceExhaustedException e) {
-      LOG.warning("Backend restorer failed to revive backend: " + backend + " -> "+ e);
+    if (pool != null) {
+      try {
+        release(get(backend,pool,restoreInterval));
+      }
+ catch (      TimeoutException e) {
+        LOG.warning("Backend restorer failed to revive backend: " + backend + " -> "+ e);
+      }
+catch (      ResourceExhaustedException e) {
+        LOG.warning("Backend restorer failed to revive backend: " + backend + " -> "+ e);
+      }
     }
   }
 }

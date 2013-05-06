@@ -1,0 +1,3 @@
+{
+  return expect(serverSet.join(PRIMARY_ENDPOINT,AUX_ENDPOINTS));
+}

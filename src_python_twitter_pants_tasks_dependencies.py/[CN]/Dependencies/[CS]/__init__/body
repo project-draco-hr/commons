@@ -1,0 +1,7 @@
+def __init__(self, context, **kwargs):
+    super(Dependencies, self).__init__(context, **kwargs)
+    if (self.context.options.dependencies_is_internal_only and self.context.options.dependencies_is_external_only):
+        error_str = ('At most one of %s or %s can be selected.' % (self.internal_only_flag, self.external_only_flag))
+        raise TaskError(error_str)
+    self.is_internal_only = self.context.options.dependencies_is_internal_only
+    self.is_external_only = self.context.options.dependencies_is_external_only

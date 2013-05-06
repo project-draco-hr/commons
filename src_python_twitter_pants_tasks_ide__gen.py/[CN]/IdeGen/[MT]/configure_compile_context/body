@@ -8,11 +8,12 @@ def configure_compile_context(self, targets):
     compile = OrderedSet()
 
     def prune(target):
-        if target.excludes:
-            excludes.update(target.excludes)
-        jars.update((jar for jar in target.jar_dependencies if jar.rev))
-        if is_cp(target):
-            target.walk(compile.add)
+        if isinstance(target, JvmTarget):
+            if target.excludes:
+                excludes.update(target.excludes)
+            jars.update((jar for jar in target.jar_dependencies if jar.rev))
+            if is_cp(target):
+                target.walk(compile.add)
     for target in targets:
         target.walk(prune)
     self.context.replace_targets(compile)

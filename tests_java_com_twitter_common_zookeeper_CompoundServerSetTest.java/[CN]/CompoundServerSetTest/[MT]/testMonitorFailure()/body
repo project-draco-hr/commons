@@ -1,0 +1,6 @@
+{
+  serverSet1.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject());
+  expectLastCall().andThrow(new MonitorException("Monitor exception",null));
+  control.replay();
+  compoundServerSet.monitor(compoundMonitor);
+}

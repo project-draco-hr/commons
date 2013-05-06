@@ -1,0 +1,4 @@
+{
+  this.pathSpec=MorePreconditions.checkNotBlank(pathSpec);
+  this.filterClass=checkNotNull(filterClass);
+}

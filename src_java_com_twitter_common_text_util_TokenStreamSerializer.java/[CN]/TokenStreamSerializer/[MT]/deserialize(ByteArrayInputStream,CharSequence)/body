@@ -1,10 +1,10 @@
 {
   final AttributeInputStream input=new AttributeInputStream(bais);
-  final Version version=readVersionAndCheckFingerprint(input,attributeSerializersFingerprint);
-  final int numTokens=input.readVInt();
   TokenStream tokenStream=new TokenStream(){
-    CharSequence chars;
-    int token=0;
+    CharSequence chars=charSequence;
+    int token;
+    Version version;
+    int numTokens;
     @Override public boolean incrementToken(){
       if (token < numTokens) {
         token++;
@@ -18,15 +18,24 @@
       }
       return false;
     }
-    @Override public void reset(    CharSequence input){
-      chars=input;
+    @Override public void reset(    CharSequence newChars){
+      Preconditions.checkArgument(newChars == null || newChars == chars,"this TokenStream does not do actual tokenization and only supports reset(null)");
+      try {
+        input.reset();
+        bais.reset();
+        version=readVersionAndCheckFingerprint(input,attributeSerializersFingerprint);
+        numTokens=input.readVInt();
+        for (        AttributeSerializer deserializer : attributeSerializers) {
+          deserializer.initialize(this,version);
+        }
+      }
+ catch (      IOException e) {
+        throw new IllegalStateException("Unexpected exception, but...",e);
+      }
       token=0;
     }
   }
 ;
-  for (  AttributeSerializer deserializer : attributeSerializers) {
-    deserializer.initialize(tokenStream,version);
-  }
-  tokenStream.reset(charSequence);
+  tokenStream.reset(null);
   return tokenStream;
 }

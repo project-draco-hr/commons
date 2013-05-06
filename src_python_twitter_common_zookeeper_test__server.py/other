@@ -11,6 +11,7 @@ import threading
 import time
 from thrift.transport.TTransport import TTransportException
 import zookeeper
+from twitter.common.contextutil import environment_as
 from twitter.common.dirutil import safe_rmtree
 from twitter.common.rpc import make_client
 from twitter.common.rpc.finagle import TFinagleProtocol

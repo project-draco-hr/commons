@@ -1,8 +1,11 @@
 {
   this.loadBalancer=Preconditions.checkNotNull(loadBalancer);
   this.onBackendsChosen=Preconditions.checkNotNull(onBackendsChosen);
+  ReadWriteLock backendsLock=new ReentrantReadWriteLock(true);
+  backendsReadLock=backendsLock.readLock();
+  backendsWriteLock=backendsLock.writeLock();
   setBackends(backends);
   Preconditions.checkNotNull(restoreInterval);
   Preconditions.checkArgument(restoreInterval.getValue() > 0);
-  stopCommand=startDeadBackendRestorer(restoreInterval);
+  stopBackendRestorer=startDeadBackendRestorer(restoreInterval);
 }

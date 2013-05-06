@@ -1,0 +1,3 @@
+def __init__(self, recursive, include_buildfile):
+    self._recursive = recursive
+    self._include_buildfile = include_buildfile

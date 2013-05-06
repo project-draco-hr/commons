@@ -1,0 +1,3 @@
+{
+  return guard(Lists.asList(exceptionType,rest),work);
+}

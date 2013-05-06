@@ -1,0 +1,21 @@
+{
+  long startNanos=System.nanoTime();
+  try {
+    Connection<T,E> connection=(timeout.getValue() == 0) ? pool.get() : pool.get(timeout);
+    try {
+      loadBalancer.connected(backend,System.nanoTime() - startNanos);
+    }
+ catch (    RuntimeException e) {
+      LOG.log(Level.WARNING,"Encountered an exception updating load balancer stats after " + "leasing a connection - continuing",e);
+    }
+    return new ManagedConnection<T,E>(connection,pool);
+  }
+ catch (  TimeoutException e) {
+    loadBalancer.connectFailed(backend,ConnectionResult.TIMEOUT);
+    throw e;
+  }
+catch (  ResourceExhaustedException e) {
+    loadBalancer.connectFailed(backend,ConnectionResult.FAILED);
+    throw e;
+  }
+}

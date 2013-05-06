@@ -1,0 +1,2 @@
+def invalidate_for(self):
+    return (self.combined, self.transitive, self._output_dir, self.confs)

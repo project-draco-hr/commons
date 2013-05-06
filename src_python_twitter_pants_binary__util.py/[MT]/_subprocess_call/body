@@ -1,0 +1,3 @@
+def _subprocess_call(cmd_with_args, call=subprocess.call, **kwargs):
+    log.debug(('Executing: %s' % ' '.join(cmd_with_args)))
+    return call(cmd_with_args, **kwargs)

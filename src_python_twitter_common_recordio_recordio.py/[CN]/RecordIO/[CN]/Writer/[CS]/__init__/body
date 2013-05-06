@@ -1,6 +1,6 @@
 def __init__(self, fp, codec, sync=False):
-    '\n        Initialize a Writer from the file pointer fp.\n\n        If sync=True is supplied, then all mutations are fsynced after write, otherwise\n        standard filesystem buffering is employed.\n      '
-    RecordIO.Stream.__init__(self, fp, codec)
+    '\n        Initialize a Writer from the FileLike fp, with RecordIO.Codec codec.\n\n        If sync=True is supplied, then all mutations are fsynced after write, otherwise\n        standard filesystem buffering is employed.\n      '
+    RecordIO._Stream.__init__(self, fp, codec)
     if (('w' not in self._fp.mode) and ('a' not in self._fp.mode) and ('+' not in self._fp.mode)):
         raise RecordIO.InvalidFileHandle('Filehandle supplied to RecordWriter does not appear to be writeable!')
     self.set_sync(sync)

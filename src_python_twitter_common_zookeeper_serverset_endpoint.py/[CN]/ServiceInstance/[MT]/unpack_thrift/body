@@ -3,4 +3,4 @@ def unpack_thrift(cls, blob):
     if (not isinstance(blob, ThriftServiceInstance)):
         blob = thrift_deserialize(ThriftServiceInstance(), blob)
     additional_endpoints = dict(((name, Endpoint.unpack_thrift(value)) for (name, value) in blob.additionalEndpoints.items()))
-    return cls(service_endpoint=Endpoint.unpack_thrift(blob.serviceEndpoint), additional_endpoints=additional_endpoints, status=Status.unpack_thrift(blob.status))
+    return cls(service_endpoint=Endpoint.unpack_thrift(blob.serviceEndpoint), additional_endpoints=additional_endpoints, status=Status.from_thrift(blob.status), shard=blob.shard)

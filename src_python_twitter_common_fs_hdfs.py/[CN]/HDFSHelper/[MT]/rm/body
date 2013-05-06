@@ -1,0 +1,3 @@
+def rm(self, filename):
+    '\n    Removes a file.\n    '
+    return self._call('-rm', filename, suppress_output=True)

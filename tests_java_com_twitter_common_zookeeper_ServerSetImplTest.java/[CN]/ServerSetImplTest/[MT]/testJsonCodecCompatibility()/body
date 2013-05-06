@@ -1,0 +1,11 @@
+{
+  ServiceInstance instance=new ServiceInstance(new Endpoint("foo",1000),ImmutableMap.of("http",new Endpoint("foo",8080)),Status.ALIVE).setShard(42);
+  ByteArrayOutputStream legacy=new ByteArrayOutputStream();
+  JsonCodec.create(ServiceInstance.class,new GsonBuilder().setExclusionStrategies(JsonCodec.getThriftExclusionStrategy()).create()).serialize(instance,legacy);
+  ByteArrayOutputStream results=new ByteArrayOutputStream();
+  ServerSetImpl.createJsonCodec().serialize(instance,results);
+  assertEquals(legacy.toString(),results.toString());
+  results=new ByteArrayOutputStream();
+  ServerSetImpl.createJsonCodec().serialize(instance,results);
+  assertEquals("{\"serviceEndpoint\":{\"host\":\"foo\",\"port\":1000}," + "\"additionalEndpoints\":{\"http\":{\"host\":\"foo\",\"port\":8080}}," + "\"status\":\"ALIVE\","+ "\"shard\":42}",results.toString());
+}

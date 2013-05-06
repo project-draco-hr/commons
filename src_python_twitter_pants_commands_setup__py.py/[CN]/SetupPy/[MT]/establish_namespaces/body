@@ -1,0 +1,15 @@
+def establish_namespaces(self, chroot):
+    base = os.path.join(chroot.path(), 'src')
+    packages = set()
+    namespace_packages = set()
+    for (root, dirs, files) in os.walk(base):
+        rel_root = os.path.relpath(root, base)
+        if (rel_root == '.'):
+            continue
+        package_name = rel_root.replace(os.path.sep, '.')
+        packages.add(package_name)
+        if ('__init__.py' not in files):
+            namespace_packages.add(rel_root.replace(os.path.sep, '.'))
+            with open(os.path.join(root, '__init__.py'), 'w') as fp:
+                fp.write("__import__('pkg_resources').declare_namespace(__name__)")
+    return (packages, namespace_packages)

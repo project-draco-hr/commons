@@ -1,3 +1,3 @@
 def log(self, label, times, overlapping=False):
-    "Code that has to measure its own timings directly can log them here.\n\n    If labels are of the form prefix:suffix, then the sum of all times of consecutively-logged\n    timings with the same prefix will also be logged.\n\n    Set overlapping to True if you're logging a timing that overlaps with other, already-logged timings.\n    "
+    "Code that has to measure its own timings directly can log them here.\n\n    If labels are of the form prefix:suffix, then the sum of all times of consecutively-logged\n    timings with the same prefix will also be logged.\n\n    Set overlapping to True if you're logging a timing that overlaps with other, already-logged\n    timings.\n    "
     self._timings.append(Timing(label, times, overlapping))

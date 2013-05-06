@@ -1,0 +1,5 @@
+CharBuffer term
+TokenType type
+int pos
+int inc
+TokenizedCharSequence group

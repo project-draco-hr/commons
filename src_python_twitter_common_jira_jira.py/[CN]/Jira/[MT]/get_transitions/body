@@ -1,0 +1,2 @@
+def get_transitions(self, issue):
+    return self.api_call(('issue/%s/transitions' % issue))

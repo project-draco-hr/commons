@@ -1,0 +1,2 @@
+def can_add(self, dist):
+    return Platform.distribution_compatible(dist, python=self.python, platform=self.platform)

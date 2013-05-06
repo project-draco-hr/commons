@@ -1,0 +1,3 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    cls.generate_setup_parser(option_group, args, mkflag, scaladoc)

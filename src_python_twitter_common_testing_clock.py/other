@@ -1,2 +1,4 @@
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 import threading
+import time
+from twitter.common.lang import Interface

@@ -1,0 +1,14 @@
+def validate_args(sha, project, repo=None):
+    'Validates arguments and returns head, repo, branch_name'
+    repo = (repo or git.Repo())
+    active_head = repo.active_branch
+    if repo.is_dirty():
+        raise DirtyRepositoryError(active_head)
+    else:
+        print(('Active head: %s' % active_head))
+    branch_name = ('_%s_' % sha)
+    if project:
+        if (not isinstance(project, Compatibility.string)):
+            raise ValueError(('project must be a string, got %r' % (project,)))
+        branch_name = (('_' + project) + branch_name)
+    return (active_head, repo, branch_name)

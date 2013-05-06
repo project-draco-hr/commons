@@ -1,4 +1,3 @@
 @abstractmethod
 def cancel(self, membership, callback=None):
     '\n      Cancel a given membership.  Returns true if/when the membership does not\n      exist.  Returns false if the membership exists and we failed to cancel\n      it.  If callback is provided, this operation is done asynchronously.\n    '
-    pass

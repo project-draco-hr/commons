@@ -1,0 +1,8 @@
+{
+  clearProfile();
+  setSamplingPeriod(samplingPeriodBytes);
+  start();
+  Thread.sleep(durationSeconds * 1000L);
+  stop();
+  return dumpProfile(forceGC);
+}

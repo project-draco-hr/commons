@@ -1,14 +1,11 @@
-def __init__(self, name, dependencies, is_meta):
-    Target.__init__(self, name, is_meta)
+def __init__(self, name, dependencies):
+    Target.__init__(self, name)
     self._injected_deps = []
     self.processed_dependencies = resolve(dependencies)
-    self.add_label('internal')
+    self.add_labels('internal')
     self.dependency_addresses = OrderedSet()
     self.dependencies = OrderedSet()
     self.internal_dependencies = OrderedSet()
     self.jar_dependencies = OrderedSet()
-    if is_meta:
-        self.update_dependencies(self.processed_dependencies)
-    else:
-        self._post_construct(self.update_dependencies, self.processed_dependencies)
+    self._post_construct(self.update_dependencies, self.processed_dependencies)
     self._post_construct(self.inject_dependencies)

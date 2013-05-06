@@ -2,9 +2,9 @@ def execute(self, targets):
     if (not self.skip):
 
         def run_tests(tests):
-            args = (['--color'] if self.color else [])
-            args.append(('--specs=%s' % ','.join(tests)))
-            result = runjava(jvmargs=self.java_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main='com.twitter.common.testing.ExplicitSpecsRunnerMain', args=args)
+            opts = (['--color'] if self.color else [])
+            opts.append(('--specs=%s' % ','.join(tests)))
+            result = runjava_indivisible(jvmargs=self.java_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main='com.twitter.common.testing.ExplicitSpecsRunnerMain', opts=opts)
             if (result != 0):
                 raise TaskError()
         if self.tests:

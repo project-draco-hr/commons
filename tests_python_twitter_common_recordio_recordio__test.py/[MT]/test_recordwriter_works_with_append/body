@@ -1,6 +1,0 @@
-def test_recordwriter_works_with_append():
-    with EphemeralFile('a') as fp:
-        try:
-            RecordWriter(fp)
-        except:
-            assert False, 'Failed to initialize RecordWriter in append mode'

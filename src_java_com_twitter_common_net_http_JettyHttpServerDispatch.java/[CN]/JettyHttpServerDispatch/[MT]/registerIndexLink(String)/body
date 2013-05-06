@@ -1,0 +1,4 @@
+{
+  MorePreconditions.checkNotBlank(path);
+  registeredEndpoints.add(path);
+}

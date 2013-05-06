@@ -6,11 +6,11 @@ def open(path, zf_path=None, zf=None):
         assert (zf is not None)
         return (zf_path, '', zf)
     if (zf is None):
-        (existing, non_existing) = Nested._split_existing(path)
+        (existing, non_existing) = Nested.split_existing(path)
         next_zf = Nested.get(existing, provider=(lambda : zipfile.ZipFile(existing)))
         return Nested.open(non_existing, zf_path=existing, zf=next_zf)
     else:
-        (existing, non_existing) = Nested._split_zf_existing(zf, path)
+        (existing, non_existing) = Nested.split_zf_existing(zf, path)
         get_path = os.path.join(zf_path, existing)
         try:
             next_zf = Nested.get(get_path, provider=(lambda : Nested.open_as(zf, existing)))

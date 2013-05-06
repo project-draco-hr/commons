@@ -1,0 +1,2 @@
+ExceptionalFunction<B,C,? extends E> second
+ExceptionalFunction<A,? extends B,? extends E> first

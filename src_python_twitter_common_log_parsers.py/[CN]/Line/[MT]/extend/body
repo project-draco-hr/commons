@@ -1,0 +1,3 @@
+def extend(self, lines):
+    extension = '\n'.join(lines)
+    return self.__class__('\n'.join([self.raw, extension]), self.level, self.datetime, self.pid, self.source, '\n'.join([self.message, extension]))

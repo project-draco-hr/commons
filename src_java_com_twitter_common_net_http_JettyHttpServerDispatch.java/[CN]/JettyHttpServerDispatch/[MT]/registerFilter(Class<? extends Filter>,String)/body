@@ -1,0 +1,5 @@
+{
+  MorePreconditions.checkNotBlank(pathSpec);
+  Preconditions.checkNotNull(filterClass);
+  getRootContext().addFilter(filterClass,pathSpec,Handler.REQUEST);
+}

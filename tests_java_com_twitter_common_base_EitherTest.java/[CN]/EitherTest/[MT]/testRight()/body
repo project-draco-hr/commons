@@ -1,0 +1,3 @@
+{
+  assertRight("jake",Either.<Exception,String>right("jake"));
+}

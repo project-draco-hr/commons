@@ -1,0 +1,42 @@
+def test_client_connect_with_auth():
+    with ZookeeperServer() as server:
+        zk = make_zk(server, authentication=('digest', 'username:password'))
+        finish_event = threading.Event()
+
+        def run_create_tests():
+            zk.create('/unprotected_znode', 'unprotected content', ZooDefs.Acls.OPEN_ACL_UNSAFE)
+            (_, unprotected_acl) = zk.get_acl('/unprotected_znode')
+            zk.create('/protected_znode', 'protected content', ZooDefs.Acls.CREATOR_ALL_ACL)
+            (_, protected_acl) = zk.get_acl('/protected_znode')
+            assert (unprotected_acl == ZooDefs.Acls.OPEN_ACL_UNSAFE)
+            assert (len(protected_acl) == 1)
+            assert (protected_acl[0]['perms'] == ZooDefs.Acls.CREATOR_ALL_ACL[0]['perms'])
+            assert (protected_acl[0]['scheme'] == 'digest')
+            assert (protected_acl[0]['id'] == ('username:%s' % sha_password_digest('username', 'password')))
+            (content, _) = zk.get('/unprotected_znode')
+            assert (content == 'unprotected content')
+            (content, _) = zk.get('/protected_znode')
+            assert (content == 'protected content')
+            zk.delete('/unprotected_znode')
+            zk.delete('/protected_znode')
+            finish_event.set()
+        run_create_tests()
+        finish_event.wait()
+        assert server.shutdown()
+        finish_event.clear()
+
+
+        class BackgroundTester(threading.Thread):
+
+            def run(self):
+                run_create_tests()
+        BackgroundTester().start()
+        server.start()
+        finish_event.wait()
+        session_id = zk.session_id()
+        assert server.shutdown()
+        finish_event.clear()
+        BackgroundTester().start()
+        server.expire(session_id)
+        server.start()
+        finish_event.wait()

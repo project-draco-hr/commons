@@ -1,5 +1,5 @@
 {
-  getConfig().logToStderr(true).vlog(RootLogConfig.LogLevel.FINE).apply();
+  getConfig().logToStderr(true).vlog(RootLogConfig.LogLevel.FINE).build().apply();
   resetLogs();
   assertErrorLogAtLevel(testLogger,Level.FINE);
 }

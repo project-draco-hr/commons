@@ -1,7 +1,8 @@
 def install_virtualenv(context, interpreter):
     virtualenv_cache = context.config.get('python-setup', 'bootstrap_cache')
     virtualenv_target = context.config.get('python-setup', 'virtualenv_target')
-    pip_repos = context.config.getlist('python-setup', 'repos')
+    allow_pypi = context.config.getbool('python-repos', 'allow_pypi', default=False)
+    pip_repos = context.config.getlist('python-repos', 'repos', default=[])
     if (not os.path.exists(virtualenv_target)):
         raise TaskError('Could not find installed virtualenv!')
     env_base = context.config.getdefault('pants_pythons')
@@ -30,7 +31,7 @@ def install_virtualenv(context, interpreter):
         raise TaskError(('Could not install virtualenv for %s' % interpreter.identity()))
 
     def install_package(pkg):
-        INSTALL_VIRTUALENV_PACKAGE = ('\n      source %(environment)s/bin/activate\n      %(environment)s/bin/pip install --download-cache=%(cache)s          %(f_repositories)s --no-index -U %(package)s\n    ' % {'environment': environment_install_path, 'cache': virtualenv_cache, 'f_repositories': ' '.join((('-f %s' % repository) for repository in pip_repos)), 'package': pkg, })
+        INSTALL_VIRTUALENV_PACKAGE = ('\n      source %(environment)s/bin/activate\n      %(environment)s/bin/pip install --download-cache=%(cache)s          %(pypi_index)s %(f_repositories)s -U %(package)s\n    ' % {'environment': environment_install_path, 'cache': virtualenv_cache, 'pypi_index': ('' if allow_pypi else '--no-index'), 'f_repositories': ' '.join((('-f %s' % repository) for repository in pip_repos)), 'package': pkg, })
         (rc, stdout, stderr) = subprocess_call(INSTALL_VIRTUALENV_PACKAGE)
         if (rc != 0):
             context.log.warn(('Failed to install %s' % pkg))

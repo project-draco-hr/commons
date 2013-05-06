@@ -1,0 +1,5 @@
+{
+  Writer w=new OutputStreamWriter(sink,ENCODING);
+  gson.toJson(new ServiceInstanceSchema(instance),CLASS,w);
+  w.flush();
+}

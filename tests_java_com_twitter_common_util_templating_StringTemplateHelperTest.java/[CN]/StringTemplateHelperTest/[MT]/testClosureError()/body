@@ -1,0 +1,8 @@
+{
+  templateHelper.writeTemplate(new StringWriter(),new Closure<StringTemplate>(){
+    @Override public void execute(    StringTemplate template){
+      throw new CustomException();
+    }
+  }
+);
+}

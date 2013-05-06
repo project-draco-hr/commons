@@ -7,16 +7,16 @@ except ImportError:
 import atexit
 import copy
 import inspect
-import os
-import sys
 import optparse
+import os
 import shlex
-import traceback
-from collections import defaultdict
+import sys
+import threading
+from collections import defaultdict, deque
+from functools import partial
 from twitter.common import options
 from twitter.common.app.module import AppModule
 from twitter.common.app.inspection import Inspection
-from twitter.common.dirutil import lock_file
 from twitter.common.lang import Compatibility
+from twitter.common.process import daemonize
 from twitter.common.util import topological_sort
-_PIDFILE = None

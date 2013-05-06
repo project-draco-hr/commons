@@ -1,8 +1,6 @@
 {
-  TokenStream inputStream=getInputStream();
-  while (inputStream.incrementToken()) {
+  while (incrementInputStream()) {
     if (acceptToken()) {
-      restoreState(inputStream.captureState());
       return true;
     }
   }

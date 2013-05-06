@@ -1,0 +1,11 @@
+def test_hdfs_ls(self):
+    hdfs_helper = HDFSHelper('/etc/hadoop/hadoop-conf-tst-smf1', command_class=MockCommandUtil)
+    cmd = hdfs_helper.ls('path', True)
+    expected_output_dir = [['hadoop_dir/test_dir', 68]]
+    expected_output = [['tejal.txt', 6], ['tejal txt', 6]]
+    self.assertEqual(cmd, expected_output_dir)
+    cmd = hdfs_helper.ls('path')
+    self.assertEqual(cmd, expected_output)
+    cmd = hdfs_helper.ls('empty', True)
+    self.assertTrue((not cmd))
+    self.assertRaises(HDFSHelper.InternalError, hdfs_helper.ls, 'non_existing', True)

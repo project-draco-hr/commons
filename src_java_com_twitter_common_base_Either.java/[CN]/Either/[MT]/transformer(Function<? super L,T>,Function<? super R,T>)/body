@@ -1,0 +1,11 @@
+{
+  return new Transformer<L,R,T>(){
+    @Override public T mapLeft(    L item){
+      return leftTransformer.apply(item);
+    }
+    @Override public T mapRight(    R item){
+      return rightTransformer.apply(item);
+    }
+  }
+;
+}

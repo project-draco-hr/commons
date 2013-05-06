@@ -1,0 +1,13 @@
+{
+  final String value=request.getParameter(param);
+  long result=defaultValue;
+  if (value != null) {
+    try {
+      result=Long.parseLong(value);
+    }
+ catch (    NumberFormatException e) {
+      LOG.warning("Invalid long for " + param + ": "+ value);
+    }
+  }
+  return result;
+}

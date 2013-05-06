@@ -1,0 +1,10 @@
+{
+  Capture<Leader> leaderCapture=createCapture();
+  expect(candidate.offerLeadership(capture(leaderCapture))).andReturn(null);
+  abdicate.execute();
+  Capture<LeaderControl> controlCapture=createCapture();
+  listener.onLeading(capture(controlCapture));
+  control.replay();
+  newLeader("foo",leaderCapture);
+  controlCapture.getValue().leave();
+}

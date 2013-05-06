@@ -1,0 +1,29 @@
+{
+  if (heapster == null) {
+    resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Heapster not loaded!");
+    return;
+  }
+  final int profileDurationSecs=HttpServletRequestParams.getInt(req,"seconds",10);
+  final int profileSamplingPeriodBytes=HttpServletRequestParams.getInt(req,"sample_period",Amount.of(5,Data.MB).as(Data.BYTES));
+  final boolean forceGC=HttpServletRequestParams.getBool(req,"force_gc",true);
+  LOG.info("Collecting heap allocation profile for " + profileDurationSecs + " seconds every "+ profileSamplingPeriodBytes+ " bytes, with forceGC? "+ forceGC);
+  byte[] profileBytes;
+  try {
+    profileBytes=heapster.profile(profileDurationSecs,profileSamplingPeriodBytes,forceGC);
+    LOG.info("Profile contains " + profileBytes.length + " bytes");
+  }
+ catch (  Exception e) {
+    LOG.log(Level.WARNING,"Exception while profiling",e);
+    resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.getMessage());
+    return;
+  }
+  resp.setHeader("Content-Type","pprof/raw");
+  resp.setStatus(HttpServletResponse.SC_OK);
+  OutputStream responseBody=resp.getOutputStream();
+  try {
+    responseBody.write(profileBytes);
+  }
+  finally {
+    Closeables.closeQuietly(responseBody);
+  }
+}

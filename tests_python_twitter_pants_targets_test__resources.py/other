@@ -1,0 +1,5 @@
+import os
+from textwrap import dedent
+from twitter.pants.base import ParseContext
+from twitter.pants.build_root_test import BuildRootTest
+from twitter.pants.targets.resources import WithLegacyResources

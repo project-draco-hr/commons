@@ -1,2 +1,3 @@
+from twitter.pants.base import ParseContext
 __author__ = 'Ryan Williams'
 from twitter.pants.targets import InternalTarget, TargetWithSources

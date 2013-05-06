@@ -1,4 +1,4 @@
 def __init__(self, name, url_builder):
     ':url_builder a function that accepts a page target and an optional wiki :config dict and\n    returns a tuple of (alias, fully qualified url).'
-    Target.__init__(self, name, is_meta=False)
+    Target.__init__(self, name)
     self.url_builder = url_builder

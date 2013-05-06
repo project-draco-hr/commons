@@ -1,0 +1,3 @@
+def valid_dependency(self, dep):
+    'Subclasses can over-ride to reject invalid dependencies.'
+    return True

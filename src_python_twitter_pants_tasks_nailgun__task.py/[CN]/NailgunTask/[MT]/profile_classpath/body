@@ -1,0 +1,3 @@
+def profile_classpath(self, profile):
+    'Ensures the classpath for the given profile ivy.xml is available and returns it as a list of\n    paths.\n\n    profile: The name of the tool profile classpath to ensure.\n    '
+    return binary_util.profile_classpath(profile, java_runner=self.runjava_indivisible, config=self.context.config)

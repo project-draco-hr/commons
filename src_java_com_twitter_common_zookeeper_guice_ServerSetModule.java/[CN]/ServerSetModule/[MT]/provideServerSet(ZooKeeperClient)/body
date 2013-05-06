@@ -1,3 +1,0 @@
-{
-  return new ServerSetImpl(zkClient,SERVERSET_PATH.get());
-}

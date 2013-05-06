@@ -1,0 +1,4 @@
+@classmethod
+def target(cls, address):
+    'Resolves the given target address to a Target object.\n\n    address: The BUILD target address to resolve.\n\n    Returns the corresponding Target or else None if the address does not point to a defined Target.\n    '
+    return Target.get(Address.parse(cls.build_root, address, is_relative=False))

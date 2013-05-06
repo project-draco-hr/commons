@@ -1,0 +1,5 @@
+{
+  final Exception value=new Exception("corner case?");
+  ExceptionalFunction<String,Exception,IllegalArgumentException> constant=ExceptionalFunctions.constant(value);
+  assertEquals(value,constant.apply("yes"));
+}

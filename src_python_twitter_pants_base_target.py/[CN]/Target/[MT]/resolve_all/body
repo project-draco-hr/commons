@@ -1,0 +1,9 @@
+@classmethod
+def resolve_all(cls, targets, *expected_types):
+    'Yield the resolved concrete targets checking each is a subclass of one of the expected types\n    if specified.\n    '
+    if targets:
+        for target in maybe_list(targets, expected_type=Target):
+            for resolved in filter(is_concrete, target.resolve()):
+                if (expected_types and (not isinstance(resolved, expected_types))):
+                    raise TypeError(('%s requires types: %s and found %s' % (cls, expected_types, resolved)))
+                yield resolved

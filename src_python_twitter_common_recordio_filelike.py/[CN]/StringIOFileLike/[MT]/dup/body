@@ -1,0 +1,2 @@
+def dup(self):
+    return StringIOFileLike(StringIO(self._fp.read()))

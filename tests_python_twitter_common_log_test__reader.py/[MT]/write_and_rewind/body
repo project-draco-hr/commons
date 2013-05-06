@@ -1,0 +1,3 @@
+def write_and_rewind(sio, buf):
+    sio.write(buf)
+    sio.seek((- len(buf)), os.SEEK_CUR)

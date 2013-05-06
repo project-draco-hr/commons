@@ -1,2 +1,0 @@
-def _create_template_data(self):
-    return TemplateData(org='internal', module=self.id, version=None)

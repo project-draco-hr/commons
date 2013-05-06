@@ -1,8 +1,8 @@
-@staticmethod
-def from_versioned_targets(versioned_targets):
+@classmethod
+def from_versioned_targets(cls, versioned_targets):
     first_target = versioned_targets[0]
     cache_manager = first_target._cache_manager
     for versioned_target in versioned_targets:
         if (versioned_target._cache_manager != cache_manager):
-            raise Exception(('Attempting to combine versioned targets %s and %s with different CacheMananger instances: %s and %s' % (str(first_target), str(versioned_target), str(cache_manager), str(versioned_target._cache_manager))))
-    return VersionedTargetSet(cache_manager, versioned_targets)
+            raise ValueError(('Attempting to combine versioned targets %s and %s with different CacheManager instances: %s and %s' % (first_target, versioned_target, cache_manager, versioned_target._cache_manager)))
+    return cls(cache_manager, versioned_targets)

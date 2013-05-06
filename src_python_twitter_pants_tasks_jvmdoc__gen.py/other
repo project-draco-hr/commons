@@ -1,0 +1,10 @@
+import collections
+import contextlib
+import multiprocessing
+import os
+import subprocess
+from twitter.common.dirutil import safe_mkdir
+from twitter.pants import binary_util
+from twitter.pants.tasks import Task, TaskError
+Jvmdoc = collections.namedtuple('Jvmdoc', ['tool_name'])
+ParserConfig = collections.namedtuple('JvmdocGenParserConfig', ['outdir_opt', 'transitive_opt', 'open_opt', 'combined_opt', 'ignore_failure_opt'])

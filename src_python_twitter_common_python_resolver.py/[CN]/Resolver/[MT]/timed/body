@@ -1,6 +1,0 @@
-@classmethod
-@contextlib.contextmanager
-def timed(cls, prefix):
-    start_time = time.time()
-    yield
-    cls._log(('%s => %.3fms' % (prefix, (1000.0 * (time.time() - start_time)))))

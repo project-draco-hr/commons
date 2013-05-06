@@ -1,0 +1,5 @@
+def test_subtract():
+    with Fileset.over(['a', 'b']):
+        assert leq((Fileset.rglobs('*') - ['b']), 'a')
+    with Fileset.over(['a', 'b']):
+        assert leq((Fileset.rglobs('*') - Fileset.rglobs('a')), 'b')

@@ -1,0 +1,8 @@
+def setUp(self):
+    self.mox = mox.Mox()
+    self.handler = None
+    self.logger = logging.getLogger()
+    self.logger.setLevel(logging.DEBUG)
+    if _SCRIBE_PRESENT:
+        self.handler_drop = ScribeHandler(buffer=False, category=_CATEGORY, host=_HOST, port=_PORT)
+        self.handler_buffer = ScribeHandler(buffer=True, category=_CATEGORY, host=_HOST, port=_PORT)

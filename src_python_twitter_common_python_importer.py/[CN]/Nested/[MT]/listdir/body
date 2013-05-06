@@ -1,11 +1,15 @@
 @staticmethod
 def listdir(path):
     '\n      Read the contents of a potentially nested file.\n    '
-    if os.path.isfile(path):
-        raise Nested.DirectoryNotFound(path)
-    if os.path.isdir(path):
-        for p in os.listdir(path):
-            yield p
+    (existing, non_existing) = Nested.split_existing(path)
+    if (non_existing == '.'):
+        if os.path.isfile(path):
+            raise Nested.DirectoryNotFound(path)
+        if os.path.isdir(path):
+            for p in os.listdir(path):
+                yield p
+        return
+    if os.path.isdir(existing):
         return
     (archive, prefix, zf) = Nested.open(path)
     namelist = _zipfile_namecache[archive]

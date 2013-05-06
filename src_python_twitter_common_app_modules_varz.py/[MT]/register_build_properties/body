@@ -1,0 +1,10 @@
+def register_build_properties():
+    if (not HAS_PEX):
+        return
+    rm = RootMetrics().scope('build')
+    try:
+        build_properties = PEX().info.build_properties
+    except PEX.NotFound:
+        return
+    for (key, value) in build_properties.items():
+        rm.register(Label(str(key), str(value)))

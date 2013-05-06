@@ -1,0 +1,4 @@
+@staticmethod
+def set_scribe_port(port):
+    '\n      Set the scribe port for logging. Must be called before log.init() for\n      changes to take effect.\n    '
+    LogOptions._SCRIBE_PORT = port

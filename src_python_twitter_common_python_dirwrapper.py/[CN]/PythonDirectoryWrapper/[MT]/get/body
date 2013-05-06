@@ -1,6 +1,11 @@
-@staticmethod
-def get(path):
-    if os.path.isdir(path):
-        return _DirWrapper(path)
-    elif os.path.isfile(path):
-        return _ZipWrapper(path)
+@classmethod
+def get(cls, path):
+    try:
+        if os.path.isdir(path):
+            return DirWrapper(path)
+        elif os.path.isfile(path):
+            return ZipWrapper(path)
+        else:
+            raise cls.NotFoundError(('Could not find path %s' % path))
+    except ProxyWrapper.Error as e:
+        raise cls.Error(str(e))

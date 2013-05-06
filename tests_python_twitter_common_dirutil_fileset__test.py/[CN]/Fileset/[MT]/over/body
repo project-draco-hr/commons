@@ -1,0 +1,6 @@
+@classmethod
+@contextmanager
+def over(cls, L):
+    (old, cls.FILELIST) = (cls.FILELIST, L)
+    yield
+    cls.FILELIST = old

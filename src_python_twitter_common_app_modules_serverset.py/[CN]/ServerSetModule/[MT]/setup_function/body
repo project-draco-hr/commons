@@ -3,4 +3,6 @@ def setup_function(self):
     if options.serverset_module_enable:
         self._assert_valid_inputs(options)
         self._construct_serverset(options)
-        self._join()
+        self._thread = ServerSetJoinThread(self._rejoin_event, self._join)
+        self._thread.start()
+        self._rejoin_event.set()

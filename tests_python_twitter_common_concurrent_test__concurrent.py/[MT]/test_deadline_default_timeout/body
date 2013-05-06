@@ -1,0 +1,4 @@
+def test_deadline_default_timeout():
+    timeout = partial(time.sleep, 0.5)
+    with pytest.raises(Timeout):
+        deadline(timeout)

@@ -1,5 +1,4 @@
-def __init__(self, data, decode_full=True):
-    '\n    Parameters:\n      data: the contents of a classfile as a bytestream\n      decode_full: optimization flag. If True, the entire classfile is decoded.\n         If false, then decoding stops once the constant pool has been decoded.\n    '
+def __init__(self, data):
     self._data = data
-    self._decode(decode_full)
+    self._decode()
     self._track_dependencies()

@@ -1,0 +1,4 @@
+def _inject_java_cycles(self):
+    for scala_target in self.context.targets((lambda t: isinstance(t, ScalaLibrary))):
+        for java_target in scala_target.java_sources:
+            self.context.add_target(java_target)

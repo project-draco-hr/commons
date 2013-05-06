@@ -1,0 +1,22 @@
+{
+  return new Statement(){
+    @Override public void evaluate(){
+      for (      final Request child : getChildren()) {
+        Runnable runnable=new Runnable(){
+          @Override public void run(){
+            runChild(child,notifier);
+          }
+        }
+;
+        if (child instanceof AnnotatedClassRequest) {
+          runnerScheduler.schedule(runnable,((AnnotatedClassRequest)child).getClazz());
+        }
+ else {
+          runnerScheduler.schedule(runnable);
+        }
+      }
+      runnerScheduler.finished();
+    }
+  }
+;
+}

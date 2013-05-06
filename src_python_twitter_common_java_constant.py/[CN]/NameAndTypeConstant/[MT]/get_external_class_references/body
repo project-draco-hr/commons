@@ -1,6 +1,0 @@
-def get_external_class_references(self, constants):
-    matches = ClassPatternRE.findall(constants[self._descriptor_index].bytes())
-    if (matches is None):
-        return set([])
-    else:
-        return set(matches)

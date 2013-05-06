@@ -1,0 +1,7 @@
+def test_recordwriter_initializing(self):
+    for mode in ('a', 'r+', 'w'):
+        with self.EphemeralFile(mode) as fp:
+            try:
+                RecordWriter(fp)
+            except Exception as e:
+                assert False, ("Failed to initialize RecordWriter in '%s' mode (exception: %s)" % (mode, e))

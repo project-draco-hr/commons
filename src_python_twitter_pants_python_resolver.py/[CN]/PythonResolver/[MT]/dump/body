@@ -1,5 +1,5 @@
 def dump(self):
-    self.debug(('Building PythonBinary %s:' % self._target))
+    self.debug(('Building PythonBinary %s:' % self._targets))
     targets = self.resolve()
     for lib in targets['libraries']:
         self.debug(('Library: %s' % lib))

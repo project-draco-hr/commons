@@ -1,0 +1,2 @@
+def _mapto_dir(self):
+    return os.path.join(self._work_dir, 'mapped-idls')

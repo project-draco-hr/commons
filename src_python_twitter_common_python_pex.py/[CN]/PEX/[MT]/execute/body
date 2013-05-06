@@ -5,12 +5,13 @@ def execute(self, args=()):
         self._env.activate()
         if ('PEX_COVERAGE' in os.environ):
             PEX.start_coverage()
-        self.debug(('PYTHONPATH now %s' % ':'.join(sys.path)))
+        TRACER.log(('PYTHONPATH now %s' % ':'.join(sys.path)))
         force_interpreter = ('PEX_INTERPRETER' in os.environ)
         if (entry_point and (not force_interpreter)):
             self.execute_entry(entry_point, args)
         else:
-            self.debug(('%s, dropping into interpreter' % ('PEX_INTERPRETER specified' if force_interpreter else 'No entry point specified.')))
+            os.unsetenv('PEX_INTERPRETER')
+            TRACER.log(('%s, dropping into interpreter' % ('PEX_INTERPRETER specified' if force_interpreter else 'No entry point specified.')))
             if sys.argv[1:]:
                 try:
                     with open(sys.argv[1]) as fp:

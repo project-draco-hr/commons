@@ -1,0 +1,3 @@
+@classmethod
+def scala_library(cls, path, name, deps=()):
+    cls.define_target(path, name, 'scala_library', deps)

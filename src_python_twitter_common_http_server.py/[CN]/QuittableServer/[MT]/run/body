@@ -1,7 +1,0 @@
-def run(self, handler):
-    self._run = True
-    from wsgiref.simple_server import make_server
-    with self._lock:
-        self._srv = make_server(self.host, self.port, handler, **self.options)
-        self._lock.notifyAll()
-    self._srv.serve_forever()

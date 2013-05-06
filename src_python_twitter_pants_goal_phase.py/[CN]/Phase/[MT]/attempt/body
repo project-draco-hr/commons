@@ -1,9 +1,16 @@
 @staticmethod
 def attempt(context, phases):
     '\n      Attempts to reach the goals for the supplied phases, optionally recording phase timings and\n      then logging then when all specified phases have completed.\n    '
+    timer = (context.timer or Timer())
+    start = timer.now()
     executed = OrderedDict()
 
     def emit_timings():
+        elapsed = (timer.now() - start)
+        if context.config.getbool('build-time-stats', STATS_COLLECTION):
+            with context.timing('buildstats'):
+                build_stats = BuildTimeStats(context)
+                build_stats.record_stats(executed, elapsed)
         if context.timer:
             for (phase, timings) in executed.items():
                 for (goal, times) in timings.items():
@@ -28,12 +35,16 @@ def attempt(context, phases):
                         prepared.add(goal)
                         task = goal.prepare(context)
                         tasks_by_goal[goal] = task
-        context.log.debug(('Executing goals in phases %s' % ' -> '.join(map(str, reversed(expanded)))))
+        execution_phases = ' -> '.join(map(str, reversed(expanded)))
+        context.log.debug(('Executing goals in phases %s' % execution_phases))
+        if getattr(context.options, 'explain', None):
+            print(('Phase Execution Order:\n\n%s\n' % execution_phases))
+            print('Phase [Goal->Task] Order:\n')
         for phase in phases:
             Group.execute(phase, tasks_by_goal, context, executed)
         emit_timings()
         return 0
-    except (TaskError, GoalError) as e:
+    except (TargetDefinitionException, TaskError, GoalError) as e:
         message = ('%s' % e)
         if message:
             print(('\nFAILURE: %s\n' % e))

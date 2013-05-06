@@ -1,0 +1,6 @@
+def flush(self):
+    try:
+        self._fp.flush()
+        os.fsync(self._fp.fileno())
+    except (IOError, OSError) as e:
+        log.error(('Failed to fsync on %s! Error: %s' % (self._fp.name, e)))

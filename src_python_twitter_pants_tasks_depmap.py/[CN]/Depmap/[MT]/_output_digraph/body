@@ -1,0 +1,40 @@
+def _output_digraph(self, target):
+
+    def output_candidate(internal):
+        return ((self.is_internal_only and internal) or (self.is_external_only and (not internal)) or ((not self.is_internal_only) and (not self.is_external_only)))
+
+    def output_dep(dep):
+        (dep_id, internal) = self._dep_id(dep)
+        science_styled = (internal and (not self.is_internal_only))
+        twitter_styled = ((not internal) and dep.org.startswith('com.twitter'))
+        if science_styled:
+            fmt = '  "%(id)s" [label="%(id)s", style="filled", fillcolor="#0084b4", fontcolor="white"];'
+            return (fmt % {'id': dep_id, })
+        elif twitter_styled:
+            return ('  "%s" [style="filled", fillcolor="#c0deed"];' % dep_id)
+        else:
+            return ('  "%s";' % dep_id)
+
+    def output_deps(outputted, dep):
+        output = []
+        if (dep not in outputted):
+            outputted.add(dep)
+            for dependency in dep.resolve():
+                if self._is_jvm(dependency):
+                    for internal_dependency in dependency.internal_dependencies:
+                        output += output_deps(outputted, internal_dependency)
+                for jar in (dependency.jar_dependencies if self._is_jvm(dependency) else [dependency]):
+                    (jar_id, internal) = self._dep_id(jar)
+                    if output_candidate(internal):
+                        if (jar not in outputted):
+                            output += [output_dep(jar)]
+                            outputted.add(jar)
+                        (target_id, _) = self._dep_id(target)
+                        (dep_id, _) = self._dep_id(dependency)
+                        left_id = (target_id if self.is_external_only else dep_id)
+                        if ((left_id, jar_id) not in outputted):
+                            styled = (internal and (not self.is_internal_only))
+                            output += [('  "%s" -> "%s"%s;' % (left_id, jar_id, (' [style="dashed"]' if styled else '')))]
+                            outputted.add((left_id, jar_id))
+        return output
+    return (([('digraph "%s" {' % target.id), output_dep(target)] + output_deps(set(), target)) + ['}'])

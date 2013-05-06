@@ -1,0 +1,16 @@
+def __init__(self, name, sources=None, resources=None):
+    TargetWithSources.__init__(self, name, sources=sources)
+    if (resources is not None):
+
+        def is_resources(item):
+            return (isinstance(item, Target) and all(map((lambda tgt: isinstance(tgt, Resources)), filter((lambda tgt: is_concrete(tgt)), item.resolve()))))
+        if is_resources(resources):
+            self.resources = list(self.resolve_all(resources, Resources))
+        elif (isinstance(resources, Sequence) and all(map(is_resources, resources))):
+            self.resources = list(self.resolve_all(resources, Resources))
+        else:
+            sibling_resources_base = os.path.join(os.path.dirname(self.target_base), 'resources')
+            base_relpath = os.path.relpath(self.address.buildfile.relpath, self.target_base)
+            resources_dir = os.path.join(sibling_resources_base, base_relpath)
+            with ParseContext.temp(basedir=resources_dir):
+                self.resources = [Resources(name, resources)]

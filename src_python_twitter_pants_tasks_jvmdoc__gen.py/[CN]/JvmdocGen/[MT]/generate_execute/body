@@ -1,0 +1,30 @@
+def generate_execute(self, targets, language_predicate, create_jvmdoc_command):
+    '\n    Generate an execute method given a language predicate and command to create documentation\n\n    language_predicate: a function that accepts a target and returns True if the target is of that\n                        language\n    create_jvmdoc_command: (classpath, directory, *targets) -> command (string) that will generate\n                           documentation documentation for targets\n    '
+    catalog = self.context.products.isrequired(self._jvmdoc.tool_name)
+    if (catalog and self.combined):
+        raise TaskError(('Cannot provide %s target mappings for combined output' % self._jvmdoc.tool_name))
+    with self.invalidated(filter(language_predicate, targets)) as invalidation_check:
+        safe_mkdir(self._output_dir)
+        with self.context.state('classpath', []) as cp:
+            classpath = [jar for (conf, jar) in cp if (conf in self.confs)]
+
+            def find_jvmdoc_targets():
+                invalid_targets = set()
+                for vt in invalidation_check.invalid_vts:
+                    invalid_targets.update(vt.targets)
+                if self.transitive:
+                    return invalid_targets
+                else:
+                    return set(invalid_targets).intersection(set(self.context.target_roots))
+            jvmdoc_targets = list(filter(language_predicate, find_jvmdoc_targets()))
+            if self.combined:
+                self._generate_combined(classpath, jvmdoc_targets, create_jvmdoc_command)
+            else:
+                self._generate_individual(classpath, jvmdoc_targets, create_jvmdoc_command)
+    if catalog:
+        for target in targets:
+            gendir = self._gendir(target)
+            jvmdocs = []
+            for (root, dirs, files) in os.walk(gendir):
+                jvmdocs.extend((os.path.relpath(os.path.join(root, f), gendir) for f in files))
+            self.context.products.get(self._jvmdoc.tool_name).add(target, gendir, jvmdocs)

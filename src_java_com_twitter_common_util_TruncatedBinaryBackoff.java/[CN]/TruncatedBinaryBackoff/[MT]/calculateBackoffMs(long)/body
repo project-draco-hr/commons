@@ -1,6 +1,5 @@
 {
   Preconditions.checkArgument(lastBackoffMs >= 0);
   long backoff=(lastBackoffMs == 0) ? initialBackoffMs : Math.min(maxBackoffIntervalMs,lastBackoffMs * 2);
-  stop=stop || (stopAtMax && (backoff >= maxBackoffIntervalMs));
   return backoff;
 }

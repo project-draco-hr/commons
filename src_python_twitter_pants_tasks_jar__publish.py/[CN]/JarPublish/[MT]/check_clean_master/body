@@ -2,8 +2,10 @@ def check_clean_master(self):
     if (self.dryrun or (not self.commit)):
         print('Skipping check for a clean master in test mode.')
     else:
-        branch = self.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).strip()
-        if (branch != 'master'):
-            raise TaskError(('Can only push from master, currently on branch: %s' % branch))
-        self.check_call(['git', 'diff', '--exit-code', '--quiet'], failuremsg='Can only push from a clean master, workspace is dirty')
-        self.check_call(['git', 'diff', '--exit-code', '--cached', '--quiet'], failuremsg='Can only push from a clean master, index is dirty')
+        if self.restrict_push_branches:
+            branch = self.scm.branch_name
+            if (branch not in self.restrict_push_branches):
+                raise TaskError(('Can only push from %s, currently on branch: %s' % (' '.join(sorted(self.restrict_push_branches)), branch)))
+        changed_files = self.scm.changed_files()
+        if changed_files:
+            raise TaskError(('Can only push from a clean branch, found : %s' % ' '.join(changed_files)))

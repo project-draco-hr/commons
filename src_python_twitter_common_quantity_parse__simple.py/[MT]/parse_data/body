@@ -1,5 +1,7 @@
 def parse_data(datastring):
     '\n    Parse a data string of the format:\n      [integer][unit]\n    where unit is in upper/lowercase k, kb, m, mb, g, gb, t, tb\n  '
+    if (not isinstance(datastring, Compatibility.string)):
+        raise InvalidData(('parse_data takes a string, got %s' % type(datastring)))
     datastring = datastring.strip().lower()
     try:
         return Amount(int(datastring), Data.BYTES)
@@ -10,6 +12,6 @@ def parse_data(datastring):
         if datastring.endswith(base):
             try:
                 return Amount(int(datastring[:(- len(base))]), BASES[base])
-            except ValueError:
-                raise InvalidData(datastring)
-    raise InvalidData(datastring)
+            except ValueError as e:
+                raise InvalidData(('Could not parse amount: %s' % e))
+    raise InvalidData(('Amount did not have a valid base: %s.  Valid bases: %s' % (datastring, ' '.join(BASES))))

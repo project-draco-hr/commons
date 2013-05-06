@@ -8,4 +8,4 @@ try:
 except ImportError:
     _SER = None
     _HAS_THRIFT = False
-    print('WARNING: Unable to load thrift in record_writer', file=sys.stderr)
+    print('WARNING: Unable to load thrift in thrift_recordio', file=sys.stderr)

@@ -1,0 +1,2 @@
+def leq(fs_foo, *bar):
+    return (set(fs_foo) == set(bar))

@@ -1,7 +1,6 @@
 def _add_default_options(self, argv):
     '\n      Return an argument list with options from the rc file prepended.\n    '
-    rc_short_filename = ('~/.%src' % self.name())
-    rc_filename = os.path.expanduser(rc_short_filename)
+    rc_filename = self._rc_filename()
     options = argv
     if ((Application.IGNORE_RC_FLAG not in argv) and os.path.exists(rc_filename)):
         command = (self._command or Application.NO_COMMAND)

@@ -1,3 +1,0 @@
-def cmdline(self):
-    '\n      The full command line of the process.\n    '
-    raise NotImplementedError

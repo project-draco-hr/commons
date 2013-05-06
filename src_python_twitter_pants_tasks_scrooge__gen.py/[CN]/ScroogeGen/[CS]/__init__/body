@@ -1,0 +1,4 @@
+def __init__(self, context, strict=False, verbose=True):
+    NailgunTask.__init__(self, context)
+    self.strict = strict
+    self.verbose = verbose

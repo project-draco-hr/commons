@@ -1,0 +1,5 @@
+def _map_jar(self, path):
+    is_idl = path.endswith('-idl.jar')
+    if ((not is_idl) and super(IdlResolve, self)._map_jar(path)):
+        self.context.log.warn(('Ignoring invalid idl dependency: %s' % path))
+    return is_idl

@@ -11,6 +11,8 @@ def __init__(self, context):
     self.test_classes = context.options.junit_run_tests
     self.context.products.require('classes')
     self.outdir = (context.options.junit_run_outdir or context.config.get('junit-run', 'workdir'))
+    self.batch_size = context.options.junit_run_batch_size
+    self.fail_fast = context.options.junit_run_fail_fast
     self.coverage = context.options.junit_run_coverage
     self.coverage_filters = (context.options.junit_run_coverage_patterns or [])
     self.coverage_dir = os.path.join(self.outdir, 'coverage')
@@ -25,12 +27,18 @@ def __init__(self, context):
     self.coverage_report_html = (self.coverage_report_html_open or context.options.junit_run_coverage_html)
     self.coverage = (self.coverage or self.coverage_report_html_open)
     self.coverage_html_file = os.path.join(self.coverage_dir, 'html', 'index.html')
-    self.flags = []
+    self.opts = []
     if (context.options.junit_run_xmlreport or context.options.junit_run_suppress_output):
-        if context.options.junit_run_fail_fast:
-            self.flags.append('-fail-fast')
+        if self.fail_fast:
+            self.opts.append('-fail-fast')
         if context.options.junit_run_xmlreport:
-            self.flags.append('-xmlreport')
-        self.flags.append('-suppress-output')
-        self.flags.append('-outdir')
-        self.flags.append(self.outdir)
+            self.opts.append('-xmlreport')
+        self.opts.append('-suppress-output')
+        self.opts.append('-outdir')
+        self.opts.append(self.outdir)
+    if context.options.junit_run_per_test_timer:
+        self.opts.append('-per-test-timer')
+    if context.options.junit_run_default_parallel:
+        self.opts.append('-default-parallel')
+    self.opts.append('-parallel-threads')
+    self.opts.append(str(context.options.junit_run_parallel_threads))

@@ -1,0 +1,3 @@
+def now(self):
+    'Returns the current time in fractional seconds.'
+    return self._now()

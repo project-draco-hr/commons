@@ -1,0 +1,5 @@
+def setup_mock_client(self):
+    self.mox.StubOutClassWithMocks(TBinaryProtocol, 'TBinaryProtocol')
+    self.mock_protocol = TBinaryProtocol.TBinaryProtocol(trans=self.mock_transport, strictRead=False, strictWrite=False)
+    self.mox.StubOutClassWithMocks(scribe, 'Client')
+    self.mock_client = scribe.Client(iprot=self.mock_protocol, oprot=self.mock_protocol)

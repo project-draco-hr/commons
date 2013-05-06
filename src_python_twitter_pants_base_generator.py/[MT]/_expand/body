@@ -1,11 +1,4 @@
 def _expand(map):
-
-    def set_to_map(x):
-        if isinstance(x, set):
-            return dict([(k, True) for k in x])
-        else:
-            return x
-    items = [(key, set_to_map(val)) for (key, val) in map.items()]
-    ret = dict([((key + '?'), True) for (key, val) in items if (val and (not key.endswith('?')))])
-    ret.update(dict(items))
-    return ret
+    map = dict(((k, (list(v) if isinstance(v, collections.Set) else v)) for (k, v) in map.items()))
+    map.update((((k + '?'), True) for (k, v) in map.items() if (v and (not k.endswith('?')))))
+    return map

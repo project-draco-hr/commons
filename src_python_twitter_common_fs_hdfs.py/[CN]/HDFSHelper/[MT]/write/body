@@ -1,0 +1,10 @@
+def write(self, filename, text):
+    '\n    Write will write the contents in the text to the filename given\n    The file will be overwritten if it already exists\n    '
+    self._call('-rm', filename)
+    with temporary_file() as fp:
+        fp.write(text)
+        fp.flush()
+        te = self._call('-copyFromLocal', fp.name, filename)
+        print 'sel', te
+        return te
+        return self._call('-copyFromLocal', fp.name, filename)

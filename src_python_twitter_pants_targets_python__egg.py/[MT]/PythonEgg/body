@@ -5,7 +5,7 @@ def PythonEgg(egg_glob):
         if os.path.isdir(egg):
             metadata = PathMetadata(egg, os.path.join(egg, 'EGG-INFO'))
         else:
-            metadata = EggMetadata(EggZipImporter(egg))
+            metadata = EggMetadata(zipimporter(egg))
         dist = Distribution.from_filename(egg, metadata=metadata)
         requirements.add(dist.as_requirement())
     if (len(requirements) > 1):

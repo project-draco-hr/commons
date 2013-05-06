@@ -1,14 +1,8 @@
 {
   expect(timeSeriesRepo.getAvailableSeries()).andReturn(TS_DATA.keySet());
   control.replay();
-  DataTable data=fetch("SELECT * LIMIT 0");
-  assertThat(data.getNumberOfRows(),is(0));
-  assertThat(data.getNumberOfColumns(),is(TS_DATA.keySet().size()));
-  Set<String> colNames=Sets.newHashSet(Iterables.transform(data.getColumnDescriptions(),new Function<ColumnDescription,String>(){
-    @Override public String apply(    ColumnDescription col){
-      return col.getId();
-    }
+  List<String> columns=gson.fromJson(dataSource.getResponse(null,null),new TypeToken<List<String>>(){
   }
-));
-  assertThat(colNames,is(TS_DATA.keySet()));
+.getType());
+  assertEquals(ImmutableList.copyOf(TS_DATA.keySet()),columns);
 }

@@ -1,5 +1,5 @@
 {
-  requireBinding(ZooKeeperClient.class);
+  requireBinding(serverSetKey);
   requireBinding(ShutdownRegistry.class);
   requireBinding(LocalServiceRegistry.class);
   LifecycleModule.bindStartupAction(binder(),ServerSetJoiner.class);
@@ -7,7 +7,6 @@
   }
 ).to(EndpointSupplier.class);
   bind(EndpointSupplier.class).in(Singleton.class);
-  bind(Status.class).annotatedWith(Default.class).toInstance(initialStatus);
   Optional<String> primaryPortName;
   if (AUX_PORT_AS_PRIMARY.hasAppliedValue()) {
     primaryPortName=Optional.of(AUX_PORT_AS_PRIMARY.get());
@@ -18,4 +17,5 @@
   bind(new TypeLiteral<Optional<String>>(){
   }
 ).annotatedWith(Default.class).toInstance(primaryPortName);
+  bind(JOINABLE_SS).to(serverSetKey);
 }

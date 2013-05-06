@@ -1,0 +1,3 @@
+def commit(self, message):
+    self._check_call(['commit', '--all', ('--message=%s' % message)], raise_type=Scm.LocalException)
+    self._push()

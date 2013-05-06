@@ -1,0 +1,2 @@
+def test_list_provides(self):
+    self.assert_console_output('a/b/BUILD:b com.twitter#b', 'a/b/c/BUILD:c2 com.twitter#c2', args=['--test-provides'])

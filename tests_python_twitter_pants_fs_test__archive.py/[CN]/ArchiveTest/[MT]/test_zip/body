@@ -1,0 +1,2 @@
+def test_zip(self):
+    self.round_trip(ZIP, empty_dirs=False)

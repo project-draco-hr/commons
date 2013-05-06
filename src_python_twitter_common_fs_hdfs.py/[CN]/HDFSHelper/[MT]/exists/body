@@ -1,0 +1,6 @@
+def exists(self, path, flag='-e'):
+    '\n    Checks if the path exists in hdfs\n    Returns true if it exists or else\n    Returns false\n    '
+    try:
+        return (self._call('-test', flag, path) == 0)
+    except subprocess.CalledProcessError:
+        return False

@@ -1,0 +1,12 @@
+def __init__(self, context):
+    Task.__init__(self, context)
+    self.placeholders = {}
+    compiled_idl = set()
+    for (jar, placeholders) in self._PLACEHOLDERS_BY_JAR.items():
+        representative = placeholders[0]
+        compiled_idl.add(representative)
+        self.placeholders[representative] = placeholders
+
+    def is_compiled_idl(target):
+        return (target in compiled_idl)
+    context.products.require('idl_dependencies', predicate=is_compiled_idl)

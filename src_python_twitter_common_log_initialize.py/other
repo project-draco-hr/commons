@@ -1,14 +1,16 @@
-"\nInterface to Glog-stlye formatter.\n\nimport twitter.common.log\n\nif not using twitter.common.app:\n  for __main__:\n    log = twitter.common.log.init('my_binary_name')\notherwise init will be called automatically on app.main()\n\nfor library/endpoint:\n  from twitter.common import log\n\nlog.info('info baby')\nlog.debug('debug baby')\nlog.fatal('oops fatal!')\n\nWill log to my_binary_name.{INFO,WARNING,ERROR,...} into log_dir using the\nGoogle logging format.\n\nSee twitter.com.log.options for customizations.\n"
+"\nInterface to Glog-style formatter.\n\nimport twitter.common.log\n\nif not using twitter.common.app:\n  for __main__:\n    log = twitter.common.log.init('my_binary_name')\notherwise init will be called automatically on app.main()\n\nfor library/endpoint:\n  from twitter.common import log\n\nlog.info('info baby')\nlog.debug('debug baby')\nlog.fatal('oops fatal!')\n\nWill log to my_binary_name.{INFO,WARNING,ERROR,...} into log_dir using the\nGoogle logging format.\n\nSee twitter.com.log.options for customizations.\n"
 from __future__ import print_function
+import getpass
+import logging
 import os
+from socket import gethostname
 import sys
 import time
-import logging
-import getpass
-from socket import gethostname
 from twitter.common.log.formatters import glog, plain
+from twitter.common.log.handlers import ScribeHandler
 from twitter.common.log.options import LogOptions
 from twitter.common.dirutil import safe_mkdir
 _FILTER_TYPES = {logging.DEBUG: 'DEBUG', logging.INFO: 'INFO', logging.WARN: 'WARNING', logging.ERROR: 'ERROR', logging.FATAL: 'FATAL', }
+_SCRIBE_LOGGERS = []
 _STDERR_LOGGERS = []
 _DISK_LOGGERS = []

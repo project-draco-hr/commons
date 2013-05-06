@@ -1,0 +1,9 @@
+def read(self, filename):
+    '\n      Read will return the contents of the file in a\n      variable\n    '
+    tmp_file = tempfile.mktemp()
+    if (self._call('-copyToLocal', filename, tmp_file) == 0):
+        with open(tmp_file, 'r') as f:
+            text = f.read()
+    else:
+        text = None
+    return text

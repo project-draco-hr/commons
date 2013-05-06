@@ -1,0 +1,18 @@
+def createtarget(self, gentarget, dependees, gen_files_for_source):
+    assert is_gentarget(gentarget)
+
+    def create_target(files, deps, outdir, target_type):
+        return self.context.add_new_target(outdir, target_type, name=gentarget.id, provides=gentarget.provides, sources=files, dependencies=deps)
+
+    def create_geninfo(key):
+        compiler_config = INFO_FOR_COMPILER[gentarget.compiler]['config']
+        gen_info = self.context.config.getdict(compiler_config, key)
+        gen = gen_info['gen']
+        deps = dict()
+        for (category, depspecs) in gen_info['deps'].items():
+            dependencies = OrderedSet()
+            deps[category] = dependencies
+            for depspec in depspecs:
+                dependencies.update(self.context.resolve(depspec))
+        return self.GenInfo(gen, deps)
+    return self._inject_target(gentarget, dependees, create_geninfo(gentarget.language), gen_files_for_source, create_target)

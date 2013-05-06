@@ -1,20 +1,21 @@
 {
   if (tokenized == null) {
-    if (!inputStream.incrementToken()) {
-      return false;
-    }
-    restoreState(inputStream.captureState());
-    return true;
+    return incrementInputStream();
   }
   if (currentIndex >= tokenized.getTokens().size()) {
     return false;
   }
   TokenizedCharSequence.Token token=tokenized.getTokens().get(currentIndex);
-  termAttr.setOffset(token.getOffset());
-  termAttr.setLength(token.getLength());
-  typeAttr.setType(token.getType());
+  updateOffsetAndLength(token.getOffset(),token.getLength());
+  updateType(token.getType());
   if (posAttr != null) {
     posAttr.setPOS(token.getPartOfSpeech());
+  }
+  if (incAttr != null) {
+    incAttr.setPositionIncrement(token.getPositionIncrement());
+  }
+  if (groupAttr != null) {
+    groupAttr.setSequence(token.getGroup());
   }
   currentIndex++;
   return true;

@@ -1,2 +1,1 @@
-from twitter.pants.base.generator import TemplateData
 from twitter.pants.targets.util import resolve

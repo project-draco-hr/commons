@@ -1,0 +1,14 @@
+def test_bad_header_size(self):
+    with self.EphemeralFile('r+') as fp:
+        fpw = FileLike.get(fp)
+        fpw.write(struct.pack('>L', RecordIO.MAXIMUM_RECORD_SIZE))
+        fpw._fp.truncate((RecordIO.RECORD_HEADER_SIZE - 1))
+        fpw.flush()
+        fpw.seek(0)
+        rr = RecordReader(fp)
+        with pytest.raises(RecordIO.PrematureEndOfStream):
+            rr.read()
+        assert (fpw.tell() != 0)
+        fpw.seek(0)
+        assert (rr.try_read() is None)
+        assert (fpw.tell() == 0)

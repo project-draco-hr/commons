@@ -1,0 +1,3 @@
+def _classpth(self, target):
+    compiler_config = INFO_FOR_COMPILER[target.compiler]['config']
+    return profile_classpath(compiler_config)

@@ -1,0 +1,13 @@
+@classmethod
+def setUpClass(cls):
+    super(MinimalCoverTest, cls).setUpClass()
+
+    def create_target(path, name, *deps):
+        all_deps = ([("pants('%s')" % dep) for dep in list(deps)] + ["python_requirement('foo')"])
+        cls.create_target(path, dedent(("\n          python_library(name='%s',\n            dependencies=[%s]\n          )\n          " % (name, ','.join(all_deps)))))
+    create_target('common/a', 'a')
+    create_target('common/b', 'b')
+    create_target('common/c', 'c')
+    create_target('overlaps', 'one', 'common/a', 'common/b')
+    create_target('overlaps', 'two', 'common/a', 'common/c')
+    create_target('overlaps', 'three', 'common/a', 'overlaps:one')

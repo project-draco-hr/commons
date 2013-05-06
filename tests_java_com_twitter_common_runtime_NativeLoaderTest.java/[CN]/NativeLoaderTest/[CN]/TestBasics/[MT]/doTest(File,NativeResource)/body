@@ -1,0 +1,4 @@
+{
+  assertFalse(nativeResource.isLoadable());
+  assertEquals(new File(libDir,getLine()),nativeResource.getFile());
+}

@@ -1,0 +1,3 @@
+@abstractproperty
+def branch_name(self):
+    'Returns the name of the current branch if any.'

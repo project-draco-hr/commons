@@ -1,4 +1,4 @@
 {
-  stream.reset("Check out Apple stock: $APPL. and $IN:REL.  But not $dlfsdfsdf. $C is ok. $ is right out.");
-  assertEquals(ImmutableList.of("Check","out","Apple","stock",":","$APPL",".","and","$IN:REL",".","But","not","$","dlfsdfsdf",".","$C","is","ok",".","$","is","right","out","."),stream.toStringList());
+  stream.reset("Check out Apple stock: $APPL. and $IN.  But not $dlfsdfsdf. $C is ok. $ is right out.");
+  assertEquals(ImmutableList.of("Check","out","Apple","stock",":","$APPL",".","and","$IN",".","But","not","$","dlfsdfsdf",".","$C","is","ok",".","$","is","right","out","."),stream.toStringList());
 }

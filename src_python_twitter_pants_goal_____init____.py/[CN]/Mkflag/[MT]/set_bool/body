@@ -1,0 +1,3 @@
+def set_bool(self, option, opt_str, _, parser):
+    'An Option callback to parse bool flags that recognizes the --no- negation prefix.'
+    setattr(parser.values, option.dest, (not opt_str.startswith('--no')))

@@ -1,0 +1,9 @@
+def _do_put(self, source, dst):
+    '\n    Put the local file in to HDFS\n    '
+    if isinstance(dst, list):
+        hdfs_dst = ' '.join(dst)
+    else:
+        hdfs_dst = dst
+    if (not self._call('-test', '-e', hdfs_dst, check=False)):
+        self._call('-rm', '-skipTrash', hdfs_dst)
+    return self._call('-put', source, hdfs_dst)

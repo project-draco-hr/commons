@@ -1,0 +1,3 @@
+def __init__(self, platforms, resolver):
+    self._resolver = resolver
+    self._platforms = platforms

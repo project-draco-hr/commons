@@ -1,16 +1,13 @@
 import os
 import shutil
+from collections import defaultdict
 from twitter.common.collections.orderedset import OrderedSet
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants import extract_jvm_targets, get_buildroot, has_sources, is_codegen, is_java, is_scala, is_test, is_apt
+from twitter.pants.targets.jvm_target import JvmTarget
+from twitter.pants import binary_util, extract_jvm_targets, get_buildroot, has_resources, has_sources, is_codegen, is_java as _is_java, is_scala as _is_scala, is_test, is_apt
 from twitter.pants.base.target import Target
 from twitter.pants.goal.phase import Phase
-from twitter.pants.targets.exportable_jvm_library import ExportableJvmLibrary
-from twitter.pants.targets.java_library import JavaLibrary
 from twitter.pants.targets.jvm_binary import JvmBinary
-from twitter.pants.targets.scala_library import ScalaLibrary
-from twitter.pants.tasks import binary_utils, TaskError
-from twitter.pants.tasks.binary_utils import profile_classpath
+from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.checkstyle import Checkstyle
 from twitter.pants.tasks.jvm_binary_task import JvmBinaryTask
-__author__ = 'John Sirois'

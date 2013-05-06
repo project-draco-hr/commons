@@ -1,8 +1,0 @@
-def add_target_directory(self, *specs):
-    with self.check_errors("There was a problem loading targets from the following directory's BUILD files") as error:
-        for spec in specs:
-            dir = self.get_dir(spec)
-            try:
-                self.add_targets(error, dir, BuildFile(self.root_dir, dir))
-            except IOError:
-                error(dir)

@@ -1,0 +1,10 @@
+def test_defer():
+    DELAY = 0.5
+    results = Queue(maxsize=1)
+
+    def func():
+        results.put_nowait('success')
+    defer(func, delay=DELAY)
+    with Timer() as timer:
+        assert (results.get() == 'success')
+    assert (timer.elapsed >= DELAY)

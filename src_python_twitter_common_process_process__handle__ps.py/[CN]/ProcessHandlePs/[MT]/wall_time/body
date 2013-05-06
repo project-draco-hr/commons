@@ -1,2 +1,2 @@
 def wall_time(self):
-    return self.get('starttime')
+    return (self.get('starttime') or 0.0)

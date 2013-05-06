@@ -1,4 +1,10 @@
 {
-  backends=Preconditions.checkNotNull(pools);
-  loadBalancer.offerBackends(pools.keySet(),onBackendsChosen);
+  backendsWriteLock.lock();
+  try {
+    backends=Preconditions.checkNotNull(pools);
+    loadBalancer.offerBackends(pools.keySet(),onBackendsChosen);
+  }
+  finally {
+    backendsWriteLock.unlock();
+  }
 }

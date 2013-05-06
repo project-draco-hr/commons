@@ -1,0 +1,4 @@
+{
+  this.auxPortAsPrimary=Optional.of(auxPortName);
+  return this;
+}

@@ -1,0 +1,6 @@
+def check_targets(self, targets):
+    invalid = filter((lambda (t, reason): reason), zip(targets, map(self.is_invalid, targets)))
+    if invalid:
+        target_reasons = '\n\t'.join((('%s: %s' % (tgt.address, reason)) for (tgt, reason) in invalid))
+        params = dict(roots=' '.join((str(t.address) for t in self.context.target_roots)), reasons=target_reasons)
+        raise TaskError(('The following targets must be fixed or removed in order to publish %(roots)s:\n\t%(reasons)s' % params))

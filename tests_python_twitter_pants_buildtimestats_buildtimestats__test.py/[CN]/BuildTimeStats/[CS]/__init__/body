@@ -1,0 +1,2 @@
+def __init__(self, file_nm):
+    self._file = file_nm

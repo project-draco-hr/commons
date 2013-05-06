@@ -1,0 +1,12 @@
+def scribe_write(self, messages):
+    'Sends a list of messages to scribe.\n\n    Params:\n    messages: List of scribe.LogEntry objects.\n\n    Raises:\n    ScribeHandlerException on timeouts and connection errors.\n    '
+    try:
+        try:
+            self.transport.open()
+            result = self.client.Log(messages)
+            if (result != scribe.ResultCode.OK):
+                raise self.ScribeHandlerException('Scribe message submission failed')
+        except TTransport.TTransportException as err:
+            raise self.ScribeHandlerException(('Could not connect to scribe host=%s:%s error=%s' % (self._host, self._port, err)))
+    finally:
+        self.transport.close()

@@ -1,2 +1,3 @@
-def internaldep(self, jar_dependency):
-    return self._jardep(jar_dependency)
+def internaldep(self, jar_dependency, dep=None, synth=False):
+    classifier = ('idl' if (dep and is_codegen(dep) and synth) else None)
+    return self._jardep(jar_dependency, classifier=classifier)

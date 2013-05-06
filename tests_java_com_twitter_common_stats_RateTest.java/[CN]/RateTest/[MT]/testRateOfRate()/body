@@ -1,23 +1,23 @@
 {
   expectCalls(10,20,30,40,50,60);
   control.replay();
-  Rate<Integer> rate=Rate.of(input).withClock(clock).build();
-  Rate<Double> rateOfRate=Rate.of(rate).withClock(clock).build();
+  Rate<Integer> rate=Rate.of(input).withTicker(ticker).build();
+  Rate<Double> rateOfRate=Rate.of(rate).withTicker(ticker).build();
   assertThat(rate.sample(),is(0d));
   assertThat(rateOfRate.sample(),is(0d));
-  clock.waitFor(ONE_SEC);
+  ticker.waitNanos(ONE_SEC);
   assertThat(rate.sample(),is(10d));
   assertThat(rateOfRate.sample(),is(10d));
-  clock.waitFor(ONE_SEC);
+  ticker.waitNanos(ONE_SEC);
   assertThat(rate.sample(),is(10d));
   assertThat(rateOfRate.sample(),is(0d));
-  clock.waitFor(ONE_SEC);
+  ticker.waitNanos(ONE_SEC);
   assertThat(rate.sample(),is(10d));
   assertThat(rateOfRate.sample(),is(0d));
-  clock.waitFor(ONE_SEC);
+  ticker.waitNanos(ONE_SEC);
   assertThat(rate.sample(),is(10d));
   assertThat(rateOfRate.sample(),is(0d));
-  clock.waitFor(ONE_SEC);
+  ticker.waitNanos(ONE_SEC);
   assertThat(rate.sample(),is(10d));
   assertThat(rateOfRate.sample(),is(0d));
 }

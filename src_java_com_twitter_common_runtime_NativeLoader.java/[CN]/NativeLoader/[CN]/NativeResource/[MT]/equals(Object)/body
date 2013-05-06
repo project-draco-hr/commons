@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof NativeResource)) {
+    return false;
+  }
+  NativeResource that=(NativeResource)o;
+  return Objects.equal(file,that.file) && Objects.equal(name,that.name) && Objects.equal(loadable,that.loadable);
+}

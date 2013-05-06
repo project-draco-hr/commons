@@ -1,0 +1,3 @@
+InetSocketAddress endpoint
+Map<String,InetSocketAddress> auxEndpoints
+Optional<Integer> shardId

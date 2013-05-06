@@ -1,0 +1,11 @@
+{
+  super();
+  HeapsterHelper helper=null;
+  try {
+    helper=new HeapsterHelper(ClassLoader.getSystemClassLoader().loadClass("Heapster"));
+  }
+ catch (  ClassNotFoundException e) {
+    LOG.warning("Continuing without heapster profiling, could not load Heapster class: " + e);
+  }
+  this.heapster=helper;
+}

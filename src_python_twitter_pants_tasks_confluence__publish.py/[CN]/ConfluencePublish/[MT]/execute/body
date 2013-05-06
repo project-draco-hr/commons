@@ -20,4 +20,4 @@ def execute(self, targets):
                 urls.append(url)
                 self.context.log.info(('Published %s to %s' % (page, url)))
     if (self.open and urls):
-        binary_utils.open(*urls)
+        binary_util.ui_open(*urls)

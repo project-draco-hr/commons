@@ -1,0 +1,4 @@
+@staticmethod
+def execute_suppress_stdout_stderr(cmd, log_cmd=True):
+    '\n    Executes the command and supresses stdout and stderr\n    '
+    return CommandUtil._execute_internal(cmd, False, False, log_cmd)

@@ -1,0 +1,3 @@
+{
+  return new AssertionError(String.format("JVM doesn't support the %s encoding",TEXT_ENCODING));
+}

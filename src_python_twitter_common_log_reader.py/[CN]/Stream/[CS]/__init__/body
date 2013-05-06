@@ -1,0 +1,7 @@
+def __init__(self, filename_or_filelike, parsers, infinite=False):
+    '\n      Given a filelike-object and a set of Line-derived parsers (e.g. GlogLine, ZooLine),\n      generate Line objects from the stream.  If infinite=True, continue after hitting\n      EOF.\n    '
+    self._buffer = Buffer(filename_or_filelike, infinite)
+    self._head = None
+    self._tail = []
+    self._infinite = infinite
+    self._parsers = parsers

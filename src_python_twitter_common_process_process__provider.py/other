@@ -1,2 +1,4 @@
+from abc import abstractmethod
 from copy import copy
 from collections import defaultdict
+from twitter.common.lang import Interface

@@ -1,0 +1,12 @@
+{
+  TokenGroupAttributeImpl clone=new TokenGroupAttributeImpl();
+  clone.attributeClasses=attributeClasses;
+  clone.seq=seq;
+  ImmutableList.Builder<State> builder=ImmutableList.builder();
+  for (  State state : states) {
+    builder.add(state.clone());
+  }
+  clone.states=builder.build();
+  clone.tokenGroupStream=null;
+  return clone;
+}

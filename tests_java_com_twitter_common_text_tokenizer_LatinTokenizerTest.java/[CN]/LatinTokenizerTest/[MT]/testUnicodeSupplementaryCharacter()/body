@@ -1,0 +1,4 @@
+{
+  String text=String.format("banana %cpple orange",0x00010400);
+  testTokenizer(tokenizer,text,"banana",String.format("%cpple",0x00010400),"orange");
+}

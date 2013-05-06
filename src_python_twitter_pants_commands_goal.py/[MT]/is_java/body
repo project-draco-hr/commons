@@ -1,2 +1,2 @@
 def is_java(target):
-    return (isinstance(target, JavaLibrary) or isinstance(target, JavaTests))
+    return (isinstance(target, JavaLibrary) or (isinstance(target, (JvmBinary, junit_tests, Benchmark)) and has_sources(target, '.java')))

@@ -1,0 +1,7 @@
+import platform
+import pytest
+import threading
+from twitter.common.decorators.threads import __gettid
+from twitter.common.decorators.threads import identify_thread
+SUPPORTED_PLATFORMS = (('Linux', 'i386'), ('Linux', 'x86_64'))
+PLATFORM_SUPPORTED = ((platform.system(), platform.machine()) in SUPPORTED_PLATFORMS)

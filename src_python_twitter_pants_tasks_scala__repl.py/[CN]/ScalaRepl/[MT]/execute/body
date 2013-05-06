@@ -1,3 +1,8 @@
 def execute(self, targets):
     self.context.lock.release()
-    runjava(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=self.args)
+    self.save_stty_options()
+    try:
+        runjava_indivisible(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=self.args)
+    except KeyboardInterrupt:
+        pass
+    self.restore_ssty_options()

@@ -1,0 +1,2 @@
+def __init__(self):
+    super(TestExceptionalThread, self).__init__()

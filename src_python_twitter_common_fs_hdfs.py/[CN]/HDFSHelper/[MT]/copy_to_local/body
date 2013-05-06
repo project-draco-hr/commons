@@ -1,0 +1,3 @@
+def copy_to_local(self, remote, local):
+    '\n    Copies the file from remote to local\n    '
+    return self._call('-copyToLocal', remote, local, suppress_output=True)

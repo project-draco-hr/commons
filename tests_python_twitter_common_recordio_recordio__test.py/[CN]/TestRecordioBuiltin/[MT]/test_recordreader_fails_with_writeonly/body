@@ -1,0 +1,5 @@
+def test_recordreader_fails_with_writeonly(self):
+    for mode in ('a', 'w'):
+        with self.EphemeralFile(mode) as fp:
+            with pytest.raises(RecordIO.InvalidFileHandle):
+                RecordReader(fp)

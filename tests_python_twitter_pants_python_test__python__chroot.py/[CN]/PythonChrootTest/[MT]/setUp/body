@@ -1,0 +1,5 @@
+def setUp(self):
+    with temporary_file() as ini:
+        ini.write("\n[python-setup]\nplatforms: [\n  'current',\n  'linux-x86_64']\n")
+        ini.close()
+        self.config = Config.load(configpath=ini.name)

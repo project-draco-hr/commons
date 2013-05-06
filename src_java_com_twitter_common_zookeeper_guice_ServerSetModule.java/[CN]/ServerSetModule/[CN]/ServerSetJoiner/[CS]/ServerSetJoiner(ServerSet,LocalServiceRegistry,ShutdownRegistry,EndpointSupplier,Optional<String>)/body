@@ -1,0 +1,7 @@
+{
+  this.serverSet=checkNotNull(serverSet);
+  this.serviceRegistry=checkNotNull(serviceRegistry);
+  this.shutdownRegistry=checkNotNull(shutdownRegistry);
+  this.endpointSupplier=checkNotNull(endpointSupplier);
+  this.auxPortAsPrimary=checkNotNull(auxPortAsPrimary);
+}

@@ -1,0 +1,3 @@
+{
+  return new StaticServerSet(ImmutableSet.copyOf(Iterables.transform(endpoints,ENDPOINT_TO_INSTANCE)));
+}

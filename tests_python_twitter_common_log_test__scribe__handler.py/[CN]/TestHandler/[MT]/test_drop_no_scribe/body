@@ -1,0 +1,5 @@
+@unittest.skipIf(_SCRIBE_PRESENT, 'Scribe Modules Present')
+def test_drop_no_scribe(self):
+    with self.assertRaises(ScribeHandler.ScribeHandlerException):
+        self.handler_drop = ScribeHandler(buffer=False, category=_CATEGORY, host=_HOST, port=_PORT)
+        logging.debug(_TEST_MSG)

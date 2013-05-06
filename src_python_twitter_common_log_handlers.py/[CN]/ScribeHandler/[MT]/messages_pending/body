@@ -1,0 +1,4 @@
+@property
+def messages_pending(self):
+    'Return True if there are messages in the buffer.'
+    return bool(self._log_buffer)

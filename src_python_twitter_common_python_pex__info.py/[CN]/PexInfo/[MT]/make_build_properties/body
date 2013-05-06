@@ -1,0 +1,10 @@
+@classmethod
+def make_build_properties(cls):
+    pi = PythonInterpreter()
+    base_info = {'class': pi.identity().interpreter, 'version': pi.identity().version, 'platform': get_platform(), }
+    try:
+        from twitter.pants.base.build_info import get_build_info
+        base_info.update(get_build_info()._asdict())
+    except ImportError:
+        pass
+    return base_info

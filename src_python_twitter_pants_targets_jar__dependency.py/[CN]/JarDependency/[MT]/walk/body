@@ -1,0 +1,3 @@
+def walk(self, work, predicate=None):
+    if ((not predicate) or predicate(self)):
+        work(self)

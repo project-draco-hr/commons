@@ -1,4 +1,0 @@
-{
-  if (select != null)   return select.getColumns();
-  return Lists.newArrayList(Iterables.transform(timeSeriesRepo.getAvailableSeries(),TO_SIMPLE_COLUMN));
-}

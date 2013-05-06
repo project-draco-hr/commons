@@ -1,0 +1,7 @@
+@staticmethod
+def _scribe_options_callback(option, opt, value, parser):
+    try:
+        LogOptions.set_scribe_log_level(value)
+    except LogOptionsException as e:
+        raise optparse.OptionValueError(('Failed to parse option: %s' % e))
+    parser.values.twitter_common_log_scribe_log_level = value

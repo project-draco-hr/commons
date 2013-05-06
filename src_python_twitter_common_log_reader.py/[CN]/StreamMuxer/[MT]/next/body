@@ -1,0 +1,10 @@
+def next(self):
+    "\n      Returns (label, Line) pairs as they're available, None if nothing is available or Stream.EOF\n      if all streams have terminated.\n    "
+    self._collect()
+    if ((not self._heads) and (not self._refresh)):
+        return Stream.EOF
+    minimum = self._pop()
+    if minimum:
+        (line, stream) = minimum
+        self._refresh.add(stream)
+        return (self._labels[stream], line)

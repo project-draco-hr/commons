@@ -1,0 +1,3 @@
+{
+  return new DeflaterOutputStream(new Base64OutputStream(out,true,Integer.MAX_VALUE,null));
+}

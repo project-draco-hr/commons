@@ -1,3 +1,0 @@
-{
-  return StringUtils.leftPad(String.valueOf(value),width,'0');
-}

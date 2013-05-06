@@ -1,5 +1,7 @@
 def execute(self, targets):
     self.check_clean_master()
+    exported_targets = self.exported_targets()
+    self.check_targets(exported_targets)
     pushdbs = {}
 
     def get_db(target):
@@ -21,38 +23,66 @@ def execute(self, targets):
         (_, _, _, fingerprint) = pushdb.as_jar_with_version(target)
         return (fingerprint or '0.0.0')
 
-    def stage_artifacts(target, jar, version, changelog, confs=None):
+    def lookup_synthetic_target(target):
+        revmap = self.context.products.get('java:rev')
+        if revmap.get(target):
+            for (_, codegen_targets) in revmap.get(target).items():
+                for codegen_target in codegen_targets:
+                    if isinstance(codegen_target, JavaThriftLibrary):
+                        return codegen_target
 
-        def artifact_path(name=None, suffix='', extension='jar'):
-            return os.path.join(self.outdir, jar.org, jar.name, ('%s-%s%s.%s' % ((name or jar.name), version, suffix, extension)))
-        with safe_open(artifact_path(suffix='-CHANGELOG', extension='txt'), 'w') as changelog_file:
-            changelog_file.write(changelog)
+    def stage_artifacts(target, jar, version, changelog, confs=None, synth_target=None):
+
+        def artifact_path(name=None, suffix='', extension='jar', artifact_ext=''):
+            return os.path.join(self.outdir, jar.org, (jar.name + artifact_ext), ('%s%s-%s%s.%s' % ((name or jar.name), (artifact_ext if (name != 'ivy') else ''), version, suffix, extension)))
 
         def get_pushdb(target):
             return get_db(target)[0]
-        PomWriter(get_pushdb).write(target, artifact_path(extension='pom'))
+        with safe_open(artifact_path(suffix='-CHANGELOG', extension='txt'), 'w') as changelog_file:
+            changelog_file.write(changelog)
         ivyxml = artifact_path(name='ivy', extension='xml')
         IvyWriter(get_pushdb).write(target, ivyxml, confs)
+        PomWriter(get_pushdb).write(target, artifact_path(extension='pom'))
+        idl_ivyxml = None
+        if synth_target:
+            changelog_path = artifact_path(suffix='-CHANGELOG', extension='txt', artifact_ext='-only')
+            with safe_open(changelog_path, 'w') as changelog_file:
+                changelog_file.write(changelog)
+            idl_ivyxml = artifact_path(name='ivy', extension='xml', artifact_ext='-only')
+            IvyWriter(get_pushdb).write(synth_target, idl_ivyxml, ['idl'], synth=True)
+            PomWriter(get_pushdb).write(synth_target, artifact_path(extension='pom', artifact_ext='-only'), synth=True)
 
-        def copy(typename, suffix=''):
+        def copy(tgt, typename, suffix='', artifact_ext=''):
             genmap = self.context.products.get(typename)
-            for (basedir, jars) in genmap.get(target).items():
-                for artifact in jars:
-                    shutil.copy(os.path.join(basedir, artifact), artifact_path(suffix=suffix))
-        copy('jars')
+            mapping = genmap.get(tgt)
+            if (not mapping):
+                print(('no mapping for %s' % tgt))
+            else:
+                for (basedir, jars) in mapping.items():
+                    for artifact in jars:
+                        path = artifact_path(suffix=suffix, artifact_ext=artifact_ext)
+                        shutil.copy(os.path.join(basedir, artifact), path)
+        copy(target, typename='jars')
+        copy(target, typename='source_jars', suffix='-sources')
+        if synth_target:
+            copy(synth_target, typename='idl_jars', suffix='-idl', artifact_ext='-only')
         if is_java(target):
-            copy('javadoc_jars', '-javadoc')
-        copy('source_jars', '-sources')
-        return ivyxml
+            copy(target, typename='javadoc_jars', suffix='-javadoc')
+        return (ivyxml, idl_ivyxml)
     if self.overrides:
         print(('Publishing with revision overrides:\n  %s' % '\n  '.join((('%s=%s' % (coordinate(org, name), rev)) for ((org, name), rev) in self.overrides.items()))))
-    head_sha = self.check_output(['git', 'rev-parse', 'HEAD']).strip()
+    head_sha = self.scm.commit_id
     safe_rmtree(self.outdir)
     published = []
     skip = (self.restart_at is not None)
-    for target in self.exported_targets():
+    for target in exported_targets:
+        synth_target = lookup_synthetic_target(target)
         (pushdb, dbfile, repo) = get_db(target)
         (jar, semver, sha, fingerprint) = pushdb.as_jar_with_version(target)
+        if synth_target:
+            tmp_jar = copy.copy(jar)
+            tmp_jar.name = (tmp_jar.name + '-only')
+            published.append(tmp_jar)
         published.append(jar)
         if (skip and ((jar.org, jar.name) == self.restart_at)):
             skip = False
@@ -69,10 +99,10 @@ def execute(self, targets):
             changelog = (self.changelog(target, sha) or 'Direct dependencies changed.\n')
         if (no_changes and (not self.force)):
             print(('No changes for %s' % jar_coordinate(jar, semver.version())))
-            stage_artifacts(target, jar, (newver if self.force else semver).version(), changelog)
+            stage_artifacts(target, jar, (newver if self.force else semver).version(), changelog, synth_target=synth_target)
         elif skip:
             print(('Skipping %s to resume at %s' % (jar_coordinate(jar, (newver if self.force else semver).version()), coordinate(self.restart_at[0], self.restart_at[1]))))
-            stage_artifacts(target, jar, semver.version(), changelog)
+            stage_artifacts(target, jar, semver.version(), changelog, synth_target=synth_target)
         else:
             if (not self.dryrun):
                 if no_changes:
@@ -84,7 +114,7 @@ def execute(self, targets):
                 if (push.strip().lower() != 'y'):
                     raise TaskError('User aborted push')
             pushdb.set_version(target, newver, head_sha, newfingerprint)
-            ivyxml = stage_artifacts(target, jar, newver.version(), changelog, confs=repo['confs'])
+            (ivyxml, idl_ivyxml) = stage_artifacts(target, jar, newver.version(), changelog, confs=repo['confs'], synth_target=synth_target)
             if self.dryrun:
                 print(('Skipping publish of %s in test mode.' % jar_coordinate(jar, newver.version())))
             else:
@@ -93,17 +123,23 @@ def execute(self, targets):
                 jvmargs = []
                 auth = repo['auth']
                 if auth:
-                    with ParseContext.temp():
-                        credentials = pants(auth).resolve().next()
-                        jvmargs.append(credentials.username())
-                        jvmargs.append(credentials.password())
+                    (user, password) = auth
+                    jvmargs.append(('-Dlogin=%s' % user))
+                    jvmargs.append(('-Dpassword=%s' % password))
                 ivysettings = self.generate_ivysettings(published, publish_local=path)
-                args = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
+                opts = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
                 if self.snapshot:
-                    args.append('-overwrite')
-                result = binary_utils.runjava(jvmargs=jvmargs, classpath=self.ivycp, args=args)
+                    opts.append('-overwrite')
+                result = binary_util.runjava_indivisible(jvmargs=jvmargs, classpath=self.ivycp, opts=opts)
                 if (result != 0):
                     raise TaskError(('Failed to push %s - ivy failed with %d' % (jar_coordinate(jar, newver.version()), result)))
+                if synth_target:
+                    opts = ['-settings', ivysettings, '-ivy', idl_ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
+                    if self.snapshot:
+                        opts.append('-overwrite')
+                    result = binary_util.runjava_indivisible(jvmargs=jvmargs, classpath=self.ivycp, opts=opts)
+                    if (result != 0):
+                        raise TaskError(('Failed to push %s - ivy failed with %d' % (jar_coordinate(jar, newver.version()), result)))
                 if self.commit:
                     pushdb.dump(dbfile)
                     self.commit_push(jar.org, jar.name, newver.version(), head_sha)

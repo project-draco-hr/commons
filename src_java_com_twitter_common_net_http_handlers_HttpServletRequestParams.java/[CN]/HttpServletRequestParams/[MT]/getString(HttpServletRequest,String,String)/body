@@ -1,0 +1,8 @@
+{
+  if (request.getParameter(param) != null) {
+    return request.getParameter(param);
+  }
+ else {
+    return defaultValue;
+  }
+}

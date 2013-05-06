@@ -1,0 +1,7 @@
+def _link_java_cycles(self, java_sources):
+    if java_sources:
+        self.java_sources = list(Target.resolve_all(maybe_list(java_sources, Target), JavaLibrary))
+    else:
+        self.java_sources = []
+    for java_target in self.java_sources:
+        java_target.update_dependencies([self])

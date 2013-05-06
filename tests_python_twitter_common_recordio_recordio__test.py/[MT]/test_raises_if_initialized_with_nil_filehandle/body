@@ -1,5 +1,0 @@
-def test_raises_if_initialized_with_nil_filehandle():
-    with pytest.raises(RecordIO.InvalidFileHandle):
-        RecordWriter(None)
-    with pytest.raises(RecordIO.InvalidFileHandle):
-        RecordReader(None)

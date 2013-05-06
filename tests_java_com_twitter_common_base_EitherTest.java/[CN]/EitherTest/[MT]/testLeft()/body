@@ -1,0 +1,4 @@
+{
+  Exception left=new Exception();
+  assertLeft(left,Either.<Exception,String>left(left));
+}

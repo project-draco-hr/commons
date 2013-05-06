@@ -1,17 +1,17 @@
 @staticmethod
-def append(filename, input, codec):
-    '\n        Given a filename stored in RecordIO format, open the file, append a\n        blob to it and close.\n\n        Returns True if it succeeds, or False if it fails for any reason.\n      '
-    rv = False
+def append(filename, record, codec):
+    '\n        Given a filename stored in RecordIO format, open the file, append a\n        record to it and close.\n\n        Returns True if it succeeds, or False if it fails for any reason.\n        Raises IOError, OSError if there is a problem opening filename for appending.\n      '
     if (not isinstance(codec, RecordIO.Codec)):
         raise RecordIO.InvalidCodec('append called with an invalid codec!')
     if (not os.path.exists(filename)):
         return False
     try:
+        fp = None
         with open(filename, 'a+') as fp:
-            rv = RecordIO.Writer.do_write(fp, input, codec)
-    except Exception as e:
+            return RecordIO.Writer.do_write(fp, record, codec)
+    except (IOError, OSError) as e:
         if fp:
             log.debug(('Unexpected exception (%s), but continuing' % e))
+            return False
         else:
-            raise e
-    return rv
+            raise

@@ -1,25 +1,35 @@
 def _run_python_test(self, target):
     po = None
     rv = PythonTestResult.exception()
+    coverage_rc = None
+    coverage_enabled = ('PANTS_PY_COVERAGE' in os.environ)
     try:
         try:
             builder = PEXBuilder()
             builder.info().entry_point = 'pytest'
             builder.info().ignore_errors = target._soft_dependencies
-            chroot = PythonChroot(target, self.root_dir, extra_targets=self.generate_test_targets(), builder=builder)
+            chroot = PythonChroot(target, self.root_dir, extra_targets=self.generate_test_targets(), builder=builder, conn_timeout=self._conn_timeout)
             builder = chroot.dump()
             builder.freeze()
             test_args = PythonTestBuilder.generate_junit_args(target)
             test_args.extend(self.args)
+            if coverage_enabled:
+                (coverage_rc, args) = self.cov_setup(target, builder.chroot())
+                test_args.extend(args)
             sources = [os.path.join(target.target_base, source) for source in target.sources]
             po = PEX(builder.path()).run(args=(test_args + sources), blocking=False, setsid=True)
             rv = PythonTestBuilder.wait_on(po, timeout=target.timeout)
+        except KeyboardInterrupt:
+            print('Test interrupted by user')
+            rv = PythonTestResult.cancelled()
         except Exception as e:
             import traceback
             print('Failed to run test!', file=sys.stderr)
             traceback.print_exc()
             rv = PythonTestResult.exception()
     finally:
+        if coverage_rc:
+            os.unlink(coverage_rc)
         if (po and (po.returncode != 0)):
             try:
                 os.killpg(po.pid, signal.SIGTERM)

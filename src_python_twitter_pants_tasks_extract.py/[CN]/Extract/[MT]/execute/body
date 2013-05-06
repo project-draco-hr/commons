@@ -1,0 +1,11 @@
+def execute(self, targets):
+    depmap = self.context.products.get('idl_dependencies')
+    for (representative, placeholders) in self.placeholders.items():
+        sources = set()
+        mappings = depmap.get(representative)
+        if mappings:
+            for (basedir, jars) in mappings.items():
+                for jar in jars:
+                    sources.update(self._extract(os.path.join(basedir, jar)))
+        for placeholder in placeholders:
+            placeholder.sources = sources

@@ -1,2 +1,2 @@
 def __eq__(self, other):
-    return ((self.service_endpoint == other.service_endpoint) and ((self.additional_endpoints == other.additional_endpoints) and (self.status == other.status)))
+    return (isinstance(other, self.__class__) and ((self.service_endpoint == other.service_endpoint) and (self.additional_endpoints == other.additional_endpoints) and (self.status == other.status) and (self.shard == other.shard)))

@@ -1,0 +1,5 @@
+@property
+def branch_name(self):
+    branch = self._check_output(['rev-parse', '--abbrev-ref', 'HEAD'], raise_type=Scm.LocalException)
+    branch = self._cleanse(branch)
+    return (None if (branch == 'HEAD') else branch)

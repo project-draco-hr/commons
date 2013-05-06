@@ -1,0 +1,4 @@
+@property
+def components(self):
+    "Returns a list of this revision's components from most major to most minor."
+    return list(self._components)

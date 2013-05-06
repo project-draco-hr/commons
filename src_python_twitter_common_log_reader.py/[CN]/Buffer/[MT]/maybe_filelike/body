@@ -1,0 +1,6 @@
+@classmethod
+def maybe_filelike(cls, filename_or_filelike):
+    if isinstance(filename_or_filelike, Compatibility.string):
+        return FileIO(filename_or_filelike)
+    else:
+        return filename_or_filelike

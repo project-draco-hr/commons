@@ -1,6 +1,5 @@
-def __init__(self, id, dependencies=None, num_sources=0):
-    self.id = id
-    self.address = id
-    self.dependencies = (dependencies if dependencies else [])
-    self.internal_dependencies = self.dependencies
+def __init__(self, name, dependencies=None, num_sources=0):
+    with ParseContext.temp():
+        InternalTarget.__init__(self, name, dependencies)
+        TargetWithSources.__init__(self, name)
     self.num_sources = num_sources

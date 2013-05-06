@@ -1,0 +1,5 @@
+def du(directory):
+    size = 0
+    for (root, _, files) in os.walk(directory):
+        size += sum((safe_bsize(os.path.join(root, filename)) for filename in files))
+    return size

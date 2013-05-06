@@ -1,4 +1,8 @@
-__author__ = 'John Sirois'
+import os
+import stat
+import zipfile
+from contextlib import contextmanager
+from twitter.common.contextutil import open_zip
 from twitter.pants.java.manifest import Manifest
 from twitter.pants.java.nailgun_client import NailgunClient, NailgunError
-__all__ = (Manifest, NailgunClient, NailgunError)
+__all__ = (open_jar, Manifest, NailgunClient, NailgunError)

@@ -1,0 +1,3 @@
+def mkdir(self, path):
+    '\n    Mkdir will create a directory. If already present, it will return an error\n    '
+    return self._call('-mkdir', path)

@@ -1,0 +1,12 @@
+def console_output(self, _):
+    touched_files = self._get_touched_files()
+    if self._show_files:
+        for file in touched_files:
+            yield file
+    else:
+        touched_targets = set()
+        for file in touched_files:
+            for touched_target in self._owning_targets(file):
+                if (touched_target not in touched_targets):
+                    touched_targets.add(touched_target)
+                    yield str(touched_target.address)

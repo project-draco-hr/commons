@@ -1,4 +1,4 @@
-def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None, type_=None, classifier=None):
+def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None, type_=None, classifier=None, mutable=None):
     self.org = org
     self.name = name
     self.rev = rev
@@ -6,9 +6,10 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
     self.excludes = []
     self.transitive = True
     self.apidocs = apidocs
+    self.mutable = mutable
     self.artifacts = []
     if (ext or url or type_ or classifier):
-        self.with_artifact(name=name, ext=ext, url=url, type_=type_, classifier=classifier)
+        self.with_artifact(name=name, type_=type_, ext=ext, url=url, classifier=classifier)
     self.id = ('%s-%s-%s' % (self.org, self.name, self.rev))
     self._configurations = ['default']
     self.withSources = self.with_sources

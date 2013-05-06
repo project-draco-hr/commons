@@ -1,0 +1,5 @@
+def test_default_form(self):
+    with self.workspace('a/BUILD') as root_dir:
+        self.assertAddress(root_dir, 'a/BUILD', 'a', Address.parse(root_dir, 'a'))
+        self.assertAddress(root_dir, 'a/BUILD', 'a', Address.parse(root_dir, 'a/BUILD'))
+        self.assertAddress(root_dir, 'a/BUILD', 'a', Address.parse(root_dir, 'a/BUILD/'))

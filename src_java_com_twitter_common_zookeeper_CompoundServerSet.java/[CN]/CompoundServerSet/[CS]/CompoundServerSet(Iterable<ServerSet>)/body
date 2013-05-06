@@ -1,0 +1,4 @@
+{
+  MorePreconditions.checkNotBlank(serverSets);
+  this.serverSets=ImmutableList.copyOf(serverSets);
+}

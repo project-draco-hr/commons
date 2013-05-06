@@ -1,10 +1,29 @@
 def _monitor_members(self):
 
+    def wait_exists():
+        self._zk.aexists(self._path, exists_watch, exists_completion)
+
+    def exists_watch(_, event, state, path):
+        if ((event == zookeeper.SESSION_EVENT) and (state == zookeeper.EXPIRED_SESSION_STATE)):
+            wait_exists()
+            return
+        if (event == zookeeper.CREATED_EVENT):
+            do_monitor()
+        elif (event == zookeeper.DELETED_EVENT):
+            wait_exists()
+
+    def exists_completion(_, rc, stat):
+        if (rc == zookeeper.OK):
+            do_monitor()
+
     def do_monitor():
         self._zk.aget_children(self._path, membership_watch, membership_completion)
 
     def membership_watch(_, event, state, path):
         if (state == zookeeper.CONNECTING_STATE):
+            return
+        if (event == zookeeper.DELETED_EVENT):
+            wait_exists()
             return
         do_monitor()
 
@@ -12,8 +31,12 @@ def _monitor_members(self):
         if (rc in self._zk.COMPLETION_RETRY):
             do_monitor()
             return
+        if (rc == zookeeper.NONODE):
+            wait_exists()
+            return
         if (rc != zookeeper.OK):
             return
+        children = [child for child in children if self.znode_owned(child)]
         (_, new) = self._update_children(children)
         for child in new:
 

@@ -1,4 +1,4 @@
-def __init__(self, target, args, root_dir):
+def __init__(self, target, args, root_dir, conn_timeout=None):
     self.target = target
     if (not isinstance(target, PythonBinary)):
         raise PythonBinaryBuilder.NotABinaryTargetException(('Target %s is not a PythonBinary!' % target))
@@ -15,4 +15,4 @@ def __init__(self, target, args, root_dir):
     self.builder.info().inherit_path = target._inherit_path
     self.builder.info().entry_point = target._entry_point
     self.builder.info().ignore_errors = target._ignore_errors
-    self.chroot = PythonChroot(target, root_dir, builder=self.builder)
+    self.chroot = PythonChroot(target, root_dir, builder=self.builder, conn_timeout=conn_timeout)

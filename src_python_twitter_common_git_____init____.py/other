@@ -1,0 +1,5 @@
+from __future__ import print_function
+import contextlib
+from twitter.common.lang import Compatibility
+import git
+__all__ = ('DirtyRepositoryError', 'branch', 'checkout')

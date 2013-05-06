@@ -1,5 +1,3 @@
+from abc import abstractmethod
+from twitter.common.lang import Interface
 from twitter.common.string import ScanfParser
-try:
-    from twitter.common import log
-except ImportError:
-    log = None

@@ -1,0 +1,6 @@
+@classmethod
+def _parse_atom(cls, atom):
+    try:
+        return int(atom)
+    except ValueError:
+        return atom

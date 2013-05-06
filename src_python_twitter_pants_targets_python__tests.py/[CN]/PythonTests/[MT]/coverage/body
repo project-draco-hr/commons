@@ -1,0 +1,3 @@
+@property
+def coverage(self):
+    return self._coverage

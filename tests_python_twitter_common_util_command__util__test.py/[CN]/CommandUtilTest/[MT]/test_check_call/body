@@ -1,0 +1,4 @@
+def test_check_call(self):
+    self.assertRaises(subprocess.CalledProcessError, CommandUtil.check_call, ['ls', '-z'])
+    ret = CommandUtil.check_call(['ls', '-v'])
+    self.assertEqual(ret, 0)

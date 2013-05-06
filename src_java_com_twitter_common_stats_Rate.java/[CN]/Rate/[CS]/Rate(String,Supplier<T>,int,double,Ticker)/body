@@ -1,0 +1,8 @@
+{
+  super(name,0d);
+  this.inputAccessor=Preconditions.checkNotNull(inputAccessor);
+  this.ticker=Preconditions.checkNotNull(ticker);
+  samples=new LinkedBlockingDeque<Pair<Long,Double>>(windowSize);
+  Preconditions.checkArgument(scaleFactor != 0,"Scale factor must be non-zero!");
+  this.scaleFactor=scaleFactor;
+}

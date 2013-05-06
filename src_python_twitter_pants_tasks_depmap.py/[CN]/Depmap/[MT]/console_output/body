@@ -1,0 +1,13 @@
+def console_output(self, targets):
+    if (len(self.context.target_roots) == 0):
+        raise TaskError('One or more target addresses are required.')
+    for target in self.context.target_roots:
+        if all((self._is_jvm(t) for t in target.resolve() if is_concrete(t))):
+            if self.is_graph:
+                return self._output_digraph(target)
+            else:
+                return self._output_dependency_tree(target)
+        elif is_python(target):
+            raise TaskError('Unsupported for Python targets')
+        else:
+            raise TaskError(('Unsupported for target %s' % target))

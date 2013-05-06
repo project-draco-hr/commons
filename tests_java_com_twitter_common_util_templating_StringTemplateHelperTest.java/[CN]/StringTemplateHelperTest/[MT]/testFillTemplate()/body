@@ -1,0 +1,13 @@
+{
+  StringWriter output=new StringWriter();
+  templateHelper.writeTemplate(output,new Closure<StringTemplate>(){
+    @Override public void execute(    StringTemplate template){
+      template.setAttribute("header","Prices");
+      template.setAttribute("items",Arrays.asList(new Item("banana",50),new Item("car",2),new Item("jupiter",200)));
+      template.setAttribute("footer","The End");
+    }
+  }
+);
+  String expected="Prices\n" + "\n  The banana costs $50." + "\n  The car costs $2."+ "\n  The jupiter costs $200.\n"+ "\n\nThe End";
+  assertEquals(expected,output.toString());
+}

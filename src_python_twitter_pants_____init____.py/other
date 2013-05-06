@@ -1,31 +1,35 @@
 from __future__ import print_function
 import os
 import sys
-_VERSION = '0.0.3'
-_BUILD_ROOT = None
-import fnmatch
-import glob
-from functools import reduce
-from twitter.pants.base import Fileset
+from .version import VERSION as _VERSION
+_BUILDROOT = None
+from twitter.pants.scm import Scm
+_SCM = None
+from twitter.common.dirutil import Fileset
+globs = Fileset.globs
+rglobs = Fileset.rglobs
 from twitter.pants.targets import *
 annotation_processor = AnnotationProcessor
 artifact = Artifact
+benchmark = Benchmark
 bundle = Bundle
 credentials = Credentials
 dependencies = jar_library = JarLibrary
-doc = Doc
 egg = PythonEgg
 exclude = Exclude
 fancy_pants = Pants
 jar = JarDependency
 java_library = JavaLibrary
+java_antlr_library = JavaAntlrLibrary
 java_protobuf_library = JavaProtobufLibrary
-java_tests = JavaTests
+junit_tests = java_tests = JavaTests
 java_thrift_library = JavaThriftLibrary
 java_thriftstore_dml_library = JavaThriftstoreDMLLibrary
 jvm_binary = JvmBinary
 jvm_app = JvmApp
+oink_query = OinkQuery
 page = Page
+python_artifact = setup_py = PythonArtifact
 python_binary = PythonBinary
 python_library = PythonLibrary
 python_antlr_library = PythonAntlrLibrary
@@ -34,8 +38,9 @@ python_thrift_library = PythonThriftLibrary
 python_tests = PythonTests
 python_test_suite = PythonTestSuite
 repo = Repository
+resources = Resources
 scala_library = ScalaLibrary
-scala_tests = ScalaTests
+scala_specs = scala_tests = ScalaTests
 scalac_plugin = ScalacPlugin
 source_root = SourceRoot
 wiki = Wiki
@@ -46,4 +51,6 @@ from twitter.pants.tasks import Task, TaskError
 goal = Goal
 group = Group
 phase = Phase
-__all__ = ('annotation_processor', 'artifact', 'bundle', 'credentials', 'dependencies', 'doc', 'exclude', 'egg', 'get_buildroot', 'get_version', 'globs', 'goal', 'group', 'is_apt', 'is_doc', 'is_exported', 'is_internal', 'is_jar_library', 'is_java', 'is_jvm', 'is_python', 'is_scala', 'is_test', 'jar', 'jar_library', 'java_library', 'java_protobuf_library', 'java_tests', 'java_thrift_library', 'java_thriftstore_dml_library', 'jvm_app', 'jvm_binary', 'page', 'pants', 'phase', 'python_antlr_library', 'python_binary', 'python_library', 'python_requirement', 'python_tests', 'python_test_suite', 'python_thrift_library', 'repo', 'rglobs', 'scala_library', 'scala_tests', 'scalac_plugin', 'source_root', 'wiki', 'Config', 'Context', 'JavaLibrary', 'JavaTests', 'Task', 'TaskError')
+from twitter.pants.tasks.extract import Extract
+compiled_idl = Extract.compiled_idl
+__all__ = ('annotation_processor', 'artifact', 'benchmark', 'bundle', 'compiled_idl', 'credentials', 'dependencies', 'exclude', 'egg', 'get_buildroot', 'get_scm', 'get_version', 'globs', 'goal', 'group', 'is_apt', 'is_codegen', 'is_exported', 'is_internal', 'is_jar_library', 'is_jar', 'is_jar_library', 'is_java', 'is_jvm', 'is_python', 'is_scala', 'is_test', 'jar', 'jar_library', 'java_antlr_library', 'java_library', 'java_protobuf_library', 'java_tests', 'java_thrift_library', 'java_thriftstore_dml_library', 'junit_tests', 'jvm_app', 'jvm_binary', 'maven_layout', 'oink_query', 'page', 'pants', 'phase', 'python_antlr_library', 'python_artifact', 'python_binary', 'python_library', 'python_requirement', 'python_tests', 'python_test_suite', 'python_thrift_library', 'repo', 'resources', 'rglobs', 'scala_library', 'scala_specs', 'scala_tests', 'scalac_plugin', 'setup_py', 'source_root', 'wiki', 'Config', 'Context', 'JavaLibrary', 'JavaTests', 'Task', 'TaskError')

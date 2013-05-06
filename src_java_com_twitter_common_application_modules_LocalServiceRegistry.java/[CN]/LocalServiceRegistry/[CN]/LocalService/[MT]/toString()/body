@@ -1,3 +1,3 @@
 {
-  return new ToStringBuilder(this).append("primary",primary).append("name",name).append("port",port).toString();
+  return new ToStringBuilder(this).append("primary",primary).append("name",names).append("port",port).toString();
 }

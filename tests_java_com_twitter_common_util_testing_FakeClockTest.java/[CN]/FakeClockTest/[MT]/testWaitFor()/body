@@ -1,6 +1,6 @@
 {
-  fakeClock.waitFor(42L);
-  assertEquals(42L,fakeClock.nowMillis());
-  fakeClock.waitFor(42L);
-  assertEquals(84L,fakeClock.nowMillis());
+  fakeTicker.waitNanos(42L);
+  assertEquals(42L,fakeTicker.read());
+  fakeTicker.waitNanos(42L);
+  assertEquals(84L,fakeTicker.read());
 }

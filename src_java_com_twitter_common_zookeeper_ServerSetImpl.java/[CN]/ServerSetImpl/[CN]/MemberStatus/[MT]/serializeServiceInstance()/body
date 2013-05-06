@@ -1,12 +1,13 @@
 {
-  ServiceInstance serviceInstance=new ServiceInstance(toEndpoint(endpoint),Maps.transformValues(additionalEndpoints,TO_ENDPOINT),status);
-  LOG.info("updating endpoint data to:\n\t" + serviceInstance);
-  ByteArrayOutputStream output=new ByteArrayOutputStream();
+  ServiceInstance serviceInstance=new ServiceInstance(ServerSets.toEndpoint(endpoint),Maps.transformValues(additionalEndpoints,ServerSets.TO_ENDPOINT),Status.ALIVE);
+  if (shardId.isPresent()) {
+    serviceInstance.setShard(shardId.get());
+  }
+  LOG.fine("updating endpoint data to:\n\t" + serviceInstance);
   try {
-    codec.serialize(serviceInstance,output);
+    return ServerSets.serializeServiceInstance(serviceInstance,codec);
   }
  catch (  IOException e) {
-    throw new IllegalStateException("Unexpected problem serializing thrift struct: " + serviceInstance + " to a byte[]",e);
+    throw new IllegalStateException("Unexpected problem serializing thrift struct " + serviceInstance + "to a byte[]",e);
   }
-  return output.toByteArray();
 }

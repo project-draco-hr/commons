@@ -1,0 +1,26 @@
+@staticmethod
+def execute(cmd, get_output=True):
+    if (((cmd[4] == '-lsr') or (cmd[4] == '-ls')) and (cmd[5] == 'path')):
+        return (0, '\n'.join(['Found 1 items', 'drwxr-xr-x   - tdesai staff         68 2012-08-06 13:51 hadoop_dir/test_dir', '-rwxrwxrwx   1 tdesai staff          6 2012-08-06 14:01 tejal.txt', '-rwxrwxrwx   1 tdesai staff          6 2012-08-06 14:01 tejal txt']))
+    if (((cmd[4] == '-lsr') or (cmd[4] == '-ls')) and (cmd[5] == 'non_existing')):
+        return (255, 'ls: File doesnot exists')
+    if (((cmd[4] == '-lsr') or (cmd[4] == '-ls')) and (cmd[5] == 'empty')):
+        return (0, None)
+    if (cmd[4] == '-test'):
+        return (' '.join(cmd) == 'hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -test -e hadoop_dir')
+    if (cmd[4] == '-copyToLocal'):
+        if get_output:
+            tmp_file = cmd[6]
+            if (' '.join(cmd) == (('hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -copyToLocal ' + 'somefile ') + tmp_file)):
+                with open(tmp_file, 'w') as f:
+                    f.write('read_test')
+                return 0
+            elif (' '.join(cmd) == (('hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -copyToLocal ' + 'non_exist ') + tmp_file)):
+                return 1
+    if (cmd[4] == '-copyFromLocal'):
+        if (cmd[5] != 'text_file'):
+            tmp_file = cmd[5]
+            with open(tmp_file, 'r') as f:
+                text1 = f.read()
+            return ((text1 == 'write_text') and (' '.join(cmd) == ' '.join(['hadoop', '--config', '/etc/hadoop/hadoop-conf-tst-smf1', 'dfs', '-copyFromLocal', tmp_file, 'somefile'])))
+    return ' '.join(cmd)

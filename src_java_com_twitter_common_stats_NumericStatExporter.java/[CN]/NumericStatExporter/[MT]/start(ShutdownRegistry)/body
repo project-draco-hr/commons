@@ -4,6 +4,7 @@
   shutdownRegistry.addAction(new Command(){
     @Override public void execute(){
       stop();
+      exportSink.execute(Maps.transformValues(Maps.uniqueIndex(Stats.getNumericVariables(),GET_NAME),SAMPLE_AND_READ_STAT));
     }
   }
 );

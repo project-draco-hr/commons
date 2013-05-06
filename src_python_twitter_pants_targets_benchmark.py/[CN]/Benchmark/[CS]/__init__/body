@@ -1,0 +1,4 @@
+def __init__(self, name, sources=None, java_sources=None, dependencies=None, excludes=None, resources=None):
+    JvmTarget.__init__(self, name, sources, dependencies, excludes)
+    self.java_sources = java_sources
+    self.resources = list(self.resolve_all(resources, Resources))

@@ -1,0 +1,7 @@
+{
+  ImmutableSet<ServiceInstance> hosts=ImmutableSet.of();
+  monitor.onChange(hosts);
+  control.replay();
+  ServerSet serverSet=new StaticServerSet(hosts);
+  serverSet.monitor(monitor);
+}

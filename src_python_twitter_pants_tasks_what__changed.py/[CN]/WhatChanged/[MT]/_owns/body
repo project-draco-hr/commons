@@ -1,0 +1,7 @@
+def _owns(self, target, file):
+    if (target not in self._filemap):
+        files = self._filemap[target]
+        for owned_file in target.sources:
+            owned_path = os.path.join(target.target_base, owned_file)
+            files.add(owned_path)
+    return (file in self._filemap[target])

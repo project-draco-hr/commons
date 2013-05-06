@@ -1,6 +1,6 @@
 {
   T newSample=inputAccessor.get();
-  long newTimestamp=clock.nowNanos();
+  long newTimestamp=ticker.read();
   double rate=0;
   if (!samples.isEmpty()) {
     Pair<Long,Double> oldestSample=samples.peekLast();

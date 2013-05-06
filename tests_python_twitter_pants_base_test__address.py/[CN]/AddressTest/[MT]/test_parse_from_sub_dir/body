@@ -1,0 +1,6 @@
+def test_parse_from_sub_dir(self):
+    with self.workspace('a/b/c/BUILD') as root_dir:
+        with pushd(os.path.join(root_dir, 'a')):
+            self.assertAddress(root_dir, 'a/b/c/BUILD', 'c', Address.parse(root_dir, 'b/c', is_relative=True))
+            with pytest.raises(IOError):
+                Address.parse(root_dir, 'b/c', is_relative=False)

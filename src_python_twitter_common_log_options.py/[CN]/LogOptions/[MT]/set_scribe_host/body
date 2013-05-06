@@ -1,0 +1,4 @@
+@staticmethod
+def set_scribe_host(host):
+    '\n      Set the scribe host for logging. Must be called before log.init() for\n      changes to take effect.\n    '
+    LogOptions._SCRIBE_HOST = host

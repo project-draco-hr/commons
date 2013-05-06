@@ -24,8 +24,8 @@
     }
   }
  else {
-    writeTemplate(resp,new ExceptionalClosure<StringTemplate,LogConfigException>(){
-      @Override public void execute(      StringTemplate template) throws LogConfigException {
+    writeTemplate(resp,new Closure<StringTemplate>(){
+      @Override public void execute(      StringTemplate template){
         if (request.isFileViewRequest()) {
           request.sendToTemplate(template);
           if (!request.tailing) {

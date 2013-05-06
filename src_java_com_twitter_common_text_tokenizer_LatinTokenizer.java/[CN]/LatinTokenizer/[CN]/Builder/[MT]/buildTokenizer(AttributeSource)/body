@@ -1,0 +1,8 @@
+{
+  if (attributeSource == null) {
+    return new LatinTokenizer();
+  }
+ else {
+    return new LatinTokenizer(attributeSource);
+  }
+}
