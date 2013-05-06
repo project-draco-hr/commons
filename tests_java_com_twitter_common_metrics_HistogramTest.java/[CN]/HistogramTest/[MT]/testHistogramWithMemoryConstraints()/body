@@ -1,6 +1,6 @@
 {
   int n=10000;
-  Histogram hist=new Histogram(name,Amount.of(4L,Data.KB),metrics);
+  Histogram hist=new Histogram(name,Amount.of(8L,Data.KB),metrics);
   for (int i=1; i <= n; ++i) {
     hist.add(i);
   }

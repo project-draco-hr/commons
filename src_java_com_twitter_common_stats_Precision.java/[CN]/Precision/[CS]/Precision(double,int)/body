@@ -1,4 +1,6 @@
 {
+  Preconditions.checkArgument(0.0 < epsilon,"Epsilon must be positive!");
+  Preconditions.checkArgument(1 < n,"N (expected number of elements) must be greater than 1!");
   this.epsilon=epsilon;
   this.n=n;
 }

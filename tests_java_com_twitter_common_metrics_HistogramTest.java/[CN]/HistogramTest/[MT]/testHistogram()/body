@@ -1,6 +1,6 @@
 {
   int n=10000;
-  Histogram hist=new Histogram(name,new Precision(0.0001,n),metrics);
+  Histogram hist=new Histogram(name,new Precision(0.001,n),metrics);
   for (int i=1; i <= n; ++i) {
     hist.add(i);
   }
