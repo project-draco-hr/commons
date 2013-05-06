@@ -1,4 +1,0 @@
-def subprocess_call(cmdline):
-    po = subprocess.Popen(cmdline, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    (stdout, stderr) = po.communicate()
-    return (po.returncode, stdout, stderr)

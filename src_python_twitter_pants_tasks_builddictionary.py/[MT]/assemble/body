@@ -1,0 +1,18 @@
+def assemble(predefs=PREDEFS, symbol_hash=None):
+    'Assemble big hash of entries suitable for smushing into a template.\n\n  predefs: Hash of "hard-wired" predefined entries.\n  symbol_hash: Python syms from which to generate more entries. Default: get from BUILD context'
+    d = {}
+    for k in PREDEFS:
+        v = PREDEFS[k]
+        if (('suppress' in v) and v['suppress']):
+            continue
+        d[k] = v
+    if (symbol_hash is None):
+        symbol_hash = get_syms()
+    for k in symbol_hash:
+        bdi = twitter.pants.base.get_builddict_info(symbol_hash[k])
+        if (bdi is None):
+            continue
+        d[k] = bdi.copy()
+        if (not ('defn' in d[k])):
+            d[k]['defn'] = entry_for_one(k, symbol_hash[k])
+    return d

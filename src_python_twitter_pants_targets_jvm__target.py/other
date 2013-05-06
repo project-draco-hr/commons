@@ -1,4 +1,5 @@
 import os
+from twitter.common.collections import maybe_list
+from .exclude import Exclude
 from .internal import InternalTarget
-from .jar_dependency import JarDependency
 from .with_sources import TargetWithSources

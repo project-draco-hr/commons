@@ -1,0 +1,3 @@
+def _split_args(self, args):
+    half = (len(args) // 2)
+    return (args[:half], args[half:])

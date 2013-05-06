@@ -1,11 +1,14 @@
 def __init__(self, context):
     Task.__init__(self, context)
-    self.placeholders = {}
+    self._placeholders = {}
     compiled_idl = set()
-    for (jar, placeholders) in self._PLACEHOLDERS_BY_JAR.items():
-        representative = placeholders[0]
-        compiled_idl.add(representative)
-        self.placeholders[representative] = placeholders
+    for (thrift_jar, placeholders) in self._PLACEHOLDERS_BY_JAR.items():
+        active_placeholders = self.context.targets(predicate=placeholders.__contains__)
+        if active_placeholders:
+            representative = active_placeholders[0]
+            self.context.log.debug(('Fetching thrift jar %s via representative %s' % (thrift_jar, representative)))
+            compiled_idl.add(representative)
+            self._placeholders[(thrift_jar, representative)] = active_placeholders
 
     def is_compiled_idl(target):
         return (target in compiled_idl)

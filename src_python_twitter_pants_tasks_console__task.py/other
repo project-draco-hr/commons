@@ -1,3 +1,4 @@
+import errno
 import sys
-from twitter.pants.tasks import Task
-__author__ = 'Dave Buchfuhrer'
+from contextlib import contextmanager
+from . import Task

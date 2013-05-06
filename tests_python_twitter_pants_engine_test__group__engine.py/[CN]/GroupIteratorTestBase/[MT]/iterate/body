@@ -1,0 +1,2 @@
+def iterate(self, *addresses):
+    return list(GroupIterator(self.targets(*addresses), [self.red, self.green, self.blue]))

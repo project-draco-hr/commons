@@ -1,0 +1,8 @@
+@staticmethod
+def _scrub_args(jvm_args, classpath, main, args):
+    jvm_args = maybe_list((jvm_args or ()))
+    classpath = maybe_list(classpath)
+    if ((not isinstance(main, Compatibility.string)) or (not main)):
+        raise ValueError(('A non-empty main classname is required, given: %s' % main))
+    args = maybe_list((args or ()))
+    return (jvm_args, classpath, main, args)

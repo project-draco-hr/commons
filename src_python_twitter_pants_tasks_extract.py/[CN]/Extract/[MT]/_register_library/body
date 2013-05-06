@@ -1,0 +1,12 @@
+@classmethod
+def _register_library(cls, library, compiler=None, language=None, rpc_style=None, generated_deps=None, namespace_map=None):
+    'Register a JavaThriftLibrary corresponding to the given ThriftLibrary.\n\n    :param library: The :class:`twitter.pants.targets.thrift_library.ThriftLibrary`\n      to register.\n    :param string compiler: Name of the thrift compiler to generate sources with.\n    :param string language: Language to generate code for\n      (only supported by some compilers).\n    :param string rpc_style: Style of RPC service stubs to generate\n      (only supported by some compilers).\n    :param generated_deps: Dependencies for the code that will be generated\n      from the ``idl_deps``.\n    :param namespace_map: A mapping from IDL declared namespaces to custom\n      namespaces (only supported by some compilers).\n    :returns: A :class:`twitter.pants.targets.java_thrift_library.JavaThriftLibrary`\n      target that owns the generated code.\n    '
+    assert isinstance(library, ThriftLibrary)
+    basedir = library.address.buildfile.parent_path
+
+    def create(name):
+        sources = [os.path.relpath(os.path.join(get_buildroot(), library.target_base, path), basedir) for path in library.sources]
+        synthetic = JavaThriftLibrary(('__compiled_idl_%s' % name), sources=sources, dependencies=generated_deps, compiler=compiler, language=language, rpc_style=rpc_style, namespace_map=namespace_map)
+        synthetic.derived_from = library
+        return synthetic
+    return cls._register_once(library.name, library.id, compiler, language, rpc_style, namespace_map, basedir, create)

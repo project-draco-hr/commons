@@ -1,0 +1,33 @@
+@staticmethod
+def _get_details(target):
+    'Get detailed help for the given target.'
+    assert ((target is not None) and issubclass(target, Target))
+    arg_spec = inspect.getargspec(target.__init__)
+    arg_help = TargetsHelp._get_arg_help(target.__init__.__doc__)
+    min_default_idx = 0
+    if (arg_spec.defaults is None):
+        min_default_idx = len(arg_spec.args)
+    elif (len(arg_spec.args) > len(arg_spec.defaults)):
+        min_default_idx = (len(arg_spec.args) - len(arg_spec.defaults))
+    lines = [TargetsHelp.DETAILS_HEADER.substitute(name=TargetsHelp.TARGET_TO_ALIAS[target.__name__], desc=target.__doc__)]
+    max_width = 0
+    for arg in arg_spec.args:
+        max_width = max(max_width, len(arg))
+    wrapper = textwrap.TextWrapper(subsequent_indent=(' ' * (max_width + 4)))
+    for (idx, val) in enumerate(arg_spec.args):
+        has_default = False
+        default_val = None
+        if (idx >= min_default_idx):
+            has_default = True
+            default_val = arg_spec.defaults[(idx - min_default_idx)]
+        if (val == 'self'):
+            continue
+        help_str = 'No help available for this argument.'
+        try:
+            help_str = arg_help[val]
+        except KeyError:
+            pass
+        if has_default:
+            help_str += (' (default: %s) ' % str(default_val))
+        lines.append(('  %s: %s' % (val.rjust(max_width), '\n'.join(wrapper.wrap(help_str)))))
+    return lines

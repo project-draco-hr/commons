@@ -1,5 +1,6 @@
 @staticmethod
 def _register_modules():
+    "Register all 'Command's from all modules in the current directory."
     import pkgutil
     for (_, mod, ispkg) in pkgutil.iter_modules(__path__):
         if ispkg:

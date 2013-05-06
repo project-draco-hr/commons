@@ -1,0 +1,2 @@
+def recv_chunk(self, data):
+    'Called as each chunk of data is received from the streaming response.\n\n      :param data: a byte string containing the next chunk of response data\n      '

@@ -1,0 +1,3 @@
+def test_shorten_fail(self):
+    with pytest.raises(ValueError):
+        safe_filename('jack', '.beanstalk', digest=self.FixedDigest(3), max_length=12)

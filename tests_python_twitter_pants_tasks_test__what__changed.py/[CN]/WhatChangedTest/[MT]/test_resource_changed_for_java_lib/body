@@ -1,0 +1,2 @@
+def test_resource_changed_for_java_lib(self):
+    self.assert_console_output('root/resources/a/BUILD:a_resources', workspace=self.workspace(files=['root/resources/a/a.resources']))

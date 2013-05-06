@@ -1,0 +1,3 @@
+def test_bad_name(self):
+    with pytest.raises(ValueError):
+        safe_filename(os.path.join('more', 'than', 'a', 'name.game'))

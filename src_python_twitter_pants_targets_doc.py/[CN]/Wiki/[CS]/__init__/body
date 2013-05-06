@@ -1,4 +1,4 @@
 def __init__(self, name, url_builder, exclusives=None):
-    ':url_builder a function that accepts a page target and an optional wiki :config dict and\n    returns a tuple of (alias, fully qualified url).'
+    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param url_builder: Function that accepts a page target and an optional wiki config dict.\n    :returns: A tuple of (alias, fully qualified url).\n    '
     Target.__init__(self, name, exclusives=exclusives)
     self.url_builder = url_builder

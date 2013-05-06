@@ -3,3 +3,4 @@ name
 dependencies
 sources
 excludes
+deploy_excludes

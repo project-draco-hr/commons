@@ -3,5 +3,5 @@ def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('skip'), mkflag('skip', negate=True), dest='specs_run_skip', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Skip running specs')
     option_group.add_option(mkflag('debug'), mkflag('debug', negate=True), dest='specs_run_debug', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Run specs with a debugger')
     option_group.add_option(mkflag('jvmargs'), dest='specs_run_jvm_options', action='append', help='Runs specs in a jvm with these extra jvm options.')
-    option_group.add_option(mkflag('test'), dest='specs_run_tests', action='append', help='[%default] Force running of just these specs.  Tests can be specified either by classname or filename.')
+    option_group.add_option(mkflag('test'), dest='specs_run_tests', action='append', help='[%default] Force running of just these specs.  Tests can be specified either by fully qualified classname or full file path.')
     option_group.add_option(mkflag('color'), mkflag('color', negate=True), dest='specs_run_color', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Emit test result with ANSI terminal color codes.')

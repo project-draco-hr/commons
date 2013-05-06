@@ -1,4 +1,6 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
-    option_group.add_option(mkflag('force'), dest='setup_python_force', action='store_true', default=False, help='Force clean and install.')
+    option_group.add_option(mkflag('force'), dest='python_setup_force', action='store_true', default=False, help='Force clean and install.')
     option_group.add_option(mkflag('path'), dest='python_setup_paths', action='append', default=[], help='Add a path to search for interpreters, by default PATH.')
+    option_group.add_option(mkflag('interpreter'), dest='python_interpreter', default=[], action='append', help="Constrain what Python interpreters to use.  Uses Requirement format from pkg_resources, e.g. 'CPython>=2.6,<3' or 'PyPy'. By default, no constraints are used.  Multiple constraints may be added.  They will be ORed together.")
+    option_group.add_option(mkflag('multi'), dest='python_multi', default=False, action='store_true', help='Allow multiple interpreters to be bound to an upstream chroot.')

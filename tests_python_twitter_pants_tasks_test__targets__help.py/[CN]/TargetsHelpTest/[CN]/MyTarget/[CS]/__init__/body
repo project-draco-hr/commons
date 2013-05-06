@@ -1,0 +1,3 @@
+def __init__(self, name, foo=None):
+    '\n      :param name: The name of this target.\n      :param string foo: Another argument.\n      '
+    Target.__init__(self, name)

@@ -1,0 +1,4 @@
+def test_python_binary_with_source_no_entry_point(self):
+    with ParseContext.temp('src'):
+        assert (PythonBinary(name='binary1', source='blork.py').entry_point == 'blork')
+        assert (PythonBinary(name='binary2', source='bin/blork.py').entry_point == 'bin.blork')

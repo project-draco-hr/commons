@@ -1,4 +1,7 @@
 import os
 from collections import Sequence
+from twitter.common.dirutil.fileset import Fileset
+from twitter.common.lang import Compatibility
 from twitter.pants.base import ParseContext, Target
-from twitter.pants.targets.with_sources import TargetWithSources
+from .internal import InternalTarget
+from .with_sources import TargetWithSources

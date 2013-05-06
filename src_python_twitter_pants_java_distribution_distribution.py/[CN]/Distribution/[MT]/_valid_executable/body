@@ -1,0 +1,5 @@
+@contextmanager
+def _valid_executable(self, name):
+    exe = self._validate_executable(name)
+    yield exe
+    self._validated_binaries[name] = exe

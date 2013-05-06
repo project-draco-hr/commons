@@ -1,0 +1,3 @@
+@abstractproperty
+def executor(self):
+    'Returns the executor this runner uses to run itself.'

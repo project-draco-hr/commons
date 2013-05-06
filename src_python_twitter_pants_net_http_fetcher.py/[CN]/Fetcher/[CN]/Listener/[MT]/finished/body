@@ -1,0 +1,2 @@
+def finished(self):
+    'Called when the response has been fully read.'

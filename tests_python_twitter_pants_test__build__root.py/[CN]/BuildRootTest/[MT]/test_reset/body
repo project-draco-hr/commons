@@ -1,0 +1,4 @@
+def test_reset(self):
+    BuildRoot().path = self.new_root
+    BuildRoot().reset()
+    self.assertEqual(self.original_root, BuildRoot().path)

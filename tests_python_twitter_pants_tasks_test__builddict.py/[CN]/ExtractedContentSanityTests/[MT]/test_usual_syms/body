@@ -1,0 +1,8 @@
+def test_usual_syms(self):
+    usual_syms = assemble()
+    usual_names = usual_syms.keys()
+    self.assertTrue((len(usual_names) > 20), 'Strangely few symbols found')
+    for expected in ['jvm_binary', 'python_binary']:
+        self.assertTrue((expected in usual_names), ("Didn't find %s" % expected))
+    for unexpected in ['__builtins__', 'Target']:
+        self.assertTrue((unexpected not in usual_names), ('Found %s' % unexpected))

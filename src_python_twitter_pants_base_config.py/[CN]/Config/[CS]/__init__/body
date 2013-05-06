@@ -1,8 +1,5 @@
-def __init__(self, configparser, configpath):
+def __init__(self, configparser):
     self.configparser = configparser
-    with open(configpath) as ini:
-        self.configparser.readfp(ini, filename=configpath)
-    self.file = configpath
     self.overrides_path = os.environ.get('PANTS_CONFIG_OVERRIDE')
     self.overrides_parser = None
     if (self.overrides_path is not None):

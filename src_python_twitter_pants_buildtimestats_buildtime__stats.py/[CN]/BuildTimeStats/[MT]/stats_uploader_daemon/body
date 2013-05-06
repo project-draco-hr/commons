@@ -7,10 +7,7 @@ def stats_uploader_daemon(self, stats):
     if (not os.path.exists(stats_pid)):
         log.debug('Starting the daemon')
         stats_log_file = os.path.join('/tmp', self._user, 'buildtime_uploader')
-        log.debug(('The logs are writen to %s' % stats_log_file))
+        log.debug(('The logs are written to %s' % stats_log_file))
         if spawn_daemon(pidfile=stats_pid, quiet=True):
-            force_stats_upload = False
-            if ('--force_stats_upload' in sys.argv):
-                force_stats_upload = True
-            su = StatsUploader(STATS_COLLECTION_URL, STATS_COLLECTION_PORT, STATS_COLLECTION_ENDPOINT, self._max_delay, self._get_default_stats_file(), self._user, force_stats_upload)
+            su = StatsUploader(STATS_COLLECTION_URL, STATS_COLLECTION_PORT, STATS_COLLECTION_ENDPOINT, self._max_delay, self._get_default_stats_file(), self._user, self._force_upload)
             su.upload_sync(stats)

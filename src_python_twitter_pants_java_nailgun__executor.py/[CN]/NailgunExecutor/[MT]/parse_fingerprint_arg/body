@@ -1,0 +1,7 @@
+@classmethod
+def parse_fingerprint_arg(cls, args):
+    for arg in args:
+        components = arg.split(cls._PANTS_FINGERPRINT_ARG_PREFIX)
+        if ((len(components) == 2) and (components[0] == '')):
+            return components[1]
+    return None

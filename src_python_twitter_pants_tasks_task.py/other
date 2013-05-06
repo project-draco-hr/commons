@@ -7,15 +7,16 @@ import threading
 from contextlib import contextmanager
 from twitter.common.collections.orderedset import OrderedSet
 from twitter.pants import Config
-from twitter.pants.base.worker_pool import Work
-from twitter.pants.cache import create_artifact_cache
+from twitter.pants.base.build_invalidator import BuildInvalidator, CacheKeyGenerator
 from twitter.pants.base.hash_utils import hash_file
-from twitter.pants.base.build_invalidator import CacheKeyGenerator
-from twitter.pants.binary_util import runjava_indivisible
-from twitter.pants.cache.read_write_artifact_cache import ReadWriteArtifactCache
+from twitter.pants.base.worker_pool import Work
 from twitter.pants.base.workunit import WorkUnit
+from twitter.pants.cache import create_artifact_cache
+from twitter.pants.cache.read_write_artifact_cache import ReadWriteArtifactCache
+from twitter.pants.ivy import Bootstrapper
+from twitter.pants.java import Executor, SubprocessExecutor
 from twitter.pants.reporting.reporting_utils import items_to_report_element
-from twitter.pants.tasks.jvm_tool_bootstrapper import JvmToolBootstrapper
-from twitter.pants.tasks.cache_manager import CacheManager, InvalidationCheck, VersionedTargetSet
-from twitter.pants.tasks.ivy_utils import IvyUtils
-from twitter.pants.tasks.task_error import TaskError
+from .jvm_tool_bootstrapper import JvmToolBootstrapper
+from .cache_manager import CacheManager, InvalidationCheck, VersionedTargetSet
+from .ivy_utils import IvyUtils
+from .task_error import TaskError

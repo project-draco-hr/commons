@@ -6,7 +6,7 @@ def execute(self, targets):
             if wikiconfig:
                 pages.append((target, wikiconfig))
     urls = list()
-    genmap = self.context.products.get('markdown_html')
+    genmap = self.context.products.get('wiki_html')
     for (page, wikiconfig) in pages:
         html_info = genmap.get((self.wiki(), page))
         if (len(html_info) > 1):

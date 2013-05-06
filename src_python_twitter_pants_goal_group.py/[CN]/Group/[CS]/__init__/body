@@ -1,4 +1,5 @@
 def __init__(self, name, predicate):
+    ':param string name: A logical name for this group.\n    :param predicate: A predicate that returns ``True`` if a given target is a member of this\n                      group.\n    '
     self.name = name
     self.predicate = predicate
     self.exclusives = None

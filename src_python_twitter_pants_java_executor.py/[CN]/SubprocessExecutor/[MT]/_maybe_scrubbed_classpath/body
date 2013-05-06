@@ -1,0 +1,10 @@
+@contextmanager
+def _maybe_scrubbed_classpath(self):
+    if self._scrub_classpath:
+        classpath = os.getenv('CLASSPATH')
+        if classpath:
+            log.warn(('Scrubbing CLASSPATH=%s' % classpath))
+        with environment_as(CLASSPATH=None):
+            yield
+    else:
+        yield

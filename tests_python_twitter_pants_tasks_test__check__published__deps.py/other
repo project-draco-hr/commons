@@ -1,0 +1,3 @@
+from textwrap import dedent
+from twitter.pants.tasks.check_published_deps import CheckPublishedDeps
+from . import ConsoleTaskTest

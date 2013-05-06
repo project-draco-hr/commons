@@ -1,7 +1,0 @@
-jvm_options
-classpath
-main
-args
-dryrun
-workunit_factory
-workunit_name

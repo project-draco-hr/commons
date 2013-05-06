@@ -1,0 +1,5 @@
+def test_validation(self):
+    with ParseContext.temp('TargetTest/test_validation'):
+        self.assertRaises(TargetDefinitionException, Target, name=None)
+        name = 'test'
+        self.assertEquals(Target(name=name).name, name)

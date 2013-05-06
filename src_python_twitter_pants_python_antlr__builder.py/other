@@ -1,6 +1,6 @@
 from __future__ import print_function
 import os
-import subprocess
 import sys
 from twitter.common.dirutil import safe_mkdir
+from twitter.pants.ivy import Bootstrapper, Ivy
 from .code_generator import CodeGenerator

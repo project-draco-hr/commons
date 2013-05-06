@@ -1,0 +1,12 @@
+def test_checksum_listener(self):
+    digest = self.mox.CreateMockAnything()
+    for chunk in self.expect_get('http://baz', chunk_size_bytes=1, timeout_secs=37):
+        self.listener.recv_chunk(chunk)
+        digest.update(chunk)
+    self.listener.finished()
+    digest.hexdigest().AndReturn('42')
+    self.response.close()
+    self.mox.ReplayAll()
+    checksum_listener = Fetcher.ChecksumListener(digest=digest)
+    self.fetcher.fetch('http://baz', checksum_listener.wrap(self.listener), chunk_size=Amount(1, Data.BYTES), timeout=Amount(37, Time.SECONDS))
+    self.assertEqual('42', checksum_listener.checksum)

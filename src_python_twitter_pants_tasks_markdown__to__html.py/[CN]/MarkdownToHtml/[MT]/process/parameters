@@ -2,7 +2,7 @@ self
 outdir
 base
 source
-standalone
+fragmented
 url_builder
 get_config
 css

@@ -1,0 +1,4 @@
+@property
+def java_executor(self):
+    'Returns the active java executor in use by this task.'
+    return self._java

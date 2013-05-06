@@ -1,4 +1,4 @@
 import os
-from functools import partial
-from twitter.pants.base import ParseContext, TargetDefinitionException
+from twitter.common.collections import OrderedSet
+from twitter.pants.base import manual, ParseContext, TargetDefinitionException
 from twitter.pants.base.build_environment import get_buildroot

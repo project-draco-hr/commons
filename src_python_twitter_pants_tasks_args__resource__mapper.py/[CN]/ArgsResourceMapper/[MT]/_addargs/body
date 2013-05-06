@@ -1,0 +1,12 @@
+def _addargs(self, lines, jarfile, target):
+
+    def is_configurationinfo(line):
+        line = line.strip()
+        return (line and (not line.startswith('#')))
+    if any(filter(is_configurationinfo, lines)):
+        resource = os.path.join(RESOURCE_RELDIR, ('%s.%d' % (RESOURCE_BASENAME, self.resource_index)))
+        content = '# Created by pants goal args-apt\n'
+        content += ''.join(sorted(lines))
+        with open_jar(jarfile, 'a') as jar:
+            jar.writestr(resource, content)
+            self.context.log.debug(('Added args-apt resource file %s for %s:\n%s' % (resource, target, content)))

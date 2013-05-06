@@ -1,0 +1,4 @@
+@classmethod
+def as_phase(cls, phase_name):
+    'Returns a ``Phase`` object of the given name'
+    return Phase(cls._namespace(phase_name))

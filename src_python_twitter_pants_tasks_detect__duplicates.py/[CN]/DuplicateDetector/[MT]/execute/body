@@ -1,0 +1,3 @@
+def execute(self, targets):
+    for binary in filter(self.is_binary, targets):
+        self.detect_duplicates_for_target(binary)

@@ -1,8 +1,0 @@
-def _wrap(self, text):
-    input = StringIO(text)
-    yield input.read(70)
-    while True:
-        chunk = input.read(69)
-        if (not chunk):
-            return
-        yield (' %s' % chunk)

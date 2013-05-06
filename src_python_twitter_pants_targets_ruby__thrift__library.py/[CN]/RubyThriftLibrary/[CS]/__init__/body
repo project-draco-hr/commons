@@ -1,0 +1,3 @@
+def __init__(self, name, sources=None, dependencies=None, provides=None):
+    '\n    :param name: Name of library\n    :param source: thrift source file\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    '
+    RubyTarget.__init__(self, name, sources, dependencies, provides)

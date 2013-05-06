@@ -1,0 +1,1 @@
+namedtuple('PC', ['compiler', 'language', 'rpc_style', 'namespace_map'])

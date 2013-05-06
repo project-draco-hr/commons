@@ -1,0 +1,9 @@
+def get_syms():
+    r = {}
+    vc = twitter.pants.base.ParseContext.default_globals()
+    for s in vc:
+        if (s in PREDEFS):
+            continue
+        o = vc[s]
+        r[s] = o
+    return r

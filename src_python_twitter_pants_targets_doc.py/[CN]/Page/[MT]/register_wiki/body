@@ -1,3 +1,4 @@
+@manual.builddict()
 def register_wiki(self, wiki, **kwargs):
     'Adds this page to the given wiki for publishing.  Wiki-specific configuration is passed as\n    kwargs.\n    '
     if isinstance(wiki, Pants):

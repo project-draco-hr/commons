@@ -1,0 +1,40 @@
+def gen(self, partial_cmd, targets):
+    with self.invalidated(targets, invalidate_dependants=True) as invalidation_check:
+        invalid_targets = []
+        for vt in invalidation_check.invalid_vts:
+            invalid_targets.extend(vt.targets)
+        compiler = partial_cmd.compiler
+        (import_paths, changed_srcs) = compiler.calc_srcs(invalid_targets, self.is_gentarget)
+        outdir = partial_cmd.outdir
+        if changed_srcs:
+            args = []
+            for import_path in import_paths:
+                args.extend(['--import-path', import_path])
+            args.extend(['--language', partial_cmd.language])
+            for (lhs, rhs) in partial_cmd.namespace_map:
+                args.extend(['--namespace-map', ('%s=%s' % (lhs, rhs))])
+            if (partial_cmd.rpc_style == 'ostrich'):
+                args.append('--finagle')
+                args.append('--ostrich')
+            elif (partial_cmd.rpc_style == 'finagle'):
+                args.append('--finagle')
+            args.extend(['--dest', outdir])
+            safe_mkdir(outdir)
+            if (not compiler.strict):
+                args.append('--disable-strict')
+            if compiler.verbose:
+                args.append('--verbose')
+            gen_file_map_path = os.path.relpath(self._tempname())
+            args.extend(['--gen-file-map', gen_file_map_path])
+            args.extend(changed_srcs)
+            classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(compiler.name)
+            returncode = self.runjava(classpath, compiler.main, args=args, jvm_args=compiler.jvm_args, workunit_name=compiler.name)
+            try:
+                if (0 == returncode):
+                    gen_files_for_source = self.parse_gen_file_map(gen_file_map_path, outdir)
+            finally:
+                os.remove(gen_file_map_path)
+            if (0 != returncode):
+                raise TaskError(('java %s ... exited non-zero (%i)' % (compiler.main, returncode)))
+            self.write_gen_file_map(gen_files_for_source, invalid_targets, outdir)
+    return self.gen_file_map(targets, outdir)

@@ -1,0 +1,10 @@
+@classmethod
+def create(cls, target_id, compiler, language, rpc_style, namespace_map=None):
+    namespace_sig = None
+    if namespace_map:
+        sha = hashlib.sha1()
+        for (ns_from, ns_to) in sorted(namespace_map.items()):
+            sha.update(ns_from)
+            sha.update(ns_to)
+        namespace_sig = sha.hexdigest()
+    return cls(target_id, compiler, language, rpc_style, namespace_sig)

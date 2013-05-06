@@ -1,3 +1,0 @@
-__author__ = 'John Sirois'
-from twitter.common.lang import Compatibility
-StringIO = Compatibility.StringIO

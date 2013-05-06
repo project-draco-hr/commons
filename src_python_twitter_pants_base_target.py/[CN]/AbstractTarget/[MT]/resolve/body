@@ -1,0 +1,3 @@
+def resolve(self):
+    'Returns an iterator over the target(s) this target represents.'
+    yield self

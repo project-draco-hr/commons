@@ -1,12 +1,16 @@
 def execute(self, _):
-    setup_paths = (self.context.options.python_setup_paths or os.getenv('PATH').split(':'))
-    self.context.log.debug(('Finding interpreters in %s' % setup_paths))
-    interpreters = PythonInterpreter.all(setup_paths)
-    self.context.log.debug(('Found %d interpreters' % len(interpreters)))
-    setup_virtualenv_py(self.context)
-    for interpreter in interpreters:
-        self.context.log.debug(('Preparing %s' % interpreter))
-        try:
-            install_virtualenv(self.context, interpreter)
-        except TaskError as e:
-            print ('Failed to install %s, continuing anyway.' % interpreter)
+    ifilters = self.context.options.python_interpreter
+    self._cache.setup(force=self.context.options.python_setup_force, paths=self.context.options.python_setup_paths, filters=(ifilters or ['']))
+    all_interpreters = set(self._cache.interpreters)
+    for target in self.context.targets(is_python_root):
+        self.context.log.info(('Setting up interpreters for %s' % target))
+        closure = target.closure()
+        self.context.log.debug(('  - Target closure: %d targets' % len(closure)))
+        target_compatibilities = [set(self._cache.matches(getattr(closure_target, 'compatibility', ['']))) for closure_target in closure]
+        target_compatibilities = reduce(set.intersection, target_compatibilities, all_interpreters)
+        self.context.log.debug(('  - Target minimum compatibility: %s' % ' '.join((interp.version_string for interp in target_compatibilities))))
+        interpreters = self._cache.select_interpreter(target_compatibilities, allow_multiple=self.context.options.python_multi)
+        self.context.log.debug(('  - Selected: %s' % interpreters))
+        if (not interpreters):
+            raise TaskError(('No compatible interpreters for %s' % target))
+        target.interpreters = interpreters

@@ -1,0 +1,2 @@
+def test_list_installed_targets(self):
+    self.assert_console_output(TargetsHelp.INSTALLED_TARGETS_HEADER, ('  %s: %s' % ('my_target'.rjust(TargetsHelp.MAX_ALIAS_LEN), TargetsHelpTest.MyTarget.__doc__.split('\n')[0])))

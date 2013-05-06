@@ -1,0 +1,11 @@
+def _gen_goals_reference(self):
+    'Generate the goals reference rst doc.'
+    phases = dict()
+    for (phase, goals) in Phase.all():
+        phases[phase] = goals
+    template = resource_string(__name__, os.path.join(self._templates_dir, 'goals_reference.mk'))
+    filename = os.path.join(self._outdir, 'goals_reference.rst')
+    self.context.log.info(('Generating %s' % filename))
+    with safe_open(filename, 'w') as outfile:
+        generator = Generator(template, phases=phases)
+        generator.write(outfile)

@@ -1,3 +1,4 @@
 __author__ = 'Phil Hom'
 import os
-from twitter.pants.tasks.ivy_resolve import IvyResolve
+from .extract import Extract
+from .ivy_resolve import IvyResolve

@@ -1,0 +1,11 @@
+def _record(self, goal, elapsed):
+    phase = Phase.of(goal)
+    phase_timings = self._timings.get(phase)
+    if (phase_timings is None):
+        phase_timings = OrderedDict(())
+        self._timings[phase] = phase_timings
+    goal_timings = phase_timings.get(goal)
+    if (goal_timings is None):
+        goal_timings = []
+        phase_timings[goal] = goal_timings
+    goal_timings.append(elapsed)

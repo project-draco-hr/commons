@@ -1,4 +1,0 @@
-def __init__(self, path, *args, **kwargs):
-    self._path = path
-    self._args = args
-    self._kwargs = kwargs

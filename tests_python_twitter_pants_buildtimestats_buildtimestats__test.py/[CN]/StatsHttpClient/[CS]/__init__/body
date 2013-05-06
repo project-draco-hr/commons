@@ -1,0 +1,3 @@
+def __init__(self, host=None, port=None, http_endpoint=None, stats_dir=None):
+    self.called = False
+    RealStatsHttpClient.__init__(self, host, port, http_endpoint, stats_dir)

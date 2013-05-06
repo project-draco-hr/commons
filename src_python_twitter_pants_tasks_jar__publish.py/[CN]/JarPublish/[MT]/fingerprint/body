@@ -7,7 +7,7 @@ def fingerprint(self, target, fingerprint_internal):
             sha.update(fd.read())
     for jarsig in sorted([jar_coordinate(j) for j in target.jar_dependencies if j.rev]):
         sha.update(jarsig)
-    internal_dependencies = sorted(target.internal_dependencies, key=(lambda t: t.id))
+    internal_dependencies = sorted(target_internal_dependencies(target), key=(lambda t: t.id))
     for internal_target in internal_dependencies:
         fingerprint = fingerprint_internal(internal_target)
         sha.update(fingerprint)

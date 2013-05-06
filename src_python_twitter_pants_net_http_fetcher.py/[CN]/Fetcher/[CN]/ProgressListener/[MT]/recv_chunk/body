@@ -1,0 +1,14 @@
+def recv_chunk(self, data):
+    self.read += len(data)
+    chunk_count = (self.read // self.chunk)
+    if (chunk_count > self.chunks):
+        self.chunks = chunk_count
+        if self.size:
+            sys.stdout.write('\r')
+            sys.stdout.write(('%3d%% ' % (((self.read * 1.0) / self.size) * 100)))
+        sys.stdout.write(('.' * self.chunks))
+        if self.size:
+            size_width = len(str(self.download_size))
+            downloaded = self._convert(Amount(self.read, Data.BYTES), to_unit=Data.KB)
+            sys.stdout.write(('%s %s' % ((' ' * (self._width - self.chunks)), str(downloaded).rjust(size_width))))
+        sys.stdout.flush()

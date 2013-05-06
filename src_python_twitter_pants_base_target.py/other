@@ -3,7 +3,9 @@ import collections
 import os
 import sys
 from twitter.common.collections import OrderedSet, maybe_list
-from twitter.pants.base.address import Address
-from twitter.pants.base.hash_utils import hash_all
-from twitter.pants.base.parse_context import ParseContext
+from twitter.common.lang import Compatibility
+from .address import Address
+from .build_manual import manual
+from .hash_utils import hash_all
+from .parse_context import ParseContext
 Target._clear_all_addresses()

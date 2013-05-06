@@ -1,0 +1,12 @@
+def test_size_mismatch(self):
+    self.requests.get('http://foo', stream=True, timeout=60).AndReturn(self.response)
+    self.response.status_code = 200
+    self.response.headers = {'content-length': '11', }
+    self.listener.status(200, content_length=11)
+    self.response.iter_content(chunk_size=1024).AndReturn(['a', 'b'])
+    self.listener.recv_chunk('a')
+    self.listener.recv_chunk('b')
+    self.response.close()
+    self.mox.ReplayAll()
+    with pytest.raises(self.fetcher.Error):
+        self.fetcher.fetch('http://foo', self.listener, chunk_size=Amount(1, Data.KB), timeout=Amount(1, Time.MINUTES))

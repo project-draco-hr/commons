@@ -1,0 +1,3 @@
+@property
+def strict(self):
+    return self.context.config.getbool(self.config_section, 'strict', default=False)

@@ -1,0 +1,2 @@
+def install_goal(self, name, group=None, dependencies=None, phase=None):
+    return self.installed_goal(name, action=self.record(name), group=group, dependencies=dependencies, phase=phase)

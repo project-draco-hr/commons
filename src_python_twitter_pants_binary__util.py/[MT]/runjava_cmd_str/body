@@ -1,3 +1,0 @@
-def runjava_cmd_str(jvm_options=None, classpath=None, main=None, args=None):
-    cmd = _runjava_cmd(jvm_options=jvm_options, classpath=classpath, main=main, args=args)
-    return _runjava_cmd_to_str(cmd)

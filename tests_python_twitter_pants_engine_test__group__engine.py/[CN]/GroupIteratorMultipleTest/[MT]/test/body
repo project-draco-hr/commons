@@ -1,0 +1,21 @@
+def test(self):
+    self.java_library('root', 'colorless', deps=[])
+    self.java_library('root', 'a_red', deps=['root:colorless'])
+    self.java_library('root', 'a_blue', deps=['root:a_red'])
+    self.java_library('root', 'a_green', deps=['root:a_blue', 'root:colorless'])
+    self.java_library('root', 'b_red', deps=['root:a_blue'])
+    self.java_library('root', 'c_red', deps=['root:b_red'])
+    chunks = self.iterate('root:c_red', 'root:a_green')
+    self.assertEqual(4, len(chunks))
+    (group_member, targets) = chunks[0]
+    self.assertEqual(self.red, group_member)
+    self.assertEqual(set(self.targets('root:a_red')), set(targets))
+    (group_member, targets) = chunks[1]
+    self.assertEqual(self.blue, group_member)
+    self.assertEqual(set(self.targets('root:a_blue')), set(targets))
+    (group_member, targets) = chunks[2]
+    self.assertEqual(self.green, group_member)
+    self.assertEqual(set(self.targets('root:a_green')), set(targets))
+    (group_member, targets) = chunks[3]
+    self.assertEqual(self.red, group_member)
+    self.assertEqual(set(self.targets('root:b_red', 'root:c_red')), set(targets))

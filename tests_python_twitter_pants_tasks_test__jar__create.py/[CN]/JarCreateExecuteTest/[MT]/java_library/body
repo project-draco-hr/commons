@@ -1,0 +1,3 @@
+@classmethod
+def java_library(cls, path, name, sources, resources=None):
+    return cls.library_with_resources(path, 'java_library', name, sources, resources=resources)

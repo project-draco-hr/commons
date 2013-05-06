@@ -1,0 +1,36 @@
+def test_begin(self):
+    self.ticker().AndReturn(0)
+    self.ticker().AndReturn(11)
+    self.ticker().AndReturn(13)
+    self.ticker().AndReturn(17)
+    self.ticker().AndReturn(23)
+    self.ticker().AndReturn(29)
+    self.ticker().AndReturn(42)
+    self.ticker().AndReturn(42)
+    self.ticker().AndReturn(42)
+    self.ticker().AndReturn(42)
+    self.mox.ReplayAll()
+    goal_succeed = self.installed_goal('succeed', phase='first')
+    goal_fail = self.installed_goal('fail', phase='first')
+    goal_muddle = self.installed_goal('muddle', phase='second')
+    with Timer.begin(self.ticker) as timer:
+        with timer.timed(goal_succeed):
+            pass
+        with timer.timed(goal_succeed):
+            pass
+        with timer.timed(goal_fail):
+            pass
+        with timer.timed(goal_muddle):
+            pass
+    self.assertEqual(42, timer.elapsed)
+    first_timings = timer.timings.pop(self.as_phase('first'))
+    second_timings = timer.timings.pop(self.as_phase('second'))
+    self.assertEqual(0, len(timer.timings))
+    goal_succeed_timings = first_timings.pop(goal_succeed)
+    goal_fail_timings = first_timings.pop(goal_fail)
+    self.assertEqual(0, len(first_timings))
+    self.assertEqual([2, 6], goal_succeed_timings)
+    self.assertEqual([13], goal_fail_timings)
+    goal_muddle_timings = second_timings.pop(goal_muddle)
+    self.assertEqual(0, len(second_timings))
+    self.assertEqual([0], goal_muddle_timings)

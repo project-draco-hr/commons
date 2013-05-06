@@ -1,0 +1,5 @@
+import pytest
+from textwrap import dedent
+from twitter.pants.base_build_root_test import BaseBuildRootTest
+from twitter.pants.tasks import TaskError
+from twitter.pants.tasks.scrooge_gen import ScroogeGen

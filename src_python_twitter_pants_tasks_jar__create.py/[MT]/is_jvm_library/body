@@ -1,0 +1,2 @@
+def is_jvm_library(target):
+    return (is_java_library(target) or is_scala_library(target))

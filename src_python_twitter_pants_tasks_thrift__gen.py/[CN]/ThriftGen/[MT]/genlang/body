@@ -35,4 +35,4 @@ def genlang(self, lang, targets):
             else:
                 _copytree(session.outdir, self.combined_dir)
     if (result != 0):
-        raise TaskError(('thrift compile failed with exit code %d' % result))
+        raise TaskError(('%s ... exited non-zero (%i)' % (self.thrift_binary, result)))

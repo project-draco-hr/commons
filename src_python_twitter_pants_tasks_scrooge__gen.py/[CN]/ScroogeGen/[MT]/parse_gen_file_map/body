@@ -1,9 +1,9 @@
-def parse_gen_file_map(self, gen_file_map, outdir):
+def parse_gen_file_map(self, gen_file_map_path, outdir):
     d = defaultdict(set)
-    with open(gen_file_map, 'r') as deps:
+    with open(gen_file_map_path, 'r') as deps:
         for dep in deps:
             (src, cls) = dep.strip().split('->')
-            src = os.path.relpath(src.strip(), os.path.curdir)
+            src = os.path.relpath(src.strip())
             cls = os.path.relpath(cls.strip(), outdir)
             d[src].add(cls)
     return d

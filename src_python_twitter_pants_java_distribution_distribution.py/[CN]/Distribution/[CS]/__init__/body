@@ -1,0 +1,15 @@
+def __init__(self, bin_path='/usr/bin', minimum_version=None, jdk=False):
+    'Creates a distribution wrapping the given bin_path.\n\n    :param string bin_path: the path to the java distributions bin dir\n    :param minimum_version: a modified semantic version string or else a Revision object\n    :param bool jdk: ``True`` to require the distribution be a JDK vs a JRE\n    '
+    if (not os.path.isdir(bin_path)):
+        raise ValueError(('The specified distribution path is invalid: %s' % bin_path))
+    self._bin_path = bin_path
+    if isinstance(minimum_version, Compatibility.string):
+        minimum_version = self._parse_java_version(minimum_version)
+    if (minimum_version and (not isinstance(minimum_version, Revision))):
+        raise ValueError(('minimum_version must be a string or a Revision object, given: %s' % minimum_version))
+    self._minimum_version = minimum_version
+    self._jdk = jdk
+    self._is_jdk = False
+    self._system_properties = None
+    self._version = None
+    self._validated_binaries = {}

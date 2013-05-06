@@ -2,6 +2,7 @@
 def generate_setup_parser(cls, option_group, args, mkflag, jvmdoc):
     parser_config = cls.setup_parser_config()
     option_group.add_option(mkflag('outdir'), dest=parser_config.outdir_opt, help=('Emit %s in this directory.' % jvmdoc.tool_name))
+    option_group.add_option(mkflag('include-codegen'), mkflag('include-codegen', negate=True), dest=parser_config.include_codegen_opt, default=None, action='callback', callback=mkflag.set_bool, help=('[%%default] Create %s for generated code.' % jvmdoc.tool_name))
     option_group.add_option(mkflag('transitive'), mkflag('transitive', negate=True), dest=parser_config.transitive_opt, default=True, action='callback', callback=mkflag.set_bool, help=('[%%default] Create %s for the transitive closure of internal targets reachable from the roots specified on the command line.' % jvmdoc.tool_name))
     combined_flag = mkflag('combined')
     option_group.add_option(combined_flag, mkflag('combined', negate=True), dest=parser_config.combined_opt, default=False, action='callback', callback=mkflag.set_bool, help=('[%%default] Generate %s for all targets combined instead of each target individually.' % jvmdoc.tool_name))

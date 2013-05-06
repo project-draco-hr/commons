@@ -1,0 +1,5 @@
+@classmethod
+def tearDownClass(cls):
+    BuildRoot().reset()
+    SourceRoot.reset()
+    safe_rmtree(cls.build_root)

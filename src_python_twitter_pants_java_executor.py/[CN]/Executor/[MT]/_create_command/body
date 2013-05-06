@@ -1,0 +1,6 @@
+def _create_command(self, jvm_args, classpath, main, args):
+    cmd = [self._distribution.java]
+    cmd.extend(jvm_args)
+    cmd.extend(['-cp', os.pathsep.join(classpath), main])
+    cmd.extend(args)
+    return cmd

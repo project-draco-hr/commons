@@ -1,0 +1,6 @@
+@classmethod
+def instance(cls):
+    'Returns the default global ivy bootstrapper.'
+    if (cls._INSTANCE is None):
+        cls._INSTANCE = cls()
+    return cls._INSTANCE

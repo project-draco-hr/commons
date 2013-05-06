@@ -1,0 +1,6 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    option_group.add_option(mkflag('outdir'), dest='thrift_gemerator_outdir', help='Emit gems in to this directory.')
+    option_group.add_option(mkflag('override'), dest='thrift_gemerator_override', help='Version number override.')
+    option_group.add_option(mkflag('dryrun'), mkflag('dryrun', negate=True), dest='gem_publish_dryrun', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Runs through gemerator without actually pushing artifacts, editing publish dbs or otherwise writing data')
+    option_group.add_option(mkflag('commit', negate=True), dest='gem_publish_commit', default=True, action='callback', callback=mkflag.set_bool, help='Turns off commits of the push db for local testing.')

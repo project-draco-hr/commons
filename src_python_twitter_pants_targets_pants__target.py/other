@@ -1,1 +1,1 @@
-from twitter.pants.base import ParseContext, Target, Address
+from twitter.pants.base import Address, manual, ParseContext, Target, TargetDefinitionException

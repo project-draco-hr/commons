@@ -1,0 +1,11 @@
+@classmethod
+def default_globals(cls, config=None):
+    "\n    Has twitter.pants.*, but not file-specfic things like __file__\n    If you want to add new imports to be available to all BUILD files, add a section to the config\n    similar to:\n\n      [parse]\n      headers: ['from test import get_jar',]\n\n    You may also need to add new roots to the sys.path. see _run in pants_exe.py\n    "
+    to_exec = list(cls._strs_to_exec)
+    if config:
+        to_exec.extend(config.getlist('parse', 'headers', default=[]))
+    pants_context = {}
+    for str_to_exec in to_exec:
+        ast = compile(str_to_exec, '<string>', 'exec')
+        Compatibility.exec_function(ast, pants_context)
+    return pants_context

@@ -1,0 +1,3 @@
+@abstractproperty
+def cmd(self):
+    'Returns a string representation of the command that will be run.'

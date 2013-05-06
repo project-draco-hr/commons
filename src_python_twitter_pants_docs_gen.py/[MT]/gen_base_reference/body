@@ -1,0 +1,9 @@
+def gen_base_reference(rst_filename, dirname):
+    lines = ['Base Reference', '==============', '', 'This page documents base classes of the pants build system.', '', '']
+    for filename in sorted([filename for filename in os.listdir(dirname) if filename.endswith('.py')]):
+        if (filename == '__init__.py'):
+            continue
+        (root, _) = os.path.splitext(filename)
+        lines.append(TEMPLATE.substitute(otype='base', name=root))
+    with open(rst_filename, 'w') as fh:
+        fh.write('\n'.join(lines))

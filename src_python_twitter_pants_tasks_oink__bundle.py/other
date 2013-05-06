@@ -1,6 +1,8 @@
 import os
+from collections import defaultdict
 from twitter.common.dirutil import safe_mkdir
 from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.fs.archive import TGZ
 from twitter.pants.targets.oink_query import OinkQuery
-from twitter.pants.tasks import Task
+from .jvm_binary_task import JvmBinaryTask
+from . import Task

@@ -1,4 +1,6 @@
+@manual.builddict()
 def add(self, *filesets):
+    'Add files to the bundle, where ``filesets`` is a filename, ``globs``, or ``rglobs``.\n    Note this is a variable length param and may be specified any number of times.\n    '
     for fileset in filesets:
         paths = (fileset() if isinstance(fileset, Fileset) else (fileset if hasattr(fileset, '__iter__') else [fileset]))
         self.filemap.update(((os.path.abspath(path), self.mapper(path)) for path in paths))

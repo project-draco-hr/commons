@@ -4,5 +4,5 @@ def __init__(self, name, sources, resources=None, dependencies=None, timeout=Amo
     self._soft_dependencies = bool(soft_dependencies)
     self._coverage = (maybe_list(coverage) if (coverage is not None) else [])
     self._entry_point = entry_point
-    PythonTarget.__init__(self, name, sources, resources, dependencies, exclusives=exclusives)
+    super(PythonTests, self).__init__(name, sources, resources, dependencies, exclusives=exclusives)
     self.add_labels('python', 'tests')

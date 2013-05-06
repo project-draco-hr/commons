@@ -1,0 +1,2 @@
+def _generate_override_template(self, jar):
+    return TemplateData(org=jar.org, module=jar.module, version=jar.version)

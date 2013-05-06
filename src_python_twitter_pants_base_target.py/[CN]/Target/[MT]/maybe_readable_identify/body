@@ -1,4 +1,4 @@
-@staticmethod
-def maybe_readable_identify(targets):
+@classmethod
+def maybe_readable_identify(cls, targets):
     "Generates an id for a set of targets.\n\n    If the set is a single target, just use that target's id."
-    return Target.maybe_readable_combine_ids([target.id for target in targets])
+    return cls.maybe_readable_combine_ids([target.id for target in targets])

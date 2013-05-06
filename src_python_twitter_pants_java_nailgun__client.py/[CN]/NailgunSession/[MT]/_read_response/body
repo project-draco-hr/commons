@@ -1,7 +1,7 @@
 def _read_response(self):
-    buffer = ''
+    buff = ''
     while True:
-        (command, payload, buffer) = self._readchunk(buffer)
+        (command, payload, buff) = self._read_chunk(buff)
         if (command == '1'):
             self._out.write(payload)
             self._out.flush()
@@ -13,4 +13,4 @@ def _read_response(self):
             self._err.flush()
             return int(payload)
         else:
-            raise ProtocolError(('Received unexpected chunk %s -> %s' % (command, payload)))
+            raise self.ProtocolError(('Received unexpected chunk %s -> %s' % (command, payload)))

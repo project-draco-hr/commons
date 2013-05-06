@@ -1,3 +1,5 @@
-def __init__(self, user):
+def __init__(self, user, force_upload):
+    '\n    :param user: The user to be used for uploading stats. Its the current user.\n    :param force_upload: [False] Uploads Stats at the end of pants run.\n    '
     self._user = user
+    self._force_upload = force_upload
     self._max_delay = parse_time(MAX_UPLOAD_DELAY)

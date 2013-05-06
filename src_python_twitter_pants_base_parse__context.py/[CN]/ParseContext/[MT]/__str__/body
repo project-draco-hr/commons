@@ -1,2 +1,0 @@
-def __str__(self):
-    return ('ParseContext(BUILD:%s)' % self.buildfile)

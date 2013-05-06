@@ -1,15 +1,19 @@
-def __init__(self, context, jvmdoc, output_dir, confs):
+def __init__(self, context, jvmdoc, output_dir, confs, active):
 
     def getattr_options(option):
         return getattr(context.options, option)
     super(JvmdocGen, self).__init__(context)
     self._jvmdoc = jvmdoc
     jvmdoc_tool_name = self._jvmdoc.tool_name
+    config_section = ('%s-gen' % jvmdoc_tool_name)
     parser_config = self.setup_parser_config()
     pants_workdir = context.config.getdefault('pants_workdir')
-    self._output_dir = (output_dir or getattr_options(parser_config.outdir_opt) or context.config.get(('%s-gen' % jvmdoc_tool_name), 'workdir', default=os.path.join(pants_workdir, jvmdoc_tool_name)))
+    self._output_dir = (output_dir or getattr_options(parser_config.outdir_opt) or context.config.get(config_section, 'workdir', default=os.path.join(pants_workdir, jvmdoc_tool_name)))
+    flagged_codegen = getattr_options(parser_config.include_codegen_opt)
+    self._include_codegen = (flagged_codegen if (flagged_codegen is not None) else context.config.getbool(config_section, 'include_codegen', default=False))
     self.transitive = getattr_options(parser_config.transitive_opt)
-    self.confs = (confs or context.config.getlist(('%s-gen' % jvmdoc_tool_name), 'confs', default=['default']))
+    self.confs = (confs or context.config.getlist(config_section, 'confs', default=['default']))
+    self.active = active
     self.open = getattr_options(parser_config.open_opt)
     self.combined = (self.open or getattr_options(parser_config.combined_opt))
     self.ignore_failure = getattr_options(parser_config.ignore_failure_opt)

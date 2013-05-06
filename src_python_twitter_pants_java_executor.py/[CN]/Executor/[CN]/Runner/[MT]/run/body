@@ -1,0 +1,3 @@
+@abstractmethod
+def run(self, stdout=None, stderr=None):
+    'Runs the configured java command.\n\n      If there is a problem executing tha java program subclasses should raise Executor.Error.\n      Its guaranteed that all arguments are valid as documented in `execute`\n\n      :param stdout: An optional stream to pump stdout to; defaults to `sys.stdout`.\n      :param stderr: An optional stream to pump stderr to; defaults to `sys.stderr`.\n      '

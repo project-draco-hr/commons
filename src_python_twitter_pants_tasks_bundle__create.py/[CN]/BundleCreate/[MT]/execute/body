@@ -1,12 +1,10 @@
-def execute(self, targets):
-
-    def is_app(target):
-        return isinstance(target, JvmApp)
+def execute(self, _):
     archiver = (archive.archiver(self.archiver_type) if self.archiver_type else None)
-    for app in filter(is_app, targets):
-        basedir = self.bundle(app)
-        if archiver:
-            archivemap = self.context.products.get(self.archiver_type)
-            archivepath = archiver.create(basedir, self.outdir, app.basename, prefix=(app.basename if self.prefix else None))
-            archivemap.add(app, self.outdir, [archivepath])
-            self.context.log.info(('created %s' % os.path.relpath(archivepath, get_buildroot())))
+    for target in self.context.target_roots:
+        for app in map(self.App, filter(self.App.is_app, target.resolve())):
+            basedir = self.bundle(app)
+            if archiver:
+                archivemap = self.context.products.get(self.archiver_type)
+                archivepath = archiver.create(basedir, self.outdir, app.basename, prefix=(app.basename if self.prefix else None))
+                archivemap.add(app, self.outdir, [archivepath])
+                self.context.log.info(('created %s' % os.path.relpath(archivepath, get_buildroot())))

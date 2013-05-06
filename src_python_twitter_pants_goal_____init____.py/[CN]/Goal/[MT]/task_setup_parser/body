@@ -1,0 +1,3 @@
+def task_setup_parser(self, group, args, mkflag):
+    'Allows a task to setup a parser.\n    Override this method if you want to initialize the task with more goal data.'
+    self._task.setup_parser(group, args, mkflag)

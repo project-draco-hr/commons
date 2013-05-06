@@ -1,3 +1,0 @@
-@staticmethod
-def _log_kill(log, pid, port=None):
-    log.info(('killing ng server @ pid:%d%s' % (pid, ((' port:%d' % port) if port else ''))))

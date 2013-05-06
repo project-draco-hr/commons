@@ -8,12 +8,13 @@ def _inject_target(self, target, dependees, geninfo, gen_files_for_source, creat
         files.extend(genfiles)
     deps = OrderedSet(geninfo.deps[('service' if has_service else 'structs')])
     deps.update(target.dependencies)
-    outdir = self._outdir(target)
-    target_type = INFO_FOR_LANG[target.language]['target_type']
-    tgt = create_target(files, deps, outdir, target_type)
-    tgt.id = target.id
+    target_type = _TARGET_TYPE_FOR_LANG[target.language]
+    tgt = create_target(files, deps, target_type)
     tgt.derived_from = target
-    tgt.add_labels('synthetic')
+    tgt.add_labels('codegen')
     for dependee in dependees:
-        dependee.update_dependencies([tgt])
+        if isinstance(dependee, InternalTarget):
+            dependee.update_dependencies((tgt,))
+        else:
+            dependee.dependencies.add(tgt)
     return tgt

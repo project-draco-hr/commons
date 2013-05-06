@@ -1,3 +1,5 @@
+@manual.builddict()
 def with_sources(self):
+    'This requests the artifact have its source jar fetched.\n    (This implies there *is* a source jar to fetch.) Used in contexts\n    that can use source jars (as of 2013, just eclipse and idea goals).'
     self._configurations.append('sources')
     return self

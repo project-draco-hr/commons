@@ -1,3 +1,2 @@
-import os
 from twitter.pants.tasks.jvmdoc_gen import Jvmdoc, JvmdocGen
-scaladoc = Jvmdoc(tool_name='scaladoc')
+scaladoc = Jvmdoc(tool_name='scaladoc', product_type='scaladoc')

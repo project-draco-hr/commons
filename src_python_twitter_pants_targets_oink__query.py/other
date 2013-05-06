@@ -1,1 +1,5 @@
+from twitter.pants.base.build_manual import manual
+from twitter.pants.targets.exclude import Exclude
 from twitter.pants.targets.jvm_target import JvmTarget
+from twitter.pants.targets.hadoop_binary import ON_HADOOP_CLUSTER_EXCLUDES
+OINK_EXCLUDES = (ON_HADOOP_CLUSTER_EXCLUDES + [Exclude('org.apache.pig'), Exclude('org.apache.hbase', 'hbase')])

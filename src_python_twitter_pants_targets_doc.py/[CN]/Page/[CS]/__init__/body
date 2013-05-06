@@ -1,4 +1,5 @@
 def __init__(self, name, source, dependencies=None, resources=None, exclusives=None):
+    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param source: Source of the page in markdown format.\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    :param resources: An optional list of Resources objects.\n    '
     InternalTarget.__init__(self, name, dependencies, exclusives=exclusives)
     TargetWithSources.__init__(self, name, sources=[source], exclusives=exclusives)
     self.resources = (self._resolve_paths(resources) if resources else [])

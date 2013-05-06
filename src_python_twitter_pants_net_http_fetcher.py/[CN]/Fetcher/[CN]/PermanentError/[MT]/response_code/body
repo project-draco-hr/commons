@@ -1,0 +1,4 @@
+@property
+def response_code(self):
+    'The HTTP response code of the failed request.\n\n      May be None it the request failed before receiving a server response.\n      '
+    return self._response_code

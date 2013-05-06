@@ -1,0 +1,4 @@
+@property
+def home(self):
+    'Returns the distribution JAVA_HOME.'
+    return self._get_system_properties(self.java)['java.home']

@@ -1,3 +1,0 @@
-@staticmethod
-def _find(identifier_arg):
-    return NailgunProcessManager.find(identifier_arg)

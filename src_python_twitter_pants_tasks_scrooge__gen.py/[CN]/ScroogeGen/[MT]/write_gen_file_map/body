@@ -1,0 +1,3 @@
+def write_gen_file_map(self, gen_file_map, targets, outdir):
+    for target in targets:
+        self.write_gen_file_map_for_target(gen_file_map, target, outdir)

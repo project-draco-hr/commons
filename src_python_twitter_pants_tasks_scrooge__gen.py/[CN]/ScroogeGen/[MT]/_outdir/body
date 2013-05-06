@@ -1,6 +1,0 @@
-def _outdir(self, target):
-    compiler_config = INFO_FOR_COMPILER[target.compiler]['config']
-    fallback = os.path.join(self.context.config.getdefault('pants_workdir'), target.compiler)
-    outdir = (self.context.options.scrooge_gen_create_outdir or self.context.config.get(compiler_config, 'workdir', default=fallback))
-    outdir = os.path.relpath(outdir)
-    return outdir

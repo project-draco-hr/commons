@@ -1,3 +1,4 @@
+@manual.builddict()
 def intransitive(self):
     'Declares this Dependency intransitive, indicating only the jar for the dependency itself\n    should be downloaded and placed on the classpath'
     self.transitive = False

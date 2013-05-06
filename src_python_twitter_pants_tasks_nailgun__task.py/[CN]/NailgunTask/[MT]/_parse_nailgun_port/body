@@ -1,5 +1,0 @@
-def _parse_nailgun_port(self, line):
-    match = NailgunTask._PARSE_NG_PORT.match(line)
-    if (not match):
-        raise NailgunError(('Failed to determine spawned ng port from response line: %s' % line))
-    return int(match.group(1))

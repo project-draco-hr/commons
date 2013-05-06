@@ -1,0 +1,23 @@
+def test_sigpipe(self):
+    (r, w) = os.pipe()
+    task = prepare_task(self.Infinite, outstream=os.fdopen(w, 'w'))
+    raised = Queue(maxsize=1)
+
+    def execute():
+        try:
+            task.execute([])
+        except IOError as e:
+            raised.put(e)
+    execution = threading.Thread(target=execute, name='ConsoleTaskTest_sigpipe')
+    execution.setDaemon(True)
+    execution.start()
+    try:
+        data = os.read(r, 5)
+        self.assertEqual('jake\n', data)
+        os.close(r)
+    finally:
+        task.stop()
+        execution.join()
+    with pytest.raises(Empty):
+        e = raised.get_nowait()
+        self.fail(('task raised %s' % e))

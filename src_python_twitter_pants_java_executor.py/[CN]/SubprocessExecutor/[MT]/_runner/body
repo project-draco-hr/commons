@@ -1,0 +1,17 @@
+def _runner(self, jvm_args, classpath, main, args):
+    command = self._create_command(jvm_args, classpath, main, args)
+
+
+    class Runner(self.Runner):
+
+        @property
+        def executor(_):
+            return self
+
+        @property
+        def cmd(_):
+            return ' '.join(command)
+
+        def run(_, stdout=None, stderr=None):
+            return self._spawn(command, stdout=stdout, stderr=stderr).wait()
+    return Runner()

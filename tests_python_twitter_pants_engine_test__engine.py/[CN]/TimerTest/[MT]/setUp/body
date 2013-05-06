@@ -1,0 +1,3 @@
+def setUp(self):
+    super(TimerTest, self).setUp()
+    self.ticker = self.mox.CreateMockAnything()

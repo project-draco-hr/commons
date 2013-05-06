@@ -1,3 +1,4 @@
 def __init__(self, org, name=None):
+    '\n    :param string org: Organization of the artifact to filter,\n      known as groupId in Maven parlance.\n    :param string name: Name of the artifact to filter in the org, or filter\n      everything if unspecified.\n    '
     self.org = org
     self.name = name

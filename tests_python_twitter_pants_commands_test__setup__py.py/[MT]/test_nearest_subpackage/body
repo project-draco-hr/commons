@@ -1,0 +1,8 @@
+def test_nearest_subpackage():
+    assert (SetupPy.nearest_subpackage('twitter', []) == 'twitter')
+    assert (SetupPy.nearest_subpackage('twitter', ['twitter']) == 'twitter')
+    assert (SetupPy.nearest_subpackage('twitter', ['foursquare']) == 'twitter')
+    assert ('twitter' == SetupPy.nearest_subpackage('twitter.util', ['twitter']))
+    assert ('twitter.util' == SetupPy.nearest_subpackage('twitter.util', ['twitter', 'twitter.util']))
+    assert ('twitter.util' == SetupPy.nearest_subpackage('twitter.util.topo', ['twitter', 'twitter.util']))
+    assert ('twitter' == SetupPy.nearest_subpackage('twitter.utilization', ['twitter', 'twitter.util']))

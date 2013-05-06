@@ -1,0 +1,3 @@
+def reset(self):
+    'Clears the last calculated ROOT_DIR for the current workspace.'
+    self._root_dir = None

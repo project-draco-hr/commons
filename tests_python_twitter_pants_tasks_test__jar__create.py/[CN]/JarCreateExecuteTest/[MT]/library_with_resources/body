@@ -1,0 +1,5 @@
+@classmethod
+def library_with_resources(cls, path, target_type, name, sources, resources=None):
+    cls.create_files(path, sources)
+    cls.create_target(path, dedent(("\n      %(target_type)s(name='%(name)s',\n        sources=[%(sources)s],\n        %(resources)s\n      )\n    " % dict(target_type=target_type, name=name, sources=repr((sources or [])), resources=(('resources=pants("%s")' % resources) if resources else '')))))
+    return cls.target(('%s:%s' % (path, name)))

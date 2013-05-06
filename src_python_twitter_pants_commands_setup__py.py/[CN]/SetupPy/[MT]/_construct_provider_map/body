@@ -1,0 +1,16 @@
+@classmethod
+def _construct_provider_map(cls, root_target, descendant, parents, providers, depmap):
+    if (isinstance(descendant, PythonTarget) and descendant.provides):
+        providers.append(descendant)
+    for dependency in cls._combined_dependencies(descendant):
+        for prv in providers:
+            for dep in dependency.resolve():
+                depmap[prv].add(dep)
+                if (dep in parents):
+                    raise TargetDefinitionException(root_target, ('%s and %s combined have a cycle!' % (root_target, dep)))
+                parents.add(dep)
+                cls._construct_provider_map(root_target, dep, parents, providers, depmap)
+                parents.remove(dep)
+    if (isinstance(descendant, PythonTarget) and descendant.provides):
+        assert (providers[(-1)] == descendant)
+        providers.pop()

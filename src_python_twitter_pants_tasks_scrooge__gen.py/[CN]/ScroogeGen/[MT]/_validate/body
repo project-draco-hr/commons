@@ -1,0 +1,21 @@
+@staticmethod
+def _validate(targets):
+    ValidateCompilerConfig = namedtuple('ValidateCompilerConfig', ['language', 'rpc_style'])
+
+    def compiler_config(tgt):
+        return ValidateCompilerConfig(language=tgt.language, rpc_style=tgt.rpc_style)
+    mismatched_compiler_configs = defaultdict(set)
+    for target in filter((lambda t: isinstance(t, JavaThriftLibrary)), targets):
+        mycompilerconfig = compiler_config(target)
+
+        def collect(dep):
+            if (mycompilerconfig != compiler_config(dep)):
+                mismatched_compiler_configs[target].add(dep)
+        target.walk(collect, predicate=(lambda t: isinstance(t, JavaThriftLibrary)))
+    if mismatched_compiler_configs:
+        msg = ['Thrift dependency trees must be generated with a uniform compiler configuration.\n\n']
+        for tgt in sorted(mismatched_compiler_configs.keys()):
+            msg.append(('%s - %s\n' % (tgt, compiler_config(tgt))))
+            for dep in mismatched_compiler_configs[tgt]:
+                msg.append(('    %s - %s\n' % (dep, compiler_config(dep))))
+        raise TaskError(''.join(msg))

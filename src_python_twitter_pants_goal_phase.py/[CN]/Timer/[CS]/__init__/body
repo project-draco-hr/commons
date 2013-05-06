@@ -1,4 +1,0 @@
-def __init__(self, timer=time.time, log=None):
-    '\n      timer:  A callable that returns the current time in fractional seconds.\n      log:    A callable that can log timing messages, prints to stdout by default.\n    '
-    self._now = timer
-    self._log = (log or (lambda message: print(message, file=sys.stdout)))

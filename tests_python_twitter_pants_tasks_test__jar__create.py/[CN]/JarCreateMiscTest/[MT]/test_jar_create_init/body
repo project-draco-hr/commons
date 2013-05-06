@@ -1,0 +1,5 @@
+def test_jar_create_init(self):
+    ini = dedent('\n          [DEFAULT]\n          pants_workdir: /tmp/pants.d\n          pants_supportdir: /tmp/build-support\n          ').strip()
+    jar_create = JarCreate(create_context(config=ini, options=self.create_options()))
+    self.assertEquals(jar_create._output_dir, '/tmp/pants.d/jars')
+    self.assertEquals(jar_create.confs, ['default'])

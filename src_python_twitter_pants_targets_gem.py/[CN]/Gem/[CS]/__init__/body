@@ -1,0 +1,11 @@
+def __init__(self, name, repo):
+    '\n    :param string name: gem name\n    :param repo: :class:`twitter.pants.targets.repository.Repository`\n      this artifact is published to.\n    '
+    if (not isinstance(name, Compatibility.string)):
+        raise ValueError(('name must be %s but was %s' % (Compatibility.string, name)))
+    if (not isinstance(repo, (Pants, Repository))):
+        raise ValueError(('repo must be %s or %s but was %s' % (Repository.__name__, Pants.__name__, repo)))
+    self.name = name
+    repos = list(repo.resolve())
+    if (len(repos) != 1):
+        raise ValueError(('A gem must have exactly 1 repo, given: %s' % repos))
+    self.repo = repos[0]

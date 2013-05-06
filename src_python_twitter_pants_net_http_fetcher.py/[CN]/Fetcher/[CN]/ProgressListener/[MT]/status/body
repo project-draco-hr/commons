@@ -1,0 +1,10 @@
+def status(self, code, content_length=None):
+    self.size = content_length
+    if content_length:
+        download_kb = int(Amount(content_length, Data.BYTES).as_(Data.KB))
+        self.download_size = Amount(download_kb, Data.KB)
+        self.chunk = (content_length / self._width)
+    else:
+        self.chunk = self._chunk_size.as_(Data.BYTES)
+    self.chunks = 0
+    self.read = 0

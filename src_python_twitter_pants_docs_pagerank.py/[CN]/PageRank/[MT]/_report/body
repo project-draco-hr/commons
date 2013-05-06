@@ -1,0 +1,4 @@
+def _report(self, pagerank_by_target):
+    'Yield the report lines.'
+    for target in sorted(pagerank_by_target, key=pagerank_by_target.get, reverse=True):
+        yield ('%f - %s' % (pagerank_by_target[target], target))

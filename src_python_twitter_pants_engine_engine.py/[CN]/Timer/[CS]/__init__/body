@@ -1,0 +1,8 @@
+def __init__(self, timer=None):
+    'Creates a timer that uses time.time for timing intervals by default.\n\n    :param timer:  A callable that returns the current time in fractional seconds.\n    '
+    self._now = (timer or time.time)
+    if (not callable(self._now)):
+        raise ValueError('Timer must be a callable object.')
+    self._timings = OrderedDict()
+    self._elapsed = None
+    self._start = self._now()

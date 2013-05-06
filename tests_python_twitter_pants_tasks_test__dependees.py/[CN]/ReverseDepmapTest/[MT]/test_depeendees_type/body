@@ -1,0 +1,3 @@
+def test_depeendees_type(self):
+    self._set_up_mocks(PythonTests, [('%s/tests' % get_buildroot())])
+    self.assert_console_output('tests/d/BUILD:d', args=['--test-type=python_tests'], targets=[self.target('common/d')])

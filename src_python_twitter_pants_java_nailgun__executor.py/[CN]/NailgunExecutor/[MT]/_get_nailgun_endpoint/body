@@ -1,0 +1,17 @@
+def _get_nailgun_endpoint(self):
+    if os.path.exists(self._pidfile):
+        with safe_open(self._pidfile, 'r') as pidfile:
+            contents = pidfile.read().strip()
+            try:
+                return self.Endpoint.parse(contents)
+            except ValueError:
+                log.warn(('Invalid ng pidfile %s contained: %s' % (self._pidfile, contents)))
+                return None
+    elif self._find:
+        endpoint = self._find(self._pidfile)
+        if endpoint:
+            log.info(('found ng server with fingerprint %s @ pid:%d port:%d' % endpoint))
+            with safe_open(self._pidfile, 'w') as pidfile:
+                pidfile.write(('%s:%d:%d\n' % endpoint))
+        return endpoint
+    return None

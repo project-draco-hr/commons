@@ -1,0 +1,3 @@
+def test_via_set(self):
+    BuildRoot().path = self.new_root
+    self.assertEqual(self.new_root, BuildRoot().path)

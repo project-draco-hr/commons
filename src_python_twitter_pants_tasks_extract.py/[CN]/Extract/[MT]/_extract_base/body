@@ -1,0 +1,9 @@
+@classmethod
+def _extract_base(cls, jar, config=None):
+    if (jar not in cls._EXTRACT_BASES):
+        config = (config or Config.load())
+        extract_base = os.path.join(config.get('idl-extract', 'workdir'), jar.id)
+        touch(os.path.join(extract_base, 'BUILD'))
+        SourceRoot.register(extract_base, JavaThriftLibrary)
+        cls._EXTRACT_BASES[jar] = extract_base
+    return cls._EXTRACT_BASES[jar]

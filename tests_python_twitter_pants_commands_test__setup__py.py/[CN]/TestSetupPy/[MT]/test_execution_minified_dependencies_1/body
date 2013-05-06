@@ -1,0 +1,7 @@
+def test_execution_minified_dependencies_1(self):
+    dep_map = {'foo': ['bar'], 'bar': ['baz'], 'baz': [], }
+    target_map = create_dependencies(dep_map)
+    with self.run_execute(target_map['foo'], recursive=False) as setup_py:
+        setup_py.run_one.assert_called_with(target_map['foo'])
+    with self.run_execute(target_map['foo'], recursive=True) as setup_py:
+        setup_py.run_one.assert_has_calls([call(target_map['foo']), call(target_map['bar']), call(target_map['baz'])], any_order=True)

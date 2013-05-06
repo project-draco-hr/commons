@@ -1,3 +1,4 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('outdir'), dest='scrooge_gen_create_outdir', help='Emit generated code in to this directory.')
+    option_group.add_option(mkflag('quiet'), dest='scrooge_gen_quiet', action='callback', callback=mkflag.set_bool, default=None, help='[%default] Suppress output, overrides verbose flag in pants.ini.')

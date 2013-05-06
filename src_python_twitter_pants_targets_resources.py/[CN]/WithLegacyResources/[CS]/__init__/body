@@ -1,4 +1,5 @@
 def __init__(self, name, sources=None, resources=None, exclusives=None):
+    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the source code\n      this library is compiled from.\n    :param resources: One or more :class:`twitter.pants.targets.resources.Resources`\n      xor a list of filenames representing the resources this library provides.\n    '
     TargetWithSources.__init__(self, name, sources=sources, exclusives=exclusives)
     if (resources is not None):
 
@@ -7,13 +8,16 @@ def __init__(self, name, sources=None, resources=None, exclusives=None):
                 return False
             concrete_targets = [t for t in item.resolve() if t.is_concrete]
             return all((isinstance(t, Resources) for t in concrete_targets))
-        if is_resources(resources):
-            self.resources = list(self.resolve_all(resources, Resources))
-        elif (isinstance(resources, Sequence) and all(map(is_resources, resources))):
-            self.resources = list(self.resolve_all(resources, Resources))
-        else:
+        resources_seq = (resources if isinstance(resources, Sequence) else [resources])
+        if all(map(is_resources, resources_seq)):
+            self.resources = list(self.resolve_all(resources_seq, Resources))
+        elif all(map((lambda resource: (isinstance(resource, Fileset) or isinstance(resource, Compatibility.string))), resources_seq)):
             sibling_resources_base = os.path.join(os.path.dirname(self.target_base), 'resources')
             base_relpath = os.path.relpath(self.address.buildfile.relpath, self.target_base)
             resources_dir = os.path.join(sibling_resources_base, base_relpath)
             with ParseContext.temp(basedir=resources_dir):
                 self.resources = [Resources(name, resources)]
+        else:
+            raise ValueError(('Target %s resources are invalid: %s' % (self.address, resources)))
+        if isinstance(self, InternalTarget):
+            self.update_dependencies(self.resources)

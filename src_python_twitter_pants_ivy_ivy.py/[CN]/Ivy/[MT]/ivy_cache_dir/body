@@ -1,0 +1,4 @@
+@property
+def ivy_cache_dir(self):
+    'Returns the ivy cache dir used by this `Ivy` instance.'
+    return self._ivy_cache_dir

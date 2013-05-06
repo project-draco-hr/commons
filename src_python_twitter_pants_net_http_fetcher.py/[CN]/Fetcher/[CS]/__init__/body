@@ -1,0 +1,3 @@
+def __init__(self, requests_api=None):
+    'Creates a Fetcher that uses the given requests api object.\n\n    By default uses the requests module, but can be any object conforming to the requests api like\n    a requests Session object.\n    '
+    self._requests = (requests_api or requests)

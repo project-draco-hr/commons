@@ -1,0 +1,5 @@
+def test_fail_fast_error_raised(self):
+    options = {'fail_fast': True, }
+    task = DuplicateDetector(create_context(options=options))
+    with pytest.raises(TaskError):
+        task._is_conflicts(self.path_with_duplicates, None)

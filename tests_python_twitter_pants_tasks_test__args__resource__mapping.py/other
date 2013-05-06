@@ -1,0 +1,7 @@
+__author__ = 'tdesai'
+import imp
+import os
+import unittest
+from twitter.pants import get_buildroot
+from twitter.pants.base.context_utils import create_context
+sample_ini_test_1 = '\n[DEFAULT]\npants_workdir: /tmp/pants.d\npants_supportdir: /tmp/build-support\n'

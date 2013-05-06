@@ -1,0 +1,15 @@
+def validate(self):
+    'Validates this distribution against its configured constraints.\n\n    Raises Distribution.Error if this distribution is not valid according to the configured\n    constraints.\n    '
+    if self._validated_binaries:
+        return
+    with self._valid_executable('java') as java:
+        if self._minimum_version:
+            version = self._get_version(java)
+            if (version < self._minimum_version):
+                raise self.Error(('The java distribution at %s is too old; expecting at least %s and got %s' % (java, self._minimum_version, version)))
+    try:
+        self._validated_executable('javac')
+        self._is_jdk = True
+    except self.Error:
+        if self._jdk:
+            raise

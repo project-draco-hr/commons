@@ -1,0 +1,3 @@
+@staticmethod
+def is_app(target):
+    return isinstance(target, (JvmApp, JvmBinary))

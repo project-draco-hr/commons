@@ -1,0 +1,9 @@
+def __init__(self, width=None, chunk_size=None):
+    'Creates a ProgressListener that logs progress for known size items with a progress bar of\n      the given width in characters and otherwise logs a progress indicator every chunk_size.\n\n      :param int width: the width of the progress bar for known size downloads, 50 by default\n      :param chunk_size: a Data Amount indicating the size of data chunks to note progress for,\n        10 KB by default\n      '
+    self._width = (width or 50)
+    if (not isinstance(self._width, Compatibility.integer)):
+        raise ValueError(('The width must be an integer, given %s' % self._width))
+    self._chunk_size = (chunk_size or Amount(10, Data.KB))
+    if ((not isinstance(self._chunk_size, Amount)) or (not isinstance(self._chunk_size.unit(), Data))):
+        raise ValueError(('The chunk_size must be a Data Amount, given %s' % self._chunk_size))
+    self._start = time.time()

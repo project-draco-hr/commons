@@ -1,0 +1,3 @@
+def sort(self):
+    'Returns a list of targets this target depends on sorted from most dependent to least.'
+    return self.sort_targets([self])

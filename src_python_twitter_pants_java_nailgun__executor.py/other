@@ -1,0 +1,64 @@
+from collections import namedtuple
+import hashlib
+import os
+import re
+import sys
+import time
+from twitter.common import log
+from twitter.common.collections import maybe_list
+from twitter.common.dirutil import safe_open
+from twitter.common.lang import Compatibility
+from twitter.pants import get_buildroot
+from .executor import Executor, SubprocessExecutor
+from . import NailgunClient
+try:
+    import psutil
+
+    def _find_ngs(everywhere=False):
+
+        def cmdline_matches(cmdline):
+            if everywhere:
+                return any(filter((lambda arg: arg.startswith(NailgunExecutor.PANTS_NG_ARG_PREFIX)), cmdline))
+            else:
+                return (NailgunExecutor.PANTS_NG_ARG in cmdline)
+        for proc in psutil.process_iter():
+            try:
+                if (('java' == proc.name) and cmdline_matches(proc.cmdline)):
+                    yield proc
+            except (psutil.AccessDenied, psutil.NoSuchProcess):
+                pass
+
+    def killall(logger=None, everywhere=False):
+        success = True
+        for proc in _find_ngs(everywhere=everywhere):
+            try:
+                NailgunExecutor._log_kill(proc.pid, logger=logger)
+                proc.kill()
+            except (psutil.AccessDenied, psutil.NoSuchProcess):
+                success = False
+        return success
+    NailgunExecutor.killall = staticmethod(killall)
+
+    def _find_ng_listen_port(proc):
+        for connection in proc.get_connections(kind='tcp'):
+            if (connection.status == 'LISTEN'):
+                (host, port) = connection.laddr
+                return port
+        return None
+
+    def _find(pidfile):
+        pidfile_arg = NailgunExecutor.create_pidfile_arg(pidfile)
+        for proc in _find_ngs(everywhere=False):
+            try:
+                if (pidfile_arg in proc.cmdline):
+                    fingerprint = NailgunExecutor.parse_fingerprint_arg(proc.cmdline)
+                    port = _find_ng_listen_port(proc)
+                    if (fingerprint and port):
+                        return NailgunExecutor.Endpoint(fingerprint, proc.pid, port)
+            except (psutil.AccessDenied, psutil.NoSuchProcess):
+                pass
+        return None
+    NailgunExecutor._find = staticmethod(_find)
+except ImportError:
+    NailgunExecutor.killall = None
+    NailgunExecutor._find = None

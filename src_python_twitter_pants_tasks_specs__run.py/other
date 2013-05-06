@@ -1,6 +1,6 @@
-import os
 from twitter.common.collections import OrderedSet
-from twitter.pants.binary_util import runjava_indivisible, safe_args
 from twitter.pants.base.workunit import WorkUnit
-from twitter.pants.tasks import Task, TaskError
-from twitter.pants.tasks.jvm_task import JvmTask
+from twitter.pants.binary_util import safe_args
+from .java.util import execute_java
+from .jvm_task import JvmTask
+from . import Task, TaskError

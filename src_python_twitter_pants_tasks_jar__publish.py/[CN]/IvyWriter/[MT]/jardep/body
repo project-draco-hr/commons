@@ -1,2 +1,2 @@
-def jardep(self, jar):
-    return self._jardep(jar, transitive=jar.transitive, configurations=';'.join(jar._configurations))
+def jardep(self, jar, classifier=None):
+    return self._jardep(jar, transitive=jar.transitive, configurations=';'.join(jar._configurations), classifier=classifier)

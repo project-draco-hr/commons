@@ -1,0 +1,6 @@
+@property
+def checksum(self):
+    'Returns the hex digest of the received data.\n\n      Its not valid to access this property before the listener is finished.\n\n      :rtype: string\n      :raises: ValueError if accessed before this listener is finished\n      '
+    if (self._checksum is None):
+        raise ValueError('The checksum cannot be accessed before this listener is finished.')
+    return self._checksum

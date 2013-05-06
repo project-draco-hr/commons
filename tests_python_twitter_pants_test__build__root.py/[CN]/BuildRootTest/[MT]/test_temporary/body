@@ -1,0 +1,4 @@
+def test_temporary(self):
+    with BuildRoot().temporary(self.new_root):
+        self.assertEqual(self.new_root, BuildRoot().path)
+    self.assertEqual(self.original_root, BuildRoot().path)

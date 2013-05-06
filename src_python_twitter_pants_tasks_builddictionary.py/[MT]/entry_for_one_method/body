@@ -1,0 +1,6 @@
+def entry_for_one_method(nom, method):
+    "Generate a BUILD dictionary entry for a method\n  nom: name like 'with_description'\n  method: method object"
+    assert inspect.ismethod(method)
+    (args, varargs, varkw, defaults) = inspect.getargspec(method)
+    argspec = inspect.formatargspec(args[1:], varargs, varkw, defaults)
+    return entry(nom, argspec=argspec, funcdoc=(method.__doc__ or '').replace('\n', ' '))

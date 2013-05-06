@@ -1,19 +1,25 @@
-def __init__(self, context):
+def __init__(self, context, jar_javadoc=False):
     Task.__init__(self, context)
     options = context.options
     products = context.products
-    self._output_dir = (options.jar_create_outdir or context.config.get('jar-create', 'workdir'))
+    self._output_dir = (options.jar_create_outdir or self.get_workdir(section='jar-create', workdir='jars'))
     self.transitive = options.jar_create_transitive
-    self.confs = context.config.getlist('jar-create', 'confs')
+    self.confs = context.config.getlist('jar-create', 'confs', default=DEFAULT_CONFS)
     self.compression = (ZIP_DEFLATED if options.jar_create_compressed else ZIP_STORED)
-    self.jar_classes = (products.isrequired('jars') or options.jar_create_classes)
+    self.jar_classes = (options.jar_create_classes or products.isrequired('jars'))
     if self.jar_classes:
         products.require('classes')
     self.jar_idl = (products.isrequired('idl_jars') or options.jar_create_idl)
     if self.jar_idl:
         products.require('idl')
-    self.jar_javadoc = (products.isrequired('javadoc_jars') or options.jar_create_javadoc)
+    definitely_create_javadoc = (options.jar_create_javadoc or products.isrequired('javadoc_jars'))
+    definitely_dont_create_javadoc = (options.jar_create_javadoc is False)
+    create_javadoc = (jar_javadoc and (options.jar_create_javadoc is None))
+    if (definitely_create_javadoc and definitely_dont_create_javadoc):
+        self.context.log.warn('javadoc jars are required but you have requested they not be created, creating anyway')
+    self.jar_javadoc = (True if definitely_create_javadoc else (False if definitely_dont_create_javadoc else create_javadoc))
     if self.jar_javadoc:
-        products.require('javadoc')
+        products.require(javadoc.product_type)
+        products.require(scaladoc.product_type)
     self.jar_sources = (products.isrequired('source_jars') or options.jar_create_sources)
     self._jars = {}

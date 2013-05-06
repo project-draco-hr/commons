@@ -1,7 +1,7 @@
 self
-main
 classpath
+main
 args
-jvm_options
+jvm_args
 workunit_name
-workunit_factory
+workunit_labels

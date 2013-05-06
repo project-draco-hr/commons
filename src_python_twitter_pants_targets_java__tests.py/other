@@ -1,2 +1,4 @@
+from twitter.pants.base import manua
+l
 from .jvm_target import JvmTarget
 from .resources import Resources

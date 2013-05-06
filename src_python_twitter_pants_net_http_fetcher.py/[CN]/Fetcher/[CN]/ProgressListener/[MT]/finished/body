@@ -1,0 +1,4 @@
+def finished(self):
+    if (self.chunks > 0):
+        sys.stdout.write((' %.3fs\n' % (time.time() - self._start)))
+        sys.stdout.flush()

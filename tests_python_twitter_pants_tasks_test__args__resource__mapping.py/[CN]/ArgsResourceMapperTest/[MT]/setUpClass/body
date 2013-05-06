@@ -1,0 +1,3 @@
+@classmethod
+def setUpClass(cls):
+    cls.args = imp.load_source('args', os.path.join(get_buildroot(), 'BUILD.commons'))

@@ -1,0 +1,3 @@
+@property
+def attempts(self):
+    return self._attempts

@@ -1,0 +1,4 @@
+def test_javadoc_jar_required(self):
+    context = self.context()
+    context.products.require('javadoc_jars')
+    self.assert_javadoc_jar_contents(context)

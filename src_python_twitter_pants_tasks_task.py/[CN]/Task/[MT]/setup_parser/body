@@ -1,3 +1,3 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
-    'Set up the cmd-line parser.\n\n    Subclasses can add flags to the pants command line using the given option group.\n    Flag names should be created with mkflag([name]) to ensure flags are properly namespaced\n    amongst other tasks.\n    '
+    'Set up the cmd-line parser.\n\n    Subclasses can add flags to the pants command line using the given option group.\n    Flag names should be created with mkflag([name]) to ensure flags are properly name-spaced\n    amongst other tasks.\n    '

@@ -1,5 +1,8 @@
 def __init__(self, context):
     CodeGen.__init__(self, context)
     NailgunTask.__init__(self, context)
+    self._classpath_by_compiler = {}
+    active_compilers = set(map((lambda t: t.compiler), context.targets(predicate=self.is_gentarget)))
     for (compiler, tools) in self._all_possible_antlr_bootstrap_tools():
-        self._jvm_tool_bootstrapper.register_jvm_tool(compiler, tools)
+        if (compiler in active_compilers):
+            self._jvm_tool_bootstrapper.register_jvm_tool(compiler, tools)

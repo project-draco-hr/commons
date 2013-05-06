@@ -1,5 +1,5 @@
 def __init__(self, context):
-    JvmCompile.__init__(self, context, workdir=context.config.get('java-compile', 'nailgun_dir'))
+    super(JavaCompile, self).__init__(context, jdk=True)
     self._jmake_bootstrap_key = 'jmake'
     external_tools = context.config.getlist('java-compile', 'jmake-bootstrap-tools', default=[':jmake'])
     self.register_jvm_tool(self._jmake_bootstrap_key, external_tools)

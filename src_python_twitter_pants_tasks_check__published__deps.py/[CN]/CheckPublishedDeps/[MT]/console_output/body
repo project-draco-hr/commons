@@ -1,0 +1,22 @@
+def console_output(self, targets):
+    push_dbs = {}
+
+    def get_jar_with_version(target):
+        db = target.provides.repo.push_db
+        if (db not in push_dbs):
+            push_dbs[db] = PushDb.load(db)
+        return push_dbs[db].as_jar_with_version(target)
+    visited = set()
+    for target in targets:
+        for dependency in target.dependencies:
+            for dep in dependency.resolve():
+                if isinstance(dep, JarDependency):
+                    artifact = (dep.org, dep.name)
+                    if ((artifact in self._artifacts_to_targets) and (not (artifact in visited))):
+                        visited.add(artifact)
+                        artifact_target = self._artifacts_to_targets[artifact]
+                        (_, semver, sha, _) = get_jar_with_version(artifact_target)
+                        if (semver.version() != dep.rev):
+                            yield ('outdated %s#%s %s latest %s' % (dep.org, dep.name, dep.rev, semver.version()))
+                        elif self._print_uptodate:
+                            yield ('up-to-date %s#%s %s' % (dep.org, dep.name, semver.version()))

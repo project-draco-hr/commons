@@ -1,0 +1,2 @@
+def _setup_command(self):
+    return self.__setup_command

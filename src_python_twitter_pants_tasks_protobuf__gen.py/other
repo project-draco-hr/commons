@@ -8,7 +8,7 @@ from twitter.common.dirutil import safe_mkdir
 from twitter.pants.binary_util import select_binary
 from twitter.pants.targets import JavaLibrary, JavaProtobufLibrary, PythonLibrary
 from .code_gen import CodeGen
-from twitter.pants.tasks import TaskError
+from . import TaskError
 DEFAULT_PACKAGE_PARSER = re.compile('^\\s*package\\s+([^;]+)\\s*;\\s*$')
 OPTION_PARSER = re.compile('^\\s*option\\s+([^ =]+)\\s*=\\s*([^\\s]+)\\s*;\\s*$')
 TYPE_PARSER = re.compile('^\\s*(enum|message)\\s+([^\\s{]+).*')

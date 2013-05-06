@@ -1,0 +1,6 @@
+self
+args
+jvm_args
+stdout
+stderr
+executor

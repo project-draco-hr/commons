@@ -1,3 +1,4 @@
 self
 context
-workdir
+minimum_version
+jdk

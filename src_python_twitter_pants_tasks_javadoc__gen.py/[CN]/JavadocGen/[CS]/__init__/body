@@ -1,2 +1,2 @@
-def __init__(self, context, output_dir=None, confs=None):
-    super(JavadocGen, self).__init__(context, javadoc, output_dir, confs)
+def __init__(self, context, output_dir=None, confs=None, active=True):
+    super(JavadocGen, self).__init__(context, javadoc, output_dir, confs, active)

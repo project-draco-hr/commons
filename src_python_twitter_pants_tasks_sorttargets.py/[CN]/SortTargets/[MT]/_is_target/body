@@ -1,0 +1,3 @@
+@staticmethod
+def _is_target(item):
+    return isinstance(item, Target)

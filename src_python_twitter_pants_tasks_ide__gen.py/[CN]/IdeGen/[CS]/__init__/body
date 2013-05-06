@@ -1,5 +1,5 @@
 def __init__(self, context):
-    JvmBinaryTask.__init__(self, context)
+    super(IdeGen, self).__init__(context)
     self.project_name = context.options.ide_gen_project_name
     self.python = context.options.ide_gen_python
     self.skip_java = (not context.options.ide_gen_java)
@@ -24,6 +24,8 @@ def __init__(self, context):
         self.scalac_bootstrap_key = 'scalac'
         scalac = context.config.getlist('scala-compile', 'compile-bootstrap-tools', default=[':scala-compile-2.9.3'])
         self._jvm_tool_bootstrapper.register_jvm_tool(self.scalac_bootstrap_key, scalac)
+    (targets, self._project) = self.configure_project(context.targets(), self.checkstyle_suppression_files, self.debug_port)
+    self.configure_compile_context(targets)
     if self.python:
         self.context.products.require('python')
     if (not self.skip_java):

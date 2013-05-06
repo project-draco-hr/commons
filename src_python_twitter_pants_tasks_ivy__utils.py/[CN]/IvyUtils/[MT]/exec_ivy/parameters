@@ -2,8 +2,7 @@ self
 target_workdir
 targets
 args
-runjava
+ivy
 workunit_name
 workunit_factory
-ivy_classpath
 symlink_ivyxml

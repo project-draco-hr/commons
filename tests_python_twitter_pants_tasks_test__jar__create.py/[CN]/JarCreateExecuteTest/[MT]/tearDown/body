@@ -1,0 +1,3 @@
+def tearDown(self):
+    super(JarCreateExecuteTest, self).tearDown()
+    safe_rmtree(self.jar_outdir)

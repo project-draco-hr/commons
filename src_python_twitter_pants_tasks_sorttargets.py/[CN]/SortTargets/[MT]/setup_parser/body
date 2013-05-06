@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    super(SortTargets, cls).setup_parser(option_group, args, mkflag)
+    option_group.add_option(mkflag('reverse'), mkflag('reverse', negate=True), dest='sort_targets_reverse', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Sort least depenendent to most.')

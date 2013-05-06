@@ -1,0 +1,9 @@
+def console_output(self, _):
+    visited = set()
+    for target in self._find_targets():
+        if (target not in visited):
+            visited.add(target)
+            if (hasattr(target, 'sources') and (target.sources is not None)):
+                for sourcefile in target.sources:
+                    path = os.path.join(target.target_base, sourcefile)
+                    yield ('%s %s' % (path, target.address))

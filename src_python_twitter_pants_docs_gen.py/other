@@ -1,0 +1,7 @@
+import os
+import os.path
+import shutil
+from string import Template
+TEMPLATE = Template('\n'.join([':mod:`$name` Module', '-----------------------------------------------', '', '.. automodule:: twitter.pants.$otype.$name', '   :members:', '', '']))
+if (__name__ == '__main__'):
+    main()

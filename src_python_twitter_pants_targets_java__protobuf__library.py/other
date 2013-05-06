@@ -1,1 +1,2 @@
+from twitter.pants.base import manual
 from .exportable_jvm_library import ExportableJvmLibrary

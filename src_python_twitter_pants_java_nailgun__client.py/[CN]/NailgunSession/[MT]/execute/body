@@ -1,5 +1,4 @@
 def execute(self, work_dir, main_class, *args, **environment):
-    log.debug(('work_dir: %s\nmain_class: %s\nargs: %s\nenvironment: %s' % (work_dir, main_class, args, environment)))
     for arg in args:
         self._send_chunk('A', arg)
     for (k, v) in environment.items():

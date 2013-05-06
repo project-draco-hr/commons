@@ -1,0 +1,5 @@
+def test_execute_code(self):
+    engine = self.RecordingEngine(action=self._throw(TaskError(exit_code=42)))
+    result = engine.execute(self.context, self.as_phases('four', 'five', 'six'))
+    self.assertEqual(42, result)
+    self.assert_attempt(engine, 'four', 'five', 'six')

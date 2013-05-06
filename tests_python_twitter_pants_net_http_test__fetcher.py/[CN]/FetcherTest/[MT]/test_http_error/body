@@ -1,0 +1,9 @@
+def test_http_error(self):
+    self.requests.get('http://foo', stream=True, timeout=60).AndReturn(self.response)
+    self.response.status_code = 404
+    self.listener.status(404)
+    self.response.close()
+    self.mox.ReplayAll()
+    with pytest.raises(self.fetcher.PermanentError) as e:
+        self.fetcher.fetch('http://foo', self.listener, chunk_size=Amount(1, Data.KB), timeout=Amount(1, Time.MINUTES))
+    self.assertEqual(404, e.value.response_code)

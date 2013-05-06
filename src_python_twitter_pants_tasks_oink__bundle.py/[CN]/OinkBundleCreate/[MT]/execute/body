@@ -7,7 +7,10 @@ def execute(self, targets):
             all_jars.append(jar_products)
     for oink_query in filter(self.is_oink_query, targets):
         oink_query.walk(_visitor, (lambda t: t.is_java))
-        all_jars.append(self.context.products.get('jar_dependencies').get(oink_query))
+        dependencies_with_excludes = defaultdict(list)
+        for (basedir, externaljar) in self.list_jar_dependencies(oink_query):
+            dependencies_with_excludes[basedir].append(externaljar)
+        all_jars.append(dependencies_with_excludes)
         self.context.log.debug(('all jar dependencies: %s' % all_jars))
         flattened_jar_paths = []
         for product_mapping in all_jars:

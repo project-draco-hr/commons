@@ -2,6 +2,4 @@
 def setUpClass(cls):
     super(WithLegacyResourcesTest, cls).setUpClass()
     cls.resource_path = 'a/b.js'
-    cls.create_file(os.path.join('resources', cls.resource_path), 'alert("!");')
-    cls.create_target('resources', ("resources(name='test', sources=['%s'])" % cls.resource_path))
-    cls.resources = cls.target('resources/BUILD:test')
+    cls.create_file(os.path.join('main/resources', cls.resource_path), 'alert("!");')

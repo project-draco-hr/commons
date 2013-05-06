@@ -1,0 +1,17 @@
+def download(self, url, listener=None, path_or_fd=None, chunk_size=None, timeout=None):
+    'Downloads data from the given URL.\n\n    By default data is downloaded to a temporary file.\n\n    :param string url: the url to GET data from\n    :param listener: an optional listener to notify of all download lifecycle events\n    :param path_or_fd: an optional file path or open file descriptor to write data to\n    :param chunk_size: the chunk size to use for buffering data\n    :param timeout: the maximum time to wait for data to be available\n    :returns: the path to the file data was downloaded to.\n    :raises: Fetcher.Error if there was a problem downloading all data from the given url.\n    '
+
+    @contextmanager
+    def download_fp(_path_or_fd):
+        if (_path_or_fd and (not isinstance(_path_or_fd, Compatibility.string))):
+            yield (_path_or_fd, _path_or_fd.name)
+        else:
+            if (not _path_or_fd):
+                (fd, _path_or_fd) = tempfile.mkstemp()
+                os.close(fd)
+            with safe_open(_path_or_fd, 'w') as fp:
+                yield (fp, _path_or_fd)
+    with download_fp(path_or_fd) as (fp, path):
+        listener = self.DownloadListener(fp).wrap(listener)
+        self.fetch(url, listener, chunk_size=chunk_size, timeout=timeout)
+        return path

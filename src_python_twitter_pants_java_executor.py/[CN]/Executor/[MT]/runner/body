@@ -1,0 +1,3 @@
+def runner(self, classpath, main, args=None, jvm_args=None):
+    'Returns an `Executor.Runner` for the given java command.'
+    return self._runner(*self._scrub_args(jvm_args, classpath, main, args))

@@ -1,0 +1,2 @@
+def test_classfile_jar_flagged(self):
+    self.assert_classfile_jar_contents(self.context(jar_create_classes=True))

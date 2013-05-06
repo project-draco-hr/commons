@@ -1,0 +1,5 @@
+self
+host
+port
+http_endpoint
+stats_dir

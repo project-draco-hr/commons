@@ -1,5 +1,0 @@
-@classmethod
-def create_file(cls, relpath, contents, mode='w'):
-    'Writes to a file under the buildroot.\n\n    relpath: The relative path to the file from the build root.\n    target: A string containing the contents of the file.\n    mode:   the mode to write to the file in - over-write by default.\n    '
-    with safe_open(os.path.join(cls.build_root, relpath), mode=mode) as fp:
-        fp.write(contents)

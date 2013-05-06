@@ -10,8 +10,8 @@ def set_up_mocks(self, su=None):
     stub2.AndReturn((0, 'test_br'))
     self.mox.StubOutWithMock(psutil, 'cpu_percent')
     psutil.cpu_percent(interval=1).AndReturn(1.0)
-    self.mox.StubOutWithMock(psutil, 'network_io_counters')
-    psutil.network_io_counters().AndReturn('1000,10000,1000')
+    self.mox.StubOutWithMock(psutil, 'net_io_counters')
+    psutil.net_io_counters().AndReturn('1000,10000,1000')
     self.mox.StubOutWithMock(psutil, 'NUM_CPUS')
     psutil.NUM_CPUS = 5
     self.mox.StubOutWithMock(socket, 'gethostname')

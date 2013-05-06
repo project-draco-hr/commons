@@ -1,0 +1,4 @@
+def __init__(self, digest=None):
+    'Creates a ChecksumListener with the given hashlib digest or else an MD5 digest if none is\n      supplied.\n\n      :param digest: the digest to use to checksum the received data, MDS by default\n      '
+    self.digest = (digest or hashlib.md5())
+    self._checksum = None

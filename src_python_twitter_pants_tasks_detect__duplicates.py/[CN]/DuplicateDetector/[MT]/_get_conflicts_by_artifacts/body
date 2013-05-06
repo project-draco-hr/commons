@@ -1,0 +1,7 @@
+def _get_conflicts_by_artifacts(self, artifacts_by_file_name):
+    conflicts_by_artifacts = defaultdict(set)
+    for (file_name, artifacts) in artifacts_by_file_name.items():
+        if ((not artifacts) or (len(artifacts) < 2)):
+            continue
+        conflicts_by_artifacts[tuple(sorted(artifacts))].add(file_name)
+    return conflicts_by_artifacts

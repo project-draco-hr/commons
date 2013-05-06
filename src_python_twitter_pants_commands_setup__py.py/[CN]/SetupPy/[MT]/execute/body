@@ -1,37 +1,14 @@
 def execute(self):
-    dist_dir = self._config.getdefault('pants_distdir')
-    target_base = ('%s-%s' % (self.target.provides.name, self.target.provides.version))
-    setup_dir = os.path.join(dist_dir, target_base)
-    expected_tgz = ('%s.tar.gz' % target_base)
-    expected_target = os.path.join(setup_dir, 'dist', expected_tgz)
-    dist_tgz = os.path.join(dist_dir, expected_tgz)
-    chroot = Chroot(dist_dir, name=self.target.provides.name)
-    self.write_contents(chroot)
-    self.write_setup(chroot)
-    safe_rmtree(setup_dir)
-    os.rename(chroot.path(), setup_dir)
-    with pushd(setup_dir):
-        cmd = ('%s setup.py %s' % (sys.executable, (self.options.run or 'sdist')))
-        print(('Running "%s" in %s' % (cmd, setup_dir)))
-        extra_args = ({} if self.options.run else dict(stdout=subprocess.PIPE, stderr=subprocess.PIPE))
-        po = subprocess.Popen(cmd, shell=True, **extra_args)
-        (stdout, stderr) = po.communicate()
-    if self.options.run:
-        print(('Ran %s' % cmd))
-        print(('Output in %s' % setup_dir))
-        return po.returncode
-    elif (po.returncode != 0):
-        print(('Failed to run %s!' % cmd))
-        for line in ''.join(stdout).splitlines():
-            print(('stdout: %s' % line))
-        for line in ''.join(stderr).splitlines():
-            print(('stderr: %s' % line))
-        return po.returncode
+    if self.options.recursive:
+        setup_targets = OrderedSet()
+
+        def add_providing_target(target):
+            if (isinstance(target, PythonTarget) and getattr(target, 'provides', None)):
+                setup_targets.add(target)
+                return OrderedSet(target.provides.binaries.values())
+        self.target.walk(add_providing_target)
     else:
-        if (not os.path.exists(expected_target)):
-            print(('Could not find expected target %s!' % expected_target))
-            sys.exit(1)
-        safe_delete(dist_tgz)
-        os.rename(expected_target, dist_tgz)
-        safe_rmtree(setup_dir)
-        print(('Wrote %s' % dist_tgz))
+        setup_targets = [self.target]
+    for target in setup_targets:
+        if (isinstance(target, PythonTarget) and target.provides):
+            self.run_one(target)

@@ -8,4 +8,4 @@ def genlang(self, lang, targets):
     self.context.log.debug(('Executing: %s' % ' '.join(args)))
     result = subprocess.call(args)
     if (result != 0):
-        raise TaskError()
+        raise TaskError(('%s ... exited non-zero (%i)' % (self.thriftstore_codegen, result)))

@@ -1,1 +1,2 @@
+from twitter.pants.base import manual
 from .python_target import PythonTarget

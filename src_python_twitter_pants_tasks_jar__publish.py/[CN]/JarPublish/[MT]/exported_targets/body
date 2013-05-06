@@ -1,6 +1,20 @@
 def exported_targets(self):
-    candidates = set((self.context.targets() if self.transitive else self.context.target_roots))
+    candidates = set()
+    if self.transitive:
+        candidates.update(self.context.targets())
+    else:
+        candidates.update(self.context.target_roots)
 
-    def exportable(target):
-        return ((target in candidates) and is_exported(target) and target.is_internal)
+        def get_synthetic(lang, target):
+            mappings = self.context.products.get(lang).get(target)
+            if mappings:
+                for generated in mappings.itervalues():
+                    for synthetic in generated:
+                        yield synthetic
+        for candidate in self.context.target_roots:
+            candidates.update(get_synthetic('java', candidate))
+            candidates.update(get_synthetic('scala', candidate))
+
+    def exportable(tgt):
+        return ((tgt in candidates) and is_exported(tgt))
     return OrderedSet(filter(exportable, reversed(InternalTarget.sort_targets(filter(exportable, candidates)))))

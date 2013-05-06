@@ -1,0 +1,6 @@
+@staticmethod
+def _fingerprint(jvm_args, classpath):
+    digest = hashlib.sha1()
+    digest.update(''.join(sorted(jvm_args)))
+    digest.update(''.join(sorted(classpath)))
+    return digest.hexdigest()

@@ -4,9 +4,11 @@ def console_output(self, targets):
     for target in self.context.target_roots:
         if all((self._is_jvm(t) for t in target.resolve() if t.is_concrete)):
             if self.is_graph:
-                return self._output_digraph(target)
+                for line in self._output_digraph(target):
+                    yield line
             else:
-                return self._output_dependency_tree(target)
+                for line in self._output_dependency_tree(target):
+                    yield line
         elif target.is_python:
             raise TaskError('Unsupported for Python targets')
         else:

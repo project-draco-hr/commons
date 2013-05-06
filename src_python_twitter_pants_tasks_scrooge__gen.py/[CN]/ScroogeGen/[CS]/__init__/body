@@ -1,8 +1,6 @@
-def __init__(self, context, strict=False, verbose=True):
-    NailgunTask.__init__(self, context)
-    self.strict = strict
-    self.verbose = verbose
-    for info in INFO_FOR_COMPILER.values():
-        config = info['config']
-        bootstrap_tools = context.config.getlist(config, 'bootstrap-tools', default=[(':%s' % config)])
-        self._jvm_tool_bootstrapper.register_jvm_tool(config, bootstrap_tools)
+def __init__(self, context):
+    super(ScroogeGen, self).__init__(context)
+    self.compiler_for_name = dict(((name, Compiler.fromConfig(context, config)) for (name, config) in _CONFIG_FOR_COMPILER.items()))
+    for (name, compiler) in self.compiler_for_name:
+        bootstrap_tools = context.config.getlist(compiler.config_section, 'bootstrap-tools', default=[(':%s' % compiler.profile)])
+        self._jvm_tool_bootstrapper.register_jvm_tool(compiler.name, bootstrap_tools)

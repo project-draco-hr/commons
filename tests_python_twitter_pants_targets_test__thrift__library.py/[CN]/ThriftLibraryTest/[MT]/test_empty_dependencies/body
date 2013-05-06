@@ -1,0 +1,4 @@
+def test_empty_dependencies(self):
+    target = self.target('valid:empty')
+    self.assertEquals(0, len(target.sources))
+    self.assertEquals(0, len(target.dependencies))

@@ -18,14 +18,12 @@ def __init__(self, context):
 
     def insert_java_dml_targets():
         self.gen_dml_jls = {}
-        for dml_lib_target in context.targets(is_thriftstore_dml_instance):
-            thrift_dml_lib = self.context.add_new_target(dml_lib_target.target_base, JavaThriftLibrary, name=dml_lib_target.id, sources=dml_lib_target.sources, dependencies=dml_lib_target.dependencies, derived_from=dml_lib_target)
-            java_dml_lib = self.context.add_new_target(self.gen_thriftstore_java_dir, JavaLibrary, name=dml_lib_target.id, sources=[], dependencies=self.javadeps, derived_from=dml_lib_target)
-            java_dml_lib.id = (dml_lib_target.id + '.thriftstore_dml_gen')
-            java_dml_lib.add_labels('synthetic')
+        for thrift_dml_lib in context.targets(is_thriftstore_dml_instance):
+            java_dml_lib = self.context.add_new_target(self.gen_thriftstore_java_dir, JavaLibrary, name=thrift_dml_lib.id, sources=[], dependencies=self.javadeps)
+            java_dml_lib.add_labels('codegen')
             java_dml_lib.update_dependencies([thrift_dml_lib])
-            self.gen_dml_jls[dml_lib_target] = java_dml_lib
+            self.gen_dml_jls[thrift_dml_lib] = java_dml_lib
         for (dependee, dmls) in context.dependents(is_thriftstore_dml_instance).items():
-            jls = map((lambda dml: self.gen_dml_jls[dml]), dmls)
-            dependee.update_dependencies(jls)
+            for jl in map((lambda dml: self.gen_dml_jls[dml]), dmls):
+                self.updatedependencies(dependee, jl)
     insert_java_dml_targets()

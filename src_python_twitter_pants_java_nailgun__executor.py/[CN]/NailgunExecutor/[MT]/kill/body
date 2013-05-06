@@ -1,0 +1,12 @@
+def kill(self):
+    'Kills the nailgun server owned by this executor if its currently running.'
+    endpoint = self._get_nailgun_endpoint()
+    if endpoint:
+        self._log_kill(endpoint.pid, endpoint.port)
+        try:
+            try:
+                os.kill(endpoint.pid, 9)
+            except OSError:
+                pass
+        finally:
+            os.remove(self._pidfile)

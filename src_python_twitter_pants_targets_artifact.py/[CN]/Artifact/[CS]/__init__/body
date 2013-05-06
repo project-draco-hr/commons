@@ -1,10 +1,21 @@
 def __init__(self, org, name, repo, description=None):
-    '\n      :org the originization of this artifact, the group id in maven parlance\n      :name the name of the artifact\n      :repo the repository this artifact is published to\n      :description a description of this artifact\n    '
-    self.org = org
-    self.name = name
-    self.rev = None
+    '\n    :param string org: Organization of this artifact, or groupId in maven parlance.\n    :param string name: Name of the artifact, or artifactId in maven parlance.\n    :param repo: :class:`twitter.pants.targets.repository.Repository`\n      this artifact is published to.\n    :param string description: Description of this artifact.\n    '
+    if (not isinstance(org, Compatibility.string)):
+        raise ValueError(('org must be %s but was %s' % (Compatibility.string, org)))
+    if (not isinstance(name, Compatibility.string)):
+        raise ValueError(('name must be %s but was %s' % (Compatibility.string, name)))
+    if (repo is None):
+        raise ValueError('repo must be supplied')
     repos = list(resolve(repo).resolve())
     if (len(repos) != 1):
         raise Exception(('An artifact must have exactly 1 repo, given: %s' % repos))
-    self.repo = repos[0]
+    repo = repos[0]
+    if (not isinstance(repo, (Pants, Repository))):
+        raise ValueError(('repo must be %s or %s but was %s' % (Repository.__name__, Pants.__name__, repo)))
+    if ((description is not None) and (not isinstance(description, Compatibility.string))):
+        raise ValueError(('description must be None or %s but was %s' % (Compatibility.string, description)))
+    self.org = org
+    self.name = name
+    self.rev = None
+    self.repo = repo
     self.description = description

@@ -1,0 +1,10 @@
+def attempt(self, timer, context, phases):
+    phase_executors = self._prepare(context, phases)
+    execution_phases = ' -> '.join(map(str, map((lambda e: e.phase.name), phase_executors)))
+    context.log.debug(('Executing goals in phases %s' % execution_phases))
+    explain = context.options.explain
+    if explain:
+        print ('Phase Execution Order:\n\n%s\n' % execution_phases)
+        print 'Phase [Goal->Task] Order:\n'
+    for phase_executor in phase_executors:
+        phase_executor.attempt(timer, explain)

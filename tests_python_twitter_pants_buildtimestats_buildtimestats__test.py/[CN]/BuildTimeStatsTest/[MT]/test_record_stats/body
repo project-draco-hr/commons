@@ -3,7 +3,7 @@ def test_record_stats(self):
     self.set_up_mocks()
     with temporary_file() as temp_fd:
         temp_filename = temp_fd.name
-        bs = BuildTimeStats(temp_filename)
+        bs = BuildTimeStats(temp_filename, False)
         bs.record_stats(timings, 100)
         with open(temp_filename, 'r') as stats_file:
             stats = json.load(temp_fd)
@@ -18,3 +18,4 @@ def test_record_stats(self):
     self.mox.VerifyAll()
     exp_calls = [{'/tmp/test/current_run.DEBUG': '/tmp/dummy/buildtime_uploader.global.DEBUG', }, {'/tmp/test/current_run.INFO': '/tmp/dummy/buildtime_uploader.global.INFO', }, {'/tmp/test/current_run.FATAL': '/tmp/dummy/buildtime_uploader.global.FATAL', }, {'/tmp/test/current_run.ERROR': '/tmp/dummy/buildtime_uploader.global.ERROR', }, {'/tmp/test/current_run.WARNING': '/tmp/dummy/buildtime_uploader.global.WARNING', }]
     self.assertEqual(bs.get_log_append_calls(), exp_calls)
+    self.assertEqual(bs.get_uploaded_stats(), False)

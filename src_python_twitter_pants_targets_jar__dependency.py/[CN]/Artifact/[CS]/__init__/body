@@ -1,7 +1,7 @@
-def __init__(self, name, type_, ext=None, conf=None, url=None, classifier=None):
-    "Initializes a new artifact specification.\n\n    name:       The name of the published artifact. This name must not include revision.\n    type_:      The type of the published artifact. It's usually its extension, but not necessarily.\n                For instance, ivy files are of type 'ivy' but have 'xml' extension.\n    ext:        The extension of the published artifact.\n    conf:       The public configuration in which this artifact is published. The '*' wildcard can\n                be used to designate all public configurations.\n    url:        The url at which this artifact can be found if it isn't located at the standard\n                location in the repository\n    classifier: The maven classifier of this artifact.\n    "
+def __init__(self, name, type_=None, ext=None, conf=None, url=None, classifier=None):
+    "\n    :param name: The name of the published artifact. This name must not include revision.\n    :param type_: The type of the published artifact. It's usually its extension, but not\n      necessarily. For instance, ivy files are of type 'ivy' but have 'xml' extension.\n    :param ext: The extension of the published artifact.\n    :param conf: The public configuration in which this artifact is published. The '*' wildcard can\n      be used to designate all public configurations.\n    :param url: The url at which this artifact can be found if it isn't located at the standard\n      location in the repository\n    :param classifier: The maven classifier of this artifact.\n    "
     self.name = name
-    self.type_ = type_
+    self.type_ = (type_ or 'jar')
     self.ext = ext
     self.conf = conf
     self.url = url

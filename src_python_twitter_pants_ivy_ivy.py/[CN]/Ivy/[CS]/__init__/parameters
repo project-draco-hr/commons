@@ -1,0 +1,5 @@
+self
+classpath
+java_executor
+ivy_settings
+ivy_cache_dir

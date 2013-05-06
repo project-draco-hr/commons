@@ -3,5 +3,7 @@ def _owning_targets(self, path):
         is_build_file = (build_file.full_path == os.path.join(get_buildroot(), path))
         for address in Target.get_all_addresses(build_file):
             target = Target.get(address)
-            if (target and (is_build_file or (target.has_sources() and self._owns(target, path)))):
+            if (target != target.derived_from):
+                continue
+            if (target and (is_build_file or ((target.has_sources() or target.has_resources) and self._owns(target, file_)))):
                 yield target

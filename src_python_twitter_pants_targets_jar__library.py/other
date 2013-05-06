@@ -1,2 +1,7 @@
-from twitter.pants.base import Target, TargetDefinitionException
+from functools import partial
+from twitter.common.collections import maybe_list, OrderedSet
+from twitter.pants.base import manual, Target, TargetDefinitionException
+from twitter.pants.base.target import TargetDefinitionException
+from .anonymous import AnonymousDeps
+from .external_dependency import ExternalDependency
 from .util import resolve

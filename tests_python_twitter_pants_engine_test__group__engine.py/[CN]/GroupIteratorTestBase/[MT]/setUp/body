@@ -1,0 +1,5 @@
+def setUp(self):
+    super(GroupIteratorTestBase, self).setUp()
+    self.red = GroupMember('colors', 'red', (lambda tgt: ('red' in tgt.name)))
+    self.green = GroupMember('colors', 'green', (lambda tgt: ('green' in tgt.name)))
+    self.blue = GroupMember('colors', 'blue', (lambda tgt: ('blue' in tgt.name)))

@@ -1,2 +1,8 @@
-from twitter.pants.base import TargetDefinitionException
+from collections import Iterable
+from functools import partial
+from twitter.common.collections import maybe_list
+from twitter.pants.base import manual, TargetDefinitionException
 from .exportable_jvm_library import ExportableJvmLibrary
+from .jar_dependency import JarDependency
+from .pants_target import Pants
+from .thrift_library import ThriftJar

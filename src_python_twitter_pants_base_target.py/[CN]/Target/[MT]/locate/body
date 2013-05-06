@@ -1,3 +1,0 @@
-def locate(self):
-    parse_context = ParseContext.locate()
-    return Address(parse_context.buildfile, self.name)

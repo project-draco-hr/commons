@@ -6,5 +6,5 @@ from twitter.common.dirutil import safe_mkdir
 from twitter.pants.base.build_environment import get_buildroot, get_version
 from twitter.pants.tasks import TaskError
 from twitter.pants.fs.archive import ZIP
-from twitter.pants.java import open_jar, Manifest
+from twitter.pants.java.jar import open_jar, Manifest
 from twitter.pants.tasks.jvm_binary_task import JvmBinaryTask

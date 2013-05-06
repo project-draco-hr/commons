@@ -1,0 +1,4 @@
+def context(self, config='', **options):
+    opts = dict(jar_create_outdir=self.jar_outdir)
+    opts.update(**options)
+    return create_context(config=config, options=self.create_options(**opts), target_roots=[self.jl, self.sl, self.jtl, self.tl])

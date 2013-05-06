@@ -1,0 +1,9 @@
+def test_force_upload(self):
+    timings = {'compile': {'checkstyle': [0.0005700588226318359], }, }
+    self.set_up_mocks()
+    with temporary_file() as temp_fd:
+        temp_filename = temp_fd.name
+        bs = BuildTimeStats(temp_filename, True)
+        bs.record_stats(timings, 100)
+    self.assertEqual(bs.get_uploaded_stats(), True)
+    self.mox.VerifyAll()

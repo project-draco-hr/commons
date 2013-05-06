@@ -1,3 +1,0 @@
-def _classpth(self, target):
-    key = INFO_FOR_COMPILER[target.compiler]['config']
-    return self._jvm_tool_bootstrapper.get_jvm_tool_classpath(key)

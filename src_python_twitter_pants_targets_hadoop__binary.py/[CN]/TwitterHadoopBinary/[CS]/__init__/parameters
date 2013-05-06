@@ -1,0 +1,9 @@
+self
+name
+main
+basename
+source
+resources
+dependencies
+excludes
+deploy_excludes

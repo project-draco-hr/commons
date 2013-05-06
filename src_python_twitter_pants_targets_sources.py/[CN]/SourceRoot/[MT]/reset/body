@@ -1,0 +1,6 @@
+@classmethod
+def reset(cls):
+    'Reset all source roots to empty. Only intended for testing.'
+    cls._ROOTS_BY_TYPE = {}
+    cls._TYPES_BY_ROOT = {}
+    cls._SEARCHED = set()

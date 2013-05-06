@@ -1,0 +1,6 @@
+def get_builddict_info(funcorclass):
+    "Return None if arg doesn't belong in BUILD dictionary, else something"
+    if hasattr(funcorclass, 'builddictdict'):
+        return getattr(funcorclass, 'builddictdict')
+    else:
+        return None

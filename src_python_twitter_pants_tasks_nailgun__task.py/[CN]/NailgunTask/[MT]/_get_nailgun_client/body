@@ -1,7 +1,0 @@
-def _get_nailgun_client(self, workunit):
-    with self._spawn_lock:
-        endpoint = self._get_nailgun_endpoint()
-        if endpoint:
-            return self._create_ngclient(port=endpoint[1], workunit=workunit)
-        else:
-            return self._spawn_nailgun_server(workunit)

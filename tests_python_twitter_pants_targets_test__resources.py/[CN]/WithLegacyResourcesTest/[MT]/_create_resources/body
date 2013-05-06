@@ -1,0 +1,3 @@
+def _create_resources(self):
+    self.create_target('main/resources', ("resources(name='test', sources=['%s'])" % self.resource_path))
+    return self.target('main/resources/BUILD:test')

@@ -1,0 +1,2 @@
+def finished(self):
+    self._checksum = self.digest.hexdigest()

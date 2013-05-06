@@ -1,8 +1,8 @@
-def idljar(self, jvm_targets, add_genjar):
-    for target in jvm_targets:
-        jar_name = ('%s-idl.jar' % jarname(target))
+def idljar(self, idl_targets, add_genjar):
+    for target in idl_targets:
+        jar_name = jarname(target, '-idl.jar')
         add_genjar(target, jar_name)
         jar_path = os.path.join(self._output_dir, jar_name)
-        with self.create_jar(target, jar_path) as zh:
+        with self.create_jar(target, jar_path) as jar:
             for source in target.sources:
-                zh.write(os.path.join(target.target_base, source), source)
+                jar.write(os.path.join(get_buildroot(), target.target_base, source), source)

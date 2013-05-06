@@ -1,0 +1,7 @@
+def __init__(self, name, dependencies=None):
+    self.dependencies = (OrderedSet(dependencies) if dependencies else OrderedSet())
+    self.internal_dependencies = OrderedSet()
+    self.interpreters = []
+    self.distributions = {}
+    self.chroots = {}
+    super(PythonRoot, self).__init__(name)

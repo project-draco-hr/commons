@@ -1,2 +1,2 @@
 def __init__(self, name, dependencies=None):
-    PythonTarget.__init__(self, name, (), (), dependencies)
+    super(PythonTestSuite, self).__init__(name, (), (), dependencies)

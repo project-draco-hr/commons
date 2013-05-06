@@ -1,0 +1,3 @@
+@classmethod
+def _namespace(cls, identifier):
+    return ('__%s.%s__%s__' % (cls.__module__, cls.__name__, identifier))

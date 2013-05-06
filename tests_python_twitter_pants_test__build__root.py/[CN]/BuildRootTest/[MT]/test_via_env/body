@@ -1,0 +1,3 @@
+def test_via_env(self):
+    with environment_as(PANTS_BUILD_ROOT=self.new_root):
+        self.assertEqual(self.new_root, BuildRoot().path)

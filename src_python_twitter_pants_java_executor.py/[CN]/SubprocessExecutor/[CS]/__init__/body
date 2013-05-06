@@ -1,0 +1,3 @@
+def __init__(self, distribution=None, scrub_classpath=True):
+    super(SubprocessExecutor, self).__init__(distribution=distribution)
+    self._scrub_classpath = scrub_classpath

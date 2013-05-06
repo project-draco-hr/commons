@@ -1,0 +1,2 @@
+def _create_ngclient(self, port, stdout, stderr):
+    return NailgunClient(port=port, ins=self._ins, out=stdout, err=stderr, work_dir=get_buildroot())

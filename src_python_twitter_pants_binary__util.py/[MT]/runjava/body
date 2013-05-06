@@ -1,8 +1,0 @@
-def runjava(jvm_options=None, classpath=None, main=None, args=None, dryrun=False, workunit_factory=None, workunit_name=None, **kwargs):
-    'Spawns a java process with the supplied configuration and returns its exit code.\n  The args list is divisable so it can be split across multiple invocations of the command\n  similiar to xargs.\n  Passes kwargs through to subproccess.call.\n  '
-    cmd = _runjava_cmd(jvm_options=jvm_options, classpath=classpath, main=main)
-    if dryrun:
-        return _runjava_cmd_to_str(cmd)
-    else:
-        with safe_classpath():
-            return _subprocess_call_with_args(cmd, args, workunit_factory=workunit_factory, workunit_name=(workunit_name or main), **kwargs)

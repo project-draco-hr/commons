@@ -1,0 +1,2 @@
+def get_uploaded_stats(self):
+    return self._stats_http_client.called

@@ -1,4 +1,5 @@
 def genlang(self, lang, targets):
+    protobuf_binary = select_binary(self.protoc_supportdir, self.protoc_version, 'protoc', self.context.config)
     (bases, sources) = self._calculate_sources(targets)
     if (lang == 'java'):
         safe_mkdir(self.java_out)

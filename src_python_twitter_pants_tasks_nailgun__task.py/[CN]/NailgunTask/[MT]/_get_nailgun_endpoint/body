@@ -1,6 +1,0 @@
-def _get_nailgun_endpoint(self):
-    if (not self._current_pidport):
-        self._current_pidport = NailgunTask._find(self._identifier_arg)
-        if self._current_pidport:
-            self.context.log.debug(('found ng server @ pid:%d port:%d' % self._current_pidport))
-    return self._current_pidport

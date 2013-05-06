@@ -1,0 +1,3 @@
+def __init__(self, source_dir, setup_command, **kw):
+    self.__setup_command = setup_command.split()
+    super(SetupPyRunner, self).__init__(source_dir, **kw)

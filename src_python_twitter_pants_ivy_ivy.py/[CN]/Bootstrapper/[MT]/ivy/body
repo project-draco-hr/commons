@@ -1,0 +1,3 @@
+def ivy(self, java_executor=None):
+    'Returns an ivy instance bootstrapped by this bootstrapper.\n\n    :raises: Bootstrapper.Error if ivy could not be bootstrapped\n    '
+    return Ivy(self.classpath, java_executor=java_executor, ivy_settings=self.ivy_settings, ivy_cache_dir=self.ivy_cache_dir)

@@ -1,0 +1,3 @@
+def msg_entry(nom, defn):
+    'For hard-wired entries a la "See Instead" or other simple stuff'
+    return entry(nom, msg_rst=defn)

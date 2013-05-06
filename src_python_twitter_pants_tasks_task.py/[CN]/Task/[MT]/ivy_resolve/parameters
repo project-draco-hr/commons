@@ -1,6 +1,6 @@
 self
 targets
-java_runner
+executor
 symlink_ivyxml
 silent
 workunit_name

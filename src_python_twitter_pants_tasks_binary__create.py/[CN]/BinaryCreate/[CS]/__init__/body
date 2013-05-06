@@ -1,6 +1,6 @@
 def __init__(self, context):
     JvmBinaryTask.__init__(self, context)
-    self.outdir = (context.options.jvm_binary_create_outdir or context.config.get('binary-create', 'outdir'))
+    self.outdir = os.path.abspath((context.options.jvm_binary_create_outdir or context.config.get('binary-create', 'outdir', default=context.config.getdefault('pants_distdir'))))
     self.compression = (ZIP_DEFLATED if context.options.binary_create_compressed else ZIP_STORED)
     self.zip64 = (context.options.binary_create_zip64 or context.config.getbool('binary-create', 'zip64', default=False))
     self.deployjar = context.options.jvm_binary_create_deployjar

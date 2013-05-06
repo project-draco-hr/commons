@@ -1,0 +1,4 @@
+def setUp(self):
+    super(XargsTest, self).setUp()
+    self.call = self.mox.CreateMockAnything()
+    self.xargs = Xargs(self.call)

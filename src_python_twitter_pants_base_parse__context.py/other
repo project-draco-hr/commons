@@ -1,9 +1,9 @@
 import collections
 import copy
 import os
-import os.path
 from contextlib import contextmanager
 from twitter.common.lang import Compatibility
-from twitter.pants.base.build_environment import get_buildroot
-from twitter.pants.base import BuildFile
-from twitter.pants.base.fileset import Fileset
+from twitter.pants.targets import SourceRoot
+from .build_environment import get_buildroot
+from .fileset import Fileset
+from . import BuildFile, Config

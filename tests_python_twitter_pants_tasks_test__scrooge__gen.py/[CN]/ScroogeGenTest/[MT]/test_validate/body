@@ -1,0 +1,8 @@
+def test_validate(self):
+    self.create_target('test_validate', dedent("\n      java_thrift_library(name='one',\n        sources=None,\n        dependencies=None,\n      )\n    "))
+    self.create_target('test_validate', dedent("\n      java_thrift_library(name='two',\n        sources=None,\n        dependencies=[pants(':one')],\n      )\n    "))
+    self.create_target('test_validate', dedent("\n      java_thrift_library(name='three',\n        sources=None,\n        dependencies=[pants(':one')],\n        rpc_style='finagle',\n      )\n    "))
+    ScroogeGen._validate([self.target('test_validate:one')])
+    ScroogeGen._validate([self.target('test_validate:two')])
+    with pytest.raises(TaskError):
+        ScroogeGen._validate([self.target('test_validate:three')])

@@ -1,34 +1,8 @@
 @classmethod
 def minified_dependencies(cls, root_target):
-    "Minify the dependencies of a PythonTarget.\n\n       The algorithm works in the following fashion:\n\n         1. Recursively resolve every dependency starting at root_target (the thing\n            that setup_py is being called against).  This includes the dependencies\n            of any binaries attached to the PythonArtifact using with_binaries\n         2. For every PythonTarget that provides a PythonArtifact, add an\n            entry for it to depmap[], keyed on the artifact name, containing\n            an OrderedSet of all transitively resolved children\n            dependencies.\n         3. Any concrete target with sources that is provided by another PythonArtifact\n            other than the one being built with setup_py will be elided.\n\n       Downsides:\n         - Explicitly requested dependencies may be elided if transitively included by others,\n           e.g.\n             python_library(\n               ...,\n               dependencies = [\n                  pants('src/python/twitter/common/dirutil'),\n                  pants('src/python/twitter/common/python'),\n               ]\n            )\n          will result in only twitter.common.python being exported even if top-level sources\n          directly reference twitter.common.dirutil, which could be considered a leak.\n    "
-    depmap = defaultdict(OrderedSet)
-    providers = []
-
-    def combined_dependencies(target):
-        dependencies = getattr(target, 'dependencies', OrderedSet())
-        if (isinstance(target, PythonTarget) and target.provides):
-            return (dependencies | OrderedSet(target.provides.binaries.values()))
-        else:
-            return dependencies
-
-    def resolve(target, parents=None):
-        parents = (parents or set())
-        if (isinstance(target, PythonTarget) and target.provides):
-            providers.append(target.provides.key)
-        for dependency in combined_dependencies(target):
-            for prv in providers:
-                for dep in dependency.resolve():
-                    depmap[prv].add(dep)
-                    if (dep in parents):
-                        raise TargetDefinitionException(root_target, ('%s and %s combined have a cycle!' % (root_target, dep)))
-                    parents.add(dep)
-                    resolve(dep, parents)
-                    parents.remove(dep)
-        if (isinstance(target, PythonTarget) and target.provides):
-            assert (providers[(-1)] == target.provides.key)
-            providers.pop()
-    resolve(root_target)
-    root_deps = depmap.pop(root_target.provides.key, {})
+    'Minify the dependencies of a PythonTarget.'
+    depmap = cls.construct_provider_map(root_target)
+    root_deps = depmap.pop(root_target, OrderedSet())
 
     def elide(target):
         if any(((target in depset) for depset in depmap.values())):

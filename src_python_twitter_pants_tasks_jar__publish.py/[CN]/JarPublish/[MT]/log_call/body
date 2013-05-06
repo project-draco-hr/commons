@@ -1,2 +1,0 @@
-def log_call(self, cmd):
-    self.context.log.debug(('Executing: %s' % ' '.join(cmd)))

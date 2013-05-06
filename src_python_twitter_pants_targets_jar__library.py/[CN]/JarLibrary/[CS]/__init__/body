@@ -4,7 +4,7 @@ def __init__(self, name, dependencies, exclusives=None):
     if (dependencies is None):
         raise TargetDefinitionException(self, 'A dependencies list must be supplied even if empty.')
     self.add_labels('jars')
-    self.dependencies = resolve(dependencies)
+    self.dependencies = OrderedSet(maybe_list(resolve(dependencies), expected_type=(ExternalDependency, AnonymousDeps, Target), raise_type=partial(TargetDefinitionException, self)))
     self.dependency_addresses = set()
     for dependency in self.dependencies:
         if hasattr(dependency, 'address'):

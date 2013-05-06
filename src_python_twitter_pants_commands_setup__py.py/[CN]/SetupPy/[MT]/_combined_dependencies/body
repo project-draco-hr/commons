@@ -1,0 +1,7 @@
+@classmethod
+def _combined_dependencies(cls, target):
+    dependencies = getattr(target, 'dependencies', OrderedSet())
+    if (isinstance(target, PythonTarget) and target.provides):
+        return (dependencies | OrderedSet(target.provides.binaries.values()))
+    else:
+        return dependencies

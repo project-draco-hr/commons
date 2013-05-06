@@ -1,6 +1,6 @@
 def __init__(self, name, url, push_db, exclusives=None):
-    'name: an identifier for the repo\n    url: the url used to access the repo and retrieve artifacts or artifact metadata\n    push_db: the data file associated with this repo that records artifact push history'
-    Target.__init__(self, name, exclusives=exclusives)
+    '\n    :param string name: Name of the repository.\n    :param string url: Optional URL of the repository.\n    :param string push_db: Path of the push history file.\n    '
+    super(Repository, self).__init__(name, exclusives=exclusives)
     self.name = name
     self.url = url
     self.push_db = push_db

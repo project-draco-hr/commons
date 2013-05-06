@@ -1,0 +1,4 @@
+def _maybe_apply_deps(self):
+    if (self._deps is not None):
+        self.update_dependencies(self._deps)
+        self._deps = None

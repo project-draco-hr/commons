@@ -1,3 +1,4 @@
+@manual.builddict()
 def exclude(self, org, name=None):
     'Adds a transitive dependency of this jar to the exclude list.'
     self.excludes.append(Exclude(org, name))

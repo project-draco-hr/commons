@@ -1,0 +1,10 @@
+def write_gen_file_map_for_target(self, gen_file_map, target, outdir):
+
+    def calc_srcs(target):
+        (_, srcs) = calculate_compile_sources([target], self.is_gentarget)
+        return srcs
+    with safe_open(self.gen_file_map_path_for_target(target, outdir), 'w') as f:
+        for src in sorted(calc_srcs(target)):
+            clss = gen_file_map[src]
+            for cls in sorted(clss):
+                print(('%s -> %s' % (src, os.path.join(outdir, cls))), file=f)

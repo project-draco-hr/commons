@@ -1,0 +1,17 @@
+def render_timing_report(self):
+    "Renders this timer's timings into the classic pants timing report format."
+    report = 'Timing report\n=============\n'
+    for (phase, timings) in self.timings.items():
+        phase_time = None
+        for (goal, times) in timings.items():
+            if (len(times) > 1):
+                report += ('[%(phase)s:%(goal)s(%(numsteps)d)] %(timings)s -> %(total).3fs\n' % {'phase': phase.name, 'goal': goal.name, 'numsteps': len(times), 'timings': ','.join((('%.3fs' % t) for t in times)), 'total': sum(times), })
+            else:
+                report += ('[%(phase)s:%(goal)s] %(total).3fs\n' % {'phase': phase.name, 'goal': goal.name, 'total': sum(times), })
+            if (not phase_time):
+                phase_time = 0
+            phase_time += sum(times)
+        if (len(timings) > 1):
+            report += ('[%(phase)s] total: %(total).3fs\n' % {'phase': phase.name, 'total': phase_time, })
+    report += ('total: %.3fs' % self.elapsed)
+    return report

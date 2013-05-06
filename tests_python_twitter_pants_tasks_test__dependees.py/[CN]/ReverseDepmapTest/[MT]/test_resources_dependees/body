@@ -1,0 +1,2 @@
+def test_resources_dependees(self):
+    self.assert_console_output('src/java/a/BUILD:a_java', targets=[self.target('resources/a:a_resources')])

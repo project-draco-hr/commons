@@ -5,19 +5,15 @@ def execute(self, targets):
             bootstrapped_cp = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._junit_bootstrap_key)
             junit_classpath = self.classpath(bootstrapped_cp, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0]))
 
-            def run_tests(classpath, main, jvm_options=None):
-
-                def test_workunit_factory(name, labels=list(), cmd=''):
-                    return self.context.new_workunit(name=name, labels=([WorkUnit.TEST] + labels), cmd=cmd)
+            def run_tests(classpath, main, jvm_args=None):
                 result = 0
                 for batch in self._partition(tests):
                     with binary_util.safe_args(batch) as batch_tests:
-                        args = (self._args + batch_tests)
-                        result += abs(binary_util.runjava_indivisible(jvm_options=((jvm_options or []) + self.jvm_options), classpath=classpath, main=main, args=args, workunit_factory=test_workunit_factory, workunit_name='run'))
+                        result += abs(execute_java(classpath=classpath, main=main, args=(self.opts + batch_tests), jvmargs=((jvm_args or []) + self.java_args), workunit_labels=[WorkUnit.TEST], workunit_name='run'))
                         if ((result != 0) and self.fail_fast):
                             break
                 if (result != 0):
-                    raise TaskError()
+                    raise TaskError(('java %s ... exited non-zero (%i)' % (main, result)))
             if self.coverage:
                 emma_classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._emma_bootstrap_key)
 
@@ -27,9 +23,10 @@ def execute(self, targets):
                         args = ['instr', '-out', self.coverage_metadata_file, '-d', self.coverage_instrument_dir, '-cp', os.pathsep.join(junit_classpath), '-exit']
                         for pattern in patterns:
                             args.extend(['-filter', pattern])
-                        result = binary_util.runjava_indivisible(classpath=emma_classpath, main='emma', args=args, workunit_name='emma')
+                        main = 'emma'
+                        result = execute_java(emma_classpath, main, args=args, workunit_name='emma')
                         if (result != 0):
-                            raise TaskError(('Emma instrumentation failed with: %d' % result))
+                            raise TaskError(("java %s ... exited non-zero (%i) 'failed to instrument'" % (main, result)))
 
                 def generate_reports():
                     args = ['report', '-in', self.coverage_metadata_file, '-in', self.coverage_file, '-exit']
@@ -49,9 +46,10 @@ def execute(self, targets):
                         args.extend(['-r', 'xml', ('-Dreport.xml.out.file=%s' % self.coverage_xml_file)])
                     if self.coverage_report_html:
                         args.extend((['-r', 'html', ('-Dreport.html.out.file=%s' % self.coverage_html_file), '-Dreport.out.encoding=UTF-8'] + sorting))
-                    result = binary_util.runjava_indivisible(classpath=emma_classpath, main='emma', args=args, workunit_name='emma')
+                    main = 'emma'
+                    result = execute_java(emma_classpath, main, args=args, workunit_name='emma')
                     if (result != 0):
-                        raise TaskError(('Failed to emma generate code coverage reports: %d' % result))
+                        raise TaskError(("java %s ... exited non-zero (%i) 'failed to generate code coverage reports'" % (main, result)))
                     if self.coverage_report_console:
                         with safe_open(self.coverage_console_file) as console_report:
                             sys.stdout.write(console_report.read())
@@ -59,7 +57,7 @@ def execute(self, targets):
                         binary_util.ui_open(self.coverage_html_file)
                 instrument_code()
                 try:
-                    run_tests((([self.coverage_instrument_dir] + junit_classpath) + emma_classpath), 'com.twitter.common.testing.runner.JUnitConsoleRunner', jvm_options=[('-Demma.coverage.out.file=%s' % self.coverage_file)])
+                    run_tests((([self.coverage_instrument_dir] + junit_classpath) + emma_classpath), 'com.twitter.common.junit.runner.ConsoleRunner', jvm_args=[('-Demma.coverage.out.file=%s' % self.coverage_file)])
                 finally:
                     generate_reports()
             else:

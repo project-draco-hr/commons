@@ -1,0 +1,4 @@
+def __init__(self, context, phase, tasks_by_goal):
+    self._context = context
+    self._phase = phase
+    self._tasks_by_goal = tasks_by_goal

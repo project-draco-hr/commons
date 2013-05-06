@@ -4,13 +4,10 @@ from collections import defaultdict
 import itertools
 import os
 import pprint
-import subprocess
-import sys
-import time
 from twitter.common.collections import OrderedSet
-from twitter.common.contextutil import pushd
-from twitter.common.dirutil import safe_delete, safe_rmtree
+from twitter.common.dirutil import safe_rmtree
 from twitter.common.dirutil.chroot import Chroot
+from twitter.common.python.installer import InstallerBase, Packager
 from twitter.pants.base import Address, Config, Target, TargetDefinitionException
 from twitter.pants.python.antlr_builder import PythonAntlrBuilder
 from twitter.pants.python.thrift_builder import PythonThriftBuilder

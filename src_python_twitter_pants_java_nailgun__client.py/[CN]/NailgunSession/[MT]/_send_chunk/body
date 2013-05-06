@@ -1,0 +1,4 @@
+@classmethod
+def _send_chunk(cls, sock, command, payload=''):
+    header = struct.pack(cls.HEADER_FMT, len(payload), command)
+    sock.sendall((header + payload))

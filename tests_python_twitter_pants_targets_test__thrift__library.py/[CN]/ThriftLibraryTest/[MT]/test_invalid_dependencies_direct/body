@@ -1,0 +1,3 @@
+def test_invalid_dependencies_direct(self):
+    with pytest.raises(TargetDefinitionException):
+        self.target('invalid/direct:jar')

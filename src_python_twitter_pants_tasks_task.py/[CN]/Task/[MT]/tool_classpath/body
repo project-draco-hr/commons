@@ -1,2 +1,2 @@
-def tool_classpath(self, key, java_runner=None):
-    return self._jvm_tool_bootstrapper.get_jvm_tool_classpath(key, java_runner)
+def tool_classpath(self, key, executor=None):
+    return self._jvm_tool_bootstrapper.get_jvm_tool_classpath(key, executor)

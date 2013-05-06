@@ -1,9 +1,0 @@
-def _ng_shutdown(self):
-    endpoint = self._get_nailgun_endpoint()
-    if endpoint:
-        (pid, port) = endpoint
-        NailgunTask._log_kill(self.context.log, pid, port)
-        try:
-            os.kill(pid, 9)
-        except OSError:
-            pass

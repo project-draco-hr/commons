@@ -1,0 +1,9 @@
+{
+  Properties properties=System.getProperties();
+  Enumeration keys=properties.propertyNames();
+  while (keys.hasMoreElements()) {
+    String key=(String)keys.nextElement();
+    String value=properties.getProperty(key);
+    System.out.println(key + "=" + value);
+  }
+}

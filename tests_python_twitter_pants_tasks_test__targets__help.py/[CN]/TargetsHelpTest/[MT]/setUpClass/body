@@ -1,0 +1,4 @@
+@classmethod
+def setUpClass(cls):
+    super(TargetsHelpTest, cls).setUpClass()
+    SourceRoot.register(os.path.join(get_buildroot(), 'fakeroot'), TargetsHelpTest.MyTarget)

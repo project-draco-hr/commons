@@ -1,0 +1,5 @@
+def closure(self):
+    os = OrderedSet()
+    for target in (self.dependencies | self.internal_dependencies):
+        os.update(target.closure())
+    return os

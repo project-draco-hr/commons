@@ -1,32 +1,15 @@
 def __init__(self, name, binary, bundles, basename=None):
-    InternalTarget.__init__(self, name, dependencies=[])
-    if (not binary):
-        raise TargetDefinitionException(self, 'binary is required')
-    binaries = [t for t in util.resolve(binary).resolve() if t.is_concrete]
-    if ((len(binaries) != 1) or (not isinstance(binaries[0], JvmBinary))):
-        raise TargetDefinitionException(self, ('must supply exactly 1 JvmBinary, got %s' % binary))
-    self.binary = binaries[0]
-    self._post_construct(self.update_dependencies, binaries)
-    if (not bundles):
-        raise TargetDefinitionException(self, 'bundles must be specified')
-
-    def is_resolvable(item):
-        return hasattr(item, 'resolve')
-
-    def is_bundle(bundle):
-        return isinstance(bundle, Bundle)
-
-    def resolve(item):
-        return (list(item.resolve()) if is_resolvable(item) else [None])
-    if is_resolvable(bundles):
-        bundles = resolve(bundles)
-    self.bundles = []
-    try:
-        for item in iter(bundles):
-            for bundle in resolve(item):
-                if (not is_bundle(bundle)):
-                    raise TypeError()
-                self.bundles.append(bundle)
-    except TypeError:
-        raise TargetDefinitionException(self, ('bundles must be one or more Bundle objects, got %s' % bundles))
+    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param binary: The :class:`twitter.pants.targets.jvm_binary.JvmBinary`,\n      or a :class:`twitter.pants.targets.pants_target.Pants` pointer to one.\n    :param bundles: One or more :class:`twitter.pants.targets.jvm_binary.Bundle`\'s\n      describing "extra files" that should be included with this app\n      (e.g.: config files, startup scripts).\n    :param string basename: Name of this application, if different from the\n      ``name``. Pants uses this in the ``bundle`` goal to name the distribution\n      artifact. In most cases this parameter is not necessary.\n    '
+    InternalTarget.__init__(self, name, dependencies=[binary])
+    binary_list = list()
+    for b in maybe_list(util.resolve(binary), expected_type=(Pants, JvmBinary), raise_type=partial(TargetDefinitionException, self)):
+        binary_list.extend(b.resolve())
+    if (len(binary_list) != 1):
+        raise TargetDefinitionException(self, ('binary must resolve to a JvmBinary target, found %s' % binary))
+    self._binary = binary
+    self._bundles = maybe_list(bundles, expected_type=Bundle, raise_type=partial(TargetDefinitionException, self))
+    if (name == basename):
+        raise TargetDefinitionException(self, 'basename must not equal name.')
     self.basename = (basename or name)
+    self._resolved_binary = None
+    self._resolved_bundles = []

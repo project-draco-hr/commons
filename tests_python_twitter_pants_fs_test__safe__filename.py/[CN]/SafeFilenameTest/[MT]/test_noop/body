@@ -1,0 +1,3 @@
+def test_noop(self):
+    self.assertEqual('jack.jill', safe_filename('jack', '.jill', max_length=9))
+    self.assertEqual('jack.jill', safe_filename('jack', '.jill', max_length=100))

@@ -1,4 +1,0 @@
-@staticmethod
-def _find_ngs(everywhere=False):
-    arg = (NailgunTask.PANTS_NG_ARG_PREFIX if everywhere else NailgunTask.PANTS_NG_ARG)
-    return NailgunProcessManager._find_matching_pids([arg])

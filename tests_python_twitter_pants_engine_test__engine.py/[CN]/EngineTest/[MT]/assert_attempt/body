@@ -1,0 +1,6 @@
+def assert_attempt(self, engine, *phase_names):
+    self.assertEqual(1, len(engine.attempts))
+    (timer, context, phases) = engine.attempts[0]
+    self.assertTrue((timer.elapsed >= 0), 'Expected timer to be finished.')
+    self.assertEqual(self.context, context)
+    self.assertEqual(self.as_phases(*phase_names), phases)

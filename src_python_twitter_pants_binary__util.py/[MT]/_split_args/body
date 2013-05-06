@@ -1,4 +1,0 @@
-def _split_args(i):
-    l = list(i)
-    half = (len(l) // 2)
-    return (l[:half], l[half:])

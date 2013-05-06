@@ -1,0 +1,16 @@
+def _exec_ivy(self, target_workdir, targets, args):
+    ivyxml = os.path.join(target_workdir, 'ivy.xml')
+    (jars, excludes) = self._calculate_classpath(targets)
+    self._generate_ivy(jars, excludes, ivyxml)
+    ivy_args = ['-ivy', ivyxml]
+    if (LogOptions.stderr_log_level() == logging.DEBUG):
+        ivy_args.append('-verbose')
+    ivy_args.extend(args)
+    if (not self._transitive):
+        ivy_args.append('-notransitive')
+    ivy_args.extend(self._ivy_args)
+    try:
+        ivy = self._ivy_bootstrapper.ivy(self.java_executor)
+        ivy.execute(ivy_args, jvm_args=self._jvm_args)
+    except (Bootstrapper.Error, Ivy.Error) as e:
+        raise TaskError(('Failed to execute ivy call! %s' % e))

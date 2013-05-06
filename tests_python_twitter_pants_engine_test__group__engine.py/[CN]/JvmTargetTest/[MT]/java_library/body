@@ -1,0 +1,3 @@
+@classmethod
+def java_library(cls, path, name, deps=None):
+    cls.jvm_library(path, 'java_library', name, deps)

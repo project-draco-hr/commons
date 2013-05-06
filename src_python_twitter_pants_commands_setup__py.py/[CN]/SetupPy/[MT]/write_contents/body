@@ -1,4 +1,4 @@
-def write_contents(self, chroot):
+def write_contents(self, root_target, chroot):
     'Write contents of the target.'
 
     def write_target_source(target, src):
@@ -20,7 +20,7 @@ def write_contents(self, chroot):
         else:
             for source in (list(target.sources) + list(target.resources)):
                 write_target_source(target, source)
-    write_target(self.target)
-    for dependency in self.minified_dependencies(self.target):
+    write_target(root_target)
+    for dependency in self.minified_dependencies(root_target):
         if (isinstance(dependency, PythonTarget) and (not dependency.provides)):
             write_target(dependency)

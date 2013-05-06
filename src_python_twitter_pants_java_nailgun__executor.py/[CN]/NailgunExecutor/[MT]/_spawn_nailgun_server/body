@@ -1,0 +1,18 @@
+def _spawn_nailgun_server(self, fingerprint, jvm_args, classpath, stdout, stderr):
+    log.info(('No ng server found with fingerprint %s, spawning...' % fingerprint))
+    with safe_open(self._ng_out, 'w'):
+        pass
+    pid = os.fork()
+    if (pid != 0):
+        return self._await_nailgun_server(stdout, stderr)
+    os.setsid()
+    in_fd = open('/dev/null', 'r')
+    out_fd = safe_open(self._ng_out, 'w')
+    err_fd = safe_open(self._ng_err, 'w')
+    java = SubprocessExecutor(self._distribution)
+    jvm_args = (jvm_args + [self.PANTS_NG_ARG, self.create_pidfile_arg(self._pidfile), self._create_fingerprint_arg(fingerprint)])
+    process = java.spawn(jvm_args=jvm_args, classpath=classpath, main='com.martiansoftware.nailgun.NGServer', args=[':0'], stdin=in_fd, stdout=out_fd, stderr=err_fd, close_fds=True, cwd=get_buildroot())
+    with safe_open(self._pidfile, 'w') as pidfile:
+        pidfile.write(('%s:%d' % (fingerprint, process.pid)))
+    log.debug(('Spawned ng server with fingerprint %s @ %d' % (fingerprint, process.pid)))
+    os._exit(0)

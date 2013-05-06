@@ -9,7 +9,7 @@ def _generate_ivy_report(self, targets):
     reports = []
     (org, name) = self._ivy_utils.identify(targets)
     xsl = os.path.join(self._cachedir, 'ivy-report.xsl')
-    safe_mkdir(self._outdir, clean=True)
+    safe_mkdir(self._outdir, clean=False)
     for conf in self._confs:
         params = dict(org=org, name=name, conf=conf)
         xml = self._ivy_utils.xml_report_path(targets, conf)

@@ -1,4 +1,5 @@
 def __init__(self, spec, exclusives=None):
+    '\n    :param string spec: target address. E.g.,\n      src/main/java/com/twitter/common/util/BUILD:util\n    '
     parse_context = ParseContext.locate()
 
     def parse_address():
@@ -7,5 +8,9 @@ def __init__(self, spec, exclusives=None):
             return Address.parse(parse_context.buildfile.root_dir, pathish, False)
         else:
             return Address.parse(parse_context.buildfile.root_dir, spec, False)
-    self.address = parse_address()
+    try:
+        self.address = parse_address()
+    except IOError as e:
+        self.address = parse_context.buildfile.relpath
+        raise TargetDefinitionException(self, ('%s%s' % (self._DEFINITION_ERROR_MSG, e)))
     Target.__init__(self, self.address.target_name, reinit_check=False, exclusives=exclusives)

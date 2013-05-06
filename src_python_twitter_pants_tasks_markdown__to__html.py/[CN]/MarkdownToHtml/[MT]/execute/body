@@ -19,26 +19,27 @@ def execute(self, targets):
         for page in self.context.targets(is_page):
             if ((not page.dependencies) and (page not in interior_nodes)):
                 roots.add(page)
-    genmap = self.context.products.get('markdown_html')
+    plaingenmap = self.context.products.get('markdown_html')
+    wikigenmap = self.context.products.get('wiki_html')
     show = []
     for page in filter(is_page, targets):
         (_, ext) = os.path.splitext(page.source)
         if (ext in self.extensions):
 
-            def process_page(key, outdir, url_builder, config):
-                outputs = list()
-                if (css and self.standalone):
-                    outputs.append(css_relpath)
-                html_path = self.process(outdir, page.target_base, page.source, self.standalone, url_builder, config, css=css)
+            def process_page(key, outdir, url_builder, config, genmap, fragment=False):
+                html_path = self.process(outdir, page.target_base, page.source, (self.fragment or fragment), url_builder, config, css=css)
                 self.context.log.info(('Processed %s to %s' % (page.source, html_path)))
-                outputs.append(os.path.relpath(html_path, outdir))
-                genmap.add(key, outdir, outputs)
+                relpath = os.path.relpath(html_path, outdir)
+                genmap.add(key, outdir, [relpath])
                 return html_path
 
             def url_builder(linked_page, config=None):
                 (path, ext) = os.path.splitext(linked_page.source)
                 return (linked_page.name, os.path.relpath((path + '.html'), os.path.dirname(page.source)))
-            html = process_page(page, os.path.join(self.outdir, 'html'), url_builder, (lambda p: None))
+            page_path = os.path.join(self.outdir, 'html')
+            html = process_page(page, page_path, url_builder, (lambda p: None), plaingenmap)
+            if (css and (not self.fragment)):
+                plaingenmap.add(page, self.outdir, list(css_relpath))
             if (self.open and (page in roots)):
                 show.append(html)
             for wiki in page.wikis():
@@ -46,6 +47,6 @@ def execute(self, targets):
                 def get_config(page):
                     return page.wiki_config(wiki)
                 basedir = os.path.join(self.outdir, wiki.id)
-                process_page((wiki, page), basedir, wiki.url_builder, get_config)
+                process_page((wiki, page), basedir, wiki.url_builder, get_config, wikigenmap, fragment=True)
     if show:
         binary_util.ui_open(*show)

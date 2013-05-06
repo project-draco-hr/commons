@@ -1,0 +1,2 @@
+def __repr__(self):
+    return ('Distribution(%r, minimum_version=%r, jdk=%r)' % (self._bin_path, self._minimum_version, self._jdk))

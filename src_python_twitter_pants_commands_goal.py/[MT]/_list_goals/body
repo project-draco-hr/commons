@@ -1,4 +1,0 @@
-def _list_goals(context, message):
-    'Show all installed goals.'
-    context.log.error(message)
-    return Phase.execute(context, 'goals')

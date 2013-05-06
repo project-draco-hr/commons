@@ -1,0 +1,4 @@
+def assertDeps(self, target, expected_deps=None):
+    'Check that actual and expected dependencies of the given target match.\n\n    :param target: :class:`twitter.pants.base.target.Target` to check\n      dependencies of.\n    :param expected_deps: :class:`twitter.pants.base.target.Target` or list of\n      ``Target`` instances that are expected dependencies of ``target``.\n    '
+    expected_deps_list = maybe_list((expected_deps or []), expected_type=Target)
+    self.assertEquals(set(expected_deps_list), set(target.dependencies))

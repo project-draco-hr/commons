@@ -1,2 +1,9 @@
 def __init__(self, target, msg):
-    Exception.__init__(self, ('Error in target %s: %s' % (target.address, msg)))
+    address = getattr(target, 'address', None)
+    if (address is None):
+        try:
+            location = ParseContext.locate().current_buildfile
+        except ParseContext.ContextError:
+            location = 'unknown location'
+        address = ('unknown target of type %s in %s' % (target.__class__.__name__, location))
+    super(Exception, self).__init__(('Error with %s: %s' % (address, msg)))

@@ -1,4 +1,6 @@
 def bundle(self, app):
+    'Create a self-contained application bundle containing the target\n    classes, dependencies and resources.\n    '
+    assert isinstance(app, BundleCreate.App)
     bundledir = os.path.join(self.outdir, ('%s-bundle' % app.basename))
     self.context.log.info(('creating %s' % os.path.relpath(bundledir, get_buildroot())))
     safe_mkdir(bundledir, clean=True)
@@ -6,21 +8,23 @@ def bundle(self, app):
     if (not self.deployjar):
         libdir = os.path.join(bundledir, 'libs')
         os.mkdir(libdir)
+
+        def add_jars(target):
+            target_jars = self.context.products.get('jars').get(target)
+            if (target_jars is not None):
+                for (basedir, jars) in target_jars.items():
+                    for internaljar in jars:
+                        os.symlink(os.path.join(basedir, internaljar), os.path.join(libdir, internaljar))
+                        classpath.add(internaljar)
+        app.binary.walk(add_jars, (lambda t: t.is_internal))
         for (basedir, externaljar) in self.list_jar_dependencies(app.binary):
-            src = os.path.join(basedir, externaljar)
-            link_name = os.path.join(libdir, externaljar)
-            try:
-                os.symlink(src, link_name)
-            except OSError as e:
-                if (e.errno == errno.EEXIST):
-                    raise TaskError((('Trying to symlink %s to %s, but it is already symlinked to %s. ' % (link_name, src, os.readlink(link_name))) + 'Does the bundled target depend on multiple jvm_binary targets?'))
-                else:
-                    raise
+            path = os.path.join(basedir, externaljar)
+            os.symlink(path, os.path.join(libdir, externaljar))
             classpath.add(externaljar)
     for (basedir, jars) in self.context.products.get('jars').get(app.binary).items():
         if (len(jars) != 1):
-            raise TaskError(('Expected 1 mapped binary but found: %s' % jars))
-        binary = jars.pop()
+            raise TaskError(('Expected 1 mapped binary for %s but found: %s' % (app.binary, jars)))
+        binary = jars[0]
         binary_jar = os.path.join(basedir, binary)
         bundle_jar = os.path.join(bundledir, binary)
         if (not classpath):

@@ -1,0 +1,3 @@
+def test_resource_type_error(self):
+    self.create_target('root/resources/a1', dedent("\n      java_library(\n        name='a1',\n        sources=['a1.test'],\n        resources=[1]\n      )\n    "))
+    self.assert_console_raises(ValueError, workspace=self.workspace(files=['root/resources/a1/a1.test']))

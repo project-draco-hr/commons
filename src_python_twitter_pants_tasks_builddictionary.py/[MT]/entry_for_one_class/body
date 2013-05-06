@@ -1,0 +1,21 @@
+def entry_for_one_class(nom, klas):
+    "  Generate a BUILD dictionary entry for a class.\n  nom: name like 'python_binary'\n  klas: class like twitter.pants.python_binary"
+    try:
+        (args, varargs, varkw, defaults) = inspect.getargspec(klas.__init__)
+        argspec = inspect.formatargspec(args[1:], varargs, varkw, defaults)
+        funcdoc = klas.__init__.__doc__
+        methods = []
+        for attrname in dir(klas):
+            attr = getattr(klas, attrname)
+            attr_bdi = twitter.pants.base.get_builddict_info(attr)
+            if (not attr_bdi):
+                continue
+            if inspect.ismethod(attr):
+                methods.append(entry_for_one_method(attrname, attr))
+                continue
+            raise TaskError(('@manual.builddict on non-method %s within class %s but I only know what to do with methods' % (attrname, nom)))
+    except TypeError:
+        argspec = None
+        funcdoc = None
+        methods = None
+    return entry(nom, classdoc=klas.__doc__, argspec=argspec, funcdoc=funcdoc, methods=methods)

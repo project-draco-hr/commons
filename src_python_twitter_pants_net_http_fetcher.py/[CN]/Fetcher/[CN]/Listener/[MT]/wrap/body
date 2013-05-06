@@ -1,0 +1,20 @@
+def wrap(self, listener=None):
+    'Returns a Listener that wraps both the given listener and this listener, calling each in\n      turn for each callback method.\n      '
+    if (not listener):
+        return self
+
+
+    class Wrapper(Fetcher.Listener):
+
+        def status(wrapper, code, content_length=None):
+            listener.status(code, content_length=content_length)
+            self.status(code, content_length=content_length)
+
+        def recv_chunk(wrapper, data):
+            listener.recv_chunk(data)
+            self.recv_chunk(data)
+
+        def finished(wrapper):
+            listener.finished()
+            self.finished()
+    return Wrapper()

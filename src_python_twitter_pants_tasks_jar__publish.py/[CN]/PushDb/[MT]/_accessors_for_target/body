@@ -1,5 +1,5 @@
 def _accessors_for_target(self, target):
-    (jar_dep, id, exported) = target._get_artifact_info()
+    (jar_dep, _, exported) = target.get_artifact_info()
     if (not exported):
         raise ValueError
 

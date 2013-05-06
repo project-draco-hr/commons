@@ -1,0 +1,3 @@
+@classmethod
+def java_thrift_library(cls, path, name, *sources):
+    return cls.library(path, 'java_thrift_library', name, sources)

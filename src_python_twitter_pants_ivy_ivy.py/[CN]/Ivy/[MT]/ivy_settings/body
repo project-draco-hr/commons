@@ -1,0 +1,4 @@
+@property
+def ivy_settings(self):
+    'Returns the ivysettings.xml path used by this `Ivy` instance.'
+    return self._ivy_settings

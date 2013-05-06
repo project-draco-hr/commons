@@ -1,0 +1,6 @@
+def __init__(self, targets, group_members):
+    'Creates an iterator that yields tuples of ``(GroupMember, [chunk Targets])``.\n\n    Chunks will be returned least dependant to most dependant such that a group member processing a\n    chunk can be assured that any dependencies of the chunk have been processed already.\n\n    :param list targets: The universe of targets to divide up amongst group members.\n    :param list group_members: A list of group members that forms the group to iterate.\n    '
+    assert (len(map((lambda m: m.group), group_members)) != 1), 'Expected a single group'
+    assert (len(map((lambda m: m.name), group_members)) == len(group_members)), 'Expected group members with unique names'
+    self._targets = targets
+    self._group_members = group_members

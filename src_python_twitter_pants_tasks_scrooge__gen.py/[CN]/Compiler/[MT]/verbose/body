@@ -1,0 +1,6 @@
+@property
+def verbose(self):
+    if (self.context.options.scrooge_gen_quiet is not None):
+        return (not self.context.options.scrooge_gen_quiet)
+    else:
+        return self.context.config.getbool(self.config_section, 'verbose', default=False)

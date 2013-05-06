@@ -1,5 +1,9 @@
 import os
 import shutil
-from twitter.pants.binary_util import runjava_indivisible
+from twitter.pants.binary_util import profile_classpath, runjava_indivisible
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.tasks.jvm_task import JvmTask
+from twitter.pants.ivy import profile_classpath
+from twitter.pants.java import runjava
+from .jvm_task import JvmTask
+from . import Task, TaskError

@@ -1,0 +1,4 @@
+def test_args_resource_mapping_init(self):
+    options = {'args_resource_mapper_include_all': False, }
+    args_mapping = self.args.ArgsResourceMapper(create_context(config=sample_ini_test_1, options=options), select_targets=[], transitive=None, main='org.Main')
+    self.assertEquals(args_mapping.classdirs, ['/tmp/pants.d/javac/classes'])

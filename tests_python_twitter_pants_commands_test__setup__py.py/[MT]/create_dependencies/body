@@ -1,0 +1,6 @@
+def create_dependencies(depmap):
+    target_map = {}
+    with ParseContext.temp():
+        for (name, deps) in depmap.items():
+            target_map[name] = python_library(name=name, provides=setup_py(name=name, version='0.0.0'), dependencies=[pants((':%s' % dep)) for dep in deps])
+    return target_map

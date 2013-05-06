@@ -4,5 +4,12 @@ from contextlib import contextmanager
 from zipfile import ZIP_STORED, ZIP_DEFLATED
 from twitter.common.dirutil import safe_mkdir
 from twitter.pants.base.build_environment import get_buildroot
+from twitter.pants.fs import safe_filename
+from twitter.pants.java.jar import open_jar
+from twitter.pants.targets import JvmBinary, JavaThriftLibrary, ThriftLibrary
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.java import open_jar
-from twitter.pants.tasks import Task, TaskError
+from .javadoc_gen import javadoc
+from .scaladoc_gen import scaladoc
+from . import Task, TaskError
+DEFAULT_CONFS = ['default']

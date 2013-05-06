@@ -1,0 +1,3 @@
+def __init__(self, context, outstream=sys.stdout):
+    super(ConsoleTaskTest.Infinite, self).__init__(context, outstream)
+    self.halt = threading.Event()

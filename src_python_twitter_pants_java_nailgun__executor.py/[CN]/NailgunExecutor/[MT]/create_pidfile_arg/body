@@ -1,0 +1,3 @@
+@staticmethod
+def create_pidfile_arg(pidfile):
+    return ('-Dpidfile=%s' % os.path.relpath(pidfile, get_buildroot()))

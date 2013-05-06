@@ -1,0 +1,6 @@
+def test_validate_jdk(self):
+    with pytest.raises(Distribution.Error):
+        with self.distribution(executables=self.exe('java')) as jdk:
+            Distribution(bin_path=jdk, jdk=True).validate()
+    with self.distribution(executables=[self.exe('java'), self.exe('javac')]) as jdk:
+        Distribution(bin_path=jdk, jdk=True).validate()

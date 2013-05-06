@@ -1,0 +1,3 @@
+@staticmethod
+def _parse_java_version(version):
+    return Revision.semver(version.replace('_', '-'))

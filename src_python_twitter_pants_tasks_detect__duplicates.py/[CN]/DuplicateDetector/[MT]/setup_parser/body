@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    JvmBinaryTask.setup_parser(option_group, args, mkflag)
+    option_group.add_option(mkflag('fail-fast'), mkflag('fail-fast', negate=True), dest='fail_fast', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Fail fast if duplicate classes/resources are found.')

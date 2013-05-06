@@ -1,3 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    option_group.add_option(mkflag('all'), dest='goal_list_all', default=False, action='store_true', help='[%default] List all goals even if no description is available.')

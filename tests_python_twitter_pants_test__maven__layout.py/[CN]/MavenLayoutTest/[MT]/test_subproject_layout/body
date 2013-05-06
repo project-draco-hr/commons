@@ -1,0 +1,2 @@
+def test_subproject_layout(self):
+    self.assertEqual('projectA/subproject/src/main/java', self.target('projectA/subproject/src/main/java:test').target_base)

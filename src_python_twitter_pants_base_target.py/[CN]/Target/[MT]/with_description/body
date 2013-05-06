@@ -1,3 +1,5 @@
+@manual.builddict()
 def with_description(self, description):
+    'Set a human-readable description of this target.'
     self.description = description
     return self

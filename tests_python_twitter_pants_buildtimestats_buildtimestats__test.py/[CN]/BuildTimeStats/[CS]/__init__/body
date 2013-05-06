@@ -1,2 +1,3 @@
-def __init__(self, file_nm):
+def __init__(self, file_nm, force_upload):
     self._file = file_nm
+    self._force_upload = force_upload

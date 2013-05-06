@@ -1,0 +1,2 @@
+def select(self, target_class):
+    return OrderedSet((target for target in self.closure() if isinstance(target, target_class)))

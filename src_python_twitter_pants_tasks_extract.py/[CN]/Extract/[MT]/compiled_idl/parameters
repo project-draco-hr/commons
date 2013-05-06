@@ -1,6 +1,8 @@
 cls
-idl_dep
-generated_deps
+idl_deps
+name
 compiler
 language
+rpc_style
+generated_deps
 namespace_map

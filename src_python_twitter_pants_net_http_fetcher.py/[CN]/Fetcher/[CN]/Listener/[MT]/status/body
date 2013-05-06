@@ -1,0 +1,2 @@
+def status(self, code, content_length=None):
+    'Called when the response headers are received before data starts streaming.\n\n      :param int code: the HTTP response code\n      :param int content_length: the response Content-Length if known, otherwise None\n      '

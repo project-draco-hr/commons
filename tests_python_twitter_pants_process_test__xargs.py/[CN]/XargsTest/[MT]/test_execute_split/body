@@ -1,0 +1,6 @@
+def test_execute_split(self):
+    self.call(['one', 'two', 'three', 'four']).AndRaise(self.TOO_BIG)
+    self.call(['one', 'two']).AndReturn(0)
+    self.call(['three', 'four']).AndReturn(0)
+    self.mox.ReplayAll()
+    self.assertEqual(0, self.xargs.execute(['one', 'two', 'three', 'four']))

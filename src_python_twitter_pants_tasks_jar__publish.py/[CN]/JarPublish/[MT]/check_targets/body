@@ -1,6 +1,17 @@
 def check_targets(self, targets):
-    invalid = filter((lambda (t, reason): reason), zip(targets, map(self.is_invalid, targets)))
+    invalid = defaultdict(set)
+
+    def collect(publish_target, walked_target):
+        if (hasattr(walked_target, 'sources') and (not walked_target.sources)):
+            invalid[publish_target].add((walked_target, 'No sources.'))
+        if (hasattr(walked_target, 'provides') and (not walked_target.provides)):
+            invalid[publish_target].add((walked_target, 'Does not provide an artifact.'))
+    for target in targets:
+        target.walk(functools.partial(collect, target))
     if invalid:
-        target_reasons = '\n\t'.join((('%s: %s' % (tgt.address, reason)) for (tgt, reason) in invalid))
-        params = dict(roots=' '.join((str(t.address) for t in self.context.target_roots)), reasons=target_reasons)
-        raise TaskError(('The following targets must be fixed or removed in order to publish %(roots)s:\n\t%(reasons)s' % params))
+        msg = list()
+        for (target, reasons) in sorted(invalid.items(), reverse=True):
+            msg.append(('\n  Cannot publish %s due to:' % target.address))
+            for (invalid_target, reason) in sorted(reasons, reverse=True):
+                msg.append(('\n    %s - %s' % (invalid_target.address, reason)))
+        raise TaskError(('The following errors must be resolved to publish.%s' % ''.join(msg)))

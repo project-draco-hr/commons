@@ -1,0 +1,3 @@
+from textwrap import dedent
+from twitter.pants.tasks.sorttargets import SortTargets
+from . import ConsoleTaskTest

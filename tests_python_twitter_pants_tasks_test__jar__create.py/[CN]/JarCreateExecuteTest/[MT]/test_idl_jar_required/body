@@ -1,0 +1,4 @@
+def test_idl_jar_required(self):
+    context = self.context()
+    context.products.require('idl_jars')
+    self.assert_idl_jar_contents(context)

@@ -1,65 +1,26 @@
 def execute(self, targets):
-    gentargets_by_dependee = self.context.dependents(on_predicate=is_gentarget, from_predicate=(lambda t: (not is_gentarget(t))))
+    gentargets_by_dependee = self.context.dependants(on_predicate=self.is_gentarget, from_predicate=(lambda t: (not self.is_gentarget(t))))
     dependees_by_gentarget = defaultdict(set)
     for (dependee, tgts) in gentargets_by_dependee.items():
         for gentarget in tgts:
             dependees_by_gentarget[gentarget].add(dependee)
-    PartialCmd = namedtuple('PartialCmd', ['classpath', 'main', 'args'])
     partial_cmds = defaultdict(set)
-    gentargets = filter(is_gentarget, targets)
+    gentargets = filter(self.is_gentarget, targets)
     for target in gentargets:
-        args = []
-        language = target.language
-        args.append(('--language', language))
-        if (target.rpc_style == 'ostrich'):
-            args.append(('--finagle',))
-            args.append(('--ostrich',))
-        elif (target.rpc_style == 'finagle'):
-            args.append(('--finagle',))
-        if target.namespace_map:
-            for (lhs, rhs) in namespace_map([target]).items():
-                args.append(('--namespace-map', ('%s=%s' % (lhs, rhs))))
-        outdir = self._outdir(target)
-        args.append(('--dest', ('%s' % outdir)))
-        safe_mkdir(outdir)
-        if (not self._strict(target)):
-            args.append(('--disable-strict',))
-        if self._verbose(target):
-            args.append(('--verbose',))
-        classpath = self._classpth(target)
-        main = INFO_FOR_COMPILER[target.compiler]['main']
-        partial_cmd = PartialCmd(tuple(classpath), main, tuple(args))
+        partial_cmd = self.PartialCmd(compiler=self.compiler_for_name[target.compiler], language=target.language, rpc_style=target.rpc_style, namespace_map=(tuple(target.namespace_map.items()) if target.namespace_map else ()))
         partial_cmds[partial_cmd].add(target)
-    for (partial_cmd, targets) in partial_cmds.items():
-        classpath = partial_cmd.classpath
-        main = partial_cmd.main
-        args = list(partial_cmd.args)
-        compiler = list(targets)[0].compiler
-        calculate_compile_sources = INFO_FOR_COMPILER[compiler]['calculate_compile_sources']
-        (import_paths, sources) = calculate_compile_sources(targets, is_gentarget)
-        for import_path in import_paths:
-            args.append(('--import-path', import_path))
-        (gen_file_map_fd, gen_file_map_path) = tempfile.mkstemp()
-        os.close(gen_file_map_fd)
-        args.append(('--gen-file-map', gen_file_map_path))
-        args.extend(sources)
-        cmdline = JvmCommandLine(classpath=classpath, main=main, args=args)
-        returncode = cmdline.call()
-        if (0 == returncode):
-            outdir = value_from_seq_of_seq(args, '--dest')
-            gen_files_for_source = self.parse_gen_file_map(gen_file_map_path, outdir)
-        os.remove(gen_file_map_path)
-        if (0 != returncode):
-            raise TaskError(('java %s ... exited non-zero (%i)' % (main, returncode)))
+    for partial_cmd in partial_cmds:
+        self.profile_classpath(partial_cmd.compiler.profile)
+    for (partial_cmd, tgts) in partial_cmds.items():
+        gen_files_for_source = self.gen(partial_cmd, tgts)
+        outdir = partial_cmd.outdir
         langtarget_by_gentarget = {}
-        for target in targets:
+        for target in tgts:
             dependees = dependees_by_gentarget.get(target, [])
-            langtarget_by_gentarget[target] = self.createtarget(target, dependees, gen_files_for_source)
-        genmap = self.context.products.get(language)
-        synmap = self.context.products.get((language + ':rev'))
+            langtarget_by_gentarget[target] = self.createtarget(target, dependees, outdir, gen_files_for_source)
+        genmap = self.context.products.get(partial_cmd.language)
         for (gentarget, langtarget) in langtarget_by_gentarget.items():
-            synmap.add(langtarget, get_buildroot(), [gentarget])
             genmap.add(gentarget, get_buildroot(), [langtarget])
             for dep in gentarget.internal_dependencies:
-                if is_gentarget(dep):
+                if self.is_gentarget(dep):
                     langtarget.update_dependencies([langtarget_by_gentarget[dep]])

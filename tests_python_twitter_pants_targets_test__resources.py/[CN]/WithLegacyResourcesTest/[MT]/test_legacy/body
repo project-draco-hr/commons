@@ -1,6 +1,9 @@
 def test_legacy(self):
-    self.create_dir('main')
-    with ParseContext.temp('main'):
+    self.create_dir('main/src')
+    self.create_target('main', dedent("\n      from twitter.pants.targets.resources import WithLegacyResources\n      source_root('main', WithLegacyResources)\n      ").strip())
+    self.create_dir('main/resources')
+    with ParseContext.temp('main/src'):
         target = WithLegacyResources('test', resources=['a/b.js'])
-        self.assertEquals([self.resources], target.resources)
-        self.assertEquals([self.resource_path], self.resources.sources)
+        self.assertEqual(1, len(target.resources))
+        resources = target.resources.pop()
+        self.assertEquals([self.resource_path], resources.sources)

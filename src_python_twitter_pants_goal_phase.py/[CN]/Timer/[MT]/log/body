@@ -1,3 +1,0 @@
-def log(self, message):
-    'Logs timing results.'
-    self._log(message)

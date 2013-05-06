@@ -1,13 +1,5 @@
 from __future__ import print_function
-import sys
-import time
 from collections import defaultdict
-from optparse import OptionParser
-from twitter.common.collections import OrderedDict, OrderedSet
-from twitter.pants.base import TargetDefinitionException
-from twitter.pants.tasks import TaskError
-from .context import Context
-from .group import Group
-from . import GoalError
-STATS_COLLECTION = True
+from twitter.pants.base import manual
+from twitter.pants.goal import GoalError
 PhaseBase = SingletonPhases('PhaseBase', (object,), {})

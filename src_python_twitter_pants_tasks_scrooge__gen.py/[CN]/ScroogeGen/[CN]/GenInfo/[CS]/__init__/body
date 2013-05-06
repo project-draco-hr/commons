@@ -1,3 +1,0 @@
-def __init__(self, gen, deps):
-    self.gen = gen
-    self.deps = deps

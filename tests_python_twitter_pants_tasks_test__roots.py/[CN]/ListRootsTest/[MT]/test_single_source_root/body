@@ -1,0 +1,4 @@
+def test_single_source_root(self):
+    with register_sourceroot() as sourceroot:
+        sourceroot(os.path.join(get_buildroot(), 'fakeroot'), ListRootsTest.TypeA, ListRootsTest.TypeB)
+        self.assert_console_output('fakeroot: TypeA,TypeB')

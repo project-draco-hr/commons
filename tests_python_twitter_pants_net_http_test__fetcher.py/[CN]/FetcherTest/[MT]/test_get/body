@@ -1,0 +1,7 @@
+def test_get(self):
+    for chunk in self.expect_get('http://bar', chunk_size_bytes=1024, timeout_secs=60):
+        self.listener.recv_chunk(chunk)
+    self.listener.finished()
+    self.response.close()
+    self.mox.ReplayAll()
+    self.fetcher.fetch('http://bar', self.listener, chunk_size=Amount(1, Data.KB), timeout=Amount(1, Time.MINUTES))

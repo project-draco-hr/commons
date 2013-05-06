@@ -1,0 +1,2 @@
+def get_concrete_target(self, target):
+    return (target.derived_from if isinstance(target, Target) else target)

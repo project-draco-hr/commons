@@ -1,6 +1,0 @@
-def _process_info(pid):
-    ps = ProcessProviderFactory.get()
-    ps.collect_set([pid])
-    handle = ps.get_handle(pid)
-    cmdline = handle.cmdline()
-    return ('%d (%s)' % (pid, cmdline))

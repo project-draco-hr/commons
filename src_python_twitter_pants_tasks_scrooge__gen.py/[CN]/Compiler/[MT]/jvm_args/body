@@ -1,0 +1,5 @@
+@property
+def jvm_args(self):
+    args = self.context.config.getlist(self.config_section, 'jvm_args', default=[])
+    args.append('-Dfile.encoding=UTF-8')
+    return args

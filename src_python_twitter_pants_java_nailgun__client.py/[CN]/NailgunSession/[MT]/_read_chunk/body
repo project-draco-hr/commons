@@ -1,0 +1,10 @@
+def _read_chunk(self, buff):
+    while (len(buff) < self.HEADER_LENGTH):
+        buff += self._sock.recv(self.BUFF_SIZE)
+    (payload_length, command) = struct.unpack(self.HEADER_FMT, buff[:self.HEADER_LENGTH])
+    buff = buff[self.HEADER_LENGTH:]
+    while (len(buff) < payload_length):
+        buff += self._sock.recv(self.BUFF_SIZE)
+    payload = buff[:payload_length]
+    rest = buff[payload_length:]
+    return (command, payload, rest)

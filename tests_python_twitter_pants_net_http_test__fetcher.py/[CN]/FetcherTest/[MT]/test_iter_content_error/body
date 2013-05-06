@@ -1,0 +1,10 @@
+def test_iter_content_error(self):
+    self.requests.get('http://foo', stream=True, timeout=60).AndReturn(self.response)
+    self.response.status_code = 200
+    self.response.headers = {}
+    self.listener.status(200, content_length=None)
+    self.response.iter_content(chunk_size=1024).AndRaise(requests.Timeout)
+    self.response.close()
+    self.mox.ReplayAll()
+    with pytest.raises(self.fetcher.TransientError):
+        self.fetcher.fetch('http://foo', self.listener, chunk_size=Amount(1, Data.KB), timeout=Amount(1, Time.MINUTES))

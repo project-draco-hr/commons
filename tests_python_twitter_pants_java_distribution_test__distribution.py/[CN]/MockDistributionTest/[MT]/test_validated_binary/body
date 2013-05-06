@@ -1,0 +1,6 @@
+def test_validated_binary(self):
+    with pytest.raises(Distribution.Error):
+        with self.distribution(files='jar', executables=self.exe('java')) as jdk:
+            Distribution(bin_path=jdk).binary('jar')
+    with self.distribution(executables=[self.exe('java'), self.exe('jar')]) as jdk:
+        Distribution(bin_path=jdk).binary('jar')

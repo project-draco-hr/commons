@@ -1,0 +1,2 @@
+def test_multi(self):
+    self.assert_console_output('internal-common.g.g', '  internal-common.f.f', 'internal-common.h.h', '  internal-common.f.f', 'internal-common.i.i', '  internal-common.g.g', '    internal-common.f.f', targets=[self.target('common/g'), self.target('common/h'), self.target('common/i')])

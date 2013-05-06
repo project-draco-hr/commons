@@ -1,0 +1,3 @@
+def __init__(self, scm, restrict_push_branches):
+    self.restrict_push_branches = frozenset((restrict_push_branches or ()))
+    self.scm = scm

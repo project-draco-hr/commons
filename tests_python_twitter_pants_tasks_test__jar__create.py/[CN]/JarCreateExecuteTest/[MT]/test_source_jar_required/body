@@ -1,0 +1,4 @@
+def test_source_jar_required(self):
+    context = self.context()
+    context.products.require('source_jars')
+    self.assert_source_jar_contents(context)

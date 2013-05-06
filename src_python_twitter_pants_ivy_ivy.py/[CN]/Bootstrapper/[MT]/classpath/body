@@ -1,0 +1,6 @@
+@property
+def classpath(self):
+    'Returns the bootstrapped ivy classpath as a list of jar paths.\n\n    :raises: Bootstrapper.Error if the classpath could not be bootstrapped\n    '
+    if (not self._classpath):
+        self._classpath = self._bootstrap_ivy_classpath()
+    return self._classpath

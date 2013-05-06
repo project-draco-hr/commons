@@ -1,7 +1,6 @@
 from __future__ import print_function
-import os
 import sys
 from twitter.pants.version import VERSION as _VERSION
-_BUILDROOT = None
+from .build_root import BuildRoot
 from twitter.pants.scm import Scm
 _SCM = None

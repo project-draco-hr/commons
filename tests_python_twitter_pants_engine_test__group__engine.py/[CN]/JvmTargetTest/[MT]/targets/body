@@ -1,0 +1,3 @@
+@classmethod
+def targets(cls, *addresses):
+    return map(cls.target, addresses)

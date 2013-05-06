@@ -1,1 +1,2 @@
-from twitter.pants.targets.exportable_jvm_library import ExportableJvmLibrary
+from twitter.pants.base import manual
+from .java_thrift_library import JavaThriftLibrary

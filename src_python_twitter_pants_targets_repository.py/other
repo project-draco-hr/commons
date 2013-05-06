@@ -1,1 +1,1 @@
-from twitter.pants.base import Target
+from twitter.pants.base import manual, Target

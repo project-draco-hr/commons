@@ -1,11 +1,11 @@
-def __init__(self, run_tracker, parent, name, labels=(), cmd=''):
+def __init__(self, run_tracker, parent, name, labels=None, cmd=''):
     "\n    - run_tracker: The RunTracker that tracks this WorkUnit.\n    - parent: The containing workunit, if any. E.g., 'compile' might contain 'java', 'scala' etc.,\n              'scala' might contain 'compile', 'split' etc.\n    - name: A short name for this work. E.g., 'resolve', 'compile', 'scala', 'zinc'.\n    - labels: An optional iterable of labels. The reporters can use this to decide how to\n              display information about this work.\n    - cmd: An optional longer string representing this work.\n           E.g., the cmd line of a compiler invocation.\n    "
     self._outcome = WorkUnit.UNKNOWN
     self.run_tracker = run_tracker
     self.parent = parent
     self.children = []
     self.name = name
-    self.labels = set(labels)
+    self.labels = set((labels or ()))
     self.cmd = cmd
     self.id = uuid.uuid4()
     self.start_time = 0

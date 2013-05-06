@@ -1,30 +1,29 @@
-def __init__(self, context, scm=None, restrict_push_branches=None):
+def __init__(self, context, scm=None):
     Task.__init__(self, context)
-    self.scm = (scm or get_scm())
-    if (self.scm is None):
-        raise TaskError('Cannot publish JAR files without a configured source-control system.')
-    self.restrict_push_branches = frozenset((restrict_push_branches or ()))
-    self.outdir = context.config.get('jar-publish', 'workdir')
+    ScmPublish.__init__(self, (scm or get_scm()), self.context.config.getlist(JarPublish._CONFIG_SECTION, 'restrict_push_branches'))
+    self.outdir = os.path.join(context.config.getdefault('pants_workdir'), 'publish')
     self.cachedir = os.path.join(self.outdir, 'cache')
+    self._jvmargs = context.config.getlist(JarPublish._CONFIG_SECTION, 'ivy_jvmargs', default=[])
     if context.options.jar_publish_local:
-        local_repo = dict(resolver='publish_local', path=os.path.abspath(os.path.expanduser(context.options.jar_publish_local)), confs=context.config.getlist('jar-publish', 'publish_local_confs', default=['*']), auth=None)
+        local_repo = dict(resolver='publish_local', path=os.path.abspath(os.path.expanduser(context.options.jar_publish_local)), confs=['*'], auth=None)
         self.repos = defaultdict((lambda : local_repo))
         self.commit = False
         self.snapshot = context.options.jar_publish_local_snapshot
     else:
-        self.repos = context.config.getdict('jar-publish', 'repos')
+        self.repos = context.config.getdict(JarPublish._CONFIG_SECTION, 'repos')
         for (repo, data) in self.repos.items():
             auth = data.get('auth')
             if auth:
                 credentials = context.resolve(auth).next()
-                user = credentials.username()
-                password = credentials.password()
-                self.context.log.debug(('Found auth for repo: %s %s:%s' % (repo, user, password)))
-                data['auth'] = (user, password)
+                user = credentials.username(data['resolver'])
+                password = credentials.password(data['resolver'])
+                self.context.log.debug(('Found auth for repo=%s user=%s' % (repo, user)))
+                self.repos[repo]['username'] = user
+                self.repos[repo]['password'] = password
         self.commit = context.options.jar_publish_commit
         self.snapshot = False
     self.ivycp = context.config.getlist('ivy', 'classpath')
-    self.ivysettings = context.config.get('ivy', 'ivy_settings')
+    self.ivysettings = context.config.get('jar-publish', 'ivy_settings')
     self.dryrun = context.options.jar_publish_dryrun
     self.transitive = context.options.jar_publish_transitive
     self.force = context.options.jar_publish_force
@@ -51,7 +50,7 @@ def __init__(self, context, scm=None, restrict_push_branches=None):
             except IOError:
                 raise TaskError(('No BUILD file could be found at %s' % coordinate))
     self.overrides = {}
-    if context.options.jar_publish_overrides:
+    if context.options.jar_publish_override:
 
         def parse_override(override):
             try:
@@ -63,11 +62,10 @@ def __init__(self, context, scm=None, restrict_push_branches=None):
                 return (parse_jarcoordinate(coordinate), rev)
             except ValueError:
                 raise TaskError(('Invalid override: %s' % override))
-        self.overrides.update((parse_override(o) for o in context.options.jar_publish_overrides))
+        self.overrides.update((parse_override(o) for o in context.options.jar_publish_override))
     self.restart_at = None
     if context.options.jar_publish_restart_at:
         self.restart_at = parse_jarcoordinate(context.options.jar_publish_restart_at)
     context.products.require('jars')
     context.products.require('source_jars')
     context.products.require('idl_jars')
-    context.products.require('javadoc_jars')

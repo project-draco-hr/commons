@@ -1,0 +1,3 @@
+@classmethod
+def thrift_library(cls, path, name, *sources):
+    return cls.library(path, 'thrift_library', name, sources)

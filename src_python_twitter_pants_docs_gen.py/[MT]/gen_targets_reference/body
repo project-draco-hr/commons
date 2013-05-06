@@ -1,0 +1,9 @@
+def gen_targets_reference(targets_rst, targets_dir):
+    lines = ['Targets Reference', '=================', '', 'This page documents targets available as part of the pants build system.', '', '']
+    for filename in sorted([filename for filename in os.listdir(targets_dir) if filename.endswith('.py')]):
+        if (filename == '__init__.py'):
+            continue
+        (root, _) = os.path.splitext(filename)
+        lines.append(TEMPLATE.substitute(otype='targets', name=root))
+    with open(targets_rst, 'w') as fh:
+        fh.write('\n'.join(lines))

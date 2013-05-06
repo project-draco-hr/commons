@@ -19,13 +19,15 @@ def execute(self, targets):
         gentargets_bylang[lang] = (gentargets if self.is_forced(lang) else find_gentargets(predicate))
     if gentargets_by_dependee:
         self.context.log.warn(('Left with unexpected unconsumed gen targets:\n\t%s' % '\n\t'.join((('%s -> %s' % (dependee, gentargets)) for (dependee, gentargets) in gentargets_by_dependee.items()))))
-    with self.invalidated(gentargets, invalidate_dependents=True) as invalidation_check:
-        for vts in invalidation_check.invalid_vts_partitioned:
-            invalid_targets = set(vts.targets)
-            for (lang, tgts) in gentargets_bylang.items():
-                invalid_lang_tgts = invalid_targets.intersection(tgts)
-                if invalid_lang_tgts:
-                    self.genlang(lang, invalid_lang_tgts)
+    if gentargets:
+        self.prepare_gen(gentargets)
+        with self.invalidated(gentargets, invalidate_dependents=True) as invalidation_check:
+            for vts in invalidation_check.invalid_vts_partitioned:
+                invalid_targets = set(vts.targets)
+                for (lang, tgts) in gentargets_bylang.items():
+                    invalid_lang_tgts = invalid_targets.intersection(tgts)
+                    if invalid_lang_tgts:
+                        self.genlang(lang, invalid_lang_tgts)
     invalid_vts_by_target = dict([(vt.target, vt) for vt in invalidation_check.invalid_vts])
     vts_artifactfiles_pairs = []
     write_to_artifact_cache = (self.artifact_cache_writes_enabled() if invalid_vts_by_target else False)
@@ -34,14 +36,13 @@ def execute(self, targets):
             langtarget_by_gentarget = {}
             for target in tgts:
                 syn_target = self.createtarget(lang, target, dependees_by_gentarget.get(target, []))
+                syn_target.derived_from = target
                 syn_target.add_labels('synthetic')
                 if (write_to_artifact_cache and (target in invalid_vts_by_target)):
                     vts_artifactfiles_pairs.append((invalid_vts_by_target[target], syn_target.sources_relative_to_buildroot()))
                 langtarget_by_gentarget[target] = syn_target
             genmap = self.context.products.get(lang)
-            synmap = self.context.products.get((lang + ':rev'))
             for (gentarget, langtarget) in langtarget_by_gentarget.items():
-                synmap.add(langtarget, get_buildroot(), [gentarget])
                 genmap.add(gentarget, get_buildroot(), [langtarget])
                 for dep in self.getdependencies(gentarget):
                     if self.is_gentarget(dep):

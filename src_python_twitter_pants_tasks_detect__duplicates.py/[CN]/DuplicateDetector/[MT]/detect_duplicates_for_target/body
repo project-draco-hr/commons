@@ -1,0 +1,5 @@
+def detect_duplicates_for_target(self, binary_target):
+    list_path = []
+    for (basedir, externaljar) in self.list_jar_dependencies(binary_target):
+        list_path.append(os.path.join(basedir, externaljar))
+    self._is_conflicts(list_path, binary_target)

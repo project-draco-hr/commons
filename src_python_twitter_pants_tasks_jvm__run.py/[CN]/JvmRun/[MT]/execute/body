@@ -6,17 +6,6 @@ def execute(self, targets):
         egroups = self.context.products.get_data('exclusives_groups')
         group_key = egroups.get_group_key_for_target(binaries[0])
         group_classpath = egroups.get_classpath_for_group(group_key)
-
-        def run_binary(dryrun=False):
-
-            def run_workunit_factory(name, labels=list(), cmd=''):
-                return self.context.new_workunit(name=name, labels=([WorkUnit.RUN] + labels), cmd=cmd)
-            result = runjava_indivisible(jvm_options=self.jvm_options, classpath=self.classpath(confs=self.confs, exclusives_classpath=group_classpath), main=main, args=self.args, dryrun=dryrun, workunit_factory=run_workunit_factory, workunit_name='run')
-            if dryrun:
-                return result
-            if (result != 0):
-                raise TaskError()
-        result = run_binary(dryrun=self.only_write_cmd_line)
-        if self.only_write_cmd_line:
-            with safe_open(self.only_write_cmd_line, 'w') as fd:
-                fd.write(result)
+        result = execute_java(classpath=self.classpath(confs=self.confs, exclusives_classpath=group_classpath), main=main, args=self.args, jvm_args=self.jvm_args, workunit_labels=[WorkUnit.RUN], workunit_name='run', stdin=sys.stdin)
+        if (result != 0):
+            raise TaskError(('java %s ... exited non-zero (%i)' % (main, result)), exit_code=result)

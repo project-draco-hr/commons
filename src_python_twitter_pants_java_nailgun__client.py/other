@@ -5,11 +5,3 @@ import struct
 import sys
 import threading
 from functools import partial
-from twitter.common.log import logger
-DEFAULT_NG_HOST = 'localhost'
-DEFAULT_NG_PORT = 2113
-ENV_DEFAULTS = dict(NAILGUN_FILESEPARATOR=os.sep, NAILGUN_PATHSEPARATOR=os.pathsep)
-HEADER_FMT = '>Ic'
-HEADER_LENGTH = 5
-BUFF_SIZE = 8096
-log = logger(name='ng')

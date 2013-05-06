@@ -1,4 +1,0 @@
-@classmethod
-def tearDownClass(cls):
-    os.chdir(cls._cwd)
-    safe_rmtree(cls.build_root)

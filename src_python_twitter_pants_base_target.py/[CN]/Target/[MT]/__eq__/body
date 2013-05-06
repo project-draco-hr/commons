@@ -1,3 +1,2 @@
 def __eq__(self, other):
-    result = (other and (type(self) == type(other)) and (self.address == other.address))
-    return result
+    return (isinstance(other, Target) and (self.address == other.address))

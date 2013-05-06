@@ -2,7 +2,7 @@ def console_output(self, targets):
     if self._provides:
 
         def extract_artifact_id(target):
-            provided_jar = target._as_jar_dependency()
+            (provided_jar, _, _) = target.get_artifact_info()
             return ('%s%s%s' % (provided_jar.org, '#', provided_jar.name))
         extractors = dict(address=(lambda target: str(target.address)), artifact_id=extract_artifact_id, repo_name=(lambda target: target.provides.repo.name), repo_url=(lambda target: target.provides.repo.url), repo_db=(lambda target: target.provides.repo.push_db))
 

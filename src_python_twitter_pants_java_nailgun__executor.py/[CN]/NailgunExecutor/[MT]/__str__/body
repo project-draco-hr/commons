@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('NailgunExecutor(%s, server=%s)' % (self._distribution, self._get_nailgun_endpoint()))

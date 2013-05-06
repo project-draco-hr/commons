@@ -1,0 +1,4 @@
+def setUp(self):
+    self.original_root = BuildRoot().path
+    self.new_root = (BuildRoot().path + 'not_original')
+    BuildRoot().reset()

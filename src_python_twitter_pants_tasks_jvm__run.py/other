@@ -1,8 +1,7 @@
-from twitter.pants.base.workunit import WorkUnit
-__author__ = 'Benjy Weinberger'
 import shlex
-from twitter.common.dirutil import safe_open
-from twitter.pants.binary_util import runjava_indivisible
+import sys
+from twitter.pants.base.workunit import WorkUnit
 from twitter.pants.targets import JvmBinary
-from twitter.pants.tasks import Task, TaskError
-from twitter.pants.tasks.jvm_task import JvmTask
+from .java.util import execute_java
+from .jvm_task import JvmTask
+from . import Task, TaskError

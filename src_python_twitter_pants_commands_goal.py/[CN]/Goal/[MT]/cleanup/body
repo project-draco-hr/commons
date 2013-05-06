@@ -1,3 +1,0 @@
-def cleanup(self):
-    NailgunTask.killall(log)
-    sys.exit(1)

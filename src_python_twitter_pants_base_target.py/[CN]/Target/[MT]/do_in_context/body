@@ -1,2 +1,0 @@
-def do_in_context(self, work):
-    return ParseContext(self.address.buildfile).do_in_context(work)

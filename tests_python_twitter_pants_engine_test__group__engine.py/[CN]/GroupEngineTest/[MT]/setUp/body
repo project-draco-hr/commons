@@ -1,0 +1,5 @@
+def setUp(self):
+    super(GroupEngineTest, self).setUp()
+    self.context = create_context(options=dict(explain=False), target_roots=self.targets('src/java:e'))
+    self.engine = GroupEngine(print_timing=False)
+    self.recorded_actions = []

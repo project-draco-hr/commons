@@ -1,0 +1,30 @@
+def gem(self, targets):
+    for target in targets:
+        thrift_files_with_root = []
+        for source in target.derived_from.sources:
+            thrift_files_with_root.append(os.path.join(target.derived_from.target_base, source))
+        thrift_files = ' '.join(thrift_files_with_root)
+        gem_name = target.provides.name
+        push_db = PushDb.load(target.provides.repo.push_db)
+        gem_version = (self._override or push_db.next_version(target))
+        bases = set()
+        for target in targets:
+            bases.add(target.target_base)
+        args = dict(include=('-I "%s"' % '" -I "'.join(bases)), name=gem_name, outdir=self._output_dir, version=gem_version, thrift_files=thrift_files, user=getpass.getuser(), publish=((' --publish %s' % target.provides.repo.url) if (not self._dryrun) else ''))
+        cmd = ('thrift_gemerator --no-interactive --compiler-args="%(include)s" --gem=%(name)s --output=%(outdir)s --gem-version %(version)s%(publish)s %(thrift_files)s' % args)
+        log = self.context.log
+        log.debug(('Executing: %s' % cmd))
+        result = subprocess.call(cmd, shell=True)
+        if (result != 0):
+            raise TaskError(('ThriftGemerator exited non-zero %i' % result))
+        if self._dryrun:
+            log.debug(('Skipping gem publish for %s, but gem can be found at %s' % (gem_name, self._output_dir)))
+        else:
+            push_db.set_version(target, gem_version)
+            push_db.dump(target.provides.repo.push_db)
+        if (self._dryrun or (not self._commit)):
+            log.debug(('Skipping commit for %s' % gem_name))
+        else:
+            self.commit_push(('gem %s' % gem_name))
+            self.scm.refresh()
+            self.scm.tag(('gem-%(name)s-%(version)s' % args), message=('Publish of gem %(name)s-%(version)s initiated by %(user)s' % args))

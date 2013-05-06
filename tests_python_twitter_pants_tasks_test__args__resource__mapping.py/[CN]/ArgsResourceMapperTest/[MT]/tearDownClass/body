@@ -1,0 +1,5 @@
+@classmethod
+def tearDownClass(cls):
+    path = os.path.join(get_buildroot(), 'BUILD.commonsc')
+    if os.path.exists(path):
+        os.remove(path)

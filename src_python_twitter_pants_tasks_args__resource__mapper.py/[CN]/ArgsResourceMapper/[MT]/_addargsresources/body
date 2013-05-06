@@ -1,0 +1,45 @@
+def _addargsresources(self, jar, target):
+    lines = set()
+    for resourcedir in [os.path.join(classdir, RESOURCE_RELDIR) for classdir in self.classdirs]:
+        if os.path.exists(resourcedir):
+            for file in os.listdir(resourcedir):
+                if file.startswith(RESOURCE_BASENAME):
+                    with open(os.path.join(resourcedir, file)) as resource:
+                        lines.update(resource.readlines())
+    if lines:
+
+
+        class Args(object):
+
+            def __init__(self, context, transitive, class_genmap):
+                self.context = context
+                self.classnames = set()
+
+                def add_clasnames(target):
+                    if (isinstance(target, JavaLibrary) or isinstance(target, ScalaLibrary)):
+                        if class_genmap.get(target):
+                            for (base, classes) in class_genmap.get(target).items():
+                                for cls in classes:
+                                    self.classnames.add(cls.replace('.class', '').replace('/', '.'))
+                        else:
+                            self.context.log.debug(('No mapping for %s' % target))
+                if transitive:
+                    target.walk(add_clasnames, is_internal)
+                else:
+                    add_clasnames(target)
+
+            def matches(self, line):
+                line = line.strip()
+                if (not line):
+                    return False
+                components = line.split(' ')
+                keyname = components[0]
+                if (keyname in ('positional', 'field')):
+                    return (components[1] in self.classnames)
+                elif (keyname == 'parser'):
+                    return (components[2] in self.classnames)
+                elif (keyname == 'verifier'):
+                    return ((components[2] in self.classnames) and (components[3] in self.classnames))
+                else:
+                    return True
+        self._addargs((lines if self.include_all else filter(Args(self.context, self.transitive, self.context.products.get('classes')).matches, lines)), jar, target)

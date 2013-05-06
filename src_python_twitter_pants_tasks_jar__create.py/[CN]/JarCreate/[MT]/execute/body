@@ -5,13 +5,14 @@ def execute(self, targets):
         return filter(predicate, (targets if self.transitive else self.context.target_roots))
 
     def add_genjar(typename, target, name):
-        if self.context.products.isrequired(typename):
-            self.context.products.get(typename).add(target, self._output_dir).append(name)
+        self.context.products.get(typename).add(target, self._output_dir).append(name)
     if self.jar_classes:
-        self.jar(jar_targets(is_jvm), self.context.products.get('classes'), functools.partial(add_genjar, 'jars'))
+        self.jar(jar_targets(is_jvm_library), self.context.products.get('classes'), functools.partial(add_genjar, 'jars'))
     if self.jar_idl:
-        self.idljar(jar_targets(is_idl), functools.partial(add_genjar, 'idl_jars'))
+        self.idljar(jar_targets(is_idl_library), functools.partial(add_genjar, 'idl_jars'))
     if self.jar_sources:
-        self.sourcejar(jar_targets(is_jvm), functools.partial(add_genjar, 'source_jars'))
+        self.sourcejar(jar_targets(is_jvm_library), functools.partial(add_genjar, 'source_jars'))
     if self.jar_javadoc:
-        self.javadocjar(jar_targets(is_java), self.context.products.get('javadoc'), functools.partial(add_genjar, 'javadoc_jars'))
+        javadoc_add_genjar = functools.partial(add_genjar, 'javadoc_jars')
+        self.javadocjar(jar_targets(is_java_library), self.context.products.get(javadoc.product_type), javadoc_add_genjar)
+        self.javadocjar(jar_targets(is_scala_library), self.context.products.get(scaladoc.product_type), javadoc_add_genjar)

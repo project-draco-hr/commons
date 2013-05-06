@@ -1,5 +1,4 @@
 from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base import BuildFile, Target
-from twitter.pants.tasks import TaskError
-from twitter.pants.tasks.console_task import ConsoleTask
-__author__ = 'Senthil Kumaran'
+from .console_task import ConsoleTask
+from . import TaskError

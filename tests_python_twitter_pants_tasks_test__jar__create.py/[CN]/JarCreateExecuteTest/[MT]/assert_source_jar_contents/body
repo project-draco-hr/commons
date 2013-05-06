@@ -1,0 +1,7 @@
+def assert_source_jar_contents(self, context, empty=False):
+    JarCreate(context).execute(context.targets())
+    if empty:
+        self.assertTrue(context.products.get('source_jars').empty())
+    else:
+        self.assert_jar_contents(context, 'source_jars', self.jl, 'com/', 'com/twitter/', 'com/twitter/a.java', 'com/twitter/r.txt')
+        self.assert_jar_contents(context, 'source_jars', self.sl, 'com/', 'com/twitter/', 'com/twitter/c.scala')

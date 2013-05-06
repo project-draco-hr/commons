@@ -1,0 +1,5 @@
+def __init__(self, fh):
+    'Creates a DownloadListener that writes to the given open file handle.\n\n      The file handle is not closed.\n\n      :param fh: a file handle open for writing\n      '
+    if ((not fh) or (not hasattr(fh, 'write'))):
+        raise ValueError(('fh must be an open file handle, given %s' % fh))
+    self._fh = fh

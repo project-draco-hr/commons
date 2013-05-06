@@ -1,0 +1,30 @@
+def execute(self, targets):
+    if self.context.options.scalastyle_skip:
+        self.context.log.debug('Skipping checkstyle.')
+        return
+    check_targets = list()
+    for target in targets:
+        for tgt in target.resolve():
+            if has_sources(tgt, '.scala'):
+                check_targets.append(tgt)
+
+    def filter_excludes(filename):
+        if self._excludes:
+            for exclude in self._excludes:
+                if exclude.match(filename):
+                    return False
+        return True
+    scala_sources = list()
+    for target in check_targets:
+
+        def collect(filename):
+            if filename.endswith('.scala'):
+                scala_sources.append(os.path.join(target.target_base, filename))
+        map(collect, filter(filter_excludes, target.sources))
+    if scala_sources:
+
+        def call(srcs):
+            return self.runjava(main=Scalastyle._MAIN, classpath=self.profile_classpath('scalastyle'), args=(['-c', self._scalastyle_config] + srcs))
+        result = Xargs(call).execute(scala_sources)
+        if (result != 0):
+            raise TaskError(('java %s ... exited non-zero (%i)' % (Scalastyle._MAIN, result)))

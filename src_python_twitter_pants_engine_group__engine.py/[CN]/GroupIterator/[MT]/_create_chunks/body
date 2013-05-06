@@ -1,0 +1,24 @@
+def _create_chunks(self):
+
+    def discriminator(tgt):
+        for group_member in self._group_members:
+            if group_member.predicate(tgt):
+                return group_member.name
+        return None
+    coalesced = InternalTarget.coalesce_targets(self._targets, discriminator)
+    coalesced = list(reversed(coalesced))
+    chunks = []
+    flavor = None
+    chunk_start = 0
+    for (chunk_num, target) in enumerate(coalesced):
+        target_flavor = discriminator(target)
+        if ((target_flavor != flavor) and (chunk_num > chunk_start)):
+            chunks.append((flavor, OrderedSet(coalesced[chunk_start:chunk_num])))
+            chunk_start = chunk_num
+        flavor = target_flavor
+    if (chunk_start < len(coalesced)):
+        chunks.append((flavor, OrderedSet(coalesced[chunk_start:])))
+    log.debug(('::: created chunks(%d)' % len(chunks)))
+    for (i, (flavor, chunk)) in enumerate(chunks):
+        log.debug(('  chunk(%d:%s):\n\t%s' % (i, flavor, '\n\t'.join(sorted(map(str, chunk))))))
+    return map((lambda (flavor, chunk): chunk), chunks)

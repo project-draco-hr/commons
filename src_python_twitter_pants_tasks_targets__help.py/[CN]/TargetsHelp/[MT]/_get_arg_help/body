@@ -1,0 +1,18 @@
+@staticmethod
+def _get_arg_help(docstring):
+    'Given a docstring, return a map of arg to help string.\n\n    Pants target constructor docstrings should document arguments as follows.\n    Note constructor docstrings only document arguments. All documentation about\n    the class itself belong in the class docstring.\n\n    myarg: the description\n    anotherarg: this description is continued\n      on the next line'
+    arg_help = {}
+    if (docstring is None):
+        return arg_help
+    last = None
+    import re
+    for line in docstring.split('\n'):
+        if (line == ''):
+            continue
+        match = re.search('^\\s*:param[\\w ]* (\\w+):\\s(.*)$', line)
+        if match:
+            last = match.group(1)
+            arg_help[last] = match.group(2)
+        else:
+            arg_help[last] += (' %s' % line.strip())
+    return arg_help

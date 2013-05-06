@@ -1,0 +1,4 @@
+def __init__(self, context):
+    context.products.require('python')
+    self._cache = PythonInterpreterCache(context.config, logger=context.log.debug)
+    super(SetupPythonEnvironment, self).__init__(context)

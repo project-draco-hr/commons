@@ -1,4 +1,0 @@
-@staticmethod
-def add_global_options(parser):
-    for option in Goal.GLOBAL_OPTIONS:
-        parser.add_option(option)

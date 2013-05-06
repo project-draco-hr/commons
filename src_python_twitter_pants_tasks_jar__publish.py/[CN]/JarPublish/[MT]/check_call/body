@@ -1,4 +1,0 @@
-def check_call(self, cmd, failuremsg=None):
-    self.log_call(cmd)
-    result = subprocess.call(cmd)
-    self.check_result(cmd, result, failuremsg)

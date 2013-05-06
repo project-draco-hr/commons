@@ -1,0 +1,9 @@
+def __init__(self, distribution=None):
+    'Constructs an Executor that can be used to launch java programs.\n\n    :param distribution: an optional validated java distribution to use when launching java\n      programs\n    '
+    if distribution:
+        if (not isinstance(distribution, Distribution)):
+            raise ValueError(('A valid distribution is required, given: %s' % distribution))
+        distribution.validate()
+    else:
+        distribution = Distribution.cached()
+    self._distribution = distribution

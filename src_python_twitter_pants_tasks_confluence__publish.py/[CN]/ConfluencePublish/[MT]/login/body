@@ -1,7 +1,7 @@
 def login(self):
     if (not self._wiki):
         try:
-            self._wiki = Confluence.login(self.url, self.user)
+            self._wiki = Confluence.login(self.url, self.user, self.api())
         except ConfluenceError as e:
             raise TaskError(('Failed to login to confluence: %s' % e))
     return self._wiki

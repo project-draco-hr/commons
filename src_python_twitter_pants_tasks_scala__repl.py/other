@@ -1,6 +1,6 @@
 import shlex
 import subprocess
-from twitter.pants.binary_util import runjava_indivisible
 from twitter.pants.base.workunit import WorkUnit
-from twitter.pants.tasks import Task
-from twitter.pants.tasks.jvm_task import JvmTask
+from .java.util import execute_java
+from .jvm_task import JvmTask
+from . import Task

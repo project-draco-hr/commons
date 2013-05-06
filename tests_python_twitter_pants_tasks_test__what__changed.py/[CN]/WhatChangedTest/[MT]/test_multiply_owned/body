@@ -1,0 +1,2 @@
+def test_multiply_owned(self):
+    self.assert_console_output('root/src/thrift/BUILD:thrift', 'root/src/thrift/BUILD:py-thrift', workspace=self.workspace(files=['root/src/thrift/a.thrift']))

@@ -1,0 +1,11 @@
+def _cleanup_target(self, target, compiled_jar, idl_jar):
+    for dependant in self.context.dependants(on_predicate=(lambda tgt: (tgt == target))):
+        if hasattr(dependant, 'replace_dependency'):
+            if isinstance(dependant, JavaThriftLibrary):
+                self.context.log.info(('Replacing %s with %s as dependency of %s' % (target, idl_jar, dependant)))
+                idl_jar.idl_only = True
+                dependant.replace_dependency(target, idl_jar)
+            else:
+                self.context.log.info(('Replacing %s with %s as dependency of %s' % (target, compiled_jar, dependant)))
+                dependant.replace_dependency(target, compiled_jar)
+    self.context.remove_target(target)

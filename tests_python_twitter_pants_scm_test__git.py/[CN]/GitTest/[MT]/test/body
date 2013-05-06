@@ -4,7 +4,7 @@ def test(self):
     tip_sha = self.git.commit_id
     self.assertTrue(tip_sha)
     self.assertTrue((tip_sha in self.git.changelog()))
-    self.assertTrue(self.git.tag_name.startswith('first-'))
+    self.assertTrue(self.git.tag_name.startswith('first-'), msg='un-annotated tags should be found')
     self.assertEqual('master', self.git.branch_name)
 
     def edit_readme():
@@ -36,4 +36,4 @@ def test(self):
             subprocess.check_call(['git', 'add', 'CHANGES'])
             self.assertEqual(set(['README', 'CHANGES']), git.changed_files(from_commit='first'))
             self.assertEqual('master', git.branch_name)
-            self.assertEqual('second', git.tag_name)
+            self.assertEqual('second', git.tag_name, msg='annotated tags should be found')

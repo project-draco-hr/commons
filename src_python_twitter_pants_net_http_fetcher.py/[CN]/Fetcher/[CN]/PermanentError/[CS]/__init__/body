@@ -1,0 +1,5 @@
+def __init__(self, value=None, response_code=None):
+    super(Fetcher.PermanentError, self).__init__(value)
+    if (response_code and (not isinstance(response_code, Compatibility.integer))):
+        raise ValueError(('response_code must be an integer, got %s' % response_code))
+    self._response_code = response_code

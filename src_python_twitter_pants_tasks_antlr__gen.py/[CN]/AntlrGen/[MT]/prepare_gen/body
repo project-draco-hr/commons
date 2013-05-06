@@ -1,0 +1,5 @@
+def prepare_gen(self, targets):
+    compilers = set(map((lambda t: t.compiler), targets))
+    for compiler in compilers:
+        classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(compiler)
+        self._classpath_by_compiler[compiler] = classpath

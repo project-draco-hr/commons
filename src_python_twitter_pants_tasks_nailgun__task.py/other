@@ -1,12 +1,7 @@
 import os
-import re
-import signal
-import subprocess
-import threading
 import time
-from twitter.common.dirutil import safe_open
-from twitter.common.python.platforms import Platform
-from twitter.pants import binary_util, get_buildroot
 from twitter.pants.base.workunit import WorkUnit
-from twitter.pants.java import NailgunClient, NailgunError
-from twitter.pants.tasks import Task
+from twitter.pants.ivy import profile_classpath as profile_cp
+from twitter.pants.java import Distribution, SubprocessExecutor, NailgunExecutor
+from . import Task, TaskError
+from .java import util
