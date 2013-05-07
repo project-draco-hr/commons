@@ -4,5 +4,5 @@ def calculate_java_genfiles(package, outer_class_name, types):
     def path(name):
         return os.path.join(basepath, ('%s.java' % name))
     yield path(outer_class_name)
-    for type in types:
-        yield path(type)
+    for type_ in types:
+        yield path(type_)

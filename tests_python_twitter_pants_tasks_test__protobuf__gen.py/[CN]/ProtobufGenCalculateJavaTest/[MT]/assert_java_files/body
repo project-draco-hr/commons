@@ -1,0 +1,2 @@
+def assert_java_files(self, rel_path, contents, *expected_files):
+    self.assert_files('java', rel_path, contents, *expected_files)

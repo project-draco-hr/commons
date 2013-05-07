@@ -16,4 +16,4 @@ def genlang(self, lang, targets):
     process = subprocess.Popen(args)
     result = process.wait()
     if (result != 0):
-        raise TaskError
+        raise TaskError(('%s ... exited non-zero (%i)' % (self.protobuf_binary, result)))

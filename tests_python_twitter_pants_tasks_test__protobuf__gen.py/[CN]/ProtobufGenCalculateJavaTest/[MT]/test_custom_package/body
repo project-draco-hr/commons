@@ -1,0 +1,4 @@
+def test_custom_package(self):
+    self.assert_java_files('fred.proto', '\n          package com.twitter.ads.revenue_tables;\n          option java_package = "com.example.foo.bar";\n        ', 'com/example/foo/bar/Fred.java')
+    self.assert_java_files('bam_bam.proto', 'option java_package = "com.example.baz.bip";', 'com/example/baz/bip/BamBam.java')
+    self.assert_java_files('bam_bam.proto', 'option java_package="com.example.baz.bip" ;', 'com/example/baz/bip/BamBam.java')
