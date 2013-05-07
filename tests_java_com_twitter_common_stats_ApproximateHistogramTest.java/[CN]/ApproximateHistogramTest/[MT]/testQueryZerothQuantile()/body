@@ -1,0 +1,6 @@
+{
+  ApproximateHistogram hist=new ApproximateHistogram();
+  hist.init(b,h);
+  addToHist(hist,10);
+  assertEquals(1L,hist.getQuantile(0.0));
+}
