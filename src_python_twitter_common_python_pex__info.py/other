@@ -1,8 +1,11 @@
 from __future__ import print_function
-from collections import namedtuple
+import getpass
 import json
 import os
+import socket
 import sys
+from collections import namedtuple
+from time import localtime, strftime
 from pkg_resources import get_platform
 from .interpreter import PythonInterpreter
 from twitter.common.collections import OrderedSet

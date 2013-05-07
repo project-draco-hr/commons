@@ -1,0 +1,9 @@
+def __init__(self, info_file):
+    self._info_file = info_file
+    safe_mkdir_for(self._info_file)
+    self._info = {}
+    if os.path.exists(self._info_file):
+        with open(self._info_file, 'r') as infile:
+            info = infile.read()
+        for m in re.finditer('^([^:]+):(.*)$', info, re.MULTILINE):
+            self._info[m.group(1).strip()] = m.group(2).strip()

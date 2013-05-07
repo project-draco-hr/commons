@@ -1,9 +1,0 @@
-def get_build_info(scm=None):
-    'Calculates the current BuildInfo using the supplied scm or else the globally configured one.'
-    buildroot = get_buildroot()
-    scm = (scm or get_scm())
-    revision = scm.commit_id
-    tag = (scm.tag_name or 'none')
-    branchname = (scm.branch_name or revision)
-    now = localtime()
-    return BuildInfo(date=strftime('%A %b %d, %Y', now), time=strftime('%H:%M:%S', now), timestamp=strftime('%m.%d.%Y %H:%M', now), branch=branchname, tag=tag, sha=revision, user=getpass.getuser(), machine=socket.gethostname(), path=buildroot)
