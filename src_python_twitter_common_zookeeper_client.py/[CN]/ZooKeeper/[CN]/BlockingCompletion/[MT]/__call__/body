@@ -5,7 +5,7 @@ def __call__(self):
             result = self._fn(self._zk._zh)
             self._logger(('%s success' % self))
             return result
-        except (zookeeper.ConnectionLossException, zookeeper.InvalidStateException, TypeError) as e:
+        except (zookeeper.ConnectionLossException, zookeeper.InvalidStateException, zookeeper.SessionExpiredException, TypeError) as e:
             if (isinstance(e, TypeError) and (self._zk._zh is not None)):
                 self._logger(('%s excepted, user error' % self))
                 raise

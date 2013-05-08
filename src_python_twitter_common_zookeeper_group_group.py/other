@@ -3,6 +3,7 @@ import functools
 import posixpath
 import socket
 import threading
+import time
 import zookeeper
 try:
     from twitter.common import log
@@ -11,4 +12,5 @@ except ImportError:
 from twitter.common.concurrent import Future
 from twitter.common.exceptions import ExceptionalThread
 from twitter.common.lang import Interface
+from twitter.common.quantity import Amount, Time
 from twitter.common.zookeeper.constants import ReturnCode
