@@ -33,7 +33,7 @@ def test_client_connect_with_auth():
         BackgroundTester().start()
         server.start()
         finish_event.wait()
-        session_id = zk.session_id()
+        session_id = zk.session_id
         assert server.shutdown()
         finish_event.clear()
         BackgroundTester().start()

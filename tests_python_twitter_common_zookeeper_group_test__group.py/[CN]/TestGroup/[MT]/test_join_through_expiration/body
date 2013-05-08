@@ -1,6 +1,6 @@
 def test_join_through_expiration(self):
     zkg = self.GroupImpl(self._zk, '/test')
-    session_id = self._zk.session_id()
+    session_id = self._zk.session_id
     self._server.shutdown()
     join_event = threading.Event()
     join_membership = []
@@ -20,6 +20,6 @@ def test_join_through_expiration(self):
     assert join_event.is_set()
     assert (not cancel_event.is_set())
     assert (zkg.info(join_membership[0]) == 'hello world')
-    self._server.expire(self._zk.session_id())
+    self._server.expire(self._zk.session_id)
     cancel_event.wait(self.MAX_EVENT_WAIT_SECS)
     assert cancel_event.is_set()

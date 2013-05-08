@@ -1,3 +1,4 @@
+@property
 def session_id(self):
     try:
         (session_id, _) = zookeeper.client_id(self._zh)

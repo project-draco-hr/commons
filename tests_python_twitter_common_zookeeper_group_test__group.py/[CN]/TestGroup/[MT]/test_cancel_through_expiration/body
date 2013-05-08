@@ -1,7 +1,7 @@
 def test_cancel_through_expiration(self):
     zkg = self.GroupImpl(self._zk, '/test')
     membership = zkg.join('hello world')
-    session_id = self._zk.session_id()
+    session_id = self._zk.session_id
     self._server.shutdown()
     cancel_event = threading.Event()
     cancel = []

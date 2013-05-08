@@ -6,7 +6,7 @@ def test_monitor_through_expiration(self):
             session_expired.set()
     zk1 = self.make_zk(self._server.ensemble, watch=on_watch)
     zkg1 = self.GroupImpl(self._zk, '/test')
-    session_id1 = self._zk.session_id()
+    session_id1 = self._zk.session_id
     zk2 = self.make_zk(self._server.ensemble)
     zkg2 = self.GroupImpl(zk2, '/test')
     member1 = zkg2.join('hello 1')
