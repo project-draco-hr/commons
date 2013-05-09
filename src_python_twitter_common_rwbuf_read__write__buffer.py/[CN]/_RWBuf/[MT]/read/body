@@ -1,0 +1,6 @@
+def read(self, size=(-1)):
+    with self._lock:
+        self._io.seek(self._readpos)
+        ret = (self._io.read() if (size == (-1)) else self._io.read(size))
+        self._readpos = self._io.tell()
+        return ret

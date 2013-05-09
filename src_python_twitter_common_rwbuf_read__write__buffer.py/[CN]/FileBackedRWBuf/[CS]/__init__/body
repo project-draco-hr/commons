@@ -1,0 +1,3 @@
+def __init__(self, backing_file):
+    _RWBuf.__init__(self, open(backing_file, 'a+'))
+    self.fileno = self._io.fileno
