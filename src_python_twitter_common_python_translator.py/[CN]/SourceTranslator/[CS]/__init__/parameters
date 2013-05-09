@@ -1,3 +1,4 @@
 self
 install_cache
+platform
 conn_timeout

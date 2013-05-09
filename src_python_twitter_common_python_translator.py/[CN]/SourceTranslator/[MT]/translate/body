@@ -2,6 +2,8 @@ def translate(self, link):
     'From a link, translate a distribution.'
     if (not isinstance(link, SourceLink)):
         return None
+    if (not Platform.compatible(link.platform, self._platform)):
+        return None
     (unpack_path, installer) = (None, None)
     try:
         unpack_path = link.fetch(conn_timeout=self._conn_timeout)
@@ -10,7 +12,7 @@ def translate(self, link):
         with TRACER.timed(('Distilling %s' % link.name)):
             try:
                 dist = installer.distribution()
-            except Installer.InstallFailure as e:
+            except Installer.InstallFailure:
                 return None
             return dist_from_egg(Distiller(dist).distill(into=self._install_cache))
     finally:
