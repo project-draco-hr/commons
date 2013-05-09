@@ -1,0 +1,2 @@
+def add_miss(self, cache_name, tgt):
+    self._add_stat(1, cache_name, tgt)
