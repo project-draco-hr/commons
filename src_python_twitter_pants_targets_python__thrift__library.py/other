@@ -1,3 +1,1 @@
-from twitter.common.collections import OrderedSet
-from .python_requirement import PythonRequirement
 from .python_target import PythonTarget
