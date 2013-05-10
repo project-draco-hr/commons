@@ -1,0 +1,4 @@
+def write(self, s):
+    with self._lock:
+        self.do_write(str(s))
+        self._io.flush()
