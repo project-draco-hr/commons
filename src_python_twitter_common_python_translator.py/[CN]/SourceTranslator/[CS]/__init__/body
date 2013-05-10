@@ -1,3 +1,5 @@
-def __init__(self, install_cache=None, conn_timeout=None):
+def __init__(self, install_cache=None, platform=Platform.current(), python=Platform.python(), conn_timeout=None):
     self._install_cache = (install_cache or safe_mkdtemp())
+    self._platform = platform
+    self._python = python
     self._conn_timeout = conn_timeout
