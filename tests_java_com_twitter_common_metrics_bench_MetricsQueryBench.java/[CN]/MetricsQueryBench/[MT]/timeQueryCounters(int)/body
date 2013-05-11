@@ -1,0 +1,10 @@
+{
+  for (int i=0; i < 52; i++) {
+    Counter counter=metrics.registerCounter("counter" + i);
+    counter.increment();
+  }
+  while (n != 0) {
+    metrics.sample();
+    n--;
+  }
+}

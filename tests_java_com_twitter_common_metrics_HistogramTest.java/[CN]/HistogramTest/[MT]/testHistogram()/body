@@ -14,5 +14,5 @@
   for (int i=0; i < Histogram.DEFAULT_QUANTILES.length; i++) {
     expected[i]=(long)(Histogram.DEFAULT_QUANTILES[i] * n);
   }
-  checkQuantiles(expected,sample);
+  checkQuantiles(expected,sample,0.001 * n);
 }

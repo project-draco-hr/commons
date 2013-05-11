@@ -7,5 +7,5 @@
   assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "sum"));
   assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "avg"));
   long[] expected={0L,0L,0L,0L,0L,0L};
-  checkQuantiles(expected,sample);
+  checkQuantiles(expected,sample,ERROR);
 }

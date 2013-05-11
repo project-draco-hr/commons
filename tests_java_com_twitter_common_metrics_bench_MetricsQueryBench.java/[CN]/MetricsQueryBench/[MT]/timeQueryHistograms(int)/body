@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < 4; i++) {
+    Histogram h=new Histogram("histogram" + i,metrics);
+    for (int j=0; j < N; j++) {
+      h.add(rnd.nextInt(RANGE));
+    }
+  }
+  while (n != 0) {
+    metrics.sample();
+    n--;
+  }
+}

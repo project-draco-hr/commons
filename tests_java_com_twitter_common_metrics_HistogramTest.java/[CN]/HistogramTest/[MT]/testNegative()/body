@@ -18,5 +18,5 @@
     int idx=(int)(Histogram.DEFAULT_QUANTILES[i] * data.length);
     expected[i]=data[idx];
   }
-  checkQuantiles(expected,sample);
+  checkQuantiles(expected,sample,ERROR);
 }
