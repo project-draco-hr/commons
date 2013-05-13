@@ -11,8 +11,10 @@
 );
   }
   byte[] membershipData=memberData.get();
-  nodePath=nodeNameScheme.createNodePath(zkClient,path,membershipData,acl);
-  memberId=nodeNameScheme.extractMemberId(nodePath);
+  String nodeName=nodeScheme.createName(membershipData);
+  CreateMode createMode=nodeScheme.isSequential() ? CreateMode.EPHEMERAL_SEQUENTIAL : CreateMode.EPHEMERAL;
+  nodePath=zkClient.get().create(path + "/" + nodeName,membershipData,acl,createMode);
+  memberId=Group.this.getMemberId(nodePath);
   LOG.info("Set group member ID to " + memberId);
   this.membershipData=membershipData;
   zkClient.get().exists(nodePath,new Watcher(){

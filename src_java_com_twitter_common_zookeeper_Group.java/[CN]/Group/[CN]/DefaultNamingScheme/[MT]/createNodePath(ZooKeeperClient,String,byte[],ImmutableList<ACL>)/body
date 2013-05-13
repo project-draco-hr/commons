@@ -1,3 +1,0 @@
-{
-  return zkClient.get().create(path + "/" + nodeNamePrefix,membershipData,acl,CreateMode.EPHEMERAL_SEQUENTIAL);
-}

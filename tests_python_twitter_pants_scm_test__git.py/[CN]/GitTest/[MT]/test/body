@@ -26,8 +26,7 @@ def test(self):
     self.git.tag('second', message='Tagged \' " Changes')
     with temporary_dir() as clone:
         with pushd(clone):
-            subprocess.check_call(['git', 'init'])
-            subprocess.check_call(['git', 'remote', 'add', 'origin', self.origin])
+            self.init_repo('origin', self.origin)
             subprocess.check_call(['git', 'pull', '--tags', 'origin', 'master:master'])
             with open(os.path.realpath('README')) as readme:
                 self.assertEqual('--More data.', readme.read())

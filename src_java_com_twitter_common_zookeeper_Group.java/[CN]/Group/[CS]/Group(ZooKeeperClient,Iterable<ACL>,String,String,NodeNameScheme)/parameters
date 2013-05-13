@@ -1,5 +1,0 @@
-ZooKeeperClient zkClient
-Iterable<ACL> acl
-String path
-String nodeNamePrefix
-NodeNameScheme nodeNameScheme

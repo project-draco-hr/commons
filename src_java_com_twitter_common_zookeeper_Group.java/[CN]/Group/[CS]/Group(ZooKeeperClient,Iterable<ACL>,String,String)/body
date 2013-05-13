@@ -1,3 +1,3 @@
 {
-  this(zkClient,acl,path,nodeNamePrefix,new DefaultNamingScheme(nodeNamePrefix));
+  this(zkClient,acl,path,new DefaultScheme(namePrefix));
 }
