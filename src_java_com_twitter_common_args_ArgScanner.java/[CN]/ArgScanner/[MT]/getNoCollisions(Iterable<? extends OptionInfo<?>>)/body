@@ -1,0 +1,11 @@
+{
+  Iterable<String> argShortNames=Iterables.transform(optionInfos,GET_OPTIONINFO_NAME);
+  Iterable<String> argShortNegNames=Iterables.transform(Iterables.filter(optionInfos,IS_BOOLEAN),GET_OPTIONINFO_NEGATED_NAME);
+  Iterable<String> argAllShortNames=Iterables.concat(argShortNames,argShortNegNames);
+  Set<String> argAllShortNamesNoCollisions=dropCollisions(argAllShortNames);
+  Set<String> collisionsDropped=Sets.difference(ImmutableSet.copyOf(argAllShortNames),argAllShortNamesNoCollisions);
+  if (!collisionsDropped.isEmpty()) {
+    LOG.warning("Found argument name collisions, args must be referenced by canonical names: " + collisionsDropped);
+  }
+  return argAllShortNamesNoCollisions;
+}

@@ -8,13 +8,8 @@
   Iterable<? extends OptionInfo<?>> optionInfos=argumentInfo.getOptionInfos();
   final Set<String> argsFailedToParse=Sets.newHashSet();
   final Set<String> argsConstraintsFailed=Sets.newHashSet();
-  Iterable<String> argShortNames=Iterables.transform(optionInfos,GET_OPTIONINFO_NAME);
-  Set<String> argShortNamesNoCollisions=dropCollisions(argShortNames);
-  Set<String> collisionsDropped=Sets.difference(ImmutableSet.copyOf(argShortNames),argShortNamesNoCollisions);
-  if (!collisionsDropped.isEmpty()) {
-    LOG.warning("Found argument name collisions, args must be referenced by canonical names: " + collisionsDropped);
-  }
-  final Map<String,OptionInfo> argsByName=ImmutableMap.<String,OptionInfo>builder().putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,Predicates.compose(Predicates.in(argShortNamesNoCollisions),GET_OPTIONINFO_NAME)),GET_OPTIONINFO_NAME)).putAll(Maps.uniqueIndex(optionInfos,GET_CANONICAL_ARG_NAME)).putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,IS_BOOLEAN),GET_OPTIONINFO_NEGATED_NAME)).putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,IS_BOOLEAN),GET_CANONICAL_NEGATED_ARG_NAME)).build();
+  Set<String> argAllShortNamesNoCollisions=getNoCollisions(optionInfos);
+  final Map<String,OptionInfo> argsByName=ImmutableMap.<String,OptionInfo>builder().putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,Predicates.compose(Predicates.in(argAllShortNamesNoCollisions),GET_OPTIONINFO_NAME)),GET_OPTIONINFO_NAME)).putAll(Maps.uniqueIndex(optionInfos,GET_CANONICAL_ARG_NAME)).putAll(Maps.uniqueIndex(Iterables.filter(Iterables.filter(optionInfos,IS_BOOLEAN),Predicates.compose(Predicates.in(argAllShortNamesNoCollisions),GET_OPTIONINFO_NEGATED_NAME)),GET_OPTIONINFO_NEGATED_NAME)).putAll(Maps.uniqueIndex(Iterables.filter(optionInfos,IS_BOOLEAN),GET_CANONICAL_NEGATED_ARG_NAME)).build();
   Set<String> recognizedArgs=Sets.intersection(argsByName.keySet(),args.keySet());
   for (  String argName : recognizedArgs) {
     String argValue=args.get(argName);
