@@ -35,9 +35,7 @@
   }
   final Runtime runtime=Runtime.getRuntime();
   final ClassLoadingMXBean classLoadingBean=ManagementFactory.getClassLoadingMXBean();
-  MemoryMXBean memoryBean=ManagementFactory.getMemoryMXBean();
-  final MemoryUsage heapUsage=memoryBean.getHeapMemoryUsage();
-  final MemoryUsage nonHeapUsage=memoryBean.getNonHeapMemoryUsage();
+  final MemoryMXBean memoryBean=ManagementFactory.getMemoryMXBean();
   final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
   final RuntimeMXBean runtimeMXBean=ManagementFactory.getRuntimeMXBean();
   Stats.exportAll(ImmutableList.<Stat<? extends Number>>builder().add(new StatImpl<Long>("jvm_time_ms"){
@@ -100,32 +98,32 @@
   }
 ).add(new StatImpl<Long>("jvm_memory_heap_mb_used"){
     @Override public Long read(){
-      return heapUsage.getUsed() / BYTES_PER_MB;
+      return memoryBean.getHeapMemoryUsage().getUsed() / BYTES_PER_MB;
     }
   }
 ).add(new StatImpl<Long>("jvm_memory_heap_mb_committed"){
     @Override public Long read(){
-      return heapUsage.getCommitted() / BYTES_PER_MB;
+      return memoryBean.getHeapMemoryUsage().getCommitted() / BYTES_PER_MB;
     }
   }
 ).add(new StatImpl<Long>("jvm_memory_heap_mb_max"){
     @Override public Long read(){
-      return heapUsage.getMax() / BYTES_PER_MB;
+      return memoryBean.getHeapMemoryUsage().getMax() / BYTES_PER_MB;
     }
   }
 ).add(new StatImpl<Long>("jvm_memory_non_heap_mb_used"){
     @Override public Long read(){
-      return nonHeapUsage.getUsed() / BYTES_PER_MB;
+      return memoryBean.getNonHeapMemoryUsage().getUsed() / BYTES_PER_MB;
     }
   }
 ).add(new StatImpl<Long>("jvm_memory_non_heap_mb_committed"){
     @Override public Long read(){
-      return nonHeapUsage.getCommitted() / BYTES_PER_MB;
+      return memoryBean.getNonHeapMemoryUsage().getCommitted() / BYTES_PER_MB;
     }
   }
 ).add(new StatImpl<Long>("jvm_memory_non_heap_mb_max"){
     @Override public Long read(){
-      return nonHeapUsage.getMax() / BYTES_PER_MB;
+      return memoryBean.getNonHeapMemoryUsage().getMax() / BYTES_PER_MB;
     }
   }
 ).add(new StatImpl<Long>("jvm_uptime_secs"){
