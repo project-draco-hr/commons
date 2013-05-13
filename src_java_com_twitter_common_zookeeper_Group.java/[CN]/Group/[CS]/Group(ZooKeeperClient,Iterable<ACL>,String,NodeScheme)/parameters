@@ -1,4 +1,4 @@
 ZooKeeperClient zkClient
 Iterable<ACL> acl
 String path
-String namePrefix
+NodeScheme nodeScheme

@@ -1,5 +1,7 @@
 {
   MorePreconditions.checkNotBlank(nodePath);
   Preconditions.checkArgument(nodePath.startsWith(path + "/"),"Not a member of this group[%s]: %s",path,nodePath);
-  return nodeNameScheme.extractMemberId(nodePath);
+  String memberId=StringUtils.substringAfterLast(nodePath,"/");
+  Preconditions.checkArgument(nodeScheme.isMember(memberId),"Not a group member: %s",memberId);
+  return memberId;
 }
