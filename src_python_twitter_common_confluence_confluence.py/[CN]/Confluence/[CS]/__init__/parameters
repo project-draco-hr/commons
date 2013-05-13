@@ -1,4 +1,5 @@
 self
-server
+api_entrypoint
 server_url
 session_token
+content_format

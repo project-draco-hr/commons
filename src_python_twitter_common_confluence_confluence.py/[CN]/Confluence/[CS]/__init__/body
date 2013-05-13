@@ -1,5 +1,6 @@
-def __init__(self, server, server_url, session_token):
+def __init__(self, api_entrypoint, server_url, session_token, content_format='markdown'):
     'Initialize with an established confluence connection.'
-    self._server = server
+    self._api_entrypoint = api_entrypoint
     self._server_url = server_url
     self._session_token = session_token
+    self._content_format = content_format

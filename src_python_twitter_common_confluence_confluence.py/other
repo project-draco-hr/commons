@@ -1,3 +1,4 @@
+'Code to ease publishing text to Confluence wikis.'
 from twitter.common import log
 import getpass
 import urllib

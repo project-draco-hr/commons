@@ -1,10 +1,18 @@
 @staticmethod
-def login(confluence_url, user=None):
-    'Prompts the user to log in to confluence, and returns a Confluence object.\n\n    raises ConfluenceError if login is unsuccessful.\n    '
+def login(confluence_url, user=None, api_entrypoint='confluence1'):
+    "Prompts the user to log in to confluence, and returns a Confluence object.\n\n    confluence_url: Base url of wiki, e.g. https://confluence.atlassian.com/\n    user: Username\n    api_entrypoint: one of 'confluence1' or None (Confluence 3.x) [default],\n                           'confluence2' (Confluence 4.x or 5.x)\n\n    raises ConfluenceError if login is unsuccessful.\n    "
     server = ServerProxy((confluence_url + '/rpc/xmlrpc'))
     user = (user or getpass.getuser())
     password = getpass.getpass(('Please enter confluence password for %s: ' % user))
+    if (api_entrypoint in (None, 'confluence1')):
+        api = server.confluence1
+        fmt = 'markdown'
+    elif (api_entrypoint == 'confluence2'):
+        api = server.confluence2
+        fmt = 'xhtml'
+    else:
+        raise ConfluenceError(("Don't understand api_entrypoint %s" % api_entrypoint))
     try:
-        return Confluence(server, confluence_url, server.confluence1.login(user, password))
+        return Confluence(api, confluence_url, api.login(user, password), fmt)
     except Fault as e:
         raise ConfluenceError(('Failed to log in to %s: %s' % (confluence_url, e)))
