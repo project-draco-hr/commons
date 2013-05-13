@@ -1,7 +1,25 @@
 {
   Preconditions.checkNotNull(maxMemory);
-  int b=computeB(DEFAULT_PRECISION.getEpsilon(),DEFAULT_PRECISION.getN());
-  int bufSize=computeBufferSize(b,DEFAULT_PRECISION.getN());
-  int maxDepth=computeMaxDepth(maxMemory,bufSize);
-  init(bufSize,maxDepth);
+  Preconditions.checkArgument(1024 <= maxMemory.as(Data.BYTES),"at least 1KB is required for an Histogram");
+  double epsilon=DEFAULT_PRECISION.getEpsilon();
+  int n=DEFAULT_PRECISION.getN();
+  int depth=computeDepth(epsilon,n);
+  int bufSize=computeBufferSize(depth,n);
+  long maxBytes=maxMemory.as(Data.BYTES);
+  boolean tooMuchMem=memoryUsage(bufSize,depth) > maxBytes;
+  double multiplier=tooMuchMem ? 1.05 : 0.95;
+  while ((maxBytes < memoryUsage(bufSize,depth)) == tooMuchMem) {
+    epsilon*=multiplier;
+    if (epsilon < 0.00001) {
+      n*=10;
+      epsilon=DEFAULT_PRECISION.getEpsilon();
+    }
+    depth=computeDepth(epsilon,n);
+    bufSize=computeBufferSize(depth,n);
+  }
+  if (!tooMuchMem) {
+    depth=computeDepth(epsilon / multiplier,n);
+    bufSize=computeBufferSize(depth,n);
+  }
+  init(bufSize,depth);
 }

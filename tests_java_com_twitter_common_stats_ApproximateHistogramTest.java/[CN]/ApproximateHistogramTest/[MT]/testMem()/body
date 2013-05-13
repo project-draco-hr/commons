@@ -1,0 +1,10 @@
+{
+  for (int b=10; b < 100; b+=10) {
+    for (int h=4; h < 16; h+=4) {
+      ApproximateHistogram hist=new ApproximateHistogram(b,h);
+      long actualSize=ObjectSizeCalculator.getObjectSize(hist);
+      long estimatedSize=ApproximateHistogram.memoryUsage(b,h);
+      assertEquals(actualSize,estimatedSize);
+    }
+  }
+}

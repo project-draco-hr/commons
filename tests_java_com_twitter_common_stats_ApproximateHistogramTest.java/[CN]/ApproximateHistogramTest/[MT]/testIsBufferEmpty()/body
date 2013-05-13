@@ -1,6 +1,5 @@
 {
-  ApproximateHistogram hist=new ApproximateHistogram();
-  hist.init(b,h);
+  ApproximateHistogram hist=new ApproximateHistogram(b,h);
   for (int i=0; i < 3 * b; i++) {
     hist.add(i);
   }

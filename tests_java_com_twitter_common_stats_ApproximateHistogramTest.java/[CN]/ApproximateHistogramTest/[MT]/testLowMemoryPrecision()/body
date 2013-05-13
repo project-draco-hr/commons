@@ -1,0 +1,11 @@
+{
+  double e=ApproximateHistogram.DEFAULT_PRECISION.getEpsilon();
+  int n=ApproximateHistogram.DEFAULT_PRECISION.getN();
+  int defaultDepth=ApproximateHistogram.computeDepth(e,n);
+  int defaultBufferSize=ApproximateHistogram.computeBufferSize(defaultDepth,n);
+  ApproximateHistogram hist=new ApproximateHistogram(Amount.of(1L,Data.KB));
+  int depth=hist.buffer.length - 1;
+  int bufferSize=hist.buffer[0].length;
+  assertTrue(depth > defaultDepth);
+  assertTrue(bufferSize < defaultBufferSize);
+}

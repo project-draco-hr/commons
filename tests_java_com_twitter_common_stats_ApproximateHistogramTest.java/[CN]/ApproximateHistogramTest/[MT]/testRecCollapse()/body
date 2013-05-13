@@ -1,8 +1,7 @@
 {
   long[] empty={0,0,0,0,0,0,0,0,0,0};
   long[] full={1,1,1,1,1,1,1,1,1,1};
-  ApproximateHistogram hist=new ApproximateHistogram();
-  hist.init(b,h);
+  ApproximateHistogram hist=new ApproximateHistogram(b,h);
   assertArrayEquals(empty,hist.buffer[0]);
   assertArrayEquals(empty,hist.buffer[1]);
   addToHist(hist,b);
