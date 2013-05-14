@@ -1,0 +1,5 @@
+def choose(self, aborted_val, failure_val, warning_val, success_val, unknown_val):
+    'Returns one of the 5 arguments, depending on our outcome.'
+    if (self._outcome not in range(0, 5)):
+        raise Exception(('Invalid outcome: %s' % self._outcome))
+    return (aborted_val, failure_val, warning_val, success_val, unknown_val)[self._outcome]

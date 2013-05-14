@@ -1,0 +1,3 @@
+def path(self):
+    "Returns a path string for this workunit, E.g., 'all:compile:jvm:scalac'."
+    return ':'.join(reversed([w.name for w in self.ancestors()]))

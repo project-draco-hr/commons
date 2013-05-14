@@ -1,0 +1,8 @@
+def start(self, report):
+    'Start tracking this pants run.'
+    self._report = report
+    self._report.open()
+    self.root_workunit = WorkUnit(run_tracker=self, parent=None, labels=[], name='all', cmd=None)
+    self.root_workunit.start()
+    self._report.start_workunit(self.root_workunit)
+    self._current_workunit = self.root_workunit

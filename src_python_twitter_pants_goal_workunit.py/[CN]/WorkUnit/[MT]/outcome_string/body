@@ -1,0 +1,3 @@
+def outcome_string(self):
+    'Returns a human-readable string describing our outcome.'
+    return self.choose('ABORTED', 'FAILURE', 'WARNING', 'SUCCESS', 'UNKNOWN')

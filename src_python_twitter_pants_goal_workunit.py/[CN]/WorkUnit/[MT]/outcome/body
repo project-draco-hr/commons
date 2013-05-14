@@ -1,0 +1,3 @@
+def outcome(self):
+    'Returns the outcome of this workunit.'
+    return self._outcome

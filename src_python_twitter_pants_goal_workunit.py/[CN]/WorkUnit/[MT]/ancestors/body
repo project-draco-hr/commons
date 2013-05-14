@@ -1,0 +1,8 @@
+def ancestors(self):
+    'Returns a list consisting of this workunit and those enclosing it, up to the root.'
+    ret = []
+    workunit = self
+    while (workunit is not None):
+        ret.append(workunit)
+        workunit = workunit.parent
+    return ret
