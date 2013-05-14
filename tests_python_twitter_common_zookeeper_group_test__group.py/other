@@ -1,20 +1,5 @@
-import os
-import pytest
-import threading
 import time
 import unittest
-import zookeeper
-from twitter.common.zookeeper.client import ZooKeeper, ZooDefs
-from twitter.common.zookeeper.test_server import ZookeeperServer
-from twitter.common.zookeeper.group.group import ActiveGroup, Group, Membership
-from twitter.common.zookeeper.group.kazoo_group import KazooGroup
-from kazoo.client import KazooClient
-from kazoo.protocol.states import KazooState
-import kazoo.security as ksec
-if os.getenv('ZOOKEEPER_TEST_DEBUG'):
-    from twitter.common import log
-    from twitter.common.log.options import LogOptions
-    LogOptions.set_stderr_log_level('google:DEBUG')
-    LogOptions.set_disk_log_level('NONE')
-    LogOptions.set_log_dir('/tmp')
-    log.init('client_test')
+from twitter.common.zookeeper.client import ZooKeeper
+from twitter.common.zookeeper.group.group import ActiveGroup, Group
+from twitter.common.zookeeper.group.test_base import GroupTestBase

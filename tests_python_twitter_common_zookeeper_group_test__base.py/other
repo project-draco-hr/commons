@@ -1,0 +1,15 @@
+import os
+import threading
+import time
+from twitter.common.zookeeper.client import ZooDefs
+from twitter.common.zookeeper.test_server import ZookeeperServer
+from twitter.common.zookeeper.group.group import Membership
+import pytest
+import zookeeper
+if os.getenv('ZOOKEEPER_TEST_DEBUG'):
+    from twitter.common import log
+    from twitter.common.log.options import LogOptions
+    LogOptions.set_stderr_log_level('google:DEBUG')
+    LogOptions.set_disk_log_level('NONE')
+    LogOptions.set_log_dir('/tmp')
+    log.init('client_test')
