@@ -1,5 +1,5 @@
 def cancel(self, member, callback=None):
-    promise = Promise(callback)
+    capture = Capture(callback)
 
     def do_cancel():
         self._zk.adelete(posixpath.join(self._path, self.id_to_znode(member.id)), (-1), adelete_completion)
@@ -11,8 +11,8 @@ def cancel(self, member, callback=None):
         if ((rc == zookeeper.OK) or (rc == zookeeper.NONODE)):
             future = self._members.pop(member.id, Future())
             future.set_result(Membership.error())
-            promise.set(True)
+            capture.set(True)
         else:
-            promise.set(False)
+            capture.set(False)
     do_cancel()
-    return promise()
+    return capture()

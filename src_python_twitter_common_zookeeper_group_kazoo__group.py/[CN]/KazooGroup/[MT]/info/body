@@ -1,0 +1,38 @@
+def info(self, member, callback=None):
+    if (member == Membership.error()):
+        raise self.InvalidMemberError('Cannot get info on error member!')
+    capture = Capture(callback)
+
+    def do_info():
+        self._zk.get_async(path).rawlink(info_completion)
+    with self._member_lock:
+        member_future = self._members.setdefault(member, Future())
+    member_future.add_done_callback((lambda future: capture.set(future.result())))
+    dispatch = False
+    with self._member_lock:
+        if ((not member_future.done()) and (not member_future.running())):
+            try:
+                dispatch = member_future.set_running_or_notify_cancel()
+            except:
+                pass
+
+    def info_completion(result):
+        try:
+            (content, stat) = result.get()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._zk.add_listener(self.__on_connected(do_info))
+            return
+        except ke.NoNodeException:
+            future = self._members.pop(member, Future())
+            future.set_result(Membership.error())
+            return
+        except ke.KazooException as e:
+            log.warning(('Unexpected Kazoo result in info: (%s)%s' % (type(e), e)))
+            future = self._members.pop(member, Future())
+            future.set_result(Membership.error())
+            return
+        self._members[member].set_result(content)
+    if dispatch:
+        path = posixpath.join(self._path, self.id_to_znode(member.id))
+        do_info()
+    return capture()

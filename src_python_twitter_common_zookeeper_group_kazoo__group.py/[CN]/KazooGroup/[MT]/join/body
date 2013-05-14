@@ -1,0 +1,42 @@
+def join(self, blob, callback=None, expire_callback=None):
+    membership_capture = Capture(callback)
+    expiry_capture = Capture(expire_callback)
+
+    def do_join():
+        self._zk.create_async(path=posixpath.join(self._path, self.MEMBER_PREFIX), value=blob, acl=self._acl, sequence=True, ephemeral=True, makepath=True).rawlink(acreate_completion)
+
+    def do_exists(path):
+        self._zk.exists_async(path, watch=exists_watch).rawlink(partial(exists_completion, path))
+
+    def exists_watch(event):
+        if ((event.type == EventType.DELETED) or (event.state == KeeperState.EXPIRED_SESSION)):
+            expiry_capture.set()
+
+    def exists_completion(path, result):
+        try:
+            if (result.get() is None):
+                expiry_capture.set()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._zk.add_listener(self.__on_connected(partial(do_exists, path)))
+
+    def acreate_completion(result):
+        try:
+            path = result.get()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._zk.add_listener(self.__on_connected(do_join))
+            return
+        except ke.KazooException as e:
+            log.warning(('Unexpected Kazoo result in join: (%s)%s' % (type(e), e)))
+            membership = Membership.error()
+        else:
+            created_id = self.znode_to_id(path)
+            membership = Membership(created_id)
+            with self._member_lock:
+                result_future = self._members.get(membership, Future())
+                result_future.set_result(blob)
+                self._members[membership] = result_future
+            if expire_callback:
+                self._zk.exists_async(path, watch=exists_watch).rawlink(partial(exists_completion, path))
+        membership_capture.set(membership)
+    do_join()
+    return membership_capture()

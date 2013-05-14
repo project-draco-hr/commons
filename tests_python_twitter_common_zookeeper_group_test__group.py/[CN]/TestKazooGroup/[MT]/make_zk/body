@@ -1,0 +1,7 @@
+@classmethod
+def make_zk(cls, ensemble, **kw):
+    if ('authentication' in kw):
+        kw.update(auth_data=[kw.pop('authentication')])
+    zk = KazooClient(ensemble, timeout=cls.CONNECT_TIMEOUT_SECS, max_retries=cls.CONNECT_RETRIES, **kw)
+    zk.start()
+    return zk

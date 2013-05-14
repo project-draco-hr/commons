@@ -5,3 +5,4 @@ from twitter.common.zookeeper.client import ZooKeeper
 from twitter.common.zookeeper.group import Membership
 from twitter.common.zookeeper.serverset import Endpoint, ServerSet, ServiceInstance
 from twitter.common.zookeeper.test_server import ZookeeperServer
+from kazoo.client import KazooClient

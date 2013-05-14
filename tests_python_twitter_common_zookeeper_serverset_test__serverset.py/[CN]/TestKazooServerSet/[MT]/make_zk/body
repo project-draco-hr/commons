@@ -1,0 +1,5 @@
+@classmethod
+def make_zk(cls, ensemble):
+    zk = KazooClient(ensemble)
+    zk.start()
+    return zk

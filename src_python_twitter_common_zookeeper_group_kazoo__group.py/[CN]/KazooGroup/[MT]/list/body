@@ -1,0 +1,5 @@
+def list(self):
+    try:
+        return sorted((Membership(self.znode_to_id(znode)) for znode in self._zk.get_children(self._path) if self.znode_owned(znode)))
+    except ke.NoNodeException:
+        return []

@@ -1,6 +1,6 @@
 def test_against_alternate_groups(self):
     zkg1 = self.GroupImpl(self._zk, '/test')
-    zkg2 = AlternateGroup(self._zk, '/test')
+    zkg2 = self.AlternateGroupImpl(self._zk, '/test')
     assert (zkg1.list() == [])
     assert (zkg2.list() == [])
     m1 = zkg1.join('morf gorf')

@@ -1,5 +1,5 @@
 def monitor(self, membership=frozenset(), callback=None):
-    promise = Promise(callback)
+    capture = Capture(callback)
 
     def wait_exists():
         self._zk.aexists(self._path, exists_watch, exists_completion)
@@ -31,7 +31,7 @@ def monitor(self, membership=frozenset(), callback=None):
             return
         if (event != zookeeper.CHILD_EVENT):
             return
-        if set_different(promise, membership, self._members):
+        if set_different(capture, membership, self._members):
             return
         do_monitor()
 
@@ -44,9 +44,9 @@ def monitor(self, membership=frozenset(), callback=None):
             return
         if (rc != zookeeper.OK):
             log.warning(('Unexpected get_completion return code: %s' % ReturnCode(rc)))
-            promise.set(set([Membership.error()]))
+            capture.set(set([Membership.error()]))
             return
         self._update_children(children)
-        set_different(promise, membership, self._members)
+        set_different(capture, membership, self._members)
     do_monitor()
-    return promise()
+    return capture()

@@ -1,6 +1,6 @@
 def test_canceled_join_long_time(self):
-    zk = ZooKeeper(self._server.ensemble)
-    session_id = zk.session_id
+    zk = self.make_zk(self._server.ensemble)
+    session_id = self.session_id(zk)
     ss = ServerSet(zk, self.SERVICE_PATH)
     join_signal = threading.Event()
     memberships = []

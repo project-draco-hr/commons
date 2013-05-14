@@ -1,5 +1,5 @@
 def test_client_iteration(self):
-    ss = ServerSet(ZooKeeper(self._server.ensemble), self.SERVICE_PATH)
+    ss = ServerSet(self.make_zk(self._server.ensemble), self.SERVICE_PATH)
     assert (list(ss) == [])
     ss.join(self.INSTANCE1)
     assert (list(ss) == [ServiceInstance(self.INSTANCE1)])

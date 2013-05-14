@@ -1,0 +1,3 @@
+@classmethod
+def session_id(cls, zk):
+    return zk._session_id

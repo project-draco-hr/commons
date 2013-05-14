@@ -1,0 +1,5 @@
+@classmethod
+def translate_acl(cls, acl):
+    if (not isinstance(acl, Acl)):
+        raise TypeError(('Expected acl to be Acl, got %s' % type(acl)))
+    return ksec.ACL(acl['perms'], ksec.Id(acl['scheme'], acl['id']))

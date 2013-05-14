@@ -1,0 +1,7 @@
+def __on_connected(self, callback):
+
+    def listener(state):
+        if (state == KazooState.CONNECTED):
+            callback()
+            return True
+    return listener

@@ -1,6 +1,0 @@
-import itertools
-import posixpath
-import threading
-import zookeeper
-DEFAULT_ACL = {'perms': zookeeper.PERM_ALL, 'scheme': 'world', 'id': 'anyone', }
-ZOO_OPEN_ACL_UNSAFE = DEFAULT_ACL

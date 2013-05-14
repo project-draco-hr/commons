@@ -1,0 +1,54 @@
+def monitor(self, membership=frozenset(), callback=None):
+    capture = Capture(callback)
+
+    def wait_exists():
+        self._zk.exists_async(self._path, exists_watch).rawlink(exists_completion)
+
+    def exists_watch(event):
+        if (event.state == KeeperState.EXPIRED_SESSION):
+            wait_exists()
+            return
+        if (event.type == EventType.CREATED):
+            do_monitor()
+        elif (event.type == EventType.DELETED):
+            wait_exists()
+
+    def exists_completion(result):
+        if result.get():
+            do_monitor()
+
+    def do_monitor():
+        self._zk.get_children_async(self._path, get_watch).rawlink(get_completion)
+
+    def get_watch(event):
+        if (event.state == KeeperState.EXPIRED_SESSION):
+            wait_exists()
+            return
+        if (event.state != KeeperState.CONNECTED):
+            return
+        if (event.type == EventType.DELETED):
+            wait_exists()
+            return
+        if (event.type != EventType.CHILD):
+            return
+        if set_different(capture, membership, self._members):
+            return
+        do_monitor()
+
+    def get_completion(result):
+        try:
+            children = result.get()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._zk.add_listener(self.__on_connected(do_monitor))
+            return
+        except ke.NoNodeError:
+            wait_exists()
+            return
+        except ke.KazooException as e:
+            log.warning(('Unexpected get_completion result: (%s)%s' % (type(e), e)))
+            capture.set(set([Membership.error()]))
+            return
+        self._update_children(children)
+        set_different(capture, membership, self._members)
+    do_monitor()
+    return capture()

@@ -1,7 +1,7 @@
 def info(self, member, callback=None):
     if (member == Membership.error()):
         raise self.InvalidMemberError('Cannot get info on error member!')
-    promise = Promise(callback)
+    capture = Capture(callback)
 
     def do_info():
         self._zk.aget(path, None, info_completion)
@@ -9,7 +9,7 @@ def info(self, member, callback=None):
         if (member not in self._members):
             self._members[member] = Future()
         member_future = self._members[member]
-    member_future.add_done_callback((lambda future: promise.set(future.result())))
+    member_future.add_done_callback((lambda future: capture.set(future.result())))
     dispatch = False
     with self._member_lock:
         if ((not member_future.done()) and (not member_future.running())):
@@ -32,4 +32,4 @@ def info(self, member, callback=None):
     if dispatch:
         path = posixpath.join(self._path, self.id_to_znode(member.id))
         do_info()
-    return promise()
+    return capture()

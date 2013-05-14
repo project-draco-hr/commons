@@ -11,8 +11,8 @@ def test_client_watcher(self):
     def on_leave(endpoint):
         canceled_endpoints[:] = [endpoint]
         canceled.set()
-    service1 = ServerSet(ZooKeeper(self._server.ensemble), self.SERVICE_PATH, on_join=on_join, on_leave=on_leave)
-    service2 = ServerSet(ZooKeeper(self._server.ensemble), self.SERVICE_PATH)
+    service1 = ServerSet(self.make_zk(self._server.ensemble), self.SERVICE_PATH, on_join=on_join, on_leave=on_leave)
+    service2 = ServerSet(self.make_zk(self._server.ensemble), self.SERVICE_PATH)
     member1 = service2.join(self.INSTANCE1)
     joined.wait(2.0)
     assert joined.is_set()

@@ -2,5 +2,8 @@ try:
     from twitter.common import log
 except ImportError:
     import logging as log
+from twitter.common.zookeeper.client import ZooKeeper
 from twitter.common.zookeeper.group import ActiveGroup, Group, GroupInterface
+from twitter.common.zookeeper.group.kazoo_group import KazooGroup
 from .endpoint import ServiceInstance
+from kazoo.client import KazooClient

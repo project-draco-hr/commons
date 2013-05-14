@@ -1,5 +1,5 @@
 def monitor(self, membership=frozenset(), callback=None):
-    promise = Promise(callback)
-    if (not set_different(promise, membership, self._members)):
-        self._monitor_queue.append((membership, promise))
-    return promise()
+    capture = Capture(callback)
+    if (not set_different(capture, membership, self._members)):
+        self._monitor_queue.append((membership, capture))
+    return capture()

@@ -1,0 +1,8 @@
+def test_children_filtering(self):
+    zk = self.make_zk(self._server.ensemble)
+    zk.create('/test', '', acl=ksec.OPEN_ACL_UNSAFE)
+    zk.create('/test/alt_member_', '', acl=ksec.OPEN_ACL_UNSAFE, sequence=True, ephemeral=True)
+    zk.create('/test/candidate_', '', acl=ksec.OPEN_ACL_UNSAFE, sequence=True, ephemeral=True)
+    zkg = self.GroupImpl(self._zk, '/test')
+    assert (list(zkg) == [])
+    assert (zkg.monitor(membership=set(['frank', 'larry'])) == set())
