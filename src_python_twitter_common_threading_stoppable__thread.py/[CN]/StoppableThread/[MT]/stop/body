@@ -1,0 +1,5 @@
+def stop(self):
+    'Blocks until the thread is joined.'
+    with self._lock:
+        self._stopped = True
+    self.join()
