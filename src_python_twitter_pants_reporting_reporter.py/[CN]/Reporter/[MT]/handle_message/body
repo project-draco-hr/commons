@@ -1,0 +1,3 @@
+def handle_message(self, workunit, *msg_elements):
+    "Handle a message reported by pants code.\n\n    msg_elements are either strings or lists (e.g., of targets), which can be specially formatted.\n    For example: ['Invalidated ', [Target1, Target2, ...]]\n    "
+    pass

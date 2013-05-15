@@ -1,0 +1,3 @@
+def _format_artifact_cache_stats(self, artifact_cache_stats):
+    stats = artifact_cache_stats.get_all()
+    return ('No artifact cache reads.' if (not stats) else '\n'.join([('%(cache_name)s - Hits: %(num_hits)d Misses: %(num_misses)d' % x) for x in stats]))

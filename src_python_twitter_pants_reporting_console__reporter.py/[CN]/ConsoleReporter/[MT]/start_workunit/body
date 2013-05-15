@@ -1,0 +1,7 @@
+def start_workunit(self, workunit):
+    'Implementation of Reporter callback.'
+    if (workunit.parent and workunit.parent.has_label(WorkUnit.MULTITOOL)):
+        sys.stdout.write('.')
+    else:
+        sys.stdout.write(('\n%s %s %s[%s]' % (workunit.start_time_string(), workunit.start_delta_string(), self._indent(workunit), (workunit.name if self._indenting else workunit.path()))))
+    sys.stdout.flush()

@@ -1,0 +1,3 @@
+def start_workunit(self, workunit):
+    'A new workunit has started.'
+    pass

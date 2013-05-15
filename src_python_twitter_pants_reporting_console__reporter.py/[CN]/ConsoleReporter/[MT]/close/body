@@ -1,0 +1,16 @@
+def close(self):
+    'Implementation of Reporter callback.'
+    if self.run_tracker.options.time:
+        print '\n'
+        print 'Cumulative Timings'
+        print '=================='
+        print self._format_aggregated_timings(self.run_tracker.cumulative_timings)
+        print '\n'
+        print 'Self Timings'
+        print '============'
+        print self._format_aggregated_timings(self.run_tracker.self_timings)
+        print '\n'
+        print 'Artifact Cache Stats'
+        print '===================='
+        print self._format_artifact_cache_stats(self.run_tracker.artifact_cache_stats)
+    print ''
