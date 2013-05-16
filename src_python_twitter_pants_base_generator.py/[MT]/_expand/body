@@ -1,4 +1,0 @@
-def _expand(map):
-    map = dict(((k, (list(v) if isinstance(v, collections.Set) else v)) for (k, v) in map.items()))
-    map.update((((k + '?'), True) for (k, v) in map.items() if (v and (not k.endswith('?')))))
-    return map

@@ -1,0 +1,2 @@
+def render_name(self, template_name, args):
+    return self._pystache_renderer.render_name(template_name, MustacheRenderer.expand(args))

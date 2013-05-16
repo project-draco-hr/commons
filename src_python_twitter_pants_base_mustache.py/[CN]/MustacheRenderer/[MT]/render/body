@@ -1,0 +1,2 @@
+def render(self, template, args):
+    return self._pystache_renderer.render(template, MustacheRenderer.expand(args))
