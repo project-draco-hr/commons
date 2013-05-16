@@ -1,0 +1,10 @@
+import os
+import re
+from twitter.pants.base.build_file import BuildFile
+_PREFIX = '(https?://)?/?'
+_REL_PATH_COMPONENT = '(\\w|[-.])+'
+_ABS_PATH_COMPONENT = ('/' + _REL_PATH_COMPONENT)
+_ABS_PATH_COMPONENTS = ('(%s)+' % _ABS_PATH_COMPONENT)
+_OPTIONAL_TARGET_SUFFIX = ('(:%s)?' % _REL_PATH_COMPONENT)
+_PATH = ((((_PREFIX + _REL_PATH_COMPONENT) + _ABS_PATH_COMPONENTS) + _OPTIONAL_TARGET_SUFFIX) + '\\w')
+_PATH_RE = re.compile(_PATH)

@@ -1,0 +1,6 @@
+def handle_message(self, workunit, *msg_elements):
+    'Implementation of Reporter callback.'
+    content = self._render_message(*msg_elements)
+    args = {'content_id': uuid.uuid4(), 'workunit_id': workunit.id, 'content': content, }
+    s = self._renderer.render_name('append_to_workunit', args)
+    self._emit(s)
