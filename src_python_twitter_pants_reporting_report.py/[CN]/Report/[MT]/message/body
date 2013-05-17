@@ -1,0 +1,5 @@
+def message(self, workunit, *msg_elements):
+    'Report a message.\n\n    Each element of msg_elements is either a message string or a (message, detail) pair.\n    '
+    with self._lock:
+        for reporter in self._reporters:
+            reporter.handle_message(workunit, *msg_elements)
