@@ -1,30 +1,36 @@
-from __future__ import print_function
+import atexit
+import errno
 import inspect
+import multiprocessing
 import os
 import sys
+import signal
+import socket
 import time
 import traceback
 from contextlib import contextmanager
 from optparse import Option, OptionParser
-try:
-    from colors import yellow, green, cyan
-except ImportError:
-    turn_off_colored_logging = True
-else:
-    turn_off_colored_logging = False
-from functools import wraps
+import daemon
 from twitter.common import log
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_rmtree
 from twitter.common.lang import Compatibility
-from twitter.pants import get_buildroot, goal, group, has_sources, is_apt, is_scala
-from twitter.pants.base import Address, BuildFile, Config, ParseContext, Target, Timer
+from twitter.pants import get_buildroot, goal, group, has_sources, is_apt
+from twitter.pants.base import Address, BuildFile, Config, ParseContext, Target
 from twitter.pants.base.rcfile import RcFile
 from twitter.pants.commands import Command
-from twitter.pants.targets import InternalTarget
+from twitter.pants.goal.workunit import WorkUnit
+from twitter.pants.reporting.report import Report
+from twitter.pants.reporting.reporting_server import ReportingServer
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.tasks.nailgun_task import NailgunTask
-from twitter.pants.goal import Context, GoalError, Phase
+from twitter.pants.goal import Context, GoalError, Phase, RunTracker, default_report
+try:
+    import colors
+except ImportError:
+    turn_off_colored_logging = True
+else:
+    turn_off_colored_logging = False
 StringIO = Compatibility.StringIO
 goal(name='goals', action=List).install().with_description('List all documented goals.')
 goal(name='help', action=Help).install().with_description('Provide help for the specified goal.')
@@ -41,7 +47,6 @@ from twitter.pants.tasks.filedeps import FileDeps
 from twitter.pants.tasks.idl_resolve import IdlResolve
 from twitter.pants.tasks.ivy_resolve import IvyResolve
 from twitter.pants.tasks.jar_create import JarCreate
-from twitter.pants.tasks.jar_publish import JarPublish
 from twitter.pants.tasks.java_compile import JavaCompile
 from twitter.pants.tasks.javadoc_gen import JavadocGen
 from twitter.pants.tasks.scaladoc_gen import ScaladocGen
@@ -87,6 +92,8 @@ if NailgunTask.killall:
     ng_killall = goal(name='ng-killall', action=NailgunKillall)
     ng_killall.install().with_description('Kill any running nailgun servers spawned by pants.')
     ng_killall.install('clean-all', first=True)
+goal(name='server', action=RunServer).install().with_description('Run the pants reporting server.')
+goal(name='killserver', action=KillServer).install().with_description('Kill the pants reporting server.')
 goal(name='ivy', action=IvyResolve, dependencies=['gen']).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')
 goal(name='idl', action=IdlResolve).install('resolve-idl').with_description('Resolves idl jar dependencies.')
 goal(name='extract', action=Extract).install('resolve-idl')
@@ -95,9 +102,9 @@ goal(name='scrooge', action=ScroogeGen, dependencies=['resolve-idl']).install('g
 goal(name='protoc', action=ProtobufGen, dependencies=['resolve-idl']).install('gen')
 goal(name='antlr', action=AntlrGen, dependencies=['resolve-idl']).install('gen')
 goal(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']).install().with_description('Run checkstyle against java source code.')
-goal(name='scalac', action=ScalaCompile, group=group('jvm', is_scala), dependencies=['gen', 'resolve']).install('compile').with_description('Compile both generated and checked in code.')
+goal(name='scala', action=ScalaCompile, group=group('jvm', is_scala), dependencies=['gen', 'resolve']).install('compile').with_description('Compile both generated and checked in code.')
 goal(name='apt', action=JavaCompile, group=group('jvm', is_apt), dependencies=['gen', 'resolve']).install('compile')
-goal(name='javac', action=JavaCompile, group=group('jvm', is_java), dependencies=['gen', 'resolve']).install('compile')
+goal(name='java', action=JavaCompile, group=group('jvm', is_java), dependencies=['gen', 'resolve']).install('compile')
 goal(name='prepare', action=PrepareResources).install('resources')
 goal(name='javadoc', action=JavadocGen, dependencies=['compile']).install('doc').with_description('Create documentation.')
 goal(name='scaladoc', action=ScaladocGen, dependencies=['compile']).install('doc')

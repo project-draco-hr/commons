@@ -4,4 +4,4 @@ def _check_overlapping_sources(self, targets_by_source):
     for s in targets_by_source:
         if (len(targets_by_source[s]) > 1):
             overlapping_sources.add(s)
-            print ('Error: source file %s included in multiple targets %s' % (s, targets_by_source[s]))
+            self.context.log.error(('Error: source file %s included in multiple targets %s' % (s, targets_by_source[s])))

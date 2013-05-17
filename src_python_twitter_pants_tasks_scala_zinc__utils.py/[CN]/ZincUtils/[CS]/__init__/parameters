@@ -1,4 +1,4 @@
 self
 context
-java_runner
+nailgun_task
 color

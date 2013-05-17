@@ -2,6 +2,7 @@ import cgi
 import os
 import re
 import uuid
+from collections import namedtuple
 from pystache.renderer import Renderer
 from twitter.common.dirutil import safe_mkdir
 from twitter.pants import get_buildroot

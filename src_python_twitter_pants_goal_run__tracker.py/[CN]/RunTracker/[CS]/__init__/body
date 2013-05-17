@@ -17,4 +17,3 @@ def __init__(self, config):
     self._report = None
     self.root_workunit = None
     self._current_workunit = None
-    self.options = None

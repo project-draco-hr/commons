@@ -1,2 +1,2 @@
-def debug(self, msg):
-    pass
+def debug(self, *msg_elements):
+    self._run_tracker.log(Report.DEBUG, *msg_elements)

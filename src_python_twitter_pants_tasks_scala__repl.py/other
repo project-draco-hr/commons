@@ -1,4 +1,3 @@
-__author__ = 'Benjy Weinberger'
 import shlex
 import subprocess
 from twitter.pants.binary_util import profile_classpath, runjava_indivisible

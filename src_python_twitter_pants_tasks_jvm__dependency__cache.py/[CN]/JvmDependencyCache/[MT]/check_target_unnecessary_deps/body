@@ -6,4 +6,4 @@ def check_target_unnecessary_deps(self, target, computed_deps):
         if (len(overdeps) > 0):
             for deptarget in overdeps:
                 if (isinstance(deptarget, JvmTarget) and (not deptarget.has_label('synthetic'))):
-                    print ('Warning: target %s declares un-needed dependency on: %s' % (target, deptarget))
+                    self.context.log.warn(('Warning: target %s declares un-needed dependency on: %s' % (target, deptarget)))

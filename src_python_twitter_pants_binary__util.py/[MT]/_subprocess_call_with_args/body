@@ -1,10 +1,10 @@
-def _subprocess_call_with_args(cmd, args, call=subprocess.call, **kwargs):
+def _subprocess_call_with_args(cmd, args, call=subprocess.call, workunit_factory=None, workunit_name=None, **kwargs):
     cmd_with_args = cmd[:]
     if args:
         cmd_with_args.extend(args)
     try:
         with safe_classpath():
-            return _subprocess_call(cmd_with_args, call=call, **kwargs)
+            return _subprocess_call(cmd_with_args, call=call, workunit_factory=workunit_factory, workunit_name=workunit_name, **kwargs)
     except OSError as e:
         if ((errno.E2BIG == e.errno) and args and (len(args) > 1)):
             (args1, args2) = _split_args(args)

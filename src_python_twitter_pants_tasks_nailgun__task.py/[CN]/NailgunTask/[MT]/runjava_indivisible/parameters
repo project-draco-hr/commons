@@ -4,3 +4,4 @@ classpath
 opts
 args
 jvmargs
+workunit_name

@@ -1,28 +1,34 @@
-def _runjava_common(self, runjava, main, classpath=None, opts=None, args=None, jvmargs=None):
+def _runjava_common(self, runjava, main, classpath=None, opts=None, args=None, jvmargs=None, workunit_name=None):
     cp = ((self._classpath or []) + (classpath or []))
+    cmd_str = binary_util.runjava_cmd_str(jvmargs=jvmargs, classpath=cp, main=main, opts=opts, args=args)
+    workunit_name = (workunit_name or main)
     if self._daemon:
-        nailgun = self._get_nailgun_client()
+        workunit_labels = [WorkUnit.TOOL, WorkUnit.NAILGUN]
+        with self.context.new_workunit(name=workunit_name, labels=workunit_labels, cmd=cmd_str) as workunit:
+            nailgun = self._get_nailgun_client(workunit)
 
-        def call_nailgun(main_class, *args):
-            if self.dry_run:
-                print ('********** NailgunClient dry run: %s %s' % (main_class, ' '.join(args)))
-                return 0
-            else:
-                return nailgun(main_class, *args)
-        try:
-            if cp:
-                call_nailgun('ng-cp', *[os.path.relpath(jar, get_buildroot()) for jar in cp])
-            opts_args = []
-            if opts:
-                opts_args.extend(opts)
-            if args:
-                opts_args.extend(args)
-            return call_nailgun(main, *opts_args)
-        except NailgunError as e:
-            self._ng_shutdown()
-            raise e
+            def call_nailgun(main_class, *args):
+                if self.dry_run:
+                    print ('********** NailgunClient dry run: %s' % cmd_str)
+                    return 0
+                else:
+                    return nailgun(main_class, *args)
+            try:
+                if cp:
+                    call_nailgun('ng-cp', *[os.path.relpath(jar, get_buildroot()) for jar in cp])
+                opts_args = []
+                if opts:
+                    opts_args.extend(opts)
+                if args:
+                    opts_args.extend(args)
+                ret = call_nailgun(main, *opts_args)
+                workunit.set_outcome((WorkUnit.FAILURE if ret else WorkUnit.SUCCESS))
+                return ret
+            except NailgunError as e:
+                self._ng_shutdown()
+                raise e
     else:
-        ret = runjava(main=main, classpath=cp, opts=opts, args=args, jvmargs=jvmargs, dryrun=self.dry_run)
+        ret = runjava(main=main, classpath=cp, opts=opts, args=args, jvmargs=jvmargs, workunit_factory=self.context.new_workunit, workunit_name=workunit_name, dryrun=self.dry_run)
         if self.dry_run:
             print ('********** Direct Java dry run: %s' % ret)
             return 0

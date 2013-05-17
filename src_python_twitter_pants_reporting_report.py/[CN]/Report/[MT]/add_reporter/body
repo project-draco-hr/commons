@@ -1,2 +1,2 @@
-def add_reporter(self, reporter):
-    self._reporters.append(reporter)
+def add_reporter(self, name, reporter):
+    self._reporters[name] = reporter

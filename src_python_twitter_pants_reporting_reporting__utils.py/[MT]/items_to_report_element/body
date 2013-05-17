@@ -1,5 +1,5 @@
 def items_to_report_element(items, item_type):
-    'Converts an iterable of items to a (message, detail) pair.\n\n  - items: a list of items (e.g., Target instances) that can be str()-ed.\n  - item_type: a string describing the type of item (e.g., \'target\').\n\n  Returns (message, detail) where message is the count of items (e.g., \'26 targets\')\n  and detail is the text representation of the list of items, one per line.\n\n  The return value can be used as an argument to Report.message().\n\n  This is useful when we want to say "N targets" or "K sources"\n  and allow the user to see which ones by clicking on that text.\n  '
+    'Converts an iterable of items to a (message, detail) pair.\n\n  - items: a list of items (e.g., Target instances) that can be str()-ed.\n  - item_type: a string describing the type of item (e.g., \'target\').\n\n  Returns (message, detail) where message is the count of items (e.g., \'26 targets\')\n  and detail is the text representation of the list of items, one per line.\n\n  The return value can be used as an argument to Report.log().\n\n  This is useful when we want to say "N targets" or "K sources"\n  and allow the user to see which ones by clicking on that text.\n  '
 
     def pluralize(x):
         if x.endswith('s'):

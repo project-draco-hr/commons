@@ -1,9 +1,9 @@
 self
 config
 options
+run_tracker
 target_roots
 requested_goals
 lock
 log
-timer
 target_base

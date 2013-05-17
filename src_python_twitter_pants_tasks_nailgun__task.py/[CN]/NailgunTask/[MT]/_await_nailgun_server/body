@@ -1,4 +1,4 @@
-def _await_nailgun_server(self):
+def _await_nailgun_server(self, workunit):
     nailgun_timeout_seconds = 5
     max_socket_connect_attempts = 10
     nailgun = None
@@ -10,7 +10,7 @@ def _await_nailgun_server(self):
                 port = self._parse_nailgun_port(started)
                 with open(self._pidfile, 'a') as pidfile:
                     pidfile.write((':%d\n' % port))
-                nailgun = self._create_ngclient(port)
+                nailgun = self._create_ngclient(port, workunit)
                 log.debug(('Detected ng server up on port %d' % port))
             elif ((time.time() - port_parse_start) > nailgun_timeout_seconds):
                 raise NailgunError(('Failed to read ng output after %s seconds' % nailgun_timeout_seconds))

@@ -5,6 +5,3 @@ def end_workunit(self, workunit):
             sys.stdout.write(self._prefix(workunit, ('\n==== %s ====\n' % name)))
             sys.stdout.write(self._prefix(workunit, outbuf.read_from(0)))
             sys.stdout.flush()
-    if workunit.parent:
-        with self._lock:
-            self._needs_newline[workunit.parent.id] = False

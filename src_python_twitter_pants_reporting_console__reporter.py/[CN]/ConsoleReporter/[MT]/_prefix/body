@@ -1,5 +1,5 @@
 def _prefix(self, workunit, s):
-    if self._indenting:
+    if self.settings.indent:
         return s.replace('\n', (('\n' + ConsoleReporter._time_string_filler) + self._indent(workunit)))
     else:
         return (ConsoleReporter._time_string_filler + s)

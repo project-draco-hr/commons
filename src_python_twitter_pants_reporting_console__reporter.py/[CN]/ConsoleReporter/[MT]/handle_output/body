@@ -1,9 +1,5 @@
 def handle_output(self, workunit, label, s):
     'Implementation of Reporter callback.'
     if workunit.has_label(WorkUnit.TEST):
-        with self._lock:
-            if (not self._needs_newline[workunit.id]):
-                s = ('\n' + s)
-                self._needs_newline[workunit.id] = True
         sys.stdout.write(self._prefix(workunit, s))
         sys.stdout.flush()

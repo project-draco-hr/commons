@@ -4,3 +4,5 @@ main
 opts
 args
 dryrun
+workunit_factory
+workunit_name

@@ -1,7 +1,9 @@
 def update_artifact_cache(self, vt, build_artifacts):
     "Write to the artifact cache, if we're configured to.\n\n    vts:             A single VersionedTargetSet.\n    build_artifacts: The paths to the artifacts for the VersionedTargetSet.\n    "
     if (self._artifact_cache and self.context.options.write_to_artifact_cache):
-        if self.context.options.verify_artifact_cache:
-            pass
-        self.context.log.info(('Caching artifacts for %s' % str(vt.targets)))
-        self._artifact_cache.insert(vt.cache_key, build_artifacts)
+        with self.context.new_workunit('cache'):
+            with self.context.new_workunit('update'):
+                if self.context.options.verify_artifact_cache:
+                    pass
+                self._report_targets('Caching artifacts for ', vt.targets, '.')
+                self._artifact_cache.insert(vt.cache_key, build_artifacts)

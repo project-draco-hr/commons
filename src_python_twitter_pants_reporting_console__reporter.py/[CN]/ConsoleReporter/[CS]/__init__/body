@@ -1,6 +1,2 @@
-def __init__(self, run_tracker, indenting):
-    'If indenting is True, we indent the reporting to reflect the nesting of workunits.'
-    Reporter.__init__(self, run_tracker)
-    self._indenting = indenting
-    self._lock = threading.Lock()
-    self._needs_newline = defaultdict(bool)
+def __init__(self, run_tracker, settings):
+    Reporter.__init__(self, run_tracker, settings)

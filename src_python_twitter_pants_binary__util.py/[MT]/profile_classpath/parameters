@@ -3,3 +3,4 @@ java_runner
 config
 ivy_jar
 ivy_settings
+workunit_factory

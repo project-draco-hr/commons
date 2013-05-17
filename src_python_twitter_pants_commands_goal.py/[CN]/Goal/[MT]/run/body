@@ -1,55 +1,33 @@
 def run(self, lock):
+    log_level = Report.log_level_from_string((self.options.log_level or 'info'))
+    color = (not self.options.no_color)
+    timing = self.options.time
+    cache_stats = self.options.time
+    settings_updates_map = {'console': {'log_level': log_level, 'color': color, 'timing': timing, 'cache_stats': cache_stats, }, 'html': {'log_level': log_level, }, }
+    self.run_tracker.update_report_settings(settings_updates_map)
     if self.options.dry_run:
-        print('****** Dry Run ******')
-    logger = None
-    if (self.options.log or self.options.log_level):
-        log.LogOptions.set_stderr_log_level((self.options.log_level or 'info').upper())
-        logdir = (self.options.logdir or self.config.get('goals', 'logdir', default=None))
-        if logdir:
-            safe_mkdir(logdir)
-            log.LogOptions.set_log_dir(logdir)
-            log.init('goals')
-        else:
-            log.init()
-        logger = log
-        if (not self.options.no_color):
-
-            def colorwrapper(func, clrname):
-
-                @wraps(func)
-                def wrapper(msg, *args, **kwargs):
-                    return func(clrname(msg), *args, **kwargs)
-                return wrapper
-            log.info = colorwrapper(log.info, green)
-            log.warn = colorwrapper(log.warn, yellow)
-            log.debug = colorwrapper(log.debug, cyan)
+        print '****** Dry Run ******'
+    context = Context(self.config, self.options, self.run_tracker, self.targets, requested_goals=self.requested_goals, lock=lock)
     if self.options.recursive_directory:
-        log.warn('--all-recursive is deprecated, use a target spec with the form [dir]:: instead')
+        context.log.warn('--all-recursive is deprecated, use a target spec with the form [dir]:: instead')
         for dir in self.options.recursive_directory:
             self.add_target_recursive(dir)
     if self.options.target_directory:
-        log.warn('--all is deprecated, use a target spec with the form [dir]: instead')
+        context.log.warn('--all is deprecated, use a target spec with the form [dir]: instead')
         for dir in self.options.target_directory:
             self.add_target_directory(dir)
-    context = Context(self.config, self.options, self.targets, requested_goals=self.requested_goals, lock=lock, log=logger, timer=(self.timer if self.options.time else None))
     unknown = []
     for phase in self.phases:
         if (not phase.goals()):
             unknown.append(phase)
     if unknown:
-        print(('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown))))
-        print('')
+        print ('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown)))
+        print ''
         return Phase.execute(context, 'goals')
-    if logger:
-        logger.debug(('Operating on targets: %s' % self.targets))
     ret = Phase.attempt(context, self.phases)
     if (self.options.cleanup_nailguns or self.config.get('nailgun', 'autokill', default=False)):
         if log:
             log.debug('auto-killing nailguns')
         if NailgunTask.killall:
             NailgunTask.killall(log)
-    if self.options.time:
-        print('Timing report')
-        print('=============')
-        self.timer.print_timings()
     return ret

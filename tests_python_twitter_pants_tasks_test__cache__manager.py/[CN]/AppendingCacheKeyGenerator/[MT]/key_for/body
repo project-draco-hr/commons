@@ -1,2 +1,2 @@
 def key_for(self, id, sources):
-    return CacheKey(id, id, len(sources))
+    return CacheKey(id, id, len(sources), [])

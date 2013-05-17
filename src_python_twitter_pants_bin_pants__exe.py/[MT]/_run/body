@@ -11,22 +11,29 @@ def _run():
     parser = optparse.OptionParser(version=version)
     RcFile.install_disable_rc_option(parser)
     parser.add_option(_LOG_EXIT_OPTION, action='store_true', default=False, dest='log_exit', help='Log an exit message on success or failure.')
-    command = command_class(root_dir, parser, command_args)
-    if command.serialized():
-
-        def onwait(pid):
-            print(('Waiting on pants process %s to complete' % _process_info(pid)), file=sys.stderr)
-            return True
-        runfile = os.path.join(root_dir, '.pants.run')
-        lock = Lock.acquire(runfile, onwait=onwait)
-    else:
-        lock = Lock.unlocked()
+    config = Config.load()
+    run_tracker = RunTracker(config)
+    report = default_report(config, run_tracker)
+    run_tracker.start(report)
     try:
+        command = command_class(run_tracker, root_dir, parser, command_args)
+        if command.serialized():
+
+            def onwait(pid):
+                print(('Waiting on pants process %s to complete' % _process_info(pid)), file=sys.stderr)
+                return True
+            runfile = os.path.join(root_dir, '.pants.run')
+            lock = Lock.acquire(runfile, onwait=onwait)
+        else:
+            lock = Lock.unlocked()
         try:
-            result = command.run(lock)
-            _do_exit(result)
-        except KeyboardInterrupt:
-            command.cleanup()
-            raise
+            try:
+                result = command.run(lock)
+                _do_exit(result)
+            except KeyboardInterrupt:
+                command.cleanup()
+                raise
+        finally:
+            lock.release()
     finally:
-        lock.release()
+        run_tracker.end()

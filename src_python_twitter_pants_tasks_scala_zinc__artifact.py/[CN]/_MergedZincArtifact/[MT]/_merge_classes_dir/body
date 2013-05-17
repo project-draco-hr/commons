@@ -1,7 +1,5 @@
 def _merge_classes_dir(self, state):
     "Merge the classes dirs from the underlying artifacts into a single dir.\n\n    May symlink instead of copying, when it's OK to do so.\n\n    Postcondition: symlinks are of leaf packages only.\n    "
-    if (len(self.underlying_artifacts) <= 1):
-        return
     self.log.debug(('Merging classes dirs into %s' % self.classes_dir))
     safe_rmtree(self.classes_dir)
     symlinkable_packages = self._symlinkable_packages(state)

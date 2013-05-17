@@ -1,3 +1,0 @@
-def report(self, *msg_elements):
-    'Log a message against the current workunit.'
-    self._report.message(self._current_workunit, *msg_elements)

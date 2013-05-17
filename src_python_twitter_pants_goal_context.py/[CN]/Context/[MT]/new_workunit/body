@@ -1,0 +1,4 @@
+@contextmanager
+def new_workunit(self, name, labels=list(), cmd=''):
+    with self.run_tracker.new_workunit(name=name, labels=labels, cmd=cmd) as workunit:
+        yield workunit

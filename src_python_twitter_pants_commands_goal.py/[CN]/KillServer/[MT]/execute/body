@@ -1,0 +1,14 @@
+def execute(self, targets):
+    (port, pidfile) = get_port_and_pidfile(self.context)
+    if os.path.exists(pidfile):
+        with open(pidfile, 'r') as infile:
+            pidstr = infile.read()
+        try:
+            os.unlink(pidfile)
+            pid = int(pidstr)
+            os.kill(pid, signal.SIGKILL)
+            self.context.log.info(('Killed server with pid %d at http://localhost:%d\n' % (pid, port)))
+        except (ValueError, OSError):
+            pass
+    else:
+        self.context.log.info('No server found.')

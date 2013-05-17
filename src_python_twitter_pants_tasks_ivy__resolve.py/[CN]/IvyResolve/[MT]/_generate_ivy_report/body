@@ -16,7 +16,7 @@ def _generate_ivy_report(self):
             make_empty_report(xml, org, name, conf)
         out = os.path.join(self._outdir, ('%(org)s-%(name)s-%(conf)s.html' % params))
         opts = ['-IN', xml, '-XSL', xsl, '-OUT', out]
-        if (0 != self.runjava_indivisible('org.apache.xalan.xslt.Process', classpath=classpath, opts=opts)):
+        if (0 != self.runjava_indivisible('org.apache.xalan.xslt.Process', classpath=classpath, opts=opts, workunit_name='report')):
             raise TaskError
         reports.append(out)
     css = os.path.join(self._outdir, 'ivy-report.css')

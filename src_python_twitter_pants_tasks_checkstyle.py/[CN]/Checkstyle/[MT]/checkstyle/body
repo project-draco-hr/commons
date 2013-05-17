@@ -9,4 +9,4 @@ def checkstyle(self, sources):
             for (k, v) in self._properties.items():
                 pf.write(('%s=%s\n' % (k, v)))
         opts.extend(['-p', properties_file])
-    return self.runjava(CHECKSTYLE_MAIN, classpath=classpath, opts=opts, args=sources)
+    return self.runjava(CHECKSTYLE_MAIN, classpath=classpath, opts=opts, args=sources, workunit_name='checkstyle')

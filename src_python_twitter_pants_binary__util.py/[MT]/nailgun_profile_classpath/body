@@ -1,2 +1,2 @@
-def nailgun_profile_classpath(nailgun_task, profile, ivy_jar=None, ivy_settings=None):
-    return profile_classpath(profile, java_runner=nailgun_task.runjava_indivisible, config=nailgun_task.context.config, ivy_jar=ivy_jar, ivy_settings=ivy_settings)
+def nailgun_profile_classpath(nailgun_task, profile, ivy_jar=None, ivy_settings=None, workunit_factory=None):
+    return profile_classpath(profile, java_runner=nailgun_task.runjava_indivisible, config=nailgun_task.context.config, ivy_jar=ivy_jar, ivy_settings=ivy_settings, workunit_factory=workunit_factory)

@@ -1,0 +1,40 @@
+def execute(self, targets):
+    DONE = '__done_reporting'
+
+    def run_server(reporting_queue):
+        (port, pidfile) = get_port_and_pidfile(self.context)
+
+        def write_pidfile():
+            safe_mkdir(os.path.dirname(pidfile))
+            with open(pidfile, 'w') as outfile:
+                outfile.write(str(os.getpid()))
+
+        def report_launch():
+            reporting_queue.put(('Launching server with pid %d at http://localhost:%d' % (os.getpid(), port)))
+
+        def done_reporting():
+            reporting_queue.put(DONE)
+        try:
+            if (not os.fork()):
+                info_dir = self.context.config.getdefault('info_dir')
+                template_dir = self.context.config.get('reporting', 'reports_template_dir')
+                assets_dir = self.context.config.get('reporting', 'reports_assets_dir')
+                settings = ReportingServer.Settings(info_dir=info_dir, template_dir=template_dir, assets_dir=assets_dir, root=get_buildroot(), allowed_clients=self.context.options.allowed_clients)
+                server = ReportingServer(port, settings)
+                server.start(run_before_blocking=[write_pidfile, report_launch, done_reporting])
+        except socket.error as e:
+            if (e.errno == errno.EADDRINUSE):
+                reporting_queue.put(('Server already running at http://localhost:%d' % port))
+                done_reporting()
+                return
+            else:
+                done_reporting()
+                raise
+    reporting_queue = multiprocessing.Queue()
+    proc = multiprocessing.Process(target=run_server, args=[reporting_queue])
+    proc.daemon = True
+    proc.start()
+    s = reporting_queue.get()
+    while (s != DONE):
+        self.context.log.info(s)
+        s = reporting_queue.get()

@@ -2,22 +2,23 @@ def check_undeclared_dependencies(self, errorFilter=_default_error_filter):
     ' Performs the undeclared dependencies/overdeclared dependencies checks.\n\n    For each dependency issue discovered, generates warnings/error messages and\n    (depending on flag settings), setting build products.\n    '
     if (not self.check_missing_deps):
         return
-    sources_by_target = self.get_sources_by_target()
-    targets_by_source = self.get_targets_by_source()
-    targets_by_class = self.get_targets_by_class()
-    binary_deps_by_target = self.get_binary_deps_by_target()
-    (deps_by_target, jar_deps_by_target) = self.get_compilation_dependencies(sources_by_target, targets_by_source, targets_by_class, binary_deps_by_target)
-    found_missing_deps = False
-    all_undeclared_deps = set()
-    all_intransitive_undeclared_deps = set()
-    for target in deps_by_target:
-        computed_deps = deps_by_target[target]
-        computed_jar_deps = jar_deps_by_target[target]
-        (undeclared_deps, immediate_undeclared_deps) = self.get_missing_deps_for_target(target, computed_deps, computed_jar_deps, targets_by_class, targets_by_source, errorFilter)
-        all_undeclared_deps = all_undeclared_deps.union(undeclared_deps)
-        all_intransitive_undeclared_deps = all_intransitive_undeclared_deps.union(immediate_undeclared_deps)
-        if self.check_unnecessary_deps:
-            if (not target.has_label('synthetic')):
-                self.check_target_unnecessary_deps(target, computed_deps)
-    if ((len(all_undeclared_deps) > 0) or ((self.check_intransitive_deps is not 'none') and (len(all_intransitive_undeclared_deps) > 0))):
-        raise TaskError('Missing dependencies detected.')
+    with self.context.new_workunit(name='depcheck'):
+        sources_by_target = self.get_sources_by_target()
+        targets_by_source = self.get_targets_by_source()
+        targets_by_class = self.get_targets_by_class()
+        binary_deps_by_target = self.get_binary_deps_by_target()
+        (deps_by_target, jar_deps_by_target) = self.get_compilation_dependencies(sources_by_target, targets_by_source, targets_by_class, binary_deps_by_target)
+        found_missing_deps = False
+        all_undeclared_deps = set()
+        all_intransitive_undeclared_deps = set()
+        for target in deps_by_target:
+            computed_deps = deps_by_target[target]
+            computed_jar_deps = jar_deps_by_target[target]
+            (undeclared_deps, immediate_undeclared_deps) = self.get_missing_deps_for_target(target, computed_deps, computed_jar_deps, targets_by_class, targets_by_source, errorFilter)
+            all_undeclared_deps = all_undeclared_deps.union(undeclared_deps)
+            all_intransitive_undeclared_deps = all_intransitive_undeclared_deps.union(immediate_undeclared_deps)
+            if self.check_unnecessary_deps:
+                if (not target.has_label('synthetic')):
+                    self.check_target_unnecessary_deps(target, computed_deps)
+        if ((len(all_undeclared_deps) > 0) or ((self.check_intransitive_deps is not 'none') and (len(all_intransitive_undeclared_deps) > 0))):
+            raise TaskError('Missing dependencies detected.')

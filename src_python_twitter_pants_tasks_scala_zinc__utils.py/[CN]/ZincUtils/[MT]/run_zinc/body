@@ -1,7 +1,7 @@
-def run_zinc(self, args):
+def run_zinc(self, args, workunit_name='zinc'):
     zinc_args = ['-log-level', (self._context.options.log_level or 'info'), '-mirror-analysis']
     if (not self._color):
         zinc_args.append('-no-color')
     zinc_args.extend(self._zinc_jar_args)
     zinc_args.extend(args)
-    return self._java_runner(self._main, classpath=self._zinc_classpath, args=zinc_args, jvmargs=self._jvm_args)
+    return self._nailgun_task.runjava_indivisible(self._main, classpath=self._zinc_classpath, args=zinc_args, jvmargs=self._jvm_args, workunit_name=workunit_name)

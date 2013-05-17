@@ -15,6 +15,7 @@ def genlang(self, lang, targets):
         args.extend(('-I', base))
     sessions = []
     for source in sources:
+        self.context.log.info(('Generating thrift for %s\n' % source))
         relsource = os.path.relpath(source, get_buildroot())
         outdir = os.path.join(self.session_dir, '.'.join(relsource.split(os.path.sep)))
         safe_mkdir(outdir)

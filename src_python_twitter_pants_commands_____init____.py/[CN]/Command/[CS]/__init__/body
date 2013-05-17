@@ -1,5 +1,6 @@
-def __init__(self, root_dir, parser, args):
-    'root_dir: The root directory of the pants workspace\n    parser: an OptionParser\n    argv: the subcommand arguments to parse'
+def __init__(self, run_tracker, root_dir, parser, args):
+    'run_tracker: The (already opened) RunTracker to track this run with\n    root_dir: The root directory of the pants workspace\n    parser: an OptionParser\n    args: the subcommand arguments to parse'
+    self.run_tracker = run_tracker
     self.root_dir = root_dir
 
     def error(message=None, show_help=True):

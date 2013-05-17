@@ -1,4 +1,4 @@
-def run_zinc_analysis(self, analysis_file, args):
+def run_zinc_analysis(self, analysis_file, args, workunit_name='analysis'):
     zinc_analysis_args = ['-analysis', '-cache', analysis_file]
     zinc_analysis_args.extend(args)
-    return self.run_zinc(args=zinc_analysis_args)
+    return self.run_zinc(args=zinc_analysis_args, workunit_name=workunit_name)

@@ -2,6 +2,3 @@ self
 context
 classpath
 workdir
-stdin
-stderr
-stdout
