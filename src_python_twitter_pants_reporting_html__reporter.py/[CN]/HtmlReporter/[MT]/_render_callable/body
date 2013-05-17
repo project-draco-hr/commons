@@ -1,6 +1,0 @@
-def _render_callable(self, inner_template_name, arg_string, outer_args):
-    'Handle a mustache callable.\n\n    In a mustache template, when foo is callable, {{#foo}}arg_string{{/foo}} is replaced with the\n    result of calling foo(arg_string). The callable must interpret arg_string.\n\n    This method provides an implementation of such a callable that does the following:\n      A) Parses the arg_string as CGI args.\n      B) Adds them to the original args that the enclosing template was rendered with.\n      C) Renders some other template against those args.\n      D) Returns the resulting text.\n    '
-    rendered_arg_string = self._renderer.render(arg_string, outer_args)
-    inner_args = dict([(k, v[0]) for (k, v) in urlparse.parse_qs(rendered_arg_string).items()])
-    args = dict((outer_args.items() + inner_args.items()))
-    return self._renderer.render_name(inner_template_name, args)

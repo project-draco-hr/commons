@@ -5,7 +5,7 @@ def _render_message(self, *msg_elements):
         if isinstance(element, basestring):
             element = [element]
         defaults = ('', None, None, False)
-        (text, detail, detail_id, detail_initially_visible) = map(operator.or_, element, defaults)
+        (text, detail, detail_id, detail_initially_visible) = map((lambda x, y: (x or y)), element, defaults)
         element_args = {'text': self._htmlify_text(text), }
         if (detail is not None):
             detail_id = (detail_id or uuid.uuid4())
