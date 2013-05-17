@@ -1,0 +1,17 @@
+def _handle_poll(self, relpath, params):
+    'Handle poll requests for raw file contents.'
+    request = json.loads(params.get('q')[0])
+    ret = {}
+    for poll in request:
+        _id = poll.get('id', None)
+        path = poll.get('path', None)
+        pos = poll.get('pos', 0)
+        if path:
+            abspath = os.path.normpath(os.path.join(self._root, path))
+            if os.path.isfile(abspath):
+                with open(abspath, 'r') as infile:
+                    if pos:
+                        infile.seek(pos)
+                    content = infile.read()
+                    ret[_id] = content
+    self._send_content(json.dumps(ret), 'application/json')

@@ -1,0 +1,8 @@
+def _serve_file(self, abspath, params):
+    'Show a file.\n\n    The actual content of the file is rendered by _handle_content.'
+    relpath = os.path.relpath(abspath, self._root)
+    breadcrumbs = self._create_breadcrumbs(relpath)
+    link_path = urlparse.urlunparse([None, None, relpath, None, urllib.urlencode(params), None])
+    args = self._default_template_args('file')
+    args.update({'root_parent': os.path.dirname(self._root), 'breadcrumbs': breadcrumbs, 'link_path': link_path, })
+    self._send_content(self._renderer.render_name('base', args), 'text/html')

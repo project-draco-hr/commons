@@ -1,0 +1,7 @@
+def _handle_assets(self, relpath, params):
+    'Statically serve assets: js, css etc.'
+    abspath = os.path.normpath(os.path.join(self._settings.assets_dir, relpath))
+    content_type = (mimetypes.guess_type(abspath)[0] or 'text/plain')
+    with open(abspath, 'r') as infile:
+        content = infile.read()
+    self._send_content(content, content_type)

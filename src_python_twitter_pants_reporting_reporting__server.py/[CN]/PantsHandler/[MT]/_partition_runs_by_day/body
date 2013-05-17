@@ -1,0 +1,22 @@
+def _partition_runs_by_day(self):
+    'Split the runs by day, so we can display them grouped that way.'
+    run_infos = self._get_all_run_infos()
+    for x in run_infos:
+        ts = float(x['timestamp'])
+        x['time_of_day_text'] = datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+
+    def date_text(dt):
+        delta_days = (date.today() - dt).days
+        if (delta_days == 0):
+            return 'Today'
+        elif (delta_days == 1):
+            return 'Yesterday'
+        elif (delta_days < 7):
+            return dt.strftime('%A')
+        else:
+            d = (dt.day % 10)
+            suffix = ('st' if (d == 1) else ('nd' if (d == 2) else ('rd' if (d == 3) else 'th')))
+            return (dt.strftime('%B %d') + suffix)
+    keyfunc = (lambda x: datetime.fromtimestamp(float(x['timestamp'])))
+    sorted_run_infos = sorted(run_infos, key=keyfunc, reverse=True)
+    return [{'date_text': date_text(dt), 'run_infos': [x for x in infos], } for (dt, infos) in itertools.groupby(sorted_run_infos, (lambda x: keyfunc(x).date()))]

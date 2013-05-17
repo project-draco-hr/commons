@@ -1,0 +1,3 @@
+def log_message(self, fmt, *args):
+    "Silence BaseHTTPRequestHandler's logging."
+    pass

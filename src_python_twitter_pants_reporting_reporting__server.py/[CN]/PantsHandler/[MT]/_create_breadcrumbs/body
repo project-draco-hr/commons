@@ -1,0 +1,9 @@
+def _create_breadcrumbs(self, relpath):
+    'Create filesystem browsing breadcrumb navigation.'
+    if (relpath == '.'):
+        breadcrumbs = []
+    else:
+        path_parts = ([os.path.basename(self._root)] + relpath.split(os.path.sep))
+        path_links = ['/'.join(path_parts[1:(i + 1)]) for (i, name) in enumerate(path_parts)]
+        breadcrumbs = [{'link_path': link_path, 'name': name, } for (link_path, name) in zip(path_links, path_parts)]
+    return breadcrumbs
