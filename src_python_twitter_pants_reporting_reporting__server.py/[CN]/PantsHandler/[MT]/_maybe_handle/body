@@ -1,0 +1,11 @@
+def _maybe_handle(self, prefix, handler, path, params, data=None):
+    'Apply the handler if the prefix matches.'
+    if path.startswith(prefix):
+        relpath = path[len(prefix):]
+        if data:
+            handler(relpath, params, data)
+        else:
+            handler(relpath, params)
+        return True
+    else:
+        return False

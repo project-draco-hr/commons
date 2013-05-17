@@ -1,0 +1,7 @@
+def _get_run_info_dict(self, run_id):
+    'Get the RunInfo for a run, as a dict.'
+    run_info_path = os.path.join(self._settings.info_dir, run_id, 'info')
+    if os.path.exists(run_info_path):
+        return RunInfo(run_info_path).get_as_dict()
+    else:
+        return None

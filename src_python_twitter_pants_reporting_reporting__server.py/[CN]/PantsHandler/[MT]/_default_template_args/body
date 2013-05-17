@@ -1,0 +1,9 @@
+def _default_template_args(self, content_template):
+    'Initialize template args.'
+
+    def include(text, args):
+        template_name = pystache.render(text, args)
+        return self._renderer.render_name(template_name, args)
+    ret = {'content_template': content_template, }
+    ret['include'] = (lambda text: include(text, ret))
+    return ret

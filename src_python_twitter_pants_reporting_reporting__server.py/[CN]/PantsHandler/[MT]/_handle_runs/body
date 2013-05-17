@@ -1,0 +1,6 @@
+def _handle_runs(self, relpath, params):
+    'Show a listing of all pants runs since the last clean-all.'
+    runs_by_day = self._partition_runs_by_day()
+    args = self._default_template_args('run_list')
+    args['runs_by_day'] = runs_by_day
+    self._send_content(self._renderer.render_name('base', args), 'text/html')
