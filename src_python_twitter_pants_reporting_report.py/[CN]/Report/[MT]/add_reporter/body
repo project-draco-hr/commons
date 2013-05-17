@@ -1,0 +1,2 @@
+def add_reporter(self, reporter):
+    self._reporters.append(reporter)

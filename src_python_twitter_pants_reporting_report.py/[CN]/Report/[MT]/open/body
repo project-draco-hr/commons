@@ -1,0 +1,4 @@
+def open(self):
+    for reporter in self._reporters:
+        reporter.open()
+    self._emitter_thread.start()

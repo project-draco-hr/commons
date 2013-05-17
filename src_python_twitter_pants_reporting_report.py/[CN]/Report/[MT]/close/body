@@ -1,0 +1,6 @@
+def close(self):
+    self._emitter_thread.stop()
+    with self._lock:
+        self._notify()
+        for reporter in self._reporters:
+            reporter.close()
