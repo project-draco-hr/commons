@@ -1,5 +1,5 @@
 def _create_breadcrumbs(self, relpath):
-    'Create filesystem browsing breadcrumb navigation.'
+    'Create filesystem browsing breadcrumb navigation.\n\n    That is, make each path segment into a clickable element that takes you to that dir.\n    '
     if (relpath == '.'):
         breadcrumbs = []
     else:

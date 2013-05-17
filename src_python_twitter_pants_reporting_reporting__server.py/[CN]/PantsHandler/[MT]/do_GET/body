@@ -10,6 +10,7 @@ def do_GET(self):
                 return
         if (path == '/'):
             self._handle_runs('', {})
+            return
         self._send_content(('Invalid GET request %s' % self.path), 'text/html')
     except (IOError, ValueError):
         sys.stderr.write(('Invalid GET request %s' % self.path))
