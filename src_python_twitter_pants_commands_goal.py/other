@@ -96,7 +96,7 @@ goal(name='server', action=RunServer).install().with_description('Run the pants 
 goal(name='killserver', action=KillServer).install().with_description('Kill the pants reporting server.')
 goal(name='ivy', action=IvyResolve, dependencies=['gen']).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')
 goal(name='idl', action=IdlResolve).install('resolve-idl').with_description('Resolves idl jar dependencies.')
-goal(name='extract', action=Extract).install('resolve-idl')
+goal(name='extract', action=Extract, dependencies=['server']).install('resolve-idl')
 goal(name='thrift', action=ThriftGen, dependencies=['resolve-idl']).install('gen').with_description('Generate code.')
 goal(name='scrooge', action=ScroogeGen, dependencies=['resolve-idl']).install('gen')
 goal(name='protoc', action=ProtobufGen, dependencies=['resolve-idl']).install('gen')

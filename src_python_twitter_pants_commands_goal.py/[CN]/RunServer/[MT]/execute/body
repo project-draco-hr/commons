@@ -11,6 +11,7 @@ def execute(self, targets):
 
         def report_launch():
             reporting_queue.put(('Launching server with pid %d at http://localhost:%d' % (os.getpid(), port)))
+            reporting_queue.put(('Automatically see latest run at http://localhost:%d/run/latest' % os.getpid()))
 
         def done_reporting():
             reporting_queue.put(DONE)
@@ -25,6 +26,7 @@ def execute(self, targets):
         except socket.error as e:
             if (e.errno == errno.EADDRINUSE):
                 reporting_queue.put(('Server already running at http://localhost:%d' % port))
+                reporting_queue.put(('Automatically see latest run at http://localhost:%d/run/latest' % os.getpid()))
                 done_reporting()
                 return
             else:
@@ -38,3 +40,10 @@ def execute(self, targets):
     while (s != DONE):
         self.context.log.info(s)
         s = reporting_queue.get()
+    url = self.context.run_tracker.run_info.get_info('report_url')
+    try:
+        from colors import bold, magenta
+        url = magenta(url)
+    except ImportError:
+        pass
+    self.context.log.info(('See a report for this run at: %s' % url))
