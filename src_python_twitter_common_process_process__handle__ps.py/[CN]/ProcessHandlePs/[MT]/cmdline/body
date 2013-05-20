@@ -1,2 +1,2 @@
 def cmdline(self):
-    return self._get_process_attrs(['command']).strip()
+    return self._produce(['command']).strip()
