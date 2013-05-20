@@ -17,10 +17,8 @@ def _process_target_partition(self, vts, cp, upstream_analysis_map):
             write_to_artifact_cache = (self._artifact_cache and self.context.options.write_to_artifact_cache)
             current_state = merged_artifact.split(old_state, portable=write_to_artifact_cache)
             if write_to_artifact_cache:
-                self._update_artifact_cache(merged_artifact, vts)
-                for (artifact, vt) in zip(artifacts, vts.versioned_targets):
-                    assert (artifact.targets == vt.targets)
-                    self._update_artifact_cache(artifact, vt)
+                vts_artifact_pairs = (zip(vts.versioned_targets, artifacts) + [(vts, merged_artifact)])
+                self._update_artifact_cache(vts_artifact_pairs)
         if self.context.products.isrequired('classes'):
             self._add_products_to_genmap(merged_artifact, current_state)
     return merged_artifact
