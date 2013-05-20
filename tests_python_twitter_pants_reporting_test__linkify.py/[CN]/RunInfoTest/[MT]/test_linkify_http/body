@@ -1,3 +1,5 @@
 def test_linkify_http(self):
     url = 'http://foobar.com/baz/qux'
-    self._do_test_linkify(('foo <a target="_blank" href="%s">%s</a> bar' % (url, url)), ('foo %s bar' % url))
+    self._do_test_linkify(url, url)
+    url = 'http://localhost:666/baz/qux'
+    self._do_test_linkify(url, url)

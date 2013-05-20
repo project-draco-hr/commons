@@ -1,3 +1,5 @@
-def _do_test_linkify(self, expected, s):
+def _do_test_linkify(self, expected_link, url):
+    s = ('foo %s bar' % url)
+    expected = ('foo <a target="_blank" href="%s">%s</a> bar' % (expected_link, url))
     linkified = linkify(self._buildroot, s)
     self.assertEqual(expected, linkified)

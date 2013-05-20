@@ -1,4 +1,4 @@
 def test_linkify_target(self):
     ensure_file_exists(os.path.join(self._buildroot, 'foo/bar/BUILD'))
-    self._do_test_linkify('<a target="_blank" href="/browse/foo/bar/BUILD">foo/bar:target</a>', 'foo/bar:target')
-    self._do_test_linkify('<a target="_blank" href="/browse/foo/bar/BUILD">foo/bar</a>', 'foo/bar')
+    self._do_test_linkify('/browse/foo/bar/BUILD', 'foo/bar')
+    self._do_test_linkify('/browse/foo/bar/BUILD', 'foo/bar:target')
