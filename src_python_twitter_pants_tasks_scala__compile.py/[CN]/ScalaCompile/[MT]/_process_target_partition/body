@@ -7,8 +7,7 @@ def _process_target_partition(self, vts, cp, upstream_analysis_map):
     else:
         current_state = merged_artifact.merge(force=(not vts.valid))
         if any([(not vt.valid) for vt in vts.versioned_targets]):
-            prefix = 'Operating on a partition containing '
-            self.context.log.info(prefix, items_to_report_element([t.address.reference() for t in vts.targets], 'target'), '.')
+            self.context.log.info('Operating on a partition containing ', items_to_report_element(vts.cache_key.sources, 'source'), ' in ', items_to_report_element([t.address.reference() for t in vts.targets], 'target'), '.')
             old_state = current_state
             classpath = [entry for (conf, entry) in cp if (conf in self._confs)]
             with self.context.new_workunit('compile'):
