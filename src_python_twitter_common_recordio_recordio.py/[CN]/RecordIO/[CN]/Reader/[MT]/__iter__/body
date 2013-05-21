@@ -1,5 +1,5 @@
 def __iter__(self):
-    '\n      Return an iterator over the entire contents of the underlying file handle.\n\n        May raise:\n          RecordIO.PrematureEndOfStream\n      '
+    '\n      Return an iterator over the entire contents of the underlying file handle.\n\n        May raise:\n          RecordIO.Error or subclasses\n      '
     try:
         dup_fp = self._fp.dup()
     except self._fp.Error:
@@ -12,6 +12,5 @@ def __iter__(self):
                 yield blob
             else:
                 break
-    except RecordIO.Error as e:
-        log.error(('Caught exception in __iter__: %s' % e))
+    finally:
         dup_fp.close()
