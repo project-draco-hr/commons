@@ -3,6 +3,7 @@ import errno
 import socket
 import subprocess
 import time
+from twitter.common import log
 from twitter.common.quantity import Amount, Time
 try:
     from twitter.common import app
