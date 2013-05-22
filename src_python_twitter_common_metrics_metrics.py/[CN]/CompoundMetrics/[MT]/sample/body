@@ -1,0 +1,5 @@
+def sample(self):
+    root_sample = {}
+    for provider in self._providers:
+        root_sample.update(provider.sample())
+    return root_sample

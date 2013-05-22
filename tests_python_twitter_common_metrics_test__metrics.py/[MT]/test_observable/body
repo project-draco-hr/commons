@@ -1,0 +1,10 @@
+def test_observable():
+
+
+    class Derp(Observable):
+
+        def __init__(self):
+            self.metrics.register(Label('value', 'derp value'))
+    metrics = Metrics()
+    metrics.register_observable('derpspace', Derp())
+    assert (metrics.sample() == {'derpspace.value': 'derp value', })

@@ -1,0 +1,7 @@
+@classmethod
+def coerce_metric(cls, metric_tuple):
+    (name, value) = metric_tuple
+    try:
+        return (name, cls.coerce_value(value.read()))
+    except ValueError:
+        return None

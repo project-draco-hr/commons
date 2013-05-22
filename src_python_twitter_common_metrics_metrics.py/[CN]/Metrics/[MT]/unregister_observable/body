@@ -1,0 +1,4 @@
+def unregister_observable(self, name):
+    if (not isinstance(name, Compatibility.string)):
+        raise TypeError('Unregister takes a string name!')
+    return self._children.pop(name, None)

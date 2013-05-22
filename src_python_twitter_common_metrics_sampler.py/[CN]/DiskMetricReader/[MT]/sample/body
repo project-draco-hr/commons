@@ -1,0 +1,3 @@
+def sample(self):
+    with self._lock:
+        return self._sample
