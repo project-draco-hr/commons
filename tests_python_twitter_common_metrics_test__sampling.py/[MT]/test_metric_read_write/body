@@ -1,0 +1,18 @@
+def test_metric_read_write():
+    metrics = Metrics()
+    with temporary_file() as fp:
+        os.unlink(fp.name)
+        writer = DiskMetricWriter(metrics, fp.name)
+        reader = DiskMetricReader(fp.name)
+        assert (reader.sample() == {})
+        reader.iterate()
+        assert (reader.sample() == {})
+        writer.iterate()
+        assert (reader.sample() == {})
+        reader.iterate()
+        assert (reader.sample() == {})
+        metrics.register(Label('herp', 'derp'))
+        writer.iterate()
+        assert (reader.sample() == {})
+        reader.iterate()
+        assert (reader.sample() == {'herp': 'derp', })
