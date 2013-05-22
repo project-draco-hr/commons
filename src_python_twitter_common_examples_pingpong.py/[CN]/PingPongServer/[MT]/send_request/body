@@ -1,0 +1,6 @@
+def send_request(self, endpoint, message, ttl):
+    url_base = ('http://%s:%d' % self._target)
+    try:
+        urllib2.urlopen(('%s/%s/%s/%d' % (url_base, endpoint, message, ttl))).read()
+    except Exception as e:
+        log.error(('Failed to query %s: %s' % (url_base, e)))

@@ -1,10 +1,5 @@
-def sample(self, sample_prefix=''):
-    samples = {}
-    for (name, metric) in self._metrics.items():
-        try:
-            samples[(sample_prefix + name)] = self.coerce_value(metric.read())
-        except ValueError as e:
-            continue
-    for scope_name in self._children:
-        samples.update(self.scope(scope_name).sample(sample_prefix=((sample_prefix + scope_name) + '.')))
+def sample(self):
+    samples = dict(filter(None, map(self.coerce_metric, self._metrics.items())))
+    for (scope_name, scope) in self._children.items():
+        samples.update(((self.sample_name(scope_name, sample_name), sample_value) for (sample_name, sample_value) in scope.sample().items()))
     return samples

@@ -1,0 +1,4 @@
+def unregister(self, name):
+    if (not isinstance(name, Compatibility.string)):
+        raise TypeError('Unregister takes a string name!')
+    return self._metrics.pop(name, None)
