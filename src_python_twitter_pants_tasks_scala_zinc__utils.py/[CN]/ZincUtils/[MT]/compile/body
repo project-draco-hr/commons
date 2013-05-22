@@ -4,4 +4,4 @@ def compile(self, classpath, sources, output_dir, analysis_file, upstream_analys
         args.extend(['-analysis-map', ','.join([('%s:%s' % (kv[0], kv[1].analysis_file)) for kv in upstream_analysis_files.items()])])
     args.extend(['-analysis-cache', analysis_file, '-classpath', ':'.join((self._zinc_classpath + classpath)), '-d', output_dir])
     args.extend(sources)
-    return self.run_zinc(args)
+    return self.run_zinc(args, workunit_labels=[WorkUnit.COMPILER])

@@ -1,5 +1,5 @@
 def __init__(self, context, nailgun_task, color):
-    self._context = context
+    self.context = context
     self._nailgun_task = nailgun_task
     self._color = color
     self._pants_home = get_buildroot()

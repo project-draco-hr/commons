@@ -1,5 +1,7 @@
 def handle_output(self, workunit, label, s):
     'Implementation of Reporter callback.'
-    if (workunit.has_label(WorkUnit.TEST) or workunit.has_label(WorkUnit.REPL) or workunit.has_label(WorkUnit.RUN)):
+    if self._show_output_indented(workunit):
         sys.stdout.write(self._prefix(workunit, s))
+    elif self._show_output_unindented(workunit):
+        sys.stdout.write(s)
         sys.stdout.flush()

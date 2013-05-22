@@ -1,0 +1,2 @@
+def _show_output_unindented(self, workunit):
+    return (workunit.has_label(WorkUnit.REPL) or workunit.has_label(WorkUnit.RUN))
