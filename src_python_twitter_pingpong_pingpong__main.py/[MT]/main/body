@@ -1,6 +1,7 @@
 def main(args, options):
     pingpong = PingPongServer(options.target_host, options.target_port)
     RootServer().mount_routes(pingpong)
+    RootMetrics().register_observable('pingpong', pingpong)
     try:
         time.sleep((2 ** 20))
     except KeyboardInterrupt:

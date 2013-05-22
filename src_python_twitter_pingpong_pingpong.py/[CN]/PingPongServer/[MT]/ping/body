@@ -1,6 +1,7 @@
 @HttpServer.route('/ping/:message')
 @HttpServer.route('/ping/:message/:ttl')
 def ping(self, message, ttl=60):
+    self._pings.increment()
     log.info(('Got ping (ttl=%s): %s' % (message, ttl)))
     ttl = (int(ttl) - 1)
     if (ttl > 0):

@@ -1,6 +1,7 @@
 @HttpServer.route('/pong/:message')
 @HttpServer.route('/pong/:message/:ttl')
 def pong(self, message, ttl=60):
+    self._pongs.increment()
     log.info(('Got pong (ttl=%s): %s' % (message, ttl)))
     ttl = (int(ttl) - 1)
     if (ttl > 0):
