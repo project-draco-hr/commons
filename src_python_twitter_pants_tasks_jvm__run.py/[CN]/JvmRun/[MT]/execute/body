@@ -5,7 +5,10 @@ def execute(self, targets):
         main = binaries[0].main
 
         def run_binary(dryrun=False):
-            result = runjava_indivisible(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args, dryrun=dryrun, workunit_factory=self.context.new_workunit, workunit_name='run')
+
+            def run_workunit_factory(name, labels=list(), cmd=''):
+                return self.context.new_workunit(name=name, labels=([WorkUnit.RUN] + labels), cmd=cmd)
+            result = runjava_indivisible(jvmargs=self.jvm_args, classpath=self.classpath(confs=self.confs), main=main, args=self.args, dryrun=dryrun, workunit_factory=run_workunit_factory, workunit_name='run')
             if dryrun:
                 return result
             if (result != 0):
