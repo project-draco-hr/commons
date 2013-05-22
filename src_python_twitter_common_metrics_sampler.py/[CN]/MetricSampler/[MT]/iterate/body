@@ -1,0 +1,4 @@
+def iterate(self):
+    new_sample = self._provider.sample()
+    with self._lock:
+        self._last_sample = new_sample

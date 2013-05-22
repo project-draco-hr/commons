@@ -1,0 +1,3 @@
+def unregister(self, name):
+    '\n      Unregister a name from the registry.\n    '
+    raise NotImplementedError

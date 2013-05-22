@@ -1,0 +1,6 @@
+@property
+def metrics(self):
+    '\n      Returns a Metric namespace for this object.\n    '
+    if (not hasattr(self, '_observable_metrics')):
+        self._observable_metrics = Metrics()
+    return self._observable_metrics

@@ -1,8 +1,0 @@
-def run(self):
-    if log:
-        log.debug('Starting metric sampler.')
-    while True:
-        time.sleep(self._period.as_(Time.SECONDS))
-        new_sample = self._registry.sample()
-        with self._lock:
-            self._last_sample = new_sample

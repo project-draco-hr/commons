@@ -1,0 +1,8 @@
+def test_compound_metrics():
+    metrics1 = Metrics()
+    metrics2 = Metrics()
+    metrics1.register(Label('value', 'first'))
+    metrics2.register(Label('value', 'second'))
+    assert (CompoundMetrics(metrics1, metrics2).sample() == {'value': 'second', })
+    metrics1.register(Label('other', 'third'))
+    assert (CompoundMetrics(metrics1, metrics2).sample() == {'value': 'second', 'other': 'third', })

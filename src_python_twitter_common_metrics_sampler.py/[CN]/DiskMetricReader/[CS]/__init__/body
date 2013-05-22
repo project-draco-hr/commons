@@ -1,0 +1,6 @@
+def __init__(self, filename, period=Amount(15, Time.SECONDS), clock=time):
+    self._filename = filename
+    self._sample = {}
+    self._lock = threading.Lock()
+    SamplerBase.__init__(self, period, clock)
+    self.daemon = True

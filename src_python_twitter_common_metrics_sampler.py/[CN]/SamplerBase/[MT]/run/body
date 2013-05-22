@@ -1,0 +1,6 @@
+def run(self):
+    while True:
+        self._clock.sleep(self._period.as_(Time.SECONDS))
+        if self.is_stopped():
+            break
+        self.iterate()

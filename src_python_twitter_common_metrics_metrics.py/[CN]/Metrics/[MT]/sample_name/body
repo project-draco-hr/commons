@@ -1,0 +1,3 @@
+@classmethod
+def sample_name(cls, scope_name, sample_name):
+    return '.'.join([scope_name, sample_name])
