@@ -6,5 +6,5 @@ def test_basic_recordreader_iter_failure(self):
     RecordIO.Reader.do_read(fp, mox.IsA(StringCodec)).AndRaise(RecordIO.Error)
     fp.close()
     self.mox.ReplayAll()
-    rr = RecordReader(fp)
-    assert (list(rr) == [])
+    with pytest.raises(RecordIO.Error):
+        list(RecordReader(fp))
