@@ -4,4 +4,4 @@ def do_handle_log(self, workunit, level, *msg_elements):
     msg = ('\n' + ''.join(elements))
     if self.settings.color:
         msg = _colorfunc_map.get(level, (lambda x: x))(msg)
-    sys.stdout.write(self._prefix(workunit, msg))
+    self._emit(self._prefix(workunit, msg))
