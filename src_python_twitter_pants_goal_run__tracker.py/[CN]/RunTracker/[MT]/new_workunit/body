@@ -5,7 +5,7 @@ def new_workunit(self, name, labels=list(), cmd=''):
     self._current_workunit.start()
     try:
         try:
-            self._report.start_workunit(self._current_workunit)
+            self.report.start_workunit(self._current_workunit)
             yield self._current_workunit
         except KeyboardInterrupt:
             self._current_workunit.set_outcome(WorkUnit.ABORTED)
@@ -16,6 +16,6 @@ def new_workunit(self, name, labels=list(), cmd=''):
         else:
             self._current_workunit.set_outcome(WorkUnit.SUCCESS)
     finally:
-        self._report.end_workunit(self._current_workunit)
+        self.report.end_workunit(self._current_workunit)
         self._current_workunit.end()
         self._current_workunit = self._current_workunit.parent

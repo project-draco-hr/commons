@@ -1,3 +1,3 @@
 def log(self, level, *msg_elements):
     'Log a message against the current workunit.'
-    self._report.log(self._current_workunit, level, *msg_elements)
+    self.report.log(self._current_workunit, level, *msg_elements)

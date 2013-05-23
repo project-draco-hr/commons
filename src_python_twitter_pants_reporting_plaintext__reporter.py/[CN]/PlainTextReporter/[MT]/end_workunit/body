@@ -1,0 +1,7 @@
+def end_workunit(self, workunit):
+    'Implementation of Reporter callback.'
+    if ((workunit.outcome() != WorkUnit.SUCCESS) and (not self._show_output(workunit))):
+        for (name, outbuf) in workunit.outputs().items():
+            self.emit(self._prefix(workunit, ('\n==== %s ====\n' % name)))
+            self.emit(self._prefix(workunit, outbuf.read_from(0)))
+            self.flush()

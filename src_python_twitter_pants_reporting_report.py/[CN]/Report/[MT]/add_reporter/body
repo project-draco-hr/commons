@@ -1,2 +1,3 @@
 def add_reporter(self, name, reporter):
-    self._reporters[name] = reporter
+    with self._lock:
+        self._reporters[name] = reporter

@@ -1,0 +1,2 @@
+def __init__(self, run_tracker, settings):
+    Reporter.__init__(self, run_tracker, settings._replace(log_level=Report.ERROR))

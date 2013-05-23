@@ -18,6 +18,7 @@ from twitter.pants import get_buildroot, goal, group, has_sources, is_apt
 from twitter.pants.base import Address, BuildFile, Config, ParseContext, Target
 from twitter.pants.base.rcfile import RcFile
 from twitter.pants.commands import Command
+from twitter.pants.goal.initialize_reporting import update_reporting
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.reporting.report import Report
 from twitter.pants.reporting.reporting_server import ReportingServer

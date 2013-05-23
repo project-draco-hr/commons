@@ -1,0 +1,9 @@
+from collections import namedtuple
+from twitter.pants.goal.workunit import WorkUnit
+from twitter.pants.reporting.report import Report
+from twitter.pants.reporting.reporter import Reporter
+try:
+    from colors import cyan, green, red, yellow
+    _colorfunc_map = {Report.FATAL: red, Report.ERROR: red, Report.WARN: yellow, Report.INFO: green, Report.DEBUG: cyan, }
+except ImportError:
+    _colorfunc_map = {}

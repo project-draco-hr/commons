@@ -1,0 +1,2 @@
+def emit(self, s):
+    self.settings.outfile.write(s)

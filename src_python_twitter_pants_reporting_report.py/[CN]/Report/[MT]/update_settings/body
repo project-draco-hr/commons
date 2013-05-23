@@ -1,5 +1,0 @@
-def update_settings(self, updates_map):
-    "Modify reporting settings once we've got cmd-line flags etc.\n\n       updates_map - a map from reporter name to a k-v dict of updates.\n    "
-    for (name, updates) in updates_map.items():
-        if (name in self._reporters):
-            self._reporters[name].update_settings(updates)

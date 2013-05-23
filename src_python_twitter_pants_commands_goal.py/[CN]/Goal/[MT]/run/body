@@ -1,10 +1,5 @@
 def run(self, lock):
-    log_level = Report.log_level_from_string((self.options.log_level or 'info'))
-    color = (not self.options.no_color)
-    timing = self.options.time
-    cache_stats = self.options.time
-    settings_updates_map = {'console': {'log_level': log_level, 'color': color, 'timing': timing, 'cache_stats': cache_stats, }, 'html': {'log_level': log_level, }, }
-    self.run_tracker.update_report_settings(settings_updates_map)
+    update_reporting(self.options, self.run_tracker)
     if self.options.dry_run:
         print '****** Dry Run ******'
     context = Context(self.config, self.options, self.run_tracker, self.targets, requested_goals=self.requested_goals, lock=lock)

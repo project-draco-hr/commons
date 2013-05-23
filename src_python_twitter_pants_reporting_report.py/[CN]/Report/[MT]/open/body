@@ -1,4 +1,5 @@
 def open(self):
-    for reporter in self._reporters.values():
-        reporter.open()
+    with self._lock:
+        for reporter in self._reporters.values():
+            reporter.open()
     self._emitter_thread.start()
