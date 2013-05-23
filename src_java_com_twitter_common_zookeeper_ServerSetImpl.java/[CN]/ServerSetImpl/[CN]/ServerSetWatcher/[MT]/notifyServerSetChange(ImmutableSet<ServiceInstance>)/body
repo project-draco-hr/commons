@@ -1,7 +1,7 @@
 {
   if (!currentServerSet.equals(serverSet)) {
     if (currentServerSet.isEmpty()) {
-      LOG.warning("server set empty!");
+      LOG.warning("server set empty for path " + group.getPath());
     }
  else {
       if (LOG.isLoggable(Level.INFO)) {
