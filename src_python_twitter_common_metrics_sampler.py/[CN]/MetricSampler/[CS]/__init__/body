@@ -1,7 +1,6 @@
-def __init__(self, metric_registry, period=Amount(1, Time.SECONDS)):
-    self._registry = metric_registry
-    self._period = period
-    self._last_sample = self._registry.sample()
+def __init__(self, provider, period=Amount(1, Time.SECONDS), clock=time):
+    self._provider = provider
+    self._last_sample = self._provider.sample()
     self._lock = threading.Lock()
-    threading.Thread.__init__(self)
+    SamplerBase.__init__(self, period, clock)
     self.daemon = True
