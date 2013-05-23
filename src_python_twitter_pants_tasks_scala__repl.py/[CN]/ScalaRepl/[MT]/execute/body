@@ -4,8 +4,12 @@ def execute(self, targets):
 
     def repl_workunit_factory(name, labels=list(), cmd=''):
         return self.context.new_workunit(name=name, labels=([WorkUnit.REPL] + labels), cmd=cmd)
-    try:
-        runjava_indivisible(jvmargs=self.jvm_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main=self.main, args=self.args, workunit_factory=repl_workunit_factory, workunit_name='repl')
-    except KeyboardInterrupt:
-        pass
-    self.restore_ssty_options()
+    kwargs = {'jvmargs': self.jvm_args, 'classpath': self.classpath(profile_classpath(self.profile), confs=self.confs), 'main': self.main, 'args': self.args, }
+    cmd = runjava_indivisible(dryrun=True, **kwargs)
+    with self.context.new_workunit(name='repl', labels=[WorkUnit.REPL, WorkUnit.JVM], cmd=cmd):
+        print ''
+        try:
+            runjava_indivisible(dryrun=False, **kwargs)
+        except KeyboardInterrupt:
+            pass
+        self.restore_ssty_options()
