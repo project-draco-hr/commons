@@ -1,6 +1,6 @@
 def end_workunit(self, workunit):
     'Implementation of Reporter callback.'
-    if (workunit.outcome() != WorkUnit.SUCCESS):
+    if ((workunit.outcome() != WorkUnit.SUCCESS) and (not self._show_output(workunit))):
         for (name, outbuf) in workunit.outputs().items():
             sys.stdout.write(self._prefix(workunit, ('\n==== %s ====\n' % name)))
             sys.stdout.write(self._prefix(workunit, outbuf.read_from(0)))
