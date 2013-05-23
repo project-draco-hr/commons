@@ -1,4 +1,4 @@
-def update_reporting(options, run_tracker):
+def update_reporting(options, is_console_task, run_tracker):
     "Updates reporting config once we've parsed cmd-line flags."
     old_outfile = run_tracker.report.remove_reporter('capturing').settings.outfile
     old_outfile.flush()
@@ -8,7 +8,7 @@ def update_reporting(options, run_tracker):
     color = (not options.no_color)
     timing = options.time
     cache_stats = options.time
-    if options.quiet:
+    if (options.quiet or is_console_task):
         console_reporter = QuietReporter(run_tracker, QuietReporter.Settings(log_level=log_level, color=color))
     else:
         settings = PlainTextReporter.Settings(log_level=log_level, outfile=sys.stdout, color=color, indent=True, timing=timing, cache_stats=cache_stats)

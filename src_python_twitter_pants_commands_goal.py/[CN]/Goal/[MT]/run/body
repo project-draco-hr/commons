@@ -1,5 +1,12 @@
 def run(self, lock):
-    update_reporting(self.options, self.run_tracker)
+
+    def is_console_task():
+        for phase in self.phases:
+            for goal in phase.goals():
+                if issubclass(goal.task_type, ConsoleTask):
+                    return True
+        return False
+    update_reporting(self.options, is_console_task(), self.run_tracker)
     if self.options.dry_run:
         print '****** Dry Run ******'
     context = Context(self.config, self.options, self.run_tracker, self.targets, requested_goals=self.requested_goals, lock=lock)

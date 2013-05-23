@@ -1,3 +1,4 @@
+import daemon
 import errno
 import inspect
 import multiprocessing
@@ -9,7 +10,6 @@ import time
 import traceback
 from contextlib import contextmanager
 from optparse import Option, OptionParser
-import daemon
 from twitter.common import log
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_rmtree
@@ -20,9 +20,9 @@ from twitter.pants.base.rcfile import RcFile
 from twitter.pants.commands import Command
 from twitter.pants.goal.initialize_reporting import update_reporting
 from twitter.pants.goal.workunit import WorkUnit
-from twitter.pants.reporting.report import Report
 from twitter.pants.reporting.reporting_server import ReportingServer
 from twitter.pants.tasks import Task, TaskError
+from twitter.pants.tasks.console_task import ConsoleTask
 from twitter.pants.tasks.nailgun_task import NailgunTask
 from twitter.pants.goal import Context, GoalError, Phase
 try:
