@@ -1,0 +1,2 @@
+def debug(self, *msg_elements):
+    self._maybe_log(Report.DEBUG, *msg_elements)

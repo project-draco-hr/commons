@@ -1,0 +1,2 @@
+def fatal(self, *msg_elements):
+    self._maybe_log(Report.FATAL, *msg_elements)
