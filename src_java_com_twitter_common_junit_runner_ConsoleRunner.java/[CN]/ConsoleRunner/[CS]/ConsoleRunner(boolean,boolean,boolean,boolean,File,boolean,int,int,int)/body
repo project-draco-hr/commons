@@ -6,4 +6,6 @@
   this.outdir=outdir;
   this.defaultParallel=defaultParallel;
   this.parallelThreads=parallelThreads;
+  this.testShard=testShard;
+  this.numTestShards=numTestShards;
 }

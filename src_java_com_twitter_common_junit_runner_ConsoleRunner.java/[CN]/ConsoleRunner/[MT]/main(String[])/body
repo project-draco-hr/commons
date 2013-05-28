@@ -9,6 +9,8 @@ class Options {
     private boolean perTestTimer=false;
     private boolean defaultParallel=false;
     private int parallelThreads=0;
+    private int testShard=0;
+    private int numTestShards=0;
     private File outdir=new File(System.getProperty("java.io.tmpdir"));
     private List<String> tests=Lists.newArrayList();
     private CmdLineParser parser;
@@ -42,6 +44,23 @@ class Options {
         this.parallelThreads=Runtime.getRuntime().availableProcessors();
       }
     }
+    @Option(name="-test-shard",usage="Subset of tests to run, in the form M/N, 0 <= M < N. For example, 1/3 means " + "run tests number 2, 5, 8, 11, ...") public void setTestShard(    String shard) throws CmdLineException {
+      String errorMsg="-test-shard should be in the form M/N";
+      int slashIdx=shard.indexOf('/');
+      if (slashIdx < 0) {
+        throw new CmdLineException(parser,errorMsg);
+      }
+      try {
+        this.testShard=Integer.parseInt(shard.substring(0,slashIdx));
+        this.numTestShards=Integer.parseInt(shard.substring(slashIdx + 1));
+      }
+ catch (      NumberFormatException ex) {
+        throw new CmdLineException(parser,errorMsg);
+      }
+      if (testShard < 0 || numTestShards <= 0 || testShard >= numTestShards) {
+        throw new CmdLineException(parser,"0 <= M < N is required in -test-shard M/N");
+      }
+    }
     @Argument(usage="Names of junit test classes or test methods to run.  Names prefixed " + "with @ are considered arg file paths and these will be loaded and the " + "whitespace delimited arguments found inside added to the list",required=true,metaVar="TESTS",handler=StringArrayOptionHandler.class) public void setTests(    String[] tests){
       this.tests=Arrays.asList(tests);
     }
@@ -56,7 +75,7 @@ class Options {
     e.getParser().printUsage(System.out);
     exit(1);
   }
-  ConsoleRunner runner=new ConsoleRunner(options.failFast,options.suppressOutput,options.xmlReport,options.perTestTimer,options.outdir,options.defaultParallel,options.parallelThreads);
+  ConsoleRunner runner=new ConsoleRunner(options.failFast,options.suppressOutput,options.xmlReport,options.perTestTimer,options.outdir,options.defaultParallel,options.parallelThreads,options.testShard,options.numTestShards);
   List<String> tests=Lists.newArrayList();
   for (  String test : options.tests) {
     if (test.startsWith("@")) {

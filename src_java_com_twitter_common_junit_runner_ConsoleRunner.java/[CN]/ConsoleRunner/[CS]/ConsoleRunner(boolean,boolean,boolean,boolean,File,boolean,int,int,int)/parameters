@@ -5,3 +5,5 @@ boolean perTestTimer
 File outdir
 boolean defaultParallel
 int parallelThreads
+int testShard
+int numTestShards

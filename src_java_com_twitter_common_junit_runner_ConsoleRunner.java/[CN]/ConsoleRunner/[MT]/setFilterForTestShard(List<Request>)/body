@@ -1,0 +1,36 @@
+{
+class TestFilter extends Filter {
+    private int testIdx;
+    private HashMap<String,Boolean> testToRunStatus=new HashMap<String,Boolean>();
+    @Override public boolean shouldRun(    Description desc){
+      if (desc.isSuite()) {
+        return true;
+      }
+      String descString=desc.toString();
+synchronized (this) {
+        Boolean shouldRun=testToRunStatus.get(descString);
+        if (shouldRun != null) {
+          return shouldRun;
+        }
+ else {
+          shouldRun=(testIdx % numTestShards == testShard);
+          testIdx++;
+          testToRunStatus.put(descString,shouldRun);
+          return shouldRun;
+        }
+      }
+    }
+    @Override public String describe(){
+      return "Filters a static subset of test methods";
+    }
+  }
+  TestFilter testFilter=new TestFilter();
+  ArrayList<Request> filteredRequests=new ArrayList<Request>(requests.size());
+  for (  Request request : requests) {
+    filteredRequests.add(request.filterWith(testFilter));
+  }
+  for (  Request request : filteredRequests) {
+    request.getRunner().getDescription();
+  }
+  return filteredRequests;
+}

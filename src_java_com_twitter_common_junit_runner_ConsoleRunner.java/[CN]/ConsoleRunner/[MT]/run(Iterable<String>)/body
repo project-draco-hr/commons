@@ -3,6 +3,9 @@
   System.setOut(new PrintStream(SWAPPABLE_OUT));
   System.setErr(new PrintStream(SWAPPABLE_ERR));
   List<Request> requests=parseRequests(out,tests);
+  if (numTestShards > 0) {
+    requests=setFilterForTestShard(requests);
+  }
   JUnitCore core=new JUnitCore();
   final AbortableListener abortableListener=new AbortableListener(failFast){
     @Override protected void abort(    Result failureResult){
