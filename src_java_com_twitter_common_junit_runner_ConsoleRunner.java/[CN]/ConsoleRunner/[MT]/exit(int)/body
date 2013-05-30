@@ -1,3 +1,11 @@
 {
-  System.exit(code);
+  exitStatus=code;
+  if (callSystemExitOnFinish) {
+    System.exit(code);
+  }
+ else {
+    if (code != 0) {
+      throw new RuntimeException("ConsoleRunner exited with status " + code);
+    }
+  }
 }

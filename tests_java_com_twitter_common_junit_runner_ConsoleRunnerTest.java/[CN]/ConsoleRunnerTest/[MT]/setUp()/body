@@ -1,0 +1,5 @@
+{
+  ConsoleRunner.setCallSystemExitOnFinish(false);
+  ConsoleRunner.setExitStatus(0);
+  TestRegistry.reset();
+}

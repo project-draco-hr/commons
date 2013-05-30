@@ -6,14 +6,14 @@ class TestFilter extends Filter {
       if (desc.isSuite()) {
         return true;
       }
-      String descString=desc.toString();
+      String descString=desc.getDisplayName();
 synchronized (this) {
         Boolean shouldRun=testToRunStatus.get(descString);
         if (shouldRun != null) {
           return shouldRun;
         }
  else {
-          shouldRun=(testIdx % numTestShards == testShard);
+          shouldRun=testIdx % numTestShards == testShard;
           testIdx++;
           testToRunStatus.put(descString,shouldRun);
           return shouldRun;
@@ -24,10 +24,16 @@ synchronized (this) {
       return "Filters a static subset of test methods";
     }
   }
+class AlphabeticComparator implements Comparator<Description> {
+    @Override public int compare(    Description o1,    Description o2){
+      return o1.getDisplayName().compareTo(o2.getDisplayName());
+    }
+  }
   TestFilter testFilter=new TestFilter();
+  AlphabeticComparator alphaComp=new AlphabeticComparator();
   ArrayList<Request> filteredRequests=new ArrayList<Request>(requests.size());
   for (  Request request : requests) {
-    filteredRequests.add(request.filterWith(testFilter));
+    filteredRequests.add(request.sortWith(alphaComp).filterWith(testFilter));
   }
   for (  Request request : filteredRequests) {
     request.getRunner().getDescription();
