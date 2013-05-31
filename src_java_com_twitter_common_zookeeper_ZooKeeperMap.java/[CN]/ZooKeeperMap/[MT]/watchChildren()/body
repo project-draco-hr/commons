@@ -8,6 +8,7 @@
         }
  catch (        InterruptedException e) {
           LOG.log(Level.WARNING,"Interrupted while trying to watch children.",e);
+          Thread.currentThread().interrupt();
         }
       }
     }
@@ -21,6 +22,7 @@
         }
  catch (        InterruptedException e) {
           LOG.log(Level.WARNING,"Interrupted while trying to watch children.",e);
+          Thread.currentThread().interrupt();
         }
       }
     }
