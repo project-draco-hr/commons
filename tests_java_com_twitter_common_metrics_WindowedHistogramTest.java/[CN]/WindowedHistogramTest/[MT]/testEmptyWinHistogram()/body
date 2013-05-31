@@ -1,0 +1,4 @@
+{
+  WindowedHistogram wh=new WindowedApproxHistogram();
+  assertEquals(0L,wh.getQuantile(0.0));
+}

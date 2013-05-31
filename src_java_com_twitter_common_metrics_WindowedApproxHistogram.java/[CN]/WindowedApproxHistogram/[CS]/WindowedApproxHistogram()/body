@@ -1,0 +1,3 @@
+{
+  this(Amount.of(60L,Time.SECONDS),6,DEFAULT_MAX_MEMORY,Ticker.systemTicker());
+}

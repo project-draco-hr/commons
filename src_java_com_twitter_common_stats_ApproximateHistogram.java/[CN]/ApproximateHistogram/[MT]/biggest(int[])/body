@@ -1,9 +1,10 @@
 {
   long biggest=Long.MIN_VALUE;
   final int id0=ids[0], id1=ids[1];
-  int iBiggest=0;
+  int iBiggest=-1;
   if (0 < leafCount && 0 <= id0) {
     biggest=buffer[0][id0];
+    iBiggest=0;
   }
   if (bufferSize < leafCount && 0 <= id1) {
     long x=buffer[1][id1];

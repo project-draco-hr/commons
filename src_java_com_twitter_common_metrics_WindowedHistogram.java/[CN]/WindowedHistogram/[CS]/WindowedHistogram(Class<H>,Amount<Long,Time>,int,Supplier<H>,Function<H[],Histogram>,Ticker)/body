@@ -1,0 +1,16 @@
+{
+  Preconditions.checkNotNull(window);
+  Preconditions.checkArgument(1 < slices);
+  Preconditions.checkNotNull(sliceProvider);
+  Preconditions.checkNotNull(merger);
+  Preconditions.checkNotNull(ticker);
+  this.sliceDuration=window.as(Time.NANOSECONDS) / slices;
+  @SuppressWarnings("unchecked") H[] bufs=(H[])Array.newInstance(clazz,slices + 1);
+  for (int i=0; i < bufs.length; i++) {
+    bufs[i]=sliceProvider.get();
+  }
+  this.buffers=bufs;
+  this.stopwatch=new Stopwatch(ticker);
+  this.merger=merger;
+  this.stopwatch.start();
+}

@@ -1,0 +1,4 @@
+{
+  long elapsed=stopwatch.elapsed(TimeUnit.NANOSECONDS);
+  return (int)(elapsed / sliceDuration);
+}

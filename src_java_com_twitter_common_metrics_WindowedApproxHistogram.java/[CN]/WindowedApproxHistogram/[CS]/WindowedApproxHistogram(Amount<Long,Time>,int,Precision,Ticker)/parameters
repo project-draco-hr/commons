@@ -1,0 +1,4 @@
+Amount<Long,Time> window
+int slices
+Precision precision
+Ticker ticker

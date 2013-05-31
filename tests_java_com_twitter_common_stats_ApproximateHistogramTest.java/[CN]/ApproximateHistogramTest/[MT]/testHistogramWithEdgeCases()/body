@@ -1,0 +1,9 @@
+{
+  ApproximateHistogram hist=new ApproximateHistogram();
+  hist.add(Long.MIN_VALUE);
+  assertEquals(Long.MIN_VALUE,hist.getQuantile(0.0));
+  assertEquals(Long.MIN_VALUE,hist.getQuantile(1.0));
+  hist.add(Long.MAX_VALUE);
+  assertEquals(Long.MIN_VALUE,hist.getQuantile(0.0));
+  assertEquals(Long.MAX_VALUE,hist.getQuantile(1.0));
+}

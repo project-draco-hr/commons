@@ -1,0 +1,5 @@
+{
+  for (  Histogram h : buffers) {
+    h.clear();
+  }
+}

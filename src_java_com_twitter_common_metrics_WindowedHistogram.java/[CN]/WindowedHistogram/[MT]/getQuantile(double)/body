@@ -1,0 +1,14 @@
+{
+  long currentIndex=getCurrentIndex();
+  if (mergedHistIndex < currentIndex) {
+    sync(currentIndex);
+    H[] tmp=Arrays.copyOf(buffers,buffers.length - 1);
+    for (int i=0; i < tmp.length; i++) {
+      int idx=(int)((currentIndex + 1 + i) % buffers.length);
+      tmp[i]=buffers[idx];
+    }
+    mergedHistogram=merger.apply(tmp);
+    mergedHistIndex=currentIndex;
+  }
+  return mergedHistogram.getQuantile(quantile);
+}

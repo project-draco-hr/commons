@@ -2,10 +2,5 @@
   count=0L;
   leafCount=0;
   rootWeight=1;
-  bufferPool=new long[2][bufferSize];
-  indices=new int[maxDepth + 1];
-  buffer=new long[maxDepth + 1][bufferSize];
-  for (int i=0; i < maxDepth; i++) {
-    buffer[i]=new long[bufferSize];
-  }
+  leavesSorted=true;
 }

@@ -1,0 +1,3 @@
+Amount<Long,Time> window
+int slices
+Amount<Long,Data> maxMemory

@@ -1,0 +1,8 @@
+{
+  ApproximateHistogram h;
+  while (n != 0) {
+    h=new ApproximateHistogram();
+    h.add(rnd.nextInt(INPUT_RANGE));
+    n--;
+  }
+}

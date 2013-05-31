@@ -1,0 +1,8 @@
+{
+  Histogram h;
+  while (n != 0) {
+    h=new Histogram("histogram",metrics);
+    h.add(rnd.nextInt(INPUT_RANGE));
+    n--;
+  }
+}

@@ -1,0 +1,6 @@
+Class<H> clazz
+Amount<Long,Time> window
+int slices
+Supplier<H> sliceProvider
+Function<H[],Histogram> merger
+Ticker ticker

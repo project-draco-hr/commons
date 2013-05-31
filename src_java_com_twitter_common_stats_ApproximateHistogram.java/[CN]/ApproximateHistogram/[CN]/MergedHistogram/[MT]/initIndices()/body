@@ -1,0 +1,19 @@
+{
+  long count=0L;
+  for (int i=0; i < histograms.length; i++) {
+    ApproximateHistogram h=histograms[i];
+    int[] indices=h.indices;
+    count+=h.count;
+    int buf0Size=Math.min(h.bufferSize,h.leafCount);
+    int buf1Size=Math.max(0,h.leafCount - buf0Size);
+    if (!h.leavesSorted) {
+      Arrays.sort(h.buffer[0],0,buf0Size);
+      Arrays.sort(h.buffer[1],0,buf1Size);
+      h.leavesSorted=true;
+    }
+    Arrays.fill(indices,h.bufferSize - 1);
+    indices[0]=buf0Size - 1;
+    indices[1]=buf1Size - 1;
+  }
+  return count;
+}

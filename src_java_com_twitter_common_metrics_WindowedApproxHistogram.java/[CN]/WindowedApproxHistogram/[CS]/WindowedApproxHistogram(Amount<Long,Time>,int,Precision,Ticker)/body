@@ -1,0 +1,14 @@
+{
+  super(ApproximateHistogram.class,window,slices,new Supplier<ApproximateHistogram>(){
+    private Precision perHistogramPrecision=new Precision(precision.getEpsilon(),precision.getN() / (slices + 1));
+    @Override public ApproximateHistogram get(){
+      return new ApproximateHistogram(perHistogramPrecision);
+    }
+  }
+,new Function<ApproximateHistogram[],Histogram>(){
+    @Override public Histogram apply(    ApproximateHistogram[] histograms){
+      return ApproximateHistogram.merge(histograms);
+    }
+  }
+,ticker);
+}

@@ -6,7 +6,7 @@
   int buf0Size=Math.min(bufferSize,leafCount);
   int buf1Size=Math.max(0,leafCount - buf0Size);
   long sum=0;
-  long target=(long)(count * (1.0 - q));
+  long target=(long)Math.ceil(count * (1.0 - q));
   int i;
   if (!leavesSorted) {
     Arrays.sort(buffer[0],0,buf0Size);

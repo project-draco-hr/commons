@@ -1,0 +1,5 @@
+{
+  ApproximateHistogram empty[]=new ApproximateHistogram[0];
+  Histogram mergedHistogram=ApproximateHistogram.merge(empty);
+  assertEquals(0L,mergedHistogram.getQuantile(0.5));
+}
