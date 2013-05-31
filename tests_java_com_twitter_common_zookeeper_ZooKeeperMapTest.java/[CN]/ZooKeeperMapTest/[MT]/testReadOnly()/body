@@ -1,0 +1,27 @@
+{
+  String parentPath="/twitter/path";
+  String node="node";
+  String nodePath=parentPath + "/" + node;
+  String data="DaTa";
+  ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
+  zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
+  Map<String,String> zkMap=ZooKeeperMap.create(zkClient,parentPath,BYTES_TO_STRING);
+  try {
+    zkMap.clear();
+    zkMap.remove(node);
+    zkMap.put("othernode","othervalue");
+    zkMap.putAll(ImmutableMap.of("othernode","othervalue"));
+    List<Collection<?>> collections=ImmutableList.of(zkMap.entrySet(),zkMap.keySet(),zkMap.values());
+    for (    Collection<?> collection : collections) {
+      Iterator<?> it=collection.iterator();
+      assertTrue(it.hasNext());
+      it.next();
+      it.remove();
+    }
+    fail("Expected mutations to fail");
+  }
+ catch (  UnsupportedOperationException e) {
+  }
+  assertEquals(1,zkMap.size());
+  assertEquals(data,zkMap.get(node));
+}
