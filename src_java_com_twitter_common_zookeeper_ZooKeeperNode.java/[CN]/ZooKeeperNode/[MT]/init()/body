@@ -23,7 +23,6 @@ synchronized (safeToRewatchLock) {
   }
  catch (  InterruptedException e) {
     zkClient.unregister(watcher);
-    Thread.currentThread().interrupt();
     throw e;
   }
 catch (  KeeperException e) {
