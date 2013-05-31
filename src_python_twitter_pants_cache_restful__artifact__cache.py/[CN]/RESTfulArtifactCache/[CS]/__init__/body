@@ -1,6 +1,6 @@
-def __init__(self, context, artifact_root, url_base, compress=True):
+def __init__(self, log, artifact_root, url_base, compress=True):
     '\n    url_base: The prefix for urls on some RESTful service. We must be able to PUT and GET to any\n              path under this base.\n    compress: Whether to compress the artifacts before storing them.\n    '
-    ArtifactCache.__init__(self, context, artifact_root)
+    ArtifactCache.__init__(self, log, artifact_root)
     parsed_url = urlparse.urlparse(url_base)
     if (parsed_url.scheme == 'http'):
         self._ssl = False

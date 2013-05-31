@@ -1,0 +1,8 @@
+from multiprocessing.pool import ThreadPool
+import re
+import subprocess
+_float_pattern = '\\d+.?\\d*'
+_ping_pattern = ('round-trip min/avg/max/stddev = (%(flt)s)/(%(flt)s)/(%(flt)s)/(%(flt)s) ms' % {'flt': _float_pattern, })
+_ping_re = re.compile(_ping_pattern)
+if (__name__ == '__main__'):
+    print pings(['pantscache', '10.100.10.20'])

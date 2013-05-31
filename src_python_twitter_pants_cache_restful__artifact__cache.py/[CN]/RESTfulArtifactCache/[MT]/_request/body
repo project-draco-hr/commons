@@ -1,6 +1,5 @@
 def _request(self, method, path, body=None):
-    if self.context:
-        self.context.log.debug(('Sending %s request to %s' % (method, self._url_string(path))))
+    self.log.debug(('Sending %s request to %s' % (method, self._url_string(path))))
     conn = self._connect()
     conn.request(method, path, body=body)
     response = conn.getresponse()

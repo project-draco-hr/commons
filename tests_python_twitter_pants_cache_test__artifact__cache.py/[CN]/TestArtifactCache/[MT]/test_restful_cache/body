@@ -1,4 +1,4 @@
-def test_restful_cache():
+def test_restful_cache(self):
     httpd = None
     httpd_thread = None
     try:
@@ -9,8 +9,8 @@ def test_restful_cache():
                 httpd_thread = Thread(target=httpd.serve_forever)
                 httpd_thread.start()
                 with temporary_dir() as artifact_root:
-                    artifact_cache = RESTfulArtifactCache(None, artifact_root, ('http://localhost:%d' % port))
-                    do_test_artifact_cache(artifact_cache)
+                    artifact_cache = RESTfulArtifactCache(MockLogger(), artifact_root, ('http://localhost:%d' % port))
+                    self.do_test_artifact_cache(artifact_cache)
     finally:
         if httpd:
             httpd.shutdown()

@@ -1,0 +1,6 @@
+def pings(self, hosts):
+    pool = ThreadPool(processes=len(hosts))
+    res = pool.map(self.ping, hosts, chunksize=1)
+    pool.close()
+    pool.join()
+    return zip(hosts, res)

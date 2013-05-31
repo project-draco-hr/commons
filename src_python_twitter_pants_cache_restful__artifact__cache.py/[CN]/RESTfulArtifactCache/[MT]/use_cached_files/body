@@ -8,8 +8,7 @@ def use_cached_files(self, cache_key):
         if (expected_size == (-1)):
             raise self.CacheError('No content-length header in HTTP response')
         done = False
-        if self.context:
-            self.context.log.info(('Reading %d bytes from artifact cache at %s' % (expected_size, self._url_string(path))))
+        self.log.info(('Reading %d bytes from artifact cache at %s' % (expected_size, self._url_string(path))))
         with temporary_file() as outfile:
             total_bytes = 0
             while (not done):
@@ -18,8 +17,7 @@ def use_cached_files(self, cache_key):
                 if (len(data) < self.READ_SIZE):
                     done = True
                 total_bytes += len(data)
-                if self.context:
-                    self.context.log.debug(('Read %d bytes' % total_bytes))
+                self.log.debug(('Read %d bytes' % total_bytes))
             outfile.close()
             if (total_bytes != expected_size):
                 raise self.CacheError(('Read only %d bytes from %d expected' % (total_bytes, expected_size)))
@@ -28,6 +26,5 @@ def use_cached_files(self, cache_key):
                 tarfile.extractall(self.artifact_root)
         return True
     except Exception as e:
-        if self.context:
-            self.context.log.warn(('Error while reading from artifact cache: %s' % e))
-            return False
+        self.log.warn(('Error while reading from artifact cache: %s' % e))
+        return False

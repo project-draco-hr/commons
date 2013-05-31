@@ -14,6 +14,6 @@ def __init__(self, context):
     self._resources_dir = os.path.join(workdir, 'resources')
     self._artifact_factory = ZincArtifactFactory(workdir, self.context, self._zinc_utils)
     self._confs = context.config.getlist('scala-compile', 'confs')
-    artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches')
+    artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches', default=[])
     self.setup_artifact_cache(artifact_cache_spec)
     self._inject_java_cycles()

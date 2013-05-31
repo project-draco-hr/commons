@@ -1,0 +1,9 @@
+def select_best_url(spec, pinger, log):
+    urls = spec.split('|')
+    hosts = map((lambda url: urlparse.urlparse(url)[1].split(':')[0]), urls)
+    pingtimes = pinger.pings(hosts)
+    log.info(('Artifact cache server ping times: %s' % ', '.join([('%s: %3f ms' % p) for p in pingtimes])))
+    argmin = min(xrange(len(pingtimes)), key=(lambda i: pingtimes[i][1]))
+    best_url = urls[argmin]
+    log.info(('Selecting artifact cache at %s' % best_url))
+    return best_url
