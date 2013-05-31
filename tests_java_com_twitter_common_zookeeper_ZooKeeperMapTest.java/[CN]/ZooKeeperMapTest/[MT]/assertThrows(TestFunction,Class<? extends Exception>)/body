@@ -1,0 +1,11 @@
+{
+  try {
+    function.apply();
+    fail("Expected to fail with exception: " + throwable.getName());
+  }
+ catch (  Exception e) {
+    if (!throwable.isAssignableFrom(e.getClass())) {
+      throw e;
+    }
+  }
+}
