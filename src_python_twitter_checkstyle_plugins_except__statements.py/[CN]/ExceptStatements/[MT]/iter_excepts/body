@@ -1,0 +1,5 @@
+@classmethod
+def iter_excepts(cls, tree):
+    for ast_node in ast.walk(tree):
+        if isinstance(ast_node, ast.TryExcept):
+            yield ast_node

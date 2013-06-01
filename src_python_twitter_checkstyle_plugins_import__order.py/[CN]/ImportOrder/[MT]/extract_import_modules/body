@@ -1,0 +1,9 @@
+@classmethod
+def extract_import_modules(cls, node):
+    if (not isinstance(node, (ast.Import, ast.ImportFrom))):
+        raise TypeError('classify_import only operates on ast.Import and ast.ImportFrom types.')
+    if isinstance(node, ast.Import):
+        return [alias.name for alias in node.names]
+    elif isinstance(node, ast.ImportFrom):
+        return [node.module]
+    return []

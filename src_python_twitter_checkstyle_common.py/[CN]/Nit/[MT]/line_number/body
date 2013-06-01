@@ -1,0 +1,8 @@
+@property
+def line_number(self):
+    if self._line_number:
+        line_range = self.python_file.line_range(self._line_number)
+        if ((line_range.stop - line_range.start) > 1):
+            return ('%03d-%03d' % (line_range.start, (line_range.stop - 1)))
+        else:
+            return ('%03d' % line_range.start)

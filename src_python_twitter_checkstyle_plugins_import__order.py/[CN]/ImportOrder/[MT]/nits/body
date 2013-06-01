@@ -1,0 +1,3 @@
+def nits(self):
+    (_, errors) = self.check_imports(self.python_file.tree)
+    return errors

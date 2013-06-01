@@ -1,0 +1,7 @@
+def diff_lines(blob_a, blob_b):
+    matcher = SequenceMatcher(None, blob_a.data_stream.read().splitlines(1), blob_b.data_stream.read().splitlines(1))
+    for opcode in matcher.get_opcodes():
+        (match_type, start_line_a, stop_line_a, start_line_b, stop_line_b) = opcode
+        if (match_type == 'insert'):
+            for lineno in range(start_line_a, stop_line_a):
+                yield lineno

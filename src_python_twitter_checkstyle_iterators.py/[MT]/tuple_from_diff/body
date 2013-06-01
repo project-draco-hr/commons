@@ -1,0 +1,5 @@
+def tuple_from_diff(diff):
+    if (diff.a_blob and (not diff.b_blob) and diff.a_blob.path.endswith('.py')):
+        return (diff.a_blob.path, None)
+    if (diff.a_blob and diff.b_blob and diff.a_blob.path.endswith('.py')):
+        return (diff.a_blob.path, partial(diff_lines, diff.a_blob, diff.b_blob))

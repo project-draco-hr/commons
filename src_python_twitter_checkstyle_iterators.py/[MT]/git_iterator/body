@@ -1,0 +1,9 @@
+def git_iterator(args, options):
+    try:
+        import git
+    except ImportError:
+        raise ValueError('Git has not been enabled for this checkstyle library!')
+    branch = (options.diff or 'master')
+    repo = git.Repo()
+    for (filename, line_filter) in filter(None, map(tuple_from_diff, repo.index.diff(branch))):
+        yield (filename, line_filter)

@@ -1,0 +1,6 @@
+def __init__(self, blob, filename):
+    self._blob = blob
+    self._tree = ast.parse(blob, filename)
+    self._lines = ([None] + list(blob.splitlines()))
+    self._filename = filename
+    self._logical_lines = dict(((start, (start, stop, indent)) for (start, stop, indent) in self.iter_logical_lines(blob)))

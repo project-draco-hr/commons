@@ -1,0 +1,4 @@
+def iter_ast_types(self, ast_type):
+    for node in ast.walk(self.python_file.tree):
+        if isinstance(node, ast_type):
+            yield node

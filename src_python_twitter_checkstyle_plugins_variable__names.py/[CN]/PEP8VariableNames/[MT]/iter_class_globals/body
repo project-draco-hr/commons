@@ -1,0 +1,6 @@
+def iter_class_globals(self, class_node):
+    for node in class_node.body:
+        if isinstance(node, ast.Assign):
+            for name in node.targets:
+                if isinstance(name, ast.Name):
+                    yield name

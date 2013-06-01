@@ -1,0 +1,8 @@
+def nits(self):
+    for ast_node in ast.walk(self.python_file.tree):
+        if isinstance(ast_node, ast.Print):
+            logical_line = ''.join(self.python_file[ast_node.lineno])
+            print_offset = logical_line.index('print')
+            stripped_line = logical_line[(print_offset + len('print')):]
+            if (not self.FUNCTIONY_EXPRESSION.match(stripped_line)):
+                yield ASTStyleError(self.python_file, ast_node, 'Print used as a statement.')

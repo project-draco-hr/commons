@@ -1,0 +1,11 @@
+def nits(self):
+    for try_except in self.iter_excepts(self.python_file.tree):
+        handler = self.blanket_excepts(try_except)
+        if handler:
+            yield ASTStyleError(self.python_file, handler, 'Blanket except: not allowed.')
+        for handler in try_except.handlers:
+            statement = ''.join(self.python_file[handler.lineno])
+            except_index = statement.index('except')
+            except_suffix = statement[(except_index + len('except')):]
+            if (handler.name and (' as ' not in except_suffix)):
+                yield ASTStyleError(self.python_file, handler, 'Old-style except statements forbidden.')

@@ -1,0 +1,7 @@
+def nits(self):
+    for (line_number, line) in self.python_file.enumerate():
+        if (line.rstrip() != line):
+            yield StyleError(self.python_file, 'Line has trailing whitespace.', line_number)
+        if line.rstrip().endswith('\\'):
+            if (not self.has_exception(line_number, (len(line.rstrip()) - 1))):
+                yield StyleError(self.python_file, 'Line has trailing slashes.', line_number)

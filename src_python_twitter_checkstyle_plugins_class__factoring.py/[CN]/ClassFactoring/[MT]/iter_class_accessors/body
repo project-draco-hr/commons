@@ -1,0 +1,4 @@
+def iter_class_accessors(self, class_node):
+    for node in ast.walk(class_node):
+        if (isinstance(node, ast.Attribute) and isinstance(node.value, ast.Name) and (node.value.id == class_node.name)):
+            yield node

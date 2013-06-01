@@ -1,0 +1,2 @@
+def __str__(self):
+    return '\n     |'.join(self.flatten_lines([self.message], self.lines))

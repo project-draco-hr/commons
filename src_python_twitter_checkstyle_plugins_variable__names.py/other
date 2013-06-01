@@ -1,0 +1,18 @@
+import ast
+from functools import wraps
+import keyword
+import re
+from twitter.common.lang import Compatibility
+from ..common import ASTStyleError, CheckstylePlugin, StyleError
+ALL_LOWER_CASE_RE = re.compile('^[a-z][a-z\\d]*$')
+ALL_UPPER_CASE_RE = re.compile('^[A-Z][A-Z\\d]+$')
+LOWER_SNAKE_RE = re.compile('^([a-z][a-z\\d]*)(_[a-z\\d]+)*$')
+UPPER_SNAKE_RE = re.compile('^([A-Z][A-Z\\d]*)(_[A-Z\\d]+)*$')
+UPPER_CAMEL_RE = re.compile('^([A-Z][a-z\\d]*)+$')
+RESERVED_NAMES = frozenset(keyword.kwlist)
+if Compatibility.PY2:
+    import __builtin__
+    BUILTIN_NAMES = dir(__builtin__)
+else:
+    import builtin
+    BUILTIN_NAMES = dir(builtin)

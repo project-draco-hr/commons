@@ -1,0 +1,2 @@
+def __init__(self, *args, **kw):
+    super(StyleError, self).__init__(Nit.ERROR, *args, **kw)

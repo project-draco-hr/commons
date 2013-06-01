@@ -1,0 +1,33 @@
+def check_imports(self, tree):
+    if (not isinstance(tree, ast.Module)):
+        raise TypeError(('Expected tree to be of type ast.Module, got %s' % type(tree)))
+    levels = [node.level for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)]
+    minimum_level = min((levels or [0]))
+    chunk = []
+    errors = []
+    module_order = []
+    last_line = None
+
+    def check_chunk():
+        if chunk:
+            (module_types, chunk_errors) = self.classify_imports(chunk, minimum_level)
+            errors.extend(chunk_errors)
+            module_order.append(list(module_types))
+            del chunk[:]
+    for leaf in tree.body:
+        if isinstance(leaf, (ast.Import, ast.ImportFrom)):
+            if (last_line and (leaf.lineno == (last_line + 1))):
+                chunk.append(leaf)
+            else:
+                check_chunk()
+            last_line = leaf.lineno
+        else:
+            check_chunk()
+    numbered_module_order = []
+    for modules in module_order:
+        if (len(modules) == 1):
+            if (modules[0] in self.NUMBERED_ORDERING):
+                numbered_module_order.append(self.NUMBERED_ORDERING[modules[0]])
+    if (numbered_module_order != sorted(numbered_module_order)):
+        errors.append(ASTStyleError(self.python_file, tree, ('Out of order import chunks: Got %s and expect %s.' % (self.order_names(numbered_module_order), self.order_names(sorted(numbered_module_order))))))
+    return (tree, errors)

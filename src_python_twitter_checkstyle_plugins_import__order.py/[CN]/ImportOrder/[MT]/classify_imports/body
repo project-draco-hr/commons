@@ -1,0 +1,17 @@
+def classify_imports(self, chunk, minimum_level=0):
+    "\n      Possible import statements:\n\n      import name\n      from name import subname\n      from name import subname1 as subname2\n      from name import *\n      from name import tuple\n\n      AST representations:\n\n      ImportFrom:\n         module=name\n         names=[alias(name, asname), ...]\n                    name can be '*'\n\n      Import:\n        names=[alias(name, asname), ...]\n\n      Imports are classified into 5 classes:\n        stdlib      => Python standard library\n        twitter.*   => Twitter internal / standard library\n        gen.*       => Thrift gen namespaces\n        .*          => Package-local imports\n        3rdparty    => site-packages or third party\n\n      classify_imports classifies the import into one of these forms.\n    "
+    errors = []
+    all_module_types = set()
+    for node in chunk:
+        (_, node_errors) = self.validate_import(node)
+        errors.extend(node_errors)
+        module_names = self.classify_import(node, minimum_level)
+        module_types = set((module_type for (module_type, module_name) in module_names))
+        if (len(module_types) > 1):
+            errors.append(ASTStyleError(self.python_file, node, ('Import statement imports from multiple module types: %s.' % ', '.join(module_types))))
+        if ('unclassifiable' in module_types):
+            errors.append(ASTStyleError(self.python_file, node, 'Unclassifiable import.'))
+        all_module_types.update(module_types)
+    if ((len(chunk) > 0) and (len(all_module_types) > 1)):
+        errors.append(StyleError(self.python_file, ('Import block starting here contains imports from multiple module types: %s.' % ', '.join(all_module_types)), chunk[0].lineno))
+    return (all_module_types, errors)

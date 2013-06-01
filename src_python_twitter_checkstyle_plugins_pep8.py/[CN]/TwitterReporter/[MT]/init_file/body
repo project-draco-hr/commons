@@ -1,0 +1,4 @@
+def init_file(self, filename, lines, expected, line_offset):
+    super(TwitterReporter, self).init_file(filename, lines, expected, line_offset)
+    self._python_file = PythonFile.parse(filename)
+    self._twitter_errors = []

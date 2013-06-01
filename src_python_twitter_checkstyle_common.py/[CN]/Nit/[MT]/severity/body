@@ -1,0 +1,3 @@
+@property
+def severity(self):
+    return self._severity

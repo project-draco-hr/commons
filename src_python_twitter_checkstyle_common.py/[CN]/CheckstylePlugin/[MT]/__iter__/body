@@ -1,0 +1,8 @@
+def __iter__(self):
+    for nit in self.nits():
+        if ((nit._line_number is None) or (self._affected_lines is None)):
+            yield nit
+            continue
+        nit_slice = self.python_file.line_range(nit._line_number)
+        if any(((line in self._affected_lines) for line in range(nit_slice.start, nit_slice.stop))):
+            yield nit

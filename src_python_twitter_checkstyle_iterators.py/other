@@ -1,0 +1,5 @@
+'\nFile iterators for determining over which files checkstyle should be run.\n'
+from difflib import SequenceMatcher
+from functools import partial
+import os
+from twitter.common.dirutil.fileset import Fileset

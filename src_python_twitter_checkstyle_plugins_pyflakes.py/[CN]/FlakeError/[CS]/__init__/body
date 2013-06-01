@@ -1,0 +1,2 @@
+def __init__(self, python_file, flake_message):
+    super(FlakeError, self).__init__(python_file, (flake_message.message % flake_message.message_args), flake_message.lineno)

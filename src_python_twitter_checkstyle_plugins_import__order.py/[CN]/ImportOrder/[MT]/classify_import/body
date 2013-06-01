@@ -1,0 +1,35 @@
+@classmethod
+def classify_import(cls, node, minimum_level=0):
+    modules = []
+    for module_name in cls.extract_import_modules(node):
+        if (module_name == ''):
+            modules.append(('package', '__init__'))
+            continue
+        if (isinstance(node, ast.ImportFrom) and (node.level > minimum_level)):
+            modules.append(('package', module_name))
+            continue
+        if module_name.startswith('twitter.'):
+            modules.append(('twitter', module_name))
+            continue
+        if module_name.startswith('gen.'):
+            modules.append(('gen', module_name))
+            continue
+        try:
+            module = cls.MODULE_CACHE.get(module_name, __import__(module_name))
+        except ImportError:
+            modules.append(('3rdparty', module_name))
+            continue
+        if (not hasattr(module, '__file__')):
+            modules.append(('stdlib', module_name))
+            continue
+        if (('/.bootstrap/' in module.__file__) or ('/.deps/' in module.__file__)):
+            modules.append(('3rdparty', module_name))
+            continue
+        if module.__file__.startswith(cls.PLATFORM_SPECIFIC_MODULE_PATH):
+            modules.append(('3rdparty', module_name))
+            continue
+        if module.__file__.startswith(cls.STANDARD_LIBRARY_MODULE_PATH):
+            modules.append(('stdlib', module_name))
+            continue
+        modules.append(('unclassifiable', module_name))
+    return set(modules)

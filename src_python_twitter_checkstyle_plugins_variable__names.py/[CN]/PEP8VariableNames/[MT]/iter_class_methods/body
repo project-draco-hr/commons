@@ -1,0 +1,4 @@
+def iter_class_methods(self, class_node):
+    for node in class_node.body:
+        if isinstance(node, ast.FunctionDef):
+            yield node

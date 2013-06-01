@@ -1,0 +1,4 @@
+@property
+def tokens(self):
+    'An iterator over tokens for this Python file from the tokenize module.'
+    return self.iter_tokens(self._blob)
