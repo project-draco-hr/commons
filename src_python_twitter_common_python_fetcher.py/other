@@ -7,8 +7,3 @@ from .base import maybe_requirement
 from .http import Crawler, SourceLink
 from .translator import SourceTranslator, EggTranslator
 from pkg_resources import Requirement
-from twitter.common.lang import Compatibility
-if Compatibility.PY3:
-    import urllib.parse as urlparse
-else:
-    import urlparse
