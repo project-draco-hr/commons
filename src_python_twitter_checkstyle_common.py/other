@@ -1,6 +1,7 @@
 from abc import abstractmethod
 import ast
 import itertools
+import textwrap
 import tokenize
 from twitter.common.lang import Compatibility, Interface
-__all__ = ('CheckstylePlugin', 'PythonFile', 'StyleError')
+__all__ = ('CheckstylePlugin', 'PythonFile')

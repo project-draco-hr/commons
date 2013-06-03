@@ -1,0 +1,6 @@
+def test_classify_import_chunks():
+    assert (get_import_chunk_types(ImportType.STDLIB) == (ast.Import, ast.ImportFrom, ast.Import))
+    assert (get_import_chunk_types(ImportType.TWITTER) == (ast.ImportFrom, ast.ImportFrom))
+    assert (get_import_chunk_types(ImportType.GEN) == (ast.ImportFrom,))
+    assert (get_import_chunk_types(ImportType.PACKAGE) == (ast.ImportFrom,))
+    assert (get_import_chunk_types(ImportType.THIRD_PARTY) == (ast.ImportFrom, ast.Import))

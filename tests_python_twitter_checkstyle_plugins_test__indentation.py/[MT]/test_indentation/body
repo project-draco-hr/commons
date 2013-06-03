@@ -1,0 +1,12 @@
+def test_indentation():
+    ind = Indentation(PythonFile.from_statement('\n    def foo():\n        pass\n  '))
+    nits = list(ind.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T100')
+    assert (nits[0].severity == Nit.ERROR)
+    ind = Indentation(PythonFile.from_statement('\n    def foo():\n      pass\n  '))
+    nits = list(ind.nits())
+    assert (len(nits) == 0)
+    ind = Indentation(PythonFile.from_statement('\n    def foo():\n      baz = (\n          "this "\n          "is "\n          "ok")\n  '))
+    nits = list(ind.nits())
+    assert (len(nits) == 0)

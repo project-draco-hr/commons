@@ -1,7 +1,8 @@
-def __init__(self, severity, python_file, message, line_number=None):
+def __init__(self, code, severity, python_file, message, line_number=None):
     if (not (severity in self.SEVERITY)):
-        raise ValueError(('Severity should be one of %s' % ' '.join(self.SEVERITY)))
+        raise ValueError(('Severity should be one of %s' % ' '.join(self.SEVERITY.values())))
     self.python_file = python_file
+    self._code = code
     self._severity = severity
     self._message = message
     self._line_number = line_number

@@ -1,0 +1,3 @@
+def test_names():
+    for class_name in FutureCompatibility.BAD_NAMES:
+        exemplar_fail('T604', Nit.ERROR, ('\n      if isinstance(k, %s):\n        pass\n      if isinstance(k, str):\n        pass\n    ' % class_name))

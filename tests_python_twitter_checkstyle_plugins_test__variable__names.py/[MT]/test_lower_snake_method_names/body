@@ -1,0 +1,13 @@
+def test_lower_snake_method_names():
+    p8 = PEP8VariableNames(PythonFile.from_statement('\n    def totally_fine():\n      print("Not in a class body")\n    \n    class DhisRight(object):\n      def clearlyNotThinking(self):\n        print("In a class body")\n  '))
+    nits = list(p8.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T002')
+    assert (nits[0]._line_number == 5)
+    assert (nits[0].severity == Nit.ERROR)
+    p8 = PEP8VariableNames(PythonFile.from_statement('\n    def clearlyNotThinking():\n      print("Not in a class body")\n    \n    class DhisRight(object):\n      def totally_fine(self):\n        print("In a class body")\n  '))
+    nits = list(p8.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T002')
+    assert (nits[0]._line_number == 1)
+    assert (nits[0].severity == Nit.ERROR)

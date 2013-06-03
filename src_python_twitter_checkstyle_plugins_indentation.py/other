@@ -1,2 +1,2 @@
 import tokenize
-from ..common import CheckstylePlugin, StyleError
+from ..common import CheckstylePlugin

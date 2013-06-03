@@ -1,0 +1,7 @@
+def test_class_globals():
+    p8 = PEP8VariableNames(PythonFile.from_statement('\n    class DhisRight(object):\n      RIGHT = 123\n      notRight = 321\n  '))
+    nits = list(p8.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T001')
+    assert (nits[0]._line_number == 3)
+    assert (nits[0].severity == Nit.ERROR)

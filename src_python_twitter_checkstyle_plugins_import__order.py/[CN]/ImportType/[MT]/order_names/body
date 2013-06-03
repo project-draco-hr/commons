@@ -1,0 +1,3 @@
+@classmethod
+def order_names(cls, import_order):
+    return ' '.join((cls.NAMES.get(import_id, 'unknown') for import_id in import_order))

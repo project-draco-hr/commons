@@ -1,5 +1,5 @@
 import ast
 import textwrap
-from twitter.checkstyle.common import ASTStyleError, ASTStyleWarning, Nit, PythonFile, StyleError, StyleWarning
+from twitter.checkstyle.common import CheckstylePlugin, Nit, PythonFile
 import pytest
 PYTHON_STATEMENT = make_statement('\nimport ast\nfrom os.path import (\n    join,\n    split,\n)\n\nimport zookeeper\n\n\nclass Keeper(object):\n  def __init__(self):\n    pass\n')

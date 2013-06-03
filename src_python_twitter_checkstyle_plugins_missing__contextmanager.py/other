@@ -1,2 +1,2 @@
 import ast
-from ..common import ASTStyleWarning, CheckstylePlugin
+from ..common import CheckstylePlugin

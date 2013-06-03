@@ -1,0 +1,8 @@
+def test_is_lower_snake():
+    for word in LOWER_SNAKE:
+        assert is_lower_snake(word)
+        assert is_lower_snake(('_' + word))
+        assert is_lower_snake(('__' + word))
+    for word in UPPER_CAMEL:
+        assert (not is_lower_snake(word))
+        assert (not is_lower_snake(('_' + word)))

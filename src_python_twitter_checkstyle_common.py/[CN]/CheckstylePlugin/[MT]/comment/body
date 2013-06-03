@@ -1,0 +1,2 @@
+def comment(self, code, message, line_number_or_ast=None):
+    return self.nit(code, Nit.COMMENT, message, line_number_or_ast)

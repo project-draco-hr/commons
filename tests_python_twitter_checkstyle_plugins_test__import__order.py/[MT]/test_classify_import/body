@@ -1,0 +1,9 @@
+def test_classify_import():
+    for (import_type, chunk) in IMPORT_CHUNKS.items():
+        io = ImportOrder(PythonFile(chunk))
+        import_chunks = list(io.iter_import_chunks())
+        assert (len(import_chunks) == 1)
+        (module_types, chunk_errors) = io.classify_imports(import_chunks[0])
+        assert (len(module_types) == 1)
+        assert (module_types.pop() == import_type)
+        assert (chunk_errors == [])

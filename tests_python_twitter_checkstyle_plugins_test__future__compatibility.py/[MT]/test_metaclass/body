@@ -1,0 +1,2 @@
+def test_metaclass():
+    exemplar_fail('T605', Nit.WARNING, '\n    class Singleton(object):\n      __metaclass__ = SingletonMetaclass\n      CONSTANT = 2 + 3\n\n      def __init__(self):\n        pass\n  ')

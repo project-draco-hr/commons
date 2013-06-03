@@ -1,0 +1,2 @@
+def make_blob(stmt):
+    return Blob(dedent('\n'.join(stmt.splitlines()[1:])))

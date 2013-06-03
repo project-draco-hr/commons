@@ -1,0 +1,10 @@
+def test_print_statements():
+    ps = PrintStatements(PythonFile.from_statement('\n    from __future__ import print_function\n    print("I do what I want")\n    \n    class Foo(object):\n      def print(self):\n        "I can do this because it\'s not a reserved word."\n  '))
+    assert (len(list(ps.nits())) == 0)
+    ps = PrintStatements(PythonFile.from_statement('\n    print("I do what I want")\n  '))
+    assert (len(list(ps.nits())) == 0)
+    ps = PrintStatements(PythonFile.from_statement('\n    print["I do what I want"]\n  '))
+    nits = list(ps.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T607')
+    assert (nits[0].severity == Nit.ERROR)

@@ -1,0 +1,3 @@
+from twitter.checkstyle.common import Nit, PythonFile
+from twitter.checkstyle.plugins.except_statements import ExceptStatements
+EXCEPT_TEMPLATE = '\ntry:                  # 001\n  1 / 0\n%s\n  pass\n'

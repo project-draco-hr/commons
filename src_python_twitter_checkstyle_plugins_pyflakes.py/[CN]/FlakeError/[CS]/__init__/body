@@ -1,2 +1,2 @@
 def __init__(self, python_file, flake_message):
-    super(FlakeError, self).__init__(python_file, (flake_message.message % flake_message.message_args), flake_message.lineno)
+    super(FlakeError, self).__init__(self.CLASS_ERRORS.get(flake_message.__class__.__name__, 'F999'), Nit.ERROR, python_file, (flake_message.message % flake_message.message_args), flake_message.lineno)

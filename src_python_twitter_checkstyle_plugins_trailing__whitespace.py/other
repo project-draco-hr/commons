@@ -1,4 +1,4 @@
 from collections import defaultdict
 import tokenize
 import sys
-from ..common import CheckstylePlugin, StyleError
+from ..common import CheckstylePlugin

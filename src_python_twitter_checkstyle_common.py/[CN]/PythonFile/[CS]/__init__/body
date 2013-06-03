@@ -1,4 +1,4 @@
-def __init__(self, blob, filename):
+def __init__(self, blob, filename='<expr>'):
     self._blob = blob
     self._tree = ast.parse(blob, filename)
     self._lines = ([None] + list(blob.splitlines()))

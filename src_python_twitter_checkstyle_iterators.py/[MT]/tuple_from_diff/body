@@ -1,5 +1,6 @@
 def tuple_from_diff(diff):
-    if (diff.a_blob and (not diff.b_blob) and diff.a_blob.path.endswith('.py')):
-        return (diff.a_blob.path, None)
-    if (diff.a_blob and diff.b_blob and diff.a_blob.path.endswith('.py')):
-        return (diff.a_blob.path, partial(diff_lines, diff.a_blob, diff.b_blob))
+    '\n    From GitPython:\n\n    It contains two sides a and b of the diff, members are prefixed with\n    "a" and "b" respectively to inidcate that.\n\n    Diffs keep information about the changed blob objects, the file mode, renames,\n    deletions and new files.\n\n    There are a few cases where None has to be expected as member variable value:\n\n        ``New File``::\n\n            a_mode is None\n            a_blob is None\n\n        ``Deleted File``::\n\n            b_mode is None\n            b_blob is None\n  '
+    if (diff.b_blob and (not diff.a_blob) and diff.b_blob.path.endswith('.py')):
+        return (diff.b_blob.path, None)
+    if (diff.a_blob and diff.b_blob and diff.b_blob.path.endswith('.py')):
+        return (diff.b_blob.path, partial(diff_lines, diff.a_blob, diff.b_blob))

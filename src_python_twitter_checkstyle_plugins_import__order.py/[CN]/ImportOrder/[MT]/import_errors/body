@@ -1,0 +1,12 @@
+def import_errors(self, node):
+    errors = []
+    if isinstance(node, ast.ImportFrom):
+        if ((len(node.names) == 1) and (node.names[0].name == '*')):
+            errors.append(self.error('T400', 'Wildcard imports are not allowed.', node))
+        names = [alias.name.lower() for alias in node.names]
+        if (names != sorted(names)):
+            errors.append(self.error('T401', 'From import must import names in lexical order.', node))
+    if isinstance(node, ast.Import):
+        if (len(node.names) > 1):
+            errors.append(self.error('T402', 'Absolute import statements should only import one module at a time.', node))
+    return errors

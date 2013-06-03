@@ -1,0 +1,2 @@
+def error(self, code, message, line_number_or_ast=None):
+    return self.nit(code, Nit.ERROR, message, line_number_or_ast)

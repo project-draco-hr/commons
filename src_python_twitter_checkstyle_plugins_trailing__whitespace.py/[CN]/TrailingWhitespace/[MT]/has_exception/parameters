@@ -1,3 +1,4 @@
 self
 line_number
-slash_position
+exception_start
+exception_end

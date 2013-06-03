@@ -1,0 +1,2 @@
+def warning(self, code, message, line_number_or_ast=None):
+    return self.nit(code, Nit.WARNING, message, line_number_or_ast)

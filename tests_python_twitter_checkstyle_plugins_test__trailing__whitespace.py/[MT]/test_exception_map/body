@@ -1,0 +1,12 @@
+def test_exception_map():
+    tw = TrailingWhitespace(PythonFile.from_statement('\n  test_string_001 = ""\n  test_string_002 = " "\n  test_string_003 = """  \n    foo   \n  """\n  test_string_006 = ("   "\n                     "   ")\n  class Foo(object):\n    pass\n  # comment 010  \n  test_string_011 = \'\'\n  # comment 012\n  # comment 013\n  '))
+    assert (len(list(tw.nits())) == 0)
+    assert (not tw.has_exception(9, 0, 0))
+    assert (not tw.has_exception(3, 0, 1))
+    assert (not tw.has_exception(3, 17, 17))
+    assert tw.has_exception(3, 18, 18)
+    assert tw.has_exception(3, 18, 10000)
+    assert (not tw.has_exception(6, 8, 8))
+    assert tw.has_exception(6, 19, 19)
+    assert tw.has_exception(6, 19, 23)
+    assert (not tw.has_exception(6, 23, 25))

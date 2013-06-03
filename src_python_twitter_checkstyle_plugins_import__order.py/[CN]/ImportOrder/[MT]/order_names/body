@@ -1,4 +1,0 @@
-@classmethod
-def order_names(cls, import_order):
-    reverse_ordering = dict(((v, k) for (k, v) in cls.NUMBERED_ORDERING.items()))
-    return ' '.join((reverse_ordering.get(import_id, 'unclassified') for import_id in import_order))

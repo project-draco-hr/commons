@@ -1,0 +1,18 @@
+def test_allow_underscores():
+
+    @allow_underscores(0)
+    def no_underscores(name):
+        return name
+    assert (no_underscores('foo') == 'foo')
+    assert (no_underscores('foo_') == 'foo_')
+    assert (no_underscores('_foo') is False)
+    assert (no_underscores('__foo') is False)
+
+    @allow_underscores(1)
+    def one_underscore(name):
+        return name
+    assert (one_underscore('foo') == 'foo')
+    assert (one_underscore('_foo') == 'foo')
+    assert (one_underscore('_foo_') == 'foo_')
+    assert (one_underscore('__foo') is False)
+    assert (one_underscore('___foo') is False)

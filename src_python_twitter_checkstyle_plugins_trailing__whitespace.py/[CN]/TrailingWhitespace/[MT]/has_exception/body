@@ -1,5 +1,6 @@
-def has_exception(self, line_number, slash_position):
+def has_exception(self, line_number, exception_start, exception_end=None):
+    exception_end = (exception_end or exception_start)
     for (start, end) in self._exception_map.get(line_number, ()):
-        if (start <= slash_position < end):
+        if ((start <= exception_start) and (exception_end <= end)):
             return True
     return False

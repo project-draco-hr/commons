@@ -1,0 +1,6 @@
+def test_import_wildcard():
+    io = ImportOrder(PythonFile.from_statement('\n    from twitter.common.dirutil import *\n  '))
+    nits = list(io.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T400')
+    assert (nits[0].severity == Nit.ERROR)

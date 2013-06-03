@@ -1,0 +1,14 @@
+def iter_import_chunks(self):
+    'Iterate over space-separated import chunks in a file.'
+    chunk = []
+    last_line = None
+    for leaf in self.python_file.tree.body:
+        if isinstance(leaf, (ast.Import, ast.ImportFrom)):
+            if (last_line and (leaf.lineno != last_line[1])):
+                yield chunk
+                chunk = [leaf]
+            elif ((not last_line) or (last_line and (leaf.lineno == last_line[1]))):
+                chunk.append(leaf)
+            last_line = self.python_file.logical_lines[leaf.lineno]
+    if chunk:
+        yield chunk

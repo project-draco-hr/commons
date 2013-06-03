@@ -1,0 +1,6 @@
+def test_import_lexical_order():
+    io = ImportOrder(PythonFile.from_statement('\n    from twitter.common.dirutil import safe_rmtree, safe_mkdtemp\n  '))
+    nits = list(io.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T401')
+    assert (nits[0].severity == Nit.ERROR)

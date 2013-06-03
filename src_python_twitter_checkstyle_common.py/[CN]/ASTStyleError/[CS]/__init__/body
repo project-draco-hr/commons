@@ -1,2 +1,0 @@
-def __init__(self, python_file, node, message):
-    super(ASTStyleError, self).__init__(python_file, message, getattr(node, 'lineno', None))
