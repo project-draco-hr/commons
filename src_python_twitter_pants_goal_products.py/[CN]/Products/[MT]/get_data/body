@@ -1,0 +1,6 @@
+def get_data(self, typename):
+    " Returns a data product, or None if the product isn't found."
+    if self.data_products.has_key(typename):
+        return self.data_products[typename]
+    else:
+        return None
