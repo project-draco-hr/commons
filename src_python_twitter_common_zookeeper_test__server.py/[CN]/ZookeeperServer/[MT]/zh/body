@@ -2,6 +2,8 @@
 def zh(self):
     if (self._po is None):
         raise self.NotStarted('Cluster has not been started!')
+    if (not HAS_ZKPYTHON):
+        raise self.Error('No Zookeeper client library available!')
     if (self._zh is None):
         start_event = threading.Event()
 

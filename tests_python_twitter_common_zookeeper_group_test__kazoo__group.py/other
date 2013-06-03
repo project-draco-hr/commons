@@ -1,9 +1,8 @@
 import threading
 import unittest
-from twitter.common.zookeeper.client import ZooDefs
-from twitter.common.zookeeper.group.group import Membership
+from twitter.common.zookeeper.group.group_base import Membership
 from twitter.common.zookeeper.group.kazoo_group import KazooGroup
 from twitter.common.zookeeper.group.test_base import GroupTestBase
-from kazoo.client import KazooClient
+from twitter.common.zookeeper.kazoo_client import TwitterKazooClient
 from kazoo.protocol.states import KazooState
 import kazoo.security as ksec

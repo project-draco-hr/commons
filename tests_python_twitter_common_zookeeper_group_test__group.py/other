@@ -1,5 +1,7 @@
 import time
+import threading
 import unittest
-from twitter.common.zookeeper.client import ZooKeeper
+from twitter.common.zookeeper.client import ZooKeeper, ZooDefs
 from twitter.common.zookeeper.group.group import ActiveGroup, Group
 from twitter.common.zookeeper.group.test_base import GroupTestBase
+import zookeeper

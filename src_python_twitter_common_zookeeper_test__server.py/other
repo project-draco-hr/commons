@@ -9,11 +9,15 @@ import sys
 import tempfile
 import threading
 import time
-from thrift.transport.TTransport import TTransportException
-import zookeeper
 from twitter.common.contextutil import environment_as
 from twitter.common.dirutil import safe_rmtree
 from twitter.common.rpc import make_client
 from twitter.common.rpc.finagle import TFinagleProtocol
 from gen.twitter.common.zookeeper.testing.angrybird import ZooKeeperThriftServer
 from gen.twitter.common.zookeeper.testing.angrybird.ttypes import ExpireSessionRequest, ResponseCode
+from thrift.transport.TTransport import TTransportException
+try:
+    import zookeeper
+    HAS_ZKPYTHON = True
+except ImportError:
+    HAS_ZKPYTHON = False

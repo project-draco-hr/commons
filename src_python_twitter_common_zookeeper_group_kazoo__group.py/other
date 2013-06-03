@@ -6,8 +6,7 @@ try:
 except ImportError:
     import logging as log
 from twitter.common.concurrent import Future
-from twitter.common.zookeeper.constants import Acl
-from .group import Capture, GroupBase, GroupInterface, Membership, set_different
+from .group_base import Capture, GroupBase, GroupInterface, Membership, set_different
 from kazoo.client import KazooClient
 from kazoo.protocol.states import EventType, KazooState, KeeperState
 import kazoo.security as ksec

@@ -1,0 +1,5 @@
+def _session_callback(self, state):
+    rc = super(TwitterKazooClient, self)._session_callback(state)
+    if (state == KeeperState.CONNECTING):
+        self.connecting.set()
+    return rc

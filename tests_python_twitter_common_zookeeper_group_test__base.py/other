@@ -1,11 +1,9 @@
 import os
 import threading
 import time
-from twitter.common.zookeeper.client import ZooDefs
 from twitter.common.zookeeper.test_server import ZookeeperServer
-from twitter.common.zookeeper.group.group import Membership
+from twitter.common.zookeeper.group.group_base import Membership
 import pytest
-import zookeeper
 if os.getenv('ZOOKEEPER_TEST_DEBUG'):
     from twitter.common import log
     from twitter.common.log.options import LogOptions
