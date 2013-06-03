@@ -1,0 +1,5 @@
+def get_group_keys(self):
+    if (len(self.conflicting_exclusives) == 0):
+        return ['<none>']
+    else:
+        return self.key_to_targets.keys()

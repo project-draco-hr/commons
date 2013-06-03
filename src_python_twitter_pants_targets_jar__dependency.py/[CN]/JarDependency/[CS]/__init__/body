@@ -1,4 +1,4 @@
-def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None, type_=None, classifier=None, mutable=None):
+def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs=None, type_=None, classifier=None, mutable=None, exclusives=None):
     self.org = org
     self.name = name
     self.rev = rev
@@ -16,3 +16,7 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
     self.withDocs = self.with_sources
     self.ext = ext
     self.url = url
+    self.declared_exclusives = defaultdict(set)
+    if (exclusives is not None):
+        for k in exclusives:
+            self.declared_exclusives[k] |= exclusives[k]

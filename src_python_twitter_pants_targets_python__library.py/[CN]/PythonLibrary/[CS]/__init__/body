@@ -1,4 +1,4 @@
-def __init__(self, name, sources=(), resources=(), dependencies=(), provides=None, module=''):
+def __init__(self, name, sources=(), resources=(), dependencies=(), provides=None, module='', exclusives=None):
     '\n      name = Name of library\n      sources = Python source files\n      resources = non-Python resources, e.g. templates, keys, other data (it is\n        recommended that your application uses the pkgutil package to access these\n        resources in a .zip-module friendly way.)\n      dependencies = other PythonLibraries, Eggs or internal Pants targets\n      module = everything beneath module is relative to this module name, None if root namespace\n      provides = A Python artifact that this library provides\n    '
-    PythonTarget.__init__(self, name, sources, resources, dependencies, provides)
+    PythonTarget.__init__(self, name, sources, resources, dependencies, provides, exclusives=exclusives)
     self.module = module

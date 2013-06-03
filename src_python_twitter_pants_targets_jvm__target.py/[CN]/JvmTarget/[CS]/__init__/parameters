@@ -4,3 +4,4 @@ sources
 dependencies
 excludes
 configurations
+exclusives

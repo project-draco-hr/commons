@@ -4,3 +4,4 @@ sources
 provides
 dependencies
 excludes
+exclusives

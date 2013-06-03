@@ -1,0 +1,4 @@
+def get_classpath_for_group(self, group_key):
+    if (group_key not in self.group_classpaths):
+        self.group_classpaths[group_key] = []
+    return self.group_classpaths[group_key]

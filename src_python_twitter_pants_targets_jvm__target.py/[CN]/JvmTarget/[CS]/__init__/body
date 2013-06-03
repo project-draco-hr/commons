@@ -1,5 +1,5 @@
-def __init__(self, name, sources, dependencies, excludes=None, configurations=None):
-    InternalTarget.__init__(self, name, dependencies)
+def __init__(self, name, sources, dependencies, excludes=None, configurations=None, exclusives=None):
+    InternalTarget.__init__(self, name, dependencies, exclusives=exclusives)
     TargetWithSources.__init__(self, name, sources)
     self.declared_dependencies = set((dependencies or []))
     self.add_labels('jvm')

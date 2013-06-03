@@ -1,4 +1,5 @@
 import collections
+import copy
 from twitter.common.collections import OrderedSet
 from twitter.pants import is_concrete
 from twitter.pants.base import Target, TargetDefinitionException

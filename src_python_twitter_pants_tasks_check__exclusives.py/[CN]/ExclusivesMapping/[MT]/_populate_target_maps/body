@@ -1,0 +1,15 @@
+def _populate_target_maps(self, targets):
+    all_targets = []
+    workqueue = copy(targets)
+    while (len(workqueue) > 0):
+        t = workqueue.pop()
+        if (t not in all_targets):
+            all_targets.append(t)
+            if isinstance(t, InternalTarget):
+                workqueue += t.dependencies
+    for t in all_targets:
+        key = self._get_exclusives_key(t)
+        if (key not in self.group_classpaths):
+            self.group_classpaths[key] = []
+        self.key_to_targets[key].add(t)
+        self.target_to_key[t] = key

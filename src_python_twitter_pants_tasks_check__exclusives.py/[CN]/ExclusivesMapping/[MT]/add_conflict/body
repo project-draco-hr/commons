@@ -1,0 +1,2 @@
+def add_conflict(self, key, values):
+    self.conflicting_exclusives[key] = values

@@ -1,5 +1,5 @@
-def __init__(self, name, sources, resources=None, dependencies=None, provides=None):
-    TargetWithSources.__init__(self, name, sources)
+def __init__(self, name, sources, resources=None, dependencies=None, provides=None, exclusives=None):
+    TargetWithSources.__init__(self, name, sources, exclusives=exclusives)
     processed_dependencies = resolve(dependencies)
     self.add_labels('python')
     self.resources = (self._resolve_paths(self.target_base, resources) if resources else OrderedSet())

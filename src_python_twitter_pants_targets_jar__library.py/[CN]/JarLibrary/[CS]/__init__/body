@@ -1,6 +1,6 @@
-def __init__(self, name, dependencies):
-    'name: The name of this module target, addressable via pants via the portion of the spec\n        following the colon\n    dependencies: one or more JarDependencies this JarLibrary bundles or Pants pointing to other\n        JarLibraries or JavaTargets\n    '
-    Target.__init__(self, name)
+def __init__(self, name, dependencies, exclusives=None):
+    'name: The name of this module target, addressable via pants via the portion of the spec\n        following the colon\n    dependencies: one or more JarDependencies this JarLibrary bundles or Pants pointing to other\n        JarLibraries or JavaTargets\n    exclusives:   An optional map of exclusives tags. See CheckExclusives for details.\n    '
+    Target.__init__(self, name, exclusives=exclusives)
     if (dependencies is None):
         raise TargetDefinitionException(self, 'A dependencies list must be supplied even if empty.')
     self.add_labels('jars')
@@ -9,3 +9,6 @@ def __init__(self, name, dependencies):
     for dependency in self.dependencies:
         if hasattr(dependency, 'address'):
             self.dependency_addresses.add(dependency.address)
+        if hasattr(dependency, 'declared_exclusives'):
+            for k in self.declared_exclusives:
+                dependency.declared_exclusives[k] |= self.declared_exclusives[k]

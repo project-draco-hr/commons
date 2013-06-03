@@ -1,0 +1,19 @@
+def execute(self, targets):
+    for t in targets:
+        t._propagate_exclusives()
+    for t in targets:
+        excl = t.get_all_exclusives()
+        for key in excl:
+            if (len(excl[key]) > 1):
+                msg = ('target %s has more than 1 exclusives tag for key %s: %s' % (t, key, excl))
+                if self.signal_error:
+                    raise TaskError(msg)
+                else:
+                    print ('Warning: %s' % msg)
+    if self.context.products.is_required_data('exclusives_groups'):
+        mapping = ExclusivesMapping()
+        partition_keys = self._compute_exclusives_conflicts(targets)
+        for key in partition_keys:
+            mapping.add_conflict(key, partition_keys[key])
+        mapping._populate_target_maps(targets)
+        self.context.products.add_data('exclusives_groups', mapping)

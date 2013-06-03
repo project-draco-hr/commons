@@ -1,5 +1,5 @@
-def __init__(self, name, dependencies):
-    Target.__init__(self, name)
+def __init__(self, name, dependencies, exclusives=None):
+    Target.__init__(self, name, exclusives=exclusives)
     self._injected_deps = []
     self.processed_dependencies = resolve(dependencies)
     self.add_labels('internal')

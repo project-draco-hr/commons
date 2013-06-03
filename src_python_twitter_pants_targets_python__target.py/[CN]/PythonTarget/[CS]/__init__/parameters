@@ -4,3 +4,4 @@ sources
 resources
 dependencies
 provides
+exclusives

@@ -1,0 +1,2 @@
+def get_targets_for_group_key(self, key):
+    return self.key_to_targets[key]

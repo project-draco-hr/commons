@@ -1,4 +1,4 @@
-def __init__(self, name, sources, provides=None, dependencies=None, excludes=None):
+def __init__(self, name, sources, provides=None, dependencies=None, excludes=None, exclusives=None):
     self.provides = provides
-    JvmTarget.__init__(self, name, sources, dependencies, excludes)
+    JvmTarget.__init__(self, name, sources, dependencies, excludes, exclusives=exclusives)
     self.add_labels('exportable')

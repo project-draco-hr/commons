@@ -1,0 +1,16 @@
+def get_ordered_group_keys(self):
+
+    def number_of_emptys(key):
+        return string.count(key, '<none>')
+    if (self.ordering is not None):
+        return self.ordering
+    keys_by_empties = [[] for l in range(len(self.key_to_targets))]
+    for k in self.key_to_targets:
+        keys_by_empties[number_of_emptys(k)].append(k)
+    result = []
+    for i in range(len(keys_by_empties)):
+        for j in range(len(keys_by_empties[i])):
+            result.append(keys_by_empties[i][j])
+    result.reverse()
+    self.ordering = result
+    return self.ordering
