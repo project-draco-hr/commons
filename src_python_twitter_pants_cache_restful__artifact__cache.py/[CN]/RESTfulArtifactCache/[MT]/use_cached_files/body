@@ -21,8 +21,7 @@ def use_cached_files(self, cache_key):
             self.log.debug(('Read %d bytes' % total_bytes))
             if (total_bytes != expected_size):
                 raise self.CacheError(('Read only %d bytes from %d expected' % (total_bytes, expected_size)))
-            mode = ('r:bz2' if self.compress else 'r')
-            with open_tar(outfile.name, mode) as tarfile:
+            with open_tar(outfile.name, 'r') as tarfile:
                 tarfile.extractall(self.artifact_root)
         return True
     except Exception as e:

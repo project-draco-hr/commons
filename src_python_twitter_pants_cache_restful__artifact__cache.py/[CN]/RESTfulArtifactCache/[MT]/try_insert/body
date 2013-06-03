@@ -1,6 +1,6 @@
 def try_insert(self, cache_key, build_artifacts):
     with temporary_file_path() as tarfile:
-        mode = ('w:bz2' if self.compress else 'w')
+        mode = ('w:gz' if self.compress else 'w')
         with open_tar(tarfile, mode, dereference=True) as tarout:
             for artifact in build_artifacts:
                 tarout.add(artifact, os.path.relpath(artifact, self.artifact_root))
