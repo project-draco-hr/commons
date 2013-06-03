@@ -17,8 +17,8 @@ def use_cached_files(self, cache_key):
                 if (len(data) < self.READ_SIZE):
                     done = True
                 total_bytes += len(data)
-                self.log.debug(('Read %d bytes' % total_bytes))
             outfile.close()
+            self.log.debug(('Read %d bytes' % total_bytes))
             if (total_bytes != expected_size):
                 raise self.CacheError(('Read only %d bytes from %d expected' % (total_bytes, expected_size)))
             mode = ('r:bz2' if self.compress else 'r')
