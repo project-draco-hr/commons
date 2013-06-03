@@ -1,0 +1,5 @@
+def __init__(self, provider):
+    if (not isinstance(provider, MetricProvider)):
+        raise TypeError('MemoizedMetrics must take a MetricProvider')
+    self._provider = provider
+    self._sample = {}
