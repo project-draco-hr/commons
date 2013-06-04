@@ -1,3 +1,10 @@
 def __init__(self, *args, **kw):
     super(TwitterKazooClient, self).__init__(*args, **kw)
     self.connecting = threading.Event()
+    self.__session_expirations = AtomicGauge('session_expirations')
+    self.__connection_losses = AtomicGauge('connection_losses')
+    self.__session_id = LambdaGauge('session_id', (lambda : (self._session_id or 0)))
+    self.metrics.register(self.__session_expirations)
+    self.metrics.register(self.__connection_losses)
+    self.metrics.register(self.__session_id)
+    self.add_listener(self._observable_listener)
