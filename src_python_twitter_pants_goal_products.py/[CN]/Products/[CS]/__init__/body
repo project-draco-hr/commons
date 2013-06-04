@@ -1,3 +1,4 @@
 def __init__(self):
     self.products = {}
+    self.data_products = {}
     self.predicates_for_type = defaultdict(list)
