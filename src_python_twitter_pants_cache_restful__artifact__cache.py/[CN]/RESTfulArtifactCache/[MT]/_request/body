@@ -3,7 +3,7 @@ def _request(self, method, path, body=None):
     conn = self._connect()
     conn.request(method, path, body=body)
     response = conn.getresponse()
-    if (response.status == 200):
+    if (int((response.status / 100)) == 2):
         return response
     elif (response.status == 404):
         return None

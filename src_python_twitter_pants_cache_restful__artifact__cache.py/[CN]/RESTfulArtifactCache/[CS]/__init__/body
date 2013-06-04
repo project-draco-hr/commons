@@ -8,7 +8,7 @@ def __init__(self, log, artifact_root, url_base, compress=True):
         self._ssl = True
     else:
         raise ValueError('RESTfulArtifactCache only supports HTTP and HTTPS')
-    self._timeout_secs = 2.0
+    self._timeout_secs = 4.0
     self._netloc = parsed_url.netloc
     self._path_prefix = parsed_url.path.rstrip('/')
     self.compress = compress
