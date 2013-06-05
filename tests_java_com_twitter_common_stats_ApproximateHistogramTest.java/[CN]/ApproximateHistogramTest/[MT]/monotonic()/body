@@ -1,0 +1,9 @@
+{
+  return new Supplier<Long>(){
+    long i=0;
+    @Override public Long get(){
+      return ++i;
+    }
+  }
+;
+}

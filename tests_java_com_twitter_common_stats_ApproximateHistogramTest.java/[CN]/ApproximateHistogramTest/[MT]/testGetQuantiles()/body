@@ -1,0 +1,15 @@
+{
+  ApproximateHistogram hist=new ApproximateHistogram();
+  int n=10;
+  initializeValues(hist,n,monotonic());
+  double[] quantiles=new double[n];
+  for (int i=0; i < n; i++) {
+    quantiles[i]=(i + 1) / 10.0;
+  }
+  long[] results=hist.getQuantiles(quantiles);
+  for (int i=0; i < n; i++) {
+    long res=results[i];
+    double q=quantiles[i];
+    assertEquals(hist.getQuantile(q),res);
+  }
+}
