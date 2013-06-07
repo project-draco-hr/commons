@@ -1,5 +1,6 @@
 def __init__(self, context):
     Task.__init__(self, context)
+    context.products.require_data('exclusives_groups')
     self.confs = context.config.getlist('junit-run', 'confs')
     self.junit_profile = context.config.get('junit-run', 'junit_profile')
     self.emma_profile = context.config.get('junit-run', 'emma_profile')

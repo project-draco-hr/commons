@@ -1,3 +1,2 @@
 def is_required_data(self, typename):
-    ' Checks if a particular data product is required by any tasks.'
     return self.data_products.has_key(typename)

@@ -1,4 +1,5 @@
 def _populate_target_maps(self, targets):
+    ' Populates maps of exclusive keys to targets, and vice versa.'
     all_targets = []
     workqueue = copy(targets)
     while (len(workqueue) > 0):
@@ -9,6 +10,8 @@ def _populate_target_maps(self, targets):
                 workqueue += t.dependencies
     for t in all_targets:
         key = self._get_exclusives_key(t)
+        if (key == ''):
+            raise TaskError('Invalid empty group key')
         if (key not in self.group_classpaths):
             self.group_classpaths[key] = []
         self.key_to_targets[key].add(t)

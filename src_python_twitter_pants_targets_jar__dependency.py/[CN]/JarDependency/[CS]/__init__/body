@@ -12,6 +12,10 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
         self.with_artifact(name=name, type_=type_, ext=ext, url=url, classifier=classifier)
     self.id = ('%s-%s-%s' % (self.org, self.name, self.rev))
     self._configurations = ['default']
+    self.declared_exclusives = defaultdict(set)
+    if (exclusives is not None):
+        for k in exclusives:
+            self.declared_exclusives[k] |= exclusives[k]
     self.withSources = self.with_sources
     self.withDocs = self.with_sources
     self.ext = ext

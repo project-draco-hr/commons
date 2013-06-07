@@ -1,0 +1,3 @@
+@staticmethod
+def _get_exclusives_product(context):
+    return context.products.get_data('exclusives_groups')

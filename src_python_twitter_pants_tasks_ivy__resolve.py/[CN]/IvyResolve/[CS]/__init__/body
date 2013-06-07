@@ -23,6 +23,7 @@ def __init__(self, context, confs=None):
     self._open = context.options.ivy_resolve_open
     self._report = (self._open or context.options.ivy_resolve_report)
     self._ivy_utils = IvyUtils(context, self._cachedir)
+    context.products.require_data('exclusives_groups')
 
     def parse_override(override):
         match = re.match('^([^#]+)#([^=]+)=([^\\s]+)$', override)

@@ -6,3 +6,4 @@ dependencies
 timeout
 coverage
 soft_dependencies
+exclusives

@@ -1,0 +1,7 @@
+__author__ = 'Mark C. Chu-Carroll (markcc@foursquare.com()'
+from twitter.pants.testutils import MockTarget
+from twitter.pants.goal.group import Group
+from twitter.pants.base import Config
+from twitter.pants.goal import Context
+from twitter.pants.tasks.check_exclusives import CheckExclusives, ExclusivesMapping
+import unittest

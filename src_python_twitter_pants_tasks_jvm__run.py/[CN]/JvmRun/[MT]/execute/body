@@ -3,6 +3,9 @@ def execute(self, targets):
     binaries = filter(is_binary, targets)
     if (len(binaries) > 0):
         main = binaries[0].main
+        egroups = self.context.products.get_data('exclusives_groups')
+        group_key = egroups.get_group_key_for_target(binaries[0])
+        group_classpath = egroups.get_classpath_for_group(group_key)
 
         def run_binary(dryrun=False):
 
