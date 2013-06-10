@@ -1,0 +1,2 @@
+Amount<Long,Data> maxMemory
+int expectedSize

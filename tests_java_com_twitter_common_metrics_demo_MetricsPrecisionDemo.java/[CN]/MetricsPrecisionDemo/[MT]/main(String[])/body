@@ -1,0 +1,13 @@
+{
+  MetricsPrecisionDemo demo=new MetricsPrecisionDemo();
+  for (int n=100; n <= 1000 * 1000; n*=10) {
+    for (long mem=4; mem < 16; mem+=2) {
+      Amount<Long,Data> maxMemory=Amount.of(mem,Data.KB);
+      System.out.println("\nnumber of elements:" + n + "  maxMemory:"+ maxMemory);
+      System.out.println("Real data");
+      demo.testHistogram(new ApproximateHistogram(maxMemory),new RealHistogram(),demo.getRealData(n));
+      System.out.println("Random data");
+      demo.testHistogram(new ApproximateHistogram(maxMemory),new RealHistogram(),demo.getRandomData(n,100000,200000));
+    }
+  }
+}

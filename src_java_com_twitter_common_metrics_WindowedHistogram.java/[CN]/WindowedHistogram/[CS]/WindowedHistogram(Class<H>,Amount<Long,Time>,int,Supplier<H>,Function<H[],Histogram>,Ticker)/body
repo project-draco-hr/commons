@@ -1,6 +1,6 @@
 {
   Preconditions.checkNotNull(window);
-  Preconditions.checkArgument(1 < slices);
+  Preconditions.checkArgument(0 < slices);
   Preconditions.checkNotNull(sliceProvider);
   Preconditions.checkNotNull(merger);
   Preconditions.checkNotNull(ticker);

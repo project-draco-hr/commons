@@ -3,7 +3,7 @@
   Amount<Long,Time> window=Amount.of(100L,Time.MILLISECONDS);
   int slices=10;
   long sliceDuration=window.as(Time.NANOSECONDS) / slices;
-  WindowedHistogram h=new WindowedApproxHistogram(window,slices,DEFAULT_MAX_MEMORY,ticker);
+  WindowedApproxHistogram h=new WindowedApproxHistogram(window,slices,DEFAULT_MAX_MEMORY,ticker);
   h.add(Long.MIN_VALUE);
   ticker.advance(Amount.of(2 * sliceDuration,Time.NANOSECONDS));
   assertEquals(Long.MIN_VALUE,h.getQuantile(0.0));

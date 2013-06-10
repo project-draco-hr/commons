@@ -10,7 +10,7 @@
   builder.add(Amount.of(32L,Data.MB));
   List<Amount<Long,Data>> sizes=builder.build();
   for (  Amount<Long,Data> maxSize : sizes) {
-    WindowedHistogram hist=new WindowedApproxHistogram(Amount.of(60L,Time.SECONDS),6,maxSize);
+    WindowedApproxHistogram hist=new WindowedApproxHistogram(Amount.of(60L,Time.SECONDS),6,maxSize);
     hist.add(1L);
     hist.getQuantile(0.5);
     long size=ObjectSizeCalculator.getObjectSize(hist);

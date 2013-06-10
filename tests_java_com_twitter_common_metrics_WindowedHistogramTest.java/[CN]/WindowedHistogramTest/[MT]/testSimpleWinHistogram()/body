@@ -2,7 +2,7 @@
   FakeTicker ticker=new FakeTicker();
   Amount<Long,Time> window=Amount.of(100L,Time.MILLISECONDS);
   int slices=10;
-  WindowedHistogram wh=createFullHistogram(window,slices,ticker);
+  WindowedHistogram<?> wh=createFullHistogram(window,slices,ticker);
   for (int i=1; i <= slices; i++) {
     double q=(double)i / slices;
     assertEquals(i,wh.getQuantile(q),1.0);

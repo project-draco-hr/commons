@@ -1,0 +1,8 @@
+{
+  Random rnd=new Random(1);
+  List<Long> data=new ArrayList<Long>();
+  for (int i=0; i < size; i++) {
+    data.add(min + (rnd.nextLong() % (max - min)));
+  }
+  return data;
+}
