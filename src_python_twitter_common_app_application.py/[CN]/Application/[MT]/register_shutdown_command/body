@@ -1,0 +1,6 @@
+def register_shutdown_command(self, command):
+    if (not callable(command)):
+        raise TypeError('Shutdown command must be a callable.')
+    if (self._state not in (self.INITIALIZING, self.RUNNING)):
+        raise self.Error('Cannot register a shutdown command while shutting down.')
+    self._shutdown_commands.append(command)

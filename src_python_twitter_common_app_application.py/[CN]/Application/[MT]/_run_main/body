@@ -1,13 +1,21 @@
 def _run_main(self, main_method, *args, **kwargs):
+    self._raise_if_uninitialized()
+    if self.profiler():
+        main = (lambda : self.profiler().runcall(main_method, *args, **kwargs))
+    else:
+        main = (lambda : main_method(*args, **kwargs))
+    self._main_thread = ApplicationThread(main)
+    self._state = self.RUNNING
+    self._main_thread.start()
     try:
-        if self.profiler():
-            rc = self.profiler().runcall(main_method, *args, **kwargs)
-        else:
-            rc = main_method(*args, **kwargs)
-    except SystemExit as e:
-        rc = e.code
-        self._debug_log(('main_method exited with return code = %s' % repr(rc)))
+        while (not self._main_thread.stopped.is_set()):
+            self._main_thread.stopped.wait(timeout=0.2)
+        return_code = self._main_thread.return_code
+        self._debug_log(('main_method exited with return code = %r' % return_code))
     except KeyboardInterrupt as e:
-        rc = None
+        return_code = self.CTRL_C_RETURN_CODE
         self._debug_log('main_method exited with ^C')
-    return rc
+    if self._main_thread.traceback:
+        self._debug_log('application thread excepted:')
+        self._debug_log('\n'.join(traceback.format_tb(self._main_thread.traceback)))
+    return return_code

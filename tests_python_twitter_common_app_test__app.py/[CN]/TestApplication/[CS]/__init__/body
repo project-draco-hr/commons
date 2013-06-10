@@ -1,0 +1,5 @@
+def __init__(self, main_method, force_args=[]):
+    super(TestApplication, self).__init__(exit_function=self.__exit_function, force_args=force_args)
+    self.__main_method = main_method
+    self.exited = threading.Event()
+    self.exited_rc = None

@@ -1,0 +1,17 @@
+def test_shutdown_abort():
+
+    def shutdown_command(rc):
+        time.sleep(10000)
+
+    def huh_main():
+        return 0
+    app = TestApplication(huh_main)
+    app.register_shutdown_command(shutdown_command)
+
+    def wait_and_stop_app():
+        time.sleep(0.5)
+        app.abortabortabort()
+    stop_thread = threading.Thread(target=wait_and_stop_app)
+    stop_thread.start()
+    app.main()
+    assert (app.exited_rc == 0)

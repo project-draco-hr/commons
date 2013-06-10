@@ -1,0 +1,4 @@
+def abortabortabort(self):
+    if self._main_thread:
+        self._main_thread.stop()
+    self._state = self.SHUTDOWN

@@ -1,5 +1,6 @@
 def _setup_modules(self):
     '\n      Setup all initialized modules.\n    '
+    self._raise_if_initialized()
     module_registry = AppModule.module_registry()
     for bundle in topological_sort(AppModule.module_dependencies()):
         for module_label in bundle:

@@ -1,2 +1,3 @@
 def _add_main_option(self, option):
+    self._raise_if_initialized()
     self._main_options.append(option)

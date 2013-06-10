@@ -1,3 +1,3 @@
 def _raise_if_initialized(self, msg='Cannot perform operation after initialization!'):
-    if self.initialized:
-        raise Application.Error(msg)
+    if (self._state > self.INITIALIZING):
+        raise self.Error(msg)

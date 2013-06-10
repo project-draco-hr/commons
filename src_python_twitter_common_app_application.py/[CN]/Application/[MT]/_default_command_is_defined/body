@@ -1,0 +1,2 @@
+def _default_command_is_defined(self):
+    return (None in self._commands)

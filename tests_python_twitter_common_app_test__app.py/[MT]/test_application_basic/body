@@ -1,0 +1,24 @@
+def test_application_basic():
+
+    def excepting_method():
+        (1 / 0)
+
+    def exiting_method():
+        sys.exit(2)
+
+    def normal_method():
+        return 3
+
+    def run_app(method):
+        app = TestApplication(method)
+        app.main()
+        return app
+    app = run_app(excepting_method)
+    assert (app.exited_rc == 1)
+    assert (app._main_thread.traceback is not None)
+    app = run_app(exiting_method)
+    assert (app.exited_rc == 2)
+    assert (app._main_thread.traceback is None)
+    app = run_app(normal_method)
+    assert (app.exited_rc == 3)
+    assert (app._main_thread.traceback is None)

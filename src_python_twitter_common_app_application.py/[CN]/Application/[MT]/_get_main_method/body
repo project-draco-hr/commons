@@ -1,0 +1,14 @@
+def _get_main_method(self):
+    caller_main = self._find_main_method()
+    if (self._default_command_is_defined() and (caller_main is not None)):
+        print('Error: Cannot define both main and a default command.', file=sys.stderr)
+        self._exit_function(1)
+        return
+    main_method = (caller_main or self._commands.get(self._command))
+    if (main_method is None):
+        commands = sorted(self.get_commands())
+        if commands:
+            print('Must supply one of the following commands:', ', '.join(commands), file=sys.stderr)
+        else:
+            print('No main() or command defined! Application must define one of these.', file=sys.stderr)
+    return main_method

@@ -1,0 +1,8 @@
+def test_shutdown_exception():
+
+    def shutdown_command(rc):
+        (1 / 0)
+    app = TestApplication((lambda : 0))
+    app.register_shutdown_command(shutdown_command)
+    app.main()
+    assert (app.exited_rc == 0)

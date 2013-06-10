@@ -1,0 +1,2 @@
+def _find_main_method(self):
+    return self.__main_method

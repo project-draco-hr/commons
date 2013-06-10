@@ -2,11 +2,10 @@ def test_app_registry_exit_functions(self):
     self.factory.new_module('first')
     self.factory.new_module('second', dependencies='first')
     self.factory.new_module('third', dependencies=['first', 'second'])
-    app.init(force_args=[])
-
-    def exit_function(*args):
-        pass
-    app.quit(None, exit_function=exit_function)
+    app = Application(force_args=[])
+    app.init()
+    app.abortabortabort()
+    app._run_module_teardown()
     assert ((self.factory.value('third_exit') > 0) and ((self.factory.value('second_exit') > 0) and (self.factory.value('first_exit') > 0))), 'all exit callbacks should have been called'
     assert (self.factory.value('third_exit') < self.factory.value('second_exit'))
     assert (self.factory.value('third_exit') < self.factory.value('first_exit'))
