@@ -1,7 +1,6 @@
 def test_app_add_options_with_Option(self):
-    app = Application(force_args=['--option1', 'option1value', 'extraargs'])
     opt = options.Option('--option1', dest='option1')
     app.add_option(opt)
-    app.init()
+    app.init(force_args=['--option1', 'option1value', 'extraargs'])
     assert (app.get_options().option1 == 'option1value')
     assert (app.argv() == ['extraargs'])

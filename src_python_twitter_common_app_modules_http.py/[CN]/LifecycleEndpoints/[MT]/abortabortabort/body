@@ -1,3 +1,0 @@
-@HttpServer.route('/abortabortabort', method='POST')
-def abortabortabort(self):
-    app.abortabortabort()

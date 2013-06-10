@@ -1,25 +1,36 @@
 def main(self):
     "\n      If called from __main__ module, run script's main() method with arguments passed\n      and global options parsed.\n\n      The following patterns are acceptable for the main method:\n         main()\n         main(args)\n         main(args, options)\n    "
-    if (not self._validate_main_module()):
+    main_module = Inspection.find_calling_module()
+    if (main_module != '__main__'):
         return
     if (not self._import_module('twitter.common.app.modules')):
         print('Unable to import twitter app modules!', file=sys.stderr)
-        self._exit_function(1)
-        return
+        sys.exit(1)
     self.init()
     if self._option_values.twitter_common_app_rc_filename:
         print(('RC filename: %s' % self._rc_filename()))
         return
-    main_method = self._get_main_method()
+    try:
+        caller_main = Inspection.find_main_from_caller()
+    except Inspection.InternalError:
+        caller_main = None
+    if (None in self._commands):
+        assert (caller_main is None), 'Error: Cannot define both main and a default command.'
+    else:
+        self._commands[None] = caller_main
+    main_method = self._commands[self._command]
     if (main_method is None):
-        self._exit_function(1)
-        return
+        commands = sorted(self.get_commands())
+        if commands:
+            print('Must supply one of the following commands:', ', '.join(commands), file=sys.stderr)
+        else:
+            print('No main() or command defined! Application must define one of these.', file=sys.stderr)
+        sys.exit(1)
     try:
         argspec = inspect.getargspec(main_method)
     except TypeError as e:
         print(('Malformed main(): %s' % e), file=sys.stderr)
-        self._exit_function(1)
-        return
+        sys.exit(1)
     if (len(argspec.args) == 1):
         args = [self._argv]
     elif (len(argspec.args) == 2):
@@ -27,10 +38,7 @@ def main(self):
     else:
         if (len(self._argv) != 0):
             print(('main() takes no arguments but got leftover arguments: %s!' % ' '.join(self._argv)), file=sys.stderr)
-            self._exit_function(1)
-            return
+            sys.exit(1)
         args = []
-    return_code = self._run_main(main_method, *args)
-    self._run_shutdown_commands(return_code)
-    self._run_module_teardown()
-    self.quit(return_code)
+    rc = self._run_main(main_method, *args)
+    self.quit(rc)

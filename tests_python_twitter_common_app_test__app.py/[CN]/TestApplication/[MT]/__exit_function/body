@@ -1,3 +1,0 @@
-def __exit_function(self, rc):
-    self.exited_rc = rc
-    self.exited.set()

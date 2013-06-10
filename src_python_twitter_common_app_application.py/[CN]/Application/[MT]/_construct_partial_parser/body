@@ -1,6 +1,6 @@
 def _construct_partial_parser(self):
     '\n      Construct an options parser containing only options added by __main__\n      or global help options registered by the application.\n    '
-    if hasattr(self._commands.get(self._command), self.OPTIONS_ATTR):
+    if hasattr(self._commands.get(self._command), Application.OPTIONS_ATTR):
         return self.command_parser(self._command)
     else:
         return self._main_parser().values(copy.deepcopy(self._option_values))

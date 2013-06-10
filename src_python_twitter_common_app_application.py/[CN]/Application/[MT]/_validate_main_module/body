@@ -1,3 +1,0 @@
-def _validate_main_module(self):
-    main_module = Inspection.find_calling_module()
-    return (main_module == '__main__')

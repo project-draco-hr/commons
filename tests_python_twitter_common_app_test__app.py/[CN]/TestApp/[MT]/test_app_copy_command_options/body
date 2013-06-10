@@ -1,7 +1,6 @@
 def test_app_copy_command_options(self):
     option1 = options.TwitterOption('--test1')
     option2 = options.TwitterOption('--test2')
-    app = Application()
 
     @app.command_option(option1)
     def test_command():

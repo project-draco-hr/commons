@@ -1,4 +1,4 @@
 import threading
-from twitter.common import app, options
-from twitter.common.http.diagnostics import DiagnosticsEndpoints
 from twitter.common.http.server import HttpServer
+from twitter.common.http.diagnostics import DiagnosticsEndpoints
+from twitter.common import app, options

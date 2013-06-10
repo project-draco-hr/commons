@@ -1,3 +1,3 @@
 def help(self):
     '\n      Print the application help message and exit.\n    '
-    self._short_help(None, None, None, None)
+    self._short_help(*((None,) * 4))

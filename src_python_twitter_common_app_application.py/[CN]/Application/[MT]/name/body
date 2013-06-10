@@ -5,5 +5,5 @@ def name(self):
     else:
         try:
             return Inspection.find_application_name()
-        except Exception:
+        except:
             return 'unknown'

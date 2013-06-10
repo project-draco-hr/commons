@@ -1,2 +1,3 @@
 self
-return_code
+rc
+exit_function

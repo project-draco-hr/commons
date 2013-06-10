@@ -1,20 +1,15 @@
-def __init__(self, exit_function=sys.exit, force_args=None):
+def __init__(self):
     self._name = None
-    self._exit_function = exit_function
-    self._force_args = force_args
     self._registered_modules = []
     self._init_modules = []
     self._option_targets = defaultdict(dict)
     self._global_options = {}
     self._interspersed_args = False
-    self._main_options = self.HELP_OPTIONS[:]
-    self._main_thread = None
-    self._shutdown_commands = []
+    self._main_options = Application.HELP_OPTIONS[:]
     self._usage = ''
     self._profiler = None
     self._commands = {}
-    self._state = self.INITIALIZING
     self._reset()
-    for opt in self.APP_OPTIONS.values():
+    for opt in Application.APP_OPTIONS.values():
         self.add_option(opt)
-    self._configure_options(None, self.APP_OPTIONS)
+    self._configure_options(None, Application.APP_OPTIONS)

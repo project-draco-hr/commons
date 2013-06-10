@@ -1,13 +1,12 @@
 def configure(self, module=None, **kw):
     '\n      Configure the application object or its activated modules.\n\n      Typically application modules export flags that can be defined on the\n      command-line.  In order to allow the application to override defaults,\n      these modules may export named parameters to be overridden.  For example,\n      the Application object itself exports named variables such as "debug" or\n      "profiling", which can be enabled via:\n         app.configure(debug=True)\n      and\n         app.configure(profiling=True)\n      respectively.  They can also be enabled with their command-line argument\n      counterpart, e.g.\n        ./my_application --app_debug --app_profiling\n\n      Some modules export named options, e.g. twitter.common.app.modules.http exports\n      \'enable\', \'host\', \'port\'.  The command-line arguments still take precedence and\n      will override any defaults set by the application in app.configure.  To activate\n      these options, just pass along the module name:\n        app.configure(module=\'twitter.common.app.modules.http\', enable=True)\n    '
-    self._raise_if_initialized()
     if (module not in self._option_targets):
         if (not self._import_module(module)):
-            raise self.Error(('Unknown module to configure: %s' % module))
+            raise Application.Error(('Unknown module to configure: %s' % module))
 
     def configure_option(name, value):
         if (name not in self._option_targets[module]):
-            raise self.Error(('Module %s has no option %s' % (module, name)))
+            raise Application.Error(('Module %s has no option %s' % (module, name)))
         self.set_option(self._option_targets[module][name], value)
     for (option_name, option_value) in kw.items():
         configure_option(option_name, option_value)

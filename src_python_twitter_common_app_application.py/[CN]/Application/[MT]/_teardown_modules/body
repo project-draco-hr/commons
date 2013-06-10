@@ -1,7 +1,5 @@
 def _teardown_modules(self):
     '\n      Teardown initialized module in reverse initialization order.\n    '
-    if (self._state != self.SHUTDOWN):
-        raise self.Error('Expected application to be in SHUTDOWN state!')
     module_registry = AppModule.module_registry()
     for module_label in reversed(self._init_modules):
         assert (module_label in module_registry)

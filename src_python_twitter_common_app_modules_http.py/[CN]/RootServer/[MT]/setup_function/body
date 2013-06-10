@@ -3,8 +3,6 @@ def setup_function(self):
     options = app.get_options()
     parent = self
     self.mount_routes(DiagnosticsEndpoints())
-    if (not options.twitter_common_http_root_server_disable_lifecycle):
-        self.mount_routes(LifecycleEndpoints())
 
 
     class RootServerThread(threading.Thread):

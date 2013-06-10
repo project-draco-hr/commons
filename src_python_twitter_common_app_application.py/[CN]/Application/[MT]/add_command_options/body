@@ -1,5 +1,5 @@
 def add_command_options(self, command_function):
     '\n      Function to add all options from a command\n    '
     module = inspect.getmodule(command_function).__name__
-    for option in getattr(command_function, self.OPTIONS_ATTR, ()):
+    for option in getattr(command_function, Application.OPTIONS_ATTR, []):
         self._add_option(module, option)

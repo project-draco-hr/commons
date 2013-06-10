@@ -1,3 +1,3 @@
-@classmethod
-def _get_module_key(cls, module):
+@staticmethod
+def _get_module_key(module):
     return ('From module %s' % module)

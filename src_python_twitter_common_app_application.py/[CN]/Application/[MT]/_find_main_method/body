@@ -1,5 +1,0 @@
-def _find_main_method(self):
-    try:
-        return Inspection.find_main_from_caller()
-    except Inspection.InternalError:
-        pass

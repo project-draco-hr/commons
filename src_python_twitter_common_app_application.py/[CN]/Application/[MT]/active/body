@@ -1,4 +1,4 @@
-@classmethod
-def active(cls):
+@staticmethod
+def active():
     'Return the current resident application object.'
-    return cls._GLOBAL
+    return Application._Global

@@ -1,7 +1,0 @@
-def __init__(self, main_method):
-    super(ApplicationThread, self).__init__(name='twitter.common.app Application Thread')
-    self.__main_method = main_method
-    self.__return_code = None
-    self.__traceback = None
-    self.stopped = threading.Event()
-    self.daemon = True

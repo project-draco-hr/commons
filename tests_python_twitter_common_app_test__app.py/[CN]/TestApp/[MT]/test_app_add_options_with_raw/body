@@ -1,6 +1,5 @@
 def test_app_add_options_with_raw(self):
-    app = Application(force_args=['--option1', 'option1value', 'extraargs'])
     app.add_option('--option1', dest='option1')
-    app.init()
+    app.init(force_args=['--option1', 'option1value', 'extraargs'])
     assert (app.get_options().option1 == 'option1value')
     assert (app.argv() == ['extraargs'])
