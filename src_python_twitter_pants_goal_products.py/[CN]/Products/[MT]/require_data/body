@@ -1,4 +1,3 @@
-def require_data(self, *typenames):
-    ' Registers a requirement that data produced by tasks is required.\n    Params:\n      typenames a list of names of data products that are should be generated.\n    '
-    for t in typenames:
+def require_data(self, *typename):
+    for t in typename:
         self.data_products[t] = {}

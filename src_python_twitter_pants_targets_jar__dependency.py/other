@@ -1,3 +1,4 @@
 from collections import defaultdict
 from twitter.pants.targets.exclude import Exclude
+from collections import defaultdict
 from .external_dependency import ExternalDependency

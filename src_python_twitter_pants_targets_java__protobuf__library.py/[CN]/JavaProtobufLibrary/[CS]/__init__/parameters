@@ -5,3 +5,4 @@ provides
 dependencies
 excludes
 buildflags
+exclusives

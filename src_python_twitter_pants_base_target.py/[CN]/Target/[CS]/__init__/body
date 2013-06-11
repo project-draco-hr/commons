@@ -7,9 +7,9 @@ def __init__(self, name, reinit_check=True, exclusives=None):
         self.labels = set()
         self.register()
         self._initialized = True
-        self.derived_from = self
         self.declared_exclusives = collections.defaultdict(set)
         if (exclusives is not None):
             for k in exclusives:
                 self.declared_exclusives[k].add(exclusives[k])
         self.exclusives = None
+        self.derived_from = self

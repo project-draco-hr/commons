@@ -1,0 +1,9 @@
+def testPartitioning(self):
+    (a, b, c, d, _) = self.setupTargets()
+    context = Context(ExclusivesTargetTest.config, options={}, run_tracker=None, target_roots=[a, b, c, d])
+    context.products.require_data('exclusives_groups')
+    check_exclusives_task = CheckExclusives(context, signal_error=True)
+    check_exclusives_task.execute([a, b, c, d])
+    egroups = context.products.get_data('exclusives_groups')
+    self.assertEquals(egroups.get_targets_for_group_key('a=1'), set([a, b, d]))
+    self.assertEquals(egroups.get_targets_for_group_key('a=2'), set([c]))

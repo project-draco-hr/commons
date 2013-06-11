@@ -1,0 +1,6 @@
+def testPropagation(self):
+    (a, b, c, d, e) = self.setupTargets()
+    d_excl = d.get_all_exclusives()
+    self.assertEquals(d_excl['a'], set(['1']))
+    e_excl = e.get_all_exclusives()
+    self.assertEquals(e_excl['a'], set(['1', '2']))

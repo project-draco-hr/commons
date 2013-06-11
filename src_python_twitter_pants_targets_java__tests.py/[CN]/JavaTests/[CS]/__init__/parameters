@@ -5,3 +5,4 @@ dependencies
 excludes
 resources
 buildflags
+exclusives

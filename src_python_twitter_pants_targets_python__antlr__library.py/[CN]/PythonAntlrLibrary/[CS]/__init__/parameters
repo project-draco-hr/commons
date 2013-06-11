@@ -5,3 +5,4 @@ antlr_version
 sources
 resources
 dependencies
+exclusives

@@ -8,3 +8,4 @@ dependencies
 excludes
 deploy_excludes
 configurations
+exclusives

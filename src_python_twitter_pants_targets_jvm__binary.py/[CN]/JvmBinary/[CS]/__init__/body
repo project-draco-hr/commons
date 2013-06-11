@@ -1,5 +1,5 @@
-def __init__(self, name, main=None, basename=None, source=None, resources=None, dependencies=None, excludes=None, deploy_excludes=None, configurations=None):
-    JvmTarget.__init__(self, name=name, sources=([source] if source else None), dependencies=dependencies, excludes=excludes, configurations=configurations)
+def __init__(self, name, main=None, basename=None, source=None, resources=None, dependencies=None, excludes=None, deploy_excludes=None, configurations=None, exclusives=None):
+    JvmTarget.__init__(self, name=name, sources=([source] if source else None), dependencies=dependencies, excludes=excludes, configurations=configurations, exclusives=exclusives)
     if (main and (not isinstance(main, Compatibility.string))):
         raise TargetDefinitionException(self, 'main must be a fully qualified classname')
     if (source and (not isinstance(source, Compatibility.string))):
