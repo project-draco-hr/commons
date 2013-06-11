@@ -1,0 +1,12 @@
+{
+  ServerSetWatcher serverSetWatcher=new ServerSetWatcher(zkClient,monitor);
+  try {
+    return serverSetWatcher.watch();
+  }
+ catch (  WatchException e) {
+    throw new MonitorException("ZooKeeper watch failed.",e);
+  }
+catch (  InterruptedException e) {
+    throw new MonitorException("Interrupted while watching ZooKeeper.",e);
+  }
+}

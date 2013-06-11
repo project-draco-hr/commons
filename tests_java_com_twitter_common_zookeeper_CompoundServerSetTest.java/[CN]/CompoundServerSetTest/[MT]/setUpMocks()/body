@@ -9,6 +9,9 @@
   serverSet1=createMock(ServerSet.class);
   serverSet2=createMock(ServerSet.class);
   serverSet3=createMock(ServerSet.class);
+  stop1=createMock(Command.class);
+  stop2=createMock(Command.class);
+  stop3=createMock(Command.class);
   instance1=createMock(ServiceInstance.class);
   instance2=createMock(ServiceInstance.class);
   instance3=createMock(ServiceInstance.class);

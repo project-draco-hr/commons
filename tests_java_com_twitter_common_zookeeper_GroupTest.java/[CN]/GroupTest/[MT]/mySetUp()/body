@@ -1,7 +1,8 @@
 {
   onLoseMembership=createMock(Command.class);
   zkClient=createZkClient("group","test");
-  group=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group");
+  joinGroup=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group");
+  watchGroup=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group");
   listener=new RecordingListener();
-  group.watch(listener);
+  stopWatching=watchGroup.watch(listener);
 }

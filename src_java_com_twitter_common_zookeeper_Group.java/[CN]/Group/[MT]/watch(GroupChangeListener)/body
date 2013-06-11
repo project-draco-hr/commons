@@ -33,4 +33,10 @@ catch (      KeeperException e) {
     }
   }
 );
+  return new Command(){
+    @Override public void execute(){
+      groupMonitor.stopWatching();
+    }
+  }
+;
 }

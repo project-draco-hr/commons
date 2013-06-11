@@ -1,0 +1,4 @@
+{
+  monitor.onChange(hosts);
+  return Commands.NOOP;
+}

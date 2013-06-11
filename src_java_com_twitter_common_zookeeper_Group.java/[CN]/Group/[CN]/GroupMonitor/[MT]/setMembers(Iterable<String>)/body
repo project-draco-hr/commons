@@ -1,4 +1,8 @@
 {
+  if (stopped) {
+    LOG.info("Suppressing membership update, no longer watching " + this);
+    return;
+  }
   if (this.members == null) {
     zkClient.registerExpirationHandler(new Command(){
       @Override public void execute(){

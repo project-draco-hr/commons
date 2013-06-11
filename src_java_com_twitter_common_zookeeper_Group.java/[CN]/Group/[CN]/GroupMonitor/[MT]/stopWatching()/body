@@ -1,0 +1,4 @@
+{
+  LOG.info("Stopping watch on " + this);
+  stopped=true;
+}

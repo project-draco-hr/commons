@@ -1,5 +1,5 @@
 {
-  expect(serverSet1.join(END_POINT,AUX_PORTS,Status.ALIVE)).andThrow(new Group.JoinException("Group join exception",null));
+  expect(serverSet1.join(END_POINT,AUX_PORTS)).andThrow(new Group.JoinException("Group join exception",null));
   control.replay();
-  compoundServerSet.join(END_POINT,AUX_PORTS,Status.ALIVE);
+  compoundServerSet.join(END_POINT,AUX_PORTS);
 }

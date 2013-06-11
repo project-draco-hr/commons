@@ -5,7 +5,7 @@
     }
   }
 );
-  group.watch(new GroupChangeListener(){
+  return group.watch(new GroupChangeListener(){
     @Override public void onGroupChange(    Iterable<String> memberIds){
       notifyGroupChange(memberIds);
     }

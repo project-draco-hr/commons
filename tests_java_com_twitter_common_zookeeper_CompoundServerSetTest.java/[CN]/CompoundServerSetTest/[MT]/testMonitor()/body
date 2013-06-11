@@ -2,9 +2,9 @@
   Capture<HostChangeMonitor<ServiceInstance>> set1Capture=createCapture();
   Capture<HostChangeMonitor<ServiceInstance>> set2Capture=createCapture();
   Capture<HostChangeMonitor<ServiceInstance>> set3Capture=createCapture();
-  serverSet1.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>capture(set1Capture));
-  serverSet2.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>capture(set2Capture));
-  serverSet3.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>capture(set3Capture));
+  expect(serverSet1.watch(EasyMock.<HostChangeMonitor<ServiceInstance>>capture(set1Capture))).andReturn(stop1);
+  expect(serverSet2.watch(EasyMock.<HostChangeMonitor<ServiceInstance>>capture(set2Capture))).andReturn(stop2);
+  expect(serverSet3.watch(EasyMock.<HostChangeMonitor<ServiceInstance>>capture(set3Capture))).andReturn(stop3);
   triggerChange(instance1);
   triggerChange(instance1,instance2);
   triggerChange(instance1,instance2,instance3);
@@ -13,7 +13,7 @@
   triggerChange(instance3);
   triggerChange();
   control.replay();
-  compoundServerSet.monitor(compoundMonitor);
+  compoundServerSet.watch(compoundMonitor);
   triggerChange(set1Capture);
   triggerChange(set2Capture);
   triggerChange(set3Capture);

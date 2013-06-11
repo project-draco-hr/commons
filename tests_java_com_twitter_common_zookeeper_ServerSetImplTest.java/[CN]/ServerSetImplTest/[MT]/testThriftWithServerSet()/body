@@ -19,10 +19,10 @@
   service.setDaemon(true);
   service.start();
   ServerSetImpl serverSetImpl=new ServerSetImpl(createZkClient(),SERVICE);
-  serverSetImpl.monitor(serverSetMonitor);
+  serverSetImpl.watch(serverSetMonitor);
   assertChangeFiredEmpty();
   InetSocketAddress localSocket=new InetSocketAddress(server.getLocalPort());
-  EndpointStatus status=serverSetImpl.join(localSocket,Maps.<String,InetSocketAddress>newHashMap());
+  serverSetImpl.join(localSocket,Maps.<String,InetSocketAddress>newHashMap());
   assertChangeFired(ImmutableMap.<InetSocketAddress,Status>of(localSocket,Status.ALIVE));
   Service.Iface svc=createThriftClient(serverSetImpl);
   try {

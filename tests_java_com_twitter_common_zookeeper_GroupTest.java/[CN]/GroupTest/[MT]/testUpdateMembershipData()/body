@@ -7,7 +7,7 @@
   byte[] second="update".getBytes();
   expect(dataSupplier.get()).andReturn(second);
   replay(dataSupplier);
-  Membership membership=group.join(dataSupplier,onLoseMembership);
+  Membership membership=joinGroup.join(dataSupplier,onLoseMembership);
   assertArrayEquals("Initial setting is incorrect.",initial,zkClient.get().getData(membership.getMemberPath(),false,null));
   assertArrayEquals("Updating supplier should not change membership data",initial,zkClient.get().getData(membership.getMemberPath(),false,null));
   membership.updateMemberData();

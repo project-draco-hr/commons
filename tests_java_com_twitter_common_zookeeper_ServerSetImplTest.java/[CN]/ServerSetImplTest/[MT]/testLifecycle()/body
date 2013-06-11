@@ -1,6 +1,6 @@
 {
   ServerSetImpl client=createServerSet();
-  client.monitor(serverSetMonitor);
+  client.watch(serverSetMonitor);
   assertChangeFiredEmpty();
   ServerSetImpl server=createServerSet();
   EndpointStatus status=server.join(InetSocketAddress.createUnresolved("foo",1234),makePortMap("http-admin",8080),0);
