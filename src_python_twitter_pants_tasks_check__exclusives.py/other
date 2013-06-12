@@ -3,5 +3,6 @@ from collections import defaultdict
 from copy import copy
 from itertools import chain
 import string
+from twitter.pants.base import Target
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.targets import InternalTarget
