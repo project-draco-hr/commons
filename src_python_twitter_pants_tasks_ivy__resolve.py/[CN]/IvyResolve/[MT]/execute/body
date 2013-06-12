@@ -12,7 +12,7 @@ def execute(self, targets):
         return (is_jar(target) or (is_internal(target) and any((jar for jar in target.jar_dependencies if jar.rev))))
     groups = self.context.products.get_data('exclusives_groups')
     group_keys = groups.get_group_keys()
-    none_group = groups.get_targets_for_group_key('')
+    none_group = groups.get_targets_for_group_key('<none>')
     for group_key in groups.get_group_keys():
         group_targets = (groups.get_targets_for_group_key(group_key) & set(targets))
         classpath_targets = OrderedSet()

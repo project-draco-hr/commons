@@ -1,6 +1,6 @@
 def _key_to_map(self, key):
     result = {}
-    if (key == '<none>'):
+    if ((key == '<none>') or (key == '')):
         return result
     pairs = key.split(',')
     for p in pairs:
