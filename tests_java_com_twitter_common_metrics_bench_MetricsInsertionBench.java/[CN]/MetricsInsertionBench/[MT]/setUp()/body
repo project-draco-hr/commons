@@ -1,0 +1,6 @@
+{
+  metrics=Metrics.createDetached();
+  counter=metrics.registerCounter("counter");
+  h=new Histogram("histogram",metrics);
+  wh=new WindowedApproxHistogram();
+}

@@ -2,7 +2,7 @@
   WindowedApproxHistogram h;
   while (n != 0) {
     h=new WindowedApproxHistogram();
-    h.add(rnd.nextInt(INPUT_RANGE));
+    h.add(1);
     n--;
   }
 }

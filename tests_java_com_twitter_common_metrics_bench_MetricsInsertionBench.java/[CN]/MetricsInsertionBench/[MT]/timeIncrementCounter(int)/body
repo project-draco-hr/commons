@@ -1,0 +1,6 @@
+{
+  while (n != 0) {
+    counter.increment();
+    n--;
+  }
+}

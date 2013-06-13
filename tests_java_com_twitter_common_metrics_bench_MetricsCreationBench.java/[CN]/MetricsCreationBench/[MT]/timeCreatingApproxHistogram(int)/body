@@ -2,7 +2,7 @@
   ApproximateHistogram h;
   while (n != 0) {
     h=new ApproximateHistogram();
-    h.add(rnd.nextInt(INPUT_RANGE));
+    h.add(1);
     n--;
   }
 }

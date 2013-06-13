@@ -1,0 +1,7 @@
+{
+  long x;
+  while (n != 0) {
+    metrics.sample();
+    n--;
+  }
+}
