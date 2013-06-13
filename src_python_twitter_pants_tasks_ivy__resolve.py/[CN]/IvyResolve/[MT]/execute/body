@@ -37,12 +37,10 @@ def execute(self, targets):
         if os.path.exists(self._classpath_file):
             with self._cachepath(self._classpath_file) as classpath:
                 group_cp = []
-                with self.context.state('classpath', []) as cp:
-                    for path in classpath:
-                        if self._map_jar(path):
-                            for conf in self._confs:
-                                cp.append((conf, path.strip()))
-                                groups.update_compatible_classpaths(group_key, [(conf, path.strip())])
+                for path in classpath:
+                    if self._map_jar(path):
+                        for conf in self._confs:
+                            groups.update_compatible_classpaths(group_key, [(conf, path.strip())])
     if self._report:
         self._generate_ivy_report()
     if self.context.products.isrequired('ivy_jar_products'):
