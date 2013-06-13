@@ -6,6 +6,6 @@ def execute(self, targets):
                 invalid_targets.extend(vt.targets)
             sources = self.calculate_sources(invalid_targets)
             if sources:
-                result = self.checkstyle(sources)
+                result = self.checkstyle(sources, invalid_targets)
                 if (result != 0):
                     raise TaskError(('%s returned %d' % (CHECKSTYLE_MAIN, result)))

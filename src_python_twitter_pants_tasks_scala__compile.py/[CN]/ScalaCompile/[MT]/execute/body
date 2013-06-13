@@ -5,21 +5,18 @@ def execute(self, targets):
     egroups = self.context.products.get_data('exclusives_groups')
     exclusives_key = egroups.get_group_key_for_target(targets[0])
     exclusives_classpath = egroups.get_classpath_for_group(exclusives_key)
-    with self.context.state('classpath', []) as cp:
-        self._add_globally_required_classpath_entries(exclusives_classpath)
-        self._add_globally_required_classpath_entries(cp)
-        with self.context.state('upstream_analysis_map', {}) as upstream_analysis_map:
-            with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
-                for vts in invalidation_check.all_vts_partitioned:
-                    if (not self.dry_run):
-                        merged_artifact = self._process_target_partition(vts, exclusives_classpath, upstream_analysis_map)
-                        vts.update()
-                        if os.path.exists(merged_artifact.classes_dir):
-                            for conf in self._confs:
-                                cp.append((conf, merged_artifact.classes_dir))
-                                egroups.update_compatible_classpaths(exclusives_key, [(conf, merged_artifact.classes_dir)])
-                            if os.path.exists(merged_artifact.analysis_file):
-                                upstream_analysis_map[merged_artifact.classes_dir] = AnalysisFileSpec(merged_artifact.analysis_file, merged_artifact.classes_dir)
+    self._add_globally_required_classpath_entries(exclusives_classpath)
+    with self.context.state('upstream_analysis_map', {}) as upstream_analysis_map:
+        with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
+            for vts in invalidation_check.all_vts_partitioned:
+                if (not self.dry_run):
+                    merged_artifact = self._process_target_partition(vts, exclusives_classpath, upstream_analysis_map)
+                    vts.update()
+                    if os.path.exists(merged_artifact.classes_dir):
+                        for conf in self._confs:
+                            egroups.update_compatible_classpaths(exclusives_key, [(conf, merged_artifact.classes_dir)])
+                        if os.path.exists(merged_artifact.analysis_file):
+                            upstream_analysis_map[merged_artifact.classes_dir] = AnalysisFileSpec(merged_artifact.analysis_file, merged_artifact.classes_dir)
     all_analysis_files = set()
     for target in scala_targets:
         analysis_file_spec = self._artifact_factory.analysis_file_for_targets([target])

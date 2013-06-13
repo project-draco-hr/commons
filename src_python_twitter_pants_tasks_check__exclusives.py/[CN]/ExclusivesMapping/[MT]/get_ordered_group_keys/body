@@ -3,7 +3,7 @@ def get_ordered_group_keys(self):
 
     def number_of_emptys(key):
         if (key == '<none>'):
-            return sys.maxint
+            return len(self.conflicting_keys)
         return string.count(key, '<none>')
     if (self.ordering is not None):
         return self.ordering
