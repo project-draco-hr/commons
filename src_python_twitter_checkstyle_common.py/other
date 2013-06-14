@@ -1,5 +1,6 @@
 from abc import abstractmethod
 import ast
+from collections import Sequence
 import itertools
 import textwrap
 import tokenize

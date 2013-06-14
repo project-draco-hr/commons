@@ -1,4 +1,4 @@
 from __future__ import absolute_import
 from ..common import CheckstylePlugin, Nit, PythonFile
 import pep8
-IGNORE_CODES = ('E121', 'E124', 'E125', 'E127', 'E128', 'E401', 'E111', 'W291', 'W293')
+IGNORE_CODES = ('E121', 'E124', 'E125', 'E127', 'E128', 'E401', 'E111', 'W291', 'W293', 'E701', 'E301', 'E302')

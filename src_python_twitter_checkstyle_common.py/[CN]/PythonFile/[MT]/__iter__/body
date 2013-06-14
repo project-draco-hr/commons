@@ -1,2 +1,2 @@
 def __iter__(self):
-    return iter(self._lines[1:])
+    return iter(self._lines)

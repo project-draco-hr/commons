@@ -1,0 +1,8 @@
+from twitter.checkstyle.common import Nit, PythonFile
+from twitter.checkstyle.plugins.newlines import Newlines
+TOPLEVEL = '\ndef foo():\n  pass%s\n%s\n  pass\n'
+GOOD_CLASS_DEF_1 = '\nclass Foo(object):\n  def __init__(self):\n    pass\n\n  def bar(self):\n    pass\n'
+GOOD_CLASS_DEF_2 = '\nclass Foo(object):\n  def __init__(self):\n    pass\n\n  # this should be fine\n  def bar(self):\n    pass\n'
+GOOD_CLASS_DEF_3 = '\nclass Foo(object):\n  class Error(Exception): pass\n  class SomethingError(Error): pass\n\n  def __init__(self):\n    pass\n\n  def bar(self):\n    pass\n'
+BAD_CLASS_DEF_1 = '\nclass Foo(object):\n  class Error(Exception): pass\n  class SomethingError(Error): pass\n  def __init__(self):\n    pass\n\n  def bar(self):\n    pass\n'
+BAD_CLASS_DEF_2 = '\nclass Foo(object):\n  class Error(Exception): pass\n  class SomethingError(Error): pass\n\n  def __init__(self):\n    pass\n  def bar(self):\n    pass\n'

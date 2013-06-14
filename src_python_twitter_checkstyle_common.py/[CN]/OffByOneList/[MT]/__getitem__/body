@@ -1,0 +1,6 @@
+def __getitem__(self, element_id):
+    if isinstance(element_id, Compatibility.integer):
+        return self.__getitem(element_id)
+    elif isinstance(element_id, slice):
+        return self.__getslice(element_id)
+    raise TypeError('__getitem__ only supports integers and slices')

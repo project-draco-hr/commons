@@ -1,5 +1,5 @@
 def line_range(self, line_number):
-    if ((line_number <= 0) or (line_number >= len(self._lines))):
+    if ((line_number <= 0) or (line_number > len(self._lines))):
         raise IndexError('NOTE: Python file line numbers are offset by 1.')
     if (line_number not in self.logical_lines):
         return slice(line_number, (line_number + 1))
