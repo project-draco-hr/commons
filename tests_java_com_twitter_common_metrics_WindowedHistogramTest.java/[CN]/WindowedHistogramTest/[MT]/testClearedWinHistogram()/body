@@ -1,0 +1,21 @@
+{
+  FakeTicker ticker=new FakeTicker();
+  Amount<Long,Time> window=Amount.of(100L,Time.MILLISECONDS);
+  int slices=10;
+  Amount<Long,Time> sliceDuration=Amount.of(window.as(Time.NANOSECONDS) / slices,Time.NANOSECONDS);
+  WindowedHistogram<?> h=createFullHistogram(window,slices,ticker);
+  long p0=h.getQuantile(0.1);
+  long p50=h.getQuantile(0.5);
+  long p90=h.getQuantile(0.9);
+  assertFalse(0 == p0);
+  assertFalse(0 == p50);
+  assertFalse(0 == p90);
+  h.clear();
+  assertEquals(0,h.getQuantile(0.1));
+  assertEquals(0,h.getQuantile(0.5));
+  assertEquals(0,h.getQuantile(0.9));
+  fillHistogram(h,sliceDuration,slices,ticker);
+  assertEquals(p0,h.getQuantile(0.1));
+  assertEquals(p50,h.getQuantile(0.5));
+  assertEquals(p90,h.getQuantile(0.9));
+}

@@ -1,0 +1,9 @@
+{
+  for (int i=1; i <= slices; i++) {
+    for (int j=0; j < 1000; j++) {
+      h.add(i);
+    }
+    ticker.advance(sliceDuration);
+  }
+  return h;
+}
