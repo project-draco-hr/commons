@@ -13,6 +13,6 @@ def create_tunnel(cls, remote_host, remote_port, tunnel_host=None, tunnel_port=N
     ssh_cmd_args = ('ssh', '-T', '-L', ('%d:%s:%s' % (tunnel_port, remote_host, remote_port)), tunnel_host)
     cls.TUNNELS[tunnel_key] = (tunnel_port, subprocess.Popen(ssh_cmd_args, stdin=subprocess.PIPE))
     if (not cls.wait_for_accept(tunnel_port)):
-        raise cls.TunnelError(('Could not establish tunnel via %s' % remote_host))
+        raise cls.TunnelError(('Could not establish tunnel to %s via %s' % (remote_host, tunnel_host)))
     cls.log('session established')
     return ('localhost', tunnel_port)
