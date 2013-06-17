@@ -1,3 +1,3 @@
 {
-  this(window,slices,precision,Ticker.systemTicker());
+  this(window,slices,precision,Clock.SYSTEM_CLOCK);
 }

@@ -1,4 +1,4 @@
 H h
 Amount<Long,Time> sliceDuration
 int slices
-FakeTicker ticker
+FakeClock clock

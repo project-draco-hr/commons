@@ -10,5 +10,5 @@
       return ApproximateHistogram.merge(histograms);
     }
   }
-,ticker);
+,clock);
 }
