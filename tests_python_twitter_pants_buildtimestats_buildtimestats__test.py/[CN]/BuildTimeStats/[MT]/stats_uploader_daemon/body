@@ -1,4 +1,4 @@
 def stats_uploader_daemon(self, stats):
     '\n    This method calls uploader in sync\n    '
-    self._su = StatsUploader('locahost', '80', 'buildtime.json', Amount(6, Time.HOURS), self._file, 'dummy')
+    self._su = StatsUploader('localhost', '80', 'buildtime.json', Amount(6, Time.HOURS), self._file, 'dummy')
     self._su.upload_sync(stats)
