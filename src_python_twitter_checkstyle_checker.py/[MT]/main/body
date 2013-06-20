@@ -5,6 +5,8 @@ def main(args, options):
         plugins = filter(None, (plugin_map.get(plugin_name) for plugin_name in options.plugins))
         for plugin in plugins:
             print(('Selected %s' % plugin.__name__))
+    if ((not args) and (options.diff is None)):
+        options.diff = DEFAULT_BRANCH
     if options.diff:
         iterator = git_iterator(args, options)
     else:
