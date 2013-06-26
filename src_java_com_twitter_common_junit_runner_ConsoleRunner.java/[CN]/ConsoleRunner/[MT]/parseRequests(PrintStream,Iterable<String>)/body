@@ -16,14 +16,14 @@ class TestMethod {
     Matcher matcher=METHOD_PARSER.matcher(spec);
     try {
       if (matcher.matches()) {
-        Class<?> testClass=Class.forName(matcher.group(1));
+        Class<?> testClass=loadClass(matcher.group(1));
         if (isTest(testClass)) {
           String method=matcher.group(2);
           testMethods.add(new TestMethod(testClass,method));
         }
       }
  else {
-        Class<?> testClass=Class.forName(spec);
+        Class<?> testClass=loadClass(spec);
         if (isTest(testClass)) {
           classes.add(testClass);
         }
