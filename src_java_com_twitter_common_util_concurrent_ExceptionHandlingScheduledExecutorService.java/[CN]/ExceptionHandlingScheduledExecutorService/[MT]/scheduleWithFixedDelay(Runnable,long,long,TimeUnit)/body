@@ -1,0 +1,3 @@
+{
+  return delegate.scheduleWithFixedDelay(TaskConverter.alertingRunnable(runnable,handler),initialDelay,delay,timeUnit);
+}

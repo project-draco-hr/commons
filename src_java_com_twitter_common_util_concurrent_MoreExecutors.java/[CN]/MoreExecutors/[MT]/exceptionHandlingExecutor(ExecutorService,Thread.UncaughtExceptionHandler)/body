@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(uncaughtExceptionHandler);
+  return new ExceptionHandlingExecutorService(executorService,Suppliers.ofInstance(uncaughtExceptionHandler));
+}

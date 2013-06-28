@@ -1,0 +1,3 @@
+{
+  return delegate.scheduleAtFixedRate(TaskConverter.alertingRunnable(runnable,handler),initialDelay,period,timeUnit);
+}

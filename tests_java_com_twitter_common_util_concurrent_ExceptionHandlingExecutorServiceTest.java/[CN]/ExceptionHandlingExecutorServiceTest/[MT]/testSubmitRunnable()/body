@@ -1,0 +1,6 @@
+{
+  Runnable runnable=createMock(Runnable.class);
+  runnable.run();
+  control.replay();
+  executorService.submit(runnable).get();
+}

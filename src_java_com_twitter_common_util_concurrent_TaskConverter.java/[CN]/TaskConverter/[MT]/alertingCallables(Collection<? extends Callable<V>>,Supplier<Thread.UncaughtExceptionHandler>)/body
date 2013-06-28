@@ -1,0 +1,8 @@
+{
+  return Collections2.transform(callables,new Function<Callable<V>,Callable<V>>(){
+    @Override public Callable<V> apply(    Callable<V> callable){
+      return alertingCallable(callable,handler);
+    }
+  }
+);
+}

@@ -1,0 +1,8 @@
+{
+  return new ExceptionHandlingExecutorService(executorService,new Supplier<Thread.UncaughtExceptionHandler>(){
+    @Override public Thread.UncaughtExceptionHandler get(){
+      return Thread.currentThread().getUncaughtExceptionHandler();
+    }
+  }
+);
+}
