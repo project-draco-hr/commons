@@ -1,4 +1,2 @@
 def list_goals(self, message):
-    print message
-    print ()
-    return Phase.execute(self.context, 'goals')
+    return _list_goals(self.context, message)
