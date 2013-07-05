@@ -17,10 +17,11 @@ def execute(self, targets):
                             egroups.update_compatible_classpaths(exclusives_key, [(conf, merged_artifact.classes_dir)])
                         if os.path.exists(merged_artifact.analysis_file):
                             upstream_analysis_map[merged_artifact.classes_dir] = AnalysisFileSpec(merged_artifact.analysis_file, merged_artifact.classes_dir)
-    all_analysis_files = set()
-    for target in scala_targets:
-        analysis_file_spec = self._artifact_factory.analysis_file_for_targets([target])
-        if os.path.exists(analysis_file_spec.analysis_file):
-            all_analysis_files.add(analysis_file_spec)
-    deps_cache = JvmDependencyCache(self.context, scala_targets, all_analysis_files)
-    deps_cache.check_undeclared_dependencies()
+            if invalidation_check.invalid_vts:
+                all_analysis_files = set()
+                for target in scala_targets:
+                    analysis_file_spec = self._artifact_factory.analysis_file_for_targets([target])
+                    if os.path.exists(analysis_file_spec.analysis_file):
+                        all_analysis_files.add(analysis_file_spec)
+                deps_cache = JvmDependencyCache(self.context, scala_targets, all_analysis_files)
+                deps_cache.check_undeclared_dependencies()

@@ -1,7 +1,7 @@
-def __init__(self, stop_after=None, package_prefixes=['com', 'org', 'net']):
-    '\n    Params:\n    - stop_after: a boolean flag. If true, only part of the analysis file will be parsed.\n    - package_prefixes: a list of package names that identify package roots. When translating\n      class file paths to class names, these are the package names where the conversion\n      will stop.\n    '
+def __init__(self, stop_after=None, package_prefixes=None):
+    '\n    Params:\n    - stop_after: If specified, parsing will stop after this section is done.\n    - package_prefixes: a list of package names that identify package roots. When translating\n      class file paths to class names, these are the package names where the conversion\n      will stop.\n    '
     self.stop_after = stop_after
-    self.package_prefixes = set(package_prefixes)
+    self.package_prefixes = set((package_prefixes or ['com', 'org', 'net']))
     self.analysis_files = []
     self.products = defaultdict(set)
     self.product_classes = defaultdict(set)

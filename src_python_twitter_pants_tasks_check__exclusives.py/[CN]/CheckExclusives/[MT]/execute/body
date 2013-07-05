@@ -11,7 +11,7 @@ def execute(self, targets):
                 else:
                     print ('Warning: %s' % msg)
     if self.context.products.is_required_data('exclusives_groups'):
-        mapping = ExclusivesMapping()
+        mapping = ExclusivesMapping(self.context)
         partition_keys = self._compute_exclusives_conflicts(targets)
         for key in partition_keys:
             mapping.add_conflict(key, partition_keys[key])

@@ -1,5 +1,0 @@
-def get_sources_by_target(self):
-    ' Memoizing getter for a map from targets to the sources provided by those targets. '
-    if (self.sources_by_target is None):
-        self._compute_source_relations()
-    return self.sources_by_target

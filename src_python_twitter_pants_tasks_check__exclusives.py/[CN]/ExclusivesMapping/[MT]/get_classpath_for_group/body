@@ -1,5 +1,5 @@
 def get_classpath_for_group(self, group_key):
     ' Get the classpath to use for jvm compilations of a group.\n\n    Each exclusives group requires a distinct classpath. We maintain\n    them here as a map from the exclusives key to a classpath. The\n    classpath is updated during compilations to add the results of\n    compiling a group to the classpaths of other groups that could depend on it.\n    '
-    if (group_key not in self.group_classpaths):
-        self.group_classpaths[group_key] = []
-    return self.group_classpaths[group_key]
+    if (group_key not in self._group_classpaths):
+        self._group_classpaths[group_key] = OrderedSet()
+    return list(self._group_classpaths[group_key])

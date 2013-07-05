@@ -1,6 +1,0 @@
-def _walk_jardeps(self, target, result):
-    'A dependency walker for extracting jar dependencies'
-    if isinstance(target, JarDependency):
-        result.append(target)
-    if isinstance(target, JvmTarget):
-        result.extend(target.jar_dependencies)

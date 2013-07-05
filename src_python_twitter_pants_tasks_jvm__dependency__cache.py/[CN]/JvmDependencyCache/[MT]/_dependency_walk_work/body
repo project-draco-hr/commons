@@ -1,7 +1,0 @@
-def _dependency_walk_work(self, deps, jar_deps, target):
-    if (target in deps):
-        deps.remove(target)
-    if isinstance(target, JvmTarget):
-        for jar_dep in target.dependencies:
-            if (jar_dep in jar_deps):
-                jar_deps.remove(jar_dep)

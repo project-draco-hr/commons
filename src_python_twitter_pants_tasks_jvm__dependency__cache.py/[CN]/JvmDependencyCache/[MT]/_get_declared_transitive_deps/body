@@ -1,0 +1,18 @@
+def _get_declared_transitive_deps(self, targets):
+    'For each target, compute all its declared transitive dependencies.\n\n    Returns a map: target -> a set of all transitive deps.\n    '
+    transitive_declared_deps_map = {}
+
+    def compute_transitive_deps(target):
+        deps = set()
+        for t in target.resolve():
+            if (t in transitive_declared_deps_map):
+                return transitive_declared_deps_map[t]
+            deps.add(t)
+            if hasattr(t, 'dependencies'):
+                for child in t.dependencies:
+                    deps.update(compute_transitive_deps(child))
+            transitive_declared_deps_map[t] = deps
+            return deps
+    for t in targets:
+        compute_transitive_deps(t)
+    return transitive_declared_deps_map

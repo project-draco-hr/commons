@@ -1,5 +1,5 @@
 def execute(self, targets):
-    '\n      Resolves the specified confs for the configured targets and returns an iterator over tuples\n      of (conf, jar path).\n    '
+    'Resolves the specified confs for the configured targets and returns an iterator over\n    tuples of (conf, jar path).\n    '
 
     def dirname_for_requested_targets(targets):
         'Where we put the classpath file for this set of targets.'
@@ -11,8 +11,6 @@ def execute(self, targets):
     def is_classpath(target):
         return (is_jar(target) or (is_internal(target) and any((jar for jar in target.jar_dependencies if jar.rev))))
     groups = self.context.products.get_data('exclusives_groups')
-    group_keys = groups.get_group_keys()
-    none_group = groups.get_targets_for_group_key('<none>')
     for group_key in groups.get_group_keys():
         group_targets = (groups.get_targets_for_group_key(group_key) & set(targets))
         classpath_targets = OrderedSet()
@@ -21,7 +19,7 @@ def execute(self, targets):
         target_workdir = os.path.join(self._work_dir, dirname_for_requested_targets(group_targets))
         target_classpath_file = os.path.join(target_workdir, 'classpath')
         with self.invalidated(classpath_targets, only_buildfiles=True, invalidate_dependents=True) as invalidation_check:
-            if ((len(invalidation_check.invalid_vts) > 0) or (not os.path.exists(target_classpath_file))):
+            if (invalidation_check.invalid_vts or (not os.path.exists(target_classpath_file))):
                 self._exec_ivy(target_workdir, targets, (['-cachepath', target_classpath_file, '-confs'] + self._confs))
         if (not os.path.exists(target_classpath_file)):
             print(('Ivy failed to create classpath file at %s %s' % target_classpath_file))
@@ -36,7 +34,6 @@ def execute(self, targets):
         safe_link(target_ivyxml, ivyxml_symlink)
         if os.path.exists(self._classpath_file):
             with self._cachepath(self._classpath_file) as classpath:
-                group_cp = []
                 for path in classpath:
                     if self._map_jar(path):
                         for conf in self._confs:

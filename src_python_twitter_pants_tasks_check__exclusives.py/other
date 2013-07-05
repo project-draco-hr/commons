@@ -1,3 +1,4 @@
+from twitter.common.collections import OrderedSet
 __author__ = 'Mark Chu-Carroll (markcc@foursquare.com)'
 from collections import defaultdict
 from copy import copy
