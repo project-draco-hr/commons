@@ -1,3 +1,0 @@
-def coalesce(self, discriminator):
-    'Returns a list of targets this target depends on sorted from most dependent to least and\n    grouped where possible by target type as categorized by the given discriminator.\n    '
-    return InternalTarget.coalesce_targets([self], discriminator)
