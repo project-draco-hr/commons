@@ -1,2 +1,2 @@
 def _is_scala(target):
-    return (isinstance(target, (ScalaLibrary, ScalaTests, ScalacPlugin)) or (isinstance(target, (JvmBinary, junit_tests, Benchmark)) and has_sources(target, '.scala')))
+    return (is_scala(target) or (isinstance(target, (JvmBinary, junit_tests, Benchmark)) and _has_sources(target, '.scala')))
