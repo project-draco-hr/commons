@@ -9,6 +9,7 @@ def execute(self, targets):
     with self.context.state('upstream_analysis_map', {}) as upstream_analysis_map:
         with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
             for vts in invalidation_check.all_vts_partitioned:
+                exclusives_classpath = egroups.get_classpath_for_group(exclusives_key)
                 if (not self.dry_run):
                     merged_artifact = self._process_target_partition(vts, exclusives_classpath, upstream_analysis_map)
                     vts.update()
