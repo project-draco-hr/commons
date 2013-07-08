@@ -1,4 +1,6 @@
 def distill(self, into=None, strip_pyc=False):
+    if (not self._top_levels):
+        self._log(('Installing meta package %s' % self._package_name()))
     native_deps = self._native_deps()
     if (into is not None):
         safe_mkdir(into)
