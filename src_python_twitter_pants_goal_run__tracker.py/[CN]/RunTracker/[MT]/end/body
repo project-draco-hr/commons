@@ -5,6 +5,7 @@ def end(self):
         self._current_workunit.end()
         self._current_workunit = self._current_workunit.parent
     self.report.close()
+    self.upload_stats()
     try:
         if (self.run_info.get_info('outcome') is None):
             self.run_info.add_info('outcome', self.root_workunit.outcome_string())
