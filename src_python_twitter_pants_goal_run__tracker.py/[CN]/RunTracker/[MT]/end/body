@@ -10,3 +10,4 @@ def end(self):
             self.run_info.add_info('outcome', self.root_workunit.outcome_string())
     except IOError:
         pass
+    self.upload_stats()

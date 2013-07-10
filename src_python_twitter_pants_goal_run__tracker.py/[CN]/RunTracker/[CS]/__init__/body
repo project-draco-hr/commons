@@ -7,6 +7,7 @@ def __init__(self, config):
     self.run_info = RunInfo(os.path.join(self.info_dir, 'info'))
     self.run_info.add_basic_info(run_id, self.run_timestamp)
     self.run_info.add_info('cmd_line', cmd_line)
+    self.stats_url = config.getdefault('stats_upload_url', default=None)
     link_to_latest = os.path.join(os.path.dirname(self.info_dir), 'latest')
     if os.path.exists(link_to_latest):
         os.unlink(link_to_latest)

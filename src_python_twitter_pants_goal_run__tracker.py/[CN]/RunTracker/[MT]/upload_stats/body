@@ -1,0 +1,17 @@
+def upload_stats(self):
+    'Send timing results to URL specified in pants.ini'
+    if self.stats_url:
+        params = {'run_info': json.dumps(self.run_info.get_as_dict()), 'cumulative_timings': json.dumps(self.cumulative_timings.get_all()), 'self_timings': json.dumps(self.self_timings.get_all()), 'artifact_cache_stats': json.dumps(self.artifact_cache_stats.get_all()), }
+        headers = {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'text/plain', }
+        url = urlparse(self.stats_url)
+        if (url.scheme == 'https'):
+            http_conn = httplib.HTTPSConnection(url.netloc)
+        else:
+            http_conn = httplib.HTTPConnection(url.netloc)
+        try:
+            http_conn.request('POST', url.path, urllib.urlencode(params), headers)
+            resp = http_conn.getresponse()
+            if (resp.status != 200):
+                print ('WARNING: Failed to upload stats. HTTP error code: %d' % resp.status)
+        except socket.error as (value, message):
+            print ('WARNING: Failed to upload stats. Socket error: %s' % message)
