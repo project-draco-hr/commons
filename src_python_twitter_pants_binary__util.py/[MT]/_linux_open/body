@@ -1,3 +1,0 @@
-def _linux_open(files):
-    for f in list(files):
-        subprocess.call(['xdg-open', f])

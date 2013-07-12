@@ -1,8 +1,0 @@
-def __init__(self, jvmargs=None, classpath=None, main=None, opts=None, args=None):
-    object.__init__(self)
-    tuplize = (lambda x: (tuple(x) if x else None))
-    self.jvmargs = tuplize(jvmargs)
-    self.classpath = tuplize(classpath)
-    self.main = main
-    self.opts = tuplize(opts)
-    self.args = tuplize(args)

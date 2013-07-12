@@ -1,2 +1,0 @@
-def _runjava_cmd_to_str(cmd):
-    return ' '.join(cmd)
