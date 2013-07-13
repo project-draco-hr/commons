@@ -1,0 +1,5 @@
+def __str__(self):
+    cmd = self.callable_cmd()
+    str = ' '.join(cmd)
+    del cmd
+    return str
