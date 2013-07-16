@@ -1,6 +1,5 @@
 def deadline(fn, *args, **kw):
     'Helper function to prevent fn(*args, **kw) from running more than\n     a specified timeout.\n\n     Takes timeout= kwarg, which defaults to Amount(150, Time.MILLISECONDS)\n  '
-    from Queue import Queue, Empty
     from threading import Thread
     q = Queue(maxsize=1)
     timeout = kw.pop('timeout', Amount(150, Time.MILLISECONDS))

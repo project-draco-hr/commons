@@ -2,7 +2,5 @@ def __init__(self, cache=None, crawler=None, fetchers=None, install_cache=None, 
     self._crawler = (crawler or Crawler())
     self._fetchers = (fetchers or [PyPIFetcher()])
     self._install_cache = install_cache
-    self._cached_entries = (set(find_distributions(cache)) if cache else set())
-    self._entries = set()
     self._conn_timeout = conn_timeout
-    super(Resolver, self).__init__(entries=[])
+    super(Resolver, self).__init__(cache=cache)

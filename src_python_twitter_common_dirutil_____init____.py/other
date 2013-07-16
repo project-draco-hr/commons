@@ -9,7 +9,7 @@ import tempfile
 import threading
 _MKDTEMP_CLEANER = None
 _MKDTEMP_DIRS = defaultdict(set)
-_MKDTEMP_LOCK = threading.Lock()
+_MKDTEMP_LOCK = threading.RLock()
 from twitter.common.dirutil.lock import Lock
 from twitter.common.dirutil.tail import tail_f
 from twitter.common.dirutil.fileset import Fileset

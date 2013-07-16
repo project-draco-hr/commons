@@ -2,4 +2,4 @@ self
 interpreter
 major
 minor
-subminor
+patch

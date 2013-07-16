@@ -5,9 +5,10 @@ def build(self, filename):
         self._logger.warn(('Previous binary unexpectedly exists, cleaning: %s' % (filename + '~')))
     except OSError:
         pass
+    safe_mkdir(os.path.dirname(filename))
     with open((filename + '~'), 'ab') as pexfile:
         assert (os.path.getsize(pexfile.name) == 0)
-        pexfile.write(Compatibility.to_bytes(('%s\n' % PythonIdentity.get().hashbang())))
+        pexfile.write(Compatibility.to_bytes(('%s\n' % self._interpreter.identity.hashbang())))
     self._chroot.zip((filename + '~'), mode='a')
     if os.path.exists(filename):
         os.unlink(filename)

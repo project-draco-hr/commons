@@ -1,4 +1,4 @@
-def __init__(self, distribution, debug=True):
+def __init__(self, distribution, debug=False):
     self._debug = debug
     self._dist = distribution
     assert isinstance(self._dist, Distribution)

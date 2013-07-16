@@ -1,0 +1,9 @@
+def resolve(self, requirements, interpreter=PythonInterpreter.get(), platform=Platform.current()):
+    requirements = maybe_requirement_list(requirements)
+    env = ResolverEnvironment([d.location for d in (self._entries | self._cached_entries)], python=interpreter.python, platform=platform)
+    added = set()
+    for dist in super(ResolverBase, self).resolve(requirements, env=env, installer=self.make_installer(requirements, interpreter, platform)):
+        if (dist not in self._entries):
+            added.add(dist)
+            self._entries.add(dist)
+    return added

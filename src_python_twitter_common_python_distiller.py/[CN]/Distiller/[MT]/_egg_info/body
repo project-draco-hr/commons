@@ -16,7 +16,7 @@ def _egg_info(self):
             rel_fn = os.path.relpath(fn, egg_info_dir)
             if (rel_fn == '.'):
                 continue
-            with open(fn) as fp:
+            with open(fn, 'rb') as fp:
                 yield (egg_info_name(rel_fn), fp.read())
     native_deps = self._native_deps()
     if native_deps:

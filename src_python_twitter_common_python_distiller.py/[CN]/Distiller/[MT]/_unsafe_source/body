@@ -7,7 +7,7 @@ def _unsafe_source(self):
             continue
         if (not fn.endswith('.py')):
             continue
-        with open(fn) as fn_fp:
+        with open(fn, 'rb') as fn_fp:
             try:
                 parsed_fn = ast.parse(fn_fp.read())
             except SyntaxError as e:

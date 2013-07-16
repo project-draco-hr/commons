@@ -1,8 +1,0 @@
-def dup(self):
-    td = tempfile.mkdtemp()
-    new_chroot = Chroot(td)
-    shutil.rmtree(td)
-    new_chroot.root = self.root
-    new_chroot.filesets = copy.deepcopy(self.filesets)
-    shutil.copytree(self.chroot, td)
-    return new_chroot

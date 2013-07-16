@@ -2,19 +2,18 @@ def translate(self, link):
     'From a link, translate a distribution.'
     if (not isinstance(link, SourceLink)):
         return None
-    if (not Platform.compatible(Platform.current(), self._platform)):
-        return None
-    if (not Platform.version_compatible(Platform.python(), self._python)):
-        return None
     (unpack_path, installer) = (None, None)
+    version = self._interpreter.version
+    if (self._use_2to3 and (version >= (3,))):
+        self.run_2to3(unpack_path)
     try:
         unpack_path = link.fetch(conn_timeout=self._conn_timeout)
         with TRACER.timed(('Installing %s' % link.name)):
-            installer = Installer(unpack_path, strict=(link.name != 'distribute'))
+            installer = Installer(unpack_path, interpreter=self._interpreter, strict=(link.name != 'distribute'))
         with TRACER.timed(('Distilling %s' % link.name)):
             try:
                 dist = installer.distribution()
-            except Installer.InstallFailure:
+            except Installer.InstallFailure as e:
                 return None
             return dist_from_egg(Distiller(dist).distill(into=self._install_cache))
     finally:

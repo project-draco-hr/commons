@@ -1,7 +1,10 @@
-def __init__(self, binary=sys.executable, interpreter=None):
+def __init__(self, binary=None, interpreter=None, distribute_path=None):
     '\n      :binary => binary of python interpreter\n                 (if None, default to sys.executable)\n    '
-    self._binary = binary
-    if ((binary == sys.executable) and (interpreter is None)):
-        self._identity = PythonIdentity.get()
+    self._binary = (binary or sys.executable)
+    self._binary_stat = os.stat(self._binary)
+    if (self._binary == sys.executable):
+        self._identity = (interpreter or PythonIdentity.get())
+        self._distribute = (distribute_path or self._find_distribute())
     else:
-        self._identity = (interpreter or PythonInterpreter.from_binary(binary).identity())
+        self._identity = (interpreter or PythonInterpreter.from_binary(self._binary).identity)
+        self._distribute = distribute_path

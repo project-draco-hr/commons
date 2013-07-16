@@ -1,0 +1,6 @@
+def register_rmtree(directory, cleaner=_mkdtemp_atexit_cleaner):
+    '\n    Register an existing directory to be cleaned up at process exit.\n  '
+    with _MKDTEMP_LOCK:
+        _mkdtemp_register_cleaner(cleaner)
+        _MKDTEMP_DIRS[os.getpid()].add(directory)
+    return directory

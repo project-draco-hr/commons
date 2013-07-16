@@ -1,0 +1,3 @@
+@classmethod
+def sanitize_environment(cls):
+    os.unsetenv('MACOSX_DEPLOYMENT_TARGET')

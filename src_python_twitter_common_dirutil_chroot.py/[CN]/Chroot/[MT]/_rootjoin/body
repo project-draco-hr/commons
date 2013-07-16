@@ -1,5 +1,2 @@
 def _rootjoin(self, path):
-    if (self.root is None):
-        return path
-    else:
-        return os.path.join(self.root, path)
+    return os.path.join((self.root or ''), path)

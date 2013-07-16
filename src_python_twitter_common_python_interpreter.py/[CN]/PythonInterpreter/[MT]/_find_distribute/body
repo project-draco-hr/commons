@@ -1,0 +1,6 @@
+def _find_distribute(self):
+    import pkg_resources
+    for item in sys.path:
+        for dist in pkg_resources.find_distributions(item):
+            if (dist.project_name == 'distribute'):
+                return dist.location
