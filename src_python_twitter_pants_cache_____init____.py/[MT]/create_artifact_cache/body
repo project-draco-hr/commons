@@ -13,10 +13,10 @@ def create_artifact_cache(log, artifact_root, spec, task_name):
                 log.info(('%s using remote artifact cache at %s' % (task_name, best_url)))
                 return RESTfulArtifactCache(log, artifact_root, best_url)
             else:
-                log.warn(('No reachable artifact cache in %s.' % spec))
+                log.warn(('%s has no reachable artifact cache in %s.' % (task_name, spec)))
                 return None
         else:
             raise ValueError(('Invalid artifact cache spec: %s' % spec))
     elif isinstance(spec, (list, tuple)):
-        caches = [create_artifact_cache(log, artifact_root, x, task_name) for x in spec]
-        return CombinedArtifactCache(caches)
+        caches = filter(None, [create_artifact_cache(log, artifact_root, x, task_name) for x in spec])
+        return (CombinedArtifactCache(caches) if caches else None)
