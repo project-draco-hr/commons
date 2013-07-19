@@ -1,5 +1,7 @@
 def lock_file(filename, mode='r+', blocking=False):
     '\n    Lock a file (exclusively.)\n    Requires that the file mode be a writable mode.\n\n    If blocking=True, return once the lock is held.\n    If blocking=False, return the file pointer if the lock succeeded, None if not.\n\n    Returns:\n      None if no file exists or could not access the file\n      False if could not acquire the lock\n      file object if the lock was acquired\n  '
+    if (not HAS_FCNTL):
+        raise RuntimeError('Interpreter does not support fcntl!')
     try:
         fp = open(filename, mode)
     except IOError:

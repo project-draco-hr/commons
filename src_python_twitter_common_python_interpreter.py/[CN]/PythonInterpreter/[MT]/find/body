@@ -15,6 +15,7 @@ def find(cls, paths):
             if any(((matcher.match(basefile) is not None) for matcher in cls.REGEXEN)):
                 try:
                     pythons.append(cls.from_binary(fn))
-                except:
+                except Exception as e:
+                    TRACER.log(('Could not identify %s: %s' % (fn, e)))
                     continue
     return pythons
