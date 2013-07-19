@@ -1,8 +1,8 @@
 @classmethod
-def wait_for_accept(cls, port, timeout=Amount(5, Time.SECONDS)):
+def wait_for_accept(cls, port, tunnel_popen, timeout):
     total_time = Amount(0, Time.SECONDS)
     sleep = cls.MIN_RETRY
-    while (total_time < timeout):
+    while ((total_time < timeout) and (tunnel_popen.returncode is None)):
         try:
             accepted_socket = socket.create_connection(('localhost', port), timeout=5.0)
             accepted_socket.close()
@@ -11,5 +11,9 @@ def wait_for_accept(cls, port, timeout=Amount(5, Time.SECONDS)):
             total_time += sleep
             time.sleep(sleep.as_(Time.SECONDS))
             sleep *= 2
-    cls.log('timed out initializing tunnel')
+            tunnel_popen.poll()
+    if (tunnel_popen.returncode is not None):
+        cls.log(('SSH returned prematurely with code %s' % str(tunnel_popen.returncode)))
+    else:
+        cls.log('timed out initializing tunnel')
     return False

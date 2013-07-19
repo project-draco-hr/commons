@@ -1,3 +1,4 @@
 cls
 proxy_host
 proxy_port
+timeout

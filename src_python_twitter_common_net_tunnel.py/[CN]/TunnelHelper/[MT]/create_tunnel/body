@@ -1,5 +1,5 @@
 @classmethod
-def create_tunnel(cls, remote_host, remote_port, tunnel_host=None, tunnel_port=None):
+def create_tunnel(cls, remote_host, remote_port, tunnel_host=None, tunnel_port=None, timeout=DEFAULT_TIMEOUT):
     '\n      Create or retrieve a memoized SSH tunnel to the remote host & port, using\n      tunnel_host:tunnel_port as the tunneling server.\n    '
     tunnel_key = (remote_host, remote_port)
     if (tunnel_key in cls.TUNNELS):
@@ -11,8 +11,9 @@ def create_tunnel(cls, remote_host, remote_port, tunnel_host=None, tunnel_port=N
     tunnel_port = (tunnel_port or cls.get_random_port())
     cls.log(('opening connection to %s:%s via %s:%s' % (remote_host, remote_port, tunnel_host, tunnel_port)))
     ssh_cmd_args = ('ssh', '-T', '-L', ('%d:%s:%s' % (tunnel_port, remote_host, remote_port)), tunnel_host)
-    cls.TUNNELS[tunnel_key] = (tunnel_port, subprocess.Popen(ssh_cmd_args, stdin=subprocess.PIPE))
-    if (not cls.wait_for_accept(tunnel_port)):
+    ssh_popen = subprocess.Popen(ssh_cmd_args, stdin=subprocess.PIPE)
+    cls.TUNNELS[tunnel_key] = (tunnel_port, ssh_popen)
+    if (not cls.wait_for_accept(tunnel_port, ssh_popen, timeout)):
         raise cls.TunnelError(('Could not establish tunnel to %s via %s' % (remote_host, tunnel_host)))
     cls.log('session established')
     return ('localhost', tunnel_port)
