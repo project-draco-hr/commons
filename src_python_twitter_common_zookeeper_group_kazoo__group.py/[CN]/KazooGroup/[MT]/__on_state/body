@@ -1,7 +1,0 @@
-def __on_state(self, callback, keeper_state):
-
-    def listener(state):
-        if (state == keeper_state):
-            callback()
-            return True
-    return listener

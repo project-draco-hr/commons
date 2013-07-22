@@ -20,7 +20,7 @@ def info(self, member, callback=None):
         try:
             (content, stat) = result.get()
         except self.DISCONNECT_EXCEPTIONS:
-            self._zk.add_listener(self.__on_connected(do_info))
+            self.__once(KazooState.CONNECTED, do_info)
             return
         except ke.NoNodeException:
             future = self._members.pop(member, Future())

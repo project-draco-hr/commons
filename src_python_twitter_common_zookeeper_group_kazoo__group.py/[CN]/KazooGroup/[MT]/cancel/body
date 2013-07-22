@@ -8,7 +8,7 @@ def cancel(self, member, callback=None):
         try:
             success = result.get()
         except self.DISCONNECT_EXCEPTIONS:
-            self._zk.add_listener(self.__on_connected(do_cancel))
+            self.__once(KazooState.CONNECTED, do_cancel)
             return
         except ke.NoNodeError:
             success = True

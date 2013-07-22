@@ -39,7 +39,7 @@ def monitor(self, membership=frozenset(), callback=None):
         try:
             children = result.get()
         except self.DISCONNECT_EXCEPTIONS:
-            self._zk.add_listener(self.__on_connected(do_monitor))
+            self.__once(KazooState.CONNECTED, do_monitor)
             return
         except ke.NoNodeError:
             wait_exists()

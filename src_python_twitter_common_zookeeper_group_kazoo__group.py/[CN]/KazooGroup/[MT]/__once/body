@@ -1,0 +1,10 @@
+def __once(self, keeper_state, callback):
+    'Ensure a callback is called once we reach the given state: either\n       immediately, if currently in that state, or on the next transition to\n       that state.'
+    invoke = False
+    with self.__queue_lock:
+        if (self.__state != keeper_state):
+            self.__listener_queue.append((keeper_state, callback))
+        else:
+            invoke = True
+    if invoke:
+        callback()

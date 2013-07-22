@@ -2,6 +2,10 @@ def __init__(self, zk, path, acl=None):
     if (not isinstance(zk, KazooClient)):
         raise TypeError('KazooGroup must be initialized with a KazooClient')
     self._zk = zk
+    self.__state = zk.state
+    self.__listener_queue = []
+    self.__queue_lock = threading.Lock()
+    self._zk.add_listener(self.__state_listener)
     self._path = ('/' + '/'.join(filter(None, path.split('/'))))
     self._members = {}
     self._member_lock = threading.Lock()
