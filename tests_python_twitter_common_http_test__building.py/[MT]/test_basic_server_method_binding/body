@@ -1,4 +1,4 @@
-@pytest.mark.skipif('sys.version_info >= (3,0)')
+@skipifpy3k
 def test_basic_server_method_binding():
 
 
