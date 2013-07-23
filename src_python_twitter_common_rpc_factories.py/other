@@ -1,4 +1,4 @@
 import functools
-from thrift.transport import TTransport, TSocket
+from thrift.transport import TSocket, TTransport
 from thrift.protocol import TBinaryProtocol
 from twitter.common.rpc.address import Address

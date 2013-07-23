@@ -1,0 +1,3 @@
+def __exit__(self, *args, **kwargs):
+    self.close()
+    return False

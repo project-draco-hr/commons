@@ -1,2 +1,6 @@
 def __call__(self, protocol):
-    return getattr(self._client_iface, 'Client')(protocol)
+    client_class = getattr(self._client_iface, 'Client')
+    client_class = self._mixin(client_class, ConnectionClosable)
+    client = client_class(protocol)
+    client._connection = self._connection
+    return client
