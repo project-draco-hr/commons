@@ -1,5 +1,5 @@
-def __init__(self, name, sources=None, resources=None):
-    TargetWithSources.__init__(self, name, sources=sources)
+def __init__(self, name, sources=None, resources=None, exclusives=None):
+    TargetWithSources.__init__(self, name, sources=sources, exclusives=exclusives)
     if (resources is not None):
 
         def is_resources(item):
