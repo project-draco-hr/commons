@@ -1,5 +1,6 @@
+@pre_initialization
 def _add_module_option(self, module, option):
-    calling_module = Application._get_module_key(module)
+    calling_module = self._get_module_key(module)
     if (calling_module not in self._global_options):
         self._global_options[calling_module] = options.new_group(calling_module)
     self._global_options[calling_module].add_option(option)

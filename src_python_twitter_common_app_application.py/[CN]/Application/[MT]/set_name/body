@@ -1,4 +1,4 @@
+@pre_initialization
 def set_name(self, application_name):
     '\n      Set the application name.  (Autodetect otherwise.)\n    '
-    self._raise_if_initialized('Cannot set application name.')
     self._name = application_name

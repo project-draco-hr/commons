@@ -1,6 +1,7 @@
 def test_app_add_command_options(self):
     option_name = 'test_option_name'
     option = options.TwitterOption('--test', dest=option_name)
+    app = Application()
 
     @app.command_option(option)
     def test_command():

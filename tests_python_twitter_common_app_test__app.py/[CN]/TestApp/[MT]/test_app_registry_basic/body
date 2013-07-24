@@ -1,4 +1,5 @@
 def test_app_registry_basic(self):
     self.factory.new_module('hello')
-    app.init(force_args=['--app_debug'])
+    app = Application(force_args=['--app_debug'])
+    app.init()
     assert (self.factory.value('hello') == 1), 'initialization functions should be invoked on app.init'

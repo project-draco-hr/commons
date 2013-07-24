@@ -1,3 +1,4 @@
+@pre_initialization
 def set_usage(self, usage):
     '\n      Set the usage message should the user call --help or invalidly specify options.\n    '
     self._usage = usage

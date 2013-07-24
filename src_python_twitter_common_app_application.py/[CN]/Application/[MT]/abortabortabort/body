@@ -1,0 +1,3 @@
+def abortabortabort(self):
+    self._state = self.SHUTDOWN
+    os.kill(os.getpid(), signal.SIGKILL)

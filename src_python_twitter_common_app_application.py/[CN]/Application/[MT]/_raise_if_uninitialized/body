@@ -1,3 +1,0 @@
-def _raise_if_uninitialized(self, msg='Cannot perform operation before initialization!'):
-    if (not self.initialized):
-        raise Application.Error(msg)

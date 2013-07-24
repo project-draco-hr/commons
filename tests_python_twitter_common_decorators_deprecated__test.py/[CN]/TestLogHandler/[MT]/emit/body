@@ -1,3 +1,0 @@
-def emit(self, record):
-    if (record.levelno == self._level):
-        self._records.append(record.msg)

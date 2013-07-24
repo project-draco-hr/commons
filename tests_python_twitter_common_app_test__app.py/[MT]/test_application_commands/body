@@ -1,0 +1,29 @@
+def test_application_commands():
+    app = TestApplication(None)
+    app.main()
+    assert (app.exited_rc == 1)
+    app = TestApplication(None)
+
+    @app.default_command
+    def not_main():
+        return 0
+    app.main()
+    assert (app.exited_rc == 0)
+
+    def real_main():
+        return 0
+    app = TestApplication(real_main)
+
+    @app.default_command
+    def not_main():
+        return 0
+    app.main()
+    assert (app.exited_rc == 1)
+    app = TestApplication(None)
+
+    @app.command
+    def command_but_not_default():
+        return 0
+    app = TestApplication(None)
+    app.main()
+    assert (app.exited_rc == 1)

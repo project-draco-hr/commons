@@ -7,7 +7,7 @@ def command_parser(self, command):
         op = copy.deepcopy(option)
         if (not hasattr(values_copy, op.dest)):
             setattr(values_copy, op.dest, (op.default if (op.default != optparse.NO_DEFAULT) else None))
-        Application.rewrite_help(op)
+        self.rewrite_help(op)
         op.default = optparse.NO_DEFAULT
         command_group.add_option(op)
     parser = parser.groups([command_group]).values(values_copy)

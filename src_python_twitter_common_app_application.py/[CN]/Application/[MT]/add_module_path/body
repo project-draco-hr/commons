@@ -1,3 +1,4 @@
+@pre_initialization
 def add_module_path(self, name, path):
     '\n      Add all app.Modules defined by name at path.\n\n      Typical usage (e.g. from the __init__.py of something containing many\n      app modules):\n\n        app.add_module_path(__name__, __path__)\n    '
     import pkgutil

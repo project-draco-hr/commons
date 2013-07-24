@@ -1,5 +1,0 @@
-@classmethod
-def setUpClass(cls):
-    cls._log_handler = TestLogHandler(logging.WARNING)
-    root_logger = logging.getLogger()
-    root_logger.addHandler(cls._log_handler)

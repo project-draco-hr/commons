@@ -1,0 +1,19 @@
+def _wrap_method(self, method, method_name=None):
+    method_name = (method_name or method.__name__)
+    try:
+        return_code = method()
+    except SystemExit as e:
+        self._debug_log(('%s sys.exited' % method_name))
+        return_code = e.code
+    except KeyboardInterrupt as e:
+        if (self._state >= self.ABORTING):
+            self._debug_log(('%s being shutdown' % method_name))
+            return_code = 0
+        else:
+            self._debug_log(('%s exited with ^C' % method_name))
+            return_code = self.SIGINT_RETURN_CODE
+    except Exception as e:
+        return_code = 1
+        self._debug_log(('%s excepted with %s:' % (method_name, type(e))))
+        self._debug_log('\n'.join(traceback.format_exc()))
+    return return_code
