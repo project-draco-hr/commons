@@ -4,10 +4,3 @@ import time
 from twitter.common.zookeeper.test_server import ZookeeperServer
 from twitter.common.zookeeper.group.group_base import Membership
 import pytest
-if os.getenv('ZOOKEEPER_TEST_DEBUG'):
-    from twitter.common import log
-    from twitter.common.log.options import LogOptions
-    LogOptions.set_stderr_log_level('google:DEBUG')
-    LogOptions.set_disk_log_level('NONE')
-    LogOptions.set_log_dir('/tmp')
-    log.init('client_test')

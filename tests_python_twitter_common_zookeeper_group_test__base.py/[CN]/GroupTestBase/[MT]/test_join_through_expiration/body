@@ -1,7 +1,7 @@
 def test_join_through_expiration(self):
-    zkg = self.GroupImpl(self._zk, '/test')
     self._zk.live.wait()
     session_id = self.session_id(self._zk)
+    zkg = self.GroupImpl(self._zk, '/test')
     self._server.shutdown()
     join_event = threading.Event()
     join_membership = []
