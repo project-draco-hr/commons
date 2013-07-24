@@ -1,0 +1,12 @@
+def apply(self, callback, route):
+
+    @wraps(callback)
+    def wrapped_callback(*args, **kw):
+        start = time.time()
+        body = callback(*args, **kw)
+        ns = int(((time.time() - start) * 1000000000.0))
+        observable = self._stats.get((HttpServer.response.status_code / 100))
+        if observable:
+            observable.increment(ns)
+        return body
+    return wrapped_callback

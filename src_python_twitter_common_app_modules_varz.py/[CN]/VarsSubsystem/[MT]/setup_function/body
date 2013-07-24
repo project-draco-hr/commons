@@ -6,3 +6,7 @@ def setup_function(self):
         rs.mount_routes(varz)
         register_diagnostics()
         register_build_properties()
+        if options.twitter_common_app_modules_varz_trace_endpoints:
+            plugin = EndpointTracePlugin()
+            rs.install(plugin)
+            RootMetrics().register_observable(options.twitter_common_app_modules_varz_trace_namespace, plugin)

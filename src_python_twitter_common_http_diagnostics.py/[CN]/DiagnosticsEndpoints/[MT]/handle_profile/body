@@ -1,4 +1,4 @@
-@HttpServer.route('/profile')
+@route('/profile')
 def handle_profile(self):
     if (HAS_APP and (app.profiler() is not None)):
         output_stream = StringIO.StringIO()

@@ -1,11 +1,10 @@
-def _bind_method(self, cls, method_name):
-    '\n      Delegate cls.method_name to self.\n    '
-    if (not hasattr(cls, method_name)):
-        raise ValueError(('No method %s.%s exists for bind_method!' % ((cls.__name__ if hasattr(cls, '__name__') else cls.__class__.__name__), method_name)))
-    if isinstance(getattr(cls, method_name), types.MethodType):
-        method_self = getattr(cls, method_name).im_self
-        if (method_self is not None):
-            self._mounts.add(method_self)
-            setattr(self, method_name, getattr(cls, method_name))
-        else:
+def _bind_method(self, class_instance, method_name):
+    '\n      Delegate class_instance.method_name to self.method_name\n    '
+    if (not hasattr(class_instance, method_name)):
+        raise ValueError(('No method %s.%s exists for bind_method!' % ((class_instance.__name__ if hasattr(class_instance, '__name__') else class_instance.__class__.__name__), method_name)))
+    if isinstance(getattr(class_instance, method_name), types.MethodType):
+        method_self = getattr(class_instance, method_name).im_self
+        if (method_self is None):
             raise TypeError('Cannot mount methods from an unbound class.')
+        self._mounts.add(method_self)
+        setattr(self, method_name, getattr(class_instance, method_name))

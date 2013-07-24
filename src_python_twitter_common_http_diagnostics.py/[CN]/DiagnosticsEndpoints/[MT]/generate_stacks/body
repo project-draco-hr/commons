@@ -1,6 +1,6 @@
-@staticmethod
-def generate_stacks():
-    threads = dict([(th.ident, th) for th in threading.enumerate()])
+@classmethod
+def generate_stacks(cls):
+    threads = dict(((th.ident, th) for th in threading.enumerate()))
     tb = []
     for (thread_id, stack) in sys._current_frames().items():
         tb.append(('\n\n# Thread%s: %s (%s, %d)' % ((' (daemon)' if threads[thread_id].daemon else ''), threads[thread_id].__class__.__name__, threads[thread_id].name, thread_id)))

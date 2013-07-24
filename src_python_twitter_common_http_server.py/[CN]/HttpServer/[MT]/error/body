@@ -1,9 +1,9 @@
-@staticmethod
-def error(error_code):
+@classmethod
+def error(cls, error_code):
 
     def annotated(function):
-        if (not hasattr(function, HttpServer.ERROR_ATTRIBUTE)):
-            setattr(function, HttpServer.ERROR_ATTRIBUTE, [])
-        getattr(function, HttpServer.ERROR_ATTRIBUTE).append(error_code)
+        if (not hasattr(function, cls.ERROR_ATTRIBUTE)):
+            setattr(function, cls.ERROR_ATTRIBUTE, [])
+        getattr(function, cls.ERROR_ATTRIBUTE).append(error_code)
         return function
     return annotated

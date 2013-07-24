@@ -1,0 +1,4 @@
+@property
+def name(self):
+    'The name of the plugin.'
+    return self.__class__.__name__

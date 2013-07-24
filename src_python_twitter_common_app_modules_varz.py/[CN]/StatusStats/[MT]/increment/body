@@ -1,0 +1,3 @@
+def increment(self, ns):
+    self._count.increment()
+    self._ns.add(ns)

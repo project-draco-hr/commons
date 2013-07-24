@@ -1,9 +1,10 @@
-@staticmethod
-def route(*args, **kwargs):
+@classmethod
+def route(cls, *args, **kwargs):
+    'Route a request to a callback.  For the route format, see:\n       http://bottlepy.org/docs/dev/tutorial.html#request-routing'
 
     def annotated(function):
-        if (not hasattr(function, HttpServer.ROUTES_ATTRIBUTE)):
-            setattr(function, HttpServer.ROUTES_ATTRIBUTE, [])
-        getattr(function, HttpServer.ROUTES_ATTRIBUTE).append((args, kwargs))
+        if (not hasattr(function, cls.ROUTES_ATTRIBUTE)):
+            setattr(function, cls.ROUTES_ATTRIBUTE, [])
+        getattr(function, cls.ROUTES_ATTRIBUTE).append((args, kwargs))
         return function
     return annotated
