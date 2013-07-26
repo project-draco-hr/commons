@@ -193,4 +193,12 @@
     }
 );
   }
+  for (  final Map.Entry<String,String> environmentVariable : System.getenv().entrySet()) {
+    Stats.exportString(new StatImpl<String>("system_env_" + Stats.normalizeName(environmentVariable.getKey())){
+      @Override public String read(){
+        return environmentVariable.getValue();
+      }
+    }
+);
+  }
 }
