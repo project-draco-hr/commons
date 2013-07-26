@@ -1,7 +1,7 @@
 {
-  register("css/bootstrap-responsive.min.css",BOOTSTRAP_VERSION + "/css/bootstrap-responsive.min.css",MediaType.CSS_UTF_8.toString());
-  register("css/bootstrap.min.css",BOOTSTRAP_VERSION + "/css/bootstrap.min.css",MediaType.CSS_UTF_8.toString());
-  register("img/glyphicons-halflings-white.png",BOOTSTRAP_VERSION + "/img/glyphicons-halflings-white.png",MediaType.PNG.toString());
-  register("img/glyphicons-halflings.png",BOOTSTRAP_VERSION + "/img/glyphicons-halflings.png",MediaType.PNG.toString());
-  register("js/bootstrap.min.js",BOOTSTRAP_VERSION + "/js/bootstrap.min.js",MediaType.JAVASCRIPT_UTF_8.toString());
+  register("css/bootstrap-responsive.min.css",version + "/css/bootstrap-responsive.min.css",MediaType.CSS_UTF_8.toString());
+  register("css/bootstrap.min.css",version + "/css/bootstrap.min.css",MediaType.CSS_UTF_8.toString());
+  register("img/glyphicons-halflings-white.png",version + "/img/glyphicons-halflings-white.png",MediaType.PNG.toString());
+  register("img/glyphicons-halflings.png",version + "/img/glyphicons-halflings.png",MediaType.PNG.toString());
+  register("js/bootstrap.min.js",version + "/js/bootstrap.min.js",MediaType.JAVASCRIPT_UTF_8.toString());
 }
