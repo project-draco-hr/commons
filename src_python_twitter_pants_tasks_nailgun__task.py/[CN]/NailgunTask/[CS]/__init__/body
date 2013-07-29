@@ -8,4 +8,4 @@ def __init__(self, context, classpath=None, workdir=None):
     self._identifier_arg = ('-Dpants.ng.identifier=%s' % os.path.relpath(workdir, get_buildroot()))
     self._ng_out = os.path.join(workdir, 'stdout')
     self._ng_err = os.path.join(workdir, 'stderr')
-    self._startup_lock = threading.Lock()
+    self._spawn_lock = threading.Lock()
