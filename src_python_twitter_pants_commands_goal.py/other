@@ -76,21 +76,9 @@ try:
     goal(name='clean-all-async', action=(lambda ctx: async_safe_rmtree(ctx.config.getdefault('pants_workdir'))), dependencies=['invalidate']).install().with_description('Cleans all intermediate build output in a background process')
 except ImportError:
     pass
-if NailgunTask.killall:
-
-
-    class NailgunKillall(Task):
-
-        @classmethod
-        def setup_parser(cls, option_group, args, mkflag):
-            option_group.add_option(mkflag('everywhere'), dest='ng_killall_everywhere', default=False, action='store_true', help='[%default] Kill all nailguns servers launched by pants for all workspaces on the system.')
-
-        def execute(self, targets):
-            if NailgunTask.killall:
-                NailgunTask.killall(self.context.log, everywhere=self.context.options.ng_killall_everywhere)
-    ng_killall = goal(name='ng-killall', action=NailgunKillall)
-    ng_killall.install().with_description('Kill any running nailgun servers spawned by pants.')
-    ng_killall.install('clean-all', first=True)
+ng_killall = goal(name='ng-killall', action=NailgunKillall)
+ng_killall.install().with_description('Kill any running nailgun servers spawned by pants.')
+ng_killall.install('clean-all', first=True)
 goal(name='server', action=RunServer).install().with_description('Run the pants reporting server.')
 goal(name='killserver', action=KillServer).install().with_description('Kill the pants reporting server.')
 goal(name='ivy', action=IvyResolve, dependencies=['gen', 'check-exclusives']).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')

@@ -28,6 +28,5 @@ def run(self, lock):
     if (self.options.cleanup_nailguns or self.config.get('nailgun', 'autokill', default=False)):
         if log:
             log.debug('auto-killing nailguns')
-        if NailgunTask.killall:
-            NailgunTask.killall(log)
+        NailgunTask.killall(log)
     return ret

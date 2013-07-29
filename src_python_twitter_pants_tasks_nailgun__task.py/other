@@ -2,6 +2,7 @@ import os
 import re
 import signal
 import subprocess
+import threading
 import time
 from twitter.common import log
 from twitter.common.dirutil import safe_open
@@ -10,60 +11,3 @@ from twitter.pants import binary_util, get_buildroot
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.java import NailgunClient, NailgunError
 from twitter.pants.tasks import Task
-plat = Platform.current()
-if (plat.startswith('linux') or plat.startswith('macosx')):
-
-    def _run_cmd(cmd):
-        runcmd = (cmd + ' && echo "\n${PIPESTATUS[*]}"')
-        popen = subprocess.Popen(runcmd, shell=True, executable='/bin/bash', bufsize=(-1), close_fds=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        (stdout_data, _) = popen.communicate()
-        stdout_data_lines = [line for line in stdout_data.strip().split('\n') if line]
-        if (not stdout_data_lines):
-            raise NailgunError(('No output for command (%s)' % runcmd))
-        try:
-            piped_return_codes = [int(x) for x in stdout_data_lines[(-1)].split(' ') if x]
-        except ValueError:
-            raise NailgunError(('Failed to parse result (%s) for command (%s)' % (stdout_data_lines, cmd)))
-        stdout_data_lines = stdout_data_lines[:(-1)]
-        failed = any(piped_return_codes)
-        if failed:
-            raise NailgunError(('Failed to execute cmd: "%s". Exit codes: %s. Output: "%s"' % (cmd, piped_return_codes, ''.join(stdout_data_lines))))
-        return stdout_data_lines
-
-    def _find_matching_pids(strs):
-        filters = ' | '.join([("grep -F -e '%s'" % s) for s in strs])
-        data = _run_cmd(('ps axwww | %s | (grep -v grep || true) | cut -b 1-5' % filters))
-        pids = [int(x.strip()) for x in data if x]
-        return pids
-
-    def _find_ngs(everywhere=False):
-        arg = (NailgunTask.PANTS_NG_ARG_PREFIX if everywhere else NailgunTask.PANTS_NG_ARG)
-        return _find_matching_pids([arg])
-
-    def killall(log, everywhere=False):
-        for pid in _find_ngs(everywhere=everywhere):
-            try:
-                NailgunTask._log_kill(log, pid)
-                os.kill(pid, signal.SIGKILL)
-            except OSError:
-                pass
-    NailgunTask.killall = staticmethod(killall)
-    DIGITS_RE = re.compile('^\\d+$')
-
-    def _find(pidfile):
-        pidfile_arg = NailgunTask.create_pidfile_arg(pidfile)
-        pids = _find_matching_pids([NailgunTask.PANTS_NG_ARG, pidfile_arg])
-        if (len(pids) != 1):
-            return None
-        pid = pids[0]
-        lines = _run_cmd(('lsof -a -p %s -i TCP -s TCP:LISTEN -Fn' % pid))
-        if ((len(lines) != 2) or (lines[0] != ('p%s' % pid))):
-            return None
-        port = lines[1][(lines[1].rfind(':') + 1):].strip()
-        if (not DIGITS_RE.match(port)):
-            return None
-        return (pid, int(port))
-    NailgunTask._find = staticmethod(_find)
-else:
-    NailgunTask.killall = None
-    NailgunTask._find = None

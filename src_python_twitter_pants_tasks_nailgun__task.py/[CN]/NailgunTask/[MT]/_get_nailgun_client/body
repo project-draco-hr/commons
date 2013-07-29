@@ -1,6 +1,6 @@
 def _get_nailgun_client(self, workunit):
     endpoint = self._get_nailgun_endpoint()
-    if (endpoint and _check_pid(endpoint[0])):
+    if endpoint:
         return self._create_ngclient(port=endpoint[1], workunit=workunit)
     else:
         return self._spawn_nailgun_server(workunit)

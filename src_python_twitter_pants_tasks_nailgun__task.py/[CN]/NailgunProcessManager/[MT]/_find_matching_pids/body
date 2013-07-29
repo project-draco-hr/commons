@@ -1,0 +1,6 @@
+@staticmethod
+def _find_matching_pids(strs):
+    filters = ' | '.join([("grep -F -e '%s'" % s) for s in strs])
+    data = NailgunProcessManager._run_cmd(('ps axwww | %s | (grep -v grep || true) | cut -b 1-5' % filters))
+    pids = [int(x.strip()) for x in data if x]
+    return pids

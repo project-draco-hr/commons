@@ -1,4 +1,3 @@
 def cleanup(self):
-    if NailgunTask.killall:
-        NailgunTask.killall(log)
+    NailgunTask.killall(log)
     sys.exit(1)

@@ -1,0 +1,17 @@
+@staticmethod
+def _run_cmd(cmd):
+    runcmd = (cmd + ' && echo "${PIPESTATUS[*]}"')
+    popen = subprocess.Popen(runcmd, shell=True, executable='/bin/bash', bufsize=(-1), close_fds=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    (stdout_data, _) = popen.communicate()
+    stdout_data_lines = [line for line in stdout_data.strip().split('\n') if line]
+    if (not stdout_data_lines):
+        return None
+    try:
+        piped_return_codes = [int(x) for x in stdout_data_lines[(-1)].split(' ') if x]
+    except ValueError:
+        raise NailgunError(('Failed to parse result (%s) for command (%s)' % (stdout_data_lines, cmd)))
+    stdout_data_lines = stdout_data_lines[:(-1)]
+    failed = any(piped_return_codes)
+    if failed:
+        raise NailgunError(('Failed to execute cmd: "%s". Exit codes: %s. Output: "%s"' % (cmd, piped_return_codes, ''.join(stdout_data_lines))))
+    return stdout_data_lines

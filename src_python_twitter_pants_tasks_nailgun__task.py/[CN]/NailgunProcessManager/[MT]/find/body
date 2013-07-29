@@ -1,0 +1,13 @@
+@staticmethod
+def find(identifier_arg):
+    pids = NailgunProcessManager._find_matching_pids([NailgunTask.PANTS_NG_ARG, identifier_arg])
+    if (len(pids) != 1):
+        return None
+    pid = pids[0]
+    lines = NailgunProcessManager._run_cmd(('lsof -a -p %s -i TCP -s TCP:LISTEN -Fn' % pid))
+    if ((lines is None) or (len(lines) != 2) or (lines[0] != ('p%s' % pid))):
+        return None
+    port = lines[1][(lines[1].rfind(':') + 1):].strip()
+    if (not NailgunProcessManager.DIGITS_RE.match(port)):
+        return None
+    return (pid, int(port))
