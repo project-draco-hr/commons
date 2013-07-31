@@ -1,5 +1,4 @@
 @classmethod
 def default(cls):
-    pi = PythonInterpreter()
     pex_info = {'requirements': [], 'build_properties': cls.make_build_properties(), }
     return cls(json.dumps(pex_info))

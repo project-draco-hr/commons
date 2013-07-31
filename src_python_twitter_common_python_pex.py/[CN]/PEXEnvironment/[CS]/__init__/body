@@ -1,5 +1,7 @@
 def __init__(self, pex, pex_info, platform=Platform.current(), python=Platform.python()):
-    subcaches = sum([[os.path.join(pex, pex_info.internal_cache)], [cache for cache in pex_info.egg_caches], [(pex_info.install_cache if pex_info.install_cache else [])]], [])
+    with TRACER.timed('Establishing local cache'):
+        internal_cache = self.resolve_internal_cache(pex, pex_info)
+    subcaches = sum([[internal_cache], [cache for cache in pex_info.egg_caches], [(pex_info.install_cache if pex_info.install_cache else [])]], [])
     self._pex_info = pex_info
     self._activated = False
     self._subcaches = [self.Subcache(cache, self) for cache in subcaches]

@@ -1,0 +1,6 @@
+def bootstrap_pex(entry_point):
+    if needs_modified_importer(entry_point):
+        from twitter.common.python import importer
+        importer.monkeypatch()
+    from twitter.common.python import pex
+    pex.PEX(entry_point).execute()

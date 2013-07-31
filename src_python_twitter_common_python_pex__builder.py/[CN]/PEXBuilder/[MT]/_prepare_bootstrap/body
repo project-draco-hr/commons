@@ -2,9 +2,9 @@ def _prepare_bootstrap(self):
     '\n      Write enough of distribute into the .pex .bootstrap directory so that\n      we can be fully self-contained.\n    '
     bare_env = pkg_resources.Environment()
     distribute = dist_from_egg(self._interpreter.distribute)
-    for (fn, content) in DistributionHelper.walk_data(distribute):
+    for (fn, content_stream) in DistributionHelper.walk_data(distribute):
         if fn.startswith('pkg_resources.py'):
-            self._chroot.write(content, os.path.join(self.BOOTSTRAP_DIR, fn), 'resource')
+            self._chroot.write(content_stream.read(), os.path.join(self.BOOTSTRAP_DIR, fn), 'resource')
     libraries = ('twitter.common.collections', 'twitter.common.contextutil', 'twitter.common.dirutil', 'twitter.common.lang', 'twitter.common.python', 'twitter.common.python.http', 'twitter.common.quantity')
     for name in libraries:
         dirname = name.replace('.', '/')

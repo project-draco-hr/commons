@@ -1,4 +1,6 @@
 import errno
 import os
+import shutil
 import sys
 import tempfile
+from twitter.common.lang import Compatibility

@@ -1,5 +1,6 @@
 @staticmethod
 def walk_metadata(dist, path='/'):
+    'yields filename, content for files identified as metadata in the distribution'
     for rel_fn in filter(None, dist.metadata_listdir(path)):
         full_fn = os.path.join(path, rel_fn)
         if dist.metadata_isdir(full_fn):
