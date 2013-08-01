@@ -1,4 +1,4 @@
 {
   localMap.remove(key);
-  if (mapListener != null)   mapListener.nodeRemoved(key);
+  mapListener.nodeRemoved(key);
 }

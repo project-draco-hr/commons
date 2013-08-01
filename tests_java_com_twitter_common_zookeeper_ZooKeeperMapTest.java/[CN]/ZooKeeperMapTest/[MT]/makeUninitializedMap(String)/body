@@ -1,16 +1,3 @@
 {
-  return new ZooKeeperMap<String>(zkClient,path,BYTES_TO_STRING){
-    @Override void putEntry(    String key,    String value){
-      super.putEntry(key,value);
-      recordEntryChange(key);
-    }
-    @Override void removeEntry(    String key){
-      super.removeEntry(key);
-      recordEntryChange(key);
-    }
-    private void recordEntryChange(    String key){
-      entryChanges.offer(Pair.of(key,get(key)));
-    }
-  }
-;
+  return makeUninitializedMap(path,ZooKeeperMap.NOOP_LISTENER);
 }
