@@ -1,3 +1,3 @@
 {
-  return makeUninitializedMap(path,ZooKeeperMap.NOOP_LISTENER);
+  return makeUninitializedMap(path,ZooKeeperMap.<String>noopListener());
 }
