@@ -1,6 +1,6 @@
 {
   super();
-  this.mapListener=mapListener;
+  this.mapListener=Preconditions.checkNotNull(mapListener);
   this.zkClient=Preconditions.checkNotNull(zkClient);
   this.nodePath=MorePreconditions.checkNotBlank(nodePath);
   this.deserializer=Preconditions.checkNotNull(deserializer);
