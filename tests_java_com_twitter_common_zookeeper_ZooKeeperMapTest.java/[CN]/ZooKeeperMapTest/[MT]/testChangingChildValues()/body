@@ -7,13 +7,17 @@
   final String data3="lalala";
   ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
   zkClient.get().create(nodePath,data1.getBytes(),ACL,CreateMode.PERSISTENT);
-  Map<String,String> zkMap=makeMap(parentPath);
+  TestListener testListener=new TestListener();
+  Map<String,String> zkMap=makeMap(parentPath,testListener);
+  assertEquals(Pair.of(node,data1),testListener.waitForUpdate());
   assertEquals(1,zkMap.size());
   assertEquals(data1,zkMap.get(node));
   zkClient.get().setData(nodePath,data2.getBytes(),-1);
   waitForEntryChange(node,data2);
   assertEquals(1,zkMap.size());
+  assertEquals(Pair.of(node,data2),testListener.waitForUpdate());
   zkClient.get().setData(nodePath,data3.getBytes(),-1);
   waitForEntryChange(node,data3);
   assertEquals(1,zkMap.size());
+  assertEquals(Pair.of(node,data3),testListener.waitForUpdate());
 }
