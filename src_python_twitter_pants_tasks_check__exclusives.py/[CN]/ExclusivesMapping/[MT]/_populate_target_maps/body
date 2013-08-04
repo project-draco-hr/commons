@@ -1,5 +1,5 @@
 def _populate_target_maps(self, targets):
-    ' Populates maps of exclusive keys to targets, and vice versa.'
+    'Populates maps of exclusive keys to targets, and vice versa.'
     all_targets = set()
     workqueue = copy(targets)
     while (len(workqueue) > 0):
