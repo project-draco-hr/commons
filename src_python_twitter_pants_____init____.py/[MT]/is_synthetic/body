@@ -1,0 +1,3 @@
+def is_synthetic(target):
+    'Returns True if the target is a synthetic target injected by the runtime.'
+    return target.has_label('synthetic')
