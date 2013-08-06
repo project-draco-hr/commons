@@ -1,3 +1,0 @@
-{
-  this(zkClient,nodePath,deserializer,ZooKeeperMap.<V>noopListener());
-}
