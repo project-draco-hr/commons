@@ -1,0 +1,7 @@
+{
+  if (observed instanceof Iterable<?>) {
+    Multiset<Object> observedElements=HashMultiset.create((Iterable<?>)observed);
+    return elements.equals(observedElements);
+  }
+  return false;
+}
