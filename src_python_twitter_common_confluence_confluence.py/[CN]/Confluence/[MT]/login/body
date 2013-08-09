@@ -14,5 +14,5 @@ def login(confluence_url, user=None, api_entrypoint='confluence1'):
         raise ConfluenceError(("Don't understand api_entrypoint %s" % api_entrypoint))
     try:
         return Confluence(api, confluence_url, api.login(user, password), fmt)
-    except Fault as e:
+    except XMLRPCError as e:
         raise ConfluenceError(('Failed to log in to %s: %s' % (confluence_url, e)))
