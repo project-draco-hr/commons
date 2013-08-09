@@ -1,5 +1,5 @@
 def get_group_keys(self):
-    'Get the set of keys for all exclusives groups in the current build.\n    '
+    'Get the set of keys for all exclusives groups in the current build.'
     if (len(self.conflicting_exclusives) == 0):
         return ['<none>']
     else:
