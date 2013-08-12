@@ -1,17 +1,20 @@
 from __future__ import print_function
-from twitter.common.dirutil import Lock
-from twitter.common.process import ProcessProviderFactory
-from twitter.pants import get_buildroot, get_version
-from twitter.pants.base import Address
-from twitter.pants.base.rcfile import RcFile
-from twitter.pants.commands import Command
 import optparse
 import os
 import sys
 import traceback
+from twitter.common.dirutil import Lock
+from twitter.common.process import ProcessProviderFactory
+from twitter.pants import get_buildroot, get_version
+from twitter.pants.base import Address, Config
+from twitter.pants.base.rcfile import RcFile
+from twitter.pants.commands import Command
+from twitter.pants.goal import RunTracker
+from twitter.pants.goal.initialize_reporting import initial_reporting
+from twitter.pants.reporting.report import Report
 _HELP_ALIASES = set(['-h', '--help', 'help'])
 _BUILD_COMMAND = 'build'
-_BUILD_ALIASES = set(['-s', '--spec', '-f'])
 _LOG_EXIT_OPTION = '--log-exit'
+_VERSION_OPTION = '--version'
 if (__name__ == '__main__'):
     main()

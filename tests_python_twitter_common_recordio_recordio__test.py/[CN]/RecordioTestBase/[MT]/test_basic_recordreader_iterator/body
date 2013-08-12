@@ -1,0 +1,8 @@
+def test_basic_recordreader_iterator(self):
+    test_strings = ['hello', 'world', 'etc']
+    with self.EphemeralFile('r+') as fp:
+        for string in test_strings:
+            RecordWriter.do_write(fp, string, StringCodec(), sync=True)
+        fp.seek(0)
+        rr = RecordReader(fp)
+        assert (list(rr) == test_strings)

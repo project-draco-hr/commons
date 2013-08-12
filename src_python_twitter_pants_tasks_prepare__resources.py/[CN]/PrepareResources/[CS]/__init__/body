@@ -1,0 +1,5 @@
+def __init__(self, context):
+    Task.__init__(self, context)
+    self.workdir = context.config.get('prepare-resources', 'workdir')
+    self.confs = context.config.getlist('prepare-resources', 'confs')
+    self.context.products.require_data('exclusives_groups')

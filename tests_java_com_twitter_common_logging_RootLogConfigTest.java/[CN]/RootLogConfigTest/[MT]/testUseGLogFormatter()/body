@@ -1,5 +1,5 @@
 {
-  getConfig().logToStderr(true).useGLogFormatter(true).apply();
+  getConfig().logToStderr(true).useGLogFormatter(true).build().apply();
   resetLogs();
   testLogger.severe("Severe Log Message");
   assertHasLoggedToStderr();
@@ -7,5 +7,5 @@
   assertTrue(output.split("\n").length == 1);
   assertTrue(output.endsWith("\n"));
   output=output.replaceAll("\n","");
-  assertTrue(output.matches(new StringBuilder().append("S\\d+ ").append("\\d\\d:\\d\\d:\\d\\d\\.\\d+ ").append("THREAD\\d\\d ").append(RootLogConfigTest.class.getName() + "\\.testUseGLogFormatter: ").append("Severe Log Message").toString()));
+  assertTrue("Unexpected output: " + output,output.matches("E\\d+ " + "\\d\\d:\\d\\d:\\d\\d\\.\\d+ " + "THREAD\\d+ " + RootLogConfigTest.class.getName() + "\\.testUseGLogFormatter: "+ "Severe Log Message"));
 }

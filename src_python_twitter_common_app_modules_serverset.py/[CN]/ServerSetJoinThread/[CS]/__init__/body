@@ -1,0 +1,5 @@
+def __init__(self, event, joiner):
+    self._event = event
+    self._joiner = joiner
+    threading.Thread.__init__(self)
+    self.daemon = True

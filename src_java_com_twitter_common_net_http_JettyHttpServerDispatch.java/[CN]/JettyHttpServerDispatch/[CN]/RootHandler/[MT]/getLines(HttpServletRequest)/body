@@ -1,7 +1,7 @@
 {
   List<String> lines=Lists.newArrayList();
   lines.add("<html>");
-  for (  String handler : registeredHandlers) {
+  for (  String handler : Ordering.natural().sortedCopy(registeredEndpoints)) {
     lines.add(String.format("<a href='%s'>%s</a><br />",handler,handler));
   }
   lines.add("</html>");

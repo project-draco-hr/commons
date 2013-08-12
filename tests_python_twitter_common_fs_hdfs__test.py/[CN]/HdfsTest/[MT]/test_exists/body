@@ -1,0 +1,3 @@
+def test_exists(self):
+    hdfs_helper = HDFSHelper('/etc/hadoop/hadoop-conf-tst-smf1', command_class=MockCommandUtil)
+    self.assertEquals(0, hdfs_helper.exists('hadoop_dir'))

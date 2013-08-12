@@ -1,7 +1,6 @@
 self
-caches
+cache
+crawler
+fetchers
 install_cache
-fetcher
-fetcher_provider
-platform
-python
+conn_timeout

@@ -1,0 +1,39 @@
+def fnmatch_translate_extended(pat):
+    "\n     A modified version of fnmatch.translate to match zsh semantics more closely:\n       '*' matches one or more characters instead of zero or more\n       '**' is equivalent to '*'\n       '**/' matches one or more directories.\n     E.g. src/**/*.py => match all files ending with .py in any subdirectory of src/\n  "
+    (i, n) = (0, len(pat))
+    res = ''
+    while (i < n):
+        c = pat[i]
+        i += 1
+        if (c == '*'):
+            if (pat[i:(i + 2)] == '*/'):
+                res += '([^/]+/)*'
+                i += 2
+            elif (pat[i:(i + 1)] == '*'):
+                res += '([^/]+)'
+                i += 1
+            else:
+                res += '([^/]+)'
+        elif (c == '?'):
+            res += '.'
+        elif (c == '['):
+            j = i
+            if ((j < n) and (pat[j] == '!')):
+                j += 1
+            if ((j < n) and (pat[j] == ']')):
+                j += 1
+            while ((j < n) and (pat[j] != ']')):
+                j += 1
+            if (j >= n):
+                res += '\\['
+            else:
+                stuff = pat[i:j].replace('\\', '\\\\')
+                i = (j + 1)
+                if (stuff[0] == '!'):
+                    stuff = ('^' + stuff[1:])
+                elif (stuff[0] == '^'):
+                    stuff = ('\\' + stuff)
+                res += (('[' + stuff) + ']')
+        else:
+            res += re.escape(c)
+    return (res + '\\Z(?ms)')

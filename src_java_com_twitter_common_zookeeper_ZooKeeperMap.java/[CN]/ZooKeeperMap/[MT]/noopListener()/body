@@ -1,0 +1,9 @@
+{
+  return new Listener<T>(){
+    @Override public void nodeChanged(    String nodeName,    T value){
+    }
+    @Override public void nodeRemoved(    String nodeName){
+    }
+  }
+;
+}

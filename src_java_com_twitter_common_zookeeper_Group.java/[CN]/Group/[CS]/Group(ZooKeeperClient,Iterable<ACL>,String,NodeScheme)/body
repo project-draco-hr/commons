@@ -1,0 +1,13 @@
+{
+  this.zkClient=Preconditions.checkNotNull(zkClient);
+  this.acl=ImmutableList.copyOf(acl);
+  this.path=ZooKeeperUtils.normalizePath(Preconditions.checkNotNull(path));
+  this.nodeScheme=Preconditions.checkNotNull(nodeScheme);
+  nodeNameFilter=new Predicate<String>(){
+    @Override public boolean apply(    String nodeName){
+      return Group.this.nodeScheme.isMember(nodeName);
+    }
+  }
+;
+  backoffHelper=new BackoffHelper();
+}

@@ -1,9 +1,8 @@
 {
-  Preconditions.checkNotNull(input);
-  inputStream.reset(input);
+  super.reset(input);
   states.clear();
-  while (inputStream.incrementToken()) {
-    states.add(inputStream.captureState());
+  while (incrementInputStream()) {
+    states.add(captureState());
   }
   stateIt=states.iterator();
   for (  DuplicatedTokenStream stream : duplicatedStreams) {

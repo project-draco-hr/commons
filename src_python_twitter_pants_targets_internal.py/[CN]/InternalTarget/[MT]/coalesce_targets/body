@@ -1,6 +1,6 @@
 @classmethod
 def coalesce_targets(cls, internal_targets, discriminator):
-    'Returns a list of targets internal_targets depend on sorted from most dependent to least and\n    grouped where possible by target type as categorized by the given discriminator.'
+    'Returns a list of targets internal_targets depend on sorted from most dependent to least and\n    grouped where possible by target type as categorized by the given discriminator.\n    '
     sorted_targets = InternalTarget.sort_targets(internal_targets)
     if (len(sorted_targets) <= 2):
         return sorted_targets

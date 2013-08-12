@@ -1,5 +1,5 @@
 {
   super(inputStream);
-  setExtractor(new RegexExtractor.Builder().setRegexPattern(STOCK_SYMBOL_PATTERN,1,1).build());
+  setExtractor(new RegexExtractor.Builder().setRegexPattern(STOCK_SYMBOL_PATTERN,1,2).build());
   setType(TokenType.STOCK);
 }

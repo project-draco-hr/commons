@@ -1,0 +1,4 @@
+def _getpass(self):
+    if (not self._pass):
+        self._pass = getpass.getpass(('Please enter JIRA password for %s: ' % self._user))
+    return self._pass

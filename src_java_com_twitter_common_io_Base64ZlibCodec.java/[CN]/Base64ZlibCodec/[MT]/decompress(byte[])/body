@@ -1,0 +1,26 @@
+{
+  byte[] bytes;
+  try {
+    final InputStream bin=new ByteArrayInputStream(compressed);
+    final InputStream zin;
+    if (startsWith(compressed,GZIP_HEADER_PREFIX)) {
+      zin=new GZIPInputStream(bin);
+    }
+ else     if (startsWith(compressed,ZLIB_HEADER_PREFIX)) {
+      zin=new InflaterInputStream(bin);
+    }
+ else {
+      throw new Base64ZlibCodec.InvalidDataException("Value doesn't start with either GZIP or zlib header");
+    }
+    try {
+      bytes=ByteStreams.toByteArray(zin);
+    }
+  finally {
+      zin.close();
+    }
+  }
+ catch (  IOException e) {
+    throw new Base64ZlibCodec.InvalidDataException("zlib/GZIP decoding error",e);
+  }
+  return bytes;
+}

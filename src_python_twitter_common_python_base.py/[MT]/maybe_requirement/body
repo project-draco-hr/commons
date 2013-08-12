@@ -1,0 +1,6 @@
+def maybe_requirement(req):
+    if isinstance(req, Requirement):
+        return req
+    elif isinstance(req, Compatibility.string):
+        return Requirement.parse(req)
+    raise ValueError(('Unknown requirement %r' % (req,)))

@@ -1,0 +1,10 @@
+def resolve(self, issue, comment=None):
+    data = {'fields': {'resolution': {'name': 'Fixed', }, }, 'transition': {'id': Jira.RESOLVED_STATUS_ID, }, }
+    if comment:
+        data['update'] = {'comment': [{'add': {'body': comment, }, }], }
+    try:
+        self.api_call(('issue/%s/transitions' % issue), data)
+    except urllib2.HTTPError as e:
+        raise JiraError(cause=e, message='Transition failed, is the bug already closed?')
+    except urllib2.URLError as e:
+        raise JiraError(cause=e)

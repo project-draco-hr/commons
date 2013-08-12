@@ -1,0 +1,8 @@
+from logging import Handler
+try:
+    from scribe import scribe
+    from thrift.protocol import TBinaryProtocol
+    from thrift.transport import TTransport, TSocket
+    _SCRIBE_PRESENT = True
+except ImportError:
+    _SCRIBE_PRESENT = False

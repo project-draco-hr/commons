@@ -2,10 +2,11 @@ def resolve(self):
     children = defaultdict(OrderedSet)
 
     def add_dep(trg):
-        for (target_type, target_key) in PythonResolver._VALID_DEPENDENCIES.items():
-            if isinstance(trg, target_type):
-                children[target_key].add(trg)
-                return
+        if is_concrete(trg):
+            for (target_type, target_key) in PythonResolver._VALID_DEPENDENCIES.items():
+                if isinstance(trg, target_type):
+                    children[target_key].add(trg)
+                    return
         raise PythonResolver.InvalidDependencyException(trg)
     for target in self._targets:
         target.walk(add_dep)

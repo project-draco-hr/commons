@@ -1,0 +1,12 @@
+{
+  ImmutableList.Builder<NativeResource> resourceBuilder=ImmutableList.builder();
+  for (  NativeResource nativeResource : findNativeResources()) {
+    nativeResource.extract();
+    resourceBuilder.add(nativeResource);
+  }
+  ImmutableList<NativeResource> resources=resourceBuilder.build();
+  for (  NativeResource nativeResource : resources) {
+    nativeResource.maybeLoad();
+  }
+  return resources;
+}

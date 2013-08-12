@@ -6,10 +6,13 @@
   TokenStreamSerializer serializer=TokenStreamSerializer.builder().add(new CharSequenceTermAttributeSerializer()).add(new TokenTypeAttributeSerializer()).add(new PositionIncrementAttributeSerializer()).build();
   byte[] data=serializer.serialize(stream);
   TokenStream deserialized=serializer.deserialize(data,text);
-  stream.reset(text);
-  while (stream.incrementToken()) {
-    assertTrue(deserialized.incrementToken());
-    assertEquals(stream.toString(),deserialized.toString());
+  for (int i=0; i < 2; ++i) {
+    stream.reset(text);
+    while (stream.incrementToken()) {
+      assertTrue(deserialized.incrementToken());
+      assertEquals(stream.reflectAsString(true),deserialized.reflectAsString(true));
+    }
+    assertFalse(deserialized.incrementToken());
+    deserialized.reset(null);
   }
-  assertFalse(deserialized.incrementToken());
 }

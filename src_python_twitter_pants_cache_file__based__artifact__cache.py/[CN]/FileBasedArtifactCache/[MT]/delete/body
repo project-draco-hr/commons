@@ -1,0 +1,2 @@
+def delete(self, cache_key):
+    safe_rmtree(self._cache_dir_for_key(cache_key))

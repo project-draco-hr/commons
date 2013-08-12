@@ -1,0 +1,7 @@
+@property
+def transport(self):
+    'Scribe transport object.'
+    if (not self._transport):
+        socket = TSocket.TSocket(host=self._host, port=self._port)
+        self._transport = TTransport.TFramedTransport(socket)
+    return self._transport

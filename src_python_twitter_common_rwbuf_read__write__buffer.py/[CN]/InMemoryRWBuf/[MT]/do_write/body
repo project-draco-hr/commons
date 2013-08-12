@@ -1,0 +1,4 @@
+def do_write(self, s):
+    self._io.seek(self._writepos)
+    self._io.write(s)
+    self._writepos = self._io.tell()

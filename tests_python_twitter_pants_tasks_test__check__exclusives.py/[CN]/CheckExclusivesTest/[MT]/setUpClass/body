@@ -1,0 +1,3 @@
+@classmethod
+def setUpClass(cls):
+    cls.config = Config.load()

@@ -1,5 +1,0 @@
-def create_javadoc(command, gendir):
-    safe_mkdir(gendir, clean=True)
-    process = subprocess.Popen(command)
-    result = process.wait()
-    return (result, gendir)

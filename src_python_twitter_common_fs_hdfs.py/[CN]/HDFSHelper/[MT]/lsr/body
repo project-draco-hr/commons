@@ -1,0 +1,3 @@
+def lsr(self, path, is_dir=False):
+    '\n    Returns list of [hdfs_full_path, filesize] in recursive manner\n    If is_dir is true returns only the directories.\n    '
+    return self._ls(path, is_dir, True)

@@ -1,28 +1,18 @@
 def _prepare_bootstrap(self):
-    '\n      Write enough of distribute and pip into the .pex .bootstrap directory so that\n      we can be fully self-contained.\n    '
+    '\n      Write enough of distribute into the .pex .bootstrap directory so that\n      we can be fully self-contained.\n    '
     bare_env = pkg_resources.Environment()
-    pip_req = pkg_resources.Requirement.parse('pip>=1.1')
     distribute_req = pkg_resources.Requirement.parse('distribute>=0.6.24')
-    pip_dist = distribute_dist = None
+    distribute_dist = None
     for dist in DistributionHelper.all_distributions(sys.path):
-        if ((dist in pip_req) and bare_env.can_add(dist)):
-            pip_dist = dist
         if ((dist in distribute_req) and bare_env.can_add(dist)):
             distribute_dist = dist
-        if (pip_dist and distribute_dist):
             break
-    if (not pip_dist):
-        raise DistributionNotFound('Could not find pip!')
-    if (not distribute_dist):
+    else:
         raise DistributionNotFound('Could not find distribute!')
-    PEX.debug('Writing .bootstrap library.')
-    for (fn, content) in DistributionHelper.walk_data(pip_dist):
-        if fn.startswith('pip/'):
-            self._chroot.write(content, os.path.join(self.BOOTSTRAP_DIR, fn), 'resource')
     for (fn, content) in DistributionHelper.walk_data(distribute_dist):
         if (fn.startswith('pkg_resources.py') or fn.startswith('setuptools')):
             self._chroot.write(content, os.path.join(self.BOOTSTRAP_DIR, fn), 'resource')
-    libraries = ('twitter.common.dirutil', 'twitter.common.collections', 'twitter.common.contextutil', 'twitter.common.lang', 'twitter.common.python')
+    libraries = ('twitter.common.dirutil', 'twitter.common.collections', 'twitter.common.contextutil', 'twitter.common.lang', 'twitter.common.python', 'twitter.common.python.http', 'twitter.common.quantity')
     for name in libraries:
         dirname = name.replace('.', '/')
         provider = pkg_resources.get_provider(name)

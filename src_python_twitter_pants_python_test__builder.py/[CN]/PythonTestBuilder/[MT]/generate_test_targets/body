@@ -2,5 +2,5 @@
 def generate_test_targets():
     if (PythonTestBuilder.TESTING_TARGETS is None):
         with ParseContext.temp():
-            PythonTestBuilder.TESTING_TARGETS = [PythonRequirement('pytest'), PythonRequirement('unittest2', version_filter=(lambda : (sys.version_info[0] == 2))), PythonRequirement('unittest2py3k', version_filter=(lambda : (sys.version_info[0] == 3)))]
+            PythonTestBuilder.TESTING_TARGETS = [PythonRequirement('pytest'), PythonRequirement('pytest-cov'), PythonRequirement('coverage'), PythonRequirement('unittest2', version_filter=(lambda : (sys.version_info[0] == 2))), PythonRequirement('unittest2py3k', version_filter=(lambda : (sys.version_info[0] == 3)))]
     return PythonTestBuilder.TESTING_TARGETS

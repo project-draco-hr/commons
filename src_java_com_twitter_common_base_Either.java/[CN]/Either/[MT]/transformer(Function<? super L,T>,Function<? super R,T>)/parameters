@@ -1,0 +1,2 @@
+Function<? super L,T> leftTransformer
+Function<? super R,T> rightTransformer

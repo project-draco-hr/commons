@@ -1,0 +1,3 @@
+{
+  return namePattern.matcher(nodeName).matches();
+}

@@ -1,4 +1,6 @@
 def distill(self, into=None, strip_pyc=False):
+    if (not self._top_levels):
+        self._log(('Installing meta package %s' % self._package_name()))
     native_deps = self._native_deps()
     if (into is not None):
         safe_mkdir(into)
@@ -6,7 +8,10 @@ def distill(self, into=None, strip_pyc=False):
     else:
         tempdir = tempfile.mkdtemp()
         filename = os.path.join(tempdir, self._package_name())
-    with closing(zipfile.ZipFile(filename, 'w', compression=zipfile.ZIP_DEFLATED)) as zf:
+    if os.path.exists(filename):
+        self._log(('Found pre-cached artifact: %s, skipping distillation.' % filename))
+        return filename
+    with closing(zipfile.ZipFile((filename + '~'), 'w', compression=zipfile.ZIP_DEFLATED)) as zf:
         for fn in self._installed_files:
             rel_fn = self._relpath(fn)
             if (not self._is_top_level(fn)):
@@ -24,7 +29,7 @@ def distill(self, into=None, strip_pyc=False):
                 self._log(('Writing native stub for %s' % rel_fn))
                 zf.writestr((fn_base + '.py'), (NATIVE_STUB % {'extension': extension, }))
         for nspkg in self._nspkg:
-            nspkg_init = (nspkg + '/__init__.py')
+            nspkg_init = (nspkg.replace('.', '/') + '/__init__.py')
             if (nspkg_init in zf.namelist()):
                 self._log(('Cannot write namespace for %s!' % nspkg_init))
             else:
@@ -32,4 +37,5 @@ def distill(self, into=None, strip_pyc=False):
                 zf.writestr(nspkg_init, NAMESPACE_STUB)
         for (fn, content) in self._egg_info():
             zf.writestr(fn, content)
+    os.rename((filename + '~'), filename)
     return filename

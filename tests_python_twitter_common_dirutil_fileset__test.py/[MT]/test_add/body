@@ -1,0 +1,5 @@
+def test_add():
+    with Fileset.over(['a', 'b']):
+        assert leq((Fileset.rglobs('a') + ['b']), 'a', 'b')
+    with Fileset.over(['a', 'b']):
+        assert leq((Fileset.rglobs('a') + Fileset.rglobs('b')), 'a', 'b')

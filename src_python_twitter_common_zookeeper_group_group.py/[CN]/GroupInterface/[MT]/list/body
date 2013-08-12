@@ -1,4 +1,3 @@
 @abstractmethod
 def list(self):
     '\n      Synchronously return the list of underlying members.  Should only be\n      used in place of monitor if you cannot afford to block indefinitely.\n    '
-    pass

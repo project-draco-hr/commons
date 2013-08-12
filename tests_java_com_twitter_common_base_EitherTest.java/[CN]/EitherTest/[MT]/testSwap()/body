@@ -1,0 +1,8 @@
+{
+  assertLeft("jake",Either.right("jake").swap());
+  assertRight("jake",Either.left("jake").swap());
+  Either<String,Object> left=Either.left("jake");
+  assertEquals(left,left.swap().swap());
+  Either<Object,String> right=Either.right("jake");
+  assertEquals(right,right.swap().swap());
+}

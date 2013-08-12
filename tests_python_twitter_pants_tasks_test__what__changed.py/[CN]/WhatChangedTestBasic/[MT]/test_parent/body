@@ -1,0 +1,2 @@
+def test_parent(self):
+    self.assert_console_output(args=['--test-parent=42'], workspace=self.workspace(parent='42'))

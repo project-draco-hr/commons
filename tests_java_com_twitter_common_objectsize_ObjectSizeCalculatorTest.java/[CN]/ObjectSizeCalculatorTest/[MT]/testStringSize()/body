@@ -1,3 +1,0 @@
-{
-  assertSizeIs(O + 3 * 4 + R + A,new String());
-}

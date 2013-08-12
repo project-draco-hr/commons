@@ -1,0 +1,9 @@
+{
+  ZooKeeperClient zkClient1=createZkClient(TIMEOUT);
+  final CandidateImpl candidate1=new CandidateImpl(createGroup(zkClient1));
+  Reign candidate1Reign=new Reign("1",candidate1);
+  candidate1.offerLeadership(candidate1Reign);
+  assertSame(candidate1,candidateBuffer.takeLast());
+  candidate1Reign.abdicate();
+  assertFalse(candidate1.getLeaderData().isPresent());
+}

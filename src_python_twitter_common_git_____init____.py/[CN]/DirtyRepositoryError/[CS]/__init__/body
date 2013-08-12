@@ -1,0 +1,2 @@
+def __init__(self, branch=None):
+    super(DirtyRepositoryError, self).__init__(('%s must not be dirty!' % (('Current branch (%s)' % branch) if branch else 'Current branch')))

@@ -1,0 +1,9 @@
+@classmethod
+def extract(cls, path, outdir):
+    "OS X's python 2.6.1 has a bug in zipfile that makes it unzip directories as regular files.\n\n    This method should work on for python 2.6-3.x.\n    "
+    with open_zip(path) as zip:
+        for path in zip.namelist():
+            if (path.startswith('/') or path.startswith('..')):
+                raise ValueError(('Zip file contains unsafe path: %s' % path))
+            if (not path.endswith('/')):
+                zip.extract(path, outdir)

@@ -1,0 +1,4 @@
+def _execute_target(self, target, buildroot):
+    if (hasattr(target, 'sources') and (target.sources is not None)):
+        for sourcefile in target.sources:
+            print(os.path.relpath(sourcefile, buildroot), target.address)

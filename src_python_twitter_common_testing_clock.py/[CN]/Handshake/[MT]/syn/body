@@ -1,0 +1,3 @@
+def syn(self):
+    self._syn_event.wait()
+    self._ack_event.set()

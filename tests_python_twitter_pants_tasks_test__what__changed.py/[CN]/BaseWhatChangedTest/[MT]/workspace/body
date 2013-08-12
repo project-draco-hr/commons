@@ -1,0 +1,10 @@
+def workspace(self, files=None, parent=None):
+
+
+    class MockWorkspace(Workspace):
+
+        @staticmethod
+        def touched_files(p):
+            self.assertEqual((parent or 'HEAD'), p)
+            return (files or [])
+    return MockWorkspace()

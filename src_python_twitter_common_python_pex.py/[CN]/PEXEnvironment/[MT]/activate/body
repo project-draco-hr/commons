@@ -1,26 +1,25 @@
 def activate(self):
-    from pkg_resources import Requirement, WorkingSet, DistributionNotFound
     if self._activated:
         return
     if self._pex_info.inherit_path:
         self._ws = WorkingSet(sys.path)
     all_reqs = [Requirement.parse(req) for (req, _, _) in self._pex_info.requirements]
     for req in all_reqs:
-        with PEX.timed(('Resolved %s' % str(req))):
+        with TRACER.timed(('Resolved %s' % str(req))):
             try:
                 resolved = self._ws.resolve([req], env=self)
             except DistributionNotFound as e:
-                self._log(('Failed to resolve %s: %s' % (req, e)))
+                TRACER.log(('Failed to resolve %s: %s' % (req, e)))
                 if (not self._pex_info.ignore_errors):
                     raise
                 continue
         for dist in resolved:
-            with PEX.timed(('  Activated %s' % dist)):
-                if self._really_zipsafe(dist):
+            with TRACER.timed(('  Activated %s' % dist)):
+                if os.environ.get('PEX_FORCE_LOCAL', (not self._really_zipsafe(dist))):
+                    with TRACER.timed('    Locally caching'):
+                        new_dist = DistributionHelper.maybe_locally_cache(dist, self._pex_info.install_cache)
+                        new_dist.activate()
+                else:
                     self._ws.add(dist)
                     dist.activate()
-                else:
-                    with PEX.timed(('    Locally caching %s' % dist)):
-                        new_dist = DistributionHelper.locally_cache(dist, self._pex_info.install_cache)
-                        new_dist.activate()
     self._activated = True

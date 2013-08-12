@@ -1,0 +1,5 @@
+@classmethod
+def parse(cls, line):
+    (level, dt, rest) = cls.split_time(line)
+    (pid, source, message) = (rest[0], rest[1], ' '.join(rest[2:]))
+    return cls(line, level, dt, pid, source, message)

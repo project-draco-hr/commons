@@ -1,5 +1,5 @@
 def key_for(self, id, sources):
     'Get a cache key representing some id and its associated source files.\n\n    Useful primarily in tests. Normally we use key_for_target().\n    '
     sha = hashlib.sha1()
-    num_sources = self._sources_hash(sha, sources)
-    return CacheKey(id, sha.hexdigest(), num_sources)
+    actual_srcs = self._sources_hash(sha, sources)
+    return CacheKey(id, sha.hexdigest(), len(actual_srcs), actual_srcs)

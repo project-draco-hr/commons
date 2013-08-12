@@ -1,0 +1,5 @@
+{
+  this.abortHandler=checkNotNull(builder.abortHandlerKey);
+  this.quitHandlerKey=checkNotNull(builder.quitHandlerKey);
+  this.healthCheckerKey=checkNotNull(builder.healthCheckerKey);
+}

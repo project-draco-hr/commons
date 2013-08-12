@@ -1,0 +1,7 @@
+def test_execute_and_get_output(self):
+    (ret, output) = CommandUtil.execute_and_get_output(['echo', 'test'])
+    self.assertEqual(ret, 0)
+    self.assertEqual(output, 'test\n')
+    (ret, output) = CommandUtil.execute_and_get_output(['echo1', 'test'])
+    self.assertEqual(ret, 1)
+    self.assertEqual(output, None)

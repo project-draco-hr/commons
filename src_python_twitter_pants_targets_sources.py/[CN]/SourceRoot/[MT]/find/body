@@ -1,11 +1,11 @@
 @staticmethod
 def find(target):
-    "\n      Finds the source root for the given target target.  If none is registered, the parent\n      directory of the target's BUILD file is returned.\n    "
+    "Finds the source root for the given target.  If none is registered, the parent\n    directory of the target's BUILD file is returned.\n    "
     target_path = os.path.relpath(target.address.buildfile.parent_path, get_buildroot())
 
     def _find():
         for typ in target.__class__.mro():
-            for root in SourceRoot._ROOTS.get(typ, ()):
+            for root in SourceRoot._ROOTS_BY_TYPE.get(typ, ()):
                 if target_path.startswith(root):
                     return root
     root = _find()

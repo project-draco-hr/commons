@@ -1,6 +1,0 @@
-def __init__(self, path):
-    _ProxyWrapper.__init__(self, path)
-    try:
-        self._zf = zipfile.ZipFile(path, 'r')
-    except zipfile.BadZipfile:
-        raise ValueError(('Python environment %s is not a zip archive.' % path))

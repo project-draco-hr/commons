@@ -7,4 +7,7 @@ def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('intransitive'), default=False, action='store_true', dest='ide_gen_intransitive', help='Limits the sources included in the generated project to just those owned by the targets specified on the command line')
     option_group.add_option(mkflag('python'), mkflag('python', negate=True), default=False, action='callback', callback=mkflag.set_bool, dest='ide_gen_python', help='[%default] Adds python support to the generated project configuration.')
     option_group.add_option(mkflag('java'), mkflag('java', negate=True), default=True, action='callback', callback=mkflag.set_bool, dest='ide_gen_java', help='[%default] Includes java sources in the project; otherwise compiles them and adds them to the project classpath.')
+    java_language_level = mkflag('java-language-level')
+    option_group.add_option(java_language_level, default=6, dest='ide_gen_java_language_level', type='int', help="[%default] Sets the java language and jdk used to compile the project's java sources.")
+    option_group.add_option(mkflag('java-jdk-name'), default=None, dest='ide_gen_java_jdk', help=("Sets the jdk used to compile the project's java sources. If unset the default jdk name for the %s is used." % java_language_level))
     option_group.add_option(mkflag('scala'), mkflag('scala', negate=True), default=True, action='callback', callback=mkflag.set_bool, dest='ide_gen_scala', help='[%default] Includes scala sources in the project; otherwise compiles them and adds them to the project classpath.')

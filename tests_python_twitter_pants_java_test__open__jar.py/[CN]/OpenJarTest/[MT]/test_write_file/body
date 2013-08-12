@@ -1,0 +1,13 @@
+def test_write_file(self):
+    with temporary_dir() as chroot:
+        dir = os.path.join(chroot, 'a/b/c')
+        safe_mkdir(dir)
+        data_file = os.path.join(dir, 'd.txt')
+        with open(data_file, 'w') as fd:
+            fd.write('e')
+        with self.jarfile() as jarfile:
+            with open_jar(jarfile, 'w') as jar:
+                jar.write(data_file, 'f/g/h')
+            with open_jar(jarfile) as jar:
+                self.assertEquals(['f/', 'f/g/', 'f/g/h'], jar.namelist())
+                self.assertEquals('e', jar.read('f/g/h'))

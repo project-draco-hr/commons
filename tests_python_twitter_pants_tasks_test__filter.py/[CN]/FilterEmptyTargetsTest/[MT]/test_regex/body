@@ -1,0 +1,3 @@
+def test_regex(self):
+    self.assert_console_output(args=['--test-regex=^common'])
+    self.assert_console_output(args=['--test-regex=-^common'])

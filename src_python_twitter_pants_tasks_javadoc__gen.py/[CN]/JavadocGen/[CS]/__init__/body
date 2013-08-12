@@ -1,7 +1,2 @@
 def __init__(self, context, output_dir=None, confs=None):
-    Task.__init__(self, context)
-    self._output_dir = (output_dir or context.options.javadoc_gen_outdir or context.config.get('javadoc-gen', 'workdir'))
-    self.transitive = context.options.javadoc_gen_transitive
-    self.confs = (confs or context.config.getlist('javadoc-gen', 'confs'))
-    self.open = context.options.javadoc_gen_open
-    self.combined = (self.open or context.options.javadoc_gen_combined)
+    super(JavadocGen, self).__init__(context, javadoc, output_dir, confs)

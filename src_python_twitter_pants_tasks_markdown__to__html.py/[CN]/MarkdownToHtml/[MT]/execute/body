@@ -48,4 +48,4 @@ def execute(self, targets):
                 basedir = os.path.join(self.outdir, wiki.id)
                 process_page((wiki, page), basedir, wiki.url_builder, get_config)
     if show:
-        binary_utils.open(*show)
+        binary_util.ui_open(*show)

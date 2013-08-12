@@ -1,0 +1,6 @@
+def tearDown(self):
+    if self.handler:
+        self.logger.removeHandler(self.handler)
+        self.handler.close()
+    self.mox.UnsetStubs()
+    self.mox.VerifyAll()

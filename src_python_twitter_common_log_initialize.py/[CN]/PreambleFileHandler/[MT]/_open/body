@@ -1,0 +1,5 @@
+def _open(self):
+    stream = logging.FileHandler._open(self)
+    if self._preamble:
+        stream.write(self._preamble)
+    return stream

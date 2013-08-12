@@ -1,0 +1,4 @@
+def __init__(self, **kwargs):
+    self.__dict__.update(kwargs)
+    self.pexpex = os.path.join('dist', 'pex.pex')
+    self.logger = logging.getLogger(__name__)

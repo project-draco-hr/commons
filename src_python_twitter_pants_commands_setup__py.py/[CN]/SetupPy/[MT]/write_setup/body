@@ -1,0 +1,12 @@
+def write_setup(self, chroot):
+    setup_keywords = self.target.provides._kw
+    install_requires = set()
+    package_dir = {'': 'src', }
+    (packages, namespace_packages) = self.establish_namespaces(chroot)
+    for dep in self.dependencies:
+        if isinstance(dep, PythonRequirement):
+            install_requires.add(str(dep._requirement))
+        elif (isinstance(dep, PythonTarget) and dep.provides):
+            install_requires.add(dep.provides.key)
+    setup_keywords.update(install_requires=list(install_requires), package_dir=package_dir, packages=list(packages), namespace_packages=list(namespace_packages))
+    chroot.write((SETUP_BOILERPLATE % {'setup_dict': pprint.pformat(setup_keywords, indent=4), 'setup_target': repr(self.target), }), 'setup.py')

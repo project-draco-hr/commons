@@ -1,6 +1,0 @@
-{
-  this.failFast=failFast;
-  this.suppressOutput=suppressOutput;
-  this.xmlReport=xmlReport;
-  this.outdir=outdir;
-}

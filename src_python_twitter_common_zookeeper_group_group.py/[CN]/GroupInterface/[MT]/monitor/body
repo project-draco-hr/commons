@@ -1,4 +1,3 @@
 @abstractmethod
 def monitor(self, membership_set=frozenset(), callback=None):
     '\n      Given a membership set, return once the underlying group membership is\n      different.  If callback is provided, this operation is done\n      asynchronously.\n    '
-    pass

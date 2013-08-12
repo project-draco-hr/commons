@@ -1,0 +1,7 @@
+@contextmanager
+def timing(self, label):
+    if self.timer:
+        with self.timer.timing(label):
+            yield
+    else:
+        yield

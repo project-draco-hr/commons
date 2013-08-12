@@ -1,0 +1,3 @@
+@abstractmethod
+def changelog(self, from_commit=None, files=None):
+    'Produces a changelog from the given commit or the 1st commit if none is specified until the\n    present workspace commit for the changes affecting the given files.\n\n    If no files are given then the full change log should be produced.\n    '

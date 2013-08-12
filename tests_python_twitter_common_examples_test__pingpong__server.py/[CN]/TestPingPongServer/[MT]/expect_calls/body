@@ -1,0 +1,7 @@
+def expect_calls(self, *calls):
+    for expected_call in calls:
+        try:
+            call = self._calls.pop(0)
+            assert (expected_call == call), (('Expected endpoint=%s message=%s ttl=%s, ' % expected_call), ('got endpoint=%s message=%s ttl=%s.' % call))
+        except IndexError:
+            assert False, ('Expected endpoint=%s message=%s ttl=%s, got nothing' % expected_call)

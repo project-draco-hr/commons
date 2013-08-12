@@ -1,0 +1,25 @@
+{
+  assertEquals("/",ZooKeeperUtils.normalizePath("///"));
+  assertEquals("/a/group",ZooKeeperUtils.normalizePath("/a/group"));
+  assertEquals("/a/group",ZooKeeperUtils.normalizePath("/a/group/"));
+  assertEquals("/a/group",ZooKeeperUtils.normalizePath("/a//group"));
+  assertEquals("/a/group",ZooKeeperUtils.normalizePath("/a//group//"));
+  try {
+    ZooKeeperUtils.normalizePath("a/group");
+    fail("Relative paths should not be allowed.");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    ZooKeeperUtils.normalizePath("/a/./group");
+    fail("Relative paths should not be allowed.");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    ZooKeeperUtils.normalizePath("/a/../group");
+    fail("Relative paths should not be allowed.");
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

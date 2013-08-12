@@ -1,0 +1,8 @@
+def read_all(buf, terminator=None):
+    lines = []
+    while True:
+        line = buf.next()
+        if (line is terminator):
+            break
+        lines.append(line)
+    return lines

@@ -1,0 +1,15 @@
+def test_resolve_timeout():
+    event = threading.Event()
+
+
+    class FakeWeb(Web):
+        NS_TIMEOUT = Amount(1, Time.MILLISECONDS)
+
+        def _resolves(self, fullurl):
+            event.wait()
+
+        def _reachable(self, fullurl):
+            return True
+    with pytest.raises(urllib_error.URLError):
+        FakeWeb().open('http://www.google.com')
+    event.set()

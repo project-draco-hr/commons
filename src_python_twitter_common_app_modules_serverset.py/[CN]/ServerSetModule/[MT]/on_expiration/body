@@ -7,4 +7,4 @@ def on_expiration(self):
         sys.exit(1)
     else:
         log.debug('Rejoining...')
-    self._join()
+    self._rejoin_event.set()

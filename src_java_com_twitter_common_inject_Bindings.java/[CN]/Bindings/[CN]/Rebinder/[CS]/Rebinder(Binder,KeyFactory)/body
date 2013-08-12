@@ -1,0 +1,4 @@
+{
+  this.binder=Preconditions.checkNotNull(binder);
+  this.bindToFactory=Preconditions.checkNotNull(bindToFactory);
+}

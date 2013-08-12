@@ -1,0 +1,7 @@
+def setupTargets(self):
+    a = MockTarget('a', exclusives={'a': '1', 'b': '1', })
+    b = MockTarget('b', exclusives={'a': '1', })
+    c = MockTarget('c', exclusives={'a': '2', })
+    d = MockTarget('d', dependencies=[a, b])
+    e = MockTarget('e', dependencies=[a, c], exclusives={'c': '1', })
+    return (a, b, c, d, e)

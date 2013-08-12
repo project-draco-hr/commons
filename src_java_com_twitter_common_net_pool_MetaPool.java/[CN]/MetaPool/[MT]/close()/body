@@ -1,12 +1,12 @@
 {
-  stop();
-  backendsReadLock.lock();
+  stopBackendRestorer.execute();
+  backendsWriteLock.lock();
   try {
     for (    ObjectPool<Connection<T,E>> backend : backends.values()) {
       backend.close();
     }
   }
   finally {
-    backendsReadLock.unlock();
+    backendsWriteLock.unlock();
   }
 }

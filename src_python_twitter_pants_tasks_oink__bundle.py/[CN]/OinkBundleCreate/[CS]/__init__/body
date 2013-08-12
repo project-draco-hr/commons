@@ -1,0 +1,5 @@
+def __init__(self, context):
+    Task.__init__(self, context)
+    self.outdir = context.config.getdefault('outdir')
+    self.context.products.require('jars', predicate=is_java)
+    self.context.products.require('jar_dependencies', predicate=self.is_oink_query)

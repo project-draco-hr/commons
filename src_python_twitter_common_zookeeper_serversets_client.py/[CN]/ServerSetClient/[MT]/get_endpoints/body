@@ -1,4 +1,0 @@
-def get_endpoints(self):
-    'Get list of endpoints.'
-    with self._lock:
-        return self._endpoints[:]

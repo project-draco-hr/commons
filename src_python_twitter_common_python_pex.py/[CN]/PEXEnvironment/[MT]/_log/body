@@ -1,3 +1,0 @@
-@classmethod
-def _log(cls, msg, *args, **kw):
-    PEX.debug(msg)

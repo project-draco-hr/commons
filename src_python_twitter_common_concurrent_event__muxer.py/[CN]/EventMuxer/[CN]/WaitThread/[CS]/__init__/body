@@ -1,0 +1,5 @@
+def __init__(self, event, parentq):
+    self.event = event
+    self.parentq = parentq
+    super(EventMuxer.WaitThread, self).__init__()
+    self.daemon = True

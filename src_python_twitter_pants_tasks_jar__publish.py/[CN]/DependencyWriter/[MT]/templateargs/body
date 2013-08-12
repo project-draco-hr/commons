@@ -1,3 +1,3 @@
-def templateargs(self, target_jar, confs=None):
+def templateargs(self, target_jar, confs=None, synth=False):
     '\n      Subclasses must return a dict for use by their template given the target jar template data\n      and optional specific ivy configurations.\n    '
     raise NotImplementedError()

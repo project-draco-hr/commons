@@ -1,0 +1,7 @@
+{
+  numericStatExporter.start(mockShutdownRegistry);
+  verify(mockShutdownRegistry).addAction(commandCaptor.capture());
+  commandCaptor.getValue().execute();
+  verify(mockExportSink).execute(statReadValueMapCaptor.capture());
+  assertEquals(MOCK_STAT_SAMPLED_VALUE,statReadValueMapCaptor.getValue().get(MOCK_STAT_NAME));
+}

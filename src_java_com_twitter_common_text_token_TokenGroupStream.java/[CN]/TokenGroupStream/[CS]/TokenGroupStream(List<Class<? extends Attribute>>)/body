@@ -1,0 +1,6 @@
+{
+  for (  Class<? extends Attribute> attributeClass : attributeClasses) {
+    addAttribute(attributeClass);
+  }
+  currentIndex=0;
+}

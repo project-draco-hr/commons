@@ -1,0 +1,3 @@
+def report_path(self):
+    'The path to the main report file.'
+    return os.path.join(self._html_dir, 'build.html')

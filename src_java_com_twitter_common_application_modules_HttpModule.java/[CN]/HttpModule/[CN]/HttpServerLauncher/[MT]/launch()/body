@@ -2,12 +2,25 @@
   if (!httpServer.listen(HTTP_PORT.get())) {
     throw new IllegalStateException("Failed to start HTTP server, all servlets disabled.");
   }
+  httpServer.registerListener(new GuiceServletContextListener(){
+    @Override protected Injector getInjector(){
+      return injector;
+    }
+  }
+);
+  httpServer.registerFilter(GuiceFilter.class,"/*");
   for (  HttpServletConfig config : httpServlets) {
     HttpServlet handler=injector.getInstance(config.handlerClass);
     httpServer.registerHandler(config.path,handler,config.params,config.silent);
   }
   for (  HttpAssetConfig config : httpAssets) {
     httpServer.registerHandler(config.path,config.handler,null,config.silent);
+  }
+  for (  HttpFilterConfig filter : httpFilters) {
+    httpServer.registerFilter(filter.filterClass,filter.pathSpec);
+  }
+  for (  String indexLink : additionalIndexLinks) {
+    httpServer.registerIndexLink(indexLink);
   }
   Command shutdown=new Command(){
     @Override public void execute(){
@@ -16,5 +29,5 @@
     }
   }
 ;
-  return HTTP_PRIMARY_SERVICE.get() ? LocalService.primaryService(httpServer.getPort(),shutdown) : LocalService.auxiliaryService("http",httpServer.getPort(),shutdown);
+  return HTTP_PRIMARY_SERVICE.get() ? LocalService.primaryService(httpServer.getPort(),shutdown) : LocalService.auxiliaryService(ANNOUNCE_NAMES.get(),httpServer.getPort(),shutdown);
 }

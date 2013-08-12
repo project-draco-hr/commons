@@ -1,0 +1,3 @@
+def is_thrift(target):
+    'Returns True if the target has thrift IDL sources.'
+    return isinstance(target, JavaThriftLibrary)

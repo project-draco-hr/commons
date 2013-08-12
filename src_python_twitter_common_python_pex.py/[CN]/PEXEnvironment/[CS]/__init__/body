@@ -1,5 +1,8 @@
-def __init__(self, pex, pex_info):
-    self._pex_info = pex_info
+def __init__(self, pex, pex_info, platform=Platform.current(), python=Platform.python()):
     subcaches = sum([[os.path.join(pex, pex_info.internal_cache)], [cache for cache in pex_info.egg_caches], [(pex_info.install_cache if pex_info.install_cache else [])]], [])
+    self._pex_info = pex_info
     self._activated = False
-    super(PEXEnvironment, self).__init__(caches=subcaches, install_cache=pex_info.install_cache, fetcher_provider=PEXEnvironment.get_fetcher_provider(pex_info))
+    self._subcaches = [self.Subcache(cache, self) for cache in subcaches]
+    self._ws = WorkingSet([])
+    with TRACER.timed('Calling environment super'):
+        super(PEXEnvironment, self).__init__(search_path=[], platform=platform, python=python)

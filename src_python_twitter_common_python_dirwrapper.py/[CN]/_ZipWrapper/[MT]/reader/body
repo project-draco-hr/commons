@@ -1,8 +1,0 @@
-def reader(self, name):
-
-    def read_data():
-        try:
-            return self._zf.read(name)
-        except KeyError:
-            raise _ProxyWrapper.NotFoundError(name)
-    return read_data

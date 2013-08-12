@@ -1,0 +1,16 @@
+{
+  serverSet1.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject());
+  expectLastCall().andAnswer(new IAnswer<Void>(){
+    @Override public Void answer(){
+      @SuppressWarnings("unchecked") HostChangeMonitor<ServiceInstance> monitor=(HostChangeMonitor<ServiceInstance>)getCurrentArguments()[0];
+      monitor.onChange(ImmutableSet.of(instance1,instance2));
+      return null;
+    }
+  }
+);
+  compoundMonitor.onChange(ImmutableSet.of(instance1,instance2));
+  serverSet2.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject());
+  serverSet3.monitor(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject());
+  control.replay();
+  compoundServerSet.monitor(compoundMonitor);
+}

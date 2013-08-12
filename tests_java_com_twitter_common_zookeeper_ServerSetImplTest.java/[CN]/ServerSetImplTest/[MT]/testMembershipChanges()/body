@@ -8,13 +8,13 @@
   expireSession(client.getZkClient());
   EndpointStatus bar=join(server,"bar");
   assertChangeFired("foo","bar");
-  foo.update(Status.DEAD);
+  foo.leave();
   assertChangeFired("bar");
   EndpointStatus baz=join(server,"baz");
   assertChangeFired("bar","baz");
-  baz.update(Status.DEAD);
+  baz.leave();
   assertChangeFired("bar");
-  bar.update(Status.DEAD);
+  bar.leave();
   assertChangeFiredEmpty();
   assertTrue(serverSetBuffer.isEmpty());
 }

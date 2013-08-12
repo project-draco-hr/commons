@@ -1,0 +1,47 @@
+{
+  String parentPath="/twitter/path";
+  final String node="node";
+  String nodePath=parentPath + "/" + node;
+  String data="DaTa";
+  ZooKeeperUtils.ensurePath(zkClient,ACL,parentPath);
+  zkClient.get().create(nodePath,data.getBytes(),ACL,CreateMode.PERSISTENT);
+  final Map<String,String> zkMap=ZooKeeperMap.create(zkClient,parentPath,BYTES_TO_STRING);
+  assertThrows(new TestFunction(){
+    public void apply(){
+      zkMap.clear();
+    }
+  }
+,UnsupportedOperationException.class);
+  assertThrows(new TestFunction(){
+    public void apply(){
+      zkMap.remove(node);
+    }
+  }
+,UnsupportedOperationException.class);
+  assertThrows(new TestFunction(){
+    public void apply(){
+      zkMap.put("othernode","othervalue");
+    }
+  }
+,UnsupportedOperationException.class);
+  assertThrows(new TestFunction(){
+    public void apply(){
+      zkMap.putAll(ImmutableMap.of("othernode","othervalue"));
+    }
+  }
+,UnsupportedOperationException.class);
+  List<Collection<?>> collections=ImmutableList.of(zkMap.entrySet(),zkMap.keySet(),zkMap.values());
+  for (  Collection<?> collection : collections) {
+    final Iterator<?> it=collection.iterator();
+    assertTrue(it.hasNext());
+    it.next();
+    assertThrows(new TestFunction(){
+      public void apply(){
+        it.remove();
+      }
+    }
+,UnsupportedOperationException.class);
+  }
+  assertEquals(1,zkMap.size());
+  assertEquals(data,zkMap.get(node));
+}

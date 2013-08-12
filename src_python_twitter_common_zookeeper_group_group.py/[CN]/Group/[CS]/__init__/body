@@ -1,8 +1,6 @@
 def __init__(self, zk, path, acl=None):
     self._zk = zk
-    self._path = path
+    self._path = ('/' + '/'.join(filter(None, path.split('/'))))
     self._members = {}
     self._member_lock = threading.Lock()
     self._acl = (acl or zk.DEFAULT_ACL)
-    if (not self._zk.safe_create(path, acl=self._acl)):
-        raise Group.GroupError(('Could not create znode for %s!' % path))

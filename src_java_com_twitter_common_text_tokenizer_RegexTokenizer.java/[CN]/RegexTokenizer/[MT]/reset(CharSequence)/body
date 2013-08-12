@@ -1,5 +1,6 @@
 {
-  termAttr.setCharSequence(input);
+  updateInputCharSequence(input);
+  clearAttributes();
   tokens=Lists.newArrayList();
   tokenTypes=Lists.newArrayList();
   Matcher matcher=delimiterPattern.matcher(input);

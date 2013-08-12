@@ -1,0 +1,8 @@
+{
+  Preconditions.checkArgument(offset >= 0);
+  Preconditions.checkArgument(length >= 0);
+  Preconditions.checkNotNull(type);
+  Preconditions.checkArgument(inc >= 0);
+  tokens.add(new Token(CharBuffer.wrap(origText,offset,offset + length),type,pos,inc,group));
+  return this;
+}

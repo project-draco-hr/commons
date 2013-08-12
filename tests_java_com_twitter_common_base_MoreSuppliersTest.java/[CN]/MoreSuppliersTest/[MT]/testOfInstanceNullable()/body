@@ -1,0 +1,5 @@
+{
+  Supplier<String> nullSupplier=MoreSuppliers.ofInstance(null);
+  assertNull(nullSupplier.get());
+  assertNull(nullSupplier.get());
+}

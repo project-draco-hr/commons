@@ -1,18 +1,21 @@
 def __call__(self):
     while True:
         try:
-            self._logger(('Completion(zh:%s, %s) start' % (self._zk._zh, self._fn.__name__)))
+            self._logger(('%s start' % self))
             result = self._fn(self._zk._zh)
-            self._logger(('Completion(zh:%s, %s) success' % (self._zk._zh, self._fn.__name__)))
+            self._logger(('%s success' % self))
             return result
-        except (zookeeper.ConnectionLossException, TypeError) as e:
+        except (zookeeper.ConnectionLossException, zookeeper.InvalidStateException, TypeError) as e:
             if (isinstance(e, TypeError) and (self._zk._zh is not None)):
-                self._logger(('Completion(zh:%s, %s) excepted, user error' % (self._zk._zh, self._fn.__name__)))
+                self._logger(('%s excepted, user error' % self))
                 raise
             while (not self._zk._stopped.is_set()):
-                self._logger(('Completion(zh:%s, live:%s, %s) excepted on connection event' % (self._zk._zh, self._zk._live.is_set(), self._fn.__name__)))
+                self._logger(('%s [live: %s] excepted on connection event: %s' % (self, self._zk._live.is_set(), e)))
                 self._zk._live.wait(timeout=0.1)
                 if self._zk._live.is_set():
                     break
             if self._zk._stopped.is_set():
                 raise ZooKeeper.Stopped('ZooKeeper is stopped.')
+        except Exception as e:
+            self._logger(('%s excepted unexpectedly: %s' % (self, e)))
+            raise

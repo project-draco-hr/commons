@@ -1,0 +1,4 @@
+def test_filter_type(self):
+    self.assert_console_output('common/a/BUILD:a', 'common/b/BUILD:b', 'common/c/BUILD:c', 'overlaps/BUILD:one', 'overlaps/BUILD:two', 'overlaps/BUILD:three', args=['--test-type=python_library'], targets=self.targets('::'))
+    self.assert_console_output('common/a/BUILD:foo', 'common/b/BUILD:foo', 'common/c/BUILD:foo', 'overlaps/BUILD:foo', args=['--test-type=-python_library'], targets=self.targets('::'))
+    self.assert_console_output('common/a/BUILD:a', 'common/a/BUILD:foo', 'common/b/BUILD:b', 'common/b/BUILD:foo', 'common/c/BUILD:c', 'common/c/BUILD:foo', 'overlaps/BUILD:one', 'overlaps/BUILD:two', 'overlaps/BUILD:three', 'overlaps/BUILD:foo', args=['--test-type=PythonRequirement,twitter.pants.targets.PythonLibrary'], targets=self.targets('::'))

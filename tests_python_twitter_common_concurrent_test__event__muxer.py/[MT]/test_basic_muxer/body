@@ -1,0 +1,7 @@
+def test_basic_muxer():
+    muxer = EventMuxer(Event(), Event())
+    assert (not muxer.wait(timeout=0.1))
+    with pytest.raises(RuntimeError):
+        muxer.wait()
+    with pytest.raises(ValueError):
+        EventMuxer(Event(), 'not_an_event')

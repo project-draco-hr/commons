@@ -1,0 +1,11 @@
+{
+  assertEquals(ImmutableList.of("jackjack","4","jilljill"),ImmutableList.copyOf(Iterables.transform(MIXED_RESULTS,new Transformer<String,String,String>(){
+    @Override public String mapLeft(    String left){
+      return left + left;
+    }
+    @Override public String mapRight(    String right){
+      return String.valueOf(right.length());
+    }
+  }
+)));
+}

@@ -1,7 +1,9 @@
 {
   if (obj instanceof TokenGroupAttributeImpl) {
     TokenGroupAttributeImpl attr=(TokenGroupAttributeImpl)obj;
-    attr.setAttributeSource(attributeSource);
-    attr.setStates(Lists.newArrayList(states));
+    attr.attributeClasses=this.attributeClasses;
+    attr.states=this.states;
+    attr.seq=this.seq;
+    attr.tokenGroupStream=null;
   }
 }

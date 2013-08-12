@@ -1,0 +1,3 @@
+ZooKeeperClient zkClient
+Iterable<ACL> acl
+String zkPath

@@ -1,0 +1,3 @@
+@staticmethod
+def cancelled():
+    return PythonTestResult('CANCELLED')

@@ -5,3 +5,4 @@ def setup_function(self):
         varz = VarsEndpoint(period=Amount(options.twitter_common_metrics_vars_sampling_delay_ms, Time.MILLISECONDS))
         rs.mount_routes(varz)
         register_diagnostics()
+        register_build_properties()

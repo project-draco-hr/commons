@@ -7,6 +7,11 @@
   server=new Server();
   server.addConnector(connector);
   context=new Context(server,"/",Context.NO_SESSIONS);
+  if (requestLog.isPresent()) {
+    RequestLogHandler logHandler=new RequestLogHandler();
+    logHandler.setRequestLog(requestLog.get());
+    context.addHandler(logHandler);
+  }
   context.addServlet(new ServletHolder(new RootHandler()),"/");
   try {
     server.start();

@@ -1,0 +1,5 @@
+def checkout_branch(repo, sha, branch_name):
+    print(('Creating head %s' % branch_name))
+    head = repo.create_head(branch_name)
+    head.commit = (repo.commit(sha) if isinstance(sha, Compatibility.string) else sha)
+    head.checkout()

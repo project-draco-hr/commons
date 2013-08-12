@@ -1,5 +1,5 @@
-@classmethod
-def get_all_addresses(cls, buildfile):
+@staticmethod
+def get_all_addresses(buildfile):
     'Returns all of the target addresses in the specified buildfile if already parsed; otherwise,\n    parses the buildfile to find all the addresses it contains and then returns them.'
 
     def lookup():

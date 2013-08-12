@@ -1,8 +1,10 @@
 def __init__(self, zk, function, *args, **kw):
     self._zk = zk
+    self._cid = random.randint(0, (sys.maxint - 1))
     self._logger = kw.pop('logger', log.debug)
 
     @wraps(function)
     def wrapper(zh):
         return function(zh, *args, **kw)
     self._fn = wrapper
+    self._logger(('Created %s args:(%s) kw:{%s}' % (self, ', '.join(map(repr, args)), ', '.join((('%s: %r' % (key, val)) for (key, val) in kw.items())))))

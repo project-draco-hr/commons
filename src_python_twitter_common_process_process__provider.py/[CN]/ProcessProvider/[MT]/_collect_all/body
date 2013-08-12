@@ -1,3 +1,3 @@
+@abstractmethod
 def _collect_all(self):
     'Collect and return all process information into unstructured line-based data.'
-    raise NotImplementedError

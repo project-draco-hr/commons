@@ -1,0 +1,5 @@
+def __init__(self, perm, id_):
+    dict.__init__(self)
+    self['perms'] = perm
+    self['scheme'] = id_.scheme
+    self['id'] = id_.id

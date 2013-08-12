@@ -1,5 +1,5 @@
 def content(self):
     try:
         return self._read_lambda()
-    except _ProxyWrapper.NotFoundError:
+    except ProxyWrapper.Error:
         raise DirWrapperHandle.NotFoundError('File not found!')

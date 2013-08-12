@@ -1,0 +1,7 @@
+boolean failFast
+boolean suppressOutput
+boolean xmlReport
+boolean perTestTimer
+File outdir
+boolean defaultParallel
+int parallelThreads

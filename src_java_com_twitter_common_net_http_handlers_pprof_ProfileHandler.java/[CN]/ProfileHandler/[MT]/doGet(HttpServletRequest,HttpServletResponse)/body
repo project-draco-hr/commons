@@ -1,0 +1,16 @@
+{
+  final int profileDurationSecs=HttpServletRequestParams.getInt(req,"seconds",10);
+  final int profilePollRate=HttpServletRequestParams.getInt(req,"hz",100);
+  LOG.info("Collecting CPU profile for " + profileDurationSecs + " seconds at "+ profilePollRate+ " Hz");
+  Duration sampleDuration=Duration$.MODULE$.fromTimeUnit(profileDurationSecs,TimeUnit.SECONDS);
+  CpuProfile profile=CpuProfile.recordInThread(sampleDuration,profilePollRate,stateToProfile).get();
+  resp.setHeader("Content-Type","pprof/raw");
+  resp.setStatus(HttpServletResponse.SC_OK);
+  OutputStream responseBody=resp.getOutputStream();
+  try {
+    profile.writeGoogleProfile(responseBody);
+  }
+  finally {
+    Closeables.closeQuietly(responseBody);
+  }
+}

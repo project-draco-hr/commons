@@ -1,17 +1,14 @@
-def tick(self, amount=None):
-    amount = (amount or self._rate)
-    stop_at = (self._time + amount)
+def tick(self, amount):
+    time.sleep(0.1)
+    now = self._time
+    end = (now + amount)
     while True:
-        self._time += self._rate
-        for (stamp, cond) in self._waiters[:]:
-            if (self._time >= (stamp - (self._rate * self.FLOAT_FUDGE))):
-                with cond:
-                    cond.notify()
-                while True:
-                    with self._cond:
-                        if self._awaken:
-                            break
-                        self._cond.wait()
-                self._awaken = False
-        if (self._time >= stop_at):
+        waiter = self._pop_waiter(end)
+        if (not waiter):
             break
+        (waiter_time, waiter_handshake) = waiter
+        print ('Time now: %s' % self._time)
+        self._time = waiter_time
+        waiter_handshake.ack()
+    print ('Time now: %s' % self._time)
+    self._time = end

@@ -2,7 +2,7 @@
   ZooKeeperClient zkClient1=createZKClient();
   ZooKeeperClient zkClient2=createZKClient();
   ZooKeeperClient zkClient3=createZKClient();
-  zkServer.expireFollower(ROOT_PATH,Optional.<Integer>absent());
+  zkServer.expireFollower(ROOT_PATH,Optional.<String>absent());
   zkClient1.get().exists(zkPaths.get(zkClient1),null);
   int numfailed=0;
   try {

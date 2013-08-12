@@ -1,0 +1,9 @@
+{
+  if (isLeft()) {
+    return left(transformer.apply(getLeft()));
+  }
+ else {
+    @SuppressWarnings("unchecked") Either<M,R> self=(Either<M,R>)this;
+    return self;
+  }
+}

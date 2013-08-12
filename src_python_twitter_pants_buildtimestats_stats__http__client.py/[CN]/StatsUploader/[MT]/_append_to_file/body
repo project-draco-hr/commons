@@ -1,0 +1,4 @@
+def _append_to_file(self, source_file, target_file):
+    with open(target_file, 'a') as target_fh:
+        with open(source_file, 'r') as source_fh:
+            target_fh.write(source_fh.read())

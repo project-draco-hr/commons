@@ -1,8 +1,6 @@
-def command(self, function):
-    '\n      Decorator to turn a function into an application command.\n    '
-    if (Inspection.find_calling_module() == '__main__'):
-        func_name = function.__name__
-        if (func_name in self._commands):
-            raise Application.Error(('Found two definitions for command %s' % func_name))
-        self._commands[func_name] = function
-    return function
+def command(self, function=None, name=None):
+    "\n      Decorator to turn a function into an application command.\n\n      To add a command foo, the following patterns will both work:\n\n      @app.command\n      def foo(args, options):\n        ...\n\n      @app.command(name='foo')\n      def bar(args, options):\n        ...\n    "
+    if (name is None):
+        return self._register_command(function)
+    else:
+        return partial(self._register_command, command_name=name)

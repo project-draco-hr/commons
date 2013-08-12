@@ -1,0 +1,30 @@
+def execute(self, targets):
+
+    def extract_resources(target):
+        return (target.resources if has_resources(target) else ())
+    all_resources = set()
+    for resources in map(extract_resources, targets):
+        all_resources.update(resources)
+
+    def target_dir(resources):
+        return os.path.join(self.workdir, resources.id)
+    with self.invalidated(all_resources) as invalidation_check:
+        invalid_targets = set()
+        for vt in invalidation_check.invalid_vts:
+            invalid_targets.update(vt.targets)
+        for resources in invalid_targets:
+            resources_dir = target_dir(resources)
+            safe_mkdir(resources_dir, clean=True)
+            for resource in resources.sources:
+                basedir = os.path.dirname(resource)
+                destdir = os.path.join(resources_dir, basedir)
+                safe_mkdir(destdir)
+                shutil.copy(os.path.join(resources.target_base, resource), os.path.join(resources_dir, resource))
+    genmap = self.context.products.get('resources')
+    egroups = self.context.products.get_data('exclusives_groups')
+    group_key = egroups.get_group_key_for_target(targets[0])
+    for resources in all_resources:
+        resources_dir = target_dir(resources)
+        genmap.add(resources, resources_dir, resources.sources)
+        for conf in self.confs:
+            egroups.update_compatible_classpaths(group_key, [(conf, resources_dir)])

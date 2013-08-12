@@ -1,10 +1,16 @@
-__author__ = 'Brian Wickman'
+import atexit
+from collections import defaultdict
+import errno
 import fcntl
 import os
 import shutil
 import stat
-import errno
-from twitter.common.dirutil.du import du
+import tempfile
+import threading
+_MKDTEMP_CLEANER = None
+_MKDTEMP_DIRS = defaultdict(set)
+_MKDTEMP_LOCK = threading.Lock()
 from twitter.common.dirutil.lock import Lock
 from twitter.common.dirutil.tail import tail_f
-__all__ = ['chmod_plus_x', 'du', 'lock_file', 'safe_mkdir', 'safe_open', 'tail_f', 'unlock_file', 'Lock']
+from twitter.common.dirutil.fileset import Fileset
+__all__ = ('chmod_plus_x', 'du', 'lock_file', 'safe_bsize', 'safe_delete', 'safe_mkdir', 'safe_open', 'safe_size', 'tail_f', 'unlock_file', 'Fileset', 'Lock', '_mkdtemp_atexit_cleaner', '_mkdtemp_register_cleaner', '_mkdtemp_unregister_cleaner', '_MKDTEMP_DIRS')

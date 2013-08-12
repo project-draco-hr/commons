@@ -1,0 +1,9 @@
+def test_basic_recordreader_dup_failure(self):
+    fp = self.mox.CreateMock(FileLike)
+    fp.mode = 'r+'
+    fp.Error = FileLike.Error
+    fp.dup().AndRaise(FileLike.Error)
+    self.mox.ReplayAll()
+    rr = RecordReader(fp)
+    assert (list(rr) == [])
+    self.mox.VerifyAll()

@@ -1,0 +1,11 @@
+@contextmanager
+def exception_handler():
+    try:
+        exception_queue = Queue()
+
+        def queue_exceptions(type, value, traceback):
+            exception_queue.put(ExceptHookInfo(type, value, traceback))
+        sys.excepthook = queue_exceptions
+        yield exception_queue
+    finally:
+        sys.excepthook = sys.__excepthook__

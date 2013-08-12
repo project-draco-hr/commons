@@ -1,0 +1,2 @@
+def _create_git_cmdline(self, args):
+    return ([self._gitcmd, ('--git-dir=%s' % self._gitdir), ('--work-tree=%s' % self._worktree)] + args)

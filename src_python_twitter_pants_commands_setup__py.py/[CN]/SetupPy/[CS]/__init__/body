@@ -1,0 +1,11 @@
+def __init__(self, run_tracker, root_dir, parser, argv):
+    Command.__init__(self, run_tracker, root_dir, parser, argv)
+    if (not self.args):
+        self.error('A spec argument is required')
+    address = Address.parse(root_dir, self.args[0])
+    self.target = Target.get(address)
+    if (self.target is None):
+        self.error(('%s is not a valid target!' % self.args[0]))
+    if (not self.target.provides):
+        self.error('Target must provide an artifact.')
+    self.dependencies = self.minified_dependencies(self.target)

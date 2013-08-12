@@ -6,4 +6,4 @@ dependencies
 excludes
 resources
 processors
-is_meta
+exclusives

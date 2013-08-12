@@ -1,0 +1,3 @@
+@abstractmethod
+def cache_key(self):
+    '\n      Returns the key that can uniquely identify this target in the build cache.\n    '

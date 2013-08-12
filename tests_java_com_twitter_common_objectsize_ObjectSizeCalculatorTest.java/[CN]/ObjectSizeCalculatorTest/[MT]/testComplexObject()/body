@@ -1,0 +1,11 @@
+{
+  ComplexObject<Object> l=new ComplexObject<Object>();
+  l.add(new Object());
+  l.add(new Object());
+  l.add(new Object());
+  long expectedSize=0;
+  expectedSize+=roundTo(O + 2 * R,8);
+  expectedSize+=roundTo(O + 3 * R,8) * 3;
+  expectedSize+=roundTo(O,8) * 3;
+  assertSizeIs(expectedSize,l);
+}

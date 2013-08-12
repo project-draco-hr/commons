@@ -1,0 +1,4 @@
+{
+  configuration.alsoLogToStderr=flag;
+  return this;
+}

@@ -1,0 +1,4 @@
+def is_concrete(target):
+    'Returns true if a target resolves to itself.'
+    targets = list(target.resolve())
+    return ((len(targets) == 1) and (targets[0] == target))

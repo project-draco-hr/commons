@@ -1,3 +1,5 @@
 {
-  super(new LatinTokenizer());
+  setDelimiterPattern(SPLIT_PATTERN);
+  setPunctuationGroupInDelimiterPattern(PUNCTUATION_GROUP);
+  setKeepPunctuation(true);
 }

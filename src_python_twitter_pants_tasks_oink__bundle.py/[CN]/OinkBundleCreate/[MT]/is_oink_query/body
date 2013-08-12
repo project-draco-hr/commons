@@ -1,0 +1,3 @@
+@staticmethod
+def is_oink_query(target):
+    return isinstance(target, OinkQuery)

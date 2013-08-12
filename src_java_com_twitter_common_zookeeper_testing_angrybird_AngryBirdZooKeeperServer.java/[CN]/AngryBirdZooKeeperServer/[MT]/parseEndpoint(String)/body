@@ -3,7 +3,7 @@
   if (endpointComponents.size() != 2) {
     throw new ParseException("Unknown znode data: Expected format id@host:port",0);
   }
-  int nodeId=Integer.parseInt(endpointComponents.get(0));
+  String nodeId=endpointComponents.get(0);
   HostAndPort pair;
   try {
     pair=HostAndPort.fromString(endpointComponents.get(1));

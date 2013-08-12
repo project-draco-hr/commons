@@ -1,32 +1,10 @@
 {
-  AnsiColorDiagnosticListener<FileObject> diagnosticListener=new AnsiColorDiagnosticListener<FileObject>();
-  JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
-  StandardJavaFileManager standardFileManager=compiler.getStandardFileManager(diagnosticListener,null,null);
-  ArgParser argParser=new ArgParser(compiler,diagnosticListener,standardFileManager);
   try {
-    argParser.parse(args);
+    return doCompile(args);
   }
- catch (  IllegalArgumentException e) {
-    System.err.println(e.getMessage());
+ catch (  Throwable t) {
+    System.err.println("Unexpected compilation error:");
+    t.printStackTrace(System.err);
     return 1;
-  }
-  diagnosticListener.prepareConsole(argParser.isColor());
-  try {
-    JavaFileManager fileManager=standardFileManager;
-    File dependencyFile=argParser.getDependencyFile();
-    if (dependencyFile != null) {
-      fileManager=new DependencyTrackingFileManager(standardFileManager,dependencyFile);
-    }
-    try {
-      CompilationTask compilationTask=compiler.getTask(null,fileManager,diagnosticListener,argParser.getOptions(),null,standardFileManager.getJavaFileObjectsFromStrings(argParser.getCompilationUnits()));
-      boolean success=compilationTask.call();
-      return success ? 0 : 1;
-    }
-  finally {
-      fileManager.close();
-    }
-  }
-  finally {
-    diagnosticListener.releaseConsole();
   }
 }

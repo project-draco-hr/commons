@@ -1,25 +1,19 @@
 @staticmethod
 def attempt(context, phases):
-    '\n      Attempts to reach the goals for the supplied phases, optionally recording phase timings and\n      then logging then when all specified phases have completed.\n    '
+    'Attempts to reach the goals for the supplied phases.'
     executed = OrderedDict()
-
-    def emit_timings():
-        if context.timer:
-            for (phase, timings) in executed.items():
-                for (goal, times) in timings.items():
-                    context.timer.log(('%s:%s' % (phase, goal)), times)
     try:
         tasks_by_goal = {}
         expanded = OrderedSet()
         prepared = set()
-        round = 0
+        round_ = 0
         while True:
             goals = list(Phase.execution_order(phases))
             if (set(goals) == prepared):
                 break
             else:
-                round += 1
-                context.log.debug(('Preparing goals in round %d' % round))
+                round_ += 1
+                context.log.debug(('Preparing goals in round %d' % round_))
                 for goal in reversed(goals):
                     if (goal not in prepared):
                         phase = Phase.of(goal)
@@ -28,16 +22,19 @@ def attempt(context, phases):
                         prepared.add(goal)
                         task = goal.prepare(context)
                         tasks_by_goal[goal] = task
-        context.log.debug(('Executing goals in phases %s' % ' -> '.join(map(str, reversed(expanded)))))
+        execution_phases = ' -> '.join(map(str, reversed(expanded)))
+        context.log.debug(('Executing goals in phases %s' % execution_phases))
+        if getattr(context.options, 'explain', None):
+            print(('Phase Execution Order:\n\n%s\n' % execution_phases))
+            print('Phase [Goal->Task] Order:\n')
         for phase in phases:
             Group.execute(phase, tasks_by_goal, context, executed)
-        emit_timings()
-        return 0
-    except (TaskError, GoalError) as e:
+        ret = 0
+    except (TargetDefinitionException, TaskError, GoalError) as e:
         message = ('%s' % e)
         if message:
             print(('\nFAILURE: %s\n' % e))
         else:
             print('\nFAILURE\n')
-        emit_timings()
-        return 1
+        ret = 1
+    return ret

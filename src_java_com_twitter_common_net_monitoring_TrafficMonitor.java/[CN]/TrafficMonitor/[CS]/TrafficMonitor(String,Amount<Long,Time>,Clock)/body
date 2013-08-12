@@ -16,6 +16,6 @@
     }
   }
 ;
-  ScheduledExecutorService gcExecutor=new ScheduledThreadPoolExecutor(1,new ThreadFactoryBuilder().setDaemon(true).setNameFormat("TrafficMonitor-gc-%d").build());
+  gcExecutor=new ScheduledThreadPoolExecutor(1,new ThreadFactoryBuilder().setDaemon(true).setNameFormat("TrafficMonitor-gc-%d").build());
   gcExecutor.scheduleAtFixedRate(gc,gcInterval.as(Time.SECONDS),gcInterval.as(Time.SECONDS),TimeUnit.SECONDS);
 }

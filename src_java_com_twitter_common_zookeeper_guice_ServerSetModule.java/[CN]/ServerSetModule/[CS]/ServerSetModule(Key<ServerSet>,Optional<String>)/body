@@ -1,0 +1,4 @@
+{
+  this.serverSetKey=checkNotNull(serverSetKey);
+  this.auxPortAsPrimary=checkNotNull(auxPortAsPrimary);
+}

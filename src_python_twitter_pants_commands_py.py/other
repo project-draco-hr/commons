@@ -1,9 +1,11 @@
 from __future__ import print_function
 __author__ = 'Brian Wickman'
 import os
+import signal
 from . import Command
 from twitter.common.python.pex import PEX
-from twitter.pants.base import Address, Target
+from twitter.pants import is_concrete
+from twitter.pants.base import Address, Config, Target
 from twitter.pants.targets import PythonBinary
 from twitter.pants.python.python_chroot import PythonChroot
 from twitter.pants.python.resolver import PythonResolver

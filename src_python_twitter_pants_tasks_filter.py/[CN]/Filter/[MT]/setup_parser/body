@@ -1,0 +1,7 @@
+@classmethod
+def setup_parser(cls, option_group, args, mkflag):
+    super(Filter, cls).setup_parser(option_group, args, mkflag)
+    option_group.add_option(mkflag('type'), dest='filter_type', action='append', default=[], help="Identifies target types to include (optional '+' prefix) or exclude ('-' prefix).  Multiple type inclusions or exclusions can be specified at once in a comma separated list or else by using multiple instances of this flag.")
+    option_group.add_option(mkflag('target'), dest='filter_target', action='append', default=[], help="Identifies specific targets to include (optional '+' prefix) or exclude ('-' prefix).  Multiple target inclusions or exclusions can be specified at once in a comma separated list or else by using multiple instances of this flag.")
+    option_group.add_option(mkflag('ancestor'), dest='filter_ancestor', action='append', default=[], help="Identifies ancestor targets (containing targets) that make a select child (contained) targets to include (optional '+' prefix) or exclude ('-' prefix).  Multiple ancestor inclusions or exclusions can be specified at once in a comma separated list or else by using multiple instances of this flag.")
+    option_group.add_option(mkflag('regex'), dest='filter_regex', action='append', default=[], help="Identifies regexes of target addresses to include (optional '+' prefix) or exclude ('-' prefix).  Multiple target inclusions or exclusions can be specified at once in a comma separated list or else by using multiple instances of this flag.")

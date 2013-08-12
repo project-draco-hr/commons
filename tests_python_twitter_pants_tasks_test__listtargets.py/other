@@ -1,0 +1,6 @@
+import os
+from textwrap import dedent
+from twitter.pants import is_concrete
+from twitter.pants.base.target import Target
+from twitter.pants.tasks.listtargets import ListTargets
+from . import ConsoleTaskTest

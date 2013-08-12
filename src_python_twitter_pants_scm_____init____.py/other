@@ -1,0 +1,2 @@
+from abc import abstractmethod, abstractproperty
+from twitter.common.lang import AbstractClass

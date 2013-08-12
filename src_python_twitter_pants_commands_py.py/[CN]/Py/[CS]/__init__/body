@@ -1,25 +1,35 @@
-def __init__(self, root_dir, parser, argv):
-    Command.__init__(self, root_dir, parser, argv)
+def __init__(self, run_tracker, root_dir, parser, argv):
+    Command.__init__(self, run_tracker, root_dir, parser, argv)
     if (not self.args):
         self.error('A spec argument is required')
-    targets = []
+    self.target = None
+    self.extra_targets = []
     for k in range(len(self.args)):
-        arg = self.args[0]
+        arg = self.args.pop(0)
         if (arg == '--'):
-            self.args.pop(0)
             break
+        target = None
         try:
             address = Address.parse(root_dir, arg)
             target = Target.get(address)
-        except Exception as e:
-            break
+        except Exception:
+            pass
         if (not target):
             break
-        targets.append(target)
-        self.args.pop(0)
-        if isinstance(target, PythonBinary):
+        binaries = []
+        for resolved in filter(is_concrete, target.resolve()):
+            if isinstance(resolved, PythonBinary):
+                binaries.append(resolved)
+            else:
+                self.extra_targets.append(resolved)
+        if (not binaries):
+            pass
+        elif (len(binaries) == 1):
+            self.target = binaries[0]
             break
-    self.target = (targets.pop(0) if targets else None)
-    self.extra_targets = targets
+        else:
+            self.error(('Can only process 1 binary target, %s contains %d:\n\t%s' % (arg, len(binaries), '\n\t'.join((str(binary.address) for binary in binaries)))))
     if (self.target is None):
-        self.error('No valid target specified!')
+        if (not self.extra_targets):
+            self.error('No valid target specified!')
+        self.target = self.extra_targets.pop(0)

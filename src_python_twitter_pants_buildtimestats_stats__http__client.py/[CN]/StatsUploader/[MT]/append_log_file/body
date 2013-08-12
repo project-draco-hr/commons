@@ -1,0 +1,4 @@
+def append_log_file(self, log_level):
+    target_file = os.path.join('/tmp', self._user, ('buildtime_uploader' + LOG_FILES[log_level]))
+    source_file = ((self._stats_log_file + '.') + log_level)
+    self._append_to_file(source_file, target_file)

@@ -1,0 +1,2 @@
+Class<X> exceptionType
+ExceptionalSupplier<R,X> work

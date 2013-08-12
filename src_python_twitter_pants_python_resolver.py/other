@@ -7,6 +7,6 @@ import pkg_resources
 from twitter.common.collections import OrderedSet
 from twitter.common.python.fetcher import Fetcher
 from twitter.common.python.resolver import Resolver
+from twitter.pants import is_concrete
 from twitter.pants.base import Config
-from twitter.pants.base import Target, Address
 from twitter.pants.targets import PythonBinary, PythonLibrary, PythonAntlrLibrary, PythonRequirement, PythonThriftLibrary, PythonTests

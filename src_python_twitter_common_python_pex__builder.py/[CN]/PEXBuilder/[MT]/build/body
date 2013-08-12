@@ -2,7 +2,7 @@ def build(self, filename):
     self.freeze()
     try:
         os.unlink((filename + '~'))
-        print ('WARNING: Previous binary unexpectedly exists, cleaning: %s' % (filename + '~'))
+        self._logger.warn(('Previous binary unexpectedly exists, cleaning: %s' % (filename + '~')))
     except OSError:
         pass
     with open((filename + '~'), 'ab') as pexfile:

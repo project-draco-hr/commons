@@ -1,0 +1,10 @@
+def __init__(self, size=1, iv=None):
+    if ((not isinstance(size, int)) or (not (size >= 1))):
+        raise ValueError('Size must be an integer >= 1')
+    if (iv is not None):
+        super(RingBuffer, self).__init__(([iv] * size))
+        self._count = size
+    else:
+        self._count = 0
+    self._zero = 0
+    self._size = size

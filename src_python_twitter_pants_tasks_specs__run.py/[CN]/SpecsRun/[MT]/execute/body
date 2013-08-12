@@ -2,9 +2,12 @@ def execute(self, targets):
     if (not self.skip):
 
         def run_tests(tests):
-            args = (['--color'] if self.color else [])
-            args.append(('--specs=%s' % ','.join(tests)))
-            result = runjava(jvmargs=self.java_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs), main='com.twitter.common.testing.ExplicitSpecsRunnerMain', args=args)
+
+            def workunit_factory(name, labels=list(), cmd=''):
+                return self.context.new_workunit(name=name, labels=([WorkUnit.TEST] + labels), cmd=cmd)
+            opts = (['--color'] if self.color else [])
+            opts.append(('--specs=%s' % ','.join(tests)))
+            result = runjava_indivisible(jvmargs=self.java_args, classpath=self.classpath(profile_classpath(self.profile), confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0])), main='com.twitter.common.testing.ExplicitSpecsRunnerMain', opts=opts, workunit_factory=workunit_factory, workunit_name='specs')
             if (result != 0):
                 raise TaskError()
         if self.tests:

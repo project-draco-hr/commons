@@ -1,0 +1,3 @@
+def require_data(self, *typename):
+    for t in typename:
+        self.data_products[t] = {}

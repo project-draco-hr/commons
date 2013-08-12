@@ -1,0 +1,13 @@
+@unittest.skipUnless(_SCRIBE_PRESENT, 'Scribe Modules Not Present')
+def test_buffer_connect_fail_close_client_fail(self):
+    self.setup_mock_transport()
+    self.setup_mock_client()
+    self.set_handler(self.handler_buffer)
+    self.mock_transport.open().AndRaise(TTransport.TTransportException)
+    self.mock_transport.close()
+    self.mock_transport.open()
+    self.mock_client.Log(_MESSAGES).AndReturn(scribe.ResultCode.TRY_LATER)
+    self.mock_transport.close()
+    self.mox.ReplayAll()
+    logging.debug(_TEST_MSG)
+    self.assertEquals(self.handler._log_buffer, _MESSAGES)

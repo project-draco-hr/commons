@@ -1,0 +1,4 @@
+def test_nodups(self):
+    targets = ([self.target('common/b')] * 2)
+    self.assertEqual(2, len(targets))
+    self.assert_console_output('common/b/BUILD:b', targets=targets)

@@ -1,0 +1,2 @@
+Capture<HostChangeMonitor<ServiceInstance>> capture
+ServiceInstance hostChanges

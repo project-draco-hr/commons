@@ -1,0 +1,6 @@
+{
+  if (loadable) {
+    LOG.info("Loading " + this);
+    System.load(file.getPath());
+  }
+}

@@ -1,3 +1,5 @@
 {
+  N tokenizer=buildTokenizer(null);
+  initialize(tokenizer);
   return tokenizer;
 }

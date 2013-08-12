@@ -1,0 +1,8 @@
+{
+  if (isLeft()) {
+    return String.format("Left(%s)",getLeft());
+  }
+ else {
+    return String.format("Right(%s)",getRight());
+  }
+}

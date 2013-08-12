@@ -1,0 +1,4 @@
+def __init__(self, server_url, api_base='/rest/api/2/', user=None, password=None):
+    self._base_url = urlparse.urljoin(server_url, api_base)
+    self._user = (user or getpass.getuser())
+    self._pass = password

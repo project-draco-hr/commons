@@ -1,6 +1,5 @@
 def calculate_tests(self, targets):
-    for target in targets:
-        if ((is_java(target) or is_scala(target)) and is_test(target)):
-            for test in target.sources:
-                for cls in self.normalize(test, target.target_base):
-                    yield cls
+    for target in self.test_target_candidates(targets):
+        for test in target.sources:
+            for cls in self.normalize(test, target.target_base):
+                yield cls

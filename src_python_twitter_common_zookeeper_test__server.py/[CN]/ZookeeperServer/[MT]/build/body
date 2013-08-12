@@ -1,5 +1,12 @@
 @classmethod
 def build(cls):
     if (not cls.BUILT):
+        pex_keys = {}
+        for key in os.environ:
+            if key.startswith('PEX'):
+                pex_keys[key] = os.environ[key]
+                os.unsetenv(key)
         assert (subprocess.call(cls.BUILD_COMMAND.split()) == 0)
+        for key in pex_keys:
+            os.putenv(key, pex_keys[key])
         cls.BUILT = True

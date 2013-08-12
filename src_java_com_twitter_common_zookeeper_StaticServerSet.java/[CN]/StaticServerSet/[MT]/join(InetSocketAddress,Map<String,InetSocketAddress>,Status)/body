@@ -1,0 +1,4 @@
+{
+  LOG.warning("This method is deprecated. Please do not specify a status field.");
+  return join(endpoint,auxEndpoints,Optional.<Integer>absent());
+}

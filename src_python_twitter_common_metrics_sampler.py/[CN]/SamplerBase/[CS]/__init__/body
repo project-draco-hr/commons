@@ -1,0 +1,6 @@
+def __init__(self, period, clock):
+    self._stop = threading.Event()
+    self._period = period
+    self._clock = clock
+    ExceptionalThread.__init__(self)
+    self.daemon = True

@@ -3,9 +3,8 @@
     return false;
   }
   CharBuffer token=tokens.get(tokenIndex);
-  termAttr.setOffset(token.position());
-  termAttr.setLength(token.limit() - token.position());
-  typeAttr.setType(tokenTypes.get(tokenIndex));
+  updateOffsetAndLength(token.position(),token.limit() - token.position());
+  updateType(tokenTypes.get(tokenIndex));
   tokenIndex++;
   return true;
 }

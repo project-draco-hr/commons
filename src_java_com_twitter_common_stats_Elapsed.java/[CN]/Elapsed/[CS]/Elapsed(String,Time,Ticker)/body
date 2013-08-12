@@ -1,0 +1,12 @@
+{
+  MorePreconditions.checkNotBlank(name);
+  Preconditions.checkNotNull(granularity);
+  this.ticker=Preconditions.checkNotNull(ticker);
+  reset();
+  Stats.export(new StatImpl<Long>(name){
+    @Override public Long read(){
+      return Amount.of(ticker.read() - lastEventNs.get(),Time.NANOSECONDS).as(granularity);
+    }
+  }
+);
+}

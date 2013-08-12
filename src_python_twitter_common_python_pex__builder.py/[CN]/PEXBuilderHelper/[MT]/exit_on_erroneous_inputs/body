@@ -1,0 +1,9 @@
+@classmethod
+def exit_on_erroneous_inputs(cls, options, parser):
+    if ((len(options.source_dirs) == 0) and (options.requirements_txt is None) and (len(options.requirements) == 0)):
+        cls.logger.error('Nothing to build (or run)!')
+        parser.print_help()
+        sys.exit(cls.error_code.NOTHING_TO_BUILD)
+    if options.lightweight:
+        cls.logger.error('Lightweight PEXs not implemented! Bug us!!')
+        sys.exit(cls.error_code.NOT_IMPLEMENTED)

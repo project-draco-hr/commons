@@ -1,0 +1,18 @@
+{
+  Enumeration<URL> resourcesEnumeration=getClass().getClassLoader().getResources("META-INF/native.mf");
+  Set<NativeResource> resources=Sets.newLinkedHashSet();
+  while (resourcesEnumeration.hasMoreElements()) {
+    URL manifestUrl=resourcesEnumeration.nextElement();
+    for (    String line : Resources.readLines(manifestUrl,Charsets.UTF_8)) {
+      String normalizedLine=line.trim();
+      if (!normalizedLine.startsWith("#")) {
+        NativeResource nativeResource=NativeResource.parse(libPath,deleteExtractedOnExit,normalizedLine);
+        if (!resources.add(nativeResource)) {
+          throw new IllegalStateException("Already detected a native resource for " + normalizedLine + " in "+ manifestUrl);
+        }
+      }
+    }
+  }
+  LOG.info("Found native resources: " + resources);
+  return resources;
+}

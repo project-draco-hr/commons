@@ -1,0 +1,19 @@
+{
+  clock.advance(Amount.of(40L * 365,Time.DAYS));
+  expect(response.getStatus()).andReturn(200).atLeastOnce();
+  expect(request.getServerName()).andReturn("snoopy");
+  expect(request.getHeader(HttpHeaders.X_FORWARDED_FOR)).andReturn(null);
+  expect(request.getMethod()).andReturn("GET");
+  expect(request.getUri()).andReturn(new HttpURI("/"));
+  expect(request.getProtocol()).andReturn("http");
+  expect(response.getContentCount()).andReturn(256L);
+  expect(request.getRemoteAddr()).andReturn("easymock-test");
+  expect(request.getHeader(HttpHeaders.REFERER)).andReturn(null);
+  expect(request.getHeader(HttpHeaders.USER_AGENT)).andReturn("junit");
+  expect(request.getTimeStamp()).andReturn(clock.nowMillis()).atLeastOnce();
+  expect(sink.isLoggable(Level.FINE)).andReturn(true);
+  sink.log(Level.FINE,"snoopy easymock-test [22/Dec/2009:00:00:00 +0000]" + " \"GET / http\" 200 256 \"-\" \"junit\" 110");
+  control.replay();
+  clock.advance(Amount.of(110L,Time.MILLISECONDS));
+  log.log(request,response);
+}

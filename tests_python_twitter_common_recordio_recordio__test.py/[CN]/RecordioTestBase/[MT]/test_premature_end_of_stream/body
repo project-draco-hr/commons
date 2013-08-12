@@ -1,0 +1,9 @@
+def test_premature_end_of_stream(self):
+    with self.EphemeralFile('r+') as fp:
+        fpr = FileLike.get(fp)
+        fpr = fp
+        fpr.write(struct.pack('>L', 1))
+        fpr.seek(0)
+        rr = RecordReader(fpr)
+        with pytest.raises(RecordIO.PrematureEndOfStream):
+            rr.read()

@@ -4,15 +4,15 @@
 );
   BackoffHelper maxBackoffHelper=new BackoffHelper(clock,backoffStrategy);
   expect(task.get()).andReturn(null);
-  expect(backoffStrategy.shouldContinue()).andReturn(true);
+  expect(backoffStrategy.shouldContinue(0L)).andReturn(true);
   expect(backoffStrategy.calculateBackoffMs(0)).andReturn(42L);
   clock.waitFor(42L);
   expect(task.get()).andReturn(null);
-  expect(backoffStrategy.shouldContinue()).andReturn(true);
+  expect(backoffStrategy.shouldContinue(42L)).andReturn(true);
   expect(backoffStrategy.calculateBackoffMs(42L)).andReturn(37L);
   clock.waitFor(37L);
   expect(task.get()).andReturn(null);
-  expect(backoffStrategy.shouldContinue()).andReturn(false);
+  expect(backoffStrategy.shouldContinue(37L)).andReturn(false);
   control.replay();
   try {
     maxBackoffHelper.doUntilResult(task);

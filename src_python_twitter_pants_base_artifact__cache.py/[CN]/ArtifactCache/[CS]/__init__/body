@@ -1,4 +1,0 @@
-def __init__(self, context, artifact_root):
-    'Create an ArtifactCache.\n\n    All artifacts must be under artifact_root.\n    '
-    self.context = context
-    self.artifact_root = artifact_root

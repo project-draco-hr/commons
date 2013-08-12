@@ -1,17 +1,9 @@
-def resolve(self, requirements, ignore_errors=False):
-    if isinstance(requirements, (list, tuple, GeneratorType)):
-        reqs = list((RequirementWrapper.get(req) for req in requirements))
-    else:
-        reqs = [RequirementWrapper.get(requirements)]
-    resolved = OrderedSet()
-    for req in reqs:
-        with self.timed(('Resolved %s' % req)):
-            try:
-                distributions = self._ws.resolve([req], env=self)
-            except DistributionNotFound as e:
-                self._log(('Failed to resolve %s' % req))
-                if (not ignore_errors):
-                    raise
-                continue
-            resolved.update(distributions)
-    return list(resolved)
+def resolve(self, requirements, python=Platform.python(), platform=Platform.current()):
+    requirements = maybe_requirement_list(requirements)
+    env = ResolverEnvironment([d.location for d in (self._entries | self._cached_entries)], python=python, platform=platform)
+    added = set()
+    for dist in super(Resolver, self).resolve(requirements, env=env, installer=self.make_installer(python, platform)):
+        if (dist not in self._entries):
+            added.add(dist)
+            self._entries.add(dist)
+    return added

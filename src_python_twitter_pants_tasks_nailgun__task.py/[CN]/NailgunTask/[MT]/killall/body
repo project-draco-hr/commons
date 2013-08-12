@@ -1,0 +1,3 @@
+@staticmethod
+def killall(log, everywhere=False):
+    NailgunProcessManager.killall(log, everywhere)

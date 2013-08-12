@@ -1,0 +1,5 @@
+{
+  ZooKeeperMap<String> zkMap=makeUninitializedMap(path,listener);
+  zkMap.init();
+  return zkMap;
+}

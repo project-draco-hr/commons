@@ -1,0 +1,27 @@
+{
+  CharSequenceTermAttribute termAttr=tokenizer.getAttribute(CharSequenceTermAttribute.class);
+  TokenTypeAttribute typeAttr=tokenizer.getAttribute(TokenTypeAttribute.class);
+  PartOfSpeechAttribute posAttr=null;
+  if (tokenizer.hasAttribute(PartOfSpeechAttribute.class)) {
+    posAttr=tokenizer.getAttribute(PartOfSpeechAttribute.class);
+  }
+  PositionIncrementAttribute incAttr=null;
+  if (tokenizer.hasAttribute(PositionIncrementAttribute.class)) {
+    incAttr=tokenizer.getAttribute(PositionIncrementAttribute.class);
+  }
+  TokenGroupAttributeImpl groupAttr=null;
+  if (tokenizer.hasAttribute(TokenGroupAttribute.class)) {
+    groupAttr=(TokenGroupAttributeImpl)tokenizer.getAttribute(TokenGroupAttribute.class);
+  }
+  TokenizedCharSequence.Builder builder=null;
+  while (tokenizer.incrementToken()) {
+    if (builder == null) {
+      builder=new TokenizedCharSequence.Builder(termAttr.getCharSequence());
+    }
+    builder.addToken(termAttr.getOffset(),termAttr.getLength(),typeAttr.getType(),posAttr == null ? Token.DEFAULT_PART_OF_SPEECH : posAttr.getPOS(),incAttr == null ? 1 : incAttr.getPositionIncrement(),groupAttr == null || groupAttr.isEmpty() ? null : (groupAttr.getSequence() == null ? createFrom(groupAttr.getTokenGroupStream()) : groupAttr.getSequence()));
+  }
+  if (builder == null) {
+    builder=new TokenizedCharSequence.Builder("");
+  }
+  return builder.build();
+}

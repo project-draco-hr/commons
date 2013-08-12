@@ -1,0 +1,4 @@
+@classmethod
+@contextmanager
+def EphemeralFile(cls, mode):
+    yield StringIO()

@@ -1,15 +1,16 @@
+import logging
 import os
 import pkg_resources
 import sys
 import tempfile
-from pkg_resources import Distribution, DistributionNotFound, EggMetadata
+from zipimport import zipimporter
 from twitter.common.lang import Compatibility
 from twitter.common.dirutil import chmod_plus_x
 from twitter.common.dirutil.chroot import Chroot
-from twitter.common.python.importer import EggZipImporter
-from twitter.common.python.interpreter import PythonIdentity
-from twitter.common.python.marshaller import CodeMarshaller
-from twitter.common.python.pex_info import PexInfo
-from twitter.common.python.pex import PEX
-from twitter.common.python.util import DistributionHelper
-BOOTSTRAP_ENVIRONMENT = "\nimport os\nimport sys\n\n__entry_point__ = None\nif '__file__' in locals() and __file__ is not None:\n  __entry_point__ = os.path.dirname(__file__)\nelif '__loader__' in locals():\n  from zipimport import zipimporter\n  from pkgutil import ImpLoader\n  #if isinstance(__loader__, (builtin_zipimport.zipimporter, EggZipImporter)):\n  if hasattr(__loader__, 'archive'):\n    __entry_point__ = __loader__.archive\n  elif isinstance(__loader__, ImpLoader):\n    __entry_point__ = os.path.dirname(__loader__.get_filename())\n\nif __entry_point__ is None:\n  sys.stderr.write('Could not launch python executable!\\n')\n  sys.exit(2)\n\nsys.path[0] = os.path.abspath(sys.path[0])\nsys.path.insert(0, os.path.abspath(os.path.join(__entry_point__, '.bootstrap')))\n\nfrom twitter.common.python.importer import monkeypatch\nmonkeypatch()\ndel monkeypatch\n\nfrom twitter.common.python.pex import PEX\nPEX(__entry_point__).execute()\n"
+from .interpreter import PythonIdentity
+from .marshaller import CodeMarshaller
+from .pex_info import PexInfo
+from .pex import PEX
+from .util import DistributionHelper
+from pkg_resources import Distribution, DistributionNotFound, EggMetadata
+BOOTSTRAP_ENVIRONMENT = "\nimport os\nimport sys\n\n__entry_point__ = None\nif '__file__' in locals() and __file__ is not None:\n  __entry_point__ = os.path.dirname(__file__)\nelif '__loader__' in locals():\n  from zipimport import zipimporter\n  from pkgutil import ImpLoader\n  if hasattr(__loader__, 'archive'):\n    __entry_point__ = __loader__.archive\n  elif isinstance(__loader__, ImpLoader):\n    __entry_point__ = os.path.dirname(__loader__.get_filename())\n\nif __entry_point__ is None:\n  sys.stderr.write('Could not launch python executable!\\n')\n  sys.exit(2)\n\nsys.path[0] = os.path.abspath(sys.path[0])\nsys.path.insert(0, os.path.abspath(os.path.join(__entry_point__, '.bootstrap')))\n\nfrom twitter.common.python.importer import monkeypatch\nmonkeypatch()\ndel monkeypatch\n\nfrom twitter.common.python.pex import PEX\nPEX(__entry_point__).execute()\n"

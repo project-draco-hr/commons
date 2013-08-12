@@ -1,0 +1,2 @@
+def _full_head(self):
+    return (self._head.extend(self._tail) if self._tail else self._head)

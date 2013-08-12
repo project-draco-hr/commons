@@ -1,0 +1,7 @@
+@property
+def client(self):
+    'Scribe client object.'
+    if (not self._client):
+        protocol = TBinaryProtocol.TBinaryProtocol(trans=self.transport, strictRead=False, strictWrite=False)
+        self._client = scribe.Client(iprot=protocol, oprot=protocol)
+    return self._client

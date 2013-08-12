@@ -1,7 +1,3 @@
-def __init__(self, hz=100):
-    self._rate = (1.0 / hz)
+def __init__(self):
     self._time = 0
-    self._cond = threading.Condition()
     self._waiters = []
-    self._awaken = False
-    self.reset()

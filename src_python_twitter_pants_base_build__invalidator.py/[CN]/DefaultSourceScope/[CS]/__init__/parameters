@@ -1,0 +1,3 @@
+self
+recursive
+include_buildfile

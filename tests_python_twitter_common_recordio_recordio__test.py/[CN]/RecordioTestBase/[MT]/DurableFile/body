@@ -1,0 +1,5 @@
+@classmethod
+@contextmanager
+def DurableFile(cls, mode):
+    with DurableFileBase(mode) as fp:
+        yield fp

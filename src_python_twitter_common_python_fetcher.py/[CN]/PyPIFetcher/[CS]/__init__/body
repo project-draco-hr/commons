@@ -1,0 +1,4 @@
+def __init__(self, pypi_base=PYPI_BASE, use_mirrors=False):
+    parts = urlparse.urlparse(pypi_base)
+    (self.scheme, host) = ((parts.scheme, parts.netloc) if parts.scheme else ('http', pypi_base))
+    self.mirrors = (self.resolve_mirrors(host) if use_mirrors else [host])

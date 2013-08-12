@@ -1,9 +1,0 @@
-__author__ = 'Mark McBride'
-from twitter.pants import get_buildroot
-from twitter.pants.commands.doc import Doc
-from twitter.common.contextutil import temporary_dir
-import optparse
-import os
-import shutil
-import unittest
-import tempfile

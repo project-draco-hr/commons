@@ -1,0 +1,6 @@
+def __init__(self, host=None, port=None, http_endpoint=None, stats_dir=None):
+    self._client = None
+    self._host = host
+    self._port = port
+    self._http_endpoint = http_endpoint
+    self._stats_dir = stats_dir

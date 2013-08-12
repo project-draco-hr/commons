@@ -1,0 +1,7 @@
+@pytest.mark.skipif('PLATFORM_SUPPORTED')
+def test_identified_thread_unsupported_platform():
+    thread = TestThread()
+    thread.start()
+    thread.start_event.wait()
+    assert (thread.__thread_id == 'UNKNOWN')
+    thread.stop_event.set()

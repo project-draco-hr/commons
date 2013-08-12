@@ -1,0 +1,5 @@
+def __init__(self, filename_or_filelike, infinite=False):
+    self._fp = self.maybe_filelike(filename_or_filelike)
+    self._buffer = deque()
+    self._tail = None
+    self._infinite = infinite

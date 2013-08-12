@@ -1,0 +1,6 @@
+def test_legacy(self):
+    self.create_dir('main')
+    with ParseContext.temp('main'):
+        target = WithLegacyResources('test', resources=['a/b.js'])
+        self.assertEquals([self.resources], target.resources)
+        self.assertEquals([self.resource_path], self.resources.sources)

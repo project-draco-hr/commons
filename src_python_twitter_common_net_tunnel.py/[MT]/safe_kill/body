@@ -1,0 +1,8 @@
+def safe_kill(po):
+    '\n    Given a Popen object, safely kill it without an unexpected exception.\n  '
+    try:
+        po.kill()
+    except OSError as e:
+        if (e.errno != errno.ESRCH):
+            raise
+    po.wait()

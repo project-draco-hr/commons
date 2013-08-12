@@ -1,0 +1,2 @@
+def test_list_provides_customcols(self):
+    self.assert_console_output('/tmp/publish.properties a/b/BUILD:b http://maven.twttr.com public com.twitter#b', '/tmp/publish.properties a/b/c/BUILD:c2 http://maven.twttr.com public com.twitter#c2', args=['--test-provides', '--test-provides-columns=repo_db,address,repo_url,repo_name,artifact_id'])

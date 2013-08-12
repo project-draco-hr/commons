@@ -1,0 +1,4 @@
+import os
+import re
+from twitter.pants.binary_util import select_binary
+INCLUDE_PARSER = re.compile('^\\s*include\\s+"([^"]+)"\\s*$')

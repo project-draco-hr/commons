@@ -1,0 +1,3 @@
+def parse_data_into(option_name, default=None):
+    '\n    An optparse-compatible callback for populating Amounts of Data.\n  '
+    return parse_amount_into(parse_data, option_name, default=default)

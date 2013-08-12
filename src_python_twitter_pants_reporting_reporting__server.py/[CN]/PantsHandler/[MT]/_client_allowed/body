@@ -1,0 +1,7 @@
+def _client_allowed(self):
+    'Check if client is allowed to connect to this server.'
+    client_ip = self._client_address[0]
+    if ((not (client_ip in self._settings.allowed_clients)) and (not ('ALL' in self._settings.allowed_clients))):
+        self._send_content(('Access from host %s forbidden.' % client_ip), 'text/html')
+        return False
+    return True

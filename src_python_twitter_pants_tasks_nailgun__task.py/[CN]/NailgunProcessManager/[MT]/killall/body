@@ -1,0 +1,8 @@
+@staticmethod
+def killall(log, everywhere=False):
+    for pid in NailgunProcessManager._find_ngs(everywhere=everywhere):
+        try:
+            NailgunTask._log_kill(log, pid)
+            os.kill(pid, signal.SIGKILL)
+        except OSError:
+            pass

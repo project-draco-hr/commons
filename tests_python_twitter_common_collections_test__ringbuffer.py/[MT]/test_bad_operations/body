@@ -1,0 +1,11 @@
+def test_bad_operations():
+    with pytest.raises(ValueError):
+        RingBuffer(0)
+    r = RingBuffer()
+    with pytest.raises(IndexError):
+        r[1]
+    with pytest.raises(IndexError):
+        r[(-1)]
+    r.append(1)
+    with pytest.raises(RingBuffer.InvalidOperation):
+        del r[0]

@@ -1,0 +1,26 @@
+{
+  if (metricsQuery == null) {
+    return gson.toJson(ImmutableList.copyOf(timeSeriesRepo.getAvailableSeries()));
+  }
+  List<Iterable<Number>> tsData=Lists.newArrayList();
+  tsData.add(timeSeriesRepo.getTimestamps());
+  Iterable<String> names=Iterables.filter(Splitter.on(",").split(metricsQuery),Predicates.not(Predicates.equalTo(TIME_METRIC)));
+  for (  String metric : names) {
+    TimeSeries series=timeSeriesRepo.get(metric);
+    if (series == null) {
+      JsonObject response=new JsonObject();
+      response.addProperty("error","Unknown metric " + metric);
+      throw new MetricException(gson.toJson(response));
+    }
+    tsData.add(series.getSamples());
+  }
+  final long since=Long.parseLong(Optional.fromNullable(sinceQuery).or("0"));
+  Predicate<List<Number>> sinceFilter=new Predicate<List<Number>>(){
+    @Override public boolean apply(    List<Number> next){
+      return next.get(0).longValue() > since;
+    }
+  }
+;
+  ResponseStruct response=new ResponseStruct(ImmutableList.<String>builder().add(TIME_METRIC).addAll(names).build(),FluentIterable.from(Iterables2.zip(tsData,0)).filter(sinceFilter).toImmutableList());
+  return gson.toJson(response);
+}

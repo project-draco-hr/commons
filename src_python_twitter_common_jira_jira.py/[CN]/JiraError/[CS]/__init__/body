@@ -1,0 +1,3 @@
+def __init__(self, cause=None, message=None):
+    self._cause = cause
+    self._message = message

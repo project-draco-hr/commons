@@ -1,5 +1,5 @@
 {
   expectCalls(10,20,30,40);
   control.replay();
-  assertResults(Rate.of(input).withClock(clock).withScaleFactor(10).build(),100,100,100);
+  assertResults(Rate.of(input).withTicker(ticker).withScaleFactor(10).build(),100,100,100);
 }

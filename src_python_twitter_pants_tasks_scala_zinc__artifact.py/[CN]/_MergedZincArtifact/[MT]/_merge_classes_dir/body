@@ -1,7 +1,5 @@
 def _merge_classes_dir(self, state):
     "Merge the classes dirs from the underlying artifacts into a single dir.\n\n    May symlink instead of copying, when it's OK to do so.\n\n    Postcondition: symlinks are of leaf packages only.\n    "
-    if (len(self.underlying_artifacts) <= 1):
-        return
     self.log.debug(('Merging classes dirs into %s' % self.classes_dir))
     safe_rmtree(self.classes_dir)
     symlinkable_packages = self._symlinkable_packages(state)
@@ -10,6 +8,8 @@ def _merge_classes_dir(self, state):
         for cls in state.classes_by_target.get(artifact.targets[0], []):
             classnames_by_package[os.path.dirname(cls)].append(os.path.basename(cls))
         for (package, classnames) in classnames_by_package.items():
+            if (package == ''):
+                raise TaskError(('Found class files %s with empty package' % classnames))
             artifact_package_dir = os.path.join(artifact.classes_dir, package)
             merged_package_dir = os.path.join(self.classes_dir, package)
             if (package in symlinkable_packages):

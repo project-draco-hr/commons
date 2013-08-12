@@ -1,6 +1,4 @@
 def _create_java_target(self, target):
-    genfiles = []
-    for source in target.sources:
-        genfiles.extend(self._calculate_genfiles(os.path.join(target.target_base, source)))
-    self.gen_dml_jls[target].sources = genfiles
+    source_files = [os.path.join(target.target_base, source) for source in target.sources]
+    self.gen_dml_jls[target].sources = self._calculate_genfiles(source_files)
     return self.gen_dml_jls[target]

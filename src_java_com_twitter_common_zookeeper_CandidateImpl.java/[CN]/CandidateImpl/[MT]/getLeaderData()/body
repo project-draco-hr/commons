@@ -1,8 +1,4 @@
 {
   String leaderId=getLeader(group.getMemberIds());
-  if (leaderId == null) {
-    return null;
-  }
-  byte[] data=group.getMemberData(leaderId);
-  return data == null ? new byte[0] : data;
+  return leaderId == null ? Optional.<byte[]>absent() : Optional.of(group.getMemberData(leaderId));
 }

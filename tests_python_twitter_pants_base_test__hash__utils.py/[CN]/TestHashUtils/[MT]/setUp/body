@@ -1,0 +1,3 @@
+def setUp(self):
+    super(TestHashUtils, self).setUp()
+    self.digest = self.mox.CreateMockAnything()

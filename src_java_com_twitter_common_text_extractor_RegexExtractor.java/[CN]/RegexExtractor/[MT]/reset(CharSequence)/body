@@ -1,6 +1,7 @@
 {
   Preconditions.checkNotNull(input);
-  charSeqTermAtt.setTermBuffer(input);
+  updateInputCharSequence(input);
+  clearAttributes();
   if (triggeringChar > 0) {
     boolean foundTriggeringChar=false;
     for (int i=0; i < input.length(); i++) {

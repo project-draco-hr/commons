@@ -1,4 +1,6 @@
-def __init__(self, name, is_meta=False):
-    Target.__init__(self, name, is_meta)
-    self.add_label('sources')
+def __init__(self, name, sources=None, exclusives=None):
+    Target.__init__(self, name, exclusives=exclusives)
+    self.add_labels('sources')
     self.target_base = SourceRoot.find(self)
+    self.sources = None
+    self._sources = (sources or [])

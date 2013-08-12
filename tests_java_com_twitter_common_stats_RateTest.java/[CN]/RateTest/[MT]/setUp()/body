@@ -1,5 +1,5 @@
 {
   control=createControl();
-  clock=new FakeClock();
+  ticker=new FakeTicker();
   input=control.createMock(Stat.class);
 }

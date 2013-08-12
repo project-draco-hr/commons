@@ -1,0 +1,3 @@
+{
+  templateHelper=new StringTemplateHelper(getClass(),"template",false);
+}

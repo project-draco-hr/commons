@@ -1,0 +1,7 @@
+def test_recordreader_works_with_plus(self):
+    for mode in ('a+', 'w+'):
+        with self.EphemeralFile(mode) as fp:
+            try:
+                RecordReader(fp)
+            except Exception as e:
+                assert False, ("Failed to initialize RecordReader in '%s' mode (exception: %s)" % (mode, e))

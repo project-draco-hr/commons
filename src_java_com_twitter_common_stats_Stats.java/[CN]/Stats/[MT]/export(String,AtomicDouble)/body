@@ -1,0 +1,9 @@
+{
+  export(new StatImpl<Double>(name){
+    @Override public Double read(){
+      return doubleVar.doubleValue();
+    }
+  }
+);
+  return doubleVar;
+}

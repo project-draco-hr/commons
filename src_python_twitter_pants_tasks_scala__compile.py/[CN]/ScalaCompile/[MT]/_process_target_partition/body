@@ -7,19 +7,18 @@ def _process_target_partition(self, vts, cp, upstream_analysis_map):
     else:
         current_state = merged_artifact.merge(force=(not vts.valid))
         if any([(not vt.valid) for vt in vts.versioned_targets]):
+            self.context.log.info('Operating on a partition containing ', items_to_report_element(vts.cache_key.sources, 'source'), ' in ', items_to_report_element([t.address.reference() for t in vts.targets], 'target'), '.')
             old_state = current_state
             classpath = [entry for (conf, entry) in cp if (conf in self._confs)]
-            self.context.log.info(('Compiling targets %s' % vts.targets))
-            vts.force_invalidate()
-            if self._zinc_utils.compile(classpath, merged_artifact.sources, merged_artifact.classes_dir, merged_artifact.analysis_file, upstream_analysis_map):
-                raise TaskError('Compile failed.')
+            with self.context.new_workunit('compile'):
+                vts.force_invalidate()
+                if self._zinc_utils.compile(classpath, merged_artifact.sources, merged_artifact.classes_dir, merged_artifact.analysis_file, upstream_analysis_map):
+                    raise TaskError('Compile failed.')
             write_to_artifact_cache = (self._artifact_cache and self.context.options.write_to_artifact_cache)
             current_state = merged_artifact.split(old_state, portable=write_to_artifact_cache)
             if write_to_artifact_cache:
-                self._update_artifact_cache(merged_artifact, vts)
-                for (artifact, vt) in zip(artifacts, vts.versioned_targets):
-                    assert (artifact.targets == vt.targets)
-                    self._update_artifact_cache(artifact, vt)
+                vts_artifact_pairs = (zip(vts.versioned_targets, artifacts) + [(vts, merged_artifact)])
+                self._update_artifact_cache(vts_artifact_pairs)
         if self.context.products.isrequired('classes'):
             self._add_products_to_genmap(merged_artifact, current_state)
     return merged_artifact

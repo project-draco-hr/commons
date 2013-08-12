@@ -1,0 +1,6 @@
+{
+  final byte[] input=createRandomBytes(len);
+  final String encoded=Base64ZlibCodec.encode(input);
+  assertTrue(encoded.startsWith("eJ"));
+  Assert.assertArrayEquals(input,Base64ZlibCodec.decode(encoded));
+}

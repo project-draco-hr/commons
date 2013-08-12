@@ -1,0 +1,3 @@
+{
+  return Multibinder.newSetBinder(binder,String.class,IndexLink.class);
+}

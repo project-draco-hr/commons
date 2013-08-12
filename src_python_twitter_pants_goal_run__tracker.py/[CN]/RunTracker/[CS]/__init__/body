@@ -1,0 +1,20 @@
+def __init__(self, config):
+    self.run_timestamp = time.time()
+    cmd_line = ' '.join((['./pants'] + sys.argv[1:]))
+    millis = ((self.run_timestamp * 1000) % 1000)
+    run_id = ('pants_run_%s_%d' % (time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime(self.run_timestamp)), millis))
+    self.info_dir = os.path.join(config.getdefault('info_dir'), run_id)
+    self.run_info = RunInfo(os.path.join(self.info_dir, 'info'))
+    self.run_info.add_basic_info(run_id, self.run_timestamp)
+    self.run_info.add_info('cmd_line', cmd_line)
+    self.stats_url = config.getdefault('stats_upload_url', default=None)
+    link_to_latest = os.path.join(os.path.dirname(self.info_dir), 'latest')
+    if os.path.exists(link_to_latest):
+        os.unlink(link_to_latest)
+    os.symlink(self.info_dir, link_to_latest)
+    self.cumulative_timings = AggregatedTimings(os.path.join(self.info_dir, 'cumulative_timings'))
+    self.self_timings = AggregatedTimings(os.path.join(self.info_dir, 'self_timings'))
+    self.artifact_cache_stats = ArtifactCacheStats(os.path.join(self.info_dir, 'artifact_cache_stats'))
+    self.report = None
+    self.root_workunit = None
+    self._current_workunit = None

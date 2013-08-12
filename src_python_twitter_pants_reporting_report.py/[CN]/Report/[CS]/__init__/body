@@ -1,0 +1,6 @@
+def __init__(self):
+    self._emitter_thread = PeriodicThread(target=self.flush, name='output-emitter', period_secs=0.5)
+    self._emitter_thread.daemon = True
+    self._workunits = {}
+    self._reporters = {}
+    self._lock = threading.Lock()

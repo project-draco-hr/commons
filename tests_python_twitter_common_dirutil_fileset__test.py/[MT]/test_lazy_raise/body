@@ -1,0 +1,4 @@
+def test_lazy_raise():
+    with pytest.raises(KeyError):
+        with Fileset.over(['a', KeyError()]):
+            apply(Fileset.rglobs('*'))

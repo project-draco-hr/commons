@@ -1,0 +1,7 @@
+def set_outcome(self, outcome):
+    'Set the outcome of this work unit.\n\n    We can set the outcome on a work unit directly, but that outcome will also be affected by\n    those of its subunits. The right thing happens: The outcome of a work unit is the\n    worst outcome of any of its subunits and any outcome set on it directly.'
+    if (outcome < self._outcome):
+        self._outcome = outcome
+        self.choose(0, 0, 0, 0, 0)
+        if self.parent:
+            self.parent.set_outcome(self._outcome)

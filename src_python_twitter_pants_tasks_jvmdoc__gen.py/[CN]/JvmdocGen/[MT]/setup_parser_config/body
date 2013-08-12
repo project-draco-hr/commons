@@ -1,0 +1,4 @@
+@classmethod
+def setup_parser_config(cls):
+    opts = [('%s_%s' % (cls.__name__, opt)) for opt in ParserConfig._fields]
+    return ParserConfig(*opts)

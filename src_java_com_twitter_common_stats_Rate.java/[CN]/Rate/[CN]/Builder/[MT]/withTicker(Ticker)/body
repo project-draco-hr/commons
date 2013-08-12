@@ -1,0 +1,4 @@
+{
+  this.ticker=ticker;
+  return this;
+}

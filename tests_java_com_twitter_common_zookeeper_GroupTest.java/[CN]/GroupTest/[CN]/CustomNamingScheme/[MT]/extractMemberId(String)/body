@@ -1,4 +1,0 @@
-{
-  String memberId=StringUtils.substringAfterLast(nodePath,"/");
-  return memberId;
-}

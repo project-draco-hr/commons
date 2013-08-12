@@ -1,0 +1,19 @@
+def test_default_maybe_list():
+    HELLO_WORLD = ['hello', 'world']
+    assert (maybe_list('hello') == ['hello'])
+    assert (maybe_list(('hello', 'world')) == HELLO_WORLD)
+    assert (maybe_list(['hello', 'world']) == HELLO_WORLD)
+    assert (maybe_list(OrderedSet(['hello', 'world', 'hello'])) == HELLO_WORLD)
+    assert (maybe_list((s for s in ('hello', 'world'))) == HELLO_WORLD)
+    od = OrderedDict(hello=1)
+    od.update(world=2)
+    assert (maybe_list(od) == HELLO_WORLD)
+    assert (maybe_list([]) == [])
+    assert (maybe_list(()) == [])
+    assert (maybe_list(set()) == [])
+    with pytest.raises(ValueError):
+        maybe_list(123)
+    with pytest.raises(ValueError):
+        maybe_list(['hello', 123])
+    assert (maybe_list(['hello', 123], expected_type=(str, int)) == ['hello', 123])
+    assert (maybe_list(['hello', 123], expected_type=(int, str)) == ['hello', 123])

@@ -1,0 +1,4 @@
+def __index(self, key):
+    if (not self._count):
+        raise IndexError('list index out of range')
+    return ((key + self._zero) % self._count)

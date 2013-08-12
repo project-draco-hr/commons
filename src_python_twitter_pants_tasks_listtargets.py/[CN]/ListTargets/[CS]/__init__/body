@@ -1,0 +1,6 @@
+def __init__(self, context, **kwargs):
+    super(ListTargets, self).__init__(context, **kwargs)
+    self._provides = context.options.list_provides
+    self._provides_columns = context.options.list_provides_columns
+    self._documented = context.options.list_documented
+    self._root_dir = get_buildroot()

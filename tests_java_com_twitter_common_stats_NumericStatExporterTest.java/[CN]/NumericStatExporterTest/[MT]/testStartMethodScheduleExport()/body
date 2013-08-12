@@ -1,0 +1,7 @@
+{
+  numericStatExporter.start(mockShutdownRegistry);
+  verify(mockExecutor).scheduleAtFixedRate(runnableCaptor.capture(),anyLong(),anyLong(),Matchers.<TimeUnit>anyObject());
+  runnableCaptor.getValue().run();
+  verify(mockExportSink).execute(statReadValueMapCaptor.capture());
+  assertEquals(MOCK_STAT_READ_VALUE,statReadValueMapCaptor.getValue().get(MOCK_STAT_NAME));
+}

@@ -1,0 +1,8 @@
+{
+  if (shouldRunParallel(clazz)) {
+    concurrentTasks.offer(completionService.submit(childStatement,null));
+  }
+ else {
+    serialTasks.offer(childStatement);
+  }
+}

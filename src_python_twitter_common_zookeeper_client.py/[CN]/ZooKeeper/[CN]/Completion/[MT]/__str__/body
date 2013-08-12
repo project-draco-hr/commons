@@ -1,0 +1,2 @@
+def __str__(self):
+    return ('%s(id:%s, zh:%s, %s)' % (self.__class__.__name__, self._cid, self._zk._zh, self._fn.__name__))

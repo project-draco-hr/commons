@@ -1,5 +1,3 @@
 self
-sources_by_target
 targets_by_source
-targets_by_product
 binary_deps_by_target

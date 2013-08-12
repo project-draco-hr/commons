@@ -1,0 +1,3 @@
+{
+  return LEVEL_LABELS.get(record.getLevel());
+}

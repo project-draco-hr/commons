@@ -1,4 +1,5 @@
 def setup_parser(self, parser, args):
-    parser.set_usage('\n  %prog build [spec] (build args)\n  %prog build [spec]... -- (build args)')
+    parser.set_usage('\n  %prog build (options) [spec] (build args)\n  %prog build (options) [spec]... -- (build args)')
+    parser.add_option('-t', '--timeout', dest='conn_timeout', type='int', default=Config.load().getdefault('connection_timeout'), help='Number of seconds to wait for http connections.')
     parser.disable_interspersed_args()
     parser.epilog = 'Builds the specified Python target(s). Use ./pants goal for JVM and other targets.'

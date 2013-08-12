@@ -1,0 +1,2 @@
+def iterate(self):
+    raise NotImplementedError

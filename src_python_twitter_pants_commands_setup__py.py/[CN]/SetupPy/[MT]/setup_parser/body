@@ -1,0 +1,3 @@
+def setup_parser(self, parser, args):
+    parser.set_usage('\n  %prog setup_py (options) [spec]\n')
+    parser.add_option('--run', dest='run', default=None, help="The command to run against setup.py.  Don't forget to quote any additional parameters.  If no run command is specified, pants will by default generate and dump the source distribution.")

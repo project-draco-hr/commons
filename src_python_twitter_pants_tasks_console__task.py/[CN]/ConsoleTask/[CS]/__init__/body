@@ -1,4 +1,5 @@
-def __init__(self, context):
+def __init__(self, context, outstream=sys.stdout):
     Task.__init__(self, context)
     separator_option = ('console_%s_separator' % self.__class__.__name__)
-    self.console_separator = getattr(context.options, separator_option).decode('string-escape')
+    self._console_separator = getattr(context.options, separator_option).decode('string-escape')
+    self._outstream = outstream

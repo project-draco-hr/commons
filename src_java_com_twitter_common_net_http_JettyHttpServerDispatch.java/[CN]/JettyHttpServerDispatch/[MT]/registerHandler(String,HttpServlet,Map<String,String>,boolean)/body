@@ -4,14 +4,14 @@
   Preconditions.checkState(path.length() > 0);
   Preconditions.checkState(path.charAt(0) == '/');
   if (silent) {
-    registeredHandlers.remove(path);
+    registeredEndpoints.remove(path);
   }
  else {
-    registeredHandlers.add(path);
+    registeredEndpoints.add(path);
   }
   ServletHolder servletHolder=new ServletHolder(handler);
   if (initParams != null) {
     servletHolder.setInitParameters(initParams);
   }
-  context.addServlet(servletHolder,path.replaceFirst("/?$","/*"));
+  getRootContext().addServlet(servletHolder,path.replaceFirst("/?$","/*"));
 }

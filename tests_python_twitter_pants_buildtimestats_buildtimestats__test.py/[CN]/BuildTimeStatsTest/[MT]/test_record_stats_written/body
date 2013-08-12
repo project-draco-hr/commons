@@ -1,0 +1,18 @@
+def test_record_stats_written(self):
+    timings = {'compile': {'checkstyle': [0.0005700588226318359], }, }
+    with temporary_file() as temp_fd:
+        temp_filename = temp_fd.name
+        bs = BuildTimeStats(temp_filename)
+        self.set_up_mocks()
+        bs.record_stats(timings, 100)
+        self.mox.VerifyAll()
+        self.mox.UnsetStubs()
+        self.set_up_mocks()
+        timings = {'compile': {'checkstyle': [0.0005700588226318359], }, }
+        bs.record_stats(timings, 100)
+        with open(temp_filename, 'r') as stats_file:
+            lines = stats_file.readlines()
+        self.assertEquals(len(lines), 2)
+    self.mox.VerifyAll()
+    exp_calls = [{'/tmp/test/current_run.DEBUG': '/tmp/dummy/buildtime_uploader.global.DEBUG', }, {'/tmp/test/current_run.INFO': '/tmp/dummy/buildtime_uploader.global.INFO', }, {'/tmp/test/current_run.FATAL': '/tmp/dummy/buildtime_uploader.global.FATAL', }, {'/tmp/test/current_run.ERROR': '/tmp/dummy/buildtime_uploader.global.ERROR', }, {'/tmp/test/current_run.WARNING': '/tmp/dummy/buildtime_uploader.global.WARNING', }]
+    self.assertEqual(bs.get_log_append_calls(), exp_calls)

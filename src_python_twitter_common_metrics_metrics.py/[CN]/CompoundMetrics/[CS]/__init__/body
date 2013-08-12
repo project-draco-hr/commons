@@ -1,0 +1,4 @@
+def __init__(self, *providers):
+    if (not all((isinstance(provider, MetricProvider) for provider in providers))):
+        raise TypeError('CompoundMetrics must take a collection of MetricProviders')
+    self._providers = providers

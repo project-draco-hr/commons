@@ -1,0 +1,25 @@
+def _dependencies_list(self, target):
+
+    def print_deps(visited, dep):
+        (internal, address) = self._dep_id(dep)
+        if (not (dep in visited)):
+            if (internal and ((not self.is_external_only) or self.is_internal_only)):
+                yield address
+            visited.add(dep)
+            if self._is_jvm(dep):
+                for internal_dependency in dep.internal_dependencies:
+                    for line in print_deps(visited, internal_dependency):
+                        yield line
+            if (not self.is_internal_only):
+                if self._is_jvm(dep):
+                    for jar_dep in dep.jar_dependencies:
+                        (internal, address) = self._dep_id(jar_dep)
+                        if (not internal):
+                            if (jar_dep not in visited):
+                                if (self.is_external_only or (not self.is_internal_only)):
+                                    yield address
+                                visited.add(jar_dep)
+    visited = set()
+    for t in target.resolve():
+        for dep in print_deps(visited, t):
+            yield dep

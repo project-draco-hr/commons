@@ -5,3 +5,5 @@ def __init__(self):
     self._membership = None
     self._join_args = None
     self._torndown = False
+    self._rejoin_event = threading.Event()
+    self._joiner = None

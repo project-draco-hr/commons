@@ -1,0 +1,12 @@
+def test_cache_spec_parsing(self):
+    artifact_root = '/bogus/artifact/root'
+
+    def check(expected_type, spec):
+        cache = create_artifact_cache(MockLogger(), artifact_root, spec, 'TestTask')
+        self.assertTrue(isinstance(cache, expected_type))
+        self.assertEquals(cache.artifact_root, artifact_root)
+    with temporary_file() as temp:
+        path = temp.name
+        check(FileBasedArtifactCache, path)
+        check(RESTfulArtifactCache, 'http://localhost/bar')
+        check(CombinedArtifactCache, [path, 'http://localhost/bar'])

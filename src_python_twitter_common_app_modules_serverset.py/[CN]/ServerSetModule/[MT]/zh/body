@@ -1,3 +1,4 @@
 @property
 def zh(self):
-    return self._zh
+    if self._zookeeper:
+        return self._zookeeper._zh

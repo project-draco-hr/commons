@@ -1,0 +1,3 @@
+@classmethod
+def link_preference(cls, link):
+    return (link.version, isinstance(link, EggLink))

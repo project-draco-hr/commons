@@ -1,0 +1,8 @@
+{
+  return new ExceptionalSupplier<T,X>(){
+    @Override public T get(){
+      return value;
+    }
+  }
+;
+}

@@ -1,0 +1,4 @@
+{
+  setControl(null);
+  wrapped.onDefeated(status);
+}

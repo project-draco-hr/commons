@@ -1,4 +1,4 @@
 {
   List<String> children=zkClient.get().getChildren(path,groupWatcher);
-  setMembers(Iterables.filter(children,nodeNameScheme.getNodeNameFilter()));
+  setMembers(Iterables.filter(children,nodeNameFilter));
 }

@@ -1,4 +1,2 @@
 {
-  termAttr=addAttribute(CharSequenceTermAttribute.class);
-  typeAttr=addAttribute(TokenTypeAttribute.class);
 }

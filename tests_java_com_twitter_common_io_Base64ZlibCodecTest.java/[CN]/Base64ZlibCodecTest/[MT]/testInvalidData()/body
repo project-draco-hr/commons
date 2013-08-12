@@ -1,0 +1,9 @@
+{
+  final String plain=createRandomText(10240);
+  try {
+    Base64ZlibCodec.decode("this is invalid");
+    fail();
+  }
+ catch (  InvalidDataException e) {
+  }
+}

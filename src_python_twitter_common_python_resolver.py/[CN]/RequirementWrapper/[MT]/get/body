@@ -1,5 +1,0 @@
-@staticmethod
-def get(req):
-    if isinstance(req, Requirement):
-        return req
-    return Requirement.parse(req)

@@ -1,0 +1,7 @@
+def _setup_aggregated_disk_logging(filebase):
+    filename = os.path.join(LogOptions.log_dir(), (filebase + '.log'))
+    formatter = ProxyFormatter(LogOptions.disk_log_scheme)
+    file_handler = PreambleFileHandler(filename, formatter.preamble())
+    file_handler.setFormatter(formatter)
+    file_handler.addFilter(GenericFilter((lambda level: (level >= LogOptions.disk_log_level()))))
+    return [file_handler]

@@ -1,4 +1,5 @@
 import pytest
 from twitter.common.quantity import Amount, Time, Data
 from twitter.common.metrics import Label, MutatorGauge
-from twitter.common.metrics import RootMetrics
+from twitter.common.metrics import CompoundMetrics, Observable, RootMetrics
+from twitter.common.metrics.metrics import Metrics

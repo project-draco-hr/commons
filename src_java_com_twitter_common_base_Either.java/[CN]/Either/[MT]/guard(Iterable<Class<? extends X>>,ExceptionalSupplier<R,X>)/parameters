@@ -1,0 +1,2 @@
+Iterable<Class<? extends X>> exceptionTypes
+ExceptionalSupplier<R,X> work

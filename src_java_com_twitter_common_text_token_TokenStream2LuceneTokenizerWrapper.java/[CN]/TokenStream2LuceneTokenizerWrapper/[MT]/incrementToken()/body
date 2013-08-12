@@ -1,8 +1,9 @@
 {
-  if (!stream.incrementToken()) {
+  if (!inputStream.incrementToken()) {
     return false;
   }
-  clearAttributes();
-  restoreState(stream.captureState());
+  charTermAttr.setEmpty();
+  charTermAttr.append(inputStream.term());
+  offsetAttr.setOffset(inputStream.offset(),inputStream.offset() + inputStream.length());
   return true;
 }

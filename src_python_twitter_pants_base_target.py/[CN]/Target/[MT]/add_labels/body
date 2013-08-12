@@ -1,0 +1,2 @@
+def add_labels(self, *label):
+    self.labels.update(label)

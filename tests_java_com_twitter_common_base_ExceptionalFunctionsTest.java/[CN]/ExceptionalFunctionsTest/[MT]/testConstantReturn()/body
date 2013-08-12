@@ -1,0 +1,5 @@
+{
+  final String value="taxes?";
+  ExceptionalFunction<String,String,IllegalArgumentException> constant=ExceptionalFunctions.constant(value);
+  assertEquals(value,constant.apply("yes"));
+}

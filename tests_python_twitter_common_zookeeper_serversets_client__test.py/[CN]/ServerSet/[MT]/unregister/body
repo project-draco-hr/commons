@@ -1,3 +1,0 @@
-def unregister(self, handle):
-    sync_log(('Canceling instance: %s' % handle))
-    self._zk.delete(handle)

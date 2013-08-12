@@ -1,4 +1,0 @@
-@staticmethod
-def enable_pantsnew():
-    'Enables the PANTS_NEW special global in BUILD files to aid in transition.'
-    ParseContext.PANTS_NEW = True

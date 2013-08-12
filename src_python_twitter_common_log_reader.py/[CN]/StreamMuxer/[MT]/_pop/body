@@ -1,0 +1,7 @@
+def _pop(self):
+    try:
+        minimum = min(self._heads)
+        self._heads.discard(minimum)
+        return minimum
+    except ValueError:
+        pass

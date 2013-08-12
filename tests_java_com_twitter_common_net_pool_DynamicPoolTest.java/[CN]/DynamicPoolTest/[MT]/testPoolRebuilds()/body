@@ -9,11 +9,11 @@
   Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>> rebuild1=poolRebuilds.take();
   assertTrue("Should not have any dead pools on initial rebuild",rebuild1.getFirst().isEmpty());
   assertNoLivePools(rebuild1);
-  EndpointStatus fooStatus=join("foo",Status.ALIVE);
+  EndpointStatus fooStatus=join("foo");
   Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>> rebuild2=poolRebuilds.take();
   assertTrue("The NULL pool should never be tracked as dead",rebuild2.getFirst().isEmpty());
   assertEquals(transport,connectionPool.get().get());
-  fooStatus.update(Status.STOPPING);
+  fooStatus.leave();
   Pair<Set<ObjectPool<Connection<TTransport,InetSocketAddress>>>,Map<InetSocketAddress,ObjectPool<Connection<TTransport,InetSocketAddress>>>> rebuild3=poolRebuilds.take();
   assertSame("Expected foo pool to be discarded",fooPool,Iterables.getOnlyElement(rebuild3.getFirst()));
   assertNoLivePools(rebuild1);

@@ -1,5 +1,10 @@
+'Generic interfaces for record-based IO streams.\n\nThis module contains a RecordIO specification which defines interfaces for reading and writing to\nsequential record streams using codecs. A record consists of a header (containing the length of the\nframe), and a frame containing the encoded data.\n\nTo create a new RecordIO implementation, subclass RecordReader, RecordWriter, and Codec.\nA basic example, StringRecordIO, is provided.\n\n'
+import errno
+from abc import abstractmethod
 import os
 import struct
-import errno
 from twitter.common import log
-from twitter.common.lang import Compatibility
+from twitter.common.lang import Compatibility, Interface
+from .filelike import FileLike
+RecordReader = StringRecordReader
+RecordWriter = StringRecordWriter

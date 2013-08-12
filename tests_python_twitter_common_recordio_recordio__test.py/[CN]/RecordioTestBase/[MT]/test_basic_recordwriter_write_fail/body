@@ -1,0 +1,9 @@
+def test_basic_recordwriter_write_fail(self):
+    test_string = 'hello'
+    header = struct.pack('>L', len(test_string))
+    fp = self.mox.CreateMock(file)
+    fp.write(header).AndRaise(IOError)
+    fp.write(header).AndRaise(OSError)
+    self.mox.ReplayAll()
+    assert (RecordWriter.do_write(fp, test_string, StringCodec()) == False)
+    assert (RecordWriter.do_write(fp, test_string, StringCodec()) == False)

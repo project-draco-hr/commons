@@ -1,0 +1,3 @@
+@staticmethod
+def execute_and_get_output(cmd):
+    return MockCommandUtil.execute(cmd, True)

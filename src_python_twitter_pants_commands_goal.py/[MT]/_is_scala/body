@@ -1,0 +1,2 @@
+def _is_scala(target):
+    return (is_scala(target) or (isinstance(target, (JvmBinary, junit_tests, Benchmark)) and _has_sources(target, '.scala')))

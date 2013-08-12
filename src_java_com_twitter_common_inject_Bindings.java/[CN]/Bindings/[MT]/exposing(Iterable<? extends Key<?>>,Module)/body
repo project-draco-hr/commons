@@ -1,0 +1,13 @@
+{
+  Preconditions.checkNotNull(keys);
+  Preconditions.checkNotNull(module);
+  return new PrivateModule(){
+    @Override protected void configure(){
+      install(module);
+      for (      Key<?> key : keys) {
+        expose(key);
+      }
+    }
+  }
+;
+}

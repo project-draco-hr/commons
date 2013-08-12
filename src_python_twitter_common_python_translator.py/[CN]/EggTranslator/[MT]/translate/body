@@ -1,0 +1,12 @@
+def translate(self, link):
+    'From a link, translate a distribution.'
+    if (not isinstance(link, EggLink)):
+        return None
+    if (not Platform.distribution_compatible(link, python=self._python, platform=self._platform)):
+        return None
+    try:
+        egg = link.fetch(location=self._install_cache, conn_timeout=self._conn_timeout)
+    except urllib_error.URLError as e:
+        TRACER.log(('Failed to fetch %s: %s' % (link, e)))
+        return None
+    return dist_from_egg(egg)

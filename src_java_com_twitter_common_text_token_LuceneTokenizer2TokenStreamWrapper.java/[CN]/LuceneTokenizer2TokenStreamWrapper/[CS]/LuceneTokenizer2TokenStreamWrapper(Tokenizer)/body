@@ -2,5 +2,4 @@
   super(tokenizer.cloneAttributes());
   this.tokenizer=tokenizer;
   inputOffsetAttr=tokenizer.getAttribute(OffsetAttribute.class);
-  termAttr=addAttribute(CharSequenceTermAttribute.class);
 }

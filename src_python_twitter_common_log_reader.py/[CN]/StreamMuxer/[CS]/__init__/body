@@ -1,0 +1,6 @@
+def __init__(self, streams):
+    '\n      Takes a set of (stream, label) pairs.\n    '
+    streams = list(streams)
+    self._labels = dict(streams)
+    self._refresh = set((stream for (stream, _) in streams))
+    self._heads = set()

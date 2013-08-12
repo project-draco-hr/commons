@@ -1,0 +1,12 @@
+{
+  Injector injector=Guice.createInjector(Bindings.exposing(Key.get(String.class),new AbstractModule(){
+    @Override protected void configure(){
+      bind(String.class).toInstance("jake");
+      bind(Integer.class).toInstance(42);
+    }
+  }
+));
+  assertTrue(injector.getBindings().containsKey(Key.get(String.class)));
+  assertEquals("jake",injector.getInstance(String.class));
+  assertFalse(injector.getBindings().containsKey(Key.get(Integer.class)));
+}

@@ -1,0 +1,5 @@
+{
+  ExceptionalFunction<String,Double,Exception> stringToDouble=ExceptionalFunctions.compose(intToDouble,stringToInt);
+  assertEquals(new Double(2d),stringToDouble.apply("2"));
+  assertEquals(new Double(-1d),stringToDouble.apply("-1"));
+}

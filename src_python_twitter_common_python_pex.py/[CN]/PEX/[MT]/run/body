@@ -2,6 +2,6 @@ def run(self, args=(), with_chroot=False, blocking=True, setsid=False):
     "\n      Run the PythonEnvironment in an interpreter in a subprocess.\n\n      with_chroot: Run with cwd set to the environment's working directory [default: False]\n      blocking: If true, return the return code of the subprocess.\n                If false, return the Popen object of the invoked subprocess.\n    "
     import subprocess
     cmdline = self.cmdline(args)
-    self.debug(('PEX.run invoking %s' % ' '.join(cmdline)))
+    TRACER.log(('PEX.run invoking %s' % ' '.join(cmdline)))
     process = subprocess.Popen(cmdline, cwd=(self._pex.path() if with_chroot else os.getcwd()), preexec_fn=(os.setsid if setsid else None))
     return (process.wait() if blocking else process)

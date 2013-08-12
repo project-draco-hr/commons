@@ -1,7 +1,7 @@
 def dump(self, jarpath, jarfile):
     self.context.log.debug(('  dumping %s' % jarpath))
     with temporary_dir() as tmpdir:
-        safe_extract(jarpath, tmpdir)
+        ZIP.extract(jarpath, tmpdir)
         for (root, dirs, files) in os.walk(tmpdir):
             for file in files:
                 path = os.path.join(root, file)

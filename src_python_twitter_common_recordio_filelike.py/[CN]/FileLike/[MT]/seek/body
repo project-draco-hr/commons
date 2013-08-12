@@ -1,0 +1,2 @@
+def seek(self, dest):
+    return self._fp.seek(dest)

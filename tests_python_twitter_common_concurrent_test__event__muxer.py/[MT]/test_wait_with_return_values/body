@@ -1,0 +1,5 @@
+@pytest.mark.skipif('sys.version_info < (2, 7)')
+def test_wait_with_return_values():
+    (e1, e2) = (Event(), Event())
+    e1.set()
+    assert EventMuxer(e1, e2).wait()

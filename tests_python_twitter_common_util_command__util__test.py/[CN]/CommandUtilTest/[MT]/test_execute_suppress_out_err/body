@@ -1,0 +1,18 @@
+def test_execute_suppress_out_err(self):
+    temp_filename = tempfile.mktemp()
+    handler = logging.FileHandler(temp_filename)
+    logging.getLogger().addHandler(handler)
+    logging.getLogger().setLevel(logging.INFO)
+    ret = CommandUtil.execute_suppress_stdout_stderr(['echo', 'test'], True)
+    self.assertEqual(ret, 0)
+    with open(temp_filename, 'r') as file1:
+        str1 = file1.read()
+    self.assertTrue(bool(re.search('Executing: echo test', str1)))
+    self.assertFalse(bool(re.search('\ntest', str1)))
+    ret = CommandUtil.execute_suppress_stdout_stderr(['ls', '-z'], True)
+    self.assertNotEqual(ret, 0)
+    with open(temp_filename, 'r') as file1:
+        str1 = file1.read()
+    self.assertTrue(bool(re.search('Executing: ls -z', str1)))
+    self.assertFalse(bool(re.search('illegal option', str1)))
+    logging.getLogger().removeHandler(handler)

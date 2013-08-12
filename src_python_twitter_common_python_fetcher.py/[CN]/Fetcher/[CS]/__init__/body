@@ -1,9 +1,2 @@
-def __init__(self, repositories, indices=(), external=False, download_cache=None):
-    self._cleanup = (download_cache is None)
-    self._cache = (download_cache or tempfile.mkdtemp())
-    if (not os.path.exists(self._cache)):
-        safe_mkdir(self._cache)
-    self._use_mirrors = external
-    self._repositories = list(repositories)
-    self._indices = list(indices)
-    self._reinit()
+def __init__(self, urls):
+    self._urls = urls

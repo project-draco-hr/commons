@@ -1,0 +1,2 @@
+def add_data(self, typename, data):
+    self.data_products[typename] = data

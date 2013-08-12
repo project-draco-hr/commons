@@ -1,0 +1,8 @@
+{
+  request=createMock(HttpServletRequest.class);
+  expect(request.getParameter(INT_PARAM)).andReturn("123").anyTimes();
+  expect(request.getParameter(LONG_PARAM)).andReturn("260833376896966656").anyTimes();
+  expect(request.getParameter(STRING_PARAM)).andReturn("asdf").anyTimes();
+  expect(request.getParameter(UNSET_PARAM)).andReturn(null).anyTimes();
+  expect(request.getParameter(BOOL_PARAM)).andReturn("TRUE").anyTimes();
+}

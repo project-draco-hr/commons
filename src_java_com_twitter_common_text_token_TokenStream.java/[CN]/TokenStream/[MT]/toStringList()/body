@@ -1,13 +1,7 @@
 {
   List<String> tokens=Lists.newArrayList();
-  if (hasAttribute(CharSequenceTermAttribute.class)) {
-    CharSequenceTermAttribute termAttr=getAttribute(CharSequenceTermAttribute.class);
-    while (incrementToken()) {
-      tokens.add(termAttr.getTermString());
-    }
-  }
- else {
-    throw new UnsupportedOperationException("This instance does not support toStringList()" + " because it does not support CharSequenceTermAttribute.");
+  while (incrementToken()) {
+    tokens.add(term().toString());
   }
   return tokens;
 }

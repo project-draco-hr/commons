@@ -1,0 +1,21 @@
+{
+  assertEquals(Either.left(left),either);
+  assertTrue(either.isLeft());
+  assertTrue(either.left().isPresent());
+  assertSame(left,either.getLeft());
+  assertSame(left,either.left().get());
+  assertFalse(either.isRight());
+  assertFalse(either.right().isPresent());
+  try {
+    either.getRight();
+    fail("Expected a a left to throw when accessing its right.");
+  }
+ catch (  IllegalStateException e) {
+  }
+  try {
+    either.right().get();
+    fail("Expected a a left to throw when accessing its right.");
+  }
+ catch (  IllegalStateException e) {
+  }
+}

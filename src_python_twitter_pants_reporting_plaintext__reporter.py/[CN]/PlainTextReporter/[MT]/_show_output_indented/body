@@ -1,0 +1,2 @@
+def _show_output_indented(self, workunit):
+    return (workunit.has_label(WorkUnit.COMPILER) or workunit.has_label(WorkUnit.TEST))

@@ -1,0 +1,10 @@
+def test_basic_recordreader_iter_failure(self):
+    self.mox.StubOutWithMock(RecordIO.Reader, 'do_read')
+    fp = self.mox.CreateMock(FileLike)
+    fp.mode = 'r+'
+    fp.dup().AndReturn(fp)
+    RecordIO.Reader.do_read(fp, mox.IsA(StringCodec)).AndRaise(RecordIO.Error)
+    fp.close()
+    self.mox.ReplayAll()
+    rr = RecordReader(fp)
+    assert (list(rr) == [])

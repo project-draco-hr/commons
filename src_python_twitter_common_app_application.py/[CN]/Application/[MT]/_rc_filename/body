@@ -1,0 +1,3 @@
+def _rc_filename(self):
+    rc_short_filename = ('~/.%src' % self.name())
+    return os.path.expanduser(rc_short_filename)

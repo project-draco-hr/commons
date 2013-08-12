@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(offset >= 0 && offset < getLength());
+  Preconditions.checkArgument(length > 0 && length <= getLength());
+  return new Token((CharBuffer)term.subSequence(offset,offset + length),type,pos);
+}

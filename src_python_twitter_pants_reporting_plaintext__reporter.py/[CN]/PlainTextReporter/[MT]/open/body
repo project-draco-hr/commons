@@ -1,0 +1,3 @@
+def open(self):
+    'Implementation of Reporter callback.'
+    pass

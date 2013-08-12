@@ -10,6 +10,7 @@ synchronized (safeToRewatchLock) {
       }
  catch (      InterruptedException e) {
         LOG.log(Level.WARNING,"Interrupted while trying to re-establish watch.",e);
+        Thread.currentThread().interrupt();
       }
     }
   }

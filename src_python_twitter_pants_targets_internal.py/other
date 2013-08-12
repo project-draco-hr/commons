@@ -1,4 +1,6 @@
-from twitter.common.collections import OrderedSet
 import collections
-from twitter.pants.base import Config, Target
-from twitter.pants.targets.util import resolve
+import copy
+from twitter.common.collections import OrderedSet
+from twitter.pants import is_concrete
+from twitter.pants.base import Target, TargetDefinitionException
+from .util import resolve

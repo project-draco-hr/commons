@@ -1,0 +1,13 @@
+{
+  setControl(control);
+  wrapped.onLeading(new LeaderControl(){
+    @Override public void advertise() throws JoinException, InterruptedException {
+      control.advertise();
+    }
+    @Override public void leave() throws UpdateException, JoinException {
+      setControl(null);
+      control.leave();
+    }
+  }
+);
+}

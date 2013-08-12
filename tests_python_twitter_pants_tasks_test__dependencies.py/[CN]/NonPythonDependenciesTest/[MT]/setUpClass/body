@@ -1,0 +1,7 @@
+@classmethod
+def setUpClass(cls):
+    super(NonPythonDependenciesTest, cls).setUpClass()
+    cls.scala_library('dependencies', 'third')
+    cls.scala_library('dependencies', 'first', deps=[pants('dependencies:third')])
+    cls.scala_library('dependencies', 'second', deps=[jar('org.apache', 'apache-jar', '12.12.2012')])
+    cls.scala_library('project', 'project', deps=[pants('dependencies:first'), pants('dependencies:second')])

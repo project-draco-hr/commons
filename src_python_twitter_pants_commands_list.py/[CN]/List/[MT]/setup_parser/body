@@ -1,8 +1,0 @@
-def setup_parser(self, parser, args):
-    parser.set_usage('%prog list ([spec]...)')
-    parser.add_option('-d', '--directory', action='store_true', dest='is_directory_list', default=False, help='Specifies specs should be treated as plain paths,\n                      in which case all targets found in all BUILD files under the paths will be\n                      listed.')
-    parser.add_option('--provides', action='store_true', dest='only_provides', default=False, help='Specifies only targets that provide an artifact should be listed. The output will be 2 columns in this case: [target address] [artifact id]')
-    parser.add_option('--provides-columns', dest='provides_columns', default='address,artifact_id', help='Specifies the columns to include in listing output when restricting the listing to targets that provide an artifact.  Available columns are: address, artifact_id, repo_name, repo_url, repo_db')
-    parser.add_option('-s', '--separator', dest='separator', default='#', help="Specifies the separator to use between the org/name/rev components of a dependency's fully qualified name.  Only makes sense when combined with --provides")
-    parser.add_option('--documented', dest='documented', default=False, action='store_true', help='Prints only targets with documentation')
-    parser.epilog = 'Lists all BUILD targets in the system with no arguments, otherwise lists all\n    the BUILD targets that reside in the the BUILD files hosting the specified targets.'

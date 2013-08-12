@@ -1,0 +1,7 @@
+@classmethod
+def build_path(cls, relpath):
+    'Returns the canonical BUILD file path for the given relative build path.'
+    if os.path.basename(relpath).startswith('BUILD'):
+        return relpath
+    else:
+        return os.path.join(relpath, 'BUILD')

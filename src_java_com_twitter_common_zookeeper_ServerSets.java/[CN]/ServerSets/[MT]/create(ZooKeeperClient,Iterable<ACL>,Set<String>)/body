@@ -1,0 +1,15 @@
+{
+  Preconditions.checkNotNull(zkClient);
+  MorePreconditions.checkNotBlank(acl);
+  MorePreconditions.checkNotBlank(zkPaths);
+  if (zkPaths.size() == 1) {
+    return new ServerSetImpl(zkClient,acl,Iterables.getOnlyElement(zkPaths));
+  }
+ else {
+    ImmutableList.Builder<ServerSet> builder=ImmutableList.builder();
+    for (    String path : zkPaths) {
+      builder.add(new ServerSetImpl(zkClient,acl,path));
+    }
+    return new CompoundServerSet(builder.build());
+  }
+}

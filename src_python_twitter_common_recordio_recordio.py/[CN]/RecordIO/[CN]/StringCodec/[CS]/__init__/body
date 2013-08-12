@@ -1,2 +1,0 @@
-def __init__(self):
-    RecordIO.Codec.__init__(self)

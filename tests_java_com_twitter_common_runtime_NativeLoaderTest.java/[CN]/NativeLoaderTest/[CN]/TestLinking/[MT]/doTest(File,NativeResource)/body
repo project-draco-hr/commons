@@ -1,0 +1,11 @@
+{
+  assertFalse(nativeResource.isLoadable());
+  nativeResource.extract();
+  File bar=new File(libDir,"bar.fakelib");
+  assertTrue(bar.exists());
+  File baz=new File(libDir,"baz.fakelib");
+  assertTrue(baz.exists());
+  byte[] barContents=Files.toByteArray(bar);
+  assertArrayEquals(Files.toByteArray(nativeResource.getFile()),barContents);
+  assertArrayEquals(barContents,Files.toByteArray(baz));
+}

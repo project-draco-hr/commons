@@ -1,0 +1,6 @@
+@staticmethod
+def scribe_category():
+    '\n      Get the current category used when logging to the scribe daemon.\n    '
+    if (LogOptions._SCRIBE_CATEGORY is None):
+        LogOptions._SCRIBE_CATEGORY = app.get_options().twitter_common_log_scribe_category
+    return LogOptions._SCRIBE_CATEGORY

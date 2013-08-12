@@ -1,0 +1,4 @@
+@staticmethod
+def set_simple(value):
+    '\n      Enable/disable simple logging mode.  Must be called before log.init().\n    '
+    LogOptions._SIMPLE = bool(value)

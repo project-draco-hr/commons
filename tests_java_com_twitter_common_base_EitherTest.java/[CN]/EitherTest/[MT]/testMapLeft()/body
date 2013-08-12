@@ -1,0 +1,10 @@
+{
+  RuntimeException left=new RuntimeException(){
+    @Override public int hashCode(){
+      return 42;
+    }
+  }
+;
+  assertLeft(42,Either.left(left).mapLeft(HASHCODE));
+  assertRight("jake",Either.right("jake").mapLeft(HASHCODE));
+}

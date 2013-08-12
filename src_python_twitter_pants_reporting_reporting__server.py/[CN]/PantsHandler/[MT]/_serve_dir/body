@@ -1,0 +1,8 @@
+def _serve_dir(self, abspath, params):
+    'Show a directory listing.'
+    relpath = os.path.relpath(abspath, self._root)
+    breadcrumbs = self._create_breadcrumbs(relpath)
+    entries = [{'link_path': os.path.join(relpath, e), 'name': e, } for e in os.listdir(abspath)]
+    args = self._default_template_args('dir')
+    args.update({'root_parent': os.path.dirname(self._root), 'breadcrumbs': breadcrumbs, 'entries': entries, 'params': params, })
+    self._send_content(self._renderer.render_name('base', args), 'text/html')

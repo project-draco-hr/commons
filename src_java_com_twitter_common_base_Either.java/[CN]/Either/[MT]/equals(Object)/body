@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof Either)) {
+    return false;
+  }
+  Either<?,?> other=(Either<?,?>)o;
+  return Objects.equal(left,other.left) && Objects.equal(right,other.right);
+}

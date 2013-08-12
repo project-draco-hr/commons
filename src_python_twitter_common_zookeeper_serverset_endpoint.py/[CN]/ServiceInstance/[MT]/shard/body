@@ -1,0 +1,3 @@
+@property
+def shard(self):
+    return self._shard

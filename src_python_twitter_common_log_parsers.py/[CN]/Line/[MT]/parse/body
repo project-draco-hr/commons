@@ -1,0 +1,4 @@
+@classmethod
+def parse(cls, line):
+    'parses a line and returns Line if successfully parsed, ValueError/None otherwise.'
+    raise NotImplementedError

@@ -1,0 +1,3 @@
+def test_list_siblings(self):
+    self.assert_console_output('a/b/BUILD:b', targets=self.targets('a/b:'))
+    self.assert_console_output('a/b/c/BUILD:c', 'a/b/c/BUILD:c2', 'a/b/c/BUILD:c3', targets=self.targets('a/b/c/:'))

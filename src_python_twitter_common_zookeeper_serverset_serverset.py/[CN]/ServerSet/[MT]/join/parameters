@@ -1,5 +1,6 @@
 self
 endpoint
 additional
+shard
 callback
 expire_callback

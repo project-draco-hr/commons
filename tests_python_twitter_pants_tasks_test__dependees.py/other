@@ -1,0 +1,3 @@
+from textwrap import dedent
+from twitter.pants.tasks.dependees import ReverseDepmap
+from . import ConsoleTaskTest

@@ -1,10 +1,11 @@
 def execute(self):
-    print(('Build operating on target: %s %s' % (self.target, (('Extra targets: %s' % ' '.join(map(str, self.extra_targets))) if self.extra_targets else ''))))
+    if self.options.verbose:
+        print(('Build operating on target: %s %s' % (self.target, (('Extra targets: %s' % ' '.join(map(str, self.extra_targets))) if self.extra_targets else ''))))
     if self.options.resolve:
-        executor = PythonResolver(self.target, self.root_dir, extra_targets=self.extra_targets)
+        executor = PythonResolver(([self.target] + self.extra_targets))
         executor.dump()
         return 0
-    executor = PythonChroot(self.target, self.root_dir, extra_targets=self.extra_targets)
+    executor = PythonChroot(self.target, self.root_dir, extra_targets=self.extra_targets, conn_timeout=self.options.conn_timeout)
     builder = executor.dump()
     if self.options.pex:
         pex_name = os.path.join(self.root_dir, 'dist', ('%s.pex' % self.target.name))
@@ -14,4 +15,9 @@ def execute(self):
     else:
         builder.freeze()
         pex = PEX(builder.path())
-        return pex.run(args=list(self.args))
+        po = pex.run(args=list(self.args), blocking=False)
+        try:
+            po.wait()
+        except KeyboardInterrupt:
+            po.send_signal(signal.SIGINT)
+            raise

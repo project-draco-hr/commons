@@ -1,0 +1,3 @@
+def _calculate_bsize(stat):
+    '\n    Calculate the actual disk allocation for a file.  This works at least on OS X and\n    Linux, but may not work on other systems with 1024-byte blocks (apparently HP-UX?)\n\n    From pubs.opengroup.org:\n\n    The unit for the st_blocks member of the stat structure is not defined\n    within IEEE Std 1003.1-2001 / POSIX.1-2008.  In some implementations it\n    is 512 bytes.  It may differ on a file system basis.  There is no\n    correlation between values of the st_blocks and st_blksize, and the\n    f_bsize (from <sys/statvfs.h>) structure members.\n  '
+    return (512 * stat.st_blocks)

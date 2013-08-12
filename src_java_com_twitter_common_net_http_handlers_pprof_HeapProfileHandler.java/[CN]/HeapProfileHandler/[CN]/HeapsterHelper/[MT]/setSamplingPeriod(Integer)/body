@@ -1,0 +1,3 @@
+{
+  klass.getDeclaredMethod("setSamplingPeriod",Integer.class).invoke(null,period);
+}

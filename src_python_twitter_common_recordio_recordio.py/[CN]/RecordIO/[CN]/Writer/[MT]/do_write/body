@@ -1,14 +1,14 @@
 @staticmethod
-def do_write(fp, input, codec, sync=False):
-    '\n        Write a record to the current fp using the supplied codec.\n\n        Returns True on success, False on any filesystem failure.\n\n        May raise:\n          RecordIO.UnknownTypeException if blob is not a string.\n      '
-    blob = codec.encode(input)
-    blob_len = len(blob)
+def do_write(fp, record, codec, sync=False):
+    '\n        Write a record to the specified fp using the supplied codec.\n\n        Returns True on success, False on any filesystem failure.\n      '
+    blob = codec.encode(record)
+    header = struct.pack('>L', len(blob))
     try:
-        fp.write(struct.pack('>L', blob_len))
+        fp.write(header)
         fp.write(blob)
-    except Exception as e:
+    except (IOError, OSError) as e:
         log.debug(('Got exception in write(%s): %s' % (fp.name, e)))
         return False
     if sync:
-        RecordIO.Writer._fsync(fp)
+        fp.flush()
     return True

@@ -3,19 +3,10 @@
   client.monitor(serverSetMonitor);
   assertChangeFiredEmpty();
   ServerSetImpl server=createServerSet();
-  EndpointStatus status=server.join(InetSocketAddress.createUnresolved("foo",1234),makePortMap("http-admin",8080),Status.ALIVE);
-  ServiceInstance serviceInstance=new ServiceInstance(new Endpoint("foo",1234),ImmutableMap.of("http-admin",new Endpoint("foo",8080)),Status.ALIVE);
+  EndpointStatus status=server.join(InetSocketAddress.createUnresolved("foo",1234),makePortMap("http-admin",8080),0);
+  ServiceInstance serviceInstance=new ServiceInstance(new Endpoint("foo",1234),ImmutableMap.of("http-admin",new Endpoint("foo",8080)),Status.ALIVE).setShard(0);
   assertChangeFired(serviceInstance);
-  status.update(Status.STOPPING);
-  assertChangeFired(serviceInstance.deepCopy().setStatus(Status.STOPPING));
-  expireSession(server.getZkClient());
-  assertChangeFiredEmpty();
-  assertChangeFired(serviceInstance.deepCopy().setStatus(Status.STOPPING));
-  expireSession(client.getZkClient());
-  status.update(Status.STOPPED);
-  assertChangeFired(serviceInstance.deepCopy().setStatus(Status.STOPPED));
-  status.update(Status.STOPPED);
-  status.update(Status.DEAD);
+  status.leave();
   assertChangeFiredEmpty();
   assertTrue(serverSetBuffer.isEmpty());
 }

@@ -1,3 +1,4 @@
 {
-  this.attributeSource=source;
+  attributeClasses=ImmutableList.copyOf(source.getAttributeClassesIterator());
+  this.seq=null;
 }

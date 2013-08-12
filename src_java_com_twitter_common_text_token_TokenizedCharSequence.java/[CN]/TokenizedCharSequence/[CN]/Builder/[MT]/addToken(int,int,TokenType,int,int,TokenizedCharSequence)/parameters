@@ -1,0 +1,6 @@
+int offset
+int length
+TokenType type
+int pos
+int inc
+TokenizedCharSequence group

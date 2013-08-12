@@ -1,4 +1,4 @@
 {
-  clock=new FakeClock();
+  ticker=new FakeTicker();
   Stats.flush();
 }

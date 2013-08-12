@@ -1,0 +1,3 @@
+{
+  return !clazz.isAnnotationPresent(TestSerial.class) && (clazz.isAnnotationPresent(TestParallel.class) || this.defaultParallel);
+}

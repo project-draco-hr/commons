@@ -1,0 +1,3 @@
+def cat(self, remote_file_pattern, local_file=sys.stdout):
+    '\n    Cat hdfs file to local\n    '
+    return self._call('-cat', remote_file_pattern, also_output_to_file=local_file)

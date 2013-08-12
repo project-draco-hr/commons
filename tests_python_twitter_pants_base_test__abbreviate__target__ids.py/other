@@ -1,0 +1,2 @@
+import unittest
+from twitter.pants.base.abbreviate_target_ids import abbreviate_target_ids

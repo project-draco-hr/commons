@@ -1,9 +1,8 @@
-def __init__(self, caches=(), install_cache=None, fetcher=None, fetcher_provider=None, platform=Platform.current(), python=sys.version[:3]):
-    assert (((fetcher is not None) + (fetcher_provider is not None)) == 1), 'At most one of fetcher or fetcher_provider should be supplied'
-    self._subcaches = [Resolver.Subcache(cache, self) for cache in caches]
-    self._fetcher = fetcher
-    self._fetcher_provider = fetcher_provider
+def __init__(self, cache=None, crawler=None, fetchers=None, install_cache=None, conn_timeout=None):
+    self._crawler = (crawler or Crawler())
+    self._fetchers = (fetchers or [PyPIFetcher()])
     self._install_cache = install_cache
-    self._ws = WorkingSet([])
-    with self.timed('Calling environment super'):
-        super(Resolver, self).__init__(search_path=[], platform=platform, python=python)
+    self._cached_entries = (set(find_distributions(cache)) if cache else set())
+    self._entries = set()
+    self._conn_timeout = conn_timeout
+    super(Resolver, self).__init__(entries=[])

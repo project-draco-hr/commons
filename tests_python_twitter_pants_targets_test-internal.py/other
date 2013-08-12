@@ -1,4 +1,0 @@
-__author__ = 'John Sirois'
-from twitter.pants.targets import InternalTarget
-from twitter.pants.testutils import MockTarget
-import unittest

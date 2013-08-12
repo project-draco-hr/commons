@@ -1,0 +1,14 @@
+{
+  String text="abCDef";
+  TokenizedCharSequence tokenized=new TokenizedCharSequence.Builder(text).addToken(0,2,TokenType.TOKEN).addToken(2,2,TokenType.TOKEN).addToken(4,2,TokenType.TOKEN).build();
+  List<Token> tokens=tokenized.getTokens();
+  assertEquals(3,tokens.size());
+  Token tokenC=tokens.get(1).tokenize(0,1);
+  Token tokenD=tokens.get(1).tokenize(1,1);
+  assertEquals("C",tokenC.toString());
+  assertEquals(2,tokenC.getOffset());
+  assertEquals(1,tokenC.getLength());
+  assertEquals("D",tokenD.toString());
+  assertEquals(3,tokenD.getOffset());
+  assertEquals(1,tokenD.getLength());
+}

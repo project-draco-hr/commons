@@ -1,11 +1,15 @@
-def __init__(self, name, is_meta, reinit_check=True):
+def __init__(self, name, reinit_check=True, exclusives=None):
     if ((not reinit_check) or (not hasattr(self, '_initialized'))):
         self.name = name
-        self.is_meta = is_meta
         self.description = None
         self.address = self.locate()
         self.id = self._create_id()
         self.labels = set()
         self.register()
         self._initialized = True
+        self.declared_exclusives = collections.defaultdict(set)
+        if (exclusives is not None):
+            for k in exclusives:
+                self.declared_exclusives[k].add(exclusives[k])
+        self.exclusives = None
         self.derived_from = self

@@ -1,0 +1,2 @@
+def __init__(self, pystache_renderer):
+    self._pystache_renderer = pystache_renderer

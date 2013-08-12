@@ -1,13 +1,9 @@
 {
-  TokenStream inputStream=getInputStream();
-  if (!inputStream.incrementToken()) {
+  if (!incrementInputStream()) {
     return false;
   }
-  clearAttributes();
-  restoreState(inputStream.captureState());
-  CharSequence term=inputCharSeqTermAttr.getTermCharSequence();
-  if (regexPattern.matcher(term).matches()) {
-    typeAttr.setType(type);
+  if (regexPattern.matcher(term()).matches()) {
+    updateType(type);
   }
   return true;
 }

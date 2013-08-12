@@ -1,0 +1,4 @@
+pidfile
+stdout
+stderr
+quiet

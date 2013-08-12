@@ -1,5 +1,3 @@
 {
-  ZooKeeperMap<V> zkMap=new ZooKeeperMap<V>(zkClient,nodePath,deserializer);
-  zkMap.init();
-  return zkMap;
+  return ZooKeeperMap.create(zkClient,nodePath,deserializer,ZooKeeperMap.<V>noopListener());
 }

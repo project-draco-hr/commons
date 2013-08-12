@@ -1,0 +1,2 @@
+def _initialize_disk_logging():
+    safe_mkdir(LogOptions.log_dir())

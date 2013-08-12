@@ -1,0 +1,4 @@
+{
+  Double var=(Double)Stats.getVariable(name).read();
+  assertEquals(var,value,1e-6);
+}

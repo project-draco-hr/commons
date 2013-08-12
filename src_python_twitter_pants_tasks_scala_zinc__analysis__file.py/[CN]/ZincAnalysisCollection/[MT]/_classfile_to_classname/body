@@ -1,11 +1,5 @@
 def _classfile_to_classname(self, classfile, basedir):
     ' Convert a class file referenced in an analysis file to the name of the class\n\n    In zinc relations from the analysis files, binary class dependencies \n    and compilation products are specifies as pathnames relative to the\n    the build root, like ".pants.d/scalac/classes/6b94834/com/pkg/Foo.class".\n    For dependency analysis, we need to convert that the name of the \n    class contained in the class file, like "com.pkg.Foo".\n    '
-
-    def _is_valid_package_segment(seg):
-        if ((seg.find('.') != (-1)) or (seg.find('-') != (-1)) or (len(seg) > 30)):
-            return False
-        else:
-            return True
     if (not classfile.endswith('.class')):
         return None
     classfile = classfile[:(-6)]
@@ -15,12 +9,12 @@ def _classfile_to_classname(self, classfile, basedir):
     else:
         segments = classfile.split('/')
         segments.reverse()
-        classname = segments[0]
+        classname_parts = [segments[0]]
         for seg in segments[1:]:
-            if _is_valid_package_segment(seg):
-                classname = ('%s.%s' % (seg, classname))
+            if ((seg.find('.') == (-1)) and (seg.find('-') == (-1)) and (len(seg) < 30)):
+                classname_parts.append(seg)
                 if (seg in self.package_prefixes):
-                    return classname
+                    return '.'.join(reversed(classname_parts))
             else:
-                return classname
+                return '.'.join(reversed(classname_parts))
     return None

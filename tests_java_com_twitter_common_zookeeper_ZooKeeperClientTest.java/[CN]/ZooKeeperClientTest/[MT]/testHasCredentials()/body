@@ -1,0 +1,27 @@
+{
+  assertFalse(createZkClient().hasCredentials());
+  assertFalse(createZkClient(Credentials.NONE).hasCredentials());
+  assertFalse(createZkClient(new Credentials(){
+    @Override public void authenticate(    ZooKeeper zooKeeper){
+    }
+    @Override public String scheme(){
+      return "";
+    }
+    @Override public byte[] authToken(){
+      return new byte[0];
+    }
+  }
+).hasCredentials());
+  assertTrue(createZkClient("creator","creator").hasCredentials());
+  assertTrue(createZkClient(new Credentials(){
+    @Override public void authenticate(    ZooKeeper zooKeeper){
+    }
+    @Override public String scheme(){
+      return "custom";
+    }
+    @Override public byte[] authToken(){
+      return new byte[0];
+    }
+  }
+).hasCredentials());
+}

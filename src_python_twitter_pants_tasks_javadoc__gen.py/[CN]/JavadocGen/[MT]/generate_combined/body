@@ -1,9 +1,0 @@
-def generate_combined(self, classpath, targets):
-    gendir = os.path.join(self._output_dir, 'combined')
-    if targets:
-        safe_mkdir(gendir, clean=True)
-        command = create_javadoc_command(classpath, gendir, *targets)
-        if command:
-            create_javadoc(command, gendir)
-    if self.open:
-        binary_utils.open(os.path.join(gendir, 'index.html'))

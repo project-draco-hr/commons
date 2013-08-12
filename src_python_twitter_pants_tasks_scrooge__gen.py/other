@@ -1,0 +1,17 @@
+from __future__ import print_function
+import os
+import re
+import tempfile
+from collections import defaultdict, namedtuple
+from twitter.common.collections import OrderedSet
+from twitter.common.dirutil import safe_mkdir
+from twitter.pants import get_buildroot
+from twitter.pants.binary_util import profile_classpath, JvmCommandLine
+from twitter.pants.targets import JavaLibrary, JavaThriftLibrary, ScalaLibrary
+from twitter.pants.tasks import TaskError
+from twitter.pants.tasks.nailgun_task import NailgunTask
+from twitter.pants.thrift_util import calculate_compile_sources, calculate_compile_sources_HACK_FOR_SCROOGE_LEGACY
+INFO_FOR_COMPILER = {'scrooge': {'config': 'scrooge-gen', 'main': 'com.twitter.scrooge.Main', 'calculate_compile_sources': calculate_compile_sources, 'langs': frozenset(['scala', 'java']), }, 'scrooge-legacy': {'config': 'scrooge-legacy-gen', 'main': 'com.twitter.scrooge.Main', 'calculate_compile_sources': calculate_compile_sources_HACK_FOR_SCROOGE_LEGACY, 'langs': frozenset(['scala']), }, }
+INFO_FOR_LANG = {'scala': {'target_type': ScalaLibrary, }, 'java': {'target_type': JavaLibrary, }, }
+NAMESPACE_PARSER = re.compile('^\\s*namespace\\s+([^\\s]+)\\s+([^\\s]+)\\s*$')
+TYPE_PARSER = re.compile('^\\s*(const|enum|exception|service|struct|union)\\s+([^\\s{]+).*')

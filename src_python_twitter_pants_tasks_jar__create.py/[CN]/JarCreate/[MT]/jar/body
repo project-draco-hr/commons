@@ -1,15 +1,21 @@
 def jar(self, jvm_targets, genmap, add_genjar):
     for target in jvm_targets:
         generated = genmap.get(target)
-        if generated:
+        if (generated or has_resources(target)):
             jar_name = ('%s.jar' % jarname(target))
             add_genjar(target, jar_name)
             jar_path = os.path.join(self._output_dir, jar_name)
             with self.create_jar(target, jar_path) as zip:
-                for (basedir, classfiles) in generated.items():
-                    for classfile in classfiles:
-                        zip.write(os.path.join(basedir, classfile), classfile)
-                if (hasattr(target, 'resources') and target.resources):
-                    sibling_resources_base = os.path.join(os.path.dirname(target.target_base), 'resources')
-                    for resource in target.resources:
-                        zip.write(os.path.join(get_buildroot(), sibling_resources_base, resource), resource)
+                if generated:
+                    for (basedir, classfiles) in generated.items():
+                        for classfile in classfiles:
+                            zip.write(os.path.join(basedir, classfile), classfile)
+                if has_resources(target):
+                    resources_genmap = self.context.products.get('resources')
+                    if resources_genmap:
+                        for resources in target.resources:
+                            resource_map = resources_genmap.get(resources)
+                            if resource_map:
+                                for (basedir, files) in resource_map.items():
+                                    for resource in files:
+                                        zip.write(os.path.join(basedir, resource), resource)

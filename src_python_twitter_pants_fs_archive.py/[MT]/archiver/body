@@ -1,0 +1,6 @@
+def archiver(typename):
+    "Returns Archivers in common configurations.\n\n  The typename must correspond to one of the following:\n  'tar'   Returns a tar archiver that applies no compression and emits .tar files.\n  'tgz'   Returns a tar archiver that applies gzip compression and emits .tar.gz files.\n  'tbz2'  Returns a tar archiver that applies bzip2 compression and emits .tar.bz2 files.\n  'zip'   Returns a zip archiver that applies standard compression and emits .zip files.\n  "
+    archiver = _ARCHIVER_BY_TYPE.get(typename)
+    if (not archiver):
+        raise ValueError(('No archiver registered for %r' % typename))
+    return archiver

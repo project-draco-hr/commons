@@ -1,0 +1,4 @@
+def __exit__(self, type, value, traceback):
+    logging.info('Deleting tree {0}'.format(self.pkg_dir))
+    shutil.rmtree(self.pkg_dir)
+    logging.info('Deleted tree {0}'.format(self.pkg_dir))

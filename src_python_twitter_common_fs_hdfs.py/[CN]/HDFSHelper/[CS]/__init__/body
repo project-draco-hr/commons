@@ -1,0 +1,3 @@
+def __init__(self, config, command_class=CommandUtil):
+    self._config = config
+    self._cmd_class = command_class

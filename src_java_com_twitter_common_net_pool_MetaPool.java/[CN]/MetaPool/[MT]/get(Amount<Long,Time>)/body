@@ -1,3 +1,15 @@
 {
-  return get(loadBalancer.nextBackend(),timeout);
+  E backend;
+  ObjectPool<Connection<T,E>> pool;
+  backendsReadLock.lock();
+  try {
+    backend=loadBalancer.nextBackend();
+    Preconditions.checkNotNull(backend,"Load balancer gave a null backend.");
+    pool=backends.get(backend);
+    Preconditions.checkNotNull(backend,"Given backend %s not found in tracked backends: %s",backend,backends);
+  }
+  finally {
+    backendsReadLock.unlock();
+  }
+  return get(backend,pool,timeout);
 }

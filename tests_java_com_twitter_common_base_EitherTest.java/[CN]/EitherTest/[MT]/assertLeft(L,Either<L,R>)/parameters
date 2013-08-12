@@ -1,0 +1,2 @@
+L left
+Either<L,R> either

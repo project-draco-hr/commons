@@ -1,0 +1,5 @@
+def _addresses(self):
+    if self.context.target_roots:
+        return (target.address for target in self.context.target_roots)
+    else:
+        return (address for buildfile in BuildFile.scan_buildfiles(self._root_dir) for address in Target.get_all_addresses(buildfile))

@@ -1,11 +1,11 @@
 from __future__ import print_function
-import contextlib
 import sys
-import time
-from types import GeneratorType
-from pkg_resources import find_distributions, Distribution, DistributionNotFound, EggMetadata, Environment, Requirement, WorkingSet
-from twitter.common.collections import OrderedSet
-from twitter.common.python.distiller import Distiller
-from twitter.common.python.installer import Installer
-from twitter.common.python.importer import EggZipImporter
-from twitter.common.python.platforms import Platform
+import tempfile
+from .base import maybe_requirement_list
+from .fetcher import PyPIFetcher
+from .http import Crawler
+from .obtainer import Obtainer
+from .platforms import Platform
+from .tracer import TRACER
+from .translator import Translator
+from pkg_resources import find_distributions, Requirement, Environment, WorkingSet

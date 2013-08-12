@@ -1,0 +1,6 @@
+@staticmethod
+def scribe_log_level():
+    '\n      Get the current scribe_log_level (in logging units specified by logging module.)\n    '
+    if (LogOptions._SCRIBE_LOG_LEVEL is None):
+        LogOptions.set_scribe_log_level(app.get_options().twitter_common_log_scribe_log_level)
+    return LogOptions._SCRIBE_LOG_LEVEL

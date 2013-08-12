@@ -1,12 +1,21 @@
 from __future__ import print_function
-import contextlib
+from distutils import sysconfig
 import os
+from site import USER_SITE
 import sys
-import time
+from distutils import sysconfig
+from site import USER_SITE
+from types import GeneratorType
+from twitter.common.collections import OrderedSet
 from twitter.common.contextutil import mutable_sys
+from twitter.common.dirutil import safe_mkdir
 from twitter.common.lang import Compatibility
-from twitter.common.python.dirwrapper import PythonDirectoryWrapper
-from twitter.common.python.interpreter import PythonInterpreter
-from twitter.common.python.pex_info import PexInfo
-from twitter.common.python.resolver import Resolver
-from twitter.common.python.util import DistributionHelper
+from .base import maybe_requirement_list
+from .dirwrapper import PythonDirectoryWrapper
+from .interpreter import PythonInterpreter
+from .pex_info import PexInfo
+from .platforms import Platform
+from .tracer import Tracer
+from .util import DistributionHelper
+from pkg_resources import find_distributions, DistributionNotFound, Environment, Requirement, WorkingSet
+TRACER = Tracer(predicate=Tracer.env_filter('PEX_VERBOSE'), prefix='twitter.common.python.pex: ')

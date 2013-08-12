@@ -1,0 +1,20 @@
+def wait(self, timeout=None):
+    ' Wait until any of the dependent events are set, or the timeout expires\n\n    While it should be usable across threads, there are two caveats:\n      - Only the initial wait() call will pass on the timeout to the dependent events. (Subsequent\n        EventMuxer.wait() calls will still time out as expected, but the original threads may\n        potentially be longer-lived.)\n      - This function does not support re-entry after any previous wait() call has returned (due to\n        timeout or dependent event being set). Instantiate new EventMuxers as needed.\n\n    Note: in Python <2.7, threading.Event.wait(timeout) does not indicate on return whether or not\n    the timeout was reached. In this scenario, EventMuxer.wait() will always return False.\n\n    In Python >=2.7, EventMuxer.wait() should return as per Event.wait():\n      - True indicates one or more of the dependent events were set\n      - False indicates that the timeout occurred before any of the events were set\n    '
+    with self._lock:
+        if self._finished:
+            raise RuntimeError('wait() does not support re-entry!')
+        if (not self._started):
+            for thread in self._wait_events:
+                thread.timeout = timeout
+                thread.start()
+            self._started = True
+    try:
+        try:
+            if self._queue.get(timeout=timeout):
+                return True
+            return False
+        except Empty:
+            return False
+    finally:
+        with self._lock:
+            self._finished = True

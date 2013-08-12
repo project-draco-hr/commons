@@ -1,2 +1,0 @@
-def _start(self):
-    self._update_endpoints(None, zookeeper.CHILD_EVENT, zookeeper.CONNECTED_STATE, None)

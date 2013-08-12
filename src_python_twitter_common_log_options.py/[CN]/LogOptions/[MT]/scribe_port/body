@@ -1,0 +1,6 @@
+@staticmethod
+def scribe_port():
+    '\n      Get the current port used to connect to the scribe daemon.\n    '
+    if (LogOptions._SCRIBE_PORT is None):
+        LogOptions._SCRIBE_PORT = app.get_options().twitter_common_log_scribe_port
+    return LogOptions._SCRIBE_PORT

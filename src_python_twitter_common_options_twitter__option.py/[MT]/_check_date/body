@@ -1,0 +1,5 @@
+def _check_date(option, opt, value):
+    try:
+        return datetime.strptime(value, '%Y-%m-%d').date()
+    except ValueError:
+        raise OptionValueError(('Value for %s not a valid date in format YYYY-MM-DD' % option))

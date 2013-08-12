@@ -1,0 +1,9 @@
+def test_walk_altdir():
+    files = []
+    with temporary_dir() as td:
+        for k in range(10):
+            filename = os.path.join(td, ('%010d' % k))
+            with open(filename, 'w') as fp:
+                fp.write('booyeah')
+            files.append(filename)
+        assert (set(RealFileset.zglobs('*', root=td)) == set((os.path.basename(fn) for fn in files)))

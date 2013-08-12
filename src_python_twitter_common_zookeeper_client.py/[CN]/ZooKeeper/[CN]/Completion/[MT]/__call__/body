@@ -1,14 +1,15 @@
 def __call__(self):
     try:
-        self._logger(('Completion(zh:%s, %s) start' % (self._zk._zh, self._fn.__name__)))
+        self._logger(('%s start' % self))
         result = self._fn(self._zk._zh)
-        self._logger(('Completion(zh:%s, %s) success' % (self._zk._zh, self._fn.__name__)))
+        self._logger(('%s success' % self))
         return result
     except TypeError as e:
         if (self._zk._zh is not None):
             raise
+        self._logger(('%s raced, re-enqueueing' % self))
         self._zk._add_completion(self._fn)
-    except (zookeeper.ConnectionLossException, SystemError):
-        self._logger(('Completion(zh:%s, %s) excepted, re-enqueueing' % (self._zk._zh, self._fn.__name__)))
+    except (zookeeper.ConnectionLossException, zookeeper.InvalidStateException, SystemError) as e:
+        self._logger(('%s excepted (%s), re-enqueueing' % (self, e)))
         self._zk._add_completion(self._fn)
     return zookeeper.OK

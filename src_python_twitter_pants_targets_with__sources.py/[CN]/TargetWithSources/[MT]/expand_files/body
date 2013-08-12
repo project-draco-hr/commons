@@ -1,5 +1,5 @@
 def expand_files(self, recursive=True, include_buildfile=True):
-    'Expand files used to build this target to absolute paths.  By default this expansion is done\n    recursively and target BUILD files are included.'
+    'Expand files used to build this target to absolute paths.  By default this expansion is done\n    recursively and target BUILD files are included.\n    '
     files = []
 
     def _expand(target):

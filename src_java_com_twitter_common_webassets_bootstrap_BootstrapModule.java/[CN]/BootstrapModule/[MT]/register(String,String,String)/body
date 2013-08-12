@@ -1,0 +1,3 @@
+{
+  Registration.registerHttpAsset(binder(),"/" + mountPath,Resources.getResource(BootstrapModule.class,resourcePath),contentType,true);
+}

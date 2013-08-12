@@ -1,0 +1,16 @@
+def do_GET(self):
+    'GET method implementation for BaseHTTPRequestHandler.'
+    if (not self._client_allowed()):
+        return
+    try:
+        (_, _, path, query, _) = urlparse.urlsplit(self.path)
+        params = urlparse.parse_qs(query)
+        for (prefix, handler) in self._GET_handlers:
+            if self._maybe_handle(prefix, handler, path, params):
+                return
+        if (path == '/'):
+            self._handle_runs('', {})
+            return
+        self._send_content(('Invalid GET request %s' % self.path), 'text/html')
+    except (IOError, ValueError):
+        pass

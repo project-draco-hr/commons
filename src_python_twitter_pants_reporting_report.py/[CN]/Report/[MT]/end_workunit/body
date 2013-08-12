@@ -1,0 +1,7 @@
+def end_workunit(self, workunit):
+    with self._lock:
+        self._notify()
+        for reporter in self._reporters.values():
+            reporter.end_workunit(workunit)
+        if (workunit.id in self._workunits):
+            del self._workunits[workunit.id]

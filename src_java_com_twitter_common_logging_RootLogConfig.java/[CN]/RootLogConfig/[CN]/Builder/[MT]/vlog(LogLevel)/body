@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(level);
+  configuration.vlog=level;
+  return this;
+}

@@ -1,3 +1,2 @@
-from twitter.pants.base import Target
-from twitter.pants.base.generator import TemplateData
-from twitter.pants.targets.util import resolve
+from twitter.pants.base import Target, TargetDefinitionException
+from .util import resolve

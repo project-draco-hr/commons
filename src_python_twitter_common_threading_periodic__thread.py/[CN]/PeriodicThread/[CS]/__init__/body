@@ -1,0 +1,8 @@
+def __init__(self, group=None, target=None, name=None, period_secs=1, args=(), kwargs=None):
+    if (kwargs is None):
+        kwargs = {}
+
+    def _periodic_target():
+        target(*args, **kwargs)
+        time.sleep(period_secs)
+    StoppableThread.__init__(self, group=group, target=_periodic_target, name=name, args=args, kwargs=kwargs)

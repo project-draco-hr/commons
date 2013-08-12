@@ -5,6 +5,9 @@
   if (junit.framework.Test.class.isAssignableFrom(clazz)) {
     return true;
   }
+  if (clazz.isAnnotationPresent(RunWith.class)) {
+    return true;
+  }
   return Iterables.any(Arrays.asList(clazz.getMethods()),new Predicate<Method>(){
     @Override public boolean apply(    Method method){
       return Modifier.isPublic(method.getModifiers()) && method.isAnnotationPresent(org.junit.Test.class);

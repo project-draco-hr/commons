@@ -1,0 +1,4 @@
+def test_no_dependencies(self):
+    with pytest.raises(TargetDefinitionException):
+        with ParseContext.temp():
+            JarLibrary('test-jar-library-with-empty-dependencies', None)

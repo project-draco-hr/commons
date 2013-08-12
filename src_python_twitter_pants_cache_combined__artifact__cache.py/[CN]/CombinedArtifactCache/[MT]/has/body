@@ -1,0 +1,2 @@
+def has(self, cache_key):
+    return any((cache.has(cache_key) for cache in self._artifact_caches))

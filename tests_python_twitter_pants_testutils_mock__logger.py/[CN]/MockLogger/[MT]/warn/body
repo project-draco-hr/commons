@@ -1,0 +1,2 @@
+def warn(self, *msg_elements):
+    self._maybe_log(Report.WARN, *msg_elements)

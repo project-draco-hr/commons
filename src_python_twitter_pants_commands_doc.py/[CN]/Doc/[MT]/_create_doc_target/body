@@ -1,5 +1,0 @@
-def _create_doc_target(self, targets, all_sources, all_deps):
-
-    def create_meta_target():
-        return JavaLibrary('pants.doc.deps', all_sources, dependencies=all_deps, is_meta=True)
-    return list(targets)[0].do_in_context(create_meta_target)

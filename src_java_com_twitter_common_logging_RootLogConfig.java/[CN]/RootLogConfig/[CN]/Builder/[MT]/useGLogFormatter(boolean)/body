@@ -1,0 +1,4 @@
+{
+  configuration.useGLogFormatter=flag;
+  return this;
+}

@@ -1,6 +1,14 @@
 {
-  this.inputStream=null;
-  termAttr=addAttribute(CharSequenceTermAttribute.class);
-  typeAttr=addAttribute(TokenTypeAttribute.class);
+  super(new TokenStream(){
+    @Override public boolean incrementToken(){
+      return false;
+    }
+    @Override public void reset(    CharSequence input){
+      throw new IllegalArgumentException("Input must be an instance of TokenizedCharSequence" + " because there is no TokenStream in the downstream to tokenized a text.");
+    }
+  }
+);
   posAttr=addAttribute(PartOfSpeechAttribute.class);
+  incAttr=addAttribute(PositionIncrementAttribute.class);
+  groupAttr=(TokenGroupAttributeImpl)addAttribute(TokenGroupAttribute.class);
 }

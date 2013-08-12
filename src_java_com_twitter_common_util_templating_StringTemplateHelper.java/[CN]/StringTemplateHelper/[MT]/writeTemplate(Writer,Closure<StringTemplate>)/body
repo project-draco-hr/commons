@@ -1,0 +1,12 @@
+{
+  Preconditions.checkNotNull(out);
+  Preconditions.checkNotNull(parameterSetter);
+  StringTemplate stringTemplate=group.getInstanceOf(templatePath);
+  try {
+    parameterSetter.execute(stringTemplate);
+    stringTemplate.write(new AutoIndentWriter(out));
+  }
+ catch (  IOException e) {
+    throw new TemplateException("Failed to write template: " + e,e);
+  }
+}

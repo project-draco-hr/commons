@@ -1,0 +1,13 @@
+def namespace_map(targets):
+    result = dict()
+    target_for_lhs = dict()
+    for target in targets:
+        if target.namespace_map:
+            for (lhs, rhs) in target.namespace_map.items():
+                current_rhs = result.get(lhs)
+                if (None == current_rhs):
+                    result[lhs] = rhs
+                    target_for_lhs[lhs] = target
+                elif (current_rhs != rhs):
+                    raise TaskError(("Conflicting namespace_map values:\n\t%s {'%s': '%s'}\n\t%s {'%s': '%s'}" % (target_for_lhs[lhs], lhs, current_rhs, target, lhs, rhs)))
+    return result

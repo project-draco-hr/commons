@@ -1,0 +1,19 @@
+{
+  Capture<LeaderControl> controlCapture=createCapture();
+  CountDownLatch leading=new CountDownLatch(1);
+  listener.onLeading(capture(controlCapture));
+  expectLastCall().andAnswer(countDownAnswer(leading));
+  CountDownLatch defeated=new CountDownLatch(1);
+  listener.onDefeated(null);
+  expectLastCall().andAnswer(countDownAnswer(defeated));
+  control.replay();
+  ZooKeeperClient zkClient=createZkClient();
+  serverSet=new ServerSetImpl(zkClient,"/fake/path");
+  candidate=new CandidateImpl(new Group(zkClient,ZooKeeperUtils.OPEN_ACL_UNSAFE,"/fake/path"));
+  DefeatOnDisconnectLeader leader=new DefeatOnDisconnectLeader(zkClient,listener);
+  service=new SingletonService(serverSet,candidate);
+  service.lead(InetSocketAddress.createUnresolved("foo",PORT_A),ImmutableMap.of("http-admin",InetSocketAddress.createUnresolved("foo",PORT_B)),leader);
+  leading.await();
+  shutdownNetwork();
+  defeated.await();
+}

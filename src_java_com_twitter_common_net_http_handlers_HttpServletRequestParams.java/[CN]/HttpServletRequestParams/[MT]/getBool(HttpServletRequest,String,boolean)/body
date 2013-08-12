@@ -1,0 +1,8 @@
+{
+  if (request.getParameter(param) != null) {
+    return Boolean.valueOf(request.getParameter(param));
+  }
+ else {
+    return defaultValue;
+  }
+}

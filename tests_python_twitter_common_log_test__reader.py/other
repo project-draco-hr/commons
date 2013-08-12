@@ -1,0 +1,6 @@
+import os
+from twitter.common.lang import Compatibility
+from twitter.common.log.parsers import GlogLine
+from twitter.common.log.reader import Buffer, Stream, StreamMuxer
+TEST_GLOG_LINES = '\nLog file created at: 2012/11/01 18:39:49\nRunning on machine: smf1-aes-07-sr2.prod.twitter.com\n[DIWEF]mmdd hh:mm:ss.uuuuuu pid file:line] msg\nCommand line: ./thermos_executor.pex\nI1101 18:39:49.557605 14209 executor_base.py:43] Executor [None]: registered() called with:\nI1101 18:39:49.558563 14209 executor_base.py:43] Executor [None]:    ExecutorInfo:  executor_id {\n  value: "thermos-1351795185681-wickman-hello_world_crush-2-601439aa-6f17-4e78-90a0-ef40de4a36db"\n}\nresources {\n  name: "cpus"\n  type: SCALAR\n  scalar {\n    value: 0.25\n  }\n}\nI1101 18:39:50.000000 14209 executor_base.py:43] Executor [None]:    Yet another\n  set of\n  executor\n  lines\n'
+TEST_GLOG_LINES_LENGTH = len(TEST_GLOG_LINES.split('\n'))

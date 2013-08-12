@@ -24,7 +24,12 @@
       abortableListener.addListener(xmlReportListener);
     }
   }
-  abortableListener.addListener(new ConsoleListener(out));
+  if (perTestTimer) {
+    abortableListener.addListener(new PerClassConsoleListener(out));
+  }
+ else {
+    abortableListener.addListener(new ConsoleListener(out));
+  }
   Thread abnormalExitHook=new Thread(){
     @Override public void run(){
       try {
@@ -40,9 +45,20 @@
   abnormalExitHook.setDaemon(true);
   Runtime.getRuntime().addShutdownHook(abnormalExitHook);
   int failures=0;
-  for (  Request request : requests) {
-    Result result=core.run(request);
-    failures+=result.getFailureCount();
+  try {
+    if (this.parallelThreads > 1) {
+      ConcurrentCompositeRequest request=new ConcurrentCompositeRequest(requests,this.defaultParallel,this.parallelThreads);
+      failures=core.run(request).getFailureCount();
+    }
+ else {
+      for (      Request request : requests) {
+        Result result=core.run(request);
+        failures+=result.getFailureCount();
+      }
+    }
+  }
+ catch (  InitializationError initializationError) {
+    failures=1;
   }
   Runtime.getRuntime().removeShutdownHook(abnormalExitHook);
   exit(failures);

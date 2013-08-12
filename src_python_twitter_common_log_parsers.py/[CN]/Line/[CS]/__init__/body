@@ -1,0 +1,2 @@
+def __init__(self, raw, level, dt, pid, source, message):
+    (self.raw, self.level, self.datetime, self.pid, self.source, self.message) = (raw, level, dt, pid, source, message)

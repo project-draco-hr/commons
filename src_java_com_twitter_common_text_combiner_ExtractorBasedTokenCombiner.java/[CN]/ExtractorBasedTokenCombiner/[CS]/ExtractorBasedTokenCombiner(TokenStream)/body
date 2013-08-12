@@ -1,7 +1,3 @@
 {
   super(inputStream);
-  Preconditions.checkArgument(hasAttribute(CharSequenceTermAttribute.class));
-  termAttr=getAttribute(CharSequenceTermAttribute.class);
-  typeAttr=addAttribute(TokenTypeAttribute.class);
-  inputTermAttr=inputStream.getAttribute(CharSequenceTermAttribute.class);
 }

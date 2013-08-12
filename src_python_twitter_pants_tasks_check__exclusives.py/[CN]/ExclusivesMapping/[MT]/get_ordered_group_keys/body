@@ -1,0 +1,25 @@
+def get_ordered_group_keys(self):
+    'Compute the correct order in which to compile exclusives groups.\n\n    In group, we already do group-based ordering. But that ordering is done separately on\n    each exclusives group. If we have a grouping:\n      a(exclusives={x: 1, y:2}, dependencies=[ \':b\', \':c\' ])\n      b(exclusives={x:"<none>", y: "<none>"}, dependencies=[])\n      c(exclusives={x:<none>, y:2}, dependencies=[\':b\'])\n\n    If we were to do grouping in the exclusives ordering {x:<none>, y:2}, {x: <none>, y:<none>},\n     {x:1, y:2}, then we\'d be compiling the group containing c before the group containing b; but\n    c depends on b.\n    '
+
+    def number_of_emptys(key):
+        if (key == '<none>'):
+            return len(self.conflicting_keys)
+        return key.count('<none>')
+    if (self.ordering is not None):
+        return self.ordering
+    keys_by_empties = [[] for l in range(len(self.key_to_targets))]
+    no_exclusives = False
+    for k in self.key_to_targets:
+        if (k == '<none>'):
+            no_exclusives = True
+        else:
+            keys_by_empties[number_of_emptys(k)].append(k)
+    result = []
+    for i in range(len(keys_by_empties)):
+        for j in range(len(keys_by_empties[i])):
+            result.append(keys_by_empties[i][j])
+    if no_exclusives:
+        result.append('<none>')
+    result.reverse()
+    self.ordering = result
+    return self.ordering

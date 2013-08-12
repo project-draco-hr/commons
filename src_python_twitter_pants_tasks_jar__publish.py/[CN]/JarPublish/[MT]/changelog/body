@@ -1,7 +1,2 @@
 def changelog(self, target, sha):
-    cmd = ['git', 'whatchanged', '--stat', '-M', '-C']
-    if sha:
-        cmd.append(('%s..HEAD' % sha))
-    cmd.append('--')
-    cmd.extend((os.path.join(target.target_base, source) for source in target.sources))
-    return self.check_output(cmd)
+    return self.scm.changelog(from_commit=sha, files=[os.path.join(target.target_base, source) for source in target.sources])

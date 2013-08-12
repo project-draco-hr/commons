@@ -1,0 +1,2 @@
+def __init__(self, run_tracker):
+    self._run_tracker = run_tracker

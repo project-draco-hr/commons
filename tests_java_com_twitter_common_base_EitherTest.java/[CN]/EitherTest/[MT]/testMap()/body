@@ -1,0 +1,12 @@
+{
+  Transformer<Object,CharSequence,Integer> transformer=Either.transformer(HASHCODE,LENGTH);
+  Object left=new Object(){
+    @Override public int hashCode(){
+      return 1137;
+    }
+  }
+;
+  Either<Object,CharSequence> either=Either.left(left);
+  assertEquals(1137,either.map(transformer).intValue());
+  assertEquals(19,Either.right("The Meaning of Life").map(transformer).intValue());
+}

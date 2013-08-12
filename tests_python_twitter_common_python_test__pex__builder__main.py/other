@@ -1,0 +1,16 @@
+from collections import namedtuple
+import logging
+import os
+import pytest
+import shutil
+import subprocess
+import tempfile
+import time
+import urllib2
+FileSpec = namedtuple('FileSpec', ['filename', 'contents'])
+_mybottle_requirements_txt = FileSpec(filename='requirements.txt', contents='\n'.join(['mako >= 0.7.0', 'bottle']))
+_mybottle_setup_py = FileSpec(filename='setup.py', contents='\nfrom distutils.core import setup\n\nsetup(name="mybottle",\n     version="0.1.0",\n     description="My bottle server",\n     author="No name",\n     author_email="no@email.com",\n     package_dir={"": "src"},\n     package_data={"mybottle": ["resources/*/*"]},\n     url="http://dev.twitter.com/python/",\n     packages=["mybottle"],\n     )\n')
+_mybottle_setup_py_with_requires = FileSpec(filename='setup.py', contents='\nfrom distutils.core import setup\n\nsetup(name="mybottle",\n     version="0.1.0",\n     description="My bottle server",\n     author="No name",\n     author_email="no@email.com",\n     package_dir={"": "src"},\n     package_data={"mybottle": ["resources/*/*"]},\n     url="http://dev.twitter.com/python/",\n     packages=["mybottle"],\n     requires=["mako", "bottle"],\n     )\n')
+_mybottle_src_mybottle_server_py = FileSpec(filename=os.path.join('src', 'mybottle', 'server.py'), contents='\nfrom bottle import route, run\nfrom mako.template import Template\nfrom pkg_resources import resource_string\n\n@route("/hello/:name")\ndef index(name="World"):\n  return Template(resource_string(__package__, "resources/en_US/hello.mako")).render(data=name)\n\ndef main(args=[]):\n  try:\n    port = args[0]\n  except IndexError as e:\n    port = 8080\n  run(host=\'0.0.0.0\', port=port)\n\nif __name__ == "__main__":\n  main()\n')
+_mybottle_src_mybottle_init_py = FileSpec(filename=os.path.join('src', 'mybottle', '__init__.py'), contents='')
+_mybottle_src_mybottle_resources_en_US_hello_mako = FileSpec(filename=os.path.join('src', 'mybottle', 'resources', 'en_US', 'hello.mako'), contents='Hello ${data}!')

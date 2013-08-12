@@ -10,5 +10,6 @@ from twitter.pants import get_buildroot
 from twitter.pants import SourceRoot
 from twitter.pants.base import ParseContext
 from twitter.pants.base.target import Target
-from twitter.pants.targets import Pants
 from twitter.pants.goal.products import Products
+from twitter.pants.reporting.report import Report
+from twitter.pants.targets import Pants

@@ -1,0 +1,13 @@
+{
+  final String value=request.getParameter(param);
+  int result=defaultValue;
+  if (value != null) {
+    try {
+      result=Integer.parseInt(value);
+    }
+ catch (    NumberFormatException e) {
+      LOG.warning("Invalid int for " + param + ": "+ value);
+    }
+  }
+  return result;
+}

@@ -1,0 +1,8 @@
+@classmethod
+def get_random_port(cls):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(('localhost', 0))
+    (_, port) = s.getsockname()
+    s.close()
+    return port

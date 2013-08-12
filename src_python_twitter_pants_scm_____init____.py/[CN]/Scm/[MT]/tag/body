@@ -1,0 +1,3 @@
+@abstractmethod
+def tag(self, name, message=None):
+    'Tags the state in the local workspace and ensures this tag is on the server.\n\n    Subclasses should raise RemoteException if there is a problem getting the tag to the server.\n    '

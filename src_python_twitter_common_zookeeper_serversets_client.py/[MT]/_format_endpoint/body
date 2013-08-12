@@ -1,2 +1,0 @@
-def _format_endpoint(e):
-    return ('%s:%s' % (e.serviceEndpoint.host, e.serviceEndpoint.port))

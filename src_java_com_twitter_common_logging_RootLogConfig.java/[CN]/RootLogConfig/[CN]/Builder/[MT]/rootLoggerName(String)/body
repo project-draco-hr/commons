@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(name);
+  Preconditions.checkArgument(!name.isEmpty());
+  configuration.rootLoggerName=name;
+  return this;
+}

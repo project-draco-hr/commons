@@ -1,6 +1,6 @@
-def __init__(self, context, java_runner, color):
-    self._context = context
-    self._java_runner = java_runner
+def __init__(self, context, nailgun_task, color):
+    self.context = context
+    self._nailgun_task = nailgun_task
     self._color = color
     self._pants_home = get_buildroot()
     self._compile_profile = context.config.get('scala-compile', 'compile-profile')
@@ -13,9 +13,7 @@ def __init__(self, context, java_runner, color):
         self._scalac_args.extend(context.config.getlist('scala-compile', 'warning_args'))
     else:
         self._scalac_args.extend(context.config.getlist('scala-compile', 'no_warning_args'))
-
-    def cp_for_profile(profile):
-        return profile_classpath(profile, java_runner=self._java_runner, config=self._context.config)
+    cp_for_profile = self._nailgun_task.profile_classpath
     self._zinc_classpath = cp_for_profile(self._zinc_profile)
     self._compiler_classpath = cp_for_profile(self._compile_profile)
     self._plugin_jars = (cp_for_profile(self._plugins_profile) if self._plugins_profile else [])

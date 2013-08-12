@@ -1,4 +1,4 @@
 {
-  tokenizer.setKeepPunctuation(keepPunctuation);
+  this.keepPunctuation=keepPunctuation;
   return self();
 }

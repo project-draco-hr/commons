@@ -1,0 +1,4 @@
+boolean primary
+Set<String> names
+int port
+Command shutdownCommand

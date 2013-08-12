@@ -1,0 +1,2 @@
+def test_list_path(self):
+    self.assert_console_output('a/b/BUILD:b', targets=[self.target('a/b')])

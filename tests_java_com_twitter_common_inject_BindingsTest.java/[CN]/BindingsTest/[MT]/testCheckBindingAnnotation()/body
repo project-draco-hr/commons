@@ -1,0 +1,22 @@
+{
+  Bindings.checkBindingAnnotation(NAME_KEY);
+  Bindings.checkBindingAnnotation(BindKey.class);
+  try {
+    Bindings.checkBindingAnnotation((Class<? extends Annotation>)null);
+    fail();
+  }
+ catch (  NullPointerException e) {
+  }
+  try {
+    Bindings.checkBindingAnnotation((Annotation)null);
+    fail();
+  }
+ catch (  NullPointerException e) {
+  }
+  try {
+    Bindings.checkBindingAnnotation(BindingAnnotation.class);
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

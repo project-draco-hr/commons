@@ -1,8 +1,9 @@
 def quit(self, rc, exit_function=sys.exit):
     self._debug_log('Shutting application down.')
     self._teardown_modules()
-    import threading
+    self._debug_log('Finishing up module teardown.')
     nondaemons = 0
+    self.dump_profile()
     for thr in threading.enumerate():
         self._debug_log(('  Active thread%s: %s' % ((' (daemon)' if thr.isDaemon() else ''), thr)))
         if ((thr is not threading.current_thread()) and (not thr.isDaemon())):

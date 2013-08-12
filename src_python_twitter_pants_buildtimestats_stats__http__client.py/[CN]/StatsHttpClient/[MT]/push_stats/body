@@ -1,0 +1,11 @@
+def push_stats(self, json_stats):
+    log.debug(('Uploading pants stats to %s' % self._host))
+    client = self._get_client()
+    params = urllib.urlencode({'json': json_stats, })
+    headers = {'Content-type': 'application/x-www-form-urlencoded', 'Accept': 'text/plain', }
+    client.request('POST', self._http_endpoint, params, headers)
+    resp = client.getresponse()
+    resp_type = (resp.status / 100)
+    client.close()
+    if (resp_type not in [2, 3]):
+        log.debug('There was an error uploading the stats')

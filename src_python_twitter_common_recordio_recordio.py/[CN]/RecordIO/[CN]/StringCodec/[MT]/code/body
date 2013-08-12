@@ -1,7 +1,0 @@
-@staticmethod
-def code(blob):
-    if (blob is None):
-        return None
-    if (not isinstance(blob, Compatibility.string)):
-        raise RecordIO.InvalidTypeException(('blob (type=%s) not StringType!' % type(blob)))
-    return blob

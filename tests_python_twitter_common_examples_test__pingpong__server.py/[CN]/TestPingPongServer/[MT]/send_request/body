@@ -1,0 +1,2 @@
+def send_request(self, endpoint, message, ttl):
+    self._calls.append((endpoint, message, ttl))

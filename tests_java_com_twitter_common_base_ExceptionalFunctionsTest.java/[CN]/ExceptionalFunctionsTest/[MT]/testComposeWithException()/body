@@ -1,0 +1,4 @@
+{
+  ExceptionalFunction<String,Double,Exception> stringToDouble=ExceptionalFunctions.compose(intToDouble,stringToInt);
+  stringToDouble.apply("1.1");
+}

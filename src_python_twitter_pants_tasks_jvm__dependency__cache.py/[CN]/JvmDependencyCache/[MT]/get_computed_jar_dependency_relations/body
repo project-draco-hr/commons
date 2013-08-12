@@ -1,5 +1,5 @@
 def get_computed_jar_dependency_relations(self):
-    '  Compute maps from target to the jars that the target provides '
+    ' Compute maps from target to the jars that the target provides.'
     (self.ivy_jars_by_target, self.ivy_targets_by_jar) = self._compute_jardep_contents()
     computed_jar_deps = defaultdict(set)
     for target in self.targets:

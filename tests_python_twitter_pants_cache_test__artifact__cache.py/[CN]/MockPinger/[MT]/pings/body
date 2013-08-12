@@ -1,0 +1,2 @@
+def pings(self, hosts):
+    return map((lambda host: (host, self._hosts_to_times.get(host, 9999))), hosts)

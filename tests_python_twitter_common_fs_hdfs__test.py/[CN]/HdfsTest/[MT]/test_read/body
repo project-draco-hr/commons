@@ -1,0 +1,6 @@
+def test_read(self):
+    hdfs_helper = HDFSHelper('/etc/hadoop/hadoop-conf-tst-smf1', command_class=MockCommandUtil)
+    read_text = hdfs_helper.read('somefile')
+    self.assertEqual('read_test', read_text)
+    read_text = hdfs_helper.read('non_exist')
+    self.assertEqual(None, read_text)

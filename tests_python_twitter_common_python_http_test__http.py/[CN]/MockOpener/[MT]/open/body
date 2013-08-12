@@ -1,0 +1,8 @@
+def open(self, url, conn_timeout=None):
+    if (conn_timeout and (conn_timeout == Amount(0, Time.SECONDS))):
+        raise urllib_error.URLError(('Could not reach %s within deadline.' % url))
+    if url.startswith('http'):
+        self.opened.set()
+    if self.error:
+        raise urllib_error.HTTPError(url, self.error, None, None, Compatibility.BytesIO('glhglhg'))
+    return urllib_request.addinfourl(Compatibility.BytesIO(self.rv), url, None, self.code)

@@ -1,6 +1,0 @@
-__author__ = 'John Sirois'
-from . import Command
-from twitter.common.collections import OrderedSet
-from twitter.pants.base import Address, BuildFile, Target
-from twitter.pants import is_exported
-import traceback

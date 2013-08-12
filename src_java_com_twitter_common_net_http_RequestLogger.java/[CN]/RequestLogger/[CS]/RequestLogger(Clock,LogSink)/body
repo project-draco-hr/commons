@@ -1,0 +1,6 @@
+{
+  this.clock=checkNotNull(clock);
+  this.sink=checkNotNull(sink);
+  logDateCache=new DateCache("dd/MMM/yyyy:HH:mm:ss Z",Locale.getDefault());
+  logDateCache.setTimeZoneID("GMT");
+}

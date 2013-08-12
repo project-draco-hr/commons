@@ -1,0 +1,6 @@
+def run(self):
+    while True:
+        self._event.wait()
+        log.debug('Join event triggered, joining serverset.')
+        self._event.clear()
+        self._joiner()

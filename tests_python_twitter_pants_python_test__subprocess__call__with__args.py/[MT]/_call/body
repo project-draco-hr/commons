@@ -1,0 +1,4 @@
+def _call(cmd_with_args, **kwargs):
+    if (len(cmd_with_args) > 4):
+        raise OSError(errno.E2BIG, os.strerror(errno.E2BIG))
+    return 0

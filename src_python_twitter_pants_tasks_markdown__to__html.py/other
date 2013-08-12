@@ -52,7 +52,7 @@ import os
 import re
 import textwrap
 from twitter.common.dirutil import safe_open
-from twitter.pants import get_buildroot
+from twitter.pants import binary_util, get_buildroot
 from twitter.pants.base import Address, Target
 from twitter.pants.targets import Page
-from twitter.pants.tasks import binary_utils, Task, TaskError
+from twitter.pants.tasks import Task, TaskError

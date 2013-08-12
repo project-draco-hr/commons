@@ -1,0 +1,5 @@
+def get_all_exclusives(self):
+    ' Get a map of all exclusives declarations in the transitive dependency graph.\n\n    For a detailed description of the purpose and use of exclusives tags,\n    see the documentation of the CheckExclusives task.\n\n    '
+    if (self.exclusives is None):
+        self._propagate_exclusives()
+    return self.exclusives

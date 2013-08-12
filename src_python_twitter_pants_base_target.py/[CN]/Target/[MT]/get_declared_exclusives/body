@@ -1,0 +1,2 @@
+def get_declared_exclusives(self):
+    return self.declared_exclusives

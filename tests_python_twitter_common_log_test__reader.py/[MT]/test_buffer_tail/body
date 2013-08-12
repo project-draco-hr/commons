@@ -1,0 +1,13 @@
+def test_buffer_tail():
+    writer = Compatibility.StringIO()
+    buf = Buffer(writer, infinite=False)
+    assert (buf.next() is None)
+    write_and_rewind(writer, '1234')
+    assert (buf.next() == '1234')
+    writer = Compatibility.StringIO()
+    buf = Buffer(writer, infinite=True)
+    assert (buf.next() is None)
+    write_and_rewind(writer, '1234')
+    assert (buf.next() is None)
+    write_and_rewind(writer, '\n')
+    assert (buf.next() == '1234')

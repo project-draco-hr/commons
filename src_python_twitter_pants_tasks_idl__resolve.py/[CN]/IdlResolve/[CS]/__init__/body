@@ -1,0 +1,2 @@
+def __init__(self, context):
+    super(IdlResolve, self).__init__(context, ['idl'])

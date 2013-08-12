@@ -1,0 +1,7 @@
+def preamble(self):
+    scheme = self._scheme_fn()
+    if (scheme not in ProxyFormatter._SCHEME_TO_FORMATTER):
+        raise ProxyFormatter.UnknownSchemeException(('Unknown logging scheme: %s' % scheme))
+    formatter = ProxyFormatter._SCHEME_TO_FORMATTER[scheme]
+    if (hasattr(formatter, 'logfile_preamble') and callable(formatter.logfile_preamble)):
+        return formatter.logfile_preamble()

@@ -1,0 +1,5 @@
+def setup_mock_transport(self):
+    self.mox.StubOutClassWithMocks(TSocket, 'TSocket')
+    self.mock_tsocket = TSocket.TSocket(host=_HOST, port=_PORT)
+    self.mox.StubOutClassWithMocks(TTransport, 'TFramedTransport')
+    self.mock_transport = TTransport.TFramedTransport(self.mock_tsocket)

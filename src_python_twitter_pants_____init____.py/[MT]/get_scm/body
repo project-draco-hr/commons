@@ -1,0 +1,3 @@
+def get_scm():
+    'Returns the pants Scm if any.'
+    return _SCM

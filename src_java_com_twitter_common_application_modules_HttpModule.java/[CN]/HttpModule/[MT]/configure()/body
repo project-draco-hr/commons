@@ -1,14 +1,17 @@
 {
   requireBinding(Injector.class);
   requireBinding(ShutdownRegistry.class);
-  bind(Key.get(Runnable.class,Names.named(AbortHandler.ABORT_HANDLER_KEY))).toInstance(DEFAULT_ABORT_HANDLER);
-  bind(Runnable.class).annotatedWith(Names.named(QuitHandler.QUIT_HANDLER_KEY)).to(DefaultQuitHandler.class);
-  bind(DefaultQuitHandler.class).in(Singleton.class);
+  bind(Runnable.class).annotatedWith(Names.named(AbortHandler.ABORT_HANDLER_KEY)).to(abortHandler);
+  bind(abortHandler).in(Singleton.class);
+  bind(Runnable.class).annotatedWith(Names.named(QuitHandler.QUIT_HANDLER_KEY)).to(quitHandlerKey);
+  bind(quitHandlerKey).in(Singleton.class);
   bind(new TypeLiteral<ExceptionalSupplier<Boolean,?>>(){
   }
-).annotatedWith(Names.named(HealthHandler.HEALTH_CHECKER_KEY)).toInstance(DEFAULT_HEALTH_CHECKER);
+).annotatedWith(Names.named(HealthHandler.HEALTH_CHECKER_KEY)).to(healthCheckerKey);
+  bind(healthCheckerKey).in(Singleton.class);
   bindConstant().annotatedWith(CacheTemplates.class).to(CACHE_TEMPLATES);
   bind(HttpServerDispatch.class).to(JettyHttpServerDispatch.class).in(Singleton.class);
+  bind(RequestLog.class).to(RequestLogger.class);
   Registration.registerServlet(binder(),"/abortabortabort",AbortHandler.class,true);
   Registration.registerServlet(binder(),"/contention",ContentionPrinter.class,false);
   Registration.registerServlet(binder(),"/graphdata",TimeSeriesDataSource.class,true);
@@ -16,10 +19,15 @@
   Registration.registerServlet(binder(),"/healthz",HealthHandler.class,true);
   Registration.registerServlet(binder(),"/logconfig",LogConfig.class,false);
   Registration.registerServlet(binder(),"/logs",LogPrinter.class,false);
+  Registration.registerServlet(binder(),"/pprof/heap",HeapProfileHandler.class,false);
+  Registration.registerServlet(binder(),"/pprof/profile",CpuProfileHandler.class,false);
+  Registration.registerServlet(binder(),"/pprof/contention",ContentionProfileHandler.class,false);
   Registration.registerServlet(binder(),"/quitquitquit",QuitHandler.class,true);
   Registration.registerServlet(binder(),"/threads",ThreadStackPrinter.class,false);
   Registration.registerServlet(binder(),"/vars",VarsHandler.class,false);
   Registration.registerServlet(binder(),"/vars.json",VarsJsonHandler.class,false);
   GraphViewer.registerResources(binder());
   LifecycleModule.bindServiceRunner(binder(),HttpServerLauncher.class);
+  Registration.getFilterBinder(binder());
+  Registration.getEndpointBinder(binder());
 }

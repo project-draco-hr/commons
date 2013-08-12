@@ -1,4 +1,3 @@
-__author__ = 'John Sirois'
 import os
 from collections import defaultdict
 from twitter.common.collections import OrderedSet

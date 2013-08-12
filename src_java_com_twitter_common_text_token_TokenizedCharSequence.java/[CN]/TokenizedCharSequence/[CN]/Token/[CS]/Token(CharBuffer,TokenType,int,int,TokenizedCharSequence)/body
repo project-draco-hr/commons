@@ -1,0 +1,7 @@
+{
+  this.term=term;
+  this.type=type;
+  this.pos=pos;
+  this.inc=inc;
+  this.group=group;
+}

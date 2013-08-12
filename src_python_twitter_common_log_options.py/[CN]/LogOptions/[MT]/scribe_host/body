@@ -1,0 +1,6 @@
+@staticmethod
+def scribe_host():
+    '\n      Get the current host running the scribe daemon.\n    '
+    if (LogOptions._SCRIBE_HOST is None):
+        LogOptions._SCRIBE_HOST = app.get_options().twitter_common_log_scribe_host
+    return LogOptions._SCRIBE_HOST

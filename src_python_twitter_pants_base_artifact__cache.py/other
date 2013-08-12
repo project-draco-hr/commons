@@ -1,6 +1,0 @@
-import httplib
-import os
-import shutil
-import urlparse
-from twitter.common.contextutil import open_tar, temporary_file
-from twitter.common.dirutil import safe_mkdir, safe_rmtree

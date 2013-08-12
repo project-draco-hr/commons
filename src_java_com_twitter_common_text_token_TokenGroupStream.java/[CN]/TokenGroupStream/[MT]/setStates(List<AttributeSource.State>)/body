@@ -1,0 +1,4 @@
+{
+  this.states=states;
+  currentIndex=0;
+}

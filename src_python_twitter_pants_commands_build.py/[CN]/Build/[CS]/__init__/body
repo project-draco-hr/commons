@@ -1,5 +1,5 @@
-def __init__(self, root_dir, parser, argv):
-    Command.__init__(self, root_dir, parser, argv)
+def __init__(self, run_tracker, root_dir, parser, argv):
+    Command.__init__(self, run_tracker, root_dir, parser, argv)
     if (not self.args):
         self.error('A spec argument is required')
     try:
@@ -17,12 +17,10 @@ def __init__(self, root_dir, parser, argv):
             address = Address.parse(root_dir, spec)
         except:
             self.error(('Problem parsing spec %s: %s' % (spec, traceback.format_exc())))
-            raise
         try:
             target = Target.get(address)
         except:
             self.error(('Problem parsing BUILD target %s: %s' % (address, traceback.format_exc())))
-            raise
         if (not target):
             self.error(('Target %s does not exist' % address))
-        self.targets.add(target)
+        self.targets.update((tgt for tgt in target.resolve() if is_concrete(tgt)))

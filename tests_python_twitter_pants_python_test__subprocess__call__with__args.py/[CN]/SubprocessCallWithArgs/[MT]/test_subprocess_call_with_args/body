@@ -1,0 +1,9 @@
+def test_subprocess_call_with_args(self):
+    cmd = ['no-such-cmd']
+    args = ['one', 'two', 'three', 'four', 'five']
+    cmd_with_args = cmd[:]
+    cmd_with_args.extend(args)
+    with pytest.raises(OSError) as err:
+        _subprocess_call(cmd_with_args, call=_call)
+    self.assertEqual(err.value.errno, errno.E2BIG)
+    self.assertEqual(0, _subprocess_call_with_args(cmd, args, call=_call))

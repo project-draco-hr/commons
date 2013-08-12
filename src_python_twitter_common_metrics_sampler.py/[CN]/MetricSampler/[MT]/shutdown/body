@@ -1,4 +1,0 @@
-def shutdown(self):
-    if log:
-        log.debug('Shutting down metric sampler.')
-    self._shutdown = True

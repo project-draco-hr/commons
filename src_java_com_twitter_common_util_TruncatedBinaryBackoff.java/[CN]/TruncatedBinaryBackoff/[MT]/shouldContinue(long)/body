@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(lastBackoffMs >= 0);
+  boolean stop=stopAtMax && (lastBackoffMs >= maxBackoffIntervalMs);
+  return !stop;
+}

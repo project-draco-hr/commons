@@ -1,0 +1,3 @@
+@abstractmethod
+def commit(self, message):
+    'Commits the changes in the local workspace and ensure this commit is on the server.\n\n    Subclasses should raise RemoteException if there is a problem getting the tag to the server.\n    '

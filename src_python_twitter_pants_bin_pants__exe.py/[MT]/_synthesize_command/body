@@ -1,6 +1,5 @@
 def _synthesize_command(root_dir, args):
     command = args[0]
-    command = (_BUILD_COMMAND if (command in _BUILD_ALIASES) else command)
     if (command in Command.all_commands()):
         subcommand_args = (args[1:] if (len(args) > 1) else [])
         return (command, _add_default_options(command, subcommand_args))

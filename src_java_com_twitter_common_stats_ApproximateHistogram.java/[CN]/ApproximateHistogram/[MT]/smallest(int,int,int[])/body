@@ -1,0 +1,25 @@
+{
+  long smallest=Long.MAX_VALUE, x=Long.MAX_VALUE;
+  final int id0=ids[0], id1=ids[1];
+  int iSmallest=0;
+  if (0 < leafCount && id0 < buf0Size) {
+    smallest=buffer[0][id0];
+  }
+  if (bufferSize < leafCount && id1 < buf1Size) {
+    x=buffer[1][id1];
+    if (x < smallest) {
+      smallest=x;
+      iSmallest=1;
+    }
+  }
+  for (int i=2; i < currentTop + 1; i++) {
+    if (!isBufferEmpty(i) && ids[i] < bufferSize) {
+      x=buffer[i][ids[i]];
+    }
+    if (x < smallest) {
+      smallest=x;
+      iSmallest=i;
+    }
+  }
+  return iSmallest;
+}

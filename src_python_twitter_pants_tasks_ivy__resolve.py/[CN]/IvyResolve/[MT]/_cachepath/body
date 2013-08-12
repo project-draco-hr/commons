@@ -1,4 +1,7 @@
 @contextmanager
-def _cachepath(self, file):
-    with safe_open(file, 'r') as cp:
-        yield (path.strip() for path in cp.read().split(os.pathsep) if path.strip())
+def _cachepath(self, path):
+    if (not os.path.exists(path)):
+        yield ()
+    else:
+        with safe_open(path, 'r') as cp:
+            yield (path.strip() for path in cp.read().split(os.pathsep) if path.strip())

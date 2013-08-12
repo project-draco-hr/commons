@@ -1,0 +1,11 @@
+def test_unreachable_error():
+    m = mox.Mox()
+    m.StubOutWithMock(socket, 'gethostbyname')
+    m.StubOutWithMock(socket, 'create_connection')
+    socket.gethostbyname('www.google.com').AndReturn('1.2.3.4')
+    socket.create_connection(('www.google.com', 80), timeout=mox.IgnoreArg()).AndRaise(socket.error(errno.ENETUNREACH, 'Could not reach network.'))
+    m.ReplayAll()
+    with pytest.raises(urllib_error.URLError):
+        Web().open('http://www.google.com')
+    m.UnsetStubs()
+    m.VerifyAll()

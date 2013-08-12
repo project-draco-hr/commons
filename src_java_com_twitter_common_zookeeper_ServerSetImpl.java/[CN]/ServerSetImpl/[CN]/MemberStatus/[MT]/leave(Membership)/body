@@ -1,0 +1,8 @@
+{
+  try {
+    membership.cancel();
+  }
+ catch (  JoinException e) {
+    throw new UpdateException("Failed to auto-cancel group membership on transition to DEAD status",e);
+  }
+}

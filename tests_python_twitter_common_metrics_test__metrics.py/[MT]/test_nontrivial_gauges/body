@@ -1,0 +1,8 @@
+def test_nontrivial_gauges():
+    for label_value in ['a', 0, 2.5, [1, 2, '3'], {'a': 'b', }, {'c': None, }, False]:
+        lb = Label('ping', label_value)
+        rm = RootMetrics()
+        rm.register(lb)
+        assert (rm.sample() == {'ping': label_value, })
+        rm.clear()
+        assert (rm.sample() == {})

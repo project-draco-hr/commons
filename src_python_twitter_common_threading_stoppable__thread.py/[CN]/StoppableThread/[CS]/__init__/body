@@ -1,0 +1,15 @@
+def __init__(self, group=None, target=None, name=None, post_target=None, args=(), kwargs=None):
+    if (kwargs is None):
+        kwargs = {}
+
+    def stoppable_target():
+        while True:
+            target(*args, **kwargs)
+            if post_target:
+                post_target()
+            with self._lock:
+                if self._stopped:
+                    return
+    threading.Thread.__init__(self, group=group, target=stoppable_target, name=name, args=args, kwargs=kwargs)
+    self._lock = threading.Lock()
+    self._stopped = False

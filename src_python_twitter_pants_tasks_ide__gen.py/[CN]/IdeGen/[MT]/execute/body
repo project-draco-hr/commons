@@ -4,4 +4,4 @@ def execute(self, targets):
     self.map_external_jars()
     idefile = self.generate_project(self._project)
     if idefile:
-        binary_utils.open(idefile)
+        binary_util.ui_open(idefile)

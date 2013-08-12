@@ -1,6 +1,9 @@
 def __init__(self, context):
     NailgunTask.__init__(self, context, workdir=context.config.get('java-compile', 'nailgun_dir'))
-    self._partition_size_hint = (context.options.java_compile_partition_size_hint if (context.options.java_compile_partition_size_hint != (-1)) else context.config.getint('java-compile', 'partition_size_hint'))
+    if (context.options.java_compile_partition_size_hint != (-1)):
+        self._partition_size_hint = context.options.java_compile_partition_size_hint
+    else:
+        self._partition_size_hint = context.config.getint('java-compile', 'partition_size_hint', default=1000)
     workdir = context.config.get('java-compile', 'workdir')
     self._classes_dir = os.path.join(workdir, 'classes')
     self._resources_dir = os.path.join(workdir, 'resources')
@@ -8,12 +11,19 @@ def __init__(self, context):
     self._deps = Dependencies(self._classes_dir)
     self._jmake_profile = context.config.get('java-compile', 'jmake-profile')
     self._compiler_profile = context.config.get('java-compile', 'compiler-profile')
-    self._args = context.config.getlist('java-compile', 'args')
+    self._opts = context.config.getlist('java-compile', 'args')
     self._jvm_args = context.config.getlist('java-compile', 'jvm_args')
-    if context.options.java_compile_warnings:
-        self._args.extend(context.config.getlist('java-compile', 'warning_args'))
+    self._javac_opts = []
+    if context.options.java_compile_args:
+        for arg in context.options.java_compile_args:
+            self._javac_opts.extend(shlex.split(arg))
     else:
-        self._args.extend(context.config.getlist('java-compile', 'no_warning_args'))
+        self._javac_opts.extend(context.config.getlist('java-compile', 'javac_args', default=[]))
+    if context.options.java_compile_warnings:
+        self._opts.extend(context.config.getlist('java-compile', 'warning_args'))
+    else:
+        self._opts.extend(context.config.getlist('java-compile', 'no_warning_args'))
     self._confs = context.config.getlist('java-compile', 'confs')
-    artifact_cache_spec = context.config.getlist('java-compile', 'artifact_caches')
+    self.context.products.require_data('exclusives_groups')
+    artifact_cache_spec = context.config.getlist('java-compile', 'artifact_caches', default=[])
     self.setup_artifact_cache(artifact_cache_spec)

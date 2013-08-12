@@ -1,0 +1,3 @@
+{
+  klass.getDeclaredMethod("stop").invoke(null);
+}

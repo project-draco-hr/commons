@@ -1,0 +1,7 @@
+def _extract(self, jarpath):
+    self.context.log.debug(('Extracting idl jar to: %s' % self._EXTRACT_BASE))
+    ZIP.extract(jarpath, self._EXTRACT_BASE)
+    with open_zip(jarpath) as jar:
+        sources = filter((lambda path: path.endswith('.thrift')), jar.namelist())
+        self.context.log.debug(('Found thrift IDL sources: %s' % sources))
+        return sources

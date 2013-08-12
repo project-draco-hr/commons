@@ -1,0 +1,2 @@
+def __getitem__(self, key):
+    return super(RingBuffer, self).__getitem__(self.__index(key))

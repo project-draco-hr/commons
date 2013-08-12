@@ -1,4 +1,6 @@
 def info(self, member, callback=None):
+    if (member == Membership.error()):
+        raise self.InvalidMemberError('Cannot get info on error member!')
     promise = Promise(callback)
 
     def do_info():

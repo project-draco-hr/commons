@@ -3,7 +3,7 @@
   testLogger.info("Info");
   assertHasLoggedToStderr();
   assertHasLoggedToFile();
-  getConfig().logToStderr(true).apply();
+  getConfig().logToStderr(true).build().apply();
   resetLogs();
   testLogger.severe("Severe");
   assertHasLoggedToStderr();

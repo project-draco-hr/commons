@@ -1,7 +1,0 @@
-from collections import namedtuple
-import getpass
-import os
-import socket
-import subprocess
-from time import strftime, localtime
-BuildInfo = namedtuple('BuildInfo', 'date time timestamp branch tag sha name machine path')

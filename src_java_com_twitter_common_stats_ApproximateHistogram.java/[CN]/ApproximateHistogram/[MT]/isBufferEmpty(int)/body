@@ -1,0 +1,8 @@
+{
+  if (level == currentTop) {
+    return false;
+  }
+ else {
+    return (count / (bufferSize * weight(level))) % 2 == 1;
+  }
+}

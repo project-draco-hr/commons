@@ -1,0 +1,3 @@
+{
+  return (byte[])klass.getDeclaredMethod("dumpProfile",Boolean.class).invoke(null,forceGC);
+}

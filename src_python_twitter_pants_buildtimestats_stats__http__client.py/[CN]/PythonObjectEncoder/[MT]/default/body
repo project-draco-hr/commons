@@ -1,0 +1,6 @@
+def default(self, obj):
+    try:
+        return json.JSONEncoder.default(self, obj)
+    except TypeError as e:
+        log.warn(('Could not encode %s' % obj))
+        pass

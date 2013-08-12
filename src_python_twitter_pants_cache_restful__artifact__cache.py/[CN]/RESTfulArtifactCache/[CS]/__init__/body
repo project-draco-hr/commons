@@ -1,0 +1,14 @@
+def __init__(self, log, artifact_root, url_base, compress=True):
+    '\n    url_base: The prefix for urls on some RESTful service. We must be able to PUT and GET to any\n              path under this base.\n    compress: Whether to compress the artifacts before storing them.\n    '
+    ArtifactCache.__init__(self, log, artifact_root)
+    parsed_url = urlparse.urlparse(url_base)
+    if (parsed_url.scheme == 'http'):
+        self._ssl = False
+    elif (parsed_url.scheme == 'https'):
+        self._ssl = True
+    else:
+        raise ValueError('RESTfulArtifactCache only supports HTTP and HTTPS')
+    self._timeout_secs = 4.0
+    self._netloc = parsed_url.netloc
+    self._path_prefix = parsed_url.path.rstrip('/')
+    self.compress = compress

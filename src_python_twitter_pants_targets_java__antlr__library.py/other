@@ -1,0 +1,2 @@
+__author__ = 'Brian Larson'
+from twitter.pants.targets.exportable_jvm_library import ExportableJvmLibrary

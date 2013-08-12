@@ -3,4 +3,5 @@ servers
 timeout_secs
 watch
 max_reconnects
+authentication
 logger

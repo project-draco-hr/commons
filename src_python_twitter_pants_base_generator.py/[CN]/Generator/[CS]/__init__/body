@@ -1,3 +1,5 @@
 def __init__(self, template_text, **template_data):
-    self._template = pystache.parse(unicode(template_text))
+    if Compatibility.PY2:
+        template_text = unicode(template_text)
+    self._template = pystache.parse(template_text)
     self.template_data = template_data

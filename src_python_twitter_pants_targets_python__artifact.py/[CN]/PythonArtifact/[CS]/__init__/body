@@ -1,0 +1,17 @@
+def __init__(self, **kwargs):
+    self._kw = kwargs
+    self._library = None
+
+    def has(name):
+        value = self._kw.get(name)
+        if (value is None):
+            raise self.MissingArgument(('PythonArtifact requires %s to be specified!' % name))
+        return value
+
+    def misses(name):
+        if (name in self._kw):
+            raise self.UnsupportedArgument(('PythonArtifact prohibits %s from being specified' % name))
+    self._version = has('version')
+    self._name = has('name')
+    for arg in self.UNSUPPORTED_ARGS:
+        misses(arg)

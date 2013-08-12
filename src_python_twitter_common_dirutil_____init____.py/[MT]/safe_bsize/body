@@ -1,0 +1,3 @@
+def safe_bsize(path):
+    '\n    Safely return the space a file consumes on disk.  Returns 0 if file does not exist.\n  '
+    return _size_base(path, calculate_usage=_calculate_bsize)

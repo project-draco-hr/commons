@@ -1,0 +1,3 @@
+def ack(self):
+    self._syn_event.set()
+    self._ack_event.wait()

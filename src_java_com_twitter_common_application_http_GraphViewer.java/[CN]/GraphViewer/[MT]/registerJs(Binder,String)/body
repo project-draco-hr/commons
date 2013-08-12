@@ -1,0 +1,3 @@
+{
+  Registration.registerHttpAsset(binder,"/graphview/" + assetName,GraphViewer.class,"graphview/" + assetName,"application/javascript",true);
+}

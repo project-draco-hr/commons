@@ -18,8 +18,9 @@ def _split_analysis(self, analysis_file_attr):
     self.log.debug(('Splitting analysis file %s' % analysis_to_split))
     if self.factory.zinc_utils.run_zinc_split(analysis_to_split, split_args):
         raise TaskError(('zinc failed to split analysis files %s from %s' % (':'.join([x.dst_analysis_file for x in splits]), analysis_to_split)))
-    for split in splits:
-        if os.path.exists(split.dst_analysis_file):
-            self.log.debug(('Rebasing analysis file %s after split' % split.dst_analysis_file))
-            if self.factory.zinc_utils.run_zinc_rebase(split.dst_analysis_file, [(self.classes_dir, split.dst_classes_dir)]):
-                raise TaskError(('Zinc failed to rebase analysis file %s' % split.dst_analysis_file))
+    with self.factory.context.new_workunit(name='rebase', labels=[WorkUnit.MULTITOOL]):
+        for split in splits:
+            if os.path.exists(split.dst_analysis_file):
+                self.log.debug(('Rebasing analysis file %s after split' % split.dst_analysis_file))
+                if self.factory.zinc_utils.run_zinc_rebase(split.dst_analysis_file, [(self.classes_dir, split.dst_classes_dir)]):
+                    raise TaskError(('Zinc failed to rebase analysis file %s' % split.dst_analysis_file))

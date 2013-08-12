@@ -1,0 +1,17 @@
+def upload_sync(self, stats):
+    try:
+        last_modified = self.collect_host_env_info(stats)
+        if (not last_modified):
+            last_modified = int(os.path.getmtime(self._pants_stat_file))
+        with safe_open(self._pants_stat_file, 'r') as stats_file:
+            lines = stats_file.readlines()
+        last_uploaded = Amount((int(time.time()) - last_modified), Time.SECONDS)
+        if (self.force_stats_upload or (len(lines) >= MAX_RECORDS) or (last_uploaded > self._max_delay)):
+            dirutil.safe_mkdir(self._stats_dir)
+            with temporary_file(self._stats_dir, False) as stats_uploader_tmpfile:
+                os.rename(self._pants_stat_file, stats_uploader_tmpfile.name)
+            self._stats_http_client.process_stats_file()
+        self.merge_logs()
+        sys.exit(0)
+    except OSError as e:
+        log.debug(('Error manipulating stats files for upload %s' % e))

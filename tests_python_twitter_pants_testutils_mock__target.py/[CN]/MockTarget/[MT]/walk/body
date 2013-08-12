@@ -1,4 +1,4 @@
-def walk(self, work):
+def walk(self, work, predicate=None):
     work(self)
     for dep in self.dependencies:
         dep.walk(work)

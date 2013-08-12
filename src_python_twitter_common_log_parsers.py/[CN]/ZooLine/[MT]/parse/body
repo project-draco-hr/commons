@@ -1,0 +1,11 @@
+@classmethod
+def parse(cls, line):
+    sline = line.split(':')
+    if (len(sline) < 6):
+        raise ValueError
+    t = datetime.strptime(':'.join(sline[0:3]), '%Y-%m-%d %H:%M:%S,%f')
+    pid = sline[3]
+    ssource = sline[4].split('@')
+    level = cls.LEVEL_MAP.get(ssource[0], 0)
+    source = '@'.join(ssource[1:])
+    return cls(line, level, t, pid, source, ':'.join(sline[5:]))

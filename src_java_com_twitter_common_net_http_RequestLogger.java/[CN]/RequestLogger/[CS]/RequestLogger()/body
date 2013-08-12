@@ -1,0 +1,11 @@
+{
+  this(Clock.SYSTEM_CLOCK,new LogSink(){
+    @Override public boolean isLoggable(    Level level){
+      return LOG.isLoggable(level);
+    }
+    @Override public void log(    Level level,    String message){
+      LOG.log(level,message);
+    }
+  }
+);
+}

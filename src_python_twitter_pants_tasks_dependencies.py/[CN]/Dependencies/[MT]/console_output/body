@@ -1,0 +1,12 @@
+def console_output(self, unused_method_argument):
+    for target in self.context.target_roots:
+        if all((self._is_jvm(t) for t in target.resolve() if is_concrete(t))):
+            for line in self._dependencies_list(target):
+                yield line
+        elif is_python(target):
+            if self.is_internal_only:
+                raise TaskError(('Unsupported option for Python target: is_internal_only: %s' % self.is_internal_only))
+            if self.is_external_only:
+                raise TaskError(('Unsupported option for Python target: is_external_only: %s' % self.is_external_only))
+            for line in self._python_dependencies_list(target):
+                yield line

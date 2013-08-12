@@ -4,7 +4,6 @@ import sys
 from twitter.common.collections import OrderedSet
 from twitter.common.contextutil import open_zip as open_jar
 from twitter.pants import is_jar_dependency, is_jar_library, is_jvm
-from twitter.pants.tasks import Task, TaskError
+from twitter.pants.tasks import Task
 from twitter.pants.tasks.ivy_utils import IvyModuleRef, IvyUtils
 from twitter.pants.targets.jvm_binary import JvmBinary
-from twitter.pants.tasks.jvm_binary_task import JvmBinaryTask

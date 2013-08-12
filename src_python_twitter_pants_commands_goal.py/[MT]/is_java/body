@@ -1,2 +1,0 @@
-def is_java(target):
-    return (isinstance(target, JavaLibrary) or isinstance(target, JavaTests))

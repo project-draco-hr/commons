@@ -1,0 +1,8 @@
+{
+  FileUtils.SYSTEM_TMP.doWithDir(new ExceptionalClosure<File,Exception>(){
+    @Override public void execute(    File libDir) throws Exception {
+      doTest(libDir,NativeResource.parse(libDir,true,getLine()));
+    }
+  }
+);
+}

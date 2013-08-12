@@ -1,0 +1,12 @@
+def test_paranoid_append_framing(self):
+    with self.DurableFile('w') as fp:
+        fn = fp.name
+    test_string_1 = 'hello world'
+    test_string_2 = 'ahoy ahoy, bonjour'
+    RecordWriter.append(fn, test_string_1)
+    RecordWriter.append(fn, test_string_2)
+    with open(fn) as fpr:
+        rr = RecordReader(fpr)
+        assert (rr.read() == test_string_1)
+        assert (rr.read() == test_string_2)
+    os.remove(fn)

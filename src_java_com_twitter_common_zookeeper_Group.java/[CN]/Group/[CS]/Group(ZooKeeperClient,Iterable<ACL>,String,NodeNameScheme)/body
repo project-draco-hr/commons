@@ -1,3 +1,0 @@
-{
-  this(zkClient,acl,path,DEFAULT_NODE_NAME_PREFIX,nodeNameScheme);
-}

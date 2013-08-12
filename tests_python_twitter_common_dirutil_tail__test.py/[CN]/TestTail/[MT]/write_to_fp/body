@@ -1,4 +1,4 @@
 @classmethod
 def write_to_fp(cls, msg):
-    print(msg, file=cls._fp)
+    cls._fp.write(msg)
     cls._fp.flush()

@@ -1,0 +1,3 @@
+def set_handler(self, handler):
+    self.handler = handler
+    self.logger.addHandler(handler)

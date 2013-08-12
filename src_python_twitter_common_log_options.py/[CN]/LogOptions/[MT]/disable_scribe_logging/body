@@ -1,0 +1,4 @@
+@staticmethod
+def disable_scribe_logging():
+    '\n      Disables scribe logging altogether.\n    '
+    app.set_option('_SCRIBE_LOG_LEVEL', LogOptions._LOG_LEVEL_NONE_KEY, force=True)

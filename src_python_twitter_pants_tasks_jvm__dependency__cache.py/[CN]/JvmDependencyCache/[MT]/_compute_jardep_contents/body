@@ -1,9 +1,20 @@
 def _compute_jardep_contents(self):
-    ' Compute the relations between jar dependencies and jar files.\n\n    Returns: a pair of maps, (jars_by_target, targets_by_jar) describing the mappings between\n       jars and the targets that contain those jars.\n    '
+    'Compute the relations between jar dependencies and jar files.\n\n    Returns: a pair of maps (jars_by_target, targets_by_jar) describing the mappings between\n             jars and the targets that contain those jars.\n    '
     found_jar_deps = set()
-    for jt in self.targets:
-        jars = self._get_jardep_dependencies(jt)
-        found_jar_deps = found_jar_deps.union(jars)
+    visited = set()
+
+    def visit(target):
+        for t in target.resolve():
+            if (t in visited):
+                return
+            visited.add(t)
+            if isinstance(t, JarDependency):
+                found_jar_deps.add(t)
+            if hasattr(t, 'dependencies'):
+                for dep in t.dependencies:
+                    visit(dep)
+    for t in self.targets:
+        visit(t)
     jardeps_by_id = {}
     for jardep in found_jar_deps:
         jardeps_by_id[(jardep.org, jardep.name)] = jardep

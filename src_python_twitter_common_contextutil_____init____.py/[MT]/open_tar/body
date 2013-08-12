@@ -1,6 +1,6 @@
 @contextmanager
 def open_tar(path_or_file, *args, **kwargs):
     '\n    A with-context for tar files.  Passes through positional and kwargs to tarfile.open.\n\n    If path_or_file is a file, caller must close it separately.\n  '
-    (path, fileobj) = ((path_or_file, None) if isinstance(path_or_file, basestring) else (None, path_or_file))
+    (path, fileobj) = ((path_or_file, None) if isinstance(path_or_file, Compatibility.string) else (None, path_or_file))
     with closing(tarfile.open(path, fileobj=fileobj, *args, **kwargs)) as tar:
         yield tar

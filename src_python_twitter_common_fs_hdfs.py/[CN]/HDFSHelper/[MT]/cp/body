@@ -1,0 +1,3 @@
+def cp(self, src, dest):
+    '\n    Copies a src file to dest\n    '
+    return self._call('-cp', src, dest, suppress_output=True)

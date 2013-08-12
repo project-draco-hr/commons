@@ -1,2 +1,2 @@
 def is_jvm(target):
-    return (is_java(target) or isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests))
+    return (is_java(target) or has_sources(target, '.scala'))

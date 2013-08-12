@@ -1,0 +1,2 @@
+def _calculate_size(stat):
+    return min(_calculate_bsize(stat), stat.st_size)

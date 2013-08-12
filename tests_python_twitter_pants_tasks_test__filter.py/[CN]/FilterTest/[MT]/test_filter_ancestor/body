@@ -1,0 +1,3 @@
+def test_filter_ancestor(self):
+    self.assert_console_output('common/a/BUILD:a', 'common/a/BUILD:foo', 'common/b/BUILD:b', 'common/b/BUILD:foo', 'overlaps/BUILD:one', 'overlaps/BUILD:foo', args=['--test-ancestor=overlaps:one,overlaps:foo'], targets=self.targets('::'))
+    self.assert_console_output('common/c/BUILD:c', 'common/c/BUILD:foo', 'overlaps/BUILD:two', 'overlaps/BUILD:three', args=['--test-ancestor=-overlaps:one,overlaps:foo'], targets=self.targets('::'))

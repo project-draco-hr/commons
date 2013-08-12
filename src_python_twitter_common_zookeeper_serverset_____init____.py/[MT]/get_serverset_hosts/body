@@ -1,0 +1,3 @@
+def get_serverset_hosts(serverset_path, zk):
+    ss = ServerSet(zk, serverset_path)
+    return list(ss)

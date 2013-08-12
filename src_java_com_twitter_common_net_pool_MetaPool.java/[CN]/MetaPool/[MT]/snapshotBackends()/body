@@ -1,0 +1,9 @@
+{
+  backendsReadLock.lock();
+  try {
+    return ImmutableList.copyOf(backends.keySet());
+  }
+  finally {
+    backendsReadLock.unlock();
+  }
+}

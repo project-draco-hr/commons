@@ -1,0 +1,4 @@
+{
+  LocationInfo locationInformation=record.getLocationInformation();
+  return (locationInformation != null) ? locationInformation.getClassName() : null;
+}

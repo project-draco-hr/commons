@@ -1,0 +1,5 @@
+@classmethod
+@contextmanager
+def EphemeralFile(cls, mode):
+    with EphemeralFileBase(mode) as fp:
+        yield fp

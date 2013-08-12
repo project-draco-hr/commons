@@ -1,0 +1,5 @@
+{
+  this.seq=seq;
+  this.states=Collections.emptyList();
+  this.attributeClasses=null;
+}

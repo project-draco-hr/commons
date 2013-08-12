@@ -1,3 +1,17 @@
 {
-  return new TokenGroupStream(attributeSource,states);
+  if ((attributeClasses == null || states.isEmpty()) && seq != null) {
+    TokenizedCharSequenceStream ret=new TokenizedCharSequenceStream();
+    ret.reset(seq);
+    ImmutableList.Builder<State> builder=ImmutableList.builder();
+    while (ret.incrementToken()) {
+      builder.add(ret.captureState());
+    }
+    setAttributeSource(ret);
+    setStates(builder.build());
+  }
+  if (tokenGroupStream == null) {
+    tokenGroupStream=new TokenGroupStream(attributeClasses);
+  }
+  tokenGroupStream.setStates(states);
+  return tokenGroupStream;
 }

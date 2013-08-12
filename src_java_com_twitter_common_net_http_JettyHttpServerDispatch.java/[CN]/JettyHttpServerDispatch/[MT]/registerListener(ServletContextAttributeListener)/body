@@ -1,0 +1,3 @@
+{
+  registerEventListener(servletContextAttributeListener);
+}

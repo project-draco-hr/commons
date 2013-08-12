@@ -1,0 +1,4 @@
+def test_tar(self):
+    self.round_trip(TAR, empty_dirs=True)
+    self.round_trip(TGZ, empty_dirs=True)
+    self.round_trip(TBZ2, empty_dirs=True)

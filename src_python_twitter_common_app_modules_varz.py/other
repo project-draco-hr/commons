@@ -3,3 +3,8 @@ from twitter.common.http import HttpServer
 from twitter.common.quantity import Amount, Time
 from twitter.common.metrics import RootMetrics, MetricSampler, Label, LambdaGauge
 from twitter.common.app.modules.http import RootServer
+try:
+    from twitter.common.python.pex import PEX
+    HAS_PEX = True
+except ImportError:
+    HAS_PEX = False

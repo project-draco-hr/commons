@@ -1,0 +1,6 @@
+def teardown_scribe_logging():
+    root_logger = logging.getLogger()
+    global _SCRIBE_LOGGERS
+    for handler in _SCRIBE_LOGGERS:
+        root_logger.removeHandler(handler)
+    _SCRIBE_LOGGERS = []

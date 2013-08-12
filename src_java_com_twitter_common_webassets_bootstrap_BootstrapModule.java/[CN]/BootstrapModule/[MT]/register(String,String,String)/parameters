@@ -1,0 +1,3 @@
+String mountPath
+String resourcePath
+String contentType

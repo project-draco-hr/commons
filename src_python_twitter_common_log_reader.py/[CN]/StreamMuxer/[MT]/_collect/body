@@ -1,0 +1,10 @@
+def _collect(self):
+    discard = set()
+    for stream in self._refresh:
+        line = stream.next()
+        if (line is Stream.EOF):
+            discard.add(stream)
+        elif (line is not None):
+            discard.add(stream)
+            self._heads.add((line, stream))
+    self._refresh -= discard

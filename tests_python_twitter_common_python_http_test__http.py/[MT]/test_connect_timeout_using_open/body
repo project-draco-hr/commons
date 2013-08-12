@@ -1,0 +1,12 @@
+def test_connect_timeout_using_open():
+    URL = 'http://www.google.com'
+    DATA = 'This is google.com!'
+    clock = ThreadedClock()
+    opener = MockOpener(DATA)
+    web = CachedWeb(clock=clock, opener=opener)
+    assert (not os.path.exists(web.translate_url(URL)))
+    with pytest.raises(urllib_error.URLError):
+        with contextlib.closing(web.open(URL, conn_timeout=Amount(0, Time.SECONDS))):
+            pass
+    with contextlib.closing(web.open(URL, conn_timeout=Amount(10, Time.MILLISECONDS))) as fp:
+        assert (fp.read() == DATA)

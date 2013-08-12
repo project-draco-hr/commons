@@ -1,0 +1,16 @@
+{
+  control=createControl();
+  compoundMonitor=createMock(new Clazz<HostChangeMonitor<ServiceInstance>>(){
+  }
+);
+  mockStatus1=createMock(ServerSet.EndpointStatus.class);
+  mockStatus2=createMock(ServerSet.EndpointStatus.class);
+  mockStatus3=createMock(ServerSet.EndpointStatus.class);
+  serverSet1=createMock(ServerSet.class);
+  serverSet2=createMock(ServerSet.class);
+  serverSet3=createMock(ServerSet.class);
+  instance1=createMock(ServiceInstance.class);
+  instance2=createMock(ServiceInstance.class);
+  instance3=createMock(ServiceInstance.class);
+  compoundServerSet=new CompoundServerSet(ImmutableList.of(serverSet1,serverSet2,serverSet3));
+}

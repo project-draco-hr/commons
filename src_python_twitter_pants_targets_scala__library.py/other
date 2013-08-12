@@ -1,3 +1,5 @@
-import os
-from twitter.pants.targets import resolve_target_sources
-from twitter.pants.targets.exportable_jvm_library import ExportableJvmLibrary
+from twitter.common.collections import maybe_list
+from twitter.pants.base import Target
+from .exportable_jvm_library import ExportableJvmLibrary
+from .resources import WithLegacyResources
+from . import JavaLibrary

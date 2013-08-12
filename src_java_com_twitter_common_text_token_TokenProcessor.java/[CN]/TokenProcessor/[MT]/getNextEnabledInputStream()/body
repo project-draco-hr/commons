@@ -1,0 +1,11 @@
+{
+  if (inputProcessor == null) {
+    return inputStream;
+  }
+ else   if (inputProcessor.isEnabled()) {
+    return inputProcessor;
+  }
+ else {
+    return inputProcessor.getNextEnabledInputStream();
+  }
+}

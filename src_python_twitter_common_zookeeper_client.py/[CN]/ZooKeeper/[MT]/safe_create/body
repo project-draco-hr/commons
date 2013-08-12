@@ -6,4 +6,7 @@ def safe_create(self, path, acl=DEFAULT_ACL):
             self.create(child, '', acl, 0)
         except zookeeper.NodeExistsException:
             continue
+        except zookeeper.NoAuthException:
+            if (not self.exists(child)):
+                raise
     return child

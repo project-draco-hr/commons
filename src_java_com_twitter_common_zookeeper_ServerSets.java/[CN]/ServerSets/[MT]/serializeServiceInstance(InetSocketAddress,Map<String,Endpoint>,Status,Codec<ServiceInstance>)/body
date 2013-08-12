@@ -1,0 +1,4 @@
+{
+  ServiceInstance serviceInstance=new ServiceInstance(toEndpoint(address),additionalEndpoints,status);
+  return serializeServiceInstance(serviceInstance,codec);
+}

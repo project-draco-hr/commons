@@ -1,0 +1,3 @@
+def ls(self, path, is_dir=False):
+    '\n    Returns list of [hdfs_full_path, filesize]\n    If is_dir is true returns only the toplevel directories.\n    '
+    return self._ls(path, is_dir, False)

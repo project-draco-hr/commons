@@ -1,0 +1,4 @@
+@staticmethod
+def log_level_from_string(s):
+    s = s.upper()
+    return Report._log_level_name_map.get(s, Report.INFO)

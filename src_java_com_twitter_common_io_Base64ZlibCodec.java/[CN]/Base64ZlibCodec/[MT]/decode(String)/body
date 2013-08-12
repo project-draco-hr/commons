@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(encoded);
+  return decompress(new Base64().decode(encoded));
+}

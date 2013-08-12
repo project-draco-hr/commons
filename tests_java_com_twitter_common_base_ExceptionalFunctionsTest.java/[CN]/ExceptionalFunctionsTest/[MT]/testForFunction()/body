@@ -1,0 +1,10 @@
+{
+  com.google.common.base.Function<String,Integer> stringToIntegerGuavaFunction=new com.google.common.base.Function<String,Integer>(){
+    @Override public Integer apply(    String item){
+      return Integer.parseInt(item);
+    }
+  }
+;
+  ExceptionalFunction<String,Integer,NumberFormatException> stringToIntegerExceptionalFunction=ExceptionalFunctions.forFunction(stringToIntegerGuavaFunction);
+  assertEquals(stringToIntegerGuavaFunction.apply("1234"),stringToIntegerExceptionalFunction.apply("1234"));
+}

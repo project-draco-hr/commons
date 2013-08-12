@@ -1,0 +1,8 @@
+{
+  int statusCategory=response.getStatus() / 100;
+  Level level=((statusCategory == 2) || (statusCategory == 3)) ? Level.FINE : Level.INFO;
+  if (!sink.isLoggable(level)) {
+    return;
+  }
+  sink.log(level,formatEntry(request,response));
+}

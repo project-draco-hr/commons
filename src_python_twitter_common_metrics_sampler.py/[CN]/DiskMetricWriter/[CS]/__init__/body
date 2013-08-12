@@ -1,0 +1,5 @@
+def __init__(self, provider, filename, period=Amount(15, Time.SECONDS), clock=time):
+    self._provider = provider
+    self._filename = filename
+    SamplerBase.__init__(self, period, clock)
+    self.daemon = True

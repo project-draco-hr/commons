@@ -1,8 +1,0 @@
-def setup_parser(self, parser, args):
-    parser.set_usage('%prog depmap (options) [spec]')
-    parser.add_option('-i', '--internal-only', action='store_true', dest='is_internal_only', default=False, help='Specifies that only internal dependencies should\n                      be included in the graph output (no external jars).')
-    parser.add_option('-e', '--external-only', action='store_true', dest='is_external_only', default=False, help='Specifies that only external dependencies should\n                      be included in the graph output (only external jars).')
-    parser.add_option('-m', '--minimal', action='store_true', dest='is_minimal', default=False, help='For a textual dependency tree, only prints a\n                      dependency the 1st time it is encountered.  For graph output this does\n                      nothing.')
-    parser.add_option('-s', '--separator', dest='separator', default='-', help="Specifies the separator to use between the\n                      org/name/rev components of a dependency's fully qualified name.")
-    parser.add_option('-g', '--graph', action='store_true', dest='is_graph', default=False, help='Specifies the internal dependency graph should be output in the dot\n                      digraph format')
-    parser.epilog = 'Generates either a textual dependency tree or a graphviz digraph dotfile for\n    the dependency set of a java BUILD target.'

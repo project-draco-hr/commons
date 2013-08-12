@@ -1,0 +1,2 @@
+def is_stopped(self):
+    return self._stop.is_set()

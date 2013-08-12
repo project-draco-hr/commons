@@ -1,0 +1,3 @@
+@pytest.mark.skipif('PLATFORM_SUPPORTED')
+def test_gettid_unsupported_platform():
+    assert (__gettid() == (-1))

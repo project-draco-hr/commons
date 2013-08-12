@@ -1,0 +1,45 @@
+{
+  assertRight("jake",Either.guard(IOException.class,EitherTest.<String,IOException>constantSupplier("jake")));
+  IOException left=new IOException();
+  assertLeft(left,Either.guard(IOException.class,failedSupplier(left)));
+  try {
+    Either.guard(IOException.class,new ExceptionalSupplier<Object,IOException>(){
+      @Override public String get(){
+        throw new ArithmeticException();
+      }
+    }
+);
+    fail("Expected an unguarded exception type to fail fast.");
+  }
+ catch (  UnguardedException e) {
+    assertTrue(e.getCause() instanceof ArithmeticException);
+  }
+  Either<Exception,String> result=Either.guard(ImmutableList.of(IOException.class,InterruptedException.class),new SupplierE<String>(){
+    @Override public String get() throws InterruptedException {
+      throw new InterruptedException();
+    }
+  }
+);
+  assertTrue(result.getLeft() instanceof InterruptedException);
+  result=Either.guard(ImmutableList.of(IOException.class,InterruptedException.class),new SupplierE<String>(){
+    @Override public String get() throws IOException {
+      throw new MalformedURLException();
+    }
+  }
+);
+  assertTrue(result.getLeft() instanceof IOException);
+class MyException extends Exception {
+  }
+  try {
+    Either.guard(ImmutableList.of(IOException.class,InterruptedException.class),new SupplierE<String>(){
+      @Override public String get() throws Exception {
+        throw new MyException();
+      }
+    }
+);
+    fail("Expected an unguarded exception type to fail fast.");
+  }
+ catch (  UnguardedException e) {
+    assertTrue(e.getCause() instanceof MyException);
+  }
+}

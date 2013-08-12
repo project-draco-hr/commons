@@ -1,0 +1,11 @@
+def test_buffer_chunksizes():
+    for bufsize in (1, 2, 3, 10, 32, 512, 1024, 4096):
+
+
+        class TestBuffer(Buffer):
+            CHUNKSIZE = bufsize
+        buf = TestBuffer(sio())
+        all_lines = read_all(buf)
+        assert (all_lines == TEST_GLOG_LINES.split('\n'))
+        assert (len(all_lines) == TEST_GLOG_LINES_LENGTH)
+        assert ('\n'.join(all_lines) == '\n'.join(TEST_GLOG_LINES.split('\n')))

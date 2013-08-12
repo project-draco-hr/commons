@@ -1,0 +1,17 @@
+def find_includes(basedirs, source, log=None):
+    'Finds all thrift files included by the given thrift source.\n\n  :basedirs: A set of thrift source file base directories to look for includes in.\n  :source: The thrift source file to scan for includes.\n  :log: An optional logger\n  '
+    all_basedirs = [os.path.dirname(source)]
+    all_basedirs.extend(basedirs)
+    includes = set()
+    with open(source, 'r') as thrift:
+        for line in thrift.readlines():
+            match = INCLUDE_PARSER.match(line)
+            if match:
+                capture = match.group(1)
+                for basedir in all_basedirs:
+                    include = os.path.join(basedir, capture)
+                    if os.path.exists(include):
+                        if log:
+                            log.debug(('%s has include %s' % (source, include)))
+                        includes.add(include)
+    return includes

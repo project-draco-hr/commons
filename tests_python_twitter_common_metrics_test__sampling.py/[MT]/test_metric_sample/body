@@ -1,0 +1,10 @@
+def test_metric_sample():
+    metrics = Metrics()
+    sampler = MetricSampler(metrics)
+    assert (sampler.sample() == {})
+    sampler.iterate()
+    assert (sampler.sample() == {})
+    metrics.register(Label('herp', 'derp'))
+    assert (sampler.sample() == {})
+    sampler.iterate()
+    assert (sampler.sample() == {'herp': 'derp', })

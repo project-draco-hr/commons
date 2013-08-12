@@ -1,0 +1,2 @@
+def restore_ssty_options(self):
+    self.run_cmd(('stty ' + self.stty_options))

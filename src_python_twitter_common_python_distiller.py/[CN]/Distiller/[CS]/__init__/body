@@ -13,7 +13,6 @@ def __init__(self, distribution, debug=True):
     assert_has_metadata('top_level.txt')
     assert_has_metadata('installed-files.txt', 'This distribution was either created with something other than pip, twitter.common.python.installer, or is an already-distilled .egg.')
     self._top_levels = self._get_lines('top_level.txt')
-    assert (len(self._top_levels) > 0)
     self._installed_files = [os.path.realpath(os.path.join(self._dist.egg_info, fn)) for fn in self._get_lines('installed-files.txt')]
     self._nspkg = []
     if self._dist.has_metadata('namespace_packages.txt'):

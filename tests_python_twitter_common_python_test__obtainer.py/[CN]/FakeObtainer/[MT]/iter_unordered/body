@@ -1,0 +1,2 @@
+def iter_unordered(self, req):
+    return self._links

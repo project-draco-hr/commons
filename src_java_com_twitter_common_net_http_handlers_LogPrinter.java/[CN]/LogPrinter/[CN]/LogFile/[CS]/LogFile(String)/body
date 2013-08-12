@@ -1,3 +1,4 @@
 {
-  this(new File(filePath));
+  MorePreconditions.checkNotBlank(filePath,"filePath must not be null or empty");
+  this.file=filePath.startsWith("/") ? new File(filePath) : new File(logDir,filePath);
 }

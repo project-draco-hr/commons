@@ -1,8 +1,8 @@
 @staticmethod
 def read(path):
-    '\n      Read the contents of a potentially nested file.\n    '
+    '\n      Read the byte contents of a potentially nested file.\n    '
     if os.path.isfile(path):
-        with open(path) as fp:
+        with open(path, 'rb') as fp:
             return fp.read()
     (dirname, basename) = os.path.split(path)
     if (not basename):

@@ -1,0 +1,4 @@
+def start(self, run_before_blocking=list()):
+    for f in run_before_blocking:
+        f()
+    self._httpd.serve_forever()

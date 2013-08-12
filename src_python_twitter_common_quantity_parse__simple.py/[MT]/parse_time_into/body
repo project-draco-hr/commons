@@ -1,0 +1,3 @@
+def parse_time_into(option_name, default=None):
+    '\n    An optparse-compatible callback for populating Amounts of Time.\n  '
+    return parse_amount_into(parse_time, option_name, default=default)

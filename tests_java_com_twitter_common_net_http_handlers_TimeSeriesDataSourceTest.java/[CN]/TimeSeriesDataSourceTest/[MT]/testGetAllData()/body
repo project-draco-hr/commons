@@ -4,9 +4,8 @@
   expect(timeSeriesRepo.get(TIME_SERIES_2)).andReturn(TS_DATA.get(TIME_SERIES_2));
   control.replay();
   String colString=Joiner.on(',').join(Arrays.asList(TIME_SERIES_1,TIME_SERIES_2,TIME_COLUMN));
-  DataTable data=fetch("SELECT  " + colString);
-  assertThat(data.getNumberOfColumns(),is(TS_DATA.keySet().size() + 1));
-  assertThat(data.getNumberOfRows(),is(TIMESTAMPS.size()));
-  Iterable<List<Number>> expectedData=Iterables2.zip(0,getSamples(TIME_SERIES_1),getSamples(TIME_SERIES_2),TIMESTAMPS);
-  checkRows(data.getRows(),expectedData);
+  ResponseStruct response=gson.fromJson(dataSource.getResponse(colString,null),ResponseStruct.class);
+  assertEquals(ImmutableList.of(TIME_COLUMN,TIME_SERIES_1,TIME_SERIES_2),response.names);
+  Iterable<List<Number>> expectedData=Iterables2.zip(0,TIMESTAMPS,getSamples(TIME_SERIES_1),getSamples(TIME_SERIES_2));
+  checkRows(expectedData,response.data);
 }

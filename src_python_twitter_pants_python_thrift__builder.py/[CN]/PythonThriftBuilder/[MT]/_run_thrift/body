@@ -1,14 +1,12 @@
-def _run_thrift(self, source):
+def _run_thrift(self, source, bases):
     thrift_file = source
-    thrift_abs_path = os.path.join(self.root, self.target.target_base, thrift_file)
+    thrift_abs_path = os.path.join(self.root, thrift_file)
     thrift_abs_path = os.path.abspath(thrift_abs_path)
-    args = [self.thrift_binary(self.root), '--gen', 'py:new_style', '-o', self.codegen_root, thrift_abs_path]
-    cwd = os.getcwd()
-    os.chdir(self.chroot.path())
-    try:
-        po = subprocess.Popen(args)
-    finally:
-        os.chdir(cwd)
+    args = [select_thrift_binary(self.config), '--gen', 'py:new_style', '-recurse', '-o', os.path.join(self.chroot.path(), self.codegen_root)]
+    for base in bases:
+        args.extend(('-I', base))
+    args.append(thrift_abs_path)
+    po = subprocess.Popen(args)
     rv = po.wait()
     if (rv != 0):
         comm = po.communicate()

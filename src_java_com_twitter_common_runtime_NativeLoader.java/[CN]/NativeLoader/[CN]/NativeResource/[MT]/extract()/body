@@ -1,0 +1,17 @@
+{
+  if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
+    throw new IOException("Failed to create parent dir for " + this);
+  }
+  LOG.info("Extracting " + this);
+  Files.copy(Resources.newInputStreamSupplier(Resources.getResource(name)),file);
+  if (deleteOnExit) {
+    file.deleteOnExit();
+  }
+  for (  File link : links) {
+    LOG.info(String.format("Linking %s -> %s",link,file));
+    Files.copy(file,link);
+    if (deleteOnExit) {
+      link.deleteOnExit();
+    }
+  }
+}

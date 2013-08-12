@@ -1,3 +1,4 @@
 self
-metric_registry
+provider
 period
+clock

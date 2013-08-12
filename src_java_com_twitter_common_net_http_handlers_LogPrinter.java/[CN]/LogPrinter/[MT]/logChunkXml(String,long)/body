@@ -1,4 +1,3 @@
 {
-  String sanitized=StringEscapeUtils.escapeXml(StringEscapeUtils.escapeHtml(text).replaceAll("\n","&#10;"));
-  return String.format(XML_RESP_FORMAT,sanitized,lastBytePosition);
+  return String.format(XML_RESP_FORMAT,sanitize(text),lastBytePosition);
 }

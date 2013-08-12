@@ -1,0 +1,4 @@
+@property
+def commit_id(self):
+    sha = self._check_output(['rev-parse', 'HEAD'], raise_type=Scm.LocalException)
+    return self._cleanse(sha)

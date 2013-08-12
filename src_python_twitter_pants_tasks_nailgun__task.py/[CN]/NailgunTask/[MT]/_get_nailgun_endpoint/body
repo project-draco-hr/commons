@@ -1,24 +1,5 @@
 def _get_nailgun_endpoint(self):
-    if os.path.exists(self._pidfile):
-        with _safe_open(self._pidfile, 'r') as pidfile:
-            contents = pidfile.read()
-
-            def invalid_pidfile():
-                log.warn(('Invalid ng pidfile %s contained: %s' % (self._pidfile, contents)))
-                return None
-            endpoint = contents.split(':')
-            if (len(endpoint) != 2):
-                return invalid_pidfile()
-            (pid, port) = endpoint
-            try:
-                return (int(pid.strip()), int(port.strip()))
-            except ValueError:
-                return invalid_pidfile()
-    elif NailgunTask._find:
-        pid_port = NailgunTask._find(self._pidfile)
-        if pid_port:
-            self.context.log.info(('found ng server @ pid:%d port:%d' % pid_port))
-            with safe_open(self._pidfile, 'w') as pidfile:
-                pidfile.write(('%d:%d\n' % pid_port))
-        return pid_port
-    return None
+    pid_port = NailgunTask._find(self._identifier_arg)
+    if pid_port:
+        self.context.log.debug(('found ng server @ pid:%d port:%d' % pid_port))
+    return pid_port

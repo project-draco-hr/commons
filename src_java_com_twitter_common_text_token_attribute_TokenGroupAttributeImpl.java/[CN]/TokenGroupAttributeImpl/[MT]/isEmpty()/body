@@ -1,3 +1,3 @@
 {
-  return states.isEmpty();
+  return states.isEmpty() && (seq == null || seq.getTokens().isEmpty());
 }

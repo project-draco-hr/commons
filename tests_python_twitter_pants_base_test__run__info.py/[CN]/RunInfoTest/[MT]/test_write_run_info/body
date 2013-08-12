@@ -1,0 +1,9 @@
+def test_write_run_info(self):
+    with temporary_file_path() as tmppath:
+        ri = RunInfo(tmppath)
+        ri.add_info('key1', 'val1')
+        ri.add_infos(('key2', ' val2'), (' key3 ', 'val3 '))
+        self.assertEquals({'key1': 'val1', 'key2': 'val2', 'key3': 'val3', }, ri.get_as_dict())
+        with open(tmppath, 'r') as tmpfile:
+            contents = tmpfile.read()
+        self.assertEquals('key1: val1\nkey2: val2\nkey3: val3\n', contents)

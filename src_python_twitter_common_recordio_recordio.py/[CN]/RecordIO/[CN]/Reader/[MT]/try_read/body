@@ -1,11 +1,9 @@
 def try_read(self):
     '\n        Attempt to read a single record from the stream.  Only updates the file position\n        if a read was successful.\n\n        Returns string blob or None if no data available.\n\n        May raise:\n          RecordIO.RecordSizeExceeded\n      '
     pos = self._fp.tell()
-    read_blob = None
     try:
-        read_blob = self.read()
+        return self.read()
     except RecordIO.PrematureEndOfStream as e:
         log.debug(('Got premature end of stream [%s], skipping - %s' % (self._fp.name, e)))
         self._fp.seek(pos)
         return None
-    return read_blob

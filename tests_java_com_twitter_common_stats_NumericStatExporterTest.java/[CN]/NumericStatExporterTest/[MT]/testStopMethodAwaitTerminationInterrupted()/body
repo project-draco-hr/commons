@@ -1,0 +1,8 @@
+{
+  when(mockExecutor.awaitTermination(anyLong(),Matchers.<TimeUnit>anyObject())).thenThrow(new InterruptedException("mock failure"));
+  numericStatExporter.stop();
+  verify(mockExecutor).awaitTermination(eq(1L),eq(TimeUnit.SECONDS));
+  verify(mockExecutor).shutdownNow();
+  verifyNoMoreInteractions(mockExecutor);
+  Thread.currentThread().interrupted();
+}

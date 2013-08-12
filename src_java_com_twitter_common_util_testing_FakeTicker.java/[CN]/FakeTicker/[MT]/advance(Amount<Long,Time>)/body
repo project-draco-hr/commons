@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(period);
+  nowNanos=nowNanos + period.as(Time.NANOSECONDS);
+}

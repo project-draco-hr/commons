@@ -1,0 +1,3 @@
+@property
+def lock(self):
+    return self.__lock

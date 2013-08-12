@@ -1,16 +1,10 @@
-def __init__(self, name, sources, dependencies, excludes=None, buildflags=None, is_meta=False, configurations=None):
-    InternalTarget.__init__(self, name, dependencies, is_meta)
-    TargetWithSources.__init__(self, name, is_meta)
+def __init__(self, name, sources, dependencies, excludes=None, configurations=None, exclusives=None):
+    InternalTarget.__init__(self, name, dependencies, exclusives=exclusives)
+    TargetWithSources.__init__(self, name, sources)
     self.declared_dependencies = set((dependencies or []))
-    self.add_label('jvm')
-    self.sources = (self._resolve_paths(self.target_base, sources) or [])
+    self.add_labels('jvm')
     for source in self.sources:
         rel_path = os.path.join(self.target_base, source)
         TargetWithSources.register_source(rel_path, self)
     self.excludes = (excludes or [])
-    self.buildflags = (buildflags or [])
-    custom_antxml = ('%s.xml' % self.name)
-    buildfile = self.address.buildfile.full_path
-    custom_antxml_path = os.path.join(os.path.dirname(buildfile), custom_antxml)
-    self.custom_antxml_path = (custom_antxml_path if os.path.exists(custom_antxml_path) else None)
     self.configurations = configurations

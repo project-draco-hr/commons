@@ -1,0 +1,9 @@
+{
+  String libPath=System.getProperty("nativeloader.library.path",System.getenv("NATIVELOADER_LIBRARY_PATH"));
+  if (libPath != null) {
+    return new File(libPath);
+  }
+ else {
+    return FileUtils.createTempDir();
+  }
+}

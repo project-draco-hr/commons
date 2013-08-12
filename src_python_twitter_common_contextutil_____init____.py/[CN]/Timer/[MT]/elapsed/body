@@ -1,0 +1,6 @@
+@property
+def elapsed(self):
+    if self.finish:
+        return (self.finish - self.start)
+    else:
+        return (self._clock.time() - self.start)

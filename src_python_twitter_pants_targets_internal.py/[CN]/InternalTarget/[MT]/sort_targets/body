@@ -1,6 +1,6 @@
 @classmethod
 def sort_targets(cls, internal_targets):
-    'Returns a list of targets that internal_targets depend on sorted from most dependent to\n    least.'
+    'Returns the targets that internal_targets depend on sorted from most dependent to least.'
     roots = OrderedSet()
     inverted_deps = collections.defaultdict(OrderedSet)
     visited = set()
@@ -11,7 +11,7 @@ def sort_targets(cls, internal_targets):
             path_list = list(path)
             cycle_head = path_list.index(target)
             cycle = (path_list[cycle_head:] + [target])
-            raise InternalTarget.CycleException(cycle)
+            raise cls.CycleException(cycle)
         path.add(target)
         if (target not in visited):
             visited.add(target)
@@ -25,7 +25,7 @@ def sort_targets(cls, internal_targets):
         path.remove(target)
     for internal_target in internal_targets:
         invert(internal_target)
-    sorted = []
+    ordered = []
     visited.clear()
 
     def topological_sort(target):
@@ -34,7 +34,7 @@ def sort_targets(cls, internal_targets):
             if (target in inverted_deps):
                 for dep in inverted_deps[target]:
                     topological_sort(dep)
-            sorted.append(target)
+            ordered.append(target)
     for root in roots:
         topological_sort(root)
-    return sorted
+    return ordered

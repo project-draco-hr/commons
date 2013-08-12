@@ -1,6 +1,5 @@
 {
   this.bufferSize=bufSize;
   this.maxDepth=maxDepth;
-  buffer=new ArrayList<List<Long>>(maxDepth);
   clear();
 }

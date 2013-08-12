@@ -1,24 +1,38 @@
 def genlang(self, lang, targets):
-    (bases, sources) = self._calculate_sources(targets)
+    (bases, sources) = calculate_compile_roots(targets, self.is_gentarget)
     if (lang == 'java'):
         gen = self.gen_java.gen
     elif (lang == 'python'):
         gen = self.gen_python.gen
     else:
         raise TaskError(('Unrecognized thrift gen lang: %s' % lang))
-    safe_mkdir(self.output_dir)
-    args = [self.thrift_binary, '--gen', gen, '-recurse', '-o', self.output_dir]
+    args = [self.thrift_binary, '--gen', gen, '-recurse']
     if self.strict:
         args.append('-strict')
     if self.verbose:
         args.append('-verbose')
     for base in bases:
         args.extend(('-I', base))
-    processes = []
+    sessions = []
     for source in sources:
+        self.context.log.info(('Generating thrift for %s\n' % source))
+        relsource = os.path.relpath(source, get_buildroot())
+        outdir = os.path.join(self.session_dir, '.'.join(relsource.split(os.path.sep)))
+        safe_mkdir(outdir)
         cmd = args[:]
+        cmd.extend(('-o', outdir))
         cmd.append(source)
         log.debug(('Executing: %s' % ' '.join(cmd)))
-        processes.append(subprocess.Popen(cmd))
-    if (sum((p.wait() for p in processes)) != 0):
-        raise TaskError
+        sessions.append(self.ThriftSession(outdir, cmd, subprocess.Popen(cmd)))
+    result = 0
+    for session in sessions:
+        if (result != 0):
+            session.process.kill()
+        else:
+            result = session.process.wait()
+            if (result != 0):
+                self.context.log.error(('Failed: %s' % ' '.join(session.cmd)))
+            else:
+                _copytree(session.outdir, self.combined_dir)
+    if (result != 0):
+        raise TaskError(('thrift compile failed with exit code %d' % result))

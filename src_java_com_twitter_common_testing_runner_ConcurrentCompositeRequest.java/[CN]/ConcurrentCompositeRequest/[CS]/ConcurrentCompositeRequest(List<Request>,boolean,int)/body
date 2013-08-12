@@ -1,0 +1,5 @@
+{
+  super(requests);
+  this.runnerScheduler=new ConcurrentRunnerScheduler(defaultParallel,numThreads);
+  setScheduler(runnerScheduler);
+}

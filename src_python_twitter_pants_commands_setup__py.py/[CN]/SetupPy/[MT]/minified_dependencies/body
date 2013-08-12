@@ -1,0 +1,23 @@
+def minified_dependencies(self, root):
+    depmap = defaultdict(OrderedSet)
+    providers = []
+
+    def resolve(trg):
+        if (isinstance(trg, PythonTarget) and trg.provides):
+            providers.append(trg.provides.key)
+        for dependency in getattr(trg, 'dependencies', []):
+            for prv in providers:
+                for dep in dependency.resolve():
+                    depmap[prv].add(dep)
+                resolve(dep)
+        if (isinstance(trg, PythonTarget) and trg.provides):
+            assert (providers[(-1)] == trg.provides.key)
+            providers.pop()
+    resolve(root)
+    root_deps = depmap.pop(root.provides.key)
+
+    def elide(trg):
+        if any(((trg in depset) for depset in depmap.values())):
+            root_deps.discard(trg)
+    root.walk(elide)
+    return root_deps

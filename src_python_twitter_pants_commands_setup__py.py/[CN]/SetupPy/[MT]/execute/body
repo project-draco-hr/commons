@@ -1,0 +1,38 @@
+def execute(self):
+    config = Config.load()
+    distdir = config.getdefault('pants_distdir')
+    setup_dir = os.path.join(distdir, ('%s-%s' % (self.target.provides._name, self.target.provides._version)))
+    chroot = Chroot(distdir, name=self.target.provides._name)
+    self.write_sources(chroot)
+    self.write_setup(chroot)
+    if os.path.exists(setup_dir):
+        import shutil
+        shutil.rmtree(setup_dir)
+    os.rename(chroot.path(), setup_dir)
+    with pushd(setup_dir):
+        cmd = ('%s setup.py %s' % (sys.executable, (self.options.run or 'sdist')))
+        print(('Running "%s" in %s' % (cmd, setup_dir)))
+        extra_args = ({} if self.options.run else dict(stdout=subprocess.PIPE, stderr=subprocess.PIPE))
+        po = subprocess.Popen(cmd, shell=True, **extra_args)
+        po.wait()
+    if self.options.run:
+        print(('Ran %s' % cmd))
+        print(('Output in %s' % setup_dir))
+        return po.returncode
+    elif (po.returncode != 0):
+        print(('Failed to run %s!' % cmd))
+        for line in po.stdout.read().splitlines():
+            print(('stdout: %s' % line))
+        for line in po.stderr.read().splitlines():
+            print(('stderr: %s' % line))
+        return po.returncode
+    expected_tgz = ('%s-%s.tar.gz' % (self.target.provides._name, self.target.provides._version))
+    expected_target = os.path.join(setup_dir, 'dist', expected_tgz)
+    dist_tgz = os.path.join(distdir, expected_tgz)
+    if (not os.path.exists(expected_target)):
+        print(('Could not find expected target %s!' % expected_target))
+        sys.exit(1)
+    safe_delete(dist_tgz)
+    os.rename(expected_target, dist_tgz)
+    print(('Wrote %s' % dist_tgz))
+    safe_rmtree(setup_dir)

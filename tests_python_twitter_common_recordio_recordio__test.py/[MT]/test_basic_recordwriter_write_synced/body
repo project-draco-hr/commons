@@ -1,8 +1,0 @@
-def test_basic_recordwriter_write_synced():
-    test_string = 'hello world'
-    with EphemeralFile('w') as fp:
-        fn = fp.name
-        RecordWriter.do_write(fp, test_string, RecordIO.StringCodec(), sync=True)
-        with open(fn) as fpr:
-            rr = RecordReader(fpr)
-            assert (rr.read() == test_string)

@@ -1,0 +1,8 @@
+{
+  this.httpServer=checkNotNull(httpServer);
+  this.httpServlets=checkNotNull(httpServlets);
+  this.httpAssets=checkNotNull(httpAssets);
+  this.httpFilters=checkNotNull(httpFilters);
+  this.additionalIndexLinks=checkNotNull(additionalIndexLinks);
+  this.injector=checkNotNull(injector);
+}

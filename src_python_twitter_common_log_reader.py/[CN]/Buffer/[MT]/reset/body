@@ -1,0 +1,10 @@
+@classmethod
+def reset(cls, fp):
+    try:
+        fp.seek(0, os.SEEK_CUR)
+    except IOError:
+        return False
+    except OSError as e:
+        if (e.errno == errno.ESPIPE):
+            return False
+        raise

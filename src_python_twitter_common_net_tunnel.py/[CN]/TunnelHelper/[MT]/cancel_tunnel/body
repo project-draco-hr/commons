@@ -1,0 +1,6 @@
+@classmethod
+def cancel_tunnel(cls, remote_host, remote_port):
+    '\n      Cancel the SSH tunnel to (remote_host, remote_port) if it exists.\n    '
+    (_, po) = cls.TUNNELS.pop((remote_host, remote_port), (None, None))
+    if po:
+        safe_kill(po)

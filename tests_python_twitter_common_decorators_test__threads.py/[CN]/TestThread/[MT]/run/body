@@ -1,0 +1,4 @@
+@identify_thread
+def run(self):
+    self.start_event.set()
+    self.stop_event.wait()

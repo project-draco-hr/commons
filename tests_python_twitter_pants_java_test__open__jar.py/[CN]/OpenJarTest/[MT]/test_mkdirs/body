@@ -1,0 +1,20 @@
+def test_mkdirs(self):
+
+    def assert_mkdirs(path, *entries):
+        with self.jarfile() as jarfile:
+            with open_jar(jarfile, 'w') as jar:
+                jar.mkdirs(path)
+            with open_jar(jarfile) as jar:
+                self.assertEquals(list(entries), jar.namelist())
+    if (Compatibility.PY2 and (sys.version_info[1] <= 6)):
+        from zipfile import BadZipfile
+        with pytest.raises(Exception) as raised_info:
+            assert_mkdirs('')
+        raised = raised_info.value
+        self.assertTrue(isinstance(raised, (BadZipfile, IOError)))
+        if isinstance(raised, IOError):
+            self.assertEqual(errno.EINVAL, raised.errno)
+    else:
+        assert_mkdirs('')
+    assert_mkdirs('a', 'a/')
+    assert_mkdirs('a/b/c', 'a/', 'a/b/', 'a/b/c/')

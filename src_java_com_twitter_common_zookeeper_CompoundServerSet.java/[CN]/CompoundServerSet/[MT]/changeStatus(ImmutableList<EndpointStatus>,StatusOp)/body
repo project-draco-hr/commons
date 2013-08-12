@@ -1,0 +1,15 @@
+{
+  ImmutableList.Builder<String> builder=ImmutableList.builder();
+  int errorIdx=1;
+  for (  EndpointStatus endpointStatus : statuses) {
+    try {
+      statusOp.changeStatus(endpointStatus);
+    }
+ catch (    UpdateException exception) {
+      builder.add(String.format("[%d] %s",errorIdx++,Throwables.getStackTraceAsString(exception)));
+    }
+  }
+  if (errorIdx > 1) {
+    throw new UpdateException("One or more ServerSet update failed: " + STACK_TRACE_JOINER.join(builder.build()));
+  }
+}

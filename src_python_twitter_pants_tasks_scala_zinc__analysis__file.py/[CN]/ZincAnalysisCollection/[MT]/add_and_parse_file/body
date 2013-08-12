@@ -1,52 +1,29 @@
 def add_and_parse_file(self, analysis_file, classes_dir):
-    zincfile = ('%s.relations' % analysis_file)
+    sections = {'products': ZincAnalysisCollection.PRODUCTS, 'binary dependencies': ZincAnalysisCollection.BINARY, 'source dependencies': ZincAnalysisCollection.SOURCE, 'external dependencies': ZincAnalysisCollection.EXTERNAL, 'class names': ZincAnalysisCollection.CLASS, }
+    depmaps = (self.products, self.binary_deps, self.source_deps, self.external_deps, self.class_names)
+    classes_maps = (self.product_classes, self.binary_dep_classes, None, None, None)
     try:
-        zincfile = open(zincfile, 'r')
+        with open(('%s.relations' % analysis_file), 'r') as zincfile:
+            current_section = None
+            for line in zincfile:
+                if line.startswith('   '):
+                    (src, sep, dep) = line.partition(' -> ')
+                    src = src[3:]
+                    dep = dep.rstrip()
+                    if ((sep == '') and (line != '\n')):
+                        print ('Syntax error: line is neither a section header nor a dep. "%s"' % line)
+                        continue
+                    depmaps[current_section][src].add(dep)
+                    classes_map = classes_maps[current_section]
+                    if (classes_map is not None):
+                        cl = self._classfile_to_classname(dep, classes_dir)
+                        if (cl is not None):
+                            classes_map[src].add(cl)
+                elif line.endswith(':\n'):
+                    current_section = (ZincAnalysisCollection.DONE if (current_section == self.stop_after) else sections[line[0:(-2)]])
+                if (current_section == ZincAnalysisCollection.DONE):
+                    return
     except IOError:
-        print ('Warning: analysis file %s not found' % analysis_file)
-        return
-    mode = None
-
-    def change_mode_to(new_mode):
-        if (mode == self.stop_after):
-            return 'done'
-        else:
-            return new_mode
-    for line in zincfile:
-        if line.startswith('products:'):
-            mode = change_mode_to('products')
-        elif line.startswith('binary dependencies:'):
-            mode = change_mode_to('binary')
-        elif line.startswith('source dependencies:'):
-            mode = change_mode_to('source')
-        elif line.startswith('external dependencies:'):
-            mode = change_mode_to('external')
-        elif line.startswith('class names:'):
-            mode = change_mode_to('class')
-        else:
-            (src, sep, dep) = line.partition('->')
-            src = src.strip()
-            dep = dep.strip()
-            if ((sep == '') and (line != '\n')):
-                print ('Syntax error: line is neither a modeline nor a dep. "%s"' % line)
-                continue
-            if (mode == 'products'):
-                self.products[src].add(dep)
-                cl = self._classfile_to_classname(dep, classes_dir)
-                if (cl is not None):
-                    self.product_classes[src].add(cl)
-            elif (mode == 'binary'):
-                self.binary_deps[src].add(dep)
-                cl = self._classfile_to_classname(dep, classes_dir)
-                if (cl is not None):
-                    self.binary_dep_classes[src].add(cl)
-            elif (mode == 'source'):
-                self.source_deps[src].add(dep)
-            elif (mode == 'external'):
-                self.external_deps[src].add(dep)
-            elif (mode == 'class'):
-                self.class_names[src].add(dep)
-            else:
-                print ('Unprocessed line, mode = %s' % mode)
-        if (mode == 'done'):
-            return
+        print ('ERROR: analysis file %s not found' % analysis_file)
+    except KeyError as e:
+        print ('ERROR: unrecognized section: %s' % e)

@@ -1,0 +1,8 @@
+def test_exception_caught():
+    with exception_handler() as queue:
+        thread = TestExceptionalThread()
+        thread.start()
+        thread.join()
+        exception = queue.get()
+        assert (exception == ExceptHookInfo(TestException, TestException('Something went wrong!'), None))
+    assert (sys.excepthook == sys.__excepthook__)

@@ -1,0 +1,3 @@
+def test_simple(self):
+    self._test({'a': 'a', 'b': 'b', 'c': 'c', }, 'a', 'b', 'c')
+    self._test({'x.a': 'a', 'y.b': 'b', 'z.c': 'c', }, 'x.a', 'y.b', 'z.c')

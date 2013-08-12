@@ -1,0 +1,3 @@
+def ensure_file_exists(path):
+    os.makedirs(os.path.dirname(path))
+    open(path, 'a').close()

@@ -1,8 +1,10 @@
+import json
 import time
 import threading
-from .metrics import MetricProvider
-from twitter.common.quantity import Amount, Time
 try:
     from twitter.common import log
 except ImportError:
     log = None
+from twitter.common.exceptions import ExceptionalThread
+from twitter.common.quantity import Amount, Time
+from .metrics import MetricProvider

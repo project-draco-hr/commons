@@ -1,0 +1,4 @@
+@staticmethod
+def set_scribe_log_level(log_level):
+    '\n      Set the log level for scribe.\n    '
+    (LogOptions._SCRIBE_LOG_SCHEME, LogOptions._SCRIBE_LOG_LEVEL) = LogOptions._parse_loglevel(log_level, scheme='google')

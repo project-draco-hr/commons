@@ -1,0 +1,6 @@
+{
+  Preconditions.checkNotNull(value);
+  Preconditions.checkNotNull(unit);
+  this.maxValue=maxValue;
+  this.amount=Pair.of(value,unit);
+}

@@ -23,9 +23,10 @@ break;
 default :
 throw new IllegalArgumentException("More than one primary local service: " + primaries);
 }
+Iterable<LocalService> auxSinglyNamed=Iterables.concat(FluentIterable.from(localServices).filter(Predicates.not(IS_PRIMARY)).transform(AUX_NAME_BREAKOUT));
 Map<String,LocalService> byName;
 try {
-byName=Maps.uniqueIndex(Iterables.filter(localServices,Predicates.not(IS_PRIMARY)),GET_NAME);
+byName=Maps.uniqueIndex(auxSinglyNamed,GET_NAME);
 }
  catch (IllegalArgumentException e) {
 throw new IllegalArgumentException("Auxiliary services with identical names.",e);

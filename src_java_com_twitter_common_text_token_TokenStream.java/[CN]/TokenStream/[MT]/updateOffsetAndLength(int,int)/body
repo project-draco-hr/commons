@@ -1,0 +1,4 @@
+{
+  termAttribute.setOffset(offset);
+  termAttribute.setLength(length);
+}

@@ -1,0 +1,6 @@
+def register_observable(self, name, observable):
+    if (not isinstance(name, Compatibility.string)):
+        raise TypeError(('Scope names must be strings, got: %s' % type(name)))
+    if (not isinstance(observable, Observable)):
+        raise TypeError(('observable must be an Observable, got: %s' % type(observable)))
+    self._children[name] = observable.metrics

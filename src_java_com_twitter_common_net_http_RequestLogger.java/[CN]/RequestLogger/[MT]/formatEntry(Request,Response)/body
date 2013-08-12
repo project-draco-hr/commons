@@ -1,0 +1,44 @@
+{
+  StringBuilder buf=new StringBuilder();
+  buf.append(request.getServerName());
+  buf.append(' ');
+  String addr=request.getHeader(HttpHeaders.X_FORWARDED_FOR);
+  if (addr == null) {
+    addr=request.getRemoteAddr();
+  }
+  buf.append(addr);
+  buf.append(" [");
+  buf.append(logDateCache.format(request.getTimeStamp()));
+  buf.append("] \"");
+  buf.append(request.getMethod());
+  buf.append(' ');
+  buf.append(request.getUri().toString());
+  buf.append(' ');
+  buf.append(request.getProtocol());
+  buf.append("\" ");
+  buf.append(response.getStatus());
+  buf.append(' ');
+  buf.append(response.getContentCount());
+  buf.append(' ');
+  String referer=request.getHeader(HttpHeaders.REFERER);
+  if (referer == null) {
+    buf.append("\"-\" ");
+  }
+ else {
+    buf.append('"');
+    buf.append(referer);
+    buf.append("\" ");
+  }
+  String agent=request.getHeader(HttpHeaders.USER_AGENT);
+  if (agent == null) {
+    buf.append("\"-\" ");
+  }
+ else {
+    buf.append('"');
+    buf.append(agent);
+    buf.append('"');
+  }
+  buf.append(' ');
+  buf.append(clock.nowMillis() - request.getTimeStamp());
+  return buf.toString();
+}

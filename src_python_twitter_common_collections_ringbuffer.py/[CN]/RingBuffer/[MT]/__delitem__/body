@@ -1,0 +1,2 @@
+def __delitem__(self, key):
+    raise self.InvalidOperation('Cannot delete in a RingBuffer.')

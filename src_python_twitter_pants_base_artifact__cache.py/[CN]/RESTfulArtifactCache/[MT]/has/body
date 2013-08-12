@@ -1,4 +1,0 @@
-def has(self, cache_key):
-    path = self._path_for_key(cache_key)
-    response = self._request('HEAD', path)
-    return (response is not None)

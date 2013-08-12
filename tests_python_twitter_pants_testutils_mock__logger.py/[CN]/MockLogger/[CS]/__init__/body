@@ -1,0 +1,2 @@
+def __init__(self, level=Report.INFO):
+    self._level = level

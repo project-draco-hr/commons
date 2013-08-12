@@ -1,0 +1,6 @@
+{
+  Key<T> toKey=bindToFactory.create(fromKey.getTypeLiteral());
+  binder.bind(toKey).to(fromKey);
+  requireBinding(binder,fromKey);
+  return toKey;
+}

@@ -1,0 +1,3 @@
+@staticmethod
+def append(filename, blob, codec=StringCodec()):
+    return RecordIO.Writer.append(filename, blob, codec)

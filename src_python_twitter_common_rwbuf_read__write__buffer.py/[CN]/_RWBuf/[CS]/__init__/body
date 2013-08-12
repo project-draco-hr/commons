@@ -1,0 +1,4 @@
+def __init__(self, io):
+    self._lock = threading.Lock()
+    self._io = io
+    self._readpos = 0

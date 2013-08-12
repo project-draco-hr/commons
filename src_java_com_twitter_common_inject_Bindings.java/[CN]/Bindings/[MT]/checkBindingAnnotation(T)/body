@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(annotation);
+  checkBindingAnnotation(annotation.annotationType());
+  return annotation;
+}

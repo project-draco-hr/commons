@@ -1,8 +1,8 @@
-__author__ = 'John Sirois'
-from sys import version_info
-if (version_info[0] == 2):
-    from twitter.common.collections.ordereddict import OrderedDict
+from twitter.common.lang import Compatibility
+if Compatibility.PY2:
+    from .ordereddict import OrderedDict
 else:
     from collections import OrderedDict
-from twitter.common.collections.orderedset import OrderedSet
-__all__ = (OrderedSet, OrderedDict)
+from .orderedset import OrderedSet
+from .ringbuffer import RingBuffer
+__all__ = (maybe_list, OrderedSet, OrderedDict, RingBuffer)

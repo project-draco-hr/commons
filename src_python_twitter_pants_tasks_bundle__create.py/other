@@ -1,12 +1,12 @@
-__author__ = 'John Sirois'
 import os
+import errno
 from zipfile import ZIP_DEFLATED
-from twitter.common.collections import OrderedDict, OrderedSet
-from twitter.common.contextutil import open_tar, open_zip
+from twitter.common.collections import OrderedSet
+from twitter.common.contextutil import open_zip
 from twitter.common.dirutil import safe_mkdir
 from twitter.pants import get_buildroot
+from twitter.pants.fs import archive
 from twitter.pants.java import Manifest
 from twitter.pants.targets import JvmApp
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.jvm_binary_task import JvmBinaryTask
-ARCHIVER_BY_TYPE = OrderedDict(tar=TarArchiver('w:', 'tar'), tbz2=TarArchiver('w:bz2', 'tar.bz2'), tgz=TarArchiver('w:gz', 'tar.gz'), zip=ZipArchiver(ZIP_DEFLATED))

@@ -1,0 +1,6 @@
+def translate_href(self, href):
+    for link_class in (EggLink, SourceLink):
+        try:
+            return link_class(href, opener=self._crawler.opener)
+        except link_class.InvalidLink:
+            pass

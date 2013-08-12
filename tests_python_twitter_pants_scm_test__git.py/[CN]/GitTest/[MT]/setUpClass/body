@@ -1,0 +1,28 @@
+@classmethod
+def setUpClass(cls):
+    cls.origin = safe_mkdtemp()
+    with pushd(cls.origin):
+        subprocess.check_call(['git', 'init', '--bare'])
+    cls.gitdir = safe_mkdtemp()
+    cls.worktree = safe_mkdtemp()
+    cls.readme_file = os.path.join(cls.worktree, 'README')
+    with environment_as(GIT_DIR=cls.gitdir, GIT_WORK_TREE=cls.worktree):
+        cls.init_repo('depot', cls.origin)
+        touch(cls.readme_file)
+        subprocess.check_call(['git', 'add', 'README'])
+        subprocess.check_call(['git', 'commit', '-am', 'initial commit.'])
+        subprocess.check_call(['git', 'tag', '-a', '-m', 'first tag', 'first'])
+        subprocess.check_call(['git', 'push', '--tags', 'depot', 'master'])
+        subprocess.check_call(['git', 'branch', '--set-upstream', 'master', 'depot/master'])
+        with safe_open(cls.readme_file, 'w') as readme:
+            readme.write('Hello World.')
+        subprocess.check_call(['git', 'commit', '-am', 'Update README.'])
+    cls.clone2 = safe_mkdtemp()
+    with pushd(cls.clone2):
+        cls.init_repo('origin', cls.origin)
+        subprocess.check_call(['git', 'pull', '--tags', 'origin', 'master:master'])
+        with safe_open(os.path.realpath('README'), 'a') as readme:
+            readme.write('--')
+        subprocess.check_call(['git', 'commit', '-am', 'Update README 2.'])
+        subprocess.check_call(['git', 'push', '--tags', 'origin', 'master'])
+    cls.git = Git(gitdir=cls.gitdir, worktree=cls.worktree)

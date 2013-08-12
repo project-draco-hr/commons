@@ -1,0 +1,7 @@
+{
+  T retVal=asUnit(unit);
+  if (retVal.equals(maxValue)) {
+    throw new TypeOverflowException();
+  }
+  return retVal;
+}

@@ -1,6 +1,0 @@
-from __future__ import print_function
-__author__ = 'John Sirois'
-import os
-import traceback
-from twitter.pants.base import Address, Target
-from twitter.pants.commands import Command

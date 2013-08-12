@@ -1,0 +1,8 @@
+{
+  return new ExceptionalFunction<S,T,E>(){
+    @Override public T apply(    S item){
+      return function.apply(item);
+    }
+  }
+;
+}

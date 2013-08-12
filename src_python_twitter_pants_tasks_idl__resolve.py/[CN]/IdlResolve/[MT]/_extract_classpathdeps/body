@@ -1,0 +1,2 @@
+def _extract_classpathdeps(self, targets):
+    return set()

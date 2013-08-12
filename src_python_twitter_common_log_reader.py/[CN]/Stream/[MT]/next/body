@@ -1,0 +1,15 @@
+def next(self):
+    while True:
+        line = self._buffer.next()
+        if (line is None):
+            return self._handle_end()
+        tail = Line.parse_order(line, *self._parsers)
+        if (tail is not None):
+            if self._head:
+                rv = self._full_head()
+                (self._head, self._tail) = (tail, [])
+                return rv
+            else:
+                (self._head, self._tail) = (tail, [])
+        else:
+            self._tail.append(line)
