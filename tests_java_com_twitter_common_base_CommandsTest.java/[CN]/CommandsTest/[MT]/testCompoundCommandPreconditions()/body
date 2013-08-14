@@ -1,0 +1,4 @@
+{
+  control.replay();
+  Commands.compound(Arrays.asList(c1,null,c2));
+}

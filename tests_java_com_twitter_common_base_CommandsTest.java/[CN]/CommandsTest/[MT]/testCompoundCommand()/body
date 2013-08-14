@@ -1,0 +1,7 @@
+{
+  c1.execute();
+  c2.execute();
+  c3.execute();
+  control.replay();
+  Commands.compound(Arrays.asList(c1,c2,c3)).execute();
+}
