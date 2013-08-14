@@ -1,0 +1,6 @@
+{
+  int h=1;
+  h=31 * h + name.hashCode();
+  h=31 * h + System.identityHashCode(node);
+  return h;
+}

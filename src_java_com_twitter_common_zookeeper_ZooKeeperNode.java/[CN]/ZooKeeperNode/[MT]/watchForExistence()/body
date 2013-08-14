@@ -1,5 +1,5 @@
 {
-  final Watcher watcher=new Watcher(){
+  final Watcher watcher=new ZooKeeperNodeWatcher("ExistenceWatcher",this){
     @Override public void process(    WatchedEvent event){
       if (event.getType() == Watcher.Event.EventType.NodeCreated) {
         try {
