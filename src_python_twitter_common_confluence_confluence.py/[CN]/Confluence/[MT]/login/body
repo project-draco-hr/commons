@@ -1,5 +1,5 @@
 @staticmethod
-def login(confluence_url, user=None, api_entrypoint='confluence1'):
+def login(confluence_url, user=None, api_entrypoint='confluence2'):
     "Prompts the user to log in to confluence, and returns a Confluence object.\n\n    confluence_url: Base url of wiki, e.g. https://confluence.atlassian.com/\n    user: Username\n    api_entrypoint: one of 'confluence1' or None (Confluence 3.x) [default],\n                           'confluence2' (Confluence 4.x or 5.x)\n\n    raises ConfluenceError if login is unsuccessful.\n    "
     server = ServerProxy((confluence_url + '/rpc/xmlrpc'))
     user = (user or getpass.getuser())
