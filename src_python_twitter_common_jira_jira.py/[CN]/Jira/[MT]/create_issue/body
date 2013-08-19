@@ -1,6 +1,7 @@
-def create_issue(self, project, issue_type, summary, description=None):
+def create_issue(self, project, issue_type, summary, description=None, **kw):
     data = {'fields': {'project': {'key': project, }, 'issuetype': {'name': issue_type, }, 'summary': summary, 'description': description, }, }
+    data['fields'].update(kw)
     try:
-        self.api_call('issue', data)
+        return self.api_call('issue', data)
     except urllib2.URLError as e:
         raise JiraError(cause=e)

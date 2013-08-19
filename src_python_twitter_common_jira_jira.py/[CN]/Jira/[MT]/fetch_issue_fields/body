@@ -1,0 +1,8 @@
+def fetch_issue_fields(self, project_key, issue_type):
+    data = {'projectKeys': project_key, 'issuetypeIds': issue_type, 'expand': 'projects.issuetypes.fields', }
+    qs = urllib.urlencode(data)
+    endpoint = ('%s?%s' % ('issue/createmeta', qs))
+    try:
+        return self.api_call(endpoint)
+    except urllib2.URLError as e:
+        raise JiraError(cause=e)
