@@ -1,21 +1,4 @@
 {
-  final Watcher nodeWatcher=new ZooKeeperNodeWatcher("NewDataWatcher",this){
-    @Override public void process(    WatchedEvent event){
-      if (event.getState() == KeeperState.SyncConnected) {
-        try {
-          tryWatchDataNode();
-        }
- catch (        InterruptedException e) {
-          LOG.log(Level.WARNING,"Interrupted while trying to watch a data node.",e);
-          Thread.currentThread().interrupt();
-        }
-      }
- else {
-        LOG.info("Ignoring watcher event " + event);
-      }
-    }
-  }
-;
   try {
     Stat stat=new Stat();
     byte[] rawData=zkClient.get().getData(nodePath,nodeWatcher,stat);

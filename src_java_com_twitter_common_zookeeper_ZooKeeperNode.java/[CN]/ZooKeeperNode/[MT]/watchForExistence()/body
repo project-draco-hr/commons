@@ -1,19 +1,5 @@
 {
-  final Watcher watcher=new ZooKeeperNodeWatcher("ExistenceWatcher",this){
-    @Override public void process(    WatchedEvent event){
-      if (event.getType() == Watcher.Event.EventType.NodeCreated) {
-        try {
-          tryWatchDataNode();
-        }
- catch (        InterruptedException e) {
-          LOG.log(Level.WARNING,"Interrupted while trying to watch a data node.",e);
-          Thread.currentThread().interrupt();
-        }
-      }
-    }
-  }
-;
-  if (zkClient.get().exists(nodePath,watcher) != null) {
+  if (zkClient.get().exists(nodePath,existenceWatcher) != null) {
     tryWatchDataNode();
   }
 }

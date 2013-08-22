@@ -7,4 +7,35 @@
   safeToRewatchLock=new Object();
   safeToRewatch=false;
   nodeData=NO_DATA;
+  nodeWatcher=new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getState() == KeeperState.SyncConnected) {
+        try {
+          tryWatchDataNode();
+        }
+ catch (        InterruptedException e) {
+          LOG.log(Level.WARNING,"Interrupted while trying to watch a data node.",e);
+          Thread.currentThread().interrupt();
+        }
+      }
+ else {
+        LOG.info("Ignoring watcher event " + event);
+      }
+    }
+  }
+;
+  existenceWatcher=new Watcher(){
+    @Override public void process(    WatchedEvent event){
+      if (event.getType() == Watcher.Event.EventType.NodeCreated) {
+        try {
+          tryWatchDataNode();
+        }
+ catch (        InterruptedException e) {
+          LOG.log(Level.WARNING,"Interrupted while trying to watch a data node.",e);
+          Thread.currentThread().interrupt();
+        }
+      }
+    }
+  }
+;
 }
