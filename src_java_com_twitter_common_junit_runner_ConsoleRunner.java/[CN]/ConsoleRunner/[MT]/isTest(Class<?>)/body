@@ -2,16 +2,14 @@
   if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers()) || !Modifier.isPublic(clazz.getModifiers())) {
     return false;
   }
+  if (!Iterables.any(Arrays.asList(clazz.getConstructors()),IS_PUBLIC_CONSTRUCTOR)) {
+    return false;
+  }
   if (junit.framework.Test.class.isAssignableFrom(clazz)) {
     return true;
   }
   if (clazz.isAnnotationPresent(RunWith.class)) {
     return true;
   }
-  return Iterables.any(Arrays.asList(clazz.getMethods()),new Predicate<Method>(){
-    @Override public boolean apply(    Method method){
-      return Modifier.isPublic(method.getModifiers()) && method.isAnnotationPresent(org.junit.Test.class);
-    }
-  }
-);
+  return Iterables.any(Arrays.asList(clazz.getMethods()),IS_ANNOTATED_TEST_METHOD);
 }
