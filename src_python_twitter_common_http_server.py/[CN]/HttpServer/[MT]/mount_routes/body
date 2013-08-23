@@ -6,10 +6,10 @@ def mount_routes(self, class_instance):
             self._bind_method(class_instance, callback_name)
             if hasattr(callback, self.VIEW_ATTRIBUTE):
                 (args, kw) = getattr(callback, self.VIEW_ATTRIBUTE)
-                setattr(self, callback_name, bottle.view(*args, **kw)(getattr(self, callback_name)))
+                setattr(self, callback_name, bottle.view(*args, **kw)(callback))
             for (args, kw) in getattr(callback, self.ROUTES_ATTRIBUTE, ()):
                 kw = self._apply_plugins(class_instance, copy.deepcopy(kw))
-                kw.update(callback=getattr(self, callback_name))
+                kw.update(callback=callback)
                 self._app.route(*args, **kw)
             for error_code in getattr(callback, self.ERROR_ATTRIBUTE, ()):
-                self._app.error(error_code)(getattr(self, callback_name))
+                self._app.error(error_code)(callback)

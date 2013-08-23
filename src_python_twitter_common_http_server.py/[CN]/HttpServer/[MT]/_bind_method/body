@@ -1,7 +1,7 @@
 def _bind_method(self, class_instance, method_name):
     '\n      Delegate class_instance.method_name to self.method_name\n    '
     if (not hasattr(class_instance, method_name)):
-        raise ValueError(('No method %s.%s exists for bind_method!' % ((class_instance.__name__ if hasattr(class_instance, '__name__') else class_instance.__class__.__name__), method_name)))
+        raise ValueError(('No method %s.%s exists for bind_method!' % (self.source_name(class_instance), method_name)))
     if isinstance(getattr(class_instance, method_name), types.MethodType):
         method_self = getattr(class_instance, method_name).im_self
         if (method_self is None):
