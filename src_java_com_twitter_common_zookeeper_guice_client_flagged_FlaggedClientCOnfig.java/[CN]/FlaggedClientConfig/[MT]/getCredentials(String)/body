@@ -1,0 +1,7 @@
+{
+  List<String> parts=ImmutableList.copyOf(Splitter.on(":").split(userAndPass));
+  if (parts.size() != 2) {
+    throw new IllegalArgumentException("zk_digest_credentials must be formatted as user:pass");
+  }
+  return ZooKeeperClient.digestCredentials(parts.get(0),parts.get(1));
+}

@@ -1,0 +1,4 @@
+{
+  this.config=Preconditions.checkNotNull(config);
+  this.shutdownRegistry=Preconditions.checkNotNull(shutdownRegistry);
+}

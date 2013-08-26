@@ -1,0 +1,4 @@
+{
+  this.keyFactory=Preconditions.checkNotNull(keyFactory);
+  this.config=Preconditions.checkNotNull(config);
+}

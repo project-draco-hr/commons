@@ -1,0 +1,6 @@
+{
+  this.servers=servers;
+  this.inProcess=inProcess;
+  this.sessionTimeout=sessionTimeout;
+  this.credentials=credentials;
+}
