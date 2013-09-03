@@ -1,0 +1,4 @@
+def test_branch_throw(tmpdir, repo):
+    with pytest.raises(ValueError):
+        with branch('a', repo=repo):
+            raise ValueError
