@@ -1,4 +1,6 @@
+import logging
 import threading
+import sys
 from twitter.common.metrics import AtomicGauge, LambdaGauge, Observable
 from kazoo.client import KazooClient
 from kazoo.protocol.states import KazooState, KeeperState

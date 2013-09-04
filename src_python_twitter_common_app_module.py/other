@@ -1,2 +1,4 @@
+from collections import defaultdict
+from twitter.common.collections import maybe_list
 from twitter.common.lang import Compatibility, Singleton
 from twitter.common.util import topological_sort, DependencyCycle

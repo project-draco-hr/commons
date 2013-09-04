@@ -1,5 +1,8 @@
 @classmethod
 def make(cls, *args, **kw):
+    verbose = kw.pop('verbose', False)
+    if (verbose is False):
+        kw['logger'] = logging.Logger('kazoo.devnull', level=sys.maxsize)
     zk = cls(*args, **kw)
     zk.start_async()
     zk.connecting.wait()

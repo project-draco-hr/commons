@@ -1,4 +1,4 @@
-@staticmethod
-def clear_registry():
-    AppModule._MODULE_REGISTRY = {}
-    AppModule._MODULE_DEPENDENCIES = {}
+@classmethod
+def clear_registry(cls):
+    cls._MODULE_REGISTRY = {}
+    cls._MODULE_DEPENDENCIES = defaultdict(set)

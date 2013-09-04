@@ -1,0 +1,23 @@
+def open(self):
+    try:
+        resolved = self._resolveAddr()
+        for (offset, res) in enumerate(resolved):
+            (sock_family, sock_type, _, _, ip_port) = res[0:5]
+            self.handle = self.__socket_factory.socket(sock_family, sock_type)
+            self.handle.settimeout(self._timeout)
+            reraise = (offset == (len(resolved) - 1))
+            if (not self.__delay_handshake):
+                self.__do_wrap(handshake_on_connect=True)
+            try:
+                self.handle.connect(ip_port)
+            except self.__socket_factory.error:
+                if reraise:
+                    raise
+            if self.__delay_handshake:
+                self.__do_wrap(handshake_on_connect=False)
+                self.handle.do_handshake()
+    except self.__socket_factory.error as e:
+        message = ('Could not connect to %s:%d: %s' % (self.host, self.port, e))
+        raise TTransportException(type=TTransportException.NOT_OPEN, message=message)
+    if self.validate:
+        self._validate_cert()
