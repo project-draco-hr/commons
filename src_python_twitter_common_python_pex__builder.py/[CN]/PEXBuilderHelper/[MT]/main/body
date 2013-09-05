@@ -36,7 +36,7 @@ def main(cls):
             pex_builder.set_executable(options.entry_point)
         elif (':' in options.entry_point):
             cls.logger.info('Adding entry point to PEX: Function: {0}'.format(options.entry_point))
-            pex_builder.info().entry_point = options.entry_point
+            pex_builder.info.entry_point = options.entry_point
         else:
             cls.logger.warn('Invalid entry point: {0}'.format(options.entry_point))
     if (options.pex_name is not None):
