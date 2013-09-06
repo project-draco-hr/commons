@@ -16,7 +16,9 @@ def translate(self, link):
                 dist = installer.distribution()
             except Installer.InstallFailure as e:
                 return None
-            return dist_from_egg(Distiller(dist).distill(into=self._install_cache))
+            dist = dist_from_egg(Distiller(dist).distill(into=self._install_cache))
+            if Platform.distribution_compatible(dist, python=self._interpreter.python, platform=self._platform):
+                return dist
     finally:
         if installer:
             installer.cleanup()
