@@ -1,0 +1,6 @@
+def _command(self, function, name=None):
+    command_name = (name or function.__name__)
+    self._set_command_origin(function, command_name)
+    if (Inspection.find_calling_module() == '__main__'):
+        self._register_command(function, command_name)
+    return function

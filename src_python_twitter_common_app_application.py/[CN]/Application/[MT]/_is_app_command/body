@@ -1,0 +1,2 @@
+def _is_app_command(self, function):
+    return (callable(function) and (getattr(function, '__app_command_origin__', (None, None))[0] == self))

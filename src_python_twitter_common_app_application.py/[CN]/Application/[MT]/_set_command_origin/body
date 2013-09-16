@@ -1,0 +1,2 @@
+def _set_command_origin(self, function, command_name):
+    function.__app_command_origin__ = (self, command_name)
