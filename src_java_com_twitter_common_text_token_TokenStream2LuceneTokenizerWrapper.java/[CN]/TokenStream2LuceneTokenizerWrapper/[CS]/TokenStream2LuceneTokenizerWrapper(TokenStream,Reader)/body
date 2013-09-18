@@ -1,5 +1,0 @@
-{
-  super(inputStream,input);
-  this.inputStream=Preconditions.checkNotNull(inputStream);
-  addAttribute(PositionIncrementAttribute.class);
-}
