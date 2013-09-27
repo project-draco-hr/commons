@@ -1,0 +1,3 @@
+def test_get_config_behavior(self):
+    self.assertRaises(ValueError, HDFSHelper, '/this/does/not/exist', command_class=MockCommandUtil)
+    self.assertRaises(ValueError, HDFSHelper, HdfsTest._site_config, command_class=MockCommandUtil)

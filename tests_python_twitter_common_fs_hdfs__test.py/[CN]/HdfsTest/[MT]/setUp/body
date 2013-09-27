@@ -1,0 +1,7 @@
+def setUp(self):
+    fake_fs = pyfakefs.FakeFilesystem()
+    fake_os = pyfakefs.FakeOsModule(fake_fs)
+    fake_fs.CreateFile(HdfsTest._site_config, contents='this is not a real file.')
+    fake_fs.CreateFile('src', contents='heh. before pyfakefs this was unintentionally a dir.')
+    self.original_os = twitter.common.fs.hdfs.os
+    twitter.common.fs.hdfs.os = fake_os

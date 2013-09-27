@@ -1,3 +1,5 @@
 def __init__(self, config, command_class=CommandUtil):
+    if (not os.path.isdir(config)):
+        raise ValueError('hadoop requires root of a config tree')
     self._config = config
     self._cmd_class = command_class

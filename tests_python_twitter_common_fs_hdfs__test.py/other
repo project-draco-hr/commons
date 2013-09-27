@@ -1,3 +1,7 @@
 __author__ = 'Tejal Desai'
+import sys
 import unittest
+from mock import patch
+import fake_filesystem as pyfakefs
+import twitter.common.fs
 from twitter.common.fs import HDFSHelper
