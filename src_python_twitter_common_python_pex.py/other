@@ -1,15 +1,17 @@
 from __future__ import print_function
 import contextlib
 from distutils import sysconfig
+from hashlib import sha1
 import os
 import shutil
 from site import USER_SITE
 import sys
 from types import GeneratorType
+import uuid
 import zipfile
 from twitter.common.collections import OrderedSet
-from twitter.common.contextutil import mutable_sys
-from twitter.common.dirutil import safe_mkdir
+from twitter.common.contextutil import mutable_sys, open_zip
+from twitter.common.dirutil import safe_mkdir, safe_rmtree
 from twitter.common.lang import Compatibility
 from .base import maybe_requirement_list
 from .dirwrapper import PythonDirectoryWrapper

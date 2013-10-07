@@ -1,6 +1,24 @@
 def activate(self):
     if self._activated:
         return
+    if os.environ.get('PEX_FORCE_LOCAL', (not self._pex_info.zip_safe)):
+        pex_chksum = self._hash_digest(self._pex)
+        explode_dir = os.path.join(self._pex_info.zip_unsafe_cache, pex_chksum)
+        TRACER.log(('Using zip_unsafe mode, explode_dir=%s' % explode_dir))
+        if (not os.path.exists(explode_dir)):
+            explode_tmp = ((explode_dir + '.') + uuid.uuid4().hex)
+            with TRACER.timed(('Unzipping %s' % self._pex)):
+                try:
+                    safe_mkdir(explode_tmp)
+                    with open_zip(self._pex) as pex_zip:
+                        pex_files = (x for x in pex_zip.namelist() if (not x.startswith('.')))
+                        pex_zip.extractall(explode_tmp, pex_files)
+                except:
+                    safe_rmtree(explode_tmp)
+                    raise
+            TRACER.log(('Renaming %s to %s' % (explode_tmp, explode_dir)))
+            os.rename(explode_tmp, explode_dir)
+        sys.path.insert(0, explode_dir)
     if self._pex_info.inherit_path:
         self._ws = WorkingSet(sys.path)
     all_reqs = [Requirement.parse(req) for (req, _, _) in self._pex_info.requirements]
