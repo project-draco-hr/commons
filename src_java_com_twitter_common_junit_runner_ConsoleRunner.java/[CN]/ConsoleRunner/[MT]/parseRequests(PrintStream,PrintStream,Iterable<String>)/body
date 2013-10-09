@@ -46,15 +46,22 @@ catch (    RuntimeException e) {
   if (!classes.isEmpty()) {
     if (this.perTestTimer || this.parallelThreads > 1) {
       for (      Class<?> clazz : classes) {
-        requests.add(new AnnotatedClassRequest(clazz));
+        requests.add(new AnnotatedClassRequest(clazz,numRetries,err));
       }
     }
  else {
-      requests.add(Request.classes(classes.toArray(new Class<?>[classes.size()])));
+      try {
+        AllDefaultPossibilitiesBuilderWithRetry builder=new AllDefaultPossibilitiesBuilderWithRetry(numRetries,err);
+        Runner suite=new Computer().getSuite(builder,classes.toArray(new Class<?>[classes.size()]));
+        requests.add(Request.runner(suite));
+      }
+ catch (      InitializationError e) {
+        throw new RuntimeException("Internal error: Suite constructor, called as above, should always complete");
+      }
     }
   }
   for (  TestMethod testMethod : testMethods) {
-    requests.add(new AnnotatedClassRequest(testMethod.clazz).filterWith(Description.createTestDescription(testMethod.clazz,testMethod.name)));
+    requests.add(new AnnotatedClassRequest(testMethod.clazz,numRetries,err).filterWith(Description.createTestDescription(testMethod.clazz,testMethod.name)));
   }
   return requests;
 }

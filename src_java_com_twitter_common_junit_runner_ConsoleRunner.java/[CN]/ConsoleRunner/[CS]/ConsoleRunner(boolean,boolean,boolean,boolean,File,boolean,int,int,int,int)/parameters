@@ -7,3 +7,4 @@ boolean defaultParallel
 int parallelThreads
 int testShard
 int numTestShards
+int numRetries

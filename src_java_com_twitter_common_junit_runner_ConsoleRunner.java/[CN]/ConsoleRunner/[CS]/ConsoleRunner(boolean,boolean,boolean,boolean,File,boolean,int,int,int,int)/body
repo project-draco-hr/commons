@@ -8,4 +8,5 @@
   this.parallelThreads=parallelThreads;
   this.testShard=testShard;
   this.numTestShards=numTestShards;
+  this.numRetries=numRetries;
 }

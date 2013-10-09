@@ -1,0 +1,3 @@
+{
+  TestRegistry.registerTestCall("notflaky");
+}

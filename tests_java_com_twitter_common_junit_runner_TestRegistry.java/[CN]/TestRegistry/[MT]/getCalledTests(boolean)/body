@@ -1,4 +1,7 @@
 {
+  if (testsCalled.isEmpty()) {
+    return "";
+  }
   String[] tests=testsCalled.toArray(new String[testsCalled.size()]);
   if (sort) {
     Arrays.sort(tests);

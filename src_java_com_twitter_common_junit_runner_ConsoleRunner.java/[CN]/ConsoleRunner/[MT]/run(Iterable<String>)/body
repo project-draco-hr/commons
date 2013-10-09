@@ -1,8 +1,9 @@
 {
   final PrintStream out=System.out;
+  final PrintStream err=System.err;
   System.setOut(new PrintStream(SWAPPABLE_OUT));
   System.setErr(new PrintStream(SWAPPABLE_ERR));
-  List<Request> requests=parseRequests(out,tests);
+  List<Request> requests=parseRequests(out,err,tests);
   if (numTestShards > 0) {
     requests=setFilterForTestShard(requests);
   }

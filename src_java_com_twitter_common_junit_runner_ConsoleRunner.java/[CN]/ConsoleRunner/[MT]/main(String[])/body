@@ -11,6 +11,7 @@ class Options {
     private int parallelThreads=0;
     private int testShard=0;
     private int numTestShards=0;
+    private int numRetries=0;
     private File outdir=new File(System.getProperty("java.io.tmpdir"));
     private List<String> tests=Lists.newArrayList();
     private CmdLineParser parser;
@@ -37,7 +38,7 @@ class Options {
     }
     @Option(name="-parallel-threads",usage="Number of threads to execute tests in parallel. Must be positive, " + "or 0 to set automatically.") public void setParallelThreads(    int parallelThreads) throws CmdLineException {
       if (parallelThreads < 0) {
-        throw new CmdLineException(parser,"-parallelThreads cannot be negative");
+        throw new CmdLineException(parser,"-parallel-threads cannot be negative");
       }
       this.parallelThreads=parallelThreads;
       if (parallelThreads == 0) {
@@ -61,6 +62,12 @@ class Options {
         throw new CmdLineException(parser,"0 <= M < N is required in -test-shard M/N");
       }
     }
+    @Option(name="-num-retries",usage="Number of attempts to retry each failing test, 0 by default") public void setNumRetries(    int numRetries) throws CmdLineException {
+      if (numRetries < 0) {
+        throw new CmdLineException(parser,"-num-retries cannot be negative");
+      }
+      this.numRetries=numRetries;
+    }
     @Argument(usage="Names of junit test classes or test methods to run.  Names prefixed " + "with @ are considered arg file paths and these will be loaded and the " + "whitespace delimited arguments found inside added to the list",required=true,metaVar="TESTS",handler=StringArrayOptionHandler.class) public void setTests(    String[] tests){
       this.tests=Arrays.asList(tests);
     }
@@ -75,7 +82,7 @@ class Options {
     e.getParser().printUsage(System.out);
     exit(1);
   }
-  ConsoleRunner runner=new ConsoleRunner(options.failFast,options.suppressOutput,options.xmlReport,options.perTestTimer,options.outdir,options.defaultParallel,options.parallelThreads,options.testShard,options.numTestShards);
+  ConsoleRunner runner=new ConsoleRunner(options.failFast,options.suppressOutput,options.xmlReport,options.perTestTimer,options.outdir,options.defaultParallel,options.parallelThreads,options.testShard,options.numTestShards,options.numRetries);
   List<String> tests=Lists.newArrayList();
   for (  String test : options.tests) {
     if (test.startsWith("@")) {

@@ -1,0 +1,3 @@
+{
+  return new AllDefaultPossibilitiesBuilderWithRetry(numRetries,err).safeRunnerForClass(testClass);
+}

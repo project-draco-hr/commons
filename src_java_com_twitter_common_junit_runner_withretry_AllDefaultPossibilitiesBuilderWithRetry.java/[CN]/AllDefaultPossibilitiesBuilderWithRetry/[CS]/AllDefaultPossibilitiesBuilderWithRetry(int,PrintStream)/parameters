@@ -1,0 +1,2 @@
+int numRetries
+PrintStream err
