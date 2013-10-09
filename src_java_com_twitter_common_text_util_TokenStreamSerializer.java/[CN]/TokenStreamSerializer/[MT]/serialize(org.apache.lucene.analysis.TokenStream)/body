@@ -1,0 +1,23 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  AttributeOutputStream output=new AttributeOutputStream(baos);
+  for (  AttributeSerializer serializer : attributeSerializers) {
+    serializer.initialize(tokenStream,CURRENT_VERSION);
+  }
+  int numTokens=0;
+  while (tokenStream.incrementToken()) {
+    serializeAttributes(output);
+    numTokens++;
+  }
+  output.flush();
+  byte[] data=baos.toByteArray();
+  baos.close();
+  baos=new ByteArrayOutputStream(8 + data.length);
+  output=new AttributeOutputStream(baos);
+  output.writeVInt(CURRENT_VERSION.ordinal());
+  output.writeInt(attributeSerializersFingerprint);
+  output.writeVInt(numTokens);
+  output.write(data);
+  output.flush();
+  return baos.toByteArray();
+}
