@@ -4,9 +4,4 @@ import json
 import urllib
 import urllib2
 import urlparse
-import xmlrpclib
-try:
-    from xmlrpclib import ServerProxy, Fault
-except ImportError:
-    from xmlrpc.client import ServerProxy, Fault
 from twitter.common import log
