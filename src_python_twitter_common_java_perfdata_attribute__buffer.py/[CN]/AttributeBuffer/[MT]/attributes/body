@@ -1,0 +1,3 @@
+@abstractproperty
+def attributes(self):
+    'Return a map of attribute name => (struct format, byte range)'

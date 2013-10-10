@@ -1,0 +1,3 @@
+def print_pids():
+    for (path, role, pid) in list_pids():
+        print ('role %s pid %d path %s' % (role, pid, path))

@@ -1,0 +1,8 @@
+@classmethod
+def _parse_prologue(cls, hsperf):
+    'Read the hsperf data buffer prologue:\n       4-byte magic: 0xcafec0c0\n       1-byte: byte order (big_endian == 0, little_endian == 1)\n       1-byte: major\n       1-byte: minor\n       1-byte: reserved\n\n       Returns tuple of (major, minor, endianness).\n    '
+    if (hsperf[0:4] != cls.MAGIC):
+        raise ValueError('Buffer does not appear to be hsperf')
+    (endianness, major, minor) = struct.unpack('BBB', hsperf[4:7])
+    endianness = (AttributeBuffer.BIG_ENDIAN if (endianness == 0) else AttributeBuffer.LITTLE_ENDIAN)
+    return (major, minor, endianness)

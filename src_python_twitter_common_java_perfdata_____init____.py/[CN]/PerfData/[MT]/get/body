@@ -1,0 +1,7 @@
+@classmethod
+def get(cls, provider):
+    hsperf = provider()
+    (major, minor, endianness) = cls._parse_prologue(hsperf)
+    if ((major == 2) and (minor == 0)):
+        return PerfDataMapping(provider, PerfData2Format(endianness))
+    raise ValueError('Unknown hsperf format: only support 2.0 perf data buffers.')

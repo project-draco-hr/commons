@@ -1,0 +1,33 @@
+def __call__(self, data):
+    prologue = PerfDataBuffer2Prologue(data, self._endianness)
+    if (not prologue.accessible):
+        return {}
+    monitor_map = {}
+    start_offset = prologue.entry_offset
+    parsed_entries = 0
+
+    def more_entries():
+        return ((start_offset + PerfDataEntryHeader2.LENGTH) < len(data))
+    while (more_entries() and (parsed_entries < prologue.num_entries)):
+        entry = PerfDataEntryHeader2(data[start_offset:(start_offset + PerfDataEntryHeader2.LENGTH)], self._endianness)
+        name_start = (start_offset + entry.name_offset)
+        name_end = data.find('\x00', name_start)
+        name = data[name_start:name_end]
+        try:
+            code = TypeCode.to_code(chr(entry.data_type))
+        except KeyError:
+            raise ValueError(('Failed to figure out type of: %s' % name))
+        variability = entry.data_var
+        data_start = (start_offset + entry.data_offset)
+        if (entry.vector_length == 0):
+            if (code != TypeCode.LONG):
+                raise ValueError(('Unexpected monitor type: %d' % code))
+            value = struct.unpack(('>q' if (self._endianness is SimpleAttributeBuffer.BIG_ENDIAN) else '<q'), data[data_start:(data_start + 8)])[0]
+            monitor_map[name] = (entry.data_units, value)
+        else:
+            if ((code != TypeCode.BYTE) or (entry.data_units != Units.STRING) or (variability not in (Variability.CONSTANT, Variability.VARIABLE))):
+                raise ValueError(('Unexpected vector monitor: code:%s units:%s variability:%s' % (code, entry.data_units, variability)))
+            monitor_map[name] = (entry.data_units, data[data_start:(data_start + entry.vector_length)])
+        start_offset += entry.entry_length
+        parsed_entries += 1
+    return self._postprocess(monitor_map)

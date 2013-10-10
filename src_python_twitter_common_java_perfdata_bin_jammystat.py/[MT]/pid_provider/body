@@ -1,0 +1,12 @@
+def pid_provider():
+    options = app.get_options()
+    for (path, _, pid) in list_pids():
+        if (pid == options.pid):
+            break
+    else:
+        app.error(('Could not find pid %s' % options.pid))
+
+    def loader():
+        with open(path, 'rb') as fp:
+            return fp.read()
+    return loader

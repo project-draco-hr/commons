@@ -1,0 +1,7 @@
+def file_provider():
+    options = app.get_options()
+
+    def provider():
+        with open(options.filename, 'rb') as fp:
+            return fp.read()
+    return provider

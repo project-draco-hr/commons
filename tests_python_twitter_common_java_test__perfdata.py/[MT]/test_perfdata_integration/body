@@ -1,0 +1,10 @@
+def test_perfdata_integration():
+    provider = (lambda : pkgutil.get_data('twitter.common.java', _EXAMPLE_RESOURCE))
+    perfdata = PerfData.get(provider)
+    assert (perfdata is not None)
+    perfdata.sample()
+    assert (len(perfdata) > 0)
+    keys = set(perfdata)
+    for key in perfdata:
+        assert (key in keys)
+        assert (perfdata[key] is not None)

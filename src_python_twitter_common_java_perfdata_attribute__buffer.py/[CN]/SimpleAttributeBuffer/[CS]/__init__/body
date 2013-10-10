@@ -1,0 +1,2 @@
+def __init__(self, data, endianness):
+    (self._data, self._endianness) = (data, endianness)

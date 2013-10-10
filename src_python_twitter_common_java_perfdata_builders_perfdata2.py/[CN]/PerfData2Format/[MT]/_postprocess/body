@@ -1,0 +1,14 @@
+@classmethod
+def _postprocess(cls, monitor_map):
+    'Given a monitor map of name = (unit, value), return a normalized set of\n       counters.'
+    frequency = (1.0 * monitor_map['sun.os.hrt.frequency'][1])
+
+    def ticks_to_duration(value):
+        return (value / frequency)
+
+    def produce_value(unit, value):
+        if (unit == Units.TICKS):
+            return ticks_to_duration(value)
+        else:
+            return value
+    return dict(((key, produce_value(value[0], value[1])) for (key, value) in monitor_map.items()))

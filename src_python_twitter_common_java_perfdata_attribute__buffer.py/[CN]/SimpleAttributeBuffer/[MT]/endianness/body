@@ -1,0 +1,3 @@
+@property
+def endianness(self):
+    return self._endianness
