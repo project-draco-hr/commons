@@ -1,0 +1,6 @@
+'\n  A SASL Thrift transport based upon the pure-sasl library, both implemented by\n  @tylhobbs and adapted for twitter.common.  See:\n\n    https://issues.apache.org/jira/browse/THRIFT-1719\n    https://issues.apache.org/jira/secure/attachment/12548462/1719-python-sasl.txt\n'
+from struct import pack, unpack
+from twitter.common.lang import Compatibility
+StringIO = Compatibility.BytesIO
+from puresasl.client import SASLClient
+from thrift.transport.TTransport import CReadableTransport, TTransportBase, TTransportException
