@@ -2,7 +2,7 @@
   Throwable error=null;
   for (int i=0; i <= numRetries; i++) {
     try {
-      fNext.evaluate();
+      createStatement(method).evaluate();
       if (i > 0) {
         Method m=method.getMethod();
         String testName=m.getName() + '(' + m.getDeclaringClass().getName()+ ')';

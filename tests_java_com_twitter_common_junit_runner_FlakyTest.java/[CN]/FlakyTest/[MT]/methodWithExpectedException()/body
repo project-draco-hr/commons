@@ -1,0 +1,6 @@
+{
+  numTestMethodInvocationsPerTestInstance++;
+  numExpectedExceptionMethodInvocations++;
+  TestRegistry.registerTestCall("expected_ex");
+  throw new CustomException("This is expected");
+}

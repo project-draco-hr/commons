@@ -1,4 +1,5 @@
 {
+  numTestMethodInvocationsPerTestInstance++;
   Assume.assumeTrue(TestRegistry.consoleRunnerTestRunsFlakyTests);
   TestRegistry.registerTestCall("flaky2");
   numFlaky2Invocations++;

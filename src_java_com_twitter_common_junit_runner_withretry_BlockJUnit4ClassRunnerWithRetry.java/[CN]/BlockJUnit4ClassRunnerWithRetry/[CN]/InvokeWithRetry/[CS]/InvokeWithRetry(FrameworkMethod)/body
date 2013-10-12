@@ -1,4 +1,3 @@
 {
-  fNext=next;
   this.method=method;
 }

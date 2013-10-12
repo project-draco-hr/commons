@@ -9,5 +9,7 @@
  finally {
     TestRegistry.consoleRunnerTestRunsFlakyTests=false;
   }
-  Assert.assertEquals("flaky1 flaky1 flaky2 flaky2 flaky2 flaky3 flaky3 flaky3 notflaky",TestRegistry.getCalledTests());
+  Assert.assertEquals("expected_ex flaky1 flaky1 flaky2 flaky2 flaky2 flaky3 flaky3 flaky3 " + "notflaky",TestRegistry.getCalledTests());
+  Assert.assertEquals(10,FlakyTest.numFlakyTestInstantiations);
+  Assert.assertEquals(1,FlakyTest.numExpectedExceptionMethodInvocations);
 }

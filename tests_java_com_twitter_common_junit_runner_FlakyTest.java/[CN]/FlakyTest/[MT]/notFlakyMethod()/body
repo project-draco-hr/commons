@@ -1,3 +1,4 @@
 {
+  numTestMethodInvocationsPerTestInstance++;
   TestRegistry.registerTestCall("notflaky");
 }
