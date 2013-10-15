@@ -1,0 +1,6 @@
+def _has_option(self, section, option):
+    if (self.overrides_parser and self.overrides_parser.has_option(section, option)):
+        return True
+    elif self.configparser.has_option(section, option):
+        return True
+    return False
