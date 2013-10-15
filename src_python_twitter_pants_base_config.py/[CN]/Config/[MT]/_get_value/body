@@ -1,0 +1,4 @@
+def _get_value(self, section, option):
+    if (self.overrides_parser and self.overrides_parser.has_option(section, option)):
+        return self.overrides_parser.get(section, option)
+    return self.configparser.get(section, option)
