@@ -1,0 +1,14 @@
+{
+  PingPongHandler handler=new PingPongHandler();
+  PingPong.Processor processor=new PingPong.Processor(handler);
+  TServer server;
+  try {
+    TServerTransport transport=new TServerSocket(THRIFT_PORT.get());
+    server=new TSimpleServer(processor,transport);
+  }
+ catch (  TTransportException e) {
+    throw new RuntimeException(e);
+  }
+  LOG.info("Starting thrift server.");
+  server.serve();
+}

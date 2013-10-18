@@ -1,0 +1,18 @@
+{
+  TTransport transport=new TSocket("localhost",THRIFT_PORT.get());
+  try {
+    transport.open();
+  }
+ catch (  TTransportException e) {
+    throw new RuntimeException(e);
+  }
+  TProtocol protocol=new TBinaryProtocol(transport);
+  PingPong.Client client=new PingPong.Client(protocol);
+  try {
+    LOG.info("Pinging...");
+    LOG.info(client.ping());
+  }
+ catch (  TException e) {
+    throw new RuntimeException(e);
+  }
+}
