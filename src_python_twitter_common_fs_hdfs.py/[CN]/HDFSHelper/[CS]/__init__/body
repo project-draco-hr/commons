@@ -1,5 +1,9 @@
-def __init__(self, config, command_class=CommandUtil):
+def __init__(self, config, command_class=CommandUtil, heap_limit=Amount(256, Data.MB)):
+    'heap_limit is the maximum heap that should be allocated to the hadoop process,\n    defined using twitter.common.quantity.Data.'
     if (not os.path.isdir(config)):
         raise ValueError('hadoop requires root of a config tree')
     self._config = config
     self._cmd_class = command_class
+    if (heap_limit is None):
+        raise ValueError('The hadoop heap_limit must not be specified as "None".')
+    self._heap_limit = heap_limit

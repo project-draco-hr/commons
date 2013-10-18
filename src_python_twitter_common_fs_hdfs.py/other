@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import tempfile
-from twitter.common.contextutil import temporary_file
+from twitter.common.contextutil import environment_as, temporary_file
+from twitter.common.quantity import Amount, Data
 from twitter.common.string import ScanfParser
 from twitter.common.util.command_util import CommandUtil
