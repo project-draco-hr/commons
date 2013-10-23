@@ -1,0 +1,5 @@
+{
+  System.out.println("Using Echoer: " + args[0]);
+  Echoer echoer=(Echoer)Class.forName(args[0]).newInstance();
+  System.out.println(echoer.echo());
+}
