@@ -1,4 +1,3 @@
-__author__ = 'Brian Wickman'
 import sys
 import copy
 from collections import defaultdict
