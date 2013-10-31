@@ -1,0 +1,3 @@
+def collect(self, paths):
+    'Collect the paths (which must be under artifact root) into this artifact.'
+    raise NotImplementedError()

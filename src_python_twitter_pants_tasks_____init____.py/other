@@ -1,12 +1,13 @@
-import itertools
 import os
 import sys
 from contextlib import contextmanager
-from multiprocessing.pool import ThreadPool
+import itertools
 from twitter.common.collections.orderedset import OrderedSet
+from twitter.pants.base.worker_pool import Work
 from twitter.pants.cache import create_artifact_cache
 from twitter.pants.base.hash_utils import hash_file
 from twitter.pants.base.build_invalidator import CacheKeyGenerator
+from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.reporting.reporting_utils import items_to_report_element
 from twitter.pants.tasks.cache_manager import CacheManager, InvalidationCheck
 __all__ = ('TaskError', 'Task')

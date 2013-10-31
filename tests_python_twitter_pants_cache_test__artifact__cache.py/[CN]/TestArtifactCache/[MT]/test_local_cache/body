@@ -1,5 +1,5 @@
 def test_local_cache(self):
     with temporary_dir() as artifact_root:
         with temporary_dir() as cache_root:
-            artifact_cache = FileBasedArtifactCache(None, artifact_root, cache_root)
+            artifact_cache = LocalArtifactCache(None, artifact_root, cache_root)
             self.do_test_artifact_cache(artifact_cache)

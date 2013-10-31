@@ -1,5 +1,5 @@
 def isrequired(self, typename):
-    '\n      Returns a predicate that selects targets required for the given type if mappings are\n      required.  Otherwise returns None.\n    '
+    'Returns a predicate that selects targets required for the given type if mappings are required.\n\n    Otherwise returns None.\n    '
     if (typename not in self.products):
         return None
 

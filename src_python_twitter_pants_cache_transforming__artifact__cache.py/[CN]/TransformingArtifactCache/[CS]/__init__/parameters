@@ -1,0 +1,4 @@
+self
+cache
+pre_write_func
+post_read_func

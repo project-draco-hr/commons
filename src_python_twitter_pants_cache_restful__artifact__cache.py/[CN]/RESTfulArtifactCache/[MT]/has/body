@@ -1,2 +1,2 @@
 def has(self, cache_key):
-    return (self._request('HEAD', self._path_for_key(cache_key)) is not None)
+    return (self._request('HEAD', self._remote_path_for_key(cache_key)) is not None)

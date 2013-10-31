@@ -1,0 +1,4 @@
+def _ensure_analysis_tmpdir(self):
+    if (not os.path.exists(self._analysis_tmpdir)):
+        os.makedirs(self._analysis_tmpdir)
+        self.context.background_worker_pool().add_shutdown_hook((lambda : safe_rmtree(self._analysis_tmpdir)))

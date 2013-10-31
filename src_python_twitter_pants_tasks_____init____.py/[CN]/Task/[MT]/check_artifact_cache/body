@@ -1,17 +1,3 @@
 def check_artifact_cache(self, vts):
-    "Checks the artifact cache for the specified VersionedTargetSets.\n\n    Returns a list of the ones that were satisfied from the cache. These don't require building.\n    "
-    if (not vts):
-        return ([], [])
-    cached_vts = []
-    uncached_vts = OrderedSet(vts)
-    with self.context.new_workunit('check'):
-        pool = ThreadPool(processes=6)
-        res = pool.map((lambda vt: self._artifact_cache.use_cached_files(vt.cache_key)), vts, chunksize=1)
-        pool.close()
-        pool.join()
-        for (vt, was_in_cache) in zip(vts, res):
-            if was_in_cache:
-                cached_vts.append(vt)
-                uncached_vts.discard(vt)
-                vt.update()
-    return (cached_vts, list(uncached_vts))
+    'Checks the artifact cache for the specified list of VersionedTargetSets.\n\n    Returns a pair (cached, uncached) of VersionedTargets that were\n    satisfied/unsatisfied from the cache.\n    '
+    return self.do_check_artifact_cache(vts)

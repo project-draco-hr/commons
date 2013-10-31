@@ -1,0 +1,21 @@
+def do_check_artifact_cache(self, vts, post_process_cached_vts=None):
+    'Checks the artifact cache for the specified list of VersionedTargetSets.\n\n    Returns a pair (cached, uncached) of VersionedTargets that were\n    satisfied/unsatisfied from the cache.\n    '
+    if (not vts):
+        return ([], [])
+    cached_vts = []
+    uncached_vts = OrderedSet(vts)
+    with self.context.new_workunit(name='check', labels=[WorkUnit.MULTITOOL]) as parent:
+        res = self.context.submit_foreground_work_and_wait(Work((lambda vt: bool(self.get_artifact_cache().use_cached_files(vt.cache_key))), [(vt,) for vt in vts], 'check'), workunit_parent=parent)
+    for (vt, was_in_cache) in zip(vts, res):
+        if was_in_cache:
+            cached_vts.append(vt)
+            uncached_vts.discard(vt)
+
+    def flatten(vts):
+        return list(itertools.chain.from_iterable([vt.versioned_targets for vt in vts]))
+    (all_cached_vts, all_uncached_vts) = (flatten(cached_vts), flatten(uncached_vts))
+    if post_process_cached_vts:
+        post_process_cached_vts(all_cached_vts)
+    for vt in all_cached_vts:
+        vt.update()
+    return (all_cached_vts, all_uncached_vts)

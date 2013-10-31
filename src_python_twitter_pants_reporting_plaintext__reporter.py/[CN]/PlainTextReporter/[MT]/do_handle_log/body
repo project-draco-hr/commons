@@ -1,7 +1,10 @@
 def do_handle_log(self, workunit, level, *msg_elements):
     'Implementation of Reporter callback.'
+    if (not self.is_under_main_root(workunit)):
+        return
     elements = [(e if isinstance(e, basestring) else e[0]) for e in msg_elements]
     msg = ('\n' + ''.join(elements))
     if self.settings.color:
         msg = _colorfunc_map.get(level, (lambda x: x))(msg)
     self.emit(self._prefix(workunit, msg))
+    self.flush()

@@ -2,7 +2,6 @@ def get_analysis_collection(self):
     'Populates and retrieves the merged analysis collection for this compilation.'
     if (self.zinc_analysis_collection is None):
         self.zinc_analysis_collection = ZincAnalysisCollection(False, package_prefixes=self.package_prefixes)
-        for af in self.all_analysis_files:
-            basedir = os.path.relpath(af.class_basedir, self.context._buildroot)
-            self.zinc_analysis_collection.add_and_parse_file(af.analysis_file, basedir)
+        basedir = os.path.relpath(self.classes_dir, self.context._buildroot)
+        self.zinc_analysis_collection.add_and_parse_file(self.analysis_file, basedir)
     return self.zinc_analysis_collection

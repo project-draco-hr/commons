@@ -1,0 +1,4 @@
+def background_worker_pool(self):
+    if (self._background_worker_pool is None):
+        self._background_worker_pool = WorkerPool(parent_workunit=self.get_background_root_workunit(), run_tracker=self, num_workers=self._num_background_workers)
+    return self._background_worker_pool

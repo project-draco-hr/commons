@@ -1,4 +1,5 @@
 def __init__(self):
     self.products = {}
-    self.data_products = {}
     self.predicates_for_type = defaultdict(list)
+    self.data_products = {}
+    self.required_data_products = set()

@@ -1,0 +1,4 @@
+def __init__(self, func, args_tuples, workunit_name=None):
+    self.func = func
+    self.args_tuples = args_tuples
+    self.workunit_name = workunit_name

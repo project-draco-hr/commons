@@ -1,0 +1,4 @@
+def get_artifact_cache(self):
+    if ((self._artifact_cache is None) and (self._artifact_cache_spec is not None)):
+        self._artifact_cache = self.create_artifact_cache(self._artifact_cache_spec)
+    return self._artifact_cache

@@ -17,8 +17,9 @@ def __init__(self, context, nailgun_task, color):
     self._zinc_classpath = cp_for_profile(self._zinc_profile)
     self._compiler_classpath = cp_for_profile(self._compile_profile)
     self._plugin_jars = (cp_for_profile(self._plugins_profile) if self._plugins_profile else [])
-    zinc_jars = ZincUtils.identify_zinc_jars(self._compiler_classpath, self._zinc_classpath)
+    zinc_jars = ZincUtils.identify_zinc_jars(self._zinc_classpath)
     self._zinc_jar_args = []
+    self._zinc_jar_args.extend(['-scala-path', ':'.join(self._compiler_classpath)])
     for (name, jarpath) in zinc_jars.items():
         self._zinc_jar_args.extend([('-%s' % name), jarpath])
     plugin_names = ([p for val in context.options.plugins for p in val.split(',')] if (context.options.plugins is not None) else context.config.getlist('scala-compile', 'scalac-plugins', default=[]))

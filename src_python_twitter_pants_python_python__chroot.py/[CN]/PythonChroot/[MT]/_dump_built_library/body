@@ -2,9 +2,12 @@ def _dump_built_library(self, library, builder):
     absolute_sources = library.expand_files()
     absolute_sources.sort()
     cache_key = self._key_generator.key_for(library.id, absolute_sources)
-    if self._artifact_cache.has(cache_key):
+    cache_dir = os.path.join(self._egg_cache_root, cache_key.hash)
+    if os.path.exists(cache_dir):
         self.debug(('  Generating (cached) %s...' % library))
-        self._artifact_cache.use_cached_files(cache_key)
+        for (dir_name, _, filenames) in os.walk(cache_dir):
+            for filename in filenames:
+                self._builder.add_egg(os.path.join(dir_name, filename))
     else:
         self.debug(('  Generating %s...' % library))
         egg_file = builder.build_egg()
@@ -14,5 +17,12 @@ def _dump_built_library(self, library, builder):
         dst_egg_file = os.path.join(os.path.dirname(egg_file), ((cache_key.hash + '_') + os.path.basename(egg_file)))
         self.debug(('       %s => %s' % (src_egg_file, dst_egg_file)))
         os.rename(src_egg_file, dst_egg_file)
-        self._artifact_cache.insert(cache_key, [dst_egg_file])
+        cache_dir = os.path.join(self._egg_cache_root, cache_key.hash)
+        cached_egg_file = os.path.join(cache_dir, os.path.relpath(dst_egg_file, self._root))
+        try:
+            safe_mkdir_for(cached_egg_file)
+            shutil.copy(dst_egg_file, cached_egg_file)
+        except:
+            safe_rmtree(cache_dir)
+            raise
         self._builder.add_egg(dst_egg_file)

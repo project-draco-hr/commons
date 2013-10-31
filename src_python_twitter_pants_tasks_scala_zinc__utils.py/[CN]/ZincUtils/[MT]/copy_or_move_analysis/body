@@ -1,0 +1,7 @@
+@staticmethod
+def copy_or_move_analysis(func, src, dst):
+    if os.path.exists(src):
+        func(src, dst)
+        relations = (src + '.relations')
+        if os.path.exists(relations):
+            func(relations, (dst + '.relations'))

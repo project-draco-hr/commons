@@ -1,13 +1,19 @@
 def check_artifact_cache(self, vts):
-    (cached_vts, uncached_vts) = Task.check_artifact_cache(self, vts)
-    if cached_vts:
-        with self.context.new_workunit('localize', labels=[WorkUnit.MULTITOOL]):
-            self._localize_portable_analysis_files(cached_vts)
+
+    def post_process_cached_vts(cached_vts):
+        analyses_to_merge = []
         for vt in cached_vts:
-            if (len(vt.targets) > 1):
-                artifacts = [self._artifact_factory.artifact_for_target(t) for t in vt.targets]
-                merged_artifact = self._artifact_factory.merged_artifact(artifacts)
-                merged_artifact.split()
-                for v in vt.versioned_targets:
-                    v.update()
-    return (cached_vts, uncached_vts)
+            for target in vt.targets:
+                analysis_file = ScalaCompile._analysis_for_target(self._analysis_tmpdir, target)
+                if os.path.exists(analysis_file):
+                    analyses_to_merge.append(analysis_file)
+        if (len(analyses_to_merge) > 0):
+            if os.path.exists(self._analysis_file):
+                analyses_to_merge.append(self._analysis_file)
+            with contextutil.temporary_dir() as tmpdir:
+                tmp_analysis = os.path.join(tmpdir, 'analysis')
+                if self._zinc_utils.run_zinc_merge(analyses_to_merge, tmp_analysis):
+                    raise TaskError('Zinc failed to merge cached analysis files.')
+                ZincUtils._copy_analysis(tmp_analysis, self._analysis_file)
+    self._ensure_analysis_tmpdir()
+    return Task.do_check_artifact_cache(self, vts, post_process_cached_vts=post_process_cached_vts)

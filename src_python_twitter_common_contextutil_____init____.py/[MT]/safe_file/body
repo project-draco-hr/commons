@@ -1,0 +1,15 @@
+@contextmanager
+def safe_file(path, suffix=None, cleanup=True):
+    'A with-context that copies a file, and copies the copy back to the original file on success.\n\n  This is useful for doing work on a file but only changing its state on success.\n\n    - suffix: Use this suffix to create the copy. Otherwise use a random string.\n    - cleanup: Whether or not to clean up the copy.\n  '
+    safe_path = ((path + ('.%s' % suffix)) or uuid.uuid4())
+    if os.path.exists(path):
+        shutil.copy(path, safe_path)
+    try:
+        yield safe_path
+        if cleanup:
+            shutil.move(safe_path, path)
+        else:
+            shutil.copy(safe_path, path)
+    finally:
+        if cleanup:
+            safe_delete(safe_path)

@@ -5,12 +5,12 @@ def do_test_artifact_cache(self, artifact_cache):
         path = f.name
         f.close()
         self.assertFalse(artifact_cache.has(key))
-        self.assertFalse(artifact_cache.use_cached_files(key))
+        self.assertFalse(bool(artifact_cache.use_cached_files(key)))
         artifact_cache.insert(key, [path])
         self.assertTrue(artifact_cache.has(key))
         with open(path, 'w') as outfile:
             outfile.write(TEST_CONTENT2)
-        self.assertTrue(artifact_cache.use_cached_files(key))
+        self.assertTrue(bool(artifact_cache.use_cached_files(key)))
         with open(path, 'r') as infile:
             content = infile.read()
         self.assertEquals(content, TEST_CONTENT1)

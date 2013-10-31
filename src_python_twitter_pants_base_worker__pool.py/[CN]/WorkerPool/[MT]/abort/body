@@ -1,0 +1,2 @@
+def abort(self):
+    self._pool.terminate()

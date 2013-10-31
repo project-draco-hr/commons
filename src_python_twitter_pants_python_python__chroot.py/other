@@ -1,12 +1,12 @@
 from __future__ import print_function
-from twitter.pants.cache.file_based_artifact_cache import FileBasedArtifactCache
+import shutil
 __author__ = 'Brian Wickman'
 from collections import defaultdict
 import os
 import sys
 import tempfile
 from twitter.common.collections import OrderedSet
-from twitter.common.dirutil import safe_rmtree
+from twitter.common.dirutil import safe_rmtree, safe_mkdir_for
 from twitter.common.python.interpreter import PythonIdentity
 from twitter.common.python.pex_builder import PEXBuilder
 from twitter.common.python.platforms import Platform

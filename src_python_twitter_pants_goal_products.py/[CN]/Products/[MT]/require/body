@@ -1,5 +1,5 @@
 def require(self, typename, predicate=None):
-    '\n      Registers a requirement that file products of the given type by mapped.  If a target predicate is\n      supplied, only targets matching the predicate are mapped.\n    '
+    'Registers a requirement that file products of the given type by mapped.\n\n    If a target predicate is supplied, only targets matching the predicate are mapped.\n    '
     if predicate:
         self.predicates_for_type[typename].append(predicate)
     return self.products.setdefault(typename, Products.ProductMapping(typename))

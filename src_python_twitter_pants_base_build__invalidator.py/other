@@ -12,3 +12,4 @@ CacheKey = namedtuple('CacheKey', ['id', 'hash', 'num_sources', 'sources'])
 NO_SOURCES = NoSources()
 TARGET_SOURCES = DefaultSourceScope(recursive=False, include_buildfile=False)
 TRANSITIVE_SOURCES = DefaultSourceScope(recursive=True, include_buildfile=False)
+GLOBAL_CACHE_KEY_GEN_VERSION = '6'

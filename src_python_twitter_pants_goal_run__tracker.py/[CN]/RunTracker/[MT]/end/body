@@ -1,13 +1,33 @@
 def end(self):
-    'This pants run is over, so stop tracking it.\n\n    Note: If end() has been called once, subsequent calls are no-ops.'
-    while self._current_workunit:
-        self.report.end_workunit(self._current_workunit)
-        self._current_workunit.end()
-        self._current_workunit = self._current_workunit.parent
+    'This pants run is over, so stop tracking it.\n\n    Note: If end() has been called once, subsequent calls are no-ops.\n    '
+    if self._background_worker_pool:
+        if self._aborted:
+            self.log(Report.INFO, 'Aborting background workers.')
+            self._background_worker_pool.abort()
+        else:
+            self.log(Report.INFO, 'Waiting for background workers to finish.')
+            self._background_worker_pool.shutdown()
+        self.report.end_workunit(self._background_root_workunit)
+        self._background_root_workunit.end()
+    if self._foreground_worker_pool:
+        if self._aborted:
+            self.log(Report.INFO, 'Aborting foreground workers.')
+            self._foreground_worker_pool.abort()
+        else:
+            self.log(Report.INFO, 'Waiting for foreground workers to finish.')
+            self._foreground_worker_pool.shutdown()
+    self.report.end_workunit(self._main_root_workunit)
+    self._main_root_workunit.end()
+    outcome = self._main_root_workunit.outcome()
+    if self._background_root_workunit:
+        outcome = min(outcome, self._background_root_workunit.outcome())
+    outcome_str = WorkUnit.outcome_string(outcome)
+    log_level = WorkUnit.choose_for_outcome(outcome, Report.ERROR, Report.ERROR, Report.WARN, Report.INFO, Report.INFO)
+    self.log(log_level, outcome_str)
+    if (self.run_info.get_info('outcome') is None):
+        try:
+            self.run_info.add_info('outcome', outcome_str)
+        except IOError:
+            pass
     self.report.close()
-    try:
-        if (self.run_info.get_info('outcome') is None):
-            self.run_info.add_info('outcome', self.root_workunit.outcome_string())
-    except IOError:
-        pass
     self.upload_stats()

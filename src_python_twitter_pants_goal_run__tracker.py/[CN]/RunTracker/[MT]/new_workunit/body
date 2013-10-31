@@ -1,21 +1,24 @@
 @contextmanager
-def new_workunit(self, name, labels=list(), cmd=''):
-    "Creates a (hierarchical) subunit of work for the purpose of timing and reporting.\n\n    - name: A short name for this work. E.g., 'resolve', 'compile', 'scala', 'zinc'.\n    - labels: An optional iterable of labels. The reporters can use this to decide how to\n              display information about this work.\n    - cmd: An optional longer string representing this work.\n           E.g., the cmd line of a compiler invocation.\n\n    Use like this:\n\n    with context.new_workunit(name='compile', labels=[WorkUnit.GOAL]) as workunit:\n      <do scoped work here>\n      <set the outcome on workunit if necessary>\n\n    Note that the outcome will automatically be set to failure if an exception is raised\n    in a workunit, and to success otherwise, so usually you only need to set the\n    outcome explicitly if you want to set it to warning.\n    "
-    self._current_workunit = WorkUnit(run_tracker=self, parent=self._current_workunit, name=name, labels=labels, cmd=cmd)
-    self._current_workunit.start()
+def new_workunit(self, name, labels=list(), cmd='', parent=None):
+    "Creates a (hierarchical) subunit of work for the purpose of timing and reporting.\n\n    - name: A short name for this work. E.g., 'resolve', 'compile', 'scala', 'zinc'.\n    - labels: An optional iterable of labels. The reporters can use this to decide how to\n              display information about this work.\n    - cmd: An optional longer string representing this work.\n           E.g., the cmd line of a compiler invocation.\n    - parent: If specified, the new workunit is created under this parent. Otherwise it's created\n              under the current workunit for this thread. This allows threadpool work to nest\n              under the workunit that submitted it, instead of under the thread's root workunit,\n              which is fixed when the thread was created.\n\n    Use like this:\n\n    with context.new_workunit(name='compile', labels=[WorkUnit.GOAL]) as workunit:\n      <do scoped work here>\n      <set the outcome on workunit if necessary>\n\n    Note that the outcome will automatically be set to failure if an exception is raised\n    in a workunit, and to success otherwise, so usually you only need to set the\n    outcome explicitly if you want to set it to warning.\n    "
+    enclosing_workunit = self._threadlocal.current_workunit
+    current_workunit = WorkUnit(run_tracker=self, parent=(parent or enclosing_workunit), name=name, labels=labels, cmd=cmd)
+    self._threadlocal.current_workunit = current_workunit
+    current_workunit.start()
     try:
         try:
-            self.report.start_workunit(self._current_workunit)
-            yield self._current_workunit
+            self.report.start_workunit(current_workunit)
+            yield current_workunit
         except KeyboardInterrupt:
-            self._current_workunit.set_outcome(WorkUnit.ABORTED)
+            current_workunit.set_outcome(WorkUnit.ABORTED)
+            self._aborted = True
             raise
         except:
-            self._current_workunit.set_outcome(WorkUnit.FAILURE)
+            current_workunit.set_outcome(WorkUnit.FAILURE)
             raise
         else:
-            self._current_workunit.set_outcome(WorkUnit.SUCCESS)
+            current_workunit.set_outcome(WorkUnit.SUCCESS)
     finally:
-        self.report.end_workunit(self._current_workunit)
-        self._current_workunit.end()
-        self._current_workunit = self._current_workunit.parent
+        self.report.end_workunit(current_workunit)
+        current_workunit.end()
+        self._threadlocal.current_workunit = enclosing_workunit

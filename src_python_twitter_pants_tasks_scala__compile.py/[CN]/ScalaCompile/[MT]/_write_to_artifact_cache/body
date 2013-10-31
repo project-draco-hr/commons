@@ -1,0 +1,24 @@
+def _write_to_artifact_cache(self, analysis_file, vts, sources_by_target):
+    vt_by_target = dict([(vt.target, vt) for vt in vts.versioned_targets])
+    classes_by_source = self._compute_classes_by_source(analysis_file)
+    splits = [(sources_by_target.get(t, []), ScalaCompile._analysis_for_target(self._analysis_tmpdir, t)) for t in vts.targets]
+    splits_args_tuples = [(analysis_file, splits)]
+    vts_artifactfiles_pairs = []
+    for (target, sources) in sources_by_target.items():
+        artifacts = []
+        for source in sources:
+            for cls in classes_by_source.get(source, []):
+                artifacts.append(os.path.join(self._classes_dir, cls))
+        vt = vt_by_target.get(target)
+        if (vt is not None):
+            analysis_file = ScalaCompile._analysis_for_target(self._analysis_tmpdir, target)
+            vts_artifactfiles_pairs.append((vt, (artifacts + [analysis_file, (analysis_file + '.relations')])))
+
+    def split(analysis_file, splits):
+        if self._zinc_utils.run_zinc_split(analysis_file, splits):
+            raise TaskError(('Zinc failed to split analysis file: %s' % analysis_file))
+    update_artifact_cache_work = self.get_update_artifact_cache_work(vts_artifactfiles_pairs)
+    if update_artifact_cache_work:
+        work_chain = [Work(split, splits_args_tuples, 'split'), update_artifact_cache_work]
+        with self.context.new_workunit(name='cache', labels=[WorkUnit.MULTITOOL], parent=self.context.run_tracker.get_background_root_workunit()) as parent:
+            self.context.submit_background_work_chain(work_chain, workunit_parent=parent)

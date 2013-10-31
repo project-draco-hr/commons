@@ -1,4 +1,0 @@
-import os
-import shutil
-from twitter.common.dirutil import safe_mkdir, safe_rmtree
-from twitter.pants.cache.artifact_cache import ArtifactCache

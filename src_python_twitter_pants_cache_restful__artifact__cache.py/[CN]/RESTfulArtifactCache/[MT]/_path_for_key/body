@@ -1,2 +1,0 @@
-def _path_for_key(self, cache_key):
-    return ('%s/%s/%s.tar%s' % (self._path_prefix, cache_key.id, cache_key.hash, ('.gz' if self.compress else '')))

@@ -1,0 +1,3 @@
+def register_thread(self, parent_workunit):
+    'Register the parent workunit for all work in the calling thread.\n\n    Multiple threads may have the same parent (e.g., all the threads in a pool).\n    '
+    self._threadlocal.current_workunit = parent_workunit

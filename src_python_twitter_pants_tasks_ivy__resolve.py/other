@@ -12,5 +12,6 @@ from twitter.pants import binary_util, get_buildroot, is_internal, is_jar, is_jv
 from twitter.pants.base.generator import Generator, TemplateData
 from twitter.pants.base.revision import Revision
 from twitter.pants.tasks import TaskError
+from twitter.pants.tasks.cache_manager import VersionedTargetSet
 from twitter.pants.tasks.ivy_utils import IvyUtils
 from twitter.pants.tasks.nailgun_task import NailgunTask

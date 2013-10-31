@@ -1,3 +1,3 @@
-def insert(self, cache_key, build_artifacts):
+def insert(self, cache_key, paths):
     for cache in self._artifact_caches:
-        cache.insert(cache_key, build_artifacts)
+        cache.insert(cache_key, paths)

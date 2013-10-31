@@ -2,8 +2,11 @@ def end_workunit(self, workunit):
     'Implementation of Reporter callback.'
     duration = workunit.duration()
     timing = ('%.3f' % duration)
-    unaccounted_time_secs = workunit.unaccounted_time()
-    unaccounted_time = (('%.3f' % unaccounted_time_secs) if ((unaccounted_time_secs >= 1) and (unaccounted_time_secs > (0.05 * duration))) else None)
+    unaccounted_time = None
+    if self.is_under_main_root(workunit):
+        unaccounted_time_secs = workunit.unaccounted_time()
+        if ((unaccounted_time_secs >= 1) and (unaccounted_time_secs > (0.05 * duration))):
+            unaccounted_time = ('%.3f' % unaccounted_time_secs)
     args = {'workunit': workunit.to_dict(), 'status': workunit.choose(*HtmlReporter._outcome_css_classes), 'timing': timing, 'unaccounted_time': unaccounted_time, 'aborted': (workunit.outcome() == WorkUnit.ABORTED), }
     s = ''
     if workunit.has_label(WorkUnit.TOOL):
@@ -31,3 +34,5 @@ def end_workunit(self, workunit):
             msg_elements = ['No artifact cache use.']
         return self._render_message(*msg_elements)
     self._overwrite('artifact_cache_stats', render_cache_stats(self.run_tracker.artifact_cache_stats))
+    for f in self._output_files[workunit.id].values():
+        f.close()

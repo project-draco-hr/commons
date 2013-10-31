@@ -1,0 +1,13 @@
+def _add_all_products_to_genmap(self, sources_by_target, classes_by_source):
+    genmap = self.context.products.get('classes')
+    for (target, sources) in sources_by_target.items():
+        for source in sources:
+            classes = classes_by_source.get(source, [])
+            relsrc = os.path.relpath(source, target.target_base)
+            genmap.add(relsrc, self._classes_dir, classes)
+            genmap.add(target, self._classes_dir, classes)
+        if (is_apt(target) and target.processors):
+            basedir = os.path.join(self._resources_dir, Target.maybe_readable_identify([target]))
+            processor_info_file = os.path.join(basedir, _PROCESSOR_INFO_FILE)
+            self.write_processor_info(processor_info_file, target.processors)
+            genmap.add(target, basedir, [_PROCESSOR_INFO_FILE])

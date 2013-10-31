@@ -3,4 +3,5 @@ def _populate_ivy_jar_products(self):
     genmap = self.context.products.get('ivy_jar_products')
     for conf in self._confs:
         ivyinfo = self._ivy_utils.parse_xml_report(conf)
-        genmap.add('ivy', conf, [ivyinfo])
+        if ivyinfo:
+            genmap.add('ivy', conf, [ivyinfo])

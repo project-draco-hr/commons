@@ -1,5 +1,6 @@
+import os
 import urlparse
 from twitter.pants.cache.pinger import Pinger
 from twitter.pants.cache.combined_artifact_cache import CombinedArtifactCache
-from twitter.pants.cache.file_based_artifact_cache import FileBasedArtifactCache
+from twitter.pants.cache.local_artifact_cache import LocalArtifactCache
 from twitter.pants.cache.restful_artifact_cache import RESTfulArtifactCache

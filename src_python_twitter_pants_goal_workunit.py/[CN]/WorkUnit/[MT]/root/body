@@ -1,0 +1,5 @@
+def root(self):
+    ret = self
+    while (ret.parent is not None):
+        ret = ret.parent
+    return ret

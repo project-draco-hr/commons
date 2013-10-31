@@ -1,0 +1,9 @@
+def submit_work_and_wait(self, work, workunit_parent=None):
+    'Submit work to be executed on this pool, but wait for it to complete.\n\n    - work: The work to execute.\n    - workunit_parent: If specified, work is accounted for under this workunit.\n\n    Returns a list of return values of each invocation, in order.  Throws if any invocation does.\n    '
+    if ((work is None) or (len(work.args_tuples) == 0)):
+        return []
+    else:
+
+        def do_work(*args):
+            return self._do_work(work.func, workunit_name=work.workunit_name, workunit_parent=workunit_parent, *args)
+        return self._pool.map_async(do_work, work.args_tuples, chunksize=1).get(timeout=1000000000)

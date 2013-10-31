@@ -1,0 +1,2 @@
+def has(self, cache_key):
+    return self._cache.has(cache_key)

@@ -10,15 +10,15 @@ def _await_nailgun_server(self, workunit):
         endpoint = self._get_nailgun_endpoint()
     port = endpoint[1]
     nailgun = self._create_ngclient(port, workunit)
-    log.debug(('Detected ng server up on port %d' % port))
+    self.context.log.debug(('Detected ng server up on port %d' % port))
     attempt = 0
     while (attempt < max_socket_connect_attempts):
         sock = nailgun.try_connect()
         if sock:
             sock.close()
-            log.info(('Connected to ng server pid: %d @ port: %d' % endpoint))
+            self.context.log.debug(('Connected to ng server pid: %d @ port: %d' % endpoint))
             return nailgun
         attempt += 1
-        log.debug(('Failed to connect on attempt %d' % attempt))
+        self.context.log.debug(('Failed to connect on attempt %d' % attempt))
         time.sleep(0.1)
     raise NailgunError(('Failed to connect to ng after %d connect attempts' % max_socket_connect_attempts))

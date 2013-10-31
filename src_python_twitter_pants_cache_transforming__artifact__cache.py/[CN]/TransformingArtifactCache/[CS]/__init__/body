@@ -1,0 +1,6 @@
+def __init__(self, cache, pre_write_func=None, post_read_func=None):
+    '\n    cache: The underlying artifact cache.\n    '
+    ArtifactCache.__init__(self, cache.log, cache.artifact_root, cache.read_only)
+    self._cache = cache
+    self._pre_write_func = pre_write_func
+    self._post_read_func = post_read_func

@@ -1,0 +1,2 @@
+def prune(self, age_hours):
+    self._cache.prune(age_hours)

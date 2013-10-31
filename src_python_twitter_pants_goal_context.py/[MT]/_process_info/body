@@ -1,6 +1,9 @@
 def _process_info(pid):
-    ps = ProcessProviderFactory.get()
-    ps.collect_set([pid])
-    handle = ps.get_handle(pid)
-    cmdline = handle.cmdline().replace('\x00', ' ')
-    return ('%d (%s)' % (pid, cmdline))
+    try:
+        ps = ProcessProviderFactory.get()
+        ps.collect_set([pid])
+        handle = ps.get_handle(pid)
+        cmdline = handle.cmdline().replace('\x00', ' ')
+        return ('%d (%s)' % (pid, cmdline))
+    except ProcessProvider.UnknownPidError:
+        return ('%d' % pid)

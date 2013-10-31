@@ -1,7 +1,9 @@
 def handle_output(self, workunit, label, s):
     'Implementation of Reporter callback.'
+    if (not self.is_under_main_root(workunit)):
+        return
     if self._show_output_indented(workunit):
         self.emit(self._prefix(workunit, s))
     elif self._show_output_unindented(workunit):
         self.emit(s)
-        self.flush()
+    self.flush()

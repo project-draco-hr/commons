@@ -1,0 +1,2 @@
+def has(self, cache_key):
+    return os.path.isfile(self._cache_file_for_key(cache_key))

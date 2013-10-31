@@ -12,4 +12,3 @@ from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.targets.scala_tests import ScalaTests
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.scala.zinc_artifact_state import ZincArtifactState, ZincArtifactStateDiff
-AnalysisFileSpec = namedtuple('AnalysisFileSpec', ['analysis_file', 'class_basedir'])

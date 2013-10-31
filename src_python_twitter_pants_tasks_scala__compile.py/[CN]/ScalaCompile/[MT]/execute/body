@@ -1,28 +1,78 @@
 def execute(self, targets):
-    scala_targets = filter(_is_scala, targets)
+    scala_targets = filter((lambda t: has_sources(t, '.scala')), targets)
     if (not scala_targets):
         return
     egroups = self.context.products.get_data('exclusives_groups')
-    exclusives_key = egroups.get_group_key_for_target(targets[0])
-    exclusives_classpath = egroups.get_classpath_for_group(exclusives_key)
-    with self.context.state('upstream_analysis_map', {}) as upstream_analysis_map:
-        with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
-            for vts in invalidation_check.all_vts_partitioned:
-                exclusives_classpath = egroups.get_classpath_for_group(exclusives_key)
-                self._add_globally_required_classpath_entries(exclusives_classpath)
-                if (not self.dry_run):
-                    merged_artifact = self._process_target_partition(vts, exclusives_classpath, upstream_analysis_map)
-                    vts.update()
-                    if os.path.exists(merged_artifact.classes_dir):
-                        for conf in self._confs:
-                            egroups.update_compatible_classpaths(exclusives_key, [(conf, merged_artifact.classes_dir)])
-                        if os.path.exists(merged_artifact.analysis_file):
-                            upstream_analysis_map[merged_artifact.classes_dir] = AnalysisFileSpec(merged_artifact.analysis_file, merged_artifact.classes_dir)
-            if invalidation_check.invalid_vts:
-                all_analysis_files = set()
-                for target in scala_targets:
-                    analysis_file_spec = self._artifact_factory.analysis_file_for_targets([target])
-                    if os.path.exists(analysis_file_spec.analysis_file):
-                        all_analysis_files.add(analysis_file_spec)
-                deps_cache = JvmDependencyCache(self.context, scala_targets, all_analysis_files)
+    group_id = egroups.get_group_key_for_target(scala_targets[0])
+    for conf in self._confs:
+        egroups.update_compatible_classpaths(group_id, [(conf, self._resources_dir)])
+    cp = egroups.get_classpath_for_group(group_id)
+    for conf in self._confs:
+        for jar in self._zinc_utils.plugin_jars():
+            cp.insert(0, (conf, jar))
+    with self.invalidated(scala_targets, invalidate_dependents=True, partition_size_hint=self._partition_size_hint) as invalidation_check:
+        if (invalidation_check.invalid_vts and (not self.dry_run)):
+            invalid_targets = [vt.target for vt in invalidation_check.invalid_vts]
+            invalid_sources_by_target = self._compute_sources_by_target(invalid_targets)
+            invalid_sources = list(itertools.chain.from_iterable(invalid_sources_by_target.values()))
+            deleted_sources = self._get_deleted_sources()
+            self._ensure_analysis_tmpdir()
+            tmpdir = os.path.join(self._analysis_tmpdir, str(uuid.uuid4()))
+            os.mkdir(tmpdir)
+            valid_analysis_tmp = os.path.join(tmpdir, 'valid_analysis')
+            newly_invalid_analysis_tmp = os.path.join(tmpdir, 'newly_invalid_analysis')
+            invalid_analysis_tmp = os.path.join(tmpdir, 'invalid_analysis')
+            if ZincUtils.is_nonempty_analysis(self._analysis_file):
+                with self.context.new_workunit(name='prepare-analysis'):
+                    if self._zinc_utils.run_zinc_split(self._analysis_file, (((invalid_sources + deleted_sources), newly_invalid_analysis_tmp), ([], valid_analysis_tmp))):
+                        raise TaskError('Failed to split off invalid analysis.')
+                    if ZincUtils.is_nonempty_analysis(self._invalid_analysis_file):
+                        if self._zinc_utils.run_zinc_merge([self._invalid_analysis_file, newly_invalid_analysis_tmp], invalid_analysis_tmp):
+                            raise TaskError('Failed to merge prior and current invalid analysis.')
+                    else:
+                        invalid_analysis_tmp = newly_invalid_analysis_tmp
+                    ZincUtils._move_analysis(valid_analysis_tmp, self._analysis_file)
+                    ZincUtils._move_analysis(invalid_analysis_tmp, self._invalid_analysis_file)
+            partitions = []
+            for vts in invalidation_check.invalid_vts_partitioned:
+                partition_tmpdir = os.path.join(tmpdir, Target.maybe_readable_identify(vts.targets))
+                os.mkdir(partition_tmpdir)
+                sources = list(itertools.chain.from_iterable([invalid_sources_by_target.get(t, []) for t in vts.targets]))
+                analysis_file = os.path.join(partition_tmpdir, 'analysis')
+                partitions.append((vts, sources, analysis_file))
+            if (ZincUtils.is_nonempty_analysis(self._invalid_analysis_file) and partitions):
+                with self.context.new_workunit(name='partition-analysis'):
+                    splits = [(x[1], x[2]) for x in partitions]
+                    if self._zinc_utils.run_zinc_split(self._invalid_analysis_file, splits):
+                        raise TaskError('Failed to split invalid analysis into per-partition files.')
+            for partition in partitions:
+                (vts, sources, analysis_file) = partition
+                self._process_target_partition(partition, cp)
+                if os.path.exists(analysis_file):
+                    if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
+                        self._write_to_artifact_cache(analysis_file, vts, invalid_sources_by_target)
+                    if ZincUtils.is_nonempty_analysis(self._analysis_file):
+                        with self.context.new_workunit(name='update-upstream-analysis'):
+                            new_valid_analysis = (analysis_file + '.valid.new')
+                            if self._zinc_utils.run_zinc_merge([self._analysis_file, analysis_file], new_valid_analysis):
+                                raise TaskError('Failed to merge new analysis back into valid analysis file.')
+                        ZincUtils._move_analysis(new_valid_analysis, self._analysis_file)
+                    else:
+                        ZincUtils._copy_analysis(analysis_file, self._analysis_file)
+                if ZincUtils.is_nonempty_analysis(self._invalid_analysis_file):
+                    with self.context.new_workunit(name='trim-downstream-analysis'):
+                        new_invalid_analysis = (analysis_file + '.invalid.new')
+                        discarded_invalid_analysis = (analysis_file + '.invalid.discard')
+                        if self._zinc_utils.run_zinc_split(self._invalid_analysis_file, [(sources, discarded_invalid_analysis), ([], new_invalid_analysis)]):
+                            raise TaskError('Failed to trim invalid analysis file.')
+                        ZincUtils._move_analysis(new_invalid_analysis, self._invalid_analysis_file)
+                vts.update()
+            if (invalidation_check.invalid_vts and os.path.exists(self._analysis_file)):
+                deps_cache = JvmDependencyCache(self.context, scala_targets, self._analysis_file, self._classes_dir)
                 deps_cache.check_undeclared_dependencies()
+    if self.context.products.isrequired('classes'):
+        sources_by_target = self._compute_sources_by_target(scala_targets)
+        classes_by_source = self._compute_classes_by_source()
+        self._add_all_products_to_genmap(sources_by_target, classes_by_source)
+    for conf in self._confs:
+        egroups.update_compatible_classpaths(group_id, [(conf, self._classes_dir)])

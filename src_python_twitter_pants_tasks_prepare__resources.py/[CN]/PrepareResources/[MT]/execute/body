@@ -1,4 +1,6 @@
 def execute(self, targets):
+    if (len(targets) == 0):
+        return
 
     def extract_resources(target):
         return (target.resources if has_resources(target) else ())

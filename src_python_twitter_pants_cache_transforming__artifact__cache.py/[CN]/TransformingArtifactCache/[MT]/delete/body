@@ -1,0 +1,2 @@
+def delete(self, cache_key):
+    self._cache.delete(cache_key)

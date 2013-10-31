@@ -1,4 +1,4 @@
 def start_delta_string(self):
     'A convenient string representation of how long after the run started we started.'
-    delta = (int(self.start_time) - int(self.run_tracker.root_workunit.start_time))
+    delta = (int(self.start_time) - int(self.root().start_time))
     return ('%02d:%02d' % ((delta / 60), (delta % 60)))

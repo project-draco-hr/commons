@@ -1,14 +1,10 @@
 def use_cached_files(self, cache_key):
-    path = self._path_for_key(cache_key)
+    remote_path = self._remote_path_for_key(cache_key)
     try:
-        response = self._request('GET', path)
+        response = self._request('GET', remote_path)
         if (response is None):
-            return False
-        expected_size = int(response.getheader('content-length', (-1)))
-        if (expected_size == (-1)):
-            raise self.CacheError('No content-length header in HTTP response')
+            return None
         done = False
-        self.log.info(('Reading %d bytes from artifact cache at %s' % (expected_size, self._url_string(path))))
         with temporary_file() as outfile:
             total_bytes = 0
             while (not done):
@@ -18,12 +14,10 @@ def use_cached_files(self, cache_key):
                     done = True
                 total_bytes += len(data)
             outfile.close()
-            self.log.debug(('Read %d bytes' % total_bytes))
-            if (total_bytes != expected_size):
-                raise self.CacheError(('Read only %d bytes from %d expected' % (total_bytes, expected_size)))
-            with open_tar(outfile.name, 'r') as tarfile:
-                tarfile.extractall(self.artifact_root)
-        return True
+            self.log.debug(('Read %d bytes from artifact cache at %s' % (total_bytes, self._url_string(remote_path))))
+            artifact = TarballArtifact(self.artifact_root, outfile.name, self.compress)
+            artifact.extract()
+            return artifact
     except Exception as e:
-        self.log.warn(('Error while reading from artifact cache: %s' % e))
-        return False
+        self.log.warn(('Error while reading from remote artifact cache: %s' % e))
+        return None

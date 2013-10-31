@@ -1,0 +1,8 @@
+def shutdown(self):
+    with self._pending_workchains_cond:
+        while (self._pending_workchains > 0):
+            self._pending_workchains_cond.wait()
+        self._pool.close()
+        self._pool.join()
+        for hook in self._shutdown_hooks:
+            hook()

@@ -1,24 +1,14 @@
-def _process_target_partition(self, vts, cp, upstream_analysis_map):
-    'Must run on all target partitions, not just invalid ones.\n\n    May be invoked concurrently on independent target sets.\n\n    Postcondition: The individual targets in vts are up-to-date, as if each were\n                   compiled individually.\n    '
-    artifacts = [self._artifact_factory.artifact_for_target(target) for target in vts.targets]
-    merged_artifact = self._artifact_factory.merged_artifact(artifacts)
-    if (not merged_artifact.sources):
-        self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % merged_artifact.targets))
+def _process_target_partition(self, partition, cp):
+    'Needs invoking only on invalid targets.\n\n    partition - a triple (vts, sources_by_target, analysis_file).\n\n    May be invoked concurrently on independent target sets.\n\n    Postcondition: The individual targets in vts are up-to-date, as if each were\n                   compiled individually.\n    '
+    (vts, sources, analysis_file) = partition
+    if (not sources):
+        self.context.log.warn(('Skipping scala compile for targets with no sources:\n  %s' % vts.targets))
     else:
-        current_state = merged_artifact.merge(force=(not vts.valid))
-        if any([(not vt.valid) for vt in vts.versioned_targets]):
-            self.context.log.info('Operating on a partition containing ', items_to_report_element(vts.cache_key.sources, 'source'), ' in ', items_to_report_element([t.address.reference() for t in vts.targets], 'target'), '.')
-            old_state = current_state
-            classpath = [entry for (conf, entry) in cp if (conf in self._confs)]
-            with self.context.new_workunit('compile'):
-                vts.force_invalidate()
-                if self._zinc_utils.compile(classpath, merged_artifact.sources, merged_artifact.classes_dir, merged_artifact.analysis_file, upstream_analysis_map):
-                    raise TaskError('Compile failed.')
-            write_to_artifact_cache = (self._artifact_cache and self.context.options.write_to_artifact_cache)
-            current_state = merged_artifact.split(old_state, portable=write_to_artifact_cache)
-            if write_to_artifact_cache:
-                vts_artifact_pairs = (zip(vts.versioned_targets, artifacts) + [(vts, merged_artifact)])
-                self._update_artifact_cache(vts_artifact_pairs)
-        if self.context.products.isrequired('classes'):
-            self._add_products_to_genmap(merged_artifact, current_state)
-    return merged_artifact
+        self.context.log.info('Compiling a partition containing ', items_to_report_element(sources, 'source'), ' in ', items_to_report_element([t.address.reference() for t in vts.targets], 'target'), '.')
+        classpath = [entry for (conf, entry) in cp if (conf in self._confs)]
+        with self.context.new_workunit('compile'):
+            vts.force_invalidate()
+            classpath.append(self._classes_dir)
+            upstream = {self._classes_dir: self._analysis_file, }
+            if self._zinc_utils.compile(classpath, sources, self._classes_dir, analysis_file, upstream):
+                raise TaskError('Compile failed.')

@@ -1,0 +1,10 @@
+def _compute_sources_by_target(self, targets):
+    sources_by_target = defaultdict(set)
+
+    def collect_sources(target):
+        src = (os.path.join(target.target_base, source) for source in target.sources if source.endswith('.java'))
+        if src:
+            sources_by_target[target].update(src)
+    for target in targets:
+        collect_sources(target)
+    return sources_by_target

@@ -1,2 +1,13 @@
 def use_cached_files(self, cache_key):
-    return any((cache.use_cached_files(cache_key) for cache in self._artifact_caches))
+    to_backfill = []
+    for cache in self._artifact_caches:
+        artifact = cache.use_cached_files(cache_key)
+        if (not artifact):
+            if self._backfill:
+                to_backfill.append(cache)
+        else:
+            paths = list(artifact.get_paths())
+            for cache in to_backfill:
+                cache.insert(cache_key, paths)
+            return artifact
+    return None

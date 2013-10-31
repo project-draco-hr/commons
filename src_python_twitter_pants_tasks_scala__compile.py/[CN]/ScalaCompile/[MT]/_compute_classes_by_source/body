@@ -1,0 +1,13 @@
+def _compute_classes_by_source(self, analysis_file=None):
+    'Compute src->classes.'
+    if (analysis_file is None):
+        analysis_file = self._analysis_file
+    if (not os.path.exists(analysis_file)):
+        return {}
+    len_rel_classes_dir = (len(self._classes_dir) - len(get_buildroot()))
+    analysis = ZincAnalysisCollection(stop_after=ZincAnalysisCollection.PRODUCTS)
+    analysis.add_and_parse_file(analysis_file, self._classes_dir)
+    classes_by_src = {}
+    for (src, classes) in analysis.products.items():
+        classes_by_src[src] = [cls[len_rel_classes_dir:] for cls in classes]
+    return classes_by_src

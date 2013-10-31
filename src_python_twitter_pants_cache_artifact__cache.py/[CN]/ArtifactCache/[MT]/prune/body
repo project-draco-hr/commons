@@ -1,0 +1,3 @@
+def prune(self, age_hours):
+    'Clean up cache files older than age_hours, if possible.'
+    pass

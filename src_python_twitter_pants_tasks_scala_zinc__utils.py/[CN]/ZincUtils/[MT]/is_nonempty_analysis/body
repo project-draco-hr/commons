@@ -1,0 +1,10 @@
+@staticmethod
+def is_nonempty_analysis(path):
+    'Returns true iff path exists and points to a non-empty analysis.'
+    relfile = (path + '.relations')
+    if (not os.path.exists(relfile)):
+        return False
+    empty_prefix = 'products:\n\n'
+    with open(relfile, 'r') as infile:
+        prefix = infile.read(len(empty_prefix))
+    return (prefix != empty_prefix)

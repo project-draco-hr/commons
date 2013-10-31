@@ -6,6 +6,7 @@ def __init__(self, context, classpath=None, workdir=None):
     self._daemon = context.options.nailgun_daemon
     workdir = (workdir or context.config.get('nailgun', 'workdir'))
     self._identifier_arg = ('-Dpants.ng.identifier=%s' % os.path.relpath(workdir, get_buildroot()))
+    self._current_pidport = None
     self._ng_out = os.path.join(workdir, 'stdout')
     self._ng_err = os.path.join(workdir, 'stderr')
     self._spawn_lock = threading.Lock()

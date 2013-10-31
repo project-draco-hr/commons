@@ -4,4 +4,3 @@ from twitter.pants import is_internal
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.targets import InternalTarget
 from twitter.pants.tasks import TaskError
-from twitter.pants.tasks.check_exclusives import CheckExclusives

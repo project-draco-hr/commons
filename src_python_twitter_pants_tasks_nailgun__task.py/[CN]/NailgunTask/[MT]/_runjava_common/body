@@ -25,9 +25,9 @@ def _runjava_common(self, runjava, main, classpath=None, opts=None, args=None, j
                 ret = call_nailgun(main, *opts_args)
                 workunit.set_outcome((WorkUnit.FAILURE if ret else WorkUnit.SUCCESS))
                 return ret
-            except NailgunError as e:
+            except NailgunError:
                 self._ng_shutdown()
-                raise e
+                raise
     else:
 
         def runjava_workunit_factory(name, labels=list(), cmd=''):

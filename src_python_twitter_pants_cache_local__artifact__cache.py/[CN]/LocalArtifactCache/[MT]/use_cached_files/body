@@ -1,0 +1,12 @@
+def use_cached_files(self, cache_key):
+    try:
+        tarfile = self._cache_file_for_key(cache_key)
+        if os.path.exists(tarfile):
+            artifact = TarballArtifact(self.artifact_root, tarfile, self._compress)
+            artifact.extract()
+            return artifact
+        else:
+            return None
+    except Exception as e:
+        self.log.warn(('Error while reading from local artifact cache: %s' % e))
+        return None

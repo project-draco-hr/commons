@@ -4,7 +4,6 @@ import signal
 import subprocess
 import threading
 import time
-from twitter.common import log
 from twitter.common.dirutil import safe_open
 from twitter.common.python.platforms import Platform
 from twitter.pants import binary_util, get_buildroot

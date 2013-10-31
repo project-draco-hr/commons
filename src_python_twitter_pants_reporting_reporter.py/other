@@ -1,1 +1,2 @@
 from collections import namedtuple
+from twitter.pants.goal import RunTracker

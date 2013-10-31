@@ -5,4 +5,4 @@ def __init__(self, run_tracker, settings):
     self._buildroot = get_buildroot()
     self._html_path_base = os.path.relpath(self._html_dir, self._buildroot)
     self._report_file = None
-    self._output_files = {}
+    self._output_files = defaultdict(dict)

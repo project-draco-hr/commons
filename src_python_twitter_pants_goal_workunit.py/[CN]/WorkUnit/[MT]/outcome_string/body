@@ -1,3 +1,4 @@
-def outcome_string(self):
-    'Returns a human-readable string describing our outcome.'
-    return self.choose('ABORTED', 'FAILURE', 'WARNING', 'SUCCESS', 'UNKNOWN')
+@staticmethod
+def outcome_string(outcome):
+    'Returns a human-readable string describing the outcome.'
+    return WorkUnit.choose_for_outcome(outcome, 'ABORTED', 'FAILURE', 'WARNING', 'SUCCESS', 'UNKNOWN')

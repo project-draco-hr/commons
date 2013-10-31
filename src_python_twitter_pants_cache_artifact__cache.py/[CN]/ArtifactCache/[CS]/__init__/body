@@ -1,4 +1,5 @@
-def __init__(self, log, artifact_root):
+def __init__(self, log, artifact_root, read_only=False):
     'Create an ArtifactCache.\n\n    All artifacts must be under artifact_root.\n    '
     self.log = log
     self.artifact_root = artifact_root
+    self.read_only = read_only

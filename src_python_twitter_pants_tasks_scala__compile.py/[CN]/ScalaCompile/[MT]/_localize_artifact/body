@@ -1,0 +1,13 @@
+def _localize_artifact(self, paths):
+    new_paths = []
+    for path in paths:
+        if path.endswith('.analysis.portable'):
+            analysis = path[:(-9)]
+            if self._zinc_utils.localize_analysis_file(path, analysis):
+                self.context.log.info(('Zinc failed to localize cached analysis file: %s. Will not use cached artifact.' % path))
+                return None
+            os.unlink(path)
+            new_paths.append(analysis)
+        else:
+            new_paths.append(path)
+    return new_paths

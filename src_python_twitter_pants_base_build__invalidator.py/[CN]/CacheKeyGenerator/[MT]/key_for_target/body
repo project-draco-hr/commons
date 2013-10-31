@@ -10,4 +10,5 @@ def key_for_target(self, target, sources=TARGET_SOURCES, fingerprint_extra=None)
     actual_srcs = self._sources_hash(sha, srcs)
     if fingerprint_extra:
         fingerprint_extra(sha)
+    sha.update(self._cache_key_gen_version)
     return CacheKey(target.id, sha.hexdigest(), len(actual_srcs), actual_srcs)

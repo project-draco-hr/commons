@@ -1,0 +1,3 @@
+def check_artifact_cache_for(self, invalidation_check):
+    global_vts = VersionedTargetSet.from_versioned_targets(invalidation_check.all_vts)
+    return [global_vts]

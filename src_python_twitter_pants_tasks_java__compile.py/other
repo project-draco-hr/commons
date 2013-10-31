@@ -1,10 +1,13 @@
 import os
 import shlex
 from collections import defaultdict
-from twitter.common.dirutil import safe_open, safe_mkdir
+import itertools
+import shutil
+from twitter.common.dirutil import safe_open, safe_mkdir, safe_rmtree
 from twitter.pants import has_sources, is_apt, Task
 from twitter.pants.base.target import Target
 from twitter.pants.goal.workunit import WorkUnit
+from twitter.pants.reporting.reporting_utils import items_to_report_element
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
 from twitter.pants.tasks.nailgun_task import NailgunTask

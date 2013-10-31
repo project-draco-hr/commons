@@ -15,6 +15,12 @@ def __init__(self, config):
     self.cumulative_timings = AggregatedTimings(os.path.join(self.info_dir, 'cumulative_timings'))
     self.self_timings = AggregatedTimings(os.path.join(self.info_dir, 'self_timings'))
     self.artifact_cache_stats = ArtifactCacheStats(os.path.join(self.info_dir, 'artifact_cache_stats'))
+    self._num_foreground_workers = config.getdefault('num_foreground_workers', default=8)
+    self._num_background_workers = config.getdefault('num_background_workers', default=8)
     self.report = None
-    self.root_workunit = None
-    self._current_workunit = None
+    self._threadlocal = threading.local()
+    self._main_root_workunit = None
+    self._foreground_worker_pool = None
+    self._background_worker_pool = None
+    self._background_root_workunit = None
+    self._aborted = False

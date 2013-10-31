@@ -1,0 +1,3 @@
+def extract(self):
+    'Extract the files in this artifact to their locations under artifact root.'
+    raise NotImplementedError()

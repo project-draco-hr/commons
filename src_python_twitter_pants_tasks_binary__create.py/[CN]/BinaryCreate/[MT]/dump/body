@@ -1,10 +1,13 @@
 def dump(self, jarpath, jarfile):
     self.context.log.debug(('  dumping %s' % jarpath))
     with temporary_dir() as tmpdir:
-        ZIP.extract(jarpath, tmpdir)
+        try:
+            ZIP.extract(jarpath, tmpdir)
+        except zipfile.BadZipfile:
+            raise TaskError(('Bad JAR file, maybe empty: %s' % jarpath))
         for (root, dirs, files) in os.walk(tmpdir):
-            for file in files:
-                path = os.path.join(root, file)
+            for f in files:
+                path = os.path.join(root, f)
                 relpath = os.path.relpath(path, tmpdir)
                 if (Manifest.PATH != relpath):
                     jarfile.write(path, relpath)

@@ -1,5 +1,5 @@
 def _spawn_nailgun_server(self, workunit):
-    log.info('No ng server found, spawning...')
+    self.context.log.debug('No ng server found, spawning...')
     with _safe_open(self._ng_out, 'w'):
         pass
     pid = os.fork()
@@ -14,10 +14,9 @@ def _spawn_nailgun_server(self, workunit):
         args.extend(self._ng_server_args)
     args.append(NailgunTask.PANTS_NG_ARG)
     args.append(self._identifier_arg)
-    ng_classpath = os.pathsep.join(binary_util.profile_classpath(self._nailgun_profile, workunit_factory=self.context.new_workunit))
+    ng_classpath = os.pathsep.join(binary_util.profile_classpath(self._nailgun_profile))
     args.extend(['-cp', ng_classpath, 'com.martiansoftware.nailgun.NGServer', ':0'])
-    log.debug(('Executing: %s' % ' '.join(args)))
-    with binary_util.safe_classpath(logger=log.warn):
-        process = subprocess.Popen(args, stdin=in_fd, stdout=out_fd, stderr=err_fd, close_fds=True, cwd=get_buildroot())
-        log.debug(('Spawned ng server @ %d' % process.pid))
+    s = ' '.join(args)
+    with binary_util.safe_classpath():
+        subprocess.Popen(args, stdin=in_fd, stdout=out_fd, stderr=err_fd, close_fds=True, cwd=get_buildroot())
         os._exit(0)

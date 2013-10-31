@@ -1,3 +1,0 @@
-def run_zinc_rebase(self, analysis_file, rebasings):
-    zinc_rebase_args = ['-rebase', ','.join([('%s:%s' % rebasing) for rebasing in rebasings])]
-    return self.run_zinc_analysis(analysis_file, zinc_rebase_args)
