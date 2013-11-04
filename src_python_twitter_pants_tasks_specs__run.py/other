@@ -1,7 +1,7 @@
 import os
 from twitter.common.collections import OrderedSet
 from twitter.pants import is_scala, is_test
-from twitter.pants.binary_util import profile_classpath, runjava_indivisible, safe_args
+from twitter.pants.binary_util import runjava_indivisible, safe_args
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.tasks.jvm_task import JvmTask
