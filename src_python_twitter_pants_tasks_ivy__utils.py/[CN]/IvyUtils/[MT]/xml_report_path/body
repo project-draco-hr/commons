@@ -1,4 +1,4 @@
-def xml_report_path(self, conf):
+def xml_report_path(self, targets, conf):
     'The path to the xml report ivy creates after a retrieve.'
-    (org, name) = self.identify()
+    (org, name) = self.identify(targets)
     return os.path.join(self._cachedir, ('%s-%s-%s.xml' % (org, name, conf)))

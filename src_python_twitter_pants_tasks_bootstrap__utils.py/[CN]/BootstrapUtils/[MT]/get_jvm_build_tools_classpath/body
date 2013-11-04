@@ -1,0 +1,4 @@
+def get_jvm_build_tools_classpath(self, tools, java_runner=None):
+    tools_tuple = tuple(sorted(tools))
+    callbacks_map = self._products.get('jvm_build_tools_classpath_callbacks').get('jvm_build_tools_classpath_callbacks')
+    return callbacks_map.get(tools_tuple)[0](java_runner=java_runner)

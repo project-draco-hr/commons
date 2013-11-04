@@ -1,3 +1,42 @@
-def __init__(self, context, cachedir):
-    self._context = context
-    self._cachedir = cachedir
+def __init__(self, config, options, log):
+    self._log = log
+    self._config = config
+    self._options = options
+    self._cachedir = (getattr(options, 'ivy_resolve_cache', None) or config.get('ivy', 'cache_dir'))
+    self._ivy_args = getattr(options, 'ivy_args', [])
+    self._mutable_pattern = (getattr(options, 'ivy_mutable_pattern', None) or config.get('ivy-resolve', 'mutable_pattern', default=None))
+    self._ivy_settings = config.get('ivy', 'ivy_settings')
+    self._transitive = config.getbool('ivy-resolve', 'transitive')
+    self._opts = config.getlist('ivy-resolve', 'args')
+    self._work_dir = config.get('ivy-resolve', 'workdir')
+    self._template_path = os.path.join('templates', 'ivy_resolve', 'ivy.mustache')
+    self._confs = config.getlist('ivy-resolve', 'confs')
+    self._classpath_file = os.path.join(self._work_dir, 'classpath')
+    self._classpath_dir = os.path.join(self._work_dir, 'mapped')
+    if self._mutable_pattern:
+        try:
+            self._mutable_pattern = re.compile(self._mutable_pattern)
+        except re.error as e:
+            raise TaskError(('Invalid mutable pattern specified: %s %s' % (self._mutable_pattern, e)))
+
+    def parse_override(override):
+        match = re.match('^([^#]+)#([^=]+)=([^\\s]+)$', override)
+        if (not match):
+            raise TaskError(('Invalid dependency override: %s' % override))
+        (org, name, rev_or_url) = match.groups()
+
+        def fmt_message(message, template):
+            return (message % dict(overridden=('%s#%s;%s' % (template.org, template.module, template.version)), rev=rev_or_url, url=rev_or_url))
+
+        def replace_rev(template):
+            _log.info(fmt_message('Overrode %(overridden)s with rev %(rev)s', template))
+            return template.extend(version=rev_or_url, url=None, force=True)
+
+        def replace_url(template):
+            _log.info(fmt_message('Overrode %(overridden)s with snapshot at %(url)s', template))
+            return template.extend(version='SNAPSHOT', url=rev_or_url, force=True)
+        replace = (replace_url if re.match('^\\w+://.+', rev_or_url) else replace_rev)
+        return ((org, name), replace)
+    self._overrides = {}
+    if (hasattr(options, 'ivy_resolve_overrides') and options.ivy_resolve_overrides):
+        self._overrides.update((parse_override(o) for o in options.ivy_resolve_overrides))

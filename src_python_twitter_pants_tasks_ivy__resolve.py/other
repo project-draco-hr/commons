@@ -2,16 +2,12 @@ from __future__ import print_function
 import hashlib
 import os
 import pkgutil
-import re
 import shutil
 import time
 from contextlib import contextmanager
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_open
-from twitter.pants import binary_util, get_buildroot, is_internal, is_jar, is_jvm, is_concrete
-from twitter.pants.base.generator import Generator, TemplateData
-from twitter.pants.base.revision import Revision
+from twitter.pants import binary_util, is_internal, is_jar, is_concrete
 from twitter.pants.tasks import TaskError
-from twitter.pants.tasks.cache_manager import VersionedTargetSet
 from twitter.pants.tasks.ivy_utils import IvyUtils
 from twitter.pants.tasks.nailgun_task import NailgunTask

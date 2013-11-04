@@ -1,7 +1,18 @@
+from __future__ import print_function
 from collections import namedtuple, defaultdict
+from contextlib import contextmanager
+import hashlib
 import os
 import xml
+import pkgutil
+import re
 from twitter.common.collections import OrderedSet
+from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.pants import get_buildroot, is_internal, is_jar, is_jvm, is_concrete
+from twitter.pants.base.generator import Generator, TemplateData
+from twitter.pants.base.revision import Revision
+from twitter.pants.base.target import Target
+from twitter.pants.tasks import TaskError
 IvyModuleRef = namedtuple('IvyModuleRef', ['org', 'name', 'rev', 'conf'])
 IvyArtifact = namedtuple('IvyArtifact', ['path'])
 IvyModule = namedtuple('IvyModule', ['ref', 'artifacts', 'callers'])

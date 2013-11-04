@@ -1,0 +1,9 @@
+def resolve_tool_targets(self, tools):
+    for tool in tools:
+        try:
+            targets = list(self.context.resolve(tool))
+        except KeyError:
+            self.context.log.error(('Failed to resolve target for bootstrap tool: %s.  You probably need to add this dep to your tools build file(s), usually located in the root of the build.' % tool))
+            raise
+        for target in targets:
+            yield target

@@ -5,3 +5,4 @@ opts
 args
 jvmargs
 workunit_name
+workunit_factory

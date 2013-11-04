@@ -1,0 +1,8 @@
+self
+target_workdir
+targets
+args
+runjava
+workunit_name
+workunit_factory
+ivy_classpath

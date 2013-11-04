@@ -39,6 +39,7 @@ from twitter.pants.targets import Benchmark, JvmBinary
 from twitter.pants.tasks.antlr_gen import AntlrGen
 from twitter.pants.tasks.benchmark_run import BenchmarkRun
 from twitter.pants.tasks.binary_create import BinaryCreate
+from twitter.pants.tasks.bootstrap_jvm_tools import BootstrapJvmTools
 from twitter.pants.tasks.build_lint import BuildLint
 from twitter.pants.tasks.bundle_create import BundleCreate
 from twitter.pants.tasks.checkstyle import Checkstyle
@@ -81,41 +82,42 @@ ng_killall.install().with_description('Kill any running nailgun servers spawned 
 ng_killall.install('clean-all', first=True)
 goal(name='server', action=RunServer).install().with_description('Run the pants reporting server.')
 goal(name='killserver', action=KillServer).install().with_description('Kill the pants reporting server.')
-goal(name='ivy', action=IvyResolve, dependencies=['gen', 'check-exclusives']).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')
+goal(name='bootstrap-jvm-tools', action=BootstrapJvmTools).install('bootstrap').with_description('Bootstrap tools needed for building')
+goal(name='ivy', action=IvyResolve, dependencies=['gen', 'check-exclusives', 'bootstrap']).install('resolve').with_description('Resolves jar dependencies and produces dependency reports.')
 goal(name='check-exclusives', dependencies=['gen'], action=CheckExclusives).install('check-exclusives').with_description('Check exclusives declarations to verify that dependencies are consistent.')
 goal(name='thrift', action=ThriftGen).install('gen').with_description('Generate code.')
 goal(name='scrooge', action=ScroogeGen).install('gen')
 goal(name='protoc', action=ProtobufGen).install('gen')
 goal(name='antlr', action=AntlrGen).install('gen')
 goal(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']).install().with_description('Run checkstyle against java source code.')
-goal(name='scala', action=ScalaCompile, group=group('jvm', _is_scala), dependencies=['gen', 'resolve', 'check-exclusives']).install('compile').with_description('Compile both generated and checked in code.')
-goal(name='apt', action=AptCompile, group=group('jvm', is_apt), dependencies=['gen', 'resolve', 'check-exclusives']).install('compile')
-goal(name='java', action=JavaCompile, group=group('jvm', _is_java), dependencies=['gen', 'resolve', 'check-exclusives']).install('compile')
+goal(name='scala', action=ScalaCompile, group=group('jvm', _is_scala), dependencies=['gen', 'resolve', 'check-exclusives', 'bootstrap']).install('compile').with_description('Compile both generated and checked in code.')
+goal(name='apt', action=AptCompile, group=group('jvm', is_apt), dependencies=['gen', 'resolve', 'check-exclusives', 'bootstrap']).install('compile')
+goal(name='java', action=JavaCompile, group=group('jvm', _is_java), dependencies=['gen', 'resolve', 'check-exclusives', 'bootstrap']).install('compile')
 goal(name='prepare', action=PrepareResources).install('resources')
-goal(name='javadoc', action=JavadocGen, dependencies=['compile']).install('doc').with_description('Create documentation.')
-goal(name='scaladoc', action=ScaladocGen, dependencies=['compile']).install('doc')
+goal(name='javadoc', action=JavadocGen, dependencies=['compile', 'bootstrap']).install('doc').with_description('Create documentation.')
+goal(name='scaladoc', action=ScaladocGen, dependencies=['compile', 'bootstrap']).install('doc')
 if MarkdownToHtml.AVAILABLE:
     goal(name='markdown', action=MarkdownToHtml).install('markdown').with_description('Generate html from markdown docs.')
-goal(name='jar', action=JarCreate, dependencies=['compile', 'resources']).install('jar').with_description('Create one or more jars.')
-goal(name='junit', action=JUnitRun, dependencies=['compile', 'resources']).install('test').with_description('Test compiled code.')
-goal(name='specs', action=SpecsRun, dependencies=['compile', 'resources']).install('test')
-goal(name='bench', action=BenchmarkRun, dependencies=['compile', 'resources']).install('bench')
-goal(name='binary', action=BinaryCreate, dependencies=['jar']).install().with_description('Create a jvm binary jar.')
-goal(name='bundle', action=BundleCreate, dependencies=['binary']).install().with_description('Create an application bundle from binary targets.')
-goal(name='jvm-run', action=JvmRun, dependencies=['compile', 'resources'], serialize=False).install('run').with_description('Run a (currently JVM only) binary target.')
+goal(name='jar', action=JarCreate, dependencies=['compile', 'resources', 'bootstrap']).install('jar').with_description('Create one or more jars.')
+goal(name='junit', action=JUnitRun, dependencies=['compile', 'resources', 'bootstrap']).install('test').with_description('Test compiled code.')
+goal(name='specs', action=SpecsRun, dependencies=['compile', 'resources', 'bootstrap']).install('test')
+goal(name='bench', action=BenchmarkRun, dependencies=['compile', 'resources', 'bootstrap']).install('bench')
+goal(name='binary', action=BinaryCreate, dependencies=['jar', 'bootstrap']).install().with_description('Create a jvm binary jar.')
+goal(name='bundle', action=BundleCreate, dependencies=['binary', 'bootstrap']).install().with_description('Create an application bundle from binary targets.')
+goal(name='jvm-run', action=JvmRun, dependencies=['compile', 'resources', 'bootstrap'], serialize=False).install('run').with_description('Run a (currently JVM only) binary target.')
 goal(name='jvm-run-dirty', action=JvmRun, serialize=False).install('run-dirty').with_description(('Run a (currently JVM only) binary target, using ' + 'only currently existing binaries, skipping compilation'))
-goal(name='scala-repl', action=ScalaRepl, dependencies=['compile', 'resources'], serialize=False).install('repl').with_description('Run a (currently Scala only) REPL with the classpath set according to the targets.')
+goal(name='scala-repl', action=ScalaRepl, dependencies=['compile', 'resources', 'bootstrap'], serialize=False).install('repl').with_description('Run a (currently Scala only) REPL with the classpath set according to the targets.')
 goal(name='scala-repl-dirty', action=ScalaRepl, serialize=False).install('repl-dirty').with_description(('Run a (currently Scala only) REPL with the classpath set according to the targets, ' + 'using the currently existing binaries, skipping compilation'))
 goal(name='filedeps', action=FileDeps).install('filedeps').with_description('Print out a list of all files the target depends on')
 goal(name='pathdeps', action=PathDeps).install('pathdeps').with_description('Print out a list of all paths containing build files the target depends on')
 goal(name='list', action=ListTargets).install('list').with_description('List available BUILD targets.')
 goal(name='buildlint', action=BuildLint, dependencies=['compile']).install()
 from twitter.pants.tasks.idea_gen import IdeaGen
-goal(name='idea', action=IdeaGen, dependencies=['jar']).install().with_description('Create an IntelliJ IDEA project from the given targets.')
+goal(name='idea', action=IdeaGen, dependencies=['jar', 'bootstrap']).install().with_description('Create an IntelliJ IDEA project from the given targets.')
 from twitter.pants.tasks.eclipse_gen import EclipseGen
-goal(name='eclipse', action=EclipseGen, dependencies=['jar']).install().with_description('Create an Eclipse project from the given targets.')
+goal(name='eclipse', action=EclipseGen, dependencies=['jar', 'bootstrap']).install().with_description('Create an Eclipse project from the given targets.')
 from twitter.pants.tasks.provides import Provides
-goal(name='provides', action=Provides, dependencies=['jar']).install().with_description('Emit the list of symbols provided by the given targets.')
+goal(name='provides', action=Provides, dependencies=['jar', 'bootstrap']).install().with_description('Emit the list of symbols provided by the given targets.')
 from twitter.pants.tasks.python.setup import SetupPythonEnvironment
 goal(name='python-setup', action=SetupPythonEnvironment).install('setup').with_description("Setup the target's build environment.")
 from twitter.pants.tasks.paths import Path, Paths

@@ -1,3 +1,4 @@
 self
-context
-cachedir
+config
+options
+log

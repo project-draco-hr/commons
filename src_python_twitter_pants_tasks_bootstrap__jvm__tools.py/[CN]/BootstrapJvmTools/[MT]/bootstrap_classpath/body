@@ -1,0 +1,4 @@
+def bootstrap_classpath(self, tools, java_runner=None):
+    targets = list(self.resolve_tool_targets(tools))
+    ivy_args = ['-sync', '-symlink', '-types', 'jar', 'bundle']
+    return self.ivy_resolve(targets, java_runner=java_runner, ivy_args=ivy_args)

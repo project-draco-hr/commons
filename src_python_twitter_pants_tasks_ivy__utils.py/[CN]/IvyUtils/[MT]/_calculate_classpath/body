@@ -1,0 +1,24 @@
+def _calculate_classpath(self, targets):
+
+    def is_jardependant(target):
+        return (is_jar(target) or is_jvm(target))
+    jars = {}
+    excludes = set()
+
+    def add_jar(jar):
+        coordinate = (jar.org, jar.name)
+        existing = jars.get(coordinate)
+        jars[coordinate] = (jar if (not existing) else self._resolve_conflict(existing=existing, proposed=jar))
+
+    def collect_jars(target):
+        if is_jar(target):
+            add_jar(target)
+        elif target.jar_dependencies:
+            for jar in target.jar_dependencies:
+                if jar.rev:
+                    add_jar(jar)
+        if (is_jvm(target) and target.excludes):
+            excludes.update(target.excludes)
+    for target in targets:
+        target.walk(collect_jars, is_jardependant)
+    return (jars.values(), excludes)

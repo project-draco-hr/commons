@@ -1,6 +1,6 @@
 def __init__(self, context):
     Task.__init__(self, context)
-    self.ivy_utils = IvyUtils(context, context.config.get('ivy', 'cache_dir'))
+    self.ivy_utils = IvyUtils(config=context.config, options=context.options, log=context.log)
     self.confs = context.config.getlist('ivy', 'confs')
     self.target_roots = context.target_roots
     self.transitive = context.options.provides_transitive

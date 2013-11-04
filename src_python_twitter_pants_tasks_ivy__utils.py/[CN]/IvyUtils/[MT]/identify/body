@@ -1,9 +1,6 @@
-def identify(self):
-    if (len(self._context.target_roots) == 1):
-        target = self._context.target_roots[0]
-        if (hasattr(target, 'provides') and target.provides):
-            return (target.provides.org, target.provides.name)
-        else:
-            return ('internal', target.id)
+def identify(self, targets):
+    targets = list(targets)
+    if ((len(targets) == 1) and hasattr(targets[0], 'provides') and targets[0].provides):
+        return (targets[0].provides.org, targets[0].provides.name)
     else:
-        return ('internal', self._context.id)
+        return ('internal', Target.maybe_readable_identify(targets))

@@ -6,3 +6,4 @@ args
 jvmargs
 workunit_name
 workunit_labels
+workunit_factory
