@@ -2,6 +2,7 @@ def _spawn_nailgun_server(self, workunit):
     self.context.log.debug('No ng server found, spawning...')
     with _safe_open(self._ng_out, 'w'):
         pass
+    ng_classpath = os.pathsep.join(self._bootstrap_utils.get_jvm_build_tools_classpath(self._nailgun_bootstrap_tools))
     pid = os.fork()
     if (pid != 0):
         return self._await_nailgun_server(workunit)
@@ -14,7 +15,6 @@ def _spawn_nailgun_server(self, workunit):
         args.extend(self._ng_server_args)
     args.append(NailgunTask.PANTS_NG_ARG)
     args.append(self._identifier_arg)
-    ng_classpath = os.pathsep.join(binary_util.profile_classpath(self._nailgun_profile))
     args.extend(['-cp', ng_classpath, 'com.martiansoftware.nailgun.NGServer', ':0'])
     s = ' '.join(args)
     with binary_util.safe_classpath():
