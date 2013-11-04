@@ -1,16 +1,14 @@
 def __init__(self, context):
     Task.__init__(self, context)
-    self.profile = context.config.get('benchmark-run', 'profile', default='benchmark-caliper-0.5')
-    self.confs = context.config.getlist('benchmark-run', 'confs')
-    self.java_args = context.config.getlist('benchmark-run', 'args', default=['-Xmx1g', '-XX:MaxPermSize=256m'])
-    self.agent_profile = context.config.get('benchmark-run', 'agent_profile', default='benchmark-java-allocation-instrumenter-2.1')
+    config = context.config
+    self.confs = config.getlist('benchmark-run', 'confs')
+    self.java_args = config.getlist('benchmark-run', 'args', default=['-Xmx1g', '-XX:MaxPermSize=256m'])
+    self._benchmark_bootstrap_tools = config.getlist('benchmark-run', 'bootstrap-tools', default=[':benchmark-caliper-0.5'])
+    self._agent_bootstrap_tools = config.getlist('benchmark-run', 'agent_profile', default=[':benchmark-java-allocation-instrumenter-2.1'])
+    self._bootstrap_utils.register_all([self._benchmark_bootstrap_tools, self._agent_bootstrap_tools])
     self.caliper_args = context.options.target_class
     if context.options.memory_profiling:
         self.caliper_args += ['--measureMemory']
-        agent_jar = os.readlink(profile_classpath(self.agent_profile)[0])
-        allocation_jar = os.path.join(os.path.dirname(agent_jar), 'allocation.jar')
-        shutil.copyfile(agent_jar, allocation_jar)
-        os.environ['ALLOCATION_JAR'] = str(allocation_jar)
     if context.options.debug:
         self.java_args.extend(context.config.getlist('jvm', 'debug_args'))
         self.caliper_args += ['--debug']
