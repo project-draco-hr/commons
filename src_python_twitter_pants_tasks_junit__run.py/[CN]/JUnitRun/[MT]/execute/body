@@ -2,7 +2,8 @@ def execute(self, targets):
     if (not self.context.options.junit_run_skip):
         tests = list((self.normalize_test_classes() if self.test_classes else self.calculate_tests(targets)))
         if tests:
-            junit_classpath = self.classpath(binary_util.profile_classpath(self.junit_profile, workunit_factory=self.context.new_workunit), confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0]))
+            bootstrapped_cp = self._bootstrap_utils.get_jvm_build_tools_classpath(self._bootstrap_tools)
+            junit_classpath = self.classpath(bootstrapped_cp, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0]))
 
             def run_tests(classpath, main, jvmargs=None):
 
@@ -17,7 +18,7 @@ def execute(self, targets):
                 if (result != 0):
                     raise TaskError()
             if self.coverage:
-                emma_classpath = binary_util.profile_classpath(self.emma_profile)
+                emma_classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(self._emma_bootstrap_tools)
 
                 def instrument_code():
                     safe_mkdir(self.coverage_instrument_dir, clean=True)
