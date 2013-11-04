@@ -1,3 +1,4 @@
 def __init__(self, context):
     CodeGen.__init__(self, context)
     NailgunTask.__init__(self, context)
+    self._bootstrap_utils.register_all(list(self._all_possible_antlr_bootstrap_tools))

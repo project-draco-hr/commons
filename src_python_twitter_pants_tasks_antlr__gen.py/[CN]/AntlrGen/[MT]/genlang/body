@@ -4,8 +4,8 @@ def genlang(self, lang, targets):
     for target in targets:
         java_out = self._java_out(target)
         safe_mkdir(java_out)
-        antlr_profile = self._antlr_profile(target)
-        antlr_classpath = self.profile_classpath(antlr_profile)
+        antlr_bootstrap_tools = self._antlr_bootstrap_tools(target)
+        antlr_classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(antlr_bootstrap_tools, self.runjava_indivisible)
         antlr_opts = ['-o', java_out]
         java_main = None
         if (target.compiler == 'antlr3'):

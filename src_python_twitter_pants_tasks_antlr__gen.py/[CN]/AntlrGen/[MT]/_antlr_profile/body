@@ -1,3 +1,0 @@
-def _antlr_profile(self, target):
-    key = self._CONFIG_SECTION_BY_COMPILER[target.compiler]
-    return self.context.config.get(key, 'antlr_profile')

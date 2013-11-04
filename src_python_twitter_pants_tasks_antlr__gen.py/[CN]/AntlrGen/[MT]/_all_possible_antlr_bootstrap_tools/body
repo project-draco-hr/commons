@@ -1,0 +1,4 @@
+@property
+def _all_possible_antlr_bootstrap_tools(self):
+    for key in self._CONFIG_SECTION_BY_COMPILER.values():
+        yield self.context.config.getlist(key, 'javadeps')
