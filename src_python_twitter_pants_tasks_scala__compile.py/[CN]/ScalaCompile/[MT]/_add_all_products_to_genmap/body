@@ -7,5 +7,5 @@ def _add_all_products_to_genmap(self, sources_by_target, classes_by_source):
             genmap.add(relsrc, self._classes_dir, classes)
             genmap.add(target, self._classes_dir, classes)
         if (is_scalac_plugin(target) and target.classname):
-            (basedir, plugin_info_file) = self._zinc_utils.write_plugin_info(self._resources_dir, target)
+            (basedir, plugin_info_file) = ZincUtils.write_plugin_info(self._resources_dir, target)
             genmap.add(target, basedir, [plugin_info_file])

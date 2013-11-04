@@ -1,0 +1,18 @@
+@property
+def _scalac_args(self):
+    if (self.context.options.plugins is not None):
+        plugin_names = [p for val in self.context.options.plugins for p in val.split(',')]
+    else:
+        plugin_names = self.context.config.getlist('scala-compile', 'scalac-plugins', default=[])
+    plugin_args = self.context.config.getdict('scala-compile', 'scalac-plugin-args', default={})
+    active_plugins = self.find_plugins(plugin_names)
+    scalac_args = self.context.config.getlist('scala-compile', 'args')
+    for (name, jar) in active_plugins.items():
+        scalac_args.append(('-Xplugin:%s' % jar))
+        for arg in plugin_args.get(name, []):
+            scalac_args.append(('-P:%s:%s' % (name, arg)))
+    if self.context.options.scala_compile_warnings:
+        scalac_args.extend(self.context.config.getlist('scala-compile', 'warning_args'))
+    else:
+        scalac_args.extend(self.context.config.getlist('scala-compile', 'no_warning_args'))
+    return scalac_args

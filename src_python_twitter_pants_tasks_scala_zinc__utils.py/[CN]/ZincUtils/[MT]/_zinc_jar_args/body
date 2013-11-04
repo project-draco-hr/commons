@@ -1,0 +1,4 @@
+@property
+def _zinc_jar_args(self):
+    zinc_jars = ZincUtils.identify_zinc_jars(self._zinc_classpath)
+    return (list(chain.from_iterable([[('-%s' % name), jarpath] for (name, jarpath) in zinc_jars.items()])) + ['-scala-path', ':'.join(self._compiler_classpath)])

@@ -2,7 +2,7 @@ def find_plugins(self, plugin_names):
     'Returns a map from plugin name to plugin jar.'
     plugin_names = set(plugin_names)
     plugins = {}
-    for jar in self._plugin_jars:
+    for jar in self.plugin_jars():
         with open_jar(jar, 'r') as jarfile:
             try:
                 with closing(jarfile.open(_PLUGIN_INFO_FILE, 'r')) as plugin_info_file:

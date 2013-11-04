@@ -1,0 +1,3 @@
+@property
+def _zinc_classpath(self):
+    return self._bootstrap_utils.get_jvm_build_tools_classpath(self._zinc_bootstrap_tools)
