@@ -1,7 +1,11 @@
 def resolve_tool_targets(self, tools):
+    if (not tools):
+        raise ValueError("BootstrapJvmTools.resolve_tool_targets called with no tool dependency addresses.  This probably means that you don't have an entry in your pants.ini for this tool.")
     for tool in tools:
         try:
             targets = list(self.context.resolve(tool))
+            if (not targets):
+                raise KeyError
         except KeyError:
             self.context.log.error(('Failed to resolve target for bootstrap tool: %s.  You probably need to add this dep to your tools build file(s), usually located in the root of the build.' % tool))
             raise
