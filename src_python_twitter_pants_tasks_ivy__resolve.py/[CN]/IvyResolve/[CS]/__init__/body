@@ -23,7 +23,7 @@ def __init__(self, context, confs=None):
     self._report = (self._open or context.options.ivy_resolve_report)
     self._ivy_utils = IvyUtils(context, self._cachedir)
     context.products.require_data('exclusives_groups')
-    artifact_cache_spec = context.config.getlist('ivy-resolve', 'artifact_caches2', default=[])
+    artifact_cache_spec = context.config.getlist('ivy-resolve', 'artifact_caches', default=[])
     self.setup_artifact_cache(artifact_cache_spec)
 
     def parse_override(override):

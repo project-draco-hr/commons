@@ -2,7 +2,6 @@ import os
 import shlex
 from collections import defaultdict
 import itertools
-import shutil
 from twitter.common.dirutil import safe_open, safe_mkdir, safe_rmtree
 from twitter.pants import has_sources, is_apt, Task
 from twitter.pants.base.target import Target
