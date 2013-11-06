@@ -1,5 +1,7 @@
 {
   Preconditions.checkNotNull(annotationType);
-  Preconditions.checkArgument(annotationType.isAnnotationPresent(BindingAnnotation.class),"%s is not a @BindingAnnotation",annotationType);
+  boolean bindingAnnotation=annotationType.isAnnotationPresent(BindingAnnotation.class);
+  boolean qualifier=annotationType.isAnnotationPresent(Qualifier.class);
+  Preconditions.checkArgument(bindingAnnotation || qualifier,"%s is not a @BindingAnnotation or @Qualifier",annotationType);
   return annotationType;
 }
