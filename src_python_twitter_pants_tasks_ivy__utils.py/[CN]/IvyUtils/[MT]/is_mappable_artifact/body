@@ -1,3 +1,4 @@
-def _map_jar(self, path):
+@staticmethod
+def is_mappable_artifact(path):
     'Subclasses can override to determine whether a given path represents a mappable artifact.'
     return (path.endswith('.jar') or path.endswith('.war'))

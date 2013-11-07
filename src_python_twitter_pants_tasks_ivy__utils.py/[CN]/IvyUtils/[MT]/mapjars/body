@@ -14,7 +14,7 @@ def mapjars(self, genmap, target):
                     for conf in os.listdir(artifactdir):
                         confdir = os.path.join(artifactdir, conf)
                         for file in os.listdir(confdir):
-                            if self._map_jar(file):
+                            if self.is_mappable_artifact(file):
                                 genmap.add(org, confdir).append(file)
                                 genmap.add((org, name), confdir).append(file)
                                 genmap.add(target, confdir).append(file)

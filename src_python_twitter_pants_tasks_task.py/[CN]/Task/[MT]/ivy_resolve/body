@@ -22,4 +22,4 @@ def ivy_resolve(self, targets, java_runner=None, ivy_args=None):
                 self.update_artifact_cache([(global_vts, [target_classpath_file])])
     with IvyUtils.cachepath(target_classpath_file) as classpath:
         stripped_classpath = [path.strip() for path in classpath]
-        return [path for path in stripped_classpath if self._map_jar(path)]
+        return [path for path in stripped_classpath if IvyUtils.is_mappable_artifact(path)]
