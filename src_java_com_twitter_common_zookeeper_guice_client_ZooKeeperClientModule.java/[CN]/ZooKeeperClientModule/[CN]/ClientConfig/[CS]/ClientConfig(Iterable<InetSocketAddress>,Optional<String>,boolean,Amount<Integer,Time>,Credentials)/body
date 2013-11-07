@@ -1,0 +1,7 @@
+{
+  this.servers=servers;
+  this.chrootPath=chrootPath;
+  this.inProcess=inProcess;
+  this.sessionTimeout=sessionTimeout;
+  this.credentials=credentials;
+}

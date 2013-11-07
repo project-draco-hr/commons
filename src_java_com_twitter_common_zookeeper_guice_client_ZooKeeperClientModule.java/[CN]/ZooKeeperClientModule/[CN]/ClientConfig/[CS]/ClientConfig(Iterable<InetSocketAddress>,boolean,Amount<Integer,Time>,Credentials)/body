@@ -1,6 +1,3 @@
 {
-  this.servers=servers;
-  this.inProcess=inProcess;
-  this.sessionTimeout=sessionTimeout;
-  this.credentials=credentials;
+  this(servers,Optional.<String>absent(),inProcess,sessionTimeout,credentials);
 }

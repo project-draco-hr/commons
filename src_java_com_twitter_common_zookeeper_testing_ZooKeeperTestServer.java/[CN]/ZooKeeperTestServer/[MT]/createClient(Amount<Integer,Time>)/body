@@ -1,3 +1,3 @@
 {
-  return createClient(sessionTimeout,Credentials.NONE);
+  return createClient(sessionTimeout,Credentials.NONE,Optional.<String>absent());
 }

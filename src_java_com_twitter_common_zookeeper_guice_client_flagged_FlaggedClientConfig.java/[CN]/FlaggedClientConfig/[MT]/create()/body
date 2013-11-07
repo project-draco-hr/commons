@@ -1,3 +1,3 @@
 {
-  return new ClientConfig(ZK_ENDPOINTS.get(),IN_PROCESS.get(),SESSION_TIMEOUT.get(),DIGEST_CREDENTIALS.hasAppliedValue() ? getCredentials(DIGEST_CREDENTIALS.get()) : Credentials.NONE);
+  return new ClientConfig(ZK_ENDPOINTS.get(),Optional.fromNullable(CHROOT_PATH.get()),IN_PROCESS.get(),SESSION_TIMEOUT.get(),DIGEST_CREDENTIALS.hasAppliedValue() ? getCredentials(DIGEST_CREDENTIALS.get()) : Credentials.NONE);
 }

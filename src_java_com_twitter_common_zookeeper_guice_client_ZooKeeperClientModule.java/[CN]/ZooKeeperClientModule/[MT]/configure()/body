@@ -6,7 +6,7 @@
     bind(clientKey).toProvider(LocalClientProvider.class).in(Singleton.class);
   }
  else {
-    ZooKeeperClient client=new ZooKeeperClient(config.sessionTimeout,config.credentials,config.servers);
+    ZooKeeperClient client=new ZooKeeperClient(config.sessionTimeout,config.credentials,config.chrootPath,config.servers);
     bind(clientKey).toInstance(client);
   }
   expose(clientKey);

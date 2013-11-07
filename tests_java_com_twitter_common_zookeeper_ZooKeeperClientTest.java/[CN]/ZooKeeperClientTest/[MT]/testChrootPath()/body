@@ -1,0 +1,9 @@
+{
+  ZooKeeperClient rootClient=createZkClient();
+  String rootPath="/test";
+  String subPath="/test/subtest";
+  assertEquals(rootPath,rootClient.get().create(rootPath,"42".getBytes(),ZooKeeperUtils.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT));
+  assertEquals(subPath,rootClient.get().create(subPath,"37".getBytes(),ZooKeeperUtils.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT));
+  ZooKeeperClient chrootedClient=createZkClient(rootPath);
+  assertArrayEquals("37".getBytes(),chrootedClient.get().getData("/subtest",false,null));
+}
