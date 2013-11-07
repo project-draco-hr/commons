@@ -1,25 +1,11 @@
-from __future__ import print_function
+from __future__ import absolute_import, print_function
 import ast
 from contextlib import closing
 import os
 import sys
 import tempfile
 import zipfile
-try:
-    from twitter.common import app
-    HAS_APP = True
-except ImportError:
-    HAS_APP = False
-try:
-    from twitter.common import log
-    log_info = log.info
-except ImportError:
-    log_info = (lambda msg: sys.stdout.write((msg + '\n')))
+from .common import safe_mkdir
 from pkg_resources import Distribution, get_build_platform
-from twitter.common.dirutil import safe_mkdir
-NAMESPACE_STUB = "\ntry:\n  __import__('pkg_resources').declare_namespace(__name__)\nexcept ImportError:\n  from sys import stderr\n  stderr.write('Unable to declare namespace for %%s\\n' % __name__)\n  stderr.write('This package may not work!\\n')\n"
-NATIVE_STUB = "\ndef __bootstrap__():\n  import os, zipfile\n  import sys, imp, tempfile\n  try:\n    from cStringIO import StringIO\n  except:\n    try:\n      from StringIO import StringIO\n    except:\n      from io import BytesIO as StringIO\n\n  # open multiply-nested-zip\n  def nested_open(path, full_path=None, zf=None):\n    def split_existing(path):\n      def generate_prefixes(path):\n        if path in ('', os.path.sep): return\n        for head in generate_prefixes(os.path.split(path)[0]):\n          yield head\n        yield path\n      subpath = None\n      for prefix in generate_prefixes(path):\n        if not os.path.lexists(prefix):\n          break\n        subpath = prefix\n      return (subpath, os.path.relpath(path, subpath))\n\n    if zf is None:\n      existing, non_existing = split_existing(path)\n      return nested_open(non_existing, full_path=existing, zf=zipfile.ZipFile(existing))\n\n    subpath = path\n    while subpath and not any(name.startswith(subpath) for name in zf.namelist()):\n      subpath = os.path.split(subpath)[0]\n\n    if not subpath:\n      raise Exception('Could not find %%s in %%s' %% (path, full_path))\n\n    try:\n      relpath = os.path.relpath(path, subpath)\n      if relpath == '.':\n        return zf.read(subpath)\n      return nested_open(\n        relpath, full_path=os.path.join(full_path, subpath),\n        zf=zipfile.ZipFile(StringIO(zf.read(subpath))))\n    except (zipfile.BadZipfile, KeyError):\n      return zf.read(path)\n\n  global __bootstrap__, __loader__, __file__\n  real_file = os.path.splitext(__file__)[0] + '%(extension)s'\n  content = nested_open(real_file)\n\n  try:\n    fd, name = tempfile.mkstemp()\n    with os.fdopen(fd, 'wb') as fp:\n      fp.write(content)\n\n    __file__ = name\n    __loader__ = None\n    del __bootstrap__, __loader__\n    imp.load_dynamic(__name__, __file__)\n  finally:\n    os.unlink(name)\n\n__bootstrap__()\n"
-if HAS_APP:
-    if (__name__ == '__main__'):
-        app.add_option('--site', dest='site_dir', metavar='DIR', default=None, help='Directory to search for the requirement.')
-    app.main()
+NAMESPACE_STUB = "\ntry:\n  __import__('pkg_resources').declare_namespace(__name__)\nexcept ImportError:\n  from sys import stderr\n  stderr.write('Unable to declare namespace for %s\\n' % __name__)\n  stderr.write('This package may not work!\\n')\n"
+NATIVE_STUB = "\ndef __bootstrap__():\n  import os, zipfile\n  import sys, imp, tempfile\n  try:\n    from cStringIO import StringIO\n  except ImportError:\n    try:\n      from StringIO import StringIO\n    except ImportError:\n      from io import BytesIO as StringIO\n\n  # open multiply-nested-zip\n  def nested_open(path, full_path=None, zf=None):\n    def split_existing(path):\n      def generate_prefixes(path):\n        if path in ('', os.path.sep): return\n        for head in generate_prefixes(os.path.split(path)[0]):\n          yield head\n        yield path\n      subpath = None\n      for prefix in generate_prefixes(path):\n        if not os.path.lexists(prefix):\n          break\n        subpath = prefix\n      return (subpath, os.path.relpath(path, subpath))\n\n    if zf is None:\n      existing, non_existing = split_existing(path)\n      return nested_open(non_existing, full_path=existing, zf=zipfile.ZipFile(existing))\n\n    subpath = path\n    while subpath and not any(name.startswith(subpath) for name in zf.namelist()):\n      subpath = os.path.split(subpath)[0]\n\n    if not subpath:\n      raise Exception('Could not find %%s in %%s' %% (path, full_path))\n\n    try:\n      relpath = os.path.relpath(path, subpath)\n      if relpath == '.':\n        return zf.read(subpath)\n      return nested_open(\n        relpath, full_path=os.path.join(full_path, subpath),\n        zf=zipfile.ZipFile(StringIO(zf.read(subpath))))\n    except (zipfile.BadZipfile, KeyError):\n      return zf.read(path)\n\n  global __bootstrap__, __loader__, __file__\n  real_file = os.path.splitext(__file__)[0] + '%(extension)s'\n  content = nested_open(real_file)\n\n  try:\n    fd, name = tempfile.mkstemp()\n    with os.fdopen(fd, 'wb') as fp:\n      fp.write(content)\n\n    __file__ = name\n    __loader__ = None\n    del __bootstrap__, __loader__\n    imp.load_dynamic(__name__, __file__)\n  finally:\n    os.unlink(name)\n\n__bootstrap__()\n"

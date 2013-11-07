@@ -3,7 +3,7 @@ def test_resolve_timeout():
 
 
     class FakeWeb(Web):
-        NS_TIMEOUT = Amount(1, Time.MILLISECONDS)
+        NS_TIMEOUT = 0.001
 
         def _resolves(self, fullurl):
             event.wait()

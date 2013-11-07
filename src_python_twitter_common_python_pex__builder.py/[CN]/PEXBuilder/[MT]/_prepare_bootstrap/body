@@ -1,19 +1,16 @@
 def _prepare_bootstrap(self):
     '\n      Write enough of distribute into the .pex .bootstrap directory so that\n      we can be fully self-contained.\n    '
-    bare_env = pkg_resources.Environment()
     distribute = dist_from_egg(self._interpreter.distribute)
     for (fn, content_stream) in DistributionHelper.walk_data(distribute):
-        if fn.startswith('pkg_resources.py'):
-            self._chroot.write(content_stream.read(), os.path.join(self.BOOTSTRAP_DIR, fn), 'resource')
-    libraries = ('twitter.common.collections', 'twitter.common.contextutil', 'twitter.common.dirutil', 'twitter.common.lang', 'twitter.common.python', 'twitter.common.python.http', 'twitter.common.quantity')
+        if (fn == 'pkg_resources.py'):
+            self._chroot.write(content_stream.read(), os.path.join(self.BOOTSTRAP_DIR, 'pkg_resources.py'), 'resource')
+    libraries = ('twitter.common.python', 'twitter.common.python.http')
     for name in libraries:
-        dirname = name.replace('.', '/')
-        provider = pkg_resources.get_provider(name)
-        if (not isinstance(provider, pkg_resources.DefaultProvider)):
+        dirname = name.replace('twitter.common.python', '_twitter_common_python').replace('.', '/')
+        provider = get_provider(name)
+        if (not isinstance(provider, DefaultProvider)):
             mod = __import__(name, fromlist=['wutttt'])
-            provider = pkg_resources.ZipProvider(mod)
+            provider = ZipProvider(mod)
         for fn in provider.resource_listdir(''):
             if fn.endswith('.py'):
                 self._chroot.write(provider.get_resource_string(name, fn), os.path.join(self.BOOTSTRAP_DIR, dirname, fn), 'resource')
-    for initdir in ('twitter', 'twitter/common'):
-        self._chroot.write("__import__('pkg_resources').declare_namespace(__name__)", os.path.join(self.BOOTSTRAP_DIR, initdir, '__init__.py'), 'resource')

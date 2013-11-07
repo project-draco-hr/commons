@@ -1,6 +1,5 @@
 def _find_distribute(self):
-    import pkg_resources
     for item in sys.path:
-        for dist in pkg_resources.find_distributions(item):
+        for dist in find_distributions(item):
             if (dist in self.COMPATIBLE_SETUPTOOLS):
                 return dist.location

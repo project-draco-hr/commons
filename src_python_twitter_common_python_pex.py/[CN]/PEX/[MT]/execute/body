@@ -23,7 +23,7 @@ def execute(self, args=()):
                 old_name = globals()['__name__']
                 try:
                     globals()['__name__'] = '__main__'
-                    Compatibility.exec_function(ast, globals())
+                    exec_function(ast, globals())
                 finally:
                     globals()['__name__'] = old_name
             else:

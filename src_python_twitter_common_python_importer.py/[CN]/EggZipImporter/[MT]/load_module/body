@@ -14,7 +14,7 @@ def load_module(self, fullmodname):
             if is_package:
                 mod.__path__ = [os.path.dirname(mod.__file__)]
                 self._log(('** __path__ = %s' % mod.__path__), at_level=4)
-            Compatibility.exec_function(code, mod.__dict__)
+            exec_function(code, mod.__dict__)
         except Exception as e:
             self._log(('Caught exception: %s' % e))
             if (fullmodname in sys.modules):

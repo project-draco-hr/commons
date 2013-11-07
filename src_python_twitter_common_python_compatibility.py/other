@@ -1,0 +1,38 @@
+from abc import ABCMeta
+from numbers import Integral, Real
+from sys import version_info as sys_version_info
+try:
+    from cStringIO import StringIO
+except ImportError:
+    try:
+        from StringIO import StringIO
+    except:
+        from io import StringIO
+        from io import BytesIO
+AbstractClass = ABCMeta('AbstractClass', (object,), {})
+PY2 = (sys_version_info[0] == 2)
+PY3 = (sys_version_info[0] == 3)
+StringIO = StringIO
+BytesIO = (BytesIO if PY3 else StringIO)
+integer = (Integral,)
+real = (Real,)
+numeric = (integer + real)
+string = ((str,) if PY3 else (str, unicode))
+bytes = (bytes,)
+if PY2:
+
+    def to_bytes(st):
+        return str(st)
+else:
+
+    def to_bytes(st):
+        return bytes(st, encoding='utf8')
+if PY3:
+
+    def exec_function(ast, globals_map):
+        locals_map = globals_map
+        exec ast in globals_map, locals_map
+        return locals_map
+else:
+    eval(compile('\ndef exec_function(ast, globals_map):\n  locals_map = globals_map\n  exec ast in globals_map, locals_map\n  return locals_map\n', '<exec_function>', 'exec'))
+__all__ = ('AbstractClass', 'BytesIO', 'PY2', 'PY3', 'StringIO', 'bytes', 'exec_functionstring', 'to_bytes')

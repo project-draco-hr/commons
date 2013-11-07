@@ -1,13 +1,14 @@
+from __future__ import absolute_import
 import contextlib
 import os
 import posixpath
 import tarfile
 import zipfile
-from twitter.common.dirutil import safe_mkdir, safe_mkdtemp
-from twitter.common.lang import Compatibility
-from twitter.common.python.base import maybe_requirement
-if Compatibility.PY3:
+from ..base import maybe_requirement
+from ..common import safe_mkdir, safe_mkdtemp
+from ..compatibility import PY3
+from pkg_resources import Distribution, EGG_NAME, parse_version, Requirement, safe_name
+if PY3:
     import urllib.parse as urlparse
 else:
     import urlparse
-from pkg_resources import Distribution, EGG_NAME, parse_version, Requirement, safe_name

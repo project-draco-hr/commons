@@ -5,7 +5,7 @@ def reachable(self, url, conn_timeout=None):
         return True
     try:
         with TRACER.timed('Resolving', V=2):
-            if (not deadline(self._resolves, fullurl, timeout=self.NS_TIMEOUT)):
+            if (not deadline(self._resolves, fullurl, timeout=self.NS_TIMEOUT_SECS)):
                 TRACER.log(('Failed to resolve %s' % url))
                 return False
     except Timeout:

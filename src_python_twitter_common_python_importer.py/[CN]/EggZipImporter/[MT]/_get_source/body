@@ -4,7 +4,7 @@ def _get_source(self, fullmodname):
     fullpath = ('%s%s%s' % (self.archive, os.sep, relpath))
     source = Nested.read(fullpath)
     assert (source is not None)
-    if Compatibility.PY3:
+    if PY3:
         source = source.decode('utf8')
     source = source.replace('\r\n', '\n').replace('\r', '\n')
     return (submodname, is_package, fullpath, source)

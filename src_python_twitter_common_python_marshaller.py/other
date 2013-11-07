@@ -6,4 +6,4 @@ except ImportError:
 import marshal
 import struct
 import time
-from twitter.common.lang import Compatibility
+from .compatibility import BytesIO, bytes as compatibility_bytes

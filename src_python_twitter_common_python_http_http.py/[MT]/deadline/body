@@ -1,8 +1,9 @@
 def deadline(fn, *args, **kw):
-    'Helper function to prevent fn(*args, **kw) from running more than\n     a specified timeout.\n\n     Takes timeout= kwarg, which defaults to Amount(150, Time.MILLISECONDS)\n  '
+    'Helper function to prevent fn(*args, **kw) from running more than\n     a specified timeout.\n\n     Takes timeout= kwarg in seconds, which defaults to 150ms (0.150)\n  '
+    DEFAULT_TIMEOUT_SECS = 0.15
     from threading import Thread
     q = Queue(maxsize=1)
-    timeout = kw.pop('timeout', Amount(150, Time.MILLISECONDS))
+    timeout = kw.pop('timeout', DEFAULT_TIMEOUT_SECS)
 
 
     class AnonymousThread(Thread):
@@ -11,6 +12,6 @@ def deadline(fn, *args, **kw):
             q.put(fn(*args, **kw))
     AnonymousThread().start()
     try:
-        return q.get(timeout=timeout.as_(Time.SECONDS))
+        return q.get(timeout=timeout)
     except Empty:
         raise Timeout

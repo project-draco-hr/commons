@@ -1,0 +1,4 @@
+def safe_mkdtemp(cleaner=_mkdtemp_atexit_cleaner, **kw):
+    '\n    Given the parameters to standard tempfile.mkdtemp, create a temporary directory\n    that is cleaned up on process exit.\n  '
+    with _MKDTEMP_LOCK:
+        return register_rmtree(tempfile.mkdtemp(**kw), cleaner=cleaner)

@@ -1,7 +1,5 @@
 @staticmethod
 def maybe_locally_cache(dist, cache_dir):
-    from pkg_resources import PathMetadata, Distribution
-    from twitter.common.dirutil import safe_rmtree, safe_open, safe_mkdir
     egg_name = os.path.join(cache_dir, (dist.egg_name() + '.egg'))
     safe_mkdir(cache_dir)
     if (not os.path.exists(egg_name)):

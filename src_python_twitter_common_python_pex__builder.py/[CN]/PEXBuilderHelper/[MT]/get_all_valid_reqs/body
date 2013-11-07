@@ -1,7 +1,6 @@
 @classmethod
 def get_all_valid_reqs(cls, requirements, requirements_txt):
     from collections import namedtuple
-    from pkg_resources import Requirement
     import re
     numbered_item = namedtuple('numbered_item', ['position', 'data'])
     numbered_list = (lambda dataset: [numbered_item(*ni) for ni in enumerate(dataset)])

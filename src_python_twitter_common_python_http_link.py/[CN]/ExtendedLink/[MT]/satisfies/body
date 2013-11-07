@@ -1,4 +1,7 @@
 def satisfies(self, requirement):
     'Does the signature of this filename match the requirement (pkg_resources.Requirement)?'
     requirement = maybe_requirement(requirement)
-    return (Distribution(project_name=self.name, version=self.raw_version, py_version=self.py_version, platform=self.platform) in requirement)
+    distribution = Distribution(project_name=self.name, version=self.raw_version, py_version=self.py_version, platform=self.platform)
+    if (distribution.key != requirement.key):
+        return False
+    return (self.raw_version in requirement)

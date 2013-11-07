@@ -1,13 +1,9 @@
 @classmethod
 def main(cls):
-    from itertools import chain
-    from twitter.common.python.distiller import Distiller
-    from twitter.common.python.fetcher import Fetcher, PyPIFetcher
-    from twitter.common.python.http import Crawler
-    from twitter.common.python.installer import Installer
-    from twitter.common.python.obtainer import Obtainer
-    from twitter.common.python.resolver import Resolver
-    from twitter.common.python.translator import Translator
+    from .distiller import Distiller
+    from .fetcher import Fetcher, PyPIFetcher
+    from .installer import Installer
+    from .resolver import Resolver
     parser = cls.configure_clp()
     (options, args) = parser.parse_args()
     cls.process_logging_options(options)

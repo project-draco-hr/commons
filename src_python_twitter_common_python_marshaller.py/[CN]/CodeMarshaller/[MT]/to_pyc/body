@@ -1,5 +1,5 @@
 def to_pyc(self):
-    sio = Compatibility.BytesIO()
+    sio = BytesIO()
     sio.write(struct.pack('I', CodeMarshaller.MAGIC))
     sio.write(struct.pack('I', self._stamp))
     sio.write(marshal.dumps(self._code))
