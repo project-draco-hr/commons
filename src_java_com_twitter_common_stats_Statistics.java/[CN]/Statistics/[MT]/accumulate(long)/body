@@ -1,5 +1,6 @@
 {
   populationSize++;
+  sum+=value;
   double delta=value - runningMean;
   runningMean+=delta / populationSize;
   accumulatedVariance+=delta * (value - runningMean);
