@@ -1,0 +1,4 @@
+def test_updates_internal_state_when_children_are_added(self):
+    mock_zk = _mock_zk()
+    group = ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    _happy_path(group, mock_zk, 2)

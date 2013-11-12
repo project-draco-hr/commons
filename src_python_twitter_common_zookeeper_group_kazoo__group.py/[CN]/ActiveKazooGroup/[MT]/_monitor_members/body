@@ -1,5 +1,4 @@
-def monitor(self, membership=frozenset(), callback=None):
-    capture = Capture(callback)
+def _monitor_members(self):
 
     def wait_exists():
         self._zk.exists_async(self._path, exists_watch).rawlink(exists_completion)
@@ -40,10 +39,6 @@ def monitor(self, membership=frozenset(), callback=None):
         if (event.type == EventType.DELETED):
             wait_exists()
             return
-        if (event.type != EventType.CHILD):
-            return
-        if set_different(capture, membership, self._members):
-            return
         do_monitor()
 
     def get_completion(result):
@@ -57,9 +52,20 @@ def monitor(self, membership=frozenset(), callback=None):
             return
         except ke.KazooException as e:
             log.warning(('Unexpected get_completion result: (%s)%s' % (type(e), e)))
-            capture.set(set([Membership.error()]))
             return
-        self._update_children(children)
-        set_different(capture, membership, self._members)
+        children = [child for child in children if self.znode_owned(child)]
+        (_, new) = self._update_children(children)
+        for child in new:
+
+            def devnull(*args, **kw):
+                pass
+            self.info(child, callback=devnull)
+        monitor_queue = self._monitor_queue[:]
+        self._monitor_queue = []
+        members = set((Membership(self.znode_to_id(child)) for child in children))
+        for (membership, capture) in monitor_queue:
+            if (set(membership) != members):
+                capture.set(members)
+            else:
+                self._monitor_queue.append((membership, capture))
     do_monitor()
-    return capture()

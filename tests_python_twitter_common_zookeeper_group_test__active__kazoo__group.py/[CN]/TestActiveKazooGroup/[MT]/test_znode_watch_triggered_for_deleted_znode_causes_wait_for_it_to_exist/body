@@ -1,0 +1,10 @@
+def test_znode_watch_triggered_for_deleted_znode_causes_wait_for_it_to_exist(self):
+    mock_zk = _mock_zk()
+    ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    assert (mock_zk.exists_async.call_count == 0)
+    (_, watch_callback) = mock_zk.get_children_async.call_args[0]
+    mock_watch_event = Mock()
+    mock_watch_event.state = KeeperState.CONNECTED
+    mock_watch_event.type = EventType.DELETED
+    watch_callback(mock_watch_event)
+    assert (mock_zk.exists_async.call_count == 1)

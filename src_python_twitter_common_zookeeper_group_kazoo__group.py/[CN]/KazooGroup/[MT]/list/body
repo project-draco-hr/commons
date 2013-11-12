@@ -8,5 +8,5 @@ def list(self):
             except ke.NoNodeException:
                 return []
         except self.DISCONNECT_EXCEPTIONS:
-            self.__once(KazooState.CONNECTED, wait_event.set)
+            self._once(KazooState.CONNECTED, wait_event.set)
             wait_event.wait()

@@ -1,0 +1,8 @@
+def test_sets_a_state_listener_if_disconnected(self):
+    mock_zk = _mock_zk(state=KeeperState.EXPIRED_SESSION)
+    group = ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    assert (len(group._KazooGroup__listener_queue) == 0)
+    _unhappy_path(mock_zk, SessionExpiredError)
+    assert (len(group._KazooGroup__listener_queue) == 1)
+    (state, _) = group._KazooGroup__listener_queue[0]
+    assert (state == KeeperState.CONNECTED)

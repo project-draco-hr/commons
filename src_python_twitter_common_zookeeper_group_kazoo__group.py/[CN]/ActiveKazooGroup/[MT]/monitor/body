@@ -1,0 +1,5 @@
+def monitor(self, membership=frozenset(), callback=None):
+    capture = Capture(callback)
+    if (not set_different(capture, membership, self._members)):
+        self._monitor_queue.append((membership, capture))
+    return capture()

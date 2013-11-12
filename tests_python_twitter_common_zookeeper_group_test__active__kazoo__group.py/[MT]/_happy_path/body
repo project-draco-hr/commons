@@ -1,0 +1,18 @@
+def _happy_path(group, mock_zk, num_members):
+    completion_callback = _extract_callback(mock_zk.get_children_async)
+    members = []
+    for member_id in range(834, (834 + num_members)):
+        znode_member_id = ActiveKazooGroup.id_to_znode(member_id)
+        mock_get_children_result = Mock(name='mock get children async result')
+        mock_get_children_result.get = Mock(return_value=[znode_member_id])
+        completion_callback(mock_get_children_result)
+        mock_zk.get_async.assert_called_with(((DEFAULT_PATH + '/') + znode_member_id))
+        info_callback = _extract_callback(mock_zk.get_async)
+        member_data = ('some data for member %s' % member_id)
+        mock_get_result = Mock(name='mock get async result')
+        mock_get_result.get = Mock(return_value=(member_data, Mock(name='znode stat')))
+        info_callback(mock_get_result)
+        member = Membership(member_id)
+        members.append(member)
+        assert (group._members[member].result() == member_data)
+    return (frozenset(members), completion_callback)

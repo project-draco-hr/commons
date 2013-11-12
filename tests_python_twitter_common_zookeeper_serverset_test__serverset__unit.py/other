@@ -1,0 +1,7 @@
+from twitter.common.zookeeper.serverset.endpoint import ServiceInstance
+from twitter.common.zookeeper.serverset.serverset import ServerSet
+from twitter.common.zookeeper.group.group_base import GroupInterface, Membership
+from twitter.common.zookeeper.group.kazoo_group import ActiveKazooGroup
+from kazoo.client import KazooClient
+import mock
+SERVICE_INSTANCE_JSON = '{\n    "additionalEndpoints": {\n        "aurora": {\n            "host": "smfd-aki-15-sr1.devel.twitter.com",\n            "port": 31510\n        },\n        "health": {\n            "host": "smfd-aki-15-sr1.devel.twitter.com",\n            "port": 31510\n        }\n    },\n    "serviceEndpoint": {\n        "host": "smfd-aki-15-sr1.devel.twitter.com",\n        "port": 31510\n    },\n    "shard": 0,\n    "status": "ALIVE"\n}'

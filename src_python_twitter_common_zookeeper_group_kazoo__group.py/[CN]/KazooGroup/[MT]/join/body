@@ -13,20 +13,20 @@ def join(self, blob, callback=None, expire_callback=None):
             expiry_capture.set()
 
     def expire_notifier():
-        self.__once(KazooState.LOST, expiry_capture.set)
+        self._once(KazooState.LOST, expiry_capture.set)
 
     def exists_completion(path, result):
         try:
             if (result.get() is None):
                 expiry_capture.set()
         except self.DISCONNECT_EXCEPTIONS:
-            self.__once(KazooState.CONNECTED, partial(do_exists, path))
+            self._once(KazooState.CONNECTED, partial(do_exists, path))
 
     def acreate_completion(result):
         try:
             path = self._zk.unchroot(result.get())
         except self.DISCONNECT_EXCEPTIONS:
-            self.__once(KazooState.CONNECTED, do_join)
+            self._once(KazooState.CONNECTED, do_join)
             return
         except ke.KazooException as e:
             log.warning(('Unexpected Kazoo result in join: (%s)%s' % (type(e), e)))
@@ -39,7 +39,7 @@ def join(self, blob, callback=None, expire_callback=None):
                 result_future.set_result(blob)
                 self._members[membership] = result_future
             if expire_callback:
-                self.__once(KazooState.CONNECTED, expire_notifier)
+                self._once(KazooState.CONNECTED, expire_notifier)
                 do_exists(path)
         membership_capture.set(membership)
     do_join()

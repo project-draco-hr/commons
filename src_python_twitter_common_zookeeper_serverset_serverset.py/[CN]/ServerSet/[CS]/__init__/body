@@ -3,7 +3,7 @@ def __init__(self, zk, path, underlying=None, on_join=None, on_leave=None, **kwa
     underlying = (underlying or first((pick_group(zk, on_join, on_leave) for pick_group in GROUP_SELECTORS)))
     if (underlying is None):
         raise ValueError("Couldn't find a suitable group implementation!")
-    assert issubclass(underlying, GroupInterface), ('Underlying group implementation must be a subclass of GroupInterface, got %s' % type(underlying))
+    validate_group_implementation(underlying)
     self._path = path
     self._group = underlying(zk, path, **kwargs)
 
