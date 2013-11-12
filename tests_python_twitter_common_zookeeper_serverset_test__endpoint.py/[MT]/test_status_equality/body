@@ -1,0 +1,2 @@
+def test_status_equality():
+    assert (Status.from_string('DEAD') == Status.from_string('DEAD'))

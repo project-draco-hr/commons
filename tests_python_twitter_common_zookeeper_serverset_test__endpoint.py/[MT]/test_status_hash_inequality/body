@@ -1,0 +1,2 @@
+def test_status_hash_inequality():
+    assert (Status.from_string('DEAD').__hash__() != Status.from_string('STARTING').__hash__())

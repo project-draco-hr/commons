@@ -1,0 +1,3 @@
+def test_service_instance_equality():
+    vals = (1, 2, 3, 4)
+    assert (_service_instance(vals) == _service_instance(vals))

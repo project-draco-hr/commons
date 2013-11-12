@@ -1,0 +1,2 @@
+def test_endpoint_equality():
+    assert (Endpoint('host', 8340) == Endpoint('host', 8340))
