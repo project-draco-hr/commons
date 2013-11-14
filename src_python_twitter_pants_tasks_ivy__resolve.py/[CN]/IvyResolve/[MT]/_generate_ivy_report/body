@@ -1,18 +1,18 @@
-def _generate_ivy_report(self):
+def _generate_ivy_report(self, targets):
 
     def make_empty_report(report, organisation, module, conf):
-        no_deps_xml_template = '\n        <?xml version="1.0" encoding="UTF-8"?>\n          <?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>\n          <ivy-report version="1.0">\n            <info\n              organisation="%(organisation)s"\n              module="%(module)s"\n              revision="latest.integration"\n              conf="%(conf)s"\n              confs="%(conf)s"\n              date="%(timestamp)s"/>\n          </ivy-report>\n      '
+        no_deps_xml_template = '\n        <?xml version="1.0" encoding="UTF-8"?>\n        <?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>\n        <ivy-report version="1.0">\n          <info\n            organisation="%(organisation)s"\n            module="%(module)s"\n            revision="latest.integration"\n            conf="%(conf)s"\n            confs="%(conf)s"\n            date="%(timestamp)s"/>\n        </ivy-report>\n      '
         no_deps_xml = (no_deps_xml_template % dict(organisation=organisation, module=module, conf=conf, timestamp=time.strftime('%Y%m%d%H%M%S')))
         with open(report, 'w') as report_handle:
             print(no_deps_xml, file=report_handle)
     classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(self._ivy_bootstrap_tools, self.runjava_indivisible)
     reports = []
-    (org, name) = self._ivy_utils.identify(self.context.target_roots)
+    (org, name) = self._ivy_utils.identify(targets)
     xsl = os.path.join(self._cachedir, 'ivy-report.xsl')
     safe_mkdir(self._outdir, clean=True)
     for conf in self._confs:
         params = dict(org=org, name=name, conf=conf)
-        xml = os.path.join(self._cachedir, ('%(org)s-%(name)s-%(conf)s.xml' % params))
+        xml = self._ivy_utils.xml_report_path(targets, conf)
         if (not os.path.exists(xml)):
             make_empty_report(xml, org, name, conf)
         out = os.path.join(self._outdir, ('%(org)s-%(name)s-%(conf)s.html' % params))
