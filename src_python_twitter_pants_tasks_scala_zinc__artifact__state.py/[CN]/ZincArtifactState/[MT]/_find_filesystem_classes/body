@@ -1,9 +1,0 @@
-@staticmethod
-def _find_filesystem_classes(artifact):
-    'Finds all the classfiles that are actually on the filesystem.\n\n    Does not follow symlinks.'
-    classes = []
-    classes_dir_prefix_len = (len(artifact.classes_dir) + 1)
-    for (dirpath, _, filenames) in os.walk(artifact.classes_dir, followlinks=False):
-        for f in filenames:
-            classes.append(os.path.join(dirpath, f)[classes_dir_prefix_len:])
-    return classes

@@ -1,6 +1,0 @@
-def _artifact_args(self, targets):
-    'Returns the artifact paths for the given target set.'
-    artifact_id = Target.maybe_readable_identify(targets)
-    classes_dir = os.path.join(self._classes_dirs_base, artifact_id)
-    analysis_file = (os.path.join(self._analysis_files_base, artifact_id) + '.analysis')
-    return (artifact_id, classes_dir, analysis_file)

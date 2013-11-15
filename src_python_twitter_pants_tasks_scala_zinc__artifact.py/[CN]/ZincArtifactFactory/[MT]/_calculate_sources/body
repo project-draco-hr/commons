@@ -1,9 +1,0 @@
-@staticmethod
-def _calculate_sources(target):
-    "Find a target's source files."
-    sources = []
-    srcs = [os.path.join(target.target_base, src) for src in target.sources if src.endswith('.scala')]
-    sources.extend(srcs)
-    if ((isinstance(target, ScalaLibrary) or isinstance(target, ScalaTests)) and target.java_sources):
-        sources.extend(resolve_target_sources(target.java_sources, '.java'))
-    return sources

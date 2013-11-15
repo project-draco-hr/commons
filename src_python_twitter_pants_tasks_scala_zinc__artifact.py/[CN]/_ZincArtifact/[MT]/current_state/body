@@ -1,3 +1,0 @@
-def current_state(self):
-    'Returns the current state of this artifact.'
-    return ZincArtifactState(self)

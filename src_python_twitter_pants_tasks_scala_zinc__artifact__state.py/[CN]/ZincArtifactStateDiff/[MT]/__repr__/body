@@ -1,2 +1,0 @@
-def __repr__(self):
-    return ('Analysis changed: %s. New or changed classes: %d. Deleted classes: %d.' % (self.analysis_changed, len(self.new_or_changed_classes), len(self.deleted_classes)))

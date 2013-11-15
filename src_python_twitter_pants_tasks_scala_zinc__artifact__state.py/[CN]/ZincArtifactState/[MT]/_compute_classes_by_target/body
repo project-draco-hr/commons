@@ -1,8 +1,0 @@
-@staticmethod
-def _compute_classes_by_target(classes_by_src, srcs_by_target):
-    'Compute target -> classes.'
-    classes_by_target = defaultdict(set)
-    for (target, srcs) in srcs_by_target.items():
-        for src in srcs:
-            classes_by_target[target].update(classes_by_src.get(src, []))
-    return classes_by_target

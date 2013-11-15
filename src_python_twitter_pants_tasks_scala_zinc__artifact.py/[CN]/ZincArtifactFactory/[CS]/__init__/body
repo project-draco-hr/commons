@@ -1,8 +1,0 @@
-def __init__(self, workdir, context, zinc_utils):
-    self._workdir = workdir
-    self.context = context
-    self.zinc_utils = zinc_utils
-    self._classes_dirs_base = os.path.join(self._workdir, 'classes')
-    self._analysis_files_base = os.path.join(self._workdir, 'analysis')
-    safe_mkdir(self._classes_dirs_base)
-    safe_mkdir(self._analysis_files_base)
