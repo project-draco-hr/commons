@@ -1,0 +1,3 @@
+def write_json(self, outfile):
+    obj = dict(zip(('relations', 'stamps', 'apis', 'compilations'), (self.relations, self.stamps, self.apis, self.compilations)))
+    json.dump(obj, outfile, cls=AnalysisJSONEncoder, sort_keys=True, indent=2)

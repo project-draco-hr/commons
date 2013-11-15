@@ -1,0 +1,10 @@
+@staticmethod
+def split_dict(d, splits):
+    ret = []
+    for split in splits:
+        dict_split = defaultdict(list)
+        for f in split:
+            if (f in d):
+                dict_split[f] = d[f]
+        ret.append(dict_split)
+    return ret

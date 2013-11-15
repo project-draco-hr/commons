@@ -1,0 +1,3 @@
+def __init__(self, args):
+    super(Relations, self).__init__(args)
+    (self.src_prod, self.binary_dep, self.internal_src_dep, self.external_dep, self.internal_src_dep_pi, self.external_dep_pi, self.classes) = self.args

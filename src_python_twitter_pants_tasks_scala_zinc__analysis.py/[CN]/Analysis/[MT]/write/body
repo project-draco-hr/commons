@@ -1,0 +1,8 @@
+def write(self, outfile):
+    outfile.write((self.version + '\n'))
+    self.relations.write(outfile)
+    self.stamps.write(outfile)
+    self.apis.write(outfile, inline_vals=False)
+    self.source_infos.write(outfile, inline_vals=False)
+    self.compilations.write(outfile, inline_vals=False)
+    self.compile_setup.write(outfile, inline_vals=False)

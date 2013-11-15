@@ -1,0 +1,4 @@
+@staticmethod
+def write_multiple_repeated(outfile, headers, reps, inline_vals=True):
+    for (header, rep) in zip(headers, reps):
+        Util.write_repeated(outfile, header, rep, inline_vals)

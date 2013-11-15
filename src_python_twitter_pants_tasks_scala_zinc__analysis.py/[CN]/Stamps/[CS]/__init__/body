@@ -1,0 +1,3 @@
+def __init__(self, args):
+    super(Stamps, self).__init__(args)
+    (self.products, self.sources, self.binaries, self.classnames) = self.args

@@ -1,0 +1,3 @@
+def __init__(self, args):
+    super(SourceInfos, self).__init__(args)
+    (self.source_infos,) = self.args

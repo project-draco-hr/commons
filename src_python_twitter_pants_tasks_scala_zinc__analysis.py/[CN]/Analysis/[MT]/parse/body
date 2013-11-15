@@ -1,0 +1,11 @@
+@staticmethod
+def parse(infile):
+    lines_iter = iter(infile.read().splitlines())
+    version = lines_iter.next()
+    relations = Relations.parse(lines_iter)
+    stamps = Stamps.parse(lines_iter)
+    apis = APIs.parse(lines_iter)
+    source_infos = SourceInfos.parse(lines_iter)
+    compilations = Compilations.parse(lines_iter)
+    compile_setup = CompileSetup.parse(lines_iter)
+    return Analysis(version, relations, stamps, apis, source_infos, compilations, compile_setup)

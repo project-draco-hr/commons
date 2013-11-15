@@ -1,0 +1,16 @@
+@staticmethod
+def write_repeated(outfile, header, rep, inline_vals=True):
+    outfile.write((header + ':\n'))
+    items = []
+    if isinstance(rep, dict):
+        for (k, vals) in rep.iteritems():
+            for v in vals:
+                items.append(('%s -> %s%s' % (k, ('' if inline_vals else '\n'), v)))
+    else:
+        for x in rep:
+            items.append(x)
+    items.sort()
+    outfile.write(('%d items\n' % len(items)))
+    for item in items:
+        outfile.write(item)
+        outfile.write('\n')

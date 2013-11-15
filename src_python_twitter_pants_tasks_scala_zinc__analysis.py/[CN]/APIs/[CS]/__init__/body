@@ -1,0 +1,3 @@
+def __init__(self, args):
+    super(APIs, self).__init__(args)
+    (self.internal, self.external) = self.args

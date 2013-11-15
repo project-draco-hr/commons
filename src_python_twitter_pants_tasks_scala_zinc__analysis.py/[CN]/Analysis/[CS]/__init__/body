@@ -1,0 +1,2 @@
+def __init__(self, version, relations, stamps, apis, source_infos, compilations, compile_setup):
+    (self.version, self.relations, self.stamps, self.apis, self.source_infos, self.compilations, self.compile_setup) = (version, relations, stamps, apis, source_infos, compilations, compile_setup)
