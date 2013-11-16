@@ -3,7 +3,6 @@ def exec_ivy(self, target_workdir, targets, args, runjava=None, workunit_name='i
     runjava = (runjava or binary_util.runjava_indivisible)
     ivyxml = os.path.join(target_workdir, 'ivy.xml')
     (jars, excludes) = self._calculate_classpath(targets)
-    self._generate_ivy(targets, jars, excludes, ivyxml)
     ivy_opts = ['-settings', self._ivy_settings, '-cache', self._cachedir, '-ivy', ivyxml]
     ivy_opts.extend(args)
     if (not self._transitive):
@@ -11,6 +10,8 @@ def exec_ivy(self, target_workdir, targets, args, runjava=None, workunit_name='i
     ivy_opts.extend(self._opts)
     ivy_opts.extend(self._ivy_args)
     runjava_args = dict(main='org.apache.ivy.Main', opts=ivy_opts, workunit_name=workunit_name, classpath=ivy_classpath, workunit_factory=workunit_factory)
-    result = runjava(**runjava_args)
+    with IvyUtils.ivy_lock:
+        self._generate_ivy(targets, jars, excludes, ivyxml)
+        result = runjava(**runjava_args)
     if (result != 0):
         raise TaskError(('org.apache.ivy.Main returned %d' % result))

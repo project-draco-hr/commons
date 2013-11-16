@@ -6,6 +6,7 @@ import os
 import xml
 import pkgutil
 import re
+import threading
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_open
 from twitter.pants import binary_util, get_buildroot, is_internal, is_jar, is_jvm, is_concrete

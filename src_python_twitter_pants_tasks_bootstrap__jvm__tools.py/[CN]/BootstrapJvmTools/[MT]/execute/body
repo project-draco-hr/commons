@@ -4,4 +4,4 @@ def execute(self, targets):
         deplist_map = context.products.get('jvm_build_tools').get('jvm_build_tools')
         callback_map = context.products.get('jvm_build_tools_classpath_callbacks')
         for (key, deplist) in deplist_map.items():
-            callback_map.add('jvm_build_tools_classpath_callbacks', key, [partial(self.bootstrap_classpath, tools=deplist)])
+            callback_map.add('jvm_build_tools_classpath_callbacks', key, [self.cached_bootstrap_classpath_callback(deplist)])
