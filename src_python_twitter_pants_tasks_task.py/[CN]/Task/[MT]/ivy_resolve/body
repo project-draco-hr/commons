@@ -1,4 +1,4 @@
-def ivy_resolve(self, targets, java_runner=None, ivy_args=None):
+def ivy_resolve(self, targets, java_runner=None, ivy_args=None, symlink_ivyxml=False):
     from twitter.pants.tasks.ivy_utils import IvyUtils
     from twitter.pants.binary_util import runjava_indivisible
     java_runner = (java_runner or runjava_indivisible)
@@ -15,7 +15,7 @@ def ivy_resolve(self, targets, java_runner=None, ivy_args=None):
         if (invalidation_check.invalid_vts or (not os.path.exists(target_classpath_file))):
             ivy_utils = IvyUtils(config=self.context.config, options=self.context.options, log=self.context.log)
             args = (((['-cachepath', target_classpath_file] + ['-confs']) + confs) + ivy_args)
-            ivy_utils.exec_ivy(target_workdir=target_workdir, targets=targets, args=args, runjava=java_runner, workunit_factory=self.context.new_workunit)
+            ivy_utils.exec_ivy(target_workdir=target_workdir, targets=targets, args=args, runjava=java_runner, workunit_factory=self.context.new_workunit, symlink_ivyxml=symlink_ivyxml)
             if (not os.path.exists(target_classpath_file)):
                 raise TaskError(('Ivy failed to create classpath file at %s %s' % target_classpath_file))
             if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):

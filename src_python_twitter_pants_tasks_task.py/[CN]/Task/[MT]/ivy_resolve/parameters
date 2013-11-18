@@ -2,3 +2,4 @@ self
 targets
 java_runner
 ivy_args
+symlink_ivyxml

@@ -6,3 +6,4 @@ runjava
 workunit_name
 workunit_factory
 ivy_classpath
+symlink_ivyxml
