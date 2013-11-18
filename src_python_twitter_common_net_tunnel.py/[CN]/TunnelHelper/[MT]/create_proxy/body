@@ -1,5 +1,5 @@
 @classmethod
-def create_proxy(cls, proxy_host=None, proxy_port=None, timeout=DEFAULT_TIMEOUT):
+def create_proxy(cls, proxy_host, proxy_port=None, timeout=DEFAULT_TIMEOUT):
     '\n      Create or retrieve a memoized SOCKS proxy using the specified proxy host:port\n    '
     if (proxy_host in cls.PROXIES):
         return ('localhost', cls.PROXIES[proxy_host][0])

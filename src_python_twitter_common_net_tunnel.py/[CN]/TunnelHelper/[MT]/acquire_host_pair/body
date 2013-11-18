@@ -1,7 +1,4 @@
 @classmethod
-def acquire_host_pair(cls, host=None, port=None):
-    if HAS_APP:
-        host = (host or app.get_options().tunnel_host)
-    assert (host is not None), 'Must specify tunnel host!'
+def acquire_host_pair(cls, host, port=None):
     port = (port or cls.get_random_port())
     return (host, port)
