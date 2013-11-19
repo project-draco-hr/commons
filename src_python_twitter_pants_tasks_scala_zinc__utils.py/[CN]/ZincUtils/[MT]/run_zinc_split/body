@@ -1,4 +1,0 @@
-def run_zinc_split(self, src_analysis_file, splits):
-    zinc_split_args = ['-split', ','.join([('{%s}:%s' % (':'.join([os.path.abspath(p) for p in x[0]]), x[1])) for x in splits])]
-    self.log_zinc_file(src_analysis_file)
-    return self.run_zinc_analysis(src_analysis_file, zinc_split_args, workunit_name='split')

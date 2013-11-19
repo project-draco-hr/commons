@@ -2,3 +2,4 @@ from collections import defaultdict
 import json
 import re
 import itertools
+from twitter.pants import TaskError

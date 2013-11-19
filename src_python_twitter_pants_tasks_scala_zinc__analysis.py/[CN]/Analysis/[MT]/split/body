@@ -1,8 +1,9 @@
-def split(self, splits):
-    "Split the analysis according to splits, which is a list of K iterables of source files.\n\n    Returns a list of K+1 Analysis objects: One for each of the K splits, in order, and one\n    'catch-all' containing the analysis for any remainder sources not mentioned in the K splits.\n    "
+def split(self, splits, catchall=False):
+    'Split the analysis according to splits, which is a list of K iterables of source files.\n\n    If catchall is False, returns a list of K Analysis objects, one for each of the splits, in order.\n    If catchall is True, returns K+1 Analysis objects, the last one containing the analysis for any\n    remainder sources not mentioned in the K splits.\n    '
     splits = [set(x) for x in splits]
-    all_sources = set(itertools.chain(*[self.stamps.sources.iterkeys()])).difference(*splits)
-    splits.append(all_sources)
+    if catchall:
+        all_sources = set(itertools.chain(*[self.stamps.sources.iterkeys()])).difference(*splits)
+        splits.append(all_sources)
     src_prod_splits = Util.split_dict(self.relations.src_prod, splits)
     binary_dep_splits = Util.split_dict(self.relations.binary_dep, splits)
     classes_splits = Util.split_dict(self.relations.classes, splits)

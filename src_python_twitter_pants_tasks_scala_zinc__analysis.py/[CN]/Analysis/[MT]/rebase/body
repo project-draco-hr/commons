@@ -1,0 +1,8 @@
+@staticmethod
+def rebase(input_analysis_path, output_analysis_path, rebasings):
+    with open(input_analysis_path, 'r') as infile:
+        txt = infile.read()
+    for (rebase_from, rebase_to) in rebasings:
+        txt = txt.replace(rebase_from, rebase_to)
+    with open(output_analysis_path, 'w') as outfile:
+        outfile.write(txt)

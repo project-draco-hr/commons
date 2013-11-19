@@ -1,5 +1,0 @@
-def run_zinc_merge(self, src_analysis_files, dst_analysis_file):
-    zinc_merge_args = ['-merge', ':'.join(src_analysis_files)]
-    for analysis_file in src_analysis_files:
-        self.log_zinc_file(analysis_file)
-    return self.run_zinc_analysis(dst_analysis_file, zinc_merge_args, workunit_name='merge')
