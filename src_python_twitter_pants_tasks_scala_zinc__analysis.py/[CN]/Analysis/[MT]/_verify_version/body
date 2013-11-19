@@ -1,0 +1,5 @@
+@staticmethod
+def _verify_version(lines_iter):
+    version_line = lines_iter.next()
+    if (version_line != 'format version: 1\n'):
+        raise TaskError(('Unrecognized version line: ' + version_line))

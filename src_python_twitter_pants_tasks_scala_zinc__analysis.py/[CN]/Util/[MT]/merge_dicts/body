@@ -1,5 +1,6 @@
 @staticmethod
 def merge_dicts(dicts):
+    "Merges multiple dicts into one.\n\n    Assumes keys don't overlap.\n    "
     ret = defaultdict(list)
     for (k, v) in itertools.chain(*[d.iteritems() for d in dicts]):
         ret[k] = v

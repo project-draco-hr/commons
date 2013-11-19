@@ -1,0 +1,13 @@
+def __init__(self, context, workdir):
+    NailgunTask.__init__(self, context, workdir=workdir)
+
+    def get_lang_specific_option(opt):
+        full_opt_name = ((self.language() + '_') + opt)
+        return getattr(context.options, full_opt_name, None)
+    check_missing_deps = get_lang_specific_option('check_missing_deps')
+    warn_missing_direct_deps = get_lang_specific_option('warn_missing_direct_deps')
+    warn_unnecessary_deps = get_lang_specific_option('warn_unnecessary_deps')
+    if (check_missing_deps or warn_missing_direct_deps or warn_unnecessary_deps):
+        self._dep_analyzer = JvmDependencyAnalyzer(self.context, check_missing_deps, warn_missing_direct_deps, warn_unnecessary_deps)
+    else:
+        self._dep_analyzer = None

@@ -1,5 +1,6 @@
 @staticmethod
 def merge_from_paths(analysis_paths, merged_analysis_path):
+    'Merge multiple analysis files into one.'
     analyses = [Analysis.parse_from_path(path) for path in analysis_paths]
     merged_analysis = Analysis.merge(analyses)
     merged_analysis.write_to_path(merged_analysis_path)

@@ -1,6 +1,0 @@
-@staticmethod
-def init_product_requirements(task):
-    ' Set the compilation product requirements that are needed for dependency analysis.\n\n    Parameters:\n      task: the task whose products should be set.\n    '
-    task._computed_jar_products = False
-    task.context.products.require('classes')
-    task.context.products.require('ivy_jar_products')

@@ -1,5 +1,6 @@
 @staticmethod
 def split_dict(d, splits):
+    'Split a dict by its keys.\n\n    splits: A list of lists of keys.\n    Returns one dict per split.\n    '
     ret = []
     for split in splits:
         dict_split = defaultdict(list)

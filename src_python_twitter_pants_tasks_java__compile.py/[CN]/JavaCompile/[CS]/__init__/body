@@ -1,5 +1,5 @@
 def __init__(self, context):
-    NailgunTask.__init__(self, context, workdir=context.config.get('java-compile', 'nailgun_dir'))
+    JvmCompile.__init__(self, context, workdir=context.config.get('java-compile', 'nailgun_dir'))
     if (context.options.java_compile_partition_size_hint != (-1)):
         self._partition_size_hint = context.options.java_compile_partition_size_hint
     else:

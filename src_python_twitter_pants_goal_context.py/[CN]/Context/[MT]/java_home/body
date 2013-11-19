@@ -1,0 +1,5 @@
+@property
+def java_home(self):
+    if (self._java_home is None):
+        self._java_home = os.path.realpath(os.path.dirname(find_java_home()))
+    return self._java_home

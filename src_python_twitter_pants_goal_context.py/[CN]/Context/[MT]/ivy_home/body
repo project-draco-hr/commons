@@ -1,0 +1,3 @@
+@property
+def ivy_home(self):
+    return os.path.realpath(self.config.get('ivy', 'cache_dir'))

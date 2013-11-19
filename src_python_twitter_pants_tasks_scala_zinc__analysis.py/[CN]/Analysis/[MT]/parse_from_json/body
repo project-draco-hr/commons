@@ -1,0 +1,11 @@
+@staticmethod
+def parse_from_json(infile):
+    'Parse an Analysis instance from an open JSON file.'
+    obj = json.load(infile)
+    relations = Relations.from_json_obj(obj['relations'])
+    stamps = Stamps.from_json_obj(obj['stamps'])
+    apis = APIs.from_json_obj(obj['apis'])
+    source_infos = SourceInfos.from_json_obj(obj['source infos'])
+    compilations = Compilations.from_json_obj(obj['compilations'])
+    compile_setup = Compilations.from_json_obj(obj['compile setup'])
+    return Analysis(relations, stamps, apis, source_infos, compilations, compile_setup)

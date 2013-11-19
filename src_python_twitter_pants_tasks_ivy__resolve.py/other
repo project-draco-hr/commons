@@ -1,13 +1,9 @@
 from __future__ import print_function
-import hashlib
 import os
-import pkgutil
 import shutil
 import time
-from contextlib import contextmanager
-from twitter.common.collections import OrderedSet
-from twitter.common.dirutil import safe_mkdir, safe_open
-from twitter.pants import binary_util, is_internal, is_jar, is_concrete
+from twitter.common.dirutil import safe_mkdir
+from twitter.pants import binary_util
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.cache_manager import VersionedTargetSet
 from twitter.pants.tasks.ivy_utils import IvyUtils

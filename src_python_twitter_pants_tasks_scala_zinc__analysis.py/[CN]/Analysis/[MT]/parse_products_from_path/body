@@ -1,0 +1,4 @@
+@staticmethod
+def parse_products_from_path(infile_path):
+    with open(infile_path, 'r') as infile:
+        return Analysis.parse_products(infile)

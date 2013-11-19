@@ -8,6 +8,7 @@ from twitter.pants.base.target import Target
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.reporting.reporting_utils import items_to_report_element
 from twitter.pants.tasks import TaskError
+from twitter.pants.tasks.jvm_compile import JvmCompile
 from twitter.pants.tasks.jvm_compiler_dependencies import Dependencies
 from twitter.pants.tasks.nailgun_task import NailgunTask
 _PROCESSOR_INFO_FILE = 'META-INF/services/javax.annotation.processing.Processor'

@@ -1,5 +1,6 @@
 import itertools
 import os
+import re
 import shutil
 import uuid
 from twitter.common import contextutil
@@ -12,9 +13,7 @@ from twitter.pants.targets import resolve_target_sources
 from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.targets.scala_tests import ScalaTests
 from twitter.pants.tasks import TaskError, Task
-from twitter.pants.tasks.jvm_dependency_cache import JvmDependencyCache
-from twitter.pants.tasks.nailgun_task import NailgunTask
+from twitter.pants.tasks.jvm_compile import JvmCompile
 from twitter.pants.reporting.reporting_utils import items_to_report_element
 from twitter.pants.tasks.scala.zinc_analysis import Analysis
-from twitter.pants.tasks.scala.zinc_analysis_collection import ZincAnalysisCollection
 from twitter.pants.tasks.scala.zinc_utils import ZincUtils

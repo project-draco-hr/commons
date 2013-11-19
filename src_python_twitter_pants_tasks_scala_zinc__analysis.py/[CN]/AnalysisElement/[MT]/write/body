@@ -1,2 +1,2 @@
 def write(self, outfile, inline_vals=True):
-    Util.write_multiple_repeated(outfile, self.headers, self.args, inline_vals)
+    Util.write_multiple_sections(outfile, self.headers, self.args, inline_vals)

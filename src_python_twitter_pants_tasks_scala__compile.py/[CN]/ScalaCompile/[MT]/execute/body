@@ -46,15 +46,21 @@ def execute(self, targets):
                 (vts, sources, analysis_file) = partition
                 self._process_target_partition(partition, cp)
                 if os.path.exists(analysis_file):
-                    if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
-                        self._write_to_artifact_cache(analysis_file, vts, invalid_sources_by_target)
+                    new_valid_analysis = (analysis_file + '.valid.new')
                     if ZincUtils.is_nonempty_analysis(self._analysis_file):
                         with self.context.new_workunit(name='update-upstream-analysis'):
-                            new_valid_analysis = (analysis_file + '.valid.new')
                             Analysis.merge_from_paths([self._analysis_file, analysis_file], new_valid_analysis)
-                        shutil.move(new_valid_analysis, self._analysis_file)
                     else:
-                        shutil.copy(analysis_file, self._analysis_file)
+                        shutil.copy(analysis_file, new_valid_analysis)
+                    actual_deps = Analysis.parse_deps_from_path(new_valid_analysis)
+                    actual_deps_filtered = {}
+                    scalalib_re = re.compile('scala-library-\\d+\\.\\d+\\.\\d+\\.jar$')
+                    for (src, deps) in actual_deps.iteritems():
+                        actual_deps_filtered[src] = filter((lambda x: (scalalib_re.search(x) is None)), deps)
+                    self.check_for_missing_dependencies(sources, actual_deps_filtered)
+                    shutil.move(new_valid_analysis, self._analysis_file)
+                    if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
+                        self._write_to_artifact_cache(analysis_file, vts, invalid_sources_by_target)
                 if ZincUtils.is_nonempty_analysis(self._invalid_analysis_file):
                     with self.context.new_workunit(name='trim-downstream-analysis'):
                         new_invalid_analysis = (analysis_file + '.invalid.new')
@@ -62,9 +68,6 @@ def execute(self, targets):
                         Analysis.split_to_paths(self._invalid_analysis_file, [(sources, discarded_invalid_analysis)], new_invalid_analysis)
                         shutil.move(new_invalid_analysis, self._invalid_analysis_file)
                 vts.update()
-            if (invalidation_check.invalid_vts and os.path.exists(self._analysis_file)):
-                deps_cache = JvmDependencyCache(self.context, scala_targets, self._analysis_file, self._classes_dir)
-                deps_cache.check_undeclared_dependencies()
     if self.context.products.isrequired('classes'):
         sources_by_target = self._compute_sources_by_target(scala_targets)
         classes_by_source = self._compute_classes_by_source()

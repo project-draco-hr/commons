@@ -1,0 +1,5 @@
+@staticmethod
+def write_multiple_sections(outfile, headers, reps, inline_vals=True):
+    'Write multiple sections.'
+    for (header, rep) in zip(headers, reps):
+        Util.write_section(outfile, header, rep, inline_vals)

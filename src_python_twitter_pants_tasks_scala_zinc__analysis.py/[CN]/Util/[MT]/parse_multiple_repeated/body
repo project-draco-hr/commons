@@ -1,3 +1,0 @@
-@staticmethod
-def parse_multiple_repeated(lines_iter, expected_headers):
-    return [Util.parse_repeated(lines_iter, header) for header in expected_headers]

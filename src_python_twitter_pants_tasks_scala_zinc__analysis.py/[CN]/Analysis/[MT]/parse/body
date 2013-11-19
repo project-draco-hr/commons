@@ -1,9 +1,8 @@
 @staticmethod
 def parse(infile):
-    lines_iter = iter(infile.read().splitlines())
-    version_line = lines_iter.next()
-    if (version_line != 'format version: 1'):
-        raise Exception(('Unrecognized format line: ' + version_line))
+    'Parse an Analysis instance from an open text file.'
+    lines_iter = infile
+    Analysis._verify_version(lines_iter)
     relations = Relations.parse(lines_iter)
     stamps = Stamps.parse(lines_iter)
     apis = APIs.parse(lines_iter)

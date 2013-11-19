@@ -1,0 +1,5 @@
+@staticmethod
+def parse_products(infile):
+    'An efficient parser of just the products section.'
+    Analysis._verify_version(infile)
+    return Analysis._find_repeated_at_header(infile, 'products')

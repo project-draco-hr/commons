@@ -1,0 +1,8 @@
+@staticmethod
+def parse_num_items(lines_iter):
+    "Parse a line of the form '<num> items' and returns <num> as an int."
+    line = lines_iter.next()
+    matchobj = Util.num_items_re.match(line)
+    if (not matchobj):
+        raise ParseError(('Expected: "<num> items". Found: "%s"' % line))
+    return int(matchobj.group(1))

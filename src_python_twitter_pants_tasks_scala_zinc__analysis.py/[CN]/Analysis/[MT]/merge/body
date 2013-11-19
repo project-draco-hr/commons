@@ -1,5 +1,6 @@
 @staticmethod
 def merge(analyses):
+    'Merge multiple Analysis instances into one.'
     src_prod = Util.merge_dicts([a.relations.src_prod for a in analyses])
     binary_dep = Util.merge_dicts([a.relations.binary_dep for a in analyses])
     classes = Util.merge_dicts([a.relations.classes for a in analyses])
