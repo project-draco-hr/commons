@@ -1,5 +1,6 @@
 import itertools
 import os
+import shutil
 import uuid
 from twitter.common import contextutil
 from twitter.common.dirutil import safe_mkdir, safe_rmtree

@@ -29,8 +29,8 @@ def execute(self, targets):
                         Analysis.merge_from_paths([self._invalid_analysis_file, newly_invalid_analysis_tmp], invalid_analysis_tmp)
                     else:
                         invalid_analysis_tmp = newly_invalid_analysis_tmp
-                    ZincUtils._move_analysis(valid_analysis_tmp, self._analysis_file)
-                    ZincUtils._move_analysis(invalid_analysis_tmp, self._invalid_analysis_file)
+                    shutil.move(valid_analysis_tmp, self._analysis_file)
+                    shutil.move(invalid_analysis_tmp, self._invalid_analysis_file)
             partitions = []
             for vts in invalidation_check.invalid_vts_partitioned:
                 partition_tmpdir = os.path.join(tmpdir, Target.maybe_readable_identify(vts.targets))
@@ -52,15 +52,15 @@ def execute(self, targets):
                         with self.context.new_workunit(name='update-upstream-analysis'):
                             new_valid_analysis = (analysis_file + '.valid.new')
                             Analysis.merge_from_paths([self._analysis_file, analysis_file], new_valid_analysis)
-                        ZincUtils._move_analysis(new_valid_analysis, self._analysis_file)
+                        shutil.move(new_valid_analysis, self._analysis_file)
                     else:
-                        ZincUtils._copy_analysis(analysis_file, self._analysis_file)
+                        shutil.copy(analysis_file, self._analysis_file)
                 if ZincUtils.is_nonempty_analysis(self._invalid_analysis_file):
                     with self.context.new_workunit(name='trim-downstream-analysis'):
                         new_invalid_analysis = (analysis_file + '.invalid.new')
                         discarded_invalid_analysis = (analysis_file + '.invalid.discard')
                         Analysis.split_to_paths(self._invalid_analysis_file, [(sources, discarded_invalid_analysis)], new_invalid_analysis)
-                        ZincUtils._move_analysis(new_invalid_analysis, self._invalid_analysis_file)
+                        shutil.move(new_invalid_analysis, self._invalid_analysis_file)
                 vts.update()
             if (invalidation_check.invalid_vts and os.path.exists(self._analysis_file)):
                 deps_cache = JvmDependencyCache(self.context, scala_targets, self._analysis_file, self._classes_dir)

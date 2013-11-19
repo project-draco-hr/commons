@@ -2,7 +2,6 @@ import os
 import shutil
 import textwrap
 from contextlib import closing
-from functools import wraps
 from itertools import chain
 from xml.etree import ElementTree
 from twitter.common.collections import OrderedDict

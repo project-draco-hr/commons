@@ -1,3 +1,0 @@
-@staticmethod
-def _move_analysis(src, dst):
-    ZincUtils.copy_or_move_analysis(shutil.move, src, dst)
