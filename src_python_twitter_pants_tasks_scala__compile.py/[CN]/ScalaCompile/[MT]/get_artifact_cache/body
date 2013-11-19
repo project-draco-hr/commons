@@ -1,9 +1,0 @@
-def get_artifact_cache(self):
-    if (self._artifact_cache is None):
-        local_cache = self.create_artifact_cache(self._local_artifact_cache_spec)
-        remote_cache = self.create_artifact_cache(self._remote_artifact_cache_spec)
-        if remote_cache:
-            remote_cache = TransformingArtifactCache(remote_cache)
-        caches = filter(None, [local_cache, remote_cache])
-        self._artifact_cache = (CombinedArtifactCache(caches) if caches else None)
-    return self._artifact_cache

@@ -1,2 +1,0 @@
-from twitter.common.dirutil import safe_delete
-from twitter.pants.cache.artifact_cache import ArtifactCache
