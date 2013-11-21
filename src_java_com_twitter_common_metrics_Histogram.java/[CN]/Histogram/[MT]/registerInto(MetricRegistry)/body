@@ -8,7 +8,7 @@
 );
   registry.register(new AbstractGauge<Long>("sum"){
     @Override public Long read(){
-      return sum;
+      return stats.sum();
     }
   }
 );
