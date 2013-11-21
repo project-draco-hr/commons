@@ -1,0 +1,17 @@
+{
+  Preconditions.checkNotNull(window);
+  Preconditions.checkArgument(window.as(Time.MILLISECONDS) > (slices + 1));
+  Preconditions.checkArgument(window.as(Time.MILLISECONDS) > (slices + 1));
+  Preconditions.checkArgument(0 < slices);
+  Preconditions.checkNotNull(sliceProvider);
+  Preconditions.checkNotNull(clock);
+  this.clazz=clazz;
+  this.sliceDuration=window.as(Time.MILLISECONDS) / slices;
+  @SuppressWarnings("unchecked") T[] bufs=(T[])Array.newInstance(clazz,slices + 1);
+  for (int i=0; i < bufs.length; i++) {
+    bufs[i]=sliceProvider.get();
+  }
+  this.buffers=bufs;
+  this.clearer=clearer;
+  this.clock=clock;
+}

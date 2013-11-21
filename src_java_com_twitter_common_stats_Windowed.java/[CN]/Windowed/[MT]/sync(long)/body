@@ -1,0 +1,10 @@
+{
+  if (index < currentIndex) {
+    long from=Math.max(index + 1,currentIndex - buffers.length + 1);
+    for (long i=from; i <= currentIndex; i++) {
+      int idx=(int)(i % buffers.length);
+      buffers[idx]=clearer.apply(buffers[idx]);
+    }
+    index=currentIndex;
+  }
+}

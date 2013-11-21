@@ -1,6 +1,6 @@
 {
   FakeClock clock=new FakeClock();
-  Histogram hist=new Histogram(name,new WindowedApproxHistogram(WindowedApproxHistogram.DEFAULT_WINDOW,WindowedApproxHistogram.DEFAULT_SLICES,WindowedApproxHistogram.DEFAULT_MAX_MEMORY,clock),Histogram.DEFAULT_QUANTILES,metrics);
+  Histogram hist=new Histogram(name,new WindowedApproxHistogram(clock),Histogram.DEFAULT_QUANTILES,metrics);
   int[] data=new int[200];
   for (int i=0; i < data.length; ++i) {
     data[i]=-100 + i;

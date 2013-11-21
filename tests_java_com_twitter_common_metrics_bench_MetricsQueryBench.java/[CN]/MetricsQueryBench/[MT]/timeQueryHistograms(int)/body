@@ -1,7 +1,8 @@
 {
   long[] res;
-  while (n != 0) {
-    res=smallHist.getQuantiles(quantiles);
-    n--;
+  int i=n;
+  while (i != 0) {
+    res=smallHist.getQuantiles(QUANTILES);
+    i--;
   }
 }

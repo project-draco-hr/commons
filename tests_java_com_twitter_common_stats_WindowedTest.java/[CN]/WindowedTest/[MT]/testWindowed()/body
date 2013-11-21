@@ -1,0 +1,32 @@
+{
+  Amount<Long,Time> window=Amount.of(1L,Time.MINUTES);
+  int slices=3;
+  Amount<Long,Time> delta=Amount.of(Amount.of(1L,Time.MINUTES).as(Time.NANOSECONDS) / 3,Time.NANOSECONDS);
+  FakeClock clock=new FakeClock();
+  WindowedBox win=new WindowedBox(window,slices,clock);
+  clock.advance(Amount.of(1L,Time.NANOSECONDS));
+  win.increment();
+  Assert.assertEquals(0,win.sum());
+  clock.advance(delta);
+  win.increment();
+  win.increment();
+  Assert.assertEquals(1,win.sum());
+  clock.advance(delta);
+  win.increment();
+  win.increment();
+  win.increment();
+  Assert.assertEquals(3,win.sum());
+  clock.advance(delta);
+  win.increment();
+  win.increment();
+  win.increment();
+  win.increment();
+  Assert.assertEquals(6,win.sum());
+  clock.advance(delta);
+  win.increment();
+  win.increment();
+  win.increment();
+  win.increment();
+  win.increment();
+  Assert.assertEquals(9,win.sum());
+}

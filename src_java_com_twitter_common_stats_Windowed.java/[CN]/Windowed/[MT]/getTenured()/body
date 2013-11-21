@@ -1,0 +1,10 @@
+{
+  long currentIndex=getCurrentIndex();
+  sync(currentIndex);
+  @SuppressWarnings("unchecked") T[] tmp=(T[])Array.newInstance(clazz,buffers.length - 1);
+  for (int i=0; i < tmp.length; i++) {
+    int idx=(int)((currentIndex + 1 + i) % buffers.length);
+    tmp[i]=buffers[idx];
+  }
+  return tmp;
+}

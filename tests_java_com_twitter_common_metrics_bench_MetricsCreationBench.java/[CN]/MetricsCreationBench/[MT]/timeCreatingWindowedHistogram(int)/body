@@ -1,8 +1,9 @@
 {
   WindowedApproxHistogram h;
-  while (n != 0) {
+  int i=n;
+  while (i != 0) {
     h=new WindowedApproxHistogram();
     h.add(1);
-    n--;
+    i--;
   }
 }

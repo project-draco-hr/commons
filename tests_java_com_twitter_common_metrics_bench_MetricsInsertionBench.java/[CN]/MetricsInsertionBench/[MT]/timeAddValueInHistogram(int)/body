@@ -1,6 +1,7 @@
 {
-  while (n != 0) {
+  int i=n;
+  while (i != 0) {
     h.add(1);
-    n--;
+    i--;
   }
 }

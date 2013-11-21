@@ -1,0 +1,6 @@
+Class<T> clazz
+Amount<Long,Time> window
+int slices
+Supplier<T> sliceProvider
+Function<T,T> clearer
+Clock clock
