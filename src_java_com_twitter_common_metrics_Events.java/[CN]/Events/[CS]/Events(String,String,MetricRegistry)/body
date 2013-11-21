@@ -1,4 +1,4 @@
 {
-  totalEvents=registry.registerLong(eventMetricName);
-  totalValue=registry.registerLong(valueMetricName);
+  totalEvents=registry.createCounter(eventMetricName);
+  totalValue=registry.createCounter(valueMetricName);
 }

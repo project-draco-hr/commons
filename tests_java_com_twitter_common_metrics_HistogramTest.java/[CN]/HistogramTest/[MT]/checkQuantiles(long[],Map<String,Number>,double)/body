@@ -3,6 +3,6 @@
   for (int i=0; i < Histogram.DEFAULT_QUANTILES.length; i++) {
     double q=Histogram.DEFAULT_QUANTILES[i];
     String gName=Histogram.gaugeName(q);
-    assertEquals((double)expectedQuantiles[i],sample.get(name + ScopedMetrics.SCOPE_DELIMITER + gName).doubleValue(),e);
+    assertEquals((double)expectedQuantiles[i],sample.get(name + ScopedRegistry.SCOPE_DELIMITER + gName).doubleValue(),e);
   }
 }

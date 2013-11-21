@@ -1,7 +1,7 @@
 {
-  AtomicLong foo=metrics.registerLong("foo");
-  foo.getAndSet(10);
-  AtomicLong foo2=metrics.registerLong("foo");
-  foo2.getAndSet(100);
+  Counter foo=metrics.createCounter("foo");
+  foo.add(10);
+  Counter foo2=metrics.createCounter("foo");
+  foo2.add(100);
   checkSamples(ImmutableMap.<String,Number>of("foo",100L));
 }

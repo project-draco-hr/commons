@@ -11,11 +11,11 @@
   }
   clock.advance(Amount.of(31L,Time.SECONDS));
   Map<String,Number> sample=metrics.sample();
-  assertEquals(1L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "min"));
-  assertEquals((long)n,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "max"));
-  assertEquals((long)n,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "count"));
-  assertEquals((long)(n * (n + 1) / 2),sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "sum"));
-  assertEquals((long)n / 2,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "avg"));
+  assertEquals(1L,sample.get(name + ScopedRegistry.SCOPE_DELIMITER + "min"));
+  assertEquals((long)n,sample.get(name + ScopedRegistry.SCOPE_DELIMITER + "max"));
+  assertEquals((long)n,sample.get(name + ScopedRegistry.SCOPE_DELIMITER + "count"));
+  assertEquals((long)(n * (n + 1) / 2),sample.get(name + ScopedRegistry.SCOPE_DELIMITER + "sum"));
+  assertEquals((long)n / 2,sample.get(name + ScopedRegistry.SCOPE_DELIMITER + "avg"));
   long[] expected=new long[Histogram.DEFAULT_QUANTILES.length];
   for (int i=0; i < Histogram.DEFAULT_QUANTILES.length; i++) {
     expected[i]=(long)(Histogram.DEFAULT_QUANTILES[i] * n);

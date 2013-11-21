@@ -1,0 +1,13 @@
+{
+  final Counter counter=metrics.createCounter("counter16");
+  contend(16,new Runnable(){
+    @Override public void run(){
+      int i=n;
+      while (i != 0) {
+        counter.increment();
+        i--;
+      }
+    }
+  }
+);
+}

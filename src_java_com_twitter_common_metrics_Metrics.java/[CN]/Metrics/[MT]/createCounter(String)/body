@@ -1,0 +1,18 @@
+{
+  final LongAdder adder=new LongAdder();
+  register(new AbstractGauge<Long>(name){
+    @Override public Long read(){
+      return adder.sum();
+    }
+  }
+);
+  return new Counter(){
+    public void increment(){
+      adder.increment();
+    }
+    public void add(    long n){
+      adder.add(n);
+    }
+  }
+;
+}

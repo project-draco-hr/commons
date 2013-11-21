@@ -2,11 +2,11 @@
   String name="foo";
   long value=10L;
   Metrics detached=Metrics.createDetached();
-  AtomicLong foo=detached.registerLong(name);
-  foo.getAndSet(value);
+  Counter foo=detached.createCounter(name);
+  foo.add(value);
   Number readValue=detached.sample().get(name);
   assertEquals(readValue,value);
-  foo.incrementAndGet();
+  foo.increment();
   Number readValue2=detached.sample().get(name);
   assertEquals(readValue2,value + 1);
   assertNull(Metrics.root().sample().get(name));

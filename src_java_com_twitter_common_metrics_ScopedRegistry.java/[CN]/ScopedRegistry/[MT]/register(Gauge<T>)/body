@@ -1,6 +1,6 @@
 {
   final String scopedName=scopeName(gauge.getName());
-  parentScope.register(new AbstractGauge<T>(scopedName){
+  parent.register(new AbstractGauge<T>(scopedName){
     @Override public T read(){
       return gauge.read();
     }

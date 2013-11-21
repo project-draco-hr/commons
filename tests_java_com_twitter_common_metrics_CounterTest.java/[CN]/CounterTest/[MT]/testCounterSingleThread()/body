@@ -1,0 +1,9 @@
+{
+  String name="counter1Thread";
+  Counter counter=metrics.createCounter(name);
+  for (int i=0; i < INCREMENTS; i++) {
+    counter.increment();
+  }
+  Number value=metrics.sample().get(name);
+  assertEquals("Single thread increment immediately seen",value.longValue(),INCREMENTS);
+}
