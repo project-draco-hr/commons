@@ -4,8 +4,6 @@ def __init__(self, run_tracker, parent, name, labels=(), cmd=''):
     self.run_tracker = run_tracker
     self.parent = parent
     self.children = []
-    if self.parent:
-        self.parent.children.append(self)
     self.name = name
     self.labels = set(labels)
     self.cmd = cmd
@@ -13,3 +11,5 @@ def __init__(self, run_tracker, parent, name, labels=(), cmd=''):
     self.start_time = 0
     self.end_time = 0
     self._outputs = {}
+    if self.parent:
+        self.parent.children.append(self)
