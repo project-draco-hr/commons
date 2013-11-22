@@ -1,6 +1,6 @@
 @staticmethod
 def split_to_paths(analysis_path, split_path_pairs, catchall_path=None):
-    'Split an analysis file.\n\n    split_path_pairs: A list of pairs (split, output_path) where split is a list of source files\n    whose analysis is to be split out into output_path.\n\n    If catchall_path is specified, the analysis for any sources not mentioned in the splits is\n    split out to that path.\n    '
+    'Split an analysis file.\n\n    split_path_pairs: A list of pairs (split, output_path) where split is a list of source files\n    whose analysis is to be split out into output_path. The source files may either be\n    absolute paths, or relative to the build root.\n\n    If catchall_path is specified, the analysis for any sources not mentioned in the splits is\n    split out to that path.\n    '
     analysis = Analysis.parse_from_path(analysis_path)
     splits = [x[0] for x in split_path_pairs]
     split_analyses = analysis.split(splits, (catchall_path is not None))
