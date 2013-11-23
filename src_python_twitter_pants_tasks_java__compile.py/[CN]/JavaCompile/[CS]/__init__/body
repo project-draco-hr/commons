@@ -11,9 +11,12 @@ def __init__(self, context):
     self._depfile = os.path.join(self._depfile_dir, 'global_depfile')
     safe_mkdir(self._classes_dir)
     safe_mkdir(self._depfile_dir)
-    self._external_tools = context.config.getlist('java-compile', 'external-tools', default=[':jmake'])
-    self._compiler_bootstrap_tools = context.config.getlist('java-compile', 'compiler-bootstrap-tools', default=[':java-compiler'])
-    self._bootstrap_utils.register_all([self._external_tools, self._compiler_bootstrap_tools])
+    self._jmake_bootstrap_key = 'jmake'
+    external_tools = context.config.getlist('java-compile', 'jmake-bootstrap-tools', default=[':jmake'])
+    self._bootstrap_utils.register_jvm_build_tools(self._jmake_bootstrap_key, external_tools)
+    self._compiler_bootstrap_key = 'java-compiler'
+    compiler_bootstrap_tools = context.config.getlist('java-compile', 'compiler-bootstrap-tools', default=[':java-compiler'])
+    self._bootstrap_utils.register_jvm_build_tools(self._compiler_bootstrap_key, compiler_bootstrap_tools)
     self._opts = context.config.getlist('java-compile', 'args')
     self._jvm_args = context.config.getlist('java-compile', 'jvm_args')
     self._javac_opts = []

@@ -1,3 +1,0 @@
-def register_all(self, toolsets):
-    for toolset in toolsets:
-        self.register_jvm_build_tools(toolset)

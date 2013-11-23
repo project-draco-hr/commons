@@ -1,3 +1,0 @@
-def _antlr_bootstrap_tools(self, target):
-    key = self._CONFIG_SECTION_BY_COMPILER[target.compiler]
-    return self.context.config.getlist(key, 'javadeps')

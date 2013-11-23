@@ -1,12 +1,13 @@
 def start_workunit(self, workunit):
     'Implementation of Reporter callback.'
+    is_bootstrap = workunit.has_label(WorkUnit.BOOTSTRAP)
     is_tool = workunit.has_label(WorkUnit.TOOL)
     is_multitool = workunit.has_label(WorkUnit.MULTITOOL)
     is_test = workunit.has_label(WorkUnit.TEST)
     workunit_dict = workunit.to_dict()
     if workunit_dict['cmd']:
         workunit_dict['cmd'] = linkify(self._buildroot, workunit_dict['cmd'].replace('$', '\\\\$'))
-    args = {'indent': (len(workunit.ancestors()) * 10), 'html_path_base': self._html_path_base, 'workunit': workunit_dict, 'header_text': workunit.name, 'initially_open': (is_test or (not (is_tool or is_multitool))), 'is_tool': is_tool, 'is_multitool': is_multitool, }
+    args = {'indent': (len(workunit.ancestors()) * 10), 'html_path_base': self._html_path_base, 'workunit': workunit_dict, 'header_text': workunit.name, 'initially_open': (is_test or (not (is_bootstrap or is_tool or is_multitool))), 'is_tool': is_tool, 'is_multitool': is_multitool, }
     args.update({'collapsible': (lambda x: self._renderer.render_callable('collapsible', x, args)), })
     s = self._renderer.render_name('workunit_start', args)
     if is_tool:

@@ -4,10 +4,18 @@ def __init__(self, context, nailgun_task, color, bootstrap_utils):
     self._color = color
     self._bootstrap_utils = bootstrap_utils
     self._pants_home = get_buildroot()
-    self._compile_bootstrap_tools = context.config.getlist('scala-compile', 'compile-bootstrap-tools', default=[':scala-compile-2.9.2'])
-    self._zinc_bootstrap_tools = context.config.getlist('scala-compile', 'zinc-bootstrap-tools', default=[':zinc'])
-    self._plugin_bootstrap_tools = context.config.getlist('scala-compile', 'scalac-plugin-bootstrap-tools', default=[])
-    bootstrap_utils.register_all([self._compile_bootstrap_tools, self._zinc_bootstrap_tools, self._plugin_bootstrap_tools])
+    self._compile_bootstrap_key = 'scalac'
+    compile_bootstrap_tools = context.config.getlist('scala-compile', 'compile-bootstrap-tools', default=[':scala-compile-2.9.2'])
+    self._bootstrap_utils.register_jvm_build_tools(self._compile_bootstrap_key, compile_bootstrap_tools)
+    self._zinc_bootstrap_key = 'zinc'
+    zinc_bootstrap_tools = context.config.getlist('scala-compile', 'zinc-bootstrap-tools', default=[':zinc'])
+    self._bootstrap_utils.register_jvm_build_tools(self._zinc_bootstrap_key, zinc_bootstrap_tools)
+    plugins_bootstrap_tools = context.config.getlist('scala-compile', 'scalac-plugin-bootstrap-tools', default=[])
+    if plugins_bootstrap_tools:
+        self._plugins_bootstrap_key = 'plugins'
+        self._bootstrap_utils.register_jvm_build_tools(self._plugins_bootstrap_key, plugins_bootstrap_tools)
+    else:
+        self._plugins_bootstrap_key = None
     self._main = context.config.get('scala-compile', 'main')
     self._jvm_args = context.config.getlist('scala-compile', 'jvm_args')
     self._java_home = context.java_home

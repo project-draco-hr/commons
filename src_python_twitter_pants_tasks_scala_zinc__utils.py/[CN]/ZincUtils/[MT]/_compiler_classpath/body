@@ -1,3 +1,3 @@
 @property
 def _compiler_classpath(self):
-    return self._bootstrap_utils.get_jvm_build_tools_classpath(self._compile_bootstrap_tools)
+    return self._bootstrap_utils.get_jvm_build_tools_classpath(self._compile_bootstrap_key)
