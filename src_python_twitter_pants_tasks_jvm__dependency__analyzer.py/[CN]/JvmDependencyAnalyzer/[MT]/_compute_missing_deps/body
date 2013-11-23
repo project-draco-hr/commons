@@ -17,10 +17,11 @@ def _compute_missing_deps(self, srcs, actual_deps):
                 actual_dep_tgt = target_by_file.get(actual_dep)
                 if (actual_dep_tgt is None):
                     missing_file_deps.append((src, actual_dep))
-                elif (actual_dep_tgt not in transitive_deps_by_target.get(src_tgt, [])):
-                    missing_tgt_deps_map[(src_tgt, actual_dep_tgt)].append((src, actual_dep))
-                elif (actual_dep_tgt not in src_tgt.dependencies):
-                    missing_direct_tgt_deps_map[(src_tgt, actual_dep_tgt)].append((src, actual_dep))
+                elif (actual_dep_tgt != src_tgt):
+                    if (actual_dep_tgt not in transitive_deps_by_target.get(src_tgt, [])):
+                        missing_tgt_deps_map[(src_tgt, actual_dep_tgt)].append((src, actual_dep))
+                    elif (actual_dep_tgt not in src_tgt.dependencies):
+                        missing_direct_tgt_deps_map[(src_tgt, actual_dep_tgt)].append((src, actual_dep))
         else:
             raise TaskError(('Requested dep info for unknown source file: %s' % src))
     return (missing_file_deps, missing_tgt_deps_map.items(), missing_direct_tgt_deps_map.items())

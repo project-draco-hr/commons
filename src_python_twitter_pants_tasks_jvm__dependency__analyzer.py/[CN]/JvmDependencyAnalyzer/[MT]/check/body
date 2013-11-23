@@ -11,7 +11,7 @@ def check(self, srcs, actual_deps):
         if (self._check_missing_deps and (missing_file_deps or missing_tgt_deps)):
             for (tgt_pair, evidence) in missing_tgt_deps:
                 evidence_str = '\n'.join([('    %s requires %s' % (shorten(e[0]), shorten(e[1]))) for e in evidence])
-                self._context.log.error(('Missing BUILD dependency %s -> %s because:\n%s' % (tgt_pair[0].address, tgt_pair[1].address, evidence_str)))
+                self._context.log.error(('Missing BUILD dependency %s -> %s because:\n%s' % (tgt_pair[0].address.reference(), tgt_pair[1].address.reference(), evidence_str)))
             for (src, dep) in missing_file_deps:
                 self._context.log.error(('Missing BUILD dependency %s -> %s' % (shorten(src), shorten(dep))))
             raise TaskError('Missing deps.')
