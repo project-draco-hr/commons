@@ -1,10 +1,10 @@
-def submit_async_work(self, work, workunit_parent=None, callback=None):
-    "Submit work to be executed in the background.\n\n    - work: The work to execute.\n    - workunit_parent: If specified, work is accounted for under this workunit.\n    - callback: If specified, a callable taking a single argument, which will be a list\n                of return values of each invocation, in order. Called only if all work succeeded.\n\n    Don't do work in callback: not only will it block the result handling thread, but\n    that thread is not a worker and doesn't have a logging context etc. Use callback just to\n    submit further work to the pool.\n    "
+def submit_async_work(self, work, workunit_parent=None, on_success=None, on_failure=None):
+    "Submit work to be executed in the background.\n\n    - work: The work to execute.\n    - workunit_parent: If specified, work is accounted for under this workunit.\n    - on_success: If specified, a callable taking a single argument, which will be a list\n                  of return values of each invocation, in order. Called only if all work succeeded.\n    - on_failure: If specified, a callable taking a single argument, which is an exception\n                  thrown in the work.\n\n    Don't do work in on_success: not only will it block the result handling thread, but\n    that thread is not a worker and doesn't have a logging context etc. Use it just to\n    submit further work to the pool.\n    "
     if ((work is None) or (len(work.args_tuples) == 0)):
-        if callback:
-            callback([])
+        if on_success:
+            on_success([])
     else:
 
         def do_work(*args):
-            self._do_work(work.func, workunit_name=work.workunit_name, workunit_parent=workunit_parent, *args)
-        self._pool.map_async(do_work, work.args_tuples, chunksize=1, callback=callback)
+            self._do_work(work.func, workunit_name=work.workunit_name, workunit_parent=workunit_parent, on_failure=on_failure, *args)
+        self._pool.map_async(do_work, work.args_tuples, chunksize=1, callback=on_success)

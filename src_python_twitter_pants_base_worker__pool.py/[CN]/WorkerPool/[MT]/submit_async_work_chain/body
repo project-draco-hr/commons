@@ -1,26 +1,20 @@
-def submit_async_work_chain(self, work_chain, workunit_parent=None):
-    'Submit work to be executed in the background.\n\n    - work_chain: An iterable of Work instances. Will be invoked serially. Each instance may\n                  have a different cardinality. There is no output-input chaining: the argument\n                  tuples must already be present in each work instance.  If any work throws an\n                  exception no subsequent work in the chain will be attempted.\n    - workunit_parent: If specified, work is accounted for under this workunit.\n    '
+def submit_async_work_chain(self, work_chain, workunit_parent, done_hook=None):
+    'Submit work to be executed in the background.\n\n    - work_chain: An iterable of Work instances. Will be invoked serially. Each instance may\n                  have a different cardinality. There is no output-input chaining: the argument\n                  tuples must already be present in each work instance.  If any work throws an\n                  exception no subsequent work in the chain will be attempted.\n    - workunit_parent: Work is accounted for under this workunit.\n    - done_hook: If not None, invoked with no args after all work is done, or on error.\n    '
 
     def done():
+        done_hook()
         with self._pending_workchains_cond:
             self._pending_workchains -= 1
             self._pending_workchains_cond.notify()
 
-    def wrap(work):
-
-        def wrapper(*args):
-            try:
-                work.func(*args)
-            except Exception as e:
-                done()
-                self._run_tracker.log(Report.ERROR, ('%s' % e))
-                raise
-        return Work(wrapper, work.args_tuples, work.workunit_name)
+    def error(e):
+        done()
+        self._run_tracker.log(Report.ERROR, ('%s' % e))
     work_iter = iter(filter(None, work_chain))
 
     def submit_next():
         try:
-            self.submit_async_work(wrap(work_iter.next()), workunit_parent=workunit_parent, callback=(lambda x: submit_next()))
+            self.submit_async_work(work_iter.next(), workunit_parent=workunit_parent, on_success=(lambda x: submit_next()), on_failure=error)
         except StopIteration:
             done()
     with self._pending_workchains_cond:

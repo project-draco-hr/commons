@@ -1,4 +1,5 @@
 self
 work
 workunit_parent
-callback
+on_success
+on_failure
