@@ -2,13 +2,15 @@ import os
 import sys
 from contextlib import contextmanager
 import itertools
-from twitter.pants import is_internal, is_jar, is_concrete
 from twitter.common.collections.orderedset import OrderedSet
 from twitter.pants.base.worker_pool import Work
 from twitter.pants.cache import create_artifact_cache
 from twitter.pants.base.hash_utils import hash_file
 from twitter.pants.base.build_invalidator import CacheKeyGenerator
+from twitter.pants.binary_util import runjava_indivisible
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.reporting.reporting_utils import items_to_report_element
-from twitter.pants.tasks.cache_manager import CacheManager, InvalidationCheck, VersionedTargetSet
 from twitter.pants.tasks.bootstrap_utils import BootstrapUtils
+from twitter.pants.tasks.cache_manager import CacheManager, InvalidationCheck, VersionedTargetSet
+from twitter.pants.tasks.ivy_utils import IvyUtils
+from twitter.pants.tasks.task_error import TaskError
