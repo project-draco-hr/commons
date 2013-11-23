@@ -52,13 +52,13 @@ def execute(self, targets):
                             Analysis.merge_from_paths([self._analysis_file, analysis_file], new_valid_analysis)
                     else:
                         shutil.copy(analysis_file, new_valid_analysis)
-                    actual_deps = Analysis.parse_deps_from_path(new_valid_analysis)
+                    shutil.move(new_valid_analysis, self._analysis_file)
+                    actual_deps = Analysis.parse_deps_from_path(self._analysis_file)
                     actual_deps_filtered = {}
                     scalalib_re = re.compile('scala-library-\\d+\\.\\d+\\.\\d+\\.jar$')
                     for (src, deps) in actual_deps.iteritems():
                         actual_deps_filtered[src] = filter((lambda x: (scalalib_re.search(x) is None)), deps)
                     self.check_for_missing_dependencies(sources, actual_deps_filtered)
-                    shutil.move(new_valid_analysis, self._analysis_file)
                     if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
                         self._write_to_artifact_cache(analysis_file, vts, invalid_sources_by_target)
                 if ZincUtils.is_nonempty_analysis(self._invalid_analysis_file):
