@@ -17,5 +17,5 @@ def _write_to_artifact_cache(self, analysis_file, vts, sources_by_target):
             vts_artifactfiles_pairs.append((vt, (artifacts + [ScalaCompile._portable_analysis_for_target(self._analysis_tmpdir, target)])))
     update_artifact_cache_work = self.get_update_artifact_cache_work(vts_artifactfiles_pairs)
     if update_artifact_cache_work:
-        work_chain = [Work(Analysis.split, splits_args_tuples, 'split'), Work(self._zinc_utils.relativize_analysis_file, relativize_args_tuples, 'relativize'), update_artifact_cache_work]
+        work_chain = [Work(Analysis.split_to_paths, splits_args_tuples, 'split'), Work(self._zinc_utils.relativize_analysis_file, relativize_args_tuples, 'relativize'), update_artifact_cache_work]
         self.context.submit_background_work_chain(work_chain, parent_workunit_name='cache')
