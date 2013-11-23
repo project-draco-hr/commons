@@ -9,5 +9,6 @@ from twitter.pants import get_buildroot
 from twitter.pants.base.mustache import MustacheRenderer
 from twitter.pants.goal.workunit import WorkUnit
 from twitter.pants.reporting.linkify import linkify
+from twitter.pants.reporting.report import Report
 from twitter.pants.reporting.reporter import Reporter
 from twitter.pants.reporting.reporting_utils import items_to_report_element
