@@ -3,7 +3,7 @@ def split(self, splits, catchall=False):
     buildroot = get_buildroot()
     splits = [set([(s if os.path.isabs(s) else os.path.join(buildroot, s)) for s in x]) for x in splits]
     if catchall:
-        all_sources = set(itertools.chain(*[self.stamps.sources.iterkeys()])).difference(*splits)
+        all_sources = set(self.stamps.sources.keys()).difference(*splits)
         splits.append(all_sources)
     src_prod_splits = Util.split_dict(self.relations.src_prod, splits)
     binary_dep_splits = Util.split_dict(self.relations.binary_dep, splits)
