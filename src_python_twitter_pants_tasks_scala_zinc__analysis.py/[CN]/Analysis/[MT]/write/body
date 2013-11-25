@@ -1,5 +1,5 @@
 def write(self, outfile):
-    outfile.write('format version: 1\n')
+    outfile.write(Analysis.FORMAT_VERSION_LINE)
     self.relations.write(outfile)
     self.stamps.write(outfile)
     self.apis.write(outfile, inline_vals=False)

@@ -1,0 +1,12 @@
+def _compute_transitive_deps_by_target(self):
+    sorted_targets = reversed(InternalTarget.sort_targets(self._context.targets()))
+    transitive_deps_by_target = defaultdict(set)
+    for target in sorted_targets:
+        transitive_deps = set()
+        if hasattr(target, 'dependencies'):
+            for dep in target.dependencies:
+                transitive_deps.update(transitive_deps_by_target.get(dep, []))
+                transitive_deps.add(dep)
+            transitive_deps_by_target[target] = transitive_deps
+    self._transitive_deps_by_target = transitive_deps_by_target
+    return transitive_deps_by_target

@@ -1,2 +1,2 @@
 def language(self):
-    return self.__class__._language
+    return self._language
