@@ -1,0 +1,5 @@
+def assert_files(self, lang, rel_path, contents, *expected_files):
+    with temporary_file() as fp:
+        fp.write(contents)
+        fp.close()
+        self.assertEqual(set(expected_files), calculate_genfiles(fp.name, rel_path)[lang])

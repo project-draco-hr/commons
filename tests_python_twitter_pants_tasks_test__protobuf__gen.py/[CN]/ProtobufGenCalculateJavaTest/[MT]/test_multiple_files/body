@@ -1,0 +1,3 @@
+def test_multiple_files(self):
+    self.assert_java_files('jack_spratt.proto', '\n          package com.twitter.lean;\n          option java_multiple_files = false;\n        ', 'com/twitter/lean/JackSpratt.java')
+    self.assert_java_files('jack_spratt.proto', '\n          package com.twitter.lean;\n          option java_multiple_files = true;\n\n          enum Jake { FOO=1; }\n          message joe_bob {\n          }\n        ', 'com/twitter/lean/JackSpratt.java', 'com/twitter/lean/Jake.java', 'com/twitter/lean/joe_bob.java', 'com/twitter/lean/joe_bobOrBuilder.java')

@@ -16,21 +16,24 @@ def calculate_genfiles(path, source):
                     name = match.group(1)
                     value = match.group(2)
 
-                    def string():
+                    def string_value():
                         return value.lstrip('"').rstrip('"')
 
-                    def bool():
+                    def bool_value():
                         return (value == 'true')
                     if ('java_package' == name):
-                        package = string()
+                        package = string_value()
                     elif ('java_outer_classname' == name):
-                        outer_class_name = string()
+                        outer_class_name = string_value()
                     elif ('java_multiple_files' == name):
-                        multiple_files = bool()
+                        multiple_files = bool_value()
                 else:
                     match = TYPE_PARSER.match(line)
                     if match:
-                        types.add(match.group(1))
+                        type_ = match.group(2)
+                        types.add(type_)
+                        if (match.group(1) == 'message'):
+                            types.add(('%sOrBuilder' % type_))
         genfiles = defaultdict(set)
         genfiles['py'].update(calculate_python_genfiles(source))
         genfiles['java'].update(calculate_java_genfiles(package, outer_class_name, (types if multiple_files else [])))
