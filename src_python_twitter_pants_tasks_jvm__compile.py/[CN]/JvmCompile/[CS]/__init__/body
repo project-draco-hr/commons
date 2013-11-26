@@ -4,10 +4,13 @@ def __init__(self, context, workdir):
     def get_lang_specific_option(opt):
         full_opt_name = ((self.language() + '_') + opt)
         return getattr(context.options, full_opt_name, None)
-    check_missing_deps = get_lang_specific_option('check_missing_deps')
-    warn_missing_direct_deps = get_lang_specific_option('warn_missing_direct_deps')
-    warn_unnecessary_deps = get_lang_specific_option('warn_unnecessary_deps')
-    if (check_missing_deps or warn_missing_direct_deps or warn_unnecessary_deps):
-        self._dep_analyzer = JvmDependencyAnalyzer(self.context, check_missing_deps, warn_missing_direct_deps, warn_unnecessary_deps)
+
+    def munge_flag(flag):
+        return (None if (flag == 'off') else flag)
+    check_missing_deps = munge_flag(get_lang_specific_option('missing_deps'))
+    check_missing_direct_deps = munge_flag(get_lang_specific_option('missing_direct_deps'))
+    check_unnecessary_deps = munge_flag(get_lang_specific_option('unnecessary_deps'))
+    if (check_missing_deps or check_missing_direct_deps or check_unnecessary_deps):
+        self._dep_analyzer = JvmDependencyAnalyzer(self.context, check_missing_deps, check_missing_direct_deps, check_unnecessary_deps)
     else:
         self._dep_analyzer = None

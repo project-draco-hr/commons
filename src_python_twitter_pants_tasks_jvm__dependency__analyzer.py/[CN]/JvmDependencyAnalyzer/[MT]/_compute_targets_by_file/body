@@ -1,0 +1,36 @@
+def _compute_targets_by_file(self):
+    targets_by_file = defaultdict(OrderedSet)
+    jarlibs_by_id = defaultdict(set)
+    buildroot = get_buildroot()
+    for target in self._context.targets():
+        if isinstance(target, JvmTarget):
+            for src in target.sources:
+                targets_by_file[os.path.join(buildroot, target.target_base, src)].add(target)
+        elif isinstance(target, JarLibrary):
+            for jardep in target.dependencies:
+                if isinstance(jardep, JarDependency):
+                    jarlibs_by_id[(jardep.org, jardep.name)].add(target)
+    genmap = self._context.products.get('classes')
+    for (tgt, products) in genmap.itermappings():
+        if isinstance(tgt, JvmTarget):
+            for (basedir, classes) in products.items():
+                for cls in classes:
+                    targets_by_file[os.path.join(basedir, cls)].add(tgt)
+    ivy_products = self._context.products.get_data('ivy_jar_products')
+    if ivy_products:
+        for ivyinfo in ivy_products.values():
+            for ref in ivyinfo.modules_by_ref:
+                target_key = (ref.org, ref.name)
+                if (target_key in jarlibs_by_id):
+                    jarlib_targets = jarlibs_by_id[target_key]
+                    for jar in ivyinfo.modules_by_ref[ref].artifacts:
+                        for jarlib_target in jarlib_targets:
+                            targets_by_file[jar.path].add(jarlib_target)
+                    for dep in ivyinfo.deps_by_caller.get(ref, []):
+                        depmodule = ivyinfo.modules_by_ref.get(dep, None)
+                        if depmodule:
+                            for depjar in depmodule.artifacts:
+                                for jarlib_target in jarlib_targets:
+                                    targets_by_file[depjar.path].add(jarlib_target)
+        self._targets_by_file = targets_by_file
+    return targets_by_file

@@ -1,5 +1,5 @@
 self
 context
 check_missing_deps
-warn_missing_direct_deps
-warn_unnecessary_deps
+check_missing_direct_deps
+check_unnecessary_deps

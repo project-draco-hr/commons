@@ -1,9 +1,9 @@
-def __init__(self, context, check_missing_deps, warn_missing_direct_deps, warn_unnecessary_deps):
+def __init__(self, context, check_missing_deps, check_missing_direct_deps, check_unnecessary_deps):
     self._context = context
     self._context.products.require('classes')
     self._context.products.require('ivy_jar_products')
     self._check_missing_deps = check_missing_deps
-    self._warn_missing_direct_deps = warn_missing_direct_deps
-    self._warn_unnecessary_deps = warn_unnecessary_deps
-    self._target_by_file = None
+    self._check_missing_direct_deps = check_missing_direct_deps
+    self._check_unnecessary_deps = check_unnecessary_deps
+    self._targets_by_file = None
     self._transitive_deps_by_target = None

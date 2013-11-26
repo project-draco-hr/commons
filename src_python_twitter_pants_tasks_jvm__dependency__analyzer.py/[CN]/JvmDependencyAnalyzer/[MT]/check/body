@@ -1,6 +1,6 @@
 def check(self, srcs, actual_deps):
     'Check for missing deps.\n\n    See docstring for _compute_missing_deps for details.\n    '
-    if (self._check_missing_deps or self._warn_missing_direct_deps or self._warn_unnecessary_deps):
+    if (self._check_missing_deps or self._check_missing_direct_deps or self._check_unnecessary_deps):
         (missing_file_deps, missing_tgt_deps, missing_direct_tgt_deps) = self._compute_missing_deps(srcs, actual_deps)
         buildroot = get_buildroot()
 
@@ -15,9 +15,13 @@ def check(self, srcs, actual_deps):
                 self._context.log.error(('Missing BUILD dependency %s -> %s because:\n%s' % (tgt_pair[0].address.reference(), tgt_pair[1].address.reference(), evidence_str)))
             for (src_tgt, dep) in missing_file_deps:
                 self._context.log.error(('Missing BUILD dependency %s -> %s' % (src_tgt.address.reference(), shorten(dep))))
-        if self._warn_missing_direct_deps:
+            if (self._check_missing_deps == 'fatal'):
+                raise TaskError('Missing deps.')
+        if self._check_missing_direct_deps:
             for (tgt_pair, evidence) in missing_direct_tgt_deps:
                 evidence_str = '\n'.join([('    %s requires %s' % (shorten(e[0]), shorten(e[1]))) for e in evidence])
                 self._context.log.warn(('Missing direct BUILD dependency %s -> %s because:\n%s' % (tgt_pair[0].address, tgt_pair[1].address, evidence_str)))
-        if self._warn_unnecessary_deps:
+            if (self._check_missing_direct_deps == 'fatal'):
+                raise TaskError('Missing direct deps.')
+        if self._check_unnecessary_deps:
             raise TaskError('Unnecessary dep warnings not implemented yet.')
