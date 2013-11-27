@@ -23,6 +23,4 @@ def _resolve_paths(self, rel_base, paths):
             flatmap(item)
         return flat
     src_relpath = os.path.relpath(self.address.buildfile.parent_path, os.path.join(get_buildroot(), self.target_base))
-    resolve_basepath = os.path.join(get_buildroot(), rel_base, src_relpath)
-    with pushd(resolve_basepath):
-        return [os.path.normpath(os.path.join(src_relpath, path)) for path in flatten_paths(paths)]
+    return [os.path.normpath(os.path.join(src_relpath, path)) for path in flatten_paths(paths)]

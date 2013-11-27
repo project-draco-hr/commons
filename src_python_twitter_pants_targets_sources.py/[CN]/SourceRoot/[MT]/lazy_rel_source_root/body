@@ -1,0 +1,3 @@
+@classmethod
+def lazy_rel_source_root(cls, reldir):
+    return partial(cls, reldir=reldir)

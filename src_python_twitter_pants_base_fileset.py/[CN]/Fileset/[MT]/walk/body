@@ -1,7 +1,6 @@
 @classmethod
 def walk(cls, path=None, allow_dirs=False, follow_links=False):
     'Walk the directory tree starting at path, or os.curdir if None.  If\n       allow_dirs=False, iterate only over files.  If allow_dirs=True,\n       iterate over both files and directories.  If follow_links=True symlinked\n       directories will be traversed.\n    '
-    path = (path or os.curdir)
     for (root, dirs, files) in os.walk(path, followlinks=follow_links):
         if allow_dirs:
             for dirname in dirs:

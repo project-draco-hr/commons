@@ -1,0 +1,3 @@
+@classmethod
+def lazy_rel_globs(cls, glob_root):
+    return partial(cls.globs, root=glob_root)

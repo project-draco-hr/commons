@@ -1,5 +1,5 @@
 @classmethod
-def _do_rglob(cls, matcher, root, **kw):
-    for path in cls.walk(root, **kw):
+def _do_rglob(cls, matcher, root, **kwargs):
+    for path in cls.walk(root, **kwargs):
         if matcher(path):
             yield path
