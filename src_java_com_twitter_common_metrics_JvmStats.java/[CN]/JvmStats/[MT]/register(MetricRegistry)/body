@@ -1,0 +1,196 @@
+{
+  final MetricRegistry stats=registry.scope("jvm");
+  final MemoryMXBean mem=ManagementFactory.getMemoryMXBean();
+  final MemoryUsage heap=mem.getHeapMemoryUsage();
+  final MetricRegistry heapRegistry=stats.scope("heap");
+  registerMemoryStats(heapRegistry,heap);
+  final MemoryUsage nonHeap=mem.getNonHeapMemoryUsage();
+  final MetricRegistry nonHeapRegistry=stats.scope("nonheap");
+  registerMemoryStats(nonHeapRegistry,nonHeap);
+  final ThreadMXBean threads=ManagementFactory.getThreadMXBean();
+  final MetricRegistry threadRegistry=stats.scope("thread");
+  threadRegistry.register(new AbstractGauge<Integer>("daemon_count"){
+    @Override public Integer read(){
+      return threads.getDaemonThreadCount();
+    }
+  }
+);
+  threadRegistry.register(new AbstractGauge<Integer>("count"){
+    @Override public Integer read(){
+      return threads.getThreadCount();
+    }
+  }
+);
+  threadRegistry.register(new AbstractGauge<Integer>("peak_count"){
+    @Override public Integer read(){
+      return threads.getPeakThreadCount();
+    }
+  }
+);
+  final ClassLoadingMXBean classLoadingBean=ManagementFactory.getClassLoadingMXBean();
+  stats.register(new AbstractGauge<Integer>("classes_loaded"){
+    @Override public Integer read(){
+      return classLoadingBean.getLoadedClassCount();
+    }
+  }
+);
+  stats.register(new AbstractGauge<Long>("total_classes_loaded"){
+    @Override public Long read(){
+      return classLoadingBean.getTotalLoadedClassCount();
+    }
+  }
+);
+  stats.register(new AbstractGauge<Long>("classes_unloaded"){
+    @Override public Long read(){
+      return classLoadingBean.getUnloadedClassCount();
+    }
+  }
+);
+  final RuntimeMXBean runtime=ManagementFactory.getRuntimeMXBean();
+  stats.register(new AbstractGauge<Long>("start_time"){
+    @Override public Long read(){
+      return runtime.getStartTime();
+    }
+  }
+);
+  stats.register(new AbstractGauge<Long>("uptime"){
+    @Override public Long read(){
+      return runtime.getUptime();
+    }
+  }
+);
+  final OperatingSystemMXBean os=ManagementFactory.getOperatingSystemMXBean();
+  stats.register(new AbstractGauge<Integer>("num_cpus"){
+    @Override public Integer read(){
+      return os.getAvailableProcessors();
+    }
+  }
+);
+  if (os instanceof com.sun.management.OperatingSystemMXBean) {
+    final com.sun.management.OperatingSystemMXBean sunOsMbean=(com.sun.management.OperatingSystemMXBean)os;
+    stats.register(new AbstractGauge<Long>("free_physical_memory"){
+      @Override public Long read(){
+        return sunOsMbean.getFreePhysicalMemorySize();
+      }
+    }
+);
+    stats.register(new AbstractGauge<Long>("free_swap"){
+      @Override public Long read(){
+        return sunOsMbean.getFreeSwapSpaceSize();
+      }
+    }
+);
+    stats.register(new AbstractGauge<Long>("process_cpu_time"){
+      @Override public Long read(){
+        return sunOsMbean.getProcessCpuTime();
+      }
+    }
+);
+  }
+  if (os instanceof com.sun.management.UnixOperatingSystemMXBean) {
+    final UnixOperatingSystemMXBean unix=(UnixOperatingSystemMXBean)os;
+    stats.register(new AbstractGauge<Long>("fd_count"){
+      @Override public Long read(){
+        return unix.getOpenFileDescriptorCount();
+      }
+    }
+);
+    stats.register(new AbstractGauge<Long>("fd_limit"){
+      @Override public Long read(){
+        return unix.getMaxFileDescriptorCount();
+      }
+    }
+);
+  }
+  final List<MemoryPoolMXBean> memPool=ManagementFactory.getMemoryPoolMXBeans();
+  final MetricRegistry memRegistry=stats.scope("mem");
+  final MetricRegistry currentMem=memRegistry.scope("current");
+  final MetricRegistry postGCRegistry=memRegistry.scope("postGC");
+  for (  MemoryPoolMXBean pool : memPool) {
+    String name=normalizeName(pool.getName());
+    registerMemoryStats(currentMem.scope(name),pool.getUsage());
+    MemoryUsage postGCUsage=pool.getCollectionUsage();
+    registerMemoryStats(postGCRegistry.scope(name),postGCUsage);
+  }
+  currentMem.register(new AbstractGauge<Long>("used"){
+    @Override public Long read(){
+      long sum=0;
+      for (      MemoryPoolMXBean pool : memPool) {
+        MemoryUsage usage=pool.getUsage();
+        if (usage != null) {
+          sum+=usage.getUsed();
+        }
+      }
+      return sum;
+    }
+  }
+);
+  AbstractGauge<Long> totalPostGCGauge=new AbstractGauge<Long>("used"){
+    @Override public Long read(){
+      long sum=0;
+      for (      MemoryPoolMXBean pool : memPool) {
+        MemoryUsage usage=pool.getCollectionUsage();
+        if (usage != null) {
+          sum+=usage.getUsed();
+        }
+      }
+      return sum;
+    }
+  }
+;
+  postGCRegistry.register(totalPostGCGauge);
+  Multimap<String,AbstractGauge<Long>> java17gauges=buildJava17Gauges();
+  if (!java17gauges.isEmpty()) {
+    MetricRegistry bufferRegistry=stats.scope("buffer");
+    for (    String scope : java17gauges.keySet()) {
+      MetricRegistry pool=bufferRegistry.scope(scope);
+      for (      AbstractGauge<Long> gauge : java17gauges.get(scope)) {
+        pool.register(gauge);
+      }
+    }
+  }
+  final List<GarbageCollectorMXBean> gcPool=ManagementFactory.getGarbageCollectorMXBeans();
+  MetricRegistry gcRegistry=stats.scope("gc");
+  for (  final GarbageCollectorMXBean gc : gcPool) {
+    String name=normalizeName(gc.getName());
+    MetricRegistry scoped=memRegistry.scope(name);
+    scoped.register(new AbstractGauge<Long>("cycles"){
+      @Override public Long read(){
+        return gc.getCollectionCount();
+      }
+    }
+);
+    scoped.register(new AbstractGauge<Long>("msec"){
+      @Override public Long read(){
+        return gc.getCollectionTime();
+      }
+    }
+);
+  }
+  gcRegistry.register(new AbstractGauge<Long>("cycles"){
+    @Override public Long read(){
+      long sum=0;
+      for (      GarbageCollectorMXBean pool : gcPool) {
+        long count=pool.getCollectionCount();
+        if (count > 0) {
+          sum+=count;
+        }
+      }
+      return sum;
+    }
+  }
+);
+  gcRegistry.register(new AbstractGauge<Long>("msec"){
+    @Override public Long read(){
+      long sum=0;
+      for (      GarbageCollectorMXBean pool : gcPool) {
+        long msec=pool.getCollectionTime();
+        if (msec > 0) {
+          sum+=msec;
+        }
+      }
+      return sum;
+    }
+  }
+);
+}

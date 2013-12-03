@@ -1,0 +1,23 @@
+{
+  Multimap<String,AbstractGauge<Long>> gauges=ArrayListMultimap.create();
+  try {
+    Class<?> bufferPoolMXBean=ClassLoader.getSystemClassLoader().loadClass("java.lang.management.BufferPoolMXBean");
+    Method getPlatformMxBeans=ManagementFactory.class.getMethod("getPlatformMXBeans",Class.class);
+    @SuppressWarnings("unchecked") List<Object> beans=(List<Object>)getPlatformMxBeans.invoke(null,bufferPoolMXBean);
+    for (    Object pool : beans) {
+      @SuppressWarnings("unchecked") String name=(String)bufferPoolMXBean.getMethod("getName").invoke(pool);
+      gauges.put(name,reflectMethodToGauge("count",bufferPoolMXBean,"getCount",pool));
+      gauges.put(name,reflectMethodToGauge("used",bufferPoolMXBean,"getMemoryUsed",pool));
+      gauges.put(name,reflectMethodToGauge("max",bufferPoolMXBean,"getTotalCapacity",pool));
+    }
+  }
+ catch (  ClassNotFoundException ex) {
+  }
+catch (  NoSuchMethodException ex) {
+  }
+catch (  IllegalAccessException ex) {
+  }
+catch (  InvocationTargetException ex) {
+  }
+  return gauges;
+}

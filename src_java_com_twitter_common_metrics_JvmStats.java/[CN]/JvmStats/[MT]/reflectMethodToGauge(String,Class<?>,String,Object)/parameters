@@ -1,0 +1,4 @@
+String gaugeName
+Class<?> clazz
+String methodName
+Object arg

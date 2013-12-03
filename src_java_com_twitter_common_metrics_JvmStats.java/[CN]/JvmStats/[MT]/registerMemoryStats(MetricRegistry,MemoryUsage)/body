@@ -1,0 +1,22 @@
+{
+  if (usage != null) {
+    stats.register(new AbstractGauge<Long>("committed"){
+      @Override public Long read(){
+        return usage.getCommitted();
+      }
+    }
+);
+    stats.register(new AbstractGauge<Long>("max"){
+      @Override public Long read(){
+        return usage.getMax();
+      }
+    }
+);
+    stats.register(new AbstractGauge<Long>("used"){
+      @Override public Long read(){
+        return usage.getUsed();
+      }
+    }
+);
+  }
+}

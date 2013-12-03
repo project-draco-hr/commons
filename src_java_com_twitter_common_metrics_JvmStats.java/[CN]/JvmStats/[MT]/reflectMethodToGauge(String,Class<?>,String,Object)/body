@@ -1,0 +1,21 @@
+{
+  final Method method=clazz.getMethod(methodName);
+  if (!Long.class.isAssignableFrom(Primitives.wrap(method.getReturnType()))) {
+    throw new IllegalArgumentException("mx bean method " + methodName + " can't be stored as Long metric");
+  }
+  AbstractGauge<Long> gauge=new AbstractGauge<Long>(gaugeName){
+    @Override public Long read(){
+      try {
+        return (Long)method.invoke(arg);
+      }
+ catch (      IllegalAccessException ex) {
+        return 0L;
+      }
+catch (      InvocationTargetException ex) {
+        return 0L;
+      }
+    }
+  }
+;
+  return gauge;
+}
