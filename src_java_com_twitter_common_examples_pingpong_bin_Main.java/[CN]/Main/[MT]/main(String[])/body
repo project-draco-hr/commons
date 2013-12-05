@@ -1,3 +1,0 @@
-{
-  AppLauncher.launch(Main.class,args);
-}
