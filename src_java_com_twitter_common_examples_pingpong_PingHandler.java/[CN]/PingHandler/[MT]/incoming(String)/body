@@ -1,3 +1,0 @@
-{
-  return incoming(message,DEFAULT_TTL);
-}

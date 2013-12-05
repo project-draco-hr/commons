@@ -1,6 +1,0 @@
-{
-  client.execute("/ping/hello/1");
-  control.replay();
-  handler.incoming("hello",2);
-  handler.incoming("hello",1);
-}
