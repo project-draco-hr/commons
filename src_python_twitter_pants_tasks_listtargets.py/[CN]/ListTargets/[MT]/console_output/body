@@ -8,7 +8,7 @@ def console_output(self, targets):
 
         def print_provides(column_extractors, address):
             target = Target.get(address)
-            if is_exported(target):
+            if target.is_exported:
                 return ' '.join((extractor(target) for extractor in column_extractors))
         try:
             column_extractors = [extractors[col] for col in self._provides_columns.split(',')]

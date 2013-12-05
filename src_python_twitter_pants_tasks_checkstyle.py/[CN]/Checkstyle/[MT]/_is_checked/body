@@ -1,3 +1,3 @@
 @staticmethod
 def _is_checked(target):
-    return (is_java(target) and (not is_synthetic(target)))
+    return (target.is_java and (not target.is_synthetic))

@@ -1,5 +1,4 @@
 __author__ = 'John Sirois'
-from twitter.pants import is_python
 from twitter.pants.base.builder import Builder
 from twitter.pants.targets import PythonBinary, PythonTests, PythonTestSuite
 from twitter.pants.python.binary_builder import PythonBinaryBuilder

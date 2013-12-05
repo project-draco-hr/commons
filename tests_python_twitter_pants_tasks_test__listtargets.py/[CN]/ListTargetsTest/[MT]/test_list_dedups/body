@@ -3,7 +3,7 @@ def test_list_dedups(self):
     def expand(spec):
         for target in self.targets(spec):
             for tgt in target.resolve():
-                if (isinstance(tgt, Target) and is_concrete(tgt)):
+                if (isinstance(tgt, Target) and tgt.is_concrete):
                     yield tgt
     targets = []
     targets.extend(expand('a/b/d/::'))

@@ -1,0 +1,4 @@
+@property
+def is_thrift(self):
+    'Returns True if the target has thrift IDL sources.'
+    return False

@@ -10,7 +10,7 @@ def write(self, target, path, confs=None, synth=False):
     for dep in target.internal_dependencies:
         jar = as_jar(dep)
         dependencies[(jar.org, jar.name)] = self.internaldep(jar, dep, synth)
-        if is_codegen(dep):
+        if dep.is_codegen:
             internal_codegen[jar.name] = jar.name
     for jar in target.jar_dependencies:
         if jar.rev:

@@ -1,0 +1,7 @@
+def set_scm(scm):
+    'Sets the pants Scm.'
+    if (scm is not None):
+        if (not isinstance(scm, Scm)):
+            raise ValueError(('The scm must be an instance of Scm, given %s' % scm))
+        global _SCM
+        _SCM = scm

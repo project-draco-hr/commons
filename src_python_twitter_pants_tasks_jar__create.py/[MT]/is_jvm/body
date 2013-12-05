@@ -1,2 +1,2 @@
 def is_jvm(target):
-    return (is_java(target) or has_sources(target, '.scala'))
+    return (is_java(target) or target.has_sources('.scala'))

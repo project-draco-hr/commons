@@ -12,7 +12,7 @@ def classpath(self, cp=None, confs=None, exclusives_classpath=None):
                     classpath.append(os.path.join(get_buildroot(), sibling_resources_base))
                     bases.add(target.target_base)
     if self.context.config.getbool('jvm', 'parallel_src_paths', default=False):
-        add_resource_paths((lambda t: (is_jvm(t) and (not is_test(t)))))
+        add_resource_paths((lambda t: (t.is_jvm and (not t.is_test))))
     if self.context.config.getbool('jvm', 'parallel_test_paths', default=False):
-        add_resource_paths((lambda t: (is_jvm(t) and is_test(t))))
+        add_resource_paths((lambda t: (t.is_jvm and (not t.is_test))))
     return classpath

@@ -1,0 +1,10 @@
+@staticmethod
+def extract_jvm_targets(targets):
+    'Returns an iterator over the jvm targets the given sequence of targets resolve to.  The\n    given targets can be a mix of types and only valid jvm targets (as determined by is_jvm(...) \n    will be returned by the iterator.\n    '
+    for target in targets:
+        if (target is None):
+            print('Warning! Null target!', file=sys.stderr)
+            continue
+        for real_target in target.resolve():
+            if real_target.is_jvm:
+                yield real_target

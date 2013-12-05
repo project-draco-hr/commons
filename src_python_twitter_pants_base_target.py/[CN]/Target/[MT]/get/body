@@ -1,6 +1,6 @@
 @staticmethod
 def get(address):
-    'Returns the specified module target if already parsed; otherwise, parses the buildfile in the\n    context of its parent directory and returns the parsed target.'
+    'Returns the specified module target if already parsed; otherwise, parses the buildfile in the\n    context of its parent directory and returns the parsed target.\n    '
 
     def lookup():
         return Target._targets_by_address.get(address, None)

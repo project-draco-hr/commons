@@ -1,0 +1,4 @@
+@property
+def is_scalac_plugin(self):
+    'Returns True if the target builds a scalac plugin.'
+    return self.has_label('scalac_plugin')

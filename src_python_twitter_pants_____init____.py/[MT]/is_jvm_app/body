@@ -1,3 +1,0 @@
-def is_jvm_app(target):
-    'Returns True if the target produces a java application with bundled auxiliary files.'
-    return isinstance(target, JvmApp)

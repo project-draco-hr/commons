@@ -1,5 +1,5 @@
 def execute(self, targets):
-    scala_targets = filter((lambda t: has_sources(t, '.scala')), targets)
+    scala_targets = [t for t in targets if t.has_sources('.scala')]
     if (not scala_targets):
         return
     egroups = self.context.products.get_data('exclusives_groups')

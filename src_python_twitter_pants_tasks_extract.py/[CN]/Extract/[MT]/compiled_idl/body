@@ -1,7 +1,7 @@
 @classmethod
 def compiled_idl(cls, idl_dep, generated_deps=None, compiler=None, language=None, namespace_map=None):
     'Marks a jar as containing IDL files that should be fetched and processed locally.\n\n    idl_dep:        A dependency resolvable to a single jar library.\n    generated_deps: Dependencies for the code that will be generated from "idl_dep"\n    compiler:       The thrift compiler to apply to the fetched thrift IDL files.\n    language:       The language to generate code for - supported by some compilers\n    namespace_map:  A mapping from IDL declared namespaces to custom namespaces - supported by some\n                    compilers.\n    '
-    deps = list(filter(is_concrete, idl_dep.resolve()))
+    deps = [t for t in idl_dep.resolve() if t.is_concrete]
     if (not (len(deps) == 1)):
         raise TaskError(('Can only arrange for compiled idl for a single dependency at a time, given:\n\t%s' % '\n\t'.join(map(str, deps))))
     jar = deps.pop()

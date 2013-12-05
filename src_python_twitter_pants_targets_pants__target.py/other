@@ -1,2 +1,1 @@
-from twitter.pants import is_concrete
 from twitter.pants.base import ParseContext, Target, Address

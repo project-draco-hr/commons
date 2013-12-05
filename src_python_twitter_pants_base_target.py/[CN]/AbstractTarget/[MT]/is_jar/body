@@ -1,0 +1,4 @@
+@property
+def is_jar(self):
+    'Returns True if the target is a jar.'
+    return False

@@ -18,5 +18,5 @@ def _unexcluded_dependencies(self, jardepmap, binary):
                         externaljars.add((basedir, externaljar))
                     else:
                         self.context.log.debug(('Excluding %s from binary' % externaljar))
-    binary.walk(add_jars, is_internal)
+    binary.walk(add_jars, (lambda t: t.is_internal))
     return externaljars

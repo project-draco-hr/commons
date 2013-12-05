@@ -1,7 +1,7 @@
 @classmethod
 def zglobs(cls, *globspecs, **kwargs):
     "Returns a Fileset that matches zsh-style globs, including '**/' for recursive globbing.\n\n       By default searches from the current working directory.  Can be overridden with the\n       'root' keyword argument.\n    "
-    root = kwargs.pop('root')
+    root = kwargs.pop('root', get_buildroot())
     patterns = [re.compile(fnmatch_translate_extended(spec)) for spec in globspecs]
 
     def matcher(path):

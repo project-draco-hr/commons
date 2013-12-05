@@ -1,3 +1,0 @@
-def is_test(t):
-    'Returns True if the target is comprised of tests.'
-    return t.has_label('tests')

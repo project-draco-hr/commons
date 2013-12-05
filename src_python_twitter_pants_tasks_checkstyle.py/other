@@ -1,6 +1,5 @@
 import os
 from twitter.common.dirutil import safe_open
-from twitter.pants import is_java, is_synthetic
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.nailgun_task import NailgunTask
 CHECKSTYLE_MAIN = 'com.puppycrawl.tools.checkstyle.Main'

@@ -1,0 +1,37 @@
+from __future__ import print_function
+from twitter.pants.targets import AnnotationProcessor, Artifact, Benchmark, Bundle, Credentials, JarLibrary, PythonEgg, Exclude, Pants, JarDependency, JavaLibrary, JavaAntlrLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, JavaThriftstoreDMLLibrary, JvmApp, JvmBinary, OinkQuery, Page, PythonArtifact, PythonBinary, PythonLibrary, PythonAntlrLibrary, PythonRequirement, PythonThriftLibrary, PythonTests, PythonTestSuite, Repository, Resources, ScalaLibrary, ScalaTests, ScalacPlugin, SourceRoot, Wiki
+annotation_processor = AnnotationProcessor
+artifact = Artifact
+benchmark = Benchmark
+bundle = Bundle
+credentials = Credentials
+dependencies = jar_library = JarLibrary
+egg = PythonEgg
+exclude = Exclude
+fancy_pants = Pants
+jar = JarDependency
+java_library = JavaLibrary
+java_antlr_library = JavaAntlrLibrary
+java_protobuf_library = JavaProtobufLibrary
+junit_tests = java_tests = JavaTests
+java_thrift_library = JavaThriftLibrary
+java_thriftstore_dml_library = JavaThriftstoreDMLLibrary
+jvm_binary = JvmBinary
+jvm_app = JvmApp
+oink_query = OinkQuery
+page = Page
+python_artifact = setup_py = PythonArtifact
+python_binary = PythonBinary
+python_library = PythonLibrary
+python_antlr_library = PythonAntlrLibrary
+python_requirement = PythonRequirement
+python_thrift_library = PythonThriftLibrary
+python_tests = PythonTests
+python_test_suite = PythonTestSuite
+repo = Repository
+resources = Resources
+scala_library = ScalaLibrary
+scala_specs = scala_tests = ScalaTests
+scalac_plugin = ScalacPlugin
+source_root = SourceRoot
+wiki = Wiki

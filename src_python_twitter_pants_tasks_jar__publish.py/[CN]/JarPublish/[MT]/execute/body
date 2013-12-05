@@ -17,7 +17,7 @@ def execute(self, targets):
         return result
 
     def fingerprint_internal(target):
-        if (not is_internal(target)):
+        if (not target.is_internal):
             raise ValueError(('Expected an internal target for fingerprinting, got %s' % target))
         (pushdb, _, _) = get_db(target)
         (_, _, _, fingerprint) = pushdb.as_jar_with_version(target)
@@ -66,7 +66,7 @@ def execute(self, targets):
         copy(target, typename='source_jars', suffix='-sources')
         if synth_target:
             copy(synth_target, typename='idl_jars', suffix='-idl', artifact_ext='-only')
-        if is_java(target):
+        if target.is_java:
             copy(target, typename='javadoc_jars', suffix='-javadoc')
         return (ivyxml, idl_ivyxml)
     if self.overrides:

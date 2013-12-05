@@ -1,2 +1,2 @@
 def is_scala(target):
-    return (has_sources(target, '.scala') or _is_scala(target))
+    return (target.has_sources('.scala') or target.is_scala)

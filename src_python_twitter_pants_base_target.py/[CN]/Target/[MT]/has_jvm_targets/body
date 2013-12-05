@@ -1,0 +1,4 @@
+@staticmethod
+def has_jvm_targets(targets):
+    'Returns true if the given sequence of targets contains at least one jvm target as determined\n    by is_jvm(...)\n    '
+    return (len(list(Target.extract_jvm_targets(targets))) > 0)

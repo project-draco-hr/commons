@@ -1,0 +1,4 @@
+@property
+def is_jvm(self):
+    'Returns True if the target produces jvm bytecode.'
+    return self.has_label('jvm')

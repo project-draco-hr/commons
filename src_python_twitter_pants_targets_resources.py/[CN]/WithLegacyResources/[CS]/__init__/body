@@ -3,7 +3,10 @@ def __init__(self, name, sources=None, resources=None, exclusives=None):
     if (resources is not None):
 
         def is_resources(item):
-            return (isinstance(item, Target) and all(map((lambda tgt: isinstance(tgt, Resources)), filter((lambda tgt: is_concrete(tgt)), item.resolve()))))
+            if (not isinstance(item, Target)):
+                return False
+            concrete_targets = [t for t in item.resolve() if t.is_concrete]
+            return all((isinstance(t, Resources) for t in concrete_targets))
         if is_resources(resources):
             self.resources = list(self.resolve_all(resources, Resources))
         elif (isinstance(resources, Sequence) and all(map(is_resources, resources))):

@@ -11,11 +11,12 @@ def _create_chunks(context, goals):
     all_chunks = []
     for excl_group_key in sorted_excl_group_keys:
         chunk_targets = exclusives.get_targets_for_group_key(excl_group_key)
-        coalesced = InternalTarget.coalesce_targets(filter(is_internal, chunk_targets), discriminator)
+        internal_targets = [t for t in chunk_targets if t.is_internal]
+        coalesced = InternalTarget.coalesce_targets(internal_targets, discriminator)
         coalesced = list(reversed(coalesced))
 
         def not_internal(target):
-            return (not is_internal(target))
+            return (not target.is_internal)
         rest = OrderedSet(filter(not_internal, chunk_targets))
         chunks = ([rest] if rest else [])
         flavor = None

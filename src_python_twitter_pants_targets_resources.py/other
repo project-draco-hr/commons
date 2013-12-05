@@ -1,5 +1,4 @@
 import os
 from collections import Sequence
-from twitter.pants import is_concrete
 from twitter.pants.base import ParseContext, Target
 from twitter.pants.targets.with_sources import TargetWithSources

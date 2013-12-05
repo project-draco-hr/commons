@@ -1,2 +1,2 @@
 def _has_sources(target, extension):
-    return (has_sources(target, extension) or (target.has_label('sources') and (not target.sources)))
+    return (target.has_sources(extension) or (target.has_label('sources') and (not target.sources)))

@@ -4,8 +4,7 @@ import os
 from collections import defaultdict
 from twitter.common.contextutil import open_zip
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants import is_concrete, Config
-from twitter.pants.base import ParseContext
+from twitter.pants.base import Config, ParseContext
 from twitter.pants.fs.archive import ZIP
 from twitter.pants.targets import JarDependency, JavaThriftLibrary, SourceRoot
 from twitter.pants.tasks import Task, TaskError

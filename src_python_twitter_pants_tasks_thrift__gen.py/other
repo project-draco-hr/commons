@@ -6,7 +6,7 @@ from collections import defaultdict, namedtuple
 from twitter.common import log
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants import get_buildroot, is_jvm, is_python
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.targets import InternalTarget, JavaLibrary, JavaThriftLibrary, PythonLibrary, PythonThriftLibrary
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.code_gen import CodeGen

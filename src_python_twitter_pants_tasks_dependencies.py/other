@@ -1,5 +1,4 @@
 from __future__ import print_function
-from twitter.pants import is_concrete, is_jvm, is_jvm_app, is_python, PythonRequirement
-from twitter.pants.targets.jar_dependency import JarDependency
-from . import TaskError
+from twitter.pants.targets import JarDependency, PythonRequirement
+from twitter.pants.tasks import TaskError
 from .console_task import ConsoleTask

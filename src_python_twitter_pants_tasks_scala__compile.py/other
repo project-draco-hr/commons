@@ -5,7 +5,7 @@ import shutil
 import uuid
 from twitter.common import contextutil
 from twitter.common.dirutil import safe_mkdir, safe_rmtree
-from twitter.pants import has_sources, is_scalac_plugin, get_buildroot
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base import Target
 from twitter.pants.base.worker_pool import Work
 from twitter.pants.targets import resolve_target_sources

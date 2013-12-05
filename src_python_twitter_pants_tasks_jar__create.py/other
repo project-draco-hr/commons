@@ -3,6 +3,6 @@ import os
 from contextlib import contextmanager
 from zipfile import ZIP_STORED, ZIP_DEFLATED
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants import get_buildroot, has_resources, has_sources, is_exported
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.java import open_jar
 from twitter.pants.tasks import Task, TaskError

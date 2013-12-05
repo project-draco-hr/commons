@@ -4,6 +4,6 @@ import os
 import os.path
 from contextlib import contextmanager
 from twitter.common.lang import Compatibility
-from twitter.pants import get_buildroot
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base import BuildFile
 from twitter.pants.base.fileset import Fileset

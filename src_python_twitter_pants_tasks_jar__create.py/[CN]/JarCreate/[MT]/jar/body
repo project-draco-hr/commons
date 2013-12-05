@@ -1,7 +1,7 @@
 def jar(self, jvm_targets, genmap, add_genjar):
     for target in jvm_targets:
         generated = genmap.get(target)
-        if (generated or has_resources(target)):
+        if (generated or target.has_resources):
             jar_name = ('%s.jar' % jarname(target))
             add_genjar(target, jar_name)
             jar_path = os.path.join(self._output_dir, jar_name)
@@ -10,7 +10,7 @@ def jar(self, jvm_targets, genmap, add_genjar):
                     for (basedir, classfiles) in generated.items():
                         for classfile in classfiles:
                             jarfile.write(os.path.join(basedir, classfile), classfile)
-                if has_resources(target):
+                if target.has_resources:
                     resources_genmap = self.context.products.get('resources')
                     if resources_genmap:
                         for resources in target.resources:

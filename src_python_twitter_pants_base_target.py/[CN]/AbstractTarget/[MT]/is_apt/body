@@ -1,0 +1,4 @@
+@property
+def is_apt(self):
+    'Returns True if the target exports an annotation processor.'
+    return self.has_label('apt')

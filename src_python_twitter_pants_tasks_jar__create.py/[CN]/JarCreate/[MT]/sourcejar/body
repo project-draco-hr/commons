@@ -6,7 +6,7 @@ def sourcejar(self, jvm_targets, add_genjar):
         with self.create_jar(target, jar_path) as zip:
             for source in target.sources:
                 zip.write(os.path.join(target.target_base, source), source)
-            if has_resources(target):
+            if target.has_resources:
                 for resources in target.resources:
                     for resource in resources.sources:
                         zip.write(os.path.join(get_buildroot(), resources.target_base, resource), resource)

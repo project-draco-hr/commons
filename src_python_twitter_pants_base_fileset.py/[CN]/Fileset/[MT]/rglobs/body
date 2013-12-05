@@ -1,7 +1,7 @@
 @classmethod
 def rglobs(cls, *globspecs, **kwargs):
     'Returns a Fileset that containing the union of all files matched by the\n       globspecs applied at each directory beneath the root.  By default the\n       root is the current working directory, but can be overridden with the\n       \'root\' keyword argument.  Unlike Fileset.globs, rcfiles are matched\n       by \'*\' (e.g.  ".bashrc"), matching the semantics of \'ls -a\'.\n    '
-    root = kwargs.pop('root')
+    root = kwargs.pop('root', get_buildroot())
 
     def matcher(path):
         for globspec in globspecs:

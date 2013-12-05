@@ -1,2 +1,2 @@
 def is_idl(target):
-    return (is_exported(target) and has_sources(target, '.thrift'))
+    return (target.is_exported and target.has_sources('.thrift'))

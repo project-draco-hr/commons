@@ -1,3 +1,0 @@
-def is_scalac_plugin(target):
-    'Returns True if the target builds a scalac plugin.'
-    return target.has_label('scalac_plugin')

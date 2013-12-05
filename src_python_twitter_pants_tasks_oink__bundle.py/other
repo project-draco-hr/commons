@@ -1,6 +1,6 @@
 import os
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants import get_buildroot, is_java
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.fs.archive import TGZ
 from twitter.pants.targets.oink_query import OinkQuery
 from twitter.pants.tasks import Task

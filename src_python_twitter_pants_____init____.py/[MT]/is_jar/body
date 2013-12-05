@@ -1,3 +1,0 @@
-def is_jar(target):
-    'Returns True if the target is a jar.'
-    return isinstance(target, JarDependency)

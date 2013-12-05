@@ -4,7 +4,7 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
     targeted = set()
 
     def source_target(target):
-        return ((self.transitive or (target in self.targets)) and has_sources(target) and ((not is_codegen(target)) and (not (self.skip_java and is_java(target))) and (not (self.skip_scala and is_scala(target)))))
+        return ((self.transitive or (target in self.targets)) and target.has_sources() and ((not target.is_codegen) and (not (self.skip_java and is_java(target))) and (not (self.skip_scala and is_scala(target)))))
 
     def configure_source_sets(relative_base, sources, is_test):
         absolute_base = os.path.join(self.root_dir, relative_base)
@@ -26,7 +26,7 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
         if (target not in analyzed):
             analyzed.add(target)
             self.has_scala = ((not self.skip_scala) and (self.has_scala or is_scala(target)))
-            if has_resources(target):
+            if target.has_resources:
                 resources_by_basedir = defaultdict(set)
                 for resources in target.resources:
                     resources_by_basedir[resources.target_base].update(resources.sources)
@@ -34,7 +34,7 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
                     self.resource_extensions.update(Project.extract_resource_extensions(resources))
                     configure_source_sets(basedir, resources, is_test=False)
             if target.sources:
-                test = is_test(target)
+                test = target.is_test
                 self.has_tests = (self.has_tests or test)
                 configure_source_sets(target.target_base, target.sources, is_test=test)
             target_dirset = find_source_basedirs(target)

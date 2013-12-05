@@ -2,7 +2,7 @@ def resolve(self, targets):
     children = defaultdict(OrderedSet)
 
     def add_dep(trg):
-        if is_concrete(trg):
+        if trg.is_concrete:
             for (target_type, target_key) in self._VALID_DEPENDENCIES.items():
                 if isinstance(trg, target_type):
                     children[target_key].add(trg)
