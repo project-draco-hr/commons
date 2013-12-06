@@ -1,2 +1,2 @@
 def artifact_cache_writes_enabled(self):
-    return bool(self._write_artifact_cache_spec)
+    return (bool(self._write_artifact_cache_spec) and self.context.options.write_to_artifact_cache)
