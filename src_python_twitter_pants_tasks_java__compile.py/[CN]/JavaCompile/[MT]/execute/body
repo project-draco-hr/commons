@@ -13,7 +13,7 @@ def execute(self, targets):
             for vts in invalidation_check.invalid_vts_partitioned:
                 sources_by_target = self._process_target_partition(vts, cp)
                 vts.update()
-                if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
+                if self.artifact_cache_writes_enabled():
                     self._write_to_artifact_cache(vts, sources_by_target)
             if self.context.products.isrequired('classes'):
                 if os.path.exists(self._depfile):

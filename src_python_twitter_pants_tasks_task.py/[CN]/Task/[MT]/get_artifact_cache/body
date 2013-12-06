@@ -1,4 +1,5 @@
 def get_artifact_cache(self):
-    if ((self._artifact_cache is None) and (self._artifact_cache_spec is not None)):
-        self._artifact_cache = self.create_artifact_cache(self._artifact_cache_spec)
-    return self._artifact_cache
+    with self._artifact_cache_setup_lock:
+        if ((self._artifact_cache is None) and (self._read_artifact_cache_spec or self._write_artifact_cache_spec)):
+            self._artifact_cache = ReadWriteArtifactCache(self._create_artifact_cache(self._read_artifact_cache_spec, 'reading from'), self._create_artifact_cache(self._write_artifact_cache_spec, 'writing to'))
+        return self._artifact_cache

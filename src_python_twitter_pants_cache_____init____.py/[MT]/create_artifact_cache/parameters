@@ -2,5 +2,4 @@ log
 artifact_root
 spec
 task_name
-local_readonly
-remote_readonly
+action

@@ -1,0 +1,6 @@
+def setup_artifact_cache_from_config(self, config_section=None):
+    'Subclasses can call this in their __init__() to set up artifact caching for that task type.\n\n    Uses standard config file keys to find the cache spec.\n    The cache is created lazily, as needed.\n    '
+    section = (config_section or Config.DEFAULT_SECTION)
+    read_spec = self.context.config.getlist(section, 'read_artifact_caches', default=[])
+    write_spec = self.context.config.getlist(section, 'write_artifact_caches', default=[])
+    self.setup_artifact_cache(read_spec, write_spec)

@@ -1,0 +1,3 @@
+def prune(self, age_hours):
+    if self._write_artifact_cache:
+        self._write_artifact_cache.prune(age_hours)

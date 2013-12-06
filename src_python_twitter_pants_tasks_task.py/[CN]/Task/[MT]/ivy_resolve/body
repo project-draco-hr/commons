@@ -25,7 +25,7 @@ def ivy_resolve(self, targets, java_runner=None, ivy_args=None, symlink_ivyxml=F
             if (not os.path.exists(target_classpath_file_tmp)):
                 raise TaskError(('Ivy failed to create classpath file at %s' % target_classpath_file_tmp))
             shutil.move(target_classpath_file_tmp, target_classpath_file)
-            if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
+            if self.artifact_cache_writes_enabled():
                 self.update_artifact_cache([(global_vts, [target_classpath_file])])
     with IvyUtils.cachepath(target_classpath_file) as classpath:
         stripped_classpath = [path.strip() for path in classpath]

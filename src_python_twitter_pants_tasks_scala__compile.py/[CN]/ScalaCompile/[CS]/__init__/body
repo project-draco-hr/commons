@@ -18,8 +18,7 @@ def __init__(self, context):
     self._resources_dir = os.path.join(workdir, 'resources')
     self._confs = context.config.getlist('scala-compile', 'confs')
     self.context.products.require_data('exclusives_groups')
-    artifact_cache_spec = context.config.getlist('scala-compile', 'artifact_caches', default=[])
-    self.setup_artifact_cache(artifact_cache_spec)
+    self.setup_artifact_cache_from_config(config_section='scala-compile')
     self._analysis_tmpdir = os.path.join(self._analysis_dir, 'artifact_cache_tmpdir')
     self._inject_java_cycles()
     self._deleted_sources = None

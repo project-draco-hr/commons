@@ -31,6 +31,5 @@ def __init__(self, context):
         self._opts.extend(context.config.getlist('java-compile', 'no_warning_args'))
     self._confs = context.config.getlist('java-compile', 'confs')
     self.context.products.require_data('exclusives_groups')
-    artifact_cache_spec = context.config.getlist('java-compile', 'artifact_caches', default=[])
-    self.setup_artifact_cache(artifact_cache_spec)
+    self.setup_artifact_cache_from_config(config_section='java-compile')
     self._depfile_tmpdir = os.path.join(self._depfile_dir, 'depfile_tmpdir')

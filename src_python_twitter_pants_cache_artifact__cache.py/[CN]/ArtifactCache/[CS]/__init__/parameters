@@ -1,4 +1,3 @@
 self
 log
 artifact_root
-read_only

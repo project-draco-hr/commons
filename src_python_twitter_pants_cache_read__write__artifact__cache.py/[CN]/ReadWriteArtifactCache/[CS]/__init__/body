@@ -1,0 +1,8 @@
+def __init__(self, read_artifact_cache, write_artifact_cache):
+    "Either cache can be None, in which case we don't read from/write to it."
+    artifact_root = read_artifact_cache.artifact_root
+    if (write_artifact_cache.artifact_root != artifact_root):
+        raise ValueError('Read and write artifact caches must have the same artifact root.')
+    ArtifactCache.__init__(self, read_artifact_cache.log, artifact_root)
+    self._read_artifact_cache = read_artifact_cache
+    self._write_artifact_cache = write_artifact_cache

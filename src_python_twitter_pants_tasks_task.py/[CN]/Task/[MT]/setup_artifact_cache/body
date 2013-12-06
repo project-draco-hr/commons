@@ -1,3 +1,4 @@
-def setup_artifact_cache(self, spec):
-    'Subclasses can call this in their __init__() to set up artifact caching for that task type.\n\n    The cache is created lazily, as needed.\n\n    spec should be a list of urls/file path prefixes, which are used in that order.\n    By default, no artifact caching is used.\n    '
-    self._artifact_cache_spec = spec
+def setup_artifact_cache(self, read_spec, write_spec):
+    'Subclasses can call this in their __init__() to set up artifact caching for that task type.\n\n    See docstring for pants.cache.create_artifact_cache() for details on the spec format.\n    The cache is created lazily, as needed.\n\n    '
+    self._read_artifact_cache_spec = read_spec
+    self._write_artifact_cache_spec = write_spec

@@ -14,5 +14,4 @@ def __init__(self, context, confs=None):
     self._bootstrap_utils.register_jvm_build_tools(self._ivy_bootstrap_key, ivy_bootstrap_tools)
     self._ivy_utils = IvyUtils(config=context.config, options=context.options, log=context.log)
     context.products.require_data('exclusives_groups')
-    artifact_cache_spec = context.config.getlist('ivy-resolve', 'artifact_caches', default=[])
-    self.setup_artifact_cache(artifact_cache_spec)
+    self.setup_artifact_cache_from_config(config_section='ivy-resolve')

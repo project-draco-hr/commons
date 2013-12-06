@@ -1,0 +1,5 @@
+def has(self, cache_key):
+    if self._read_artifact_cache:
+        return self._read_artifact_cache.has(cache_key)
+    else:
+        return False

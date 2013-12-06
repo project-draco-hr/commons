@@ -59,7 +59,7 @@ def execute(self, targets):
                     for (src, deps) in actual_deps.iteritems():
                         actual_deps_filtered[src] = filter((lambda x: (scalalib_re.search(x) is None)), deps)
                     self.check_for_missing_dependencies(sources, actual_deps_filtered)
-                    if (self.get_artifact_cache() and self.context.options.write_to_artifact_cache):
+                    if self.artifact_cache_writes_enabled():
                         self._write_to_artifact_cache(analysis_file, vts, invalid_sources_by_target)
                 if ZincUtils.is_nonempty_analysis(self._invalid_analysis_file):
                     with self.context.new_workunit(name='trim-downstream-analysis'):

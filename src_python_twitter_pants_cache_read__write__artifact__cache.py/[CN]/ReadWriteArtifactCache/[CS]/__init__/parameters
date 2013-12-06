@@ -1,0 +1,3 @@
+self
+read_artifact_cache
+write_artifact_cache
