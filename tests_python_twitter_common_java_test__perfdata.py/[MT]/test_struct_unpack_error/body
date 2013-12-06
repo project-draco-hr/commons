@@ -1,0 +1,8 @@
+def test_struct_unpack_error():
+    provider = (lambda : pkgutil.get_data('twitter.common.java', _EXAMPLE_RESOURCE))
+    perfdata = PerfData.get(provider)
+    assert (perfdata is not None)
+    with mock.patch('struct.unpack') as struct_unpack:
+        struct_unpack.side_effect = struct.error('My shit got corrupted!')
+        with pytest.raises(perfdata.ParseError):
+            perfdata.sample()
