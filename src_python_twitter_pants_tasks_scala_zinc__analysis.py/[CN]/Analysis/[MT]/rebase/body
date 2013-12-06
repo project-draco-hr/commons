@@ -1,9 +1,5 @@
 @staticmethod
 def rebase(input_analysis_path, output_analysis_path, rebasings):
-    'Rebase file paths in an analysis file.\n\n    rebasings: a list of path prefix pairs [from_prefix, to_prefix] to rewrite.\n\n    Note that this is implemented using string.replace, for efficiency, so this will\n    actually just replace everywhere, not just path prefixes. However in practice this\n    makes no difference, and the performance gains are considerable.\n    '
-    with open(input_analysis_path, 'r') as infile:
-        txt = infile.read()
-    for (rebase_from, rebase_to) in rebasings:
-        txt = txt.replace(rebase_from, rebase_to)
-    with open(output_analysis_path, 'w') as outfile:
-        outfile.write(txt)
+    'Rebase file paths in an analysis file.\n\n    rebasings: A list of path prefix pairs [from_prefix, to_prefix] to rewrite.\n               to_prefix may be None, in which case matching paths are removed entirely.\n    '
+    analysis = Analysis.parse_from_path(input_analysis_path)
+    analysis.write_to_path(output_analysis_path, rebasings=rebasings)

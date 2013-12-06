@@ -1,15 +1,29 @@
 @staticmethod
-def write_section(outfile, header, rep, inline_vals=True):
-    'Write a single section.\n\n    Itens are sorted, for ease of testing.'
+def write_section(outfile, header, rep, inline_vals=True, rebasings=None):
+    'Write a single section.\n\n    Itens are sorted, for ease of testing.\n    '
+
+    def rebase(txt):
+        for (rebase_from, rebase_to) in rebasings:
+            if (rebase_to is None):
+                if (rebase_from in txt):
+                    return None
+            else:
+                txt = txt.replace(rebase_from, rebase_to)
+        return txt
+    rebasings = (rebasings or [])
     outfile.write((header + ':\n'))
     items = []
     if isinstance(rep, dict):
         for (k, vals) in rep.iteritems():
             for v in vals:
-                items.append(('%s -> %s%s' % (k, ('' if inline_vals else '\n'), v)))
+                item = rebase(('%s -> %s%s' % (k, ('' if inline_vals else '\n'), v)))
+                if item:
+                    items.append(item)
     else:
         for x in rep:
-            items.append(x)
+            item = rebase(x)
+            if item:
+                items.append(item)
     items.sort()
     outfile.write(('%d items\n' % len(items)))
     for item in items:
