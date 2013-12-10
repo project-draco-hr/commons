@@ -1,0 +1,14 @@
+{
+  return new Source(){
+    @Override public String name(){
+      return "<memory>";
+    }
+    @Override public String identify(    String name){
+      return "<memory>!" + name;
+    }
+    @Override public String toString(){
+      return String.format("MemorySource{@%s}",Integer.toHexString(hashCode()));
+    }
+  }
+;
+}

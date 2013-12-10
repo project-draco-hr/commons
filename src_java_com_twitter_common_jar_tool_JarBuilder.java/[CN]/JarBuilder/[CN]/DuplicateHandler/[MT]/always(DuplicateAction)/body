@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(action);
+  return new DuplicateHandler(action,ImmutableList.of(new DuplicatePolicy(Predicates.<CharSequence>alwaysTrue(),action)));
+}

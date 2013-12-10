@@ -1,0 +1,16 @@
+{
+  Preconditions.checkNotNull(customManifest);
+  return useCustomManifest(new InputSupplier<Manifest>(){
+    @Override public Manifest getInput() throws IOException {
+      Manifest mf=new Manifest();
+      try {
+        mf.read(customManifest.getInput());
+        return mf;
+      }
+ catch (      IOException e) {
+        throw new JarCreationException("Invalid manifest from " + customManifest.source.identify(customManifest.name));
+      }
+    }
+  }
+);
+}

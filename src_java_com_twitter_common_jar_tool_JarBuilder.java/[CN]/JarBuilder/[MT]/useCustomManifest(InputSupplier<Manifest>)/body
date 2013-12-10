@@ -1,0 +1,9 @@
+{
+  manifest=new InputSupplier<InputStream>(){
+    @Override public InputStream getInput() throws IOException {
+      return manifestSupplier(manifestSource.getInput()).getInput();
+    }
+  }
+;
+  return this;
+}

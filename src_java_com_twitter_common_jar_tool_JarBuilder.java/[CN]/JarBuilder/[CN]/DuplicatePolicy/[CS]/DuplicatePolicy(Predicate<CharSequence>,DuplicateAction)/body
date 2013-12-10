@@ -1,0 +1,4 @@
+{
+  this.selector=Preconditions.checkNotNull(selector);
+  this.action=Preconditions.checkNotNull(action);
+}

@@ -1,0 +1,3 @@
+{
+  return new DuplicatePolicy(Predicates.containsPattern(regex),action);
+}

@@ -1,0 +1,12 @@
+{
+  FluentIterable<String> expectedEntries=FluentIterable.from(Iterables.concat(CONSTANT_ENTRIES,paths));
+  Collection<String> expected=ordered ? expectedEntries.toList() : expectedEntries.toSet();
+  FluentIterable<String> actualEntries=FluentIterable.from(Collections.list(jar.entries())).transform(new Function<JarEntry,String>(){
+    @Override public String apply(    JarEntry entry){
+      return entry.getName();
+    }
+  }
+);
+  Collection<String> actual=ordered ? actualEntries.toList() : actualEntries.toSet();
+  assertEquals(expected,actual);
+}

@@ -1,0 +1,30 @@
+{
+  boolean duplicate=itemEntries.size() > 1;
+  if (!duplicate) {
+    ReadableEntry entry=Iterables.getOnlyElement(itemEntries);
+    listener.onWrite(entry);
+    return entry;
+  }
+ else {
+    DuplicateAction action=duplicateHandler.actionFor(jarPath);
+switch (action) {
+case SKIP:
+      ReadableEntry original=Iterables.get(itemEntries,0);
+    listener.onSkip(original,Iterables.skip(itemEntries,1));
+  return original;
+case REPLACE:
+ReadableEntry replacement=Iterables.getLast(itemEntries);
+listener.onReplace(Iterables.limit(itemEntries,itemEntries.size() - 1),replacement);
+return replacement;
+case CONCAT:
+InputSupplier<InputStream> concat=ByteStreams.join(Iterables.transform(itemEntries,ReadableEntry.GET_CONTENTS));
+ReadableEntry concatenatedEntry=new ReadableEntry(NamedInputSupplier.create(memorySource(),jarPath,concat),jarPath);
+listener.onConcat(jarPath,itemEntries);
+return concatenatedEntry;
+case THROW:
+throw new DuplicateEntryException(Iterables.get(itemEntries,1));
+default :
+throw new IllegalArgumentException("Unrecognized DuplicateAction " + action);
+}
+}
+}

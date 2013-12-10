@@ -1,0 +1,5 @@
+{
+  Preconditions.checkNotNull(customManifest);
+  NamedInputSupplier<FileInputStream> contents=NamedInputSupplier.create(fileSource(customManifest),customManifest.getPath(),Files.newInputStreamSupplier(customManifest));
+  return useCustomManifest(contents);
+}

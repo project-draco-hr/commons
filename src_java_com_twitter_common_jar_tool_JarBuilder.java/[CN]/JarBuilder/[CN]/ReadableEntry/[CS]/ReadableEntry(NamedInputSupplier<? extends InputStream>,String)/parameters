@@ -1,0 +1,2 @@
+NamedInputSupplier<? extends InputStream> contents
+String path

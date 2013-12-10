@@ -1,0 +1,4 @@
+{
+  super("Detected a duplicate entry for " + entry.getJarPath());
+  this.entry=entry;
+}

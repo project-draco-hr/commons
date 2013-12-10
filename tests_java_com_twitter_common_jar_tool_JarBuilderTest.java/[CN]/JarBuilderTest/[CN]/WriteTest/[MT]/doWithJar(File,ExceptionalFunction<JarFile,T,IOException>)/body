@@ -1,0 +1,13 @@
+{
+  Closer closer=Closer.create();
+  JarFile jar=closer.register(new JarFile(path));
+  try {
+    return work.apply(jar);
+  }
+ catch (  IOException e) {
+    throw closer.rethrow(e);
+  }
+ finally {
+    closer.close();
+  }
+}

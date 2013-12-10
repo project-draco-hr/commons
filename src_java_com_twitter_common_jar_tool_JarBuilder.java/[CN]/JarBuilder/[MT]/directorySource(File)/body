@@ -1,0 +1,11 @@
+{
+  return new FileSource(directory){
+    @Override public String identify(    String name){
+      return new File(source,name).getPath();
+    }
+    @Override public String toString(){
+      return String.format("FileSource{directory=%s}",source.getPath());
+    }
+  }
+;
+}

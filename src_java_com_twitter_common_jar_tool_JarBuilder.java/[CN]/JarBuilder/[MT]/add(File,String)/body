@@ -1,0 +1,30 @@
+{
+  Preconditions.checkNotNull(file);
+  Preconditions.checkNotNull(jarPath);
+  additions.add(new EntryIndexer(){
+    @Override public void execute(    Multimap<String,ReadableEntry> entries) throws JarBuilderException {
+      if (file.isDirectory()) {
+        Source directorySource=directorySource(file);
+        Iterable<String> jarBasePath=JAR_PATH_SPLITTER.split(jarPath);
+        Collection<File> files=org.apache.commons.io.FileUtils.listFiles(file,null,true);
+        for (        File child : files) {
+          Iterable<String> path=Iterables.concat(jarBasePath,relpathComponents(child,file));
+          String entryPath=JAR_PATH_JOINER.join(relpathComponents(child,file));
+          if (!JarFile.MANIFEST_NAME.equals(entryPath)) {
+            NamedInputSupplier<FileInputStream> contents=NamedInputSupplier.create(directorySource,entryPath,Files.newInputStreamSupplier(child));
+            add(entries,contents,JAR_PATH_JOINER.join(path));
+          }
+        }
+      }
+ else {
+        if (JarFile.MANIFEST_NAME.equals(jarPath)) {
+          throw new JarBuilderException("A custom manifest entry should be added via the useCustomManifest methods");
+        }
+        NamedInputSupplier<FileInputStream> contents=NamedInputSupplier.create(fileSource(file),file.getName(),Files.newInputStreamSupplier(file));
+        add(entries,contents,jarPath);
+      }
+    }
+  }
+);
+  return this;
+}

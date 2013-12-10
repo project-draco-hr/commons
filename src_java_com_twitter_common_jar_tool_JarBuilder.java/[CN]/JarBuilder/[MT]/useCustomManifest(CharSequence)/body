@@ -1,0 +1,4 @@
+{
+  Preconditions.checkNotNull(customManifest);
+  return useCustomManifest(NamedInputSupplier.create(memorySource(),JarFile.MANIFEST_NAME,ByteStreams.newInputStreamSupplier(customManifest.toString().getBytes(Charsets.UTF_8))));
+}

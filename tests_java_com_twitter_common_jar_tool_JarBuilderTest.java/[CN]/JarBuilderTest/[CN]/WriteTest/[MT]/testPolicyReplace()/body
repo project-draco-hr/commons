@@ -1,0 +1,21 @@
+{
+  DuplicateHandler replaceMeaningOfLife=new DuplicateHandler(DuplicateAction.SKIP,DuplicatePolicy.pathMatches("^meaning/of/life$",DuplicateAction.REPLACE));
+  File destinationJar=jarBuilder().add(content("1/137"),"meaning/of/life").add(content("!"),"meaning/of/life").add(content("1/137"),"meaning/of/brian").write(replaceMeaningOfLife);
+  doWithJar(destinationJar,new ExceptionalClosure<JarFile,IOException>(){
+    @Override public void execute(    JarFile jar) throws IOException {
+      assertListing(jar,"meaning/","meaning/of/","meaning/of/life","meaning/of/brian");
+      assertContents(jar,"meaning/of/life","!");
+      assertContents(jar,"meaning/of/brian","1/137");
+    }
+  }
+);
+  jarBuilder(destinationJar).add(content("42"),"meaning/of/life").add(content("jane"),"meaning/of/life").write(replaceMeaningOfLife);
+  doWithJar(destinationJar,new ExceptionalClosure<JarFile,IOException>(){
+    @Override public void execute(    JarFile jar) throws IOException {
+      assertListing(jar,"meaning/","meaning/of/","meaning/of/life","meaning/of/brian");
+      assertContents(jar,"meaning/of/life","jane");
+      assertContents(jar,"meaning/of/brian","1/137");
+    }
+  }
+);
+}

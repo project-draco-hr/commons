@@ -1,0 +1,9 @@
+{
+  doWithJar(path,new ExceptionalFunction<JarFile,Void,IOException>(){
+    @Override public Void apply(    JarFile jar) throws IOException {
+      work.execute(jar);
+      return null;
+    }
+  }
+);
+}

@@ -1,0 +1,9 @@
+{
+  closer=Closer.create();
+  supplier=new InputSupplier<JarFile>(){
+    @Override public JarFile getInput() throws IOException {
+      return closer.register(new JarFile(file));
+    }
+  }
+;
+}

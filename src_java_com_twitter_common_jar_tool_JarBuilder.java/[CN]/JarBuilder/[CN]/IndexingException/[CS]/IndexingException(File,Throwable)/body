@@ -1,0 +1,3 @@
+{
+  super("Problem indexing jar at " + jarPath,t);
+}

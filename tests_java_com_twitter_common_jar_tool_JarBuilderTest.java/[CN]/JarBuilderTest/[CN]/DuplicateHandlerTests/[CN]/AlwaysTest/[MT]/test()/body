@@ -1,0 +1,6 @@
+{
+  DuplicateHandler always=DuplicateHandler.always(action);
+  assertEquals(action,always.actionFor("a"));
+  assertEquals(action,always.actionFor("b"));
+  assertEquals(action,always.actionFor("dalek"));
+}

@@ -1,0 +1,2 @@
+Predicate<CharSequence> selector
+DuplicateAction action

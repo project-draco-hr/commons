@@ -1,0 +1,20 @@
+{
+  Predicate<CharSequence> predicate1=createMock(new Clazz<Predicate<CharSequence>>(){
+  }
+);
+  Predicate<CharSequence> predicate2=createMock(new Clazz<Predicate<CharSequence>>(){
+  }
+);
+  expect(predicate1.apply("a")).andReturn(true);
+  expect(predicate1.apply("a")).andReturn(false);
+  expect(predicate2.apply("a")).andReturn(true);
+  expect(predicate1.apply("a")).andReturn(false);
+  expect(predicate2.apply("a")).andReturn(false);
+  control.replay();
+  DuplicatePolicy policy1=new DuplicatePolicy(predicate1,DuplicateAction.CONCAT);
+  DuplicatePolicy policy2=new DuplicatePolicy(predicate2,DuplicateAction.REPLACE);
+  DuplicateHandler handler=new DuplicateHandler(DuplicateAction.THROW,policy1,policy2);
+  assertEquals(DuplicateAction.CONCAT,handler.actionFor("a"));
+  assertEquals(DuplicateAction.REPLACE,handler.actionFor("a"));
+  assertEquals(DuplicateAction.THROW,handler.actionFor("a"));
+}

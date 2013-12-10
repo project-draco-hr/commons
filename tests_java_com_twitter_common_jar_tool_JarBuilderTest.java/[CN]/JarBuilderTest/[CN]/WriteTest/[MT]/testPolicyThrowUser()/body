@@ -1,0 +1,12 @@
+{
+  DuplicateHandler alwaysThrow=DuplicateHandler.always(DuplicateAction.THROW);
+  JarBuilder jarBuilder=jarBuilder().add(content("1/137"),"meaning/of/life").add(content("!"),"meaning/of/life");
+  try {
+    jarBuilder.write(alwaysThrow);
+    fail("Expected jar processing to throw a DuplicateEntryException.");
+  }
+ catch (  DuplicateEntryException e) {
+    assertEquals("meaning/of/life",e.getPath());
+    assertEquals("!",content(e.getSource()));
+  }
+}

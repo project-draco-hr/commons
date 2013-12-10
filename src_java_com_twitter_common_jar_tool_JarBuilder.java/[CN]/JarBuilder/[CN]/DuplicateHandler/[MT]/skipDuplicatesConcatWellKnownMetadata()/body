@@ -1,0 +1,5 @@
+{
+  DuplicatePolicy concatServices=DuplicatePolicy.pathMatches("^META-INF/services/",DuplicateAction.CONCAT);
+  ImmutableList<DuplicatePolicy> policies=ImmutableList.of(concatServices);
+  return new DuplicateHandler(DuplicateAction.SKIP,policies);
+}

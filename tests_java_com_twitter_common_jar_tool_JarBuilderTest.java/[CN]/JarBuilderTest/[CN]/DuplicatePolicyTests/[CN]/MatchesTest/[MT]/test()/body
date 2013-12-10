@@ -1,0 +1,25 @@
+{
+  DuplicatePolicy anyA=DuplicatePolicy.pathMatches("a",DuplicateAction.CONCAT);
+  DuplicatePolicy startA=DuplicatePolicy.pathMatches("^a",DuplicateAction.SKIP);
+  DuplicatePolicy endA=DuplicatePolicy.pathMatches("a$",DuplicateAction.REPLACE);
+  DuplicatePolicy exactlyA=DuplicatePolicy.pathMatches("^a$",DuplicateAction.THROW);
+  assertEquals(DuplicateAction.CONCAT,anyA.getAction());
+  assertEquals(DuplicateAction.SKIP,startA.getAction());
+  assertEquals(DuplicateAction.REPLACE,endA.getAction());
+  assertEquals(DuplicateAction.THROW,exactlyA.getAction());
+  assertTrue(anyA.apply("bab"));
+  assertTrue(anyA.apply("ab"));
+  assertTrue(anyA.apply("ba"));
+  assertFalse(anyA.apply("bbb"));
+  assertTrue(startA.apply("ab"));
+  assertTrue(startA.apply("aa"));
+  assertFalse(startA.apply("bab"));
+  assertFalse(startA.apply("ba"));
+  assertTrue(endA.apply("ba"));
+  assertTrue(endA.apply("aa"));
+  assertFalse(endA.apply("bab"));
+  assertFalse(endA.apply("ab"));
+  assertTrue(exactlyA.apply("a"));
+  assertFalse(exactlyA.apply("aa"));
+  assertFalse(exactlyA.apply("b"));
+}

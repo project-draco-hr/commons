@@ -1,0 +1,4 @@
+{
+  this.target=Preconditions.checkNotNull(target);
+  this.listener=Preconditions.checkNotNull(listener);
+}

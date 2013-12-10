@@ -1,0 +1,3 @@
+DuplicateHandler duplicateHandler
+String jarPath
+Collection<ReadableEntry> itemEntries

@@ -1,0 +1,3 @@
+{
+  return ByteStreams.newInputStreamSupplier(content.getBytes(Charsets.UTF_8));
+}

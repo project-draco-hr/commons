@@ -1,0 +1,12 @@
+{
+  final Manifest customManifest=new Manifest();
+  customManifest.getMainAttributes().put(Name.MANIFEST_VERSION,"1.0");
+  File destinationJar=jarBuilder().useCustomManifest(customManifest).write();
+  doWithJar(destinationJar,new ExceptionalClosure<JarFile,IOException>(){
+    @Override public void execute(    JarFile created) throws IOException {
+      assertListing(created);
+      assertEquals(customManifest,created.getManifest());
+    }
+  }
+);
+}

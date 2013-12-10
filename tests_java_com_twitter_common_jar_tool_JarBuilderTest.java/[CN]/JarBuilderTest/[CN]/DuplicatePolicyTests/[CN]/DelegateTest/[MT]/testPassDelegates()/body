@@ -1,0 +1,12 @@
+{
+  Predicate<CharSequence> predicate=createMock(new Clazz<Predicate<CharSequence>>(){
+  }
+);
+  expect(predicate.apply("foo")).andReturn(true);
+  expect(predicate.apply("foo")).andReturn(false);
+  control.replay();
+  DuplicatePolicy policy=new DuplicatePolicy(predicate,DuplicateAction.REPLACE);
+  assertEquals(DuplicateAction.REPLACE,policy.getAction());
+  assertTrue(policy.apply("foo"));
+  assertFalse(policy.apply("foo"));
+}

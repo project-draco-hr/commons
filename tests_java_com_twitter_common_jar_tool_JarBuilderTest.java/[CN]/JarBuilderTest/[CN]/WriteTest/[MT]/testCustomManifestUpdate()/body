@@ -1,0 +1,26 @@
+{
+  Manifest initial=new Manifest();
+  initial.getMainAttributes().put(Name.MANIFEST_VERSION,"1.0");
+  initial.getMainAttributes().put(Name.MAIN_CLASS,"com.bob.Tool");
+  File destinationJar=jarBuilder().useCustomManifest(initial).write();
+  final Manifest manifest=doWithJar(destinationJar,new ExceptionalFunction<JarFile,Manifest,IOException>(){
+    @Override public Manifest apply(    JarFile created) throws IOException {
+      assertListing(created);
+      return created.getManifest();
+    }
+  }
+);
+  final Manifest customManifest=new Manifest();
+  customManifest.getMainAttributes().put(Name.MANIFEST_VERSION,"1.0");
+  customManifest.getMainAttributes().put(Name.MAIN_CLASS,"com.john.Tool");
+  jarBuilder(destinationJar).useCustomManifest(customManifest).write();
+  doWithJar(destinationJar,new ExceptionalClosure<JarFile,IOException>(){
+    @Override public void execute(    JarFile updated) throws IOException {
+      assertListing(updated);
+      Manifest updatedManifest=updated.getManifest();
+      assertNotEqual(manifest,updatedManifest);
+      assertEquals(customManifest,updatedManifest);
+    }
+  }
+);
+}

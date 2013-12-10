@@ -1,0 +1,3 @@
+{
+  tearDownCloser=Closer.create();
+}

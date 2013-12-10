@@ -1,0 +1,14 @@
+{
+  return new FileSource(new File("/")){
+    @Override public String identify(    String name){
+      if (!file.getPath().equals(name)) {
+        throw new IllegalArgumentException("Cannot identify any entry name save for " + file.getPath());
+      }
+      return file.getPath();
+    }
+    @Override public String toString(){
+      return String.format("FileSource{file=%s}",file.getPath());
+    }
+  }
+;
+}

@@ -1,0 +1,15 @@
+{
+  Closer jarFileCloser=Closer.create();
+  JarFile jar=jarFileCloser.register(new JarFile(jarFile));
+  try {
+    for (Enumeration<JarEntry> entries=jar.entries(); entries.hasMoreElements(); ) {
+      work.execute(entries.nextElement());
+    }
+  }
+ catch (  IOException e) {
+    throw jarFileCloser.rethrow(e);
+  }
+ finally {
+    jarFileCloser.close();
+  }
+}

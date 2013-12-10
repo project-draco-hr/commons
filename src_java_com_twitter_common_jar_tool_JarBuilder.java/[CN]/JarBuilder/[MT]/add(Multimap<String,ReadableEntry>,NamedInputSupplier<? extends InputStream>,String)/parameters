@@ -1,0 +1,3 @@
+Multimap<String,ReadableEntry> entries
+NamedInputSupplier<? extends InputStream> contents
+String jarPath

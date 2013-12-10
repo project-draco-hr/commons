@@ -1,0 +1,8 @@
+{
+  for (  DuplicatePolicy policy : policies) {
+    if (policy.apply(jarPath)) {
+      return policy.getAction();
+    }
+  }
+  return defaultAction;
+}
