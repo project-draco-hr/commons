@@ -1,0 +1,4 @@
+{
+  this.loggerRepository=checkNotNull(loggerRepository);
+  this.useExtendedLocationInfo=useExtendedLocationInfo;
+}

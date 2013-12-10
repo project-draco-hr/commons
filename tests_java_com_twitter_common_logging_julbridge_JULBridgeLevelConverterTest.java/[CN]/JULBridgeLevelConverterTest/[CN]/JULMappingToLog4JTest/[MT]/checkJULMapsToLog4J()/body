@@ -1,0 +1,3 @@
+{
+  assertThat(JULBridgeLevelConverter.toLog4jLevel(level),is(expected));
+}

@@ -1,0 +1,5 @@
+{
+  LogRecord record=new LogRecord(Level.FINEST,"test message");
+  record.setLoggerName("test.checkGetLogger");
+  assertThat(new JULBridgeHandler().getLogger(record).getName(),is("test.checkGetLogger"));
+}

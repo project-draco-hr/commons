@@ -1,0 +1,3 @@
+{
+  this(LogManager.getLoggerRepository(),false);
+}

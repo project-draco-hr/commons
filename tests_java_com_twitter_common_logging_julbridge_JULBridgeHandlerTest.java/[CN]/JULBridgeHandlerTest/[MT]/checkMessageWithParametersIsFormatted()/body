@@ -1,0 +1,5 @@
+{
+  LogRecord record=new LogRecord(Level.FINEST,"test is {0}");
+  record.setParameters(new Object[]{"successful"});
+  assertThat(JULBridgeHandler.formatMessage(record),is("test is successful"));
+}

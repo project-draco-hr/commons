@@ -1,0 +1,5 @@
+{
+  return Arrays.asList(new Object[][]{{org.apache.log4j.Level.TRACE,Level.FINEST},{org.apache.log4j.Level.DEBUG,Level.FINE},{org.apache.log4j.Level.INFO,Level.INFO},{org.apache.log4j.Level.WARN,Level.WARNING},{org.apache.log4j.Level.ERROR,Level.SEVERE},{org.apache.log4j.Level.FATAL,Level.SEVERE},{org.apache.log4j.Level.ALL,Level.ALL},{org.apache.log4j.Level.OFF,Level.OFF},{new org.apache.log4j.Level(42,"test",42){
+  }
+,Level.FINE}});
+}

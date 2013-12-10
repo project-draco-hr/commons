@@ -1,0 +1,11 @@
+{
+  if (record == null) {
+    return;
+  }
+  Logger log4jLogger=getLogger(record);
+  Level log4jLevel=JULBridgeLevelConverter.toLog4jLevel(record.getLevel());
+  if (log4jLogger.isEnabledFor(log4jLevel)) {
+    LoggingEvent event=toLoggingEvent(record,log4jLogger,log4jLevel,useExtendedLocationInfo);
+    log4jLogger.callAppenders(event);
+  }
+}

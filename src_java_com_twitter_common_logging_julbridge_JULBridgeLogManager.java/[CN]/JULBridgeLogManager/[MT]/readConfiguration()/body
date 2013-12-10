@@ -1,0 +1,3 @@
+{
+  assimilate(org.apache.log4j.LogManager.getLoggerRepository());
+}

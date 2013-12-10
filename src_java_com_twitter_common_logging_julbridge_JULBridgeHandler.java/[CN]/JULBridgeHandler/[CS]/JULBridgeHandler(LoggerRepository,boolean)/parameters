@@ -1,0 +1,2 @@
+LoggerRepository loggerRepository
+boolean useExtendedLocationInfo

@@ -1,0 +1,11 @@
+{
+  ResourceBundle bundle=new ListResourceBundle(){
+    @Override protected Object[][] getContents(){
+      return new Object[][]{{"test is successful","le test fonctionne"}};
+    }
+  }
+;
+  LogRecord record=new LogRecord(Level.FINEST,"test is successful");
+  record.setResourceBundle(bundle);
+  assertThat(JULBridgeHandler.formatMessage(record),is("le test fonctionne"));
+}

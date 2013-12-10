@@ -1,0 +1,28 @@
+{
+  checkNotNull(level);
+  if (level == org.apache.log4j.Level.TRACE) {
+    return Level.FINEST;
+  }
+ else   if (level == org.apache.log4j.Level.DEBUG) {
+    return Level.FINE;
+  }
+ else   if (level == org.apache.log4j.Level.INFO) {
+    return Level.INFO;
+  }
+ else   if (level == org.apache.log4j.Level.WARN) {
+    return Level.WARNING;
+  }
+ else   if (level == org.apache.log4j.Level.ERROR) {
+    return Level.SEVERE;
+  }
+ else   if (level == org.apache.log4j.Level.FATAL) {
+    return Level.SEVERE;
+  }
+ else   if (level == org.apache.log4j.Level.ALL) {
+    return Level.ALL;
+  }
+ else   if (level == org.apache.log4j.Level.OFF) {
+    return Level.OFF;
+  }
+  return Level.FINE;
+}

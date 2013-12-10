@@ -1,0 +1,7 @@
+{
+  LogManager.getLogManager().reset();
+  boolean withExtendedLocationInfos=Boolean.getBoolean(USE_EXTENDED_LOCATION_INFO_PROPERTYNAME);
+  Logger rootLogger=Logger.getLogger("");
+  rootLogger.setLevel(JULBridgeLevelConverter.fromLog4jLevel(loggerRepository.getThreshold()));
+  rootLogger.addHandler(new JULBridgeHandler(loggerRepository,withExtendedLocationInfos));
+}
