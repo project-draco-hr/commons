@@ -1,0 +1,7 @@
+{
+  if (!entry.getSource().equals(source)) {
+    source=entry.getSource();
+    LOG.fine(entry.getSource().name());
+  }
+  LOG.log(Level.FINER,"\t{0}",entry.getName());
+}

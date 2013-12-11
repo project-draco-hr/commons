@@ -1,0 +1,4 @@
+{
+  @SuppressWarnings("unchecked") Parser<Integer> parser=(Parser<Integer>)Parsers.INFO_TO_PARSER.apply(new ParserInfo(Integer.class.getName(),StringParser.class.getName()));
+  assertEquals(Integer.valueOf(42),parser.parse(null,null,"themeaningoflifeisfortytwointhebookbyadams"));
+}

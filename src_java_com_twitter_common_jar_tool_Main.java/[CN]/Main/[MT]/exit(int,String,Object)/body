@@ -1,0 +1,3 @@
+{
+  exit(code,Optional.of(String.format(message,args)));
+}

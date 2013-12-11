@@ -1,0 +1,60 @@
+{
+  Configuration bootstrapLogConfig=RootLogConfig.builder().logToStderr(true).useGLogFormatter(true).vlog(LogLevel.WARNING).build();
+  bootstrapLogConfig.apply();
+  ArgScanner argScanner=new ArgScanner();
+  if (!argScanner.parse(Arrays.asList(args))) {
+    exit(1);
+  }
+  Configuration logConfig=RootLogConfig.configurationFromFlags();
+  logConfig.apply();
+  if (MAIN_CLASS.hasAppliedValue() && MANIFEST.hasAppliedValue()) {
+    exit(1,"Can specify main or manifest but not both.");
+  }
+  if (TARGET.get().size() != 1) {
+    exit(1,"Must supply exactly 1 target jar path.");
+  }
+  final File target=Iterables.getOnlyElement(TARGET.get());
+  if (!UPDATE.get() && target.exists() && !target.delete()) {
+    exit(1,"Failed to delete file at requested target path %s",target);
+  }
+  final Closer closer=Closer.create();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    @Override public void run(){
+      try {
+        closer.close();
+      }
+ catch (      IOException e) {
+        LOG.warning("Failed to close one or more resources: " + e);
+      }
+    }
+  }
+);
+  JarBuilder jarBuilder=closer.register(new JarBuilder(target,new LoggingListener(target)));
+  if (MAIN_CLASS.hasAppliedValue()) {
+    Manifest manifest=JarBuilder.createDefaultManifest();
+    manifest.getMainAttributes().put(Name.MAIN_CLASS,MAIN_CLASS.get());
+    jarBuilder.useCustomManifest(manifest);
+  }
+ else   if (MANIFEST.hasAppliedValue()) {
+    jarBuilder.useCustomManifest(MANIFEST.get());
+  }
+  for (  Map.Entry<File,String> entry : FILES.get().entrySet()) {
+    File file=entry.getKey();
+    String jarPath=entry.getValue();
+    jarBuilder.add(file,jarPath);
+  }
+  for (  File jar : JARS.get()) {
+    jarBuilder.addJar(jar);
+  }
+  DuplicateHandler duplicateHandler=new DuplicateHandler(DEFAULT_ACTION.get(),POLICIES.get());
+  try {
+    jarBuilder.write(duplicateHandler);
+  }
+ catch (  DuplicateEntryException e) {
+    exit(1,"Refusing to write duplicate entry: %s",e.getMessage());
+  }
+catch (  IOException e) {
+    exit(1,"Unexpected problem writing target jar %s: %s",target,e.getMessage());
+  }
+  exit(0);
+}

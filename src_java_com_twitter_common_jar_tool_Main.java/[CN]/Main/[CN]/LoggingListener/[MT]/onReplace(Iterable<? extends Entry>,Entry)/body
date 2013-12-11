@@ -1,0 +1,5 @@
+{
+  if (LOG.isLoggable(Level.FINE)) {
+    LOG.fine(String.format("Using %s to replace %s",identify(replacement),identify(originals)));
+  }
+}
