@@ -5,5 +5,5 @@ def write(self, outfile, rebasings=None):
     self.stamps.write(outfile, rebasings=rebasings)
     self.apis.write(outfile, inline_vals=False, rebasings=rebasings)
     self.source_infos.write(outfile, inline_vals=False, rebasings=rebasings)
-    self.compilations.write(outfile, inline_vals=False, rebasings=rebasings)
-    self.compile_setup.write(outfile, inline_vals=False, rebasings=rebasings)
+    self.compilations.write(outfile, inline_vals=True, rebasings=rebasings)
+    self.compile_setup.write(outfile, inline_vals=True, rebasings=rebasings)

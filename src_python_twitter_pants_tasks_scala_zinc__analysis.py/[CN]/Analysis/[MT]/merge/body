@@ -4,6 +4,7 @@ def merge(analyses):
     src_prod = Util.merge_dicts([a.relations.src_prod for a in analyses])
     binary_dep = Util.merge_dicts([a.relations.binary_dep for a in analyses])
     classes = Util.merge_dicts([a.relations.classes for a in analyses])
+    used = Util.merge_dicts([a.relations.used for a in analyses])
     class_to_source = dict(((v, k) for (k, vs) in classes.iteritems() for v in vs))
 
     def merge_dependencies(internals, externals):
@@ -20,7 +21,9 @@ def merge(analyses):
         return (internal, external)
     (internal, external) = merge_dependencies([a.relations.internal_src_dep for a in analyses], [a.relations.external_dep for a in analyses])
     (internal_pi, external_pi) = merge_dependencies([a.relations.internal_src_dep_pi for a in analyses], [a.relations.external_dep_pi for a in analyses])
-    relations = Relations((src_prod, binary_dep, internal, external, internal_pi, external_pi, classes))
+    (member_ref_internal, member_ref_external) = merge_dependencies([a.relations.member_ref_internal_dep for a in analyses], [a.relations.member_ref_external_dep for a in analyses])
+    (inheritance_internal, inheritance_external) = merge_dependencies([a.relations.inheritance_internal_dep for a in analyses], [a.relations.inheritance_external_dep for a in analyses])
+    relations = Relations((src_prod, binary_dep, internal, external, internal_pi, external_pi, member_ref_internal, member_ref_external, inheritance_internal, inheritance_external, classes, used))
     products = Util.merge_dicts([a.stamps.products for a in analyses])
     sources = Util.merge_dicts([a.stamps.sources for a in analyses])
     binaries = Util.merge_dicts([a.stamps.binaries for a in analyses])

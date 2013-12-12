@@ -28,8 +28,11 @@ def split(self, splits, catchall=False):
         return (internals, externals)
     (internal_splits, external_splits) = split_dependencies(self.relations.internal_src_dep, self.relations.external_dep)
     (internal_pi_splits, external_pi_splits) = split_dependencies(self.relations.internal_src_dep_pi, self.relations.external_dep_pi)
+    (member_ref_internal_splits, member_ref_external_splits) = split_dependencies(self.relations.member_ref_internal_dep, self.relations.member_ref_external_dep)
+    (inheritance_internal_splits, inheritance_external_splits) = split_dependencies(self.relations.inheritance_internal_dep, self.relations.inheritance_external_dep)
+    used_splits = Util.split_dict(self.relations.used, splits)
     relations_splits = []
-    for args in zip(src_prod_splits, binary_dep_splits, internal_splits, external_splits, internal_pi_splits, external_pi_splits, classes_splits):
+    for args in zip(src_prod_splits, binary_dep_splits, internal_splits, external_splits, internal_pi_splits, external_pi_splits, member_ref_internal_splits, member_ref_external_splits, inheritance_internal_splits, inheritance_external_splits, classes_splits, used_splits):
         relations_splits.append(Relations(args))
     stamps_splits = []
     for (src_prod, binary_dep, split) in zip(src_prod_splits, binary_dep_splits, splits):
