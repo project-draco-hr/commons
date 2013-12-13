@@ -1,6 +1,6 @@
 def _runjava_common(self, runjava, main, classpath=None, opts=None, args=None, jvmargs=None, workunit_name=None, workunit_labels=None):
     workunit_labels = (workunit_labels[:] if workunit_labels else [])
-    cp = ((self._classpath or []) + (classpath or []))
+    cp = (classpath or [])
     cmd_str = binary_util.runjava_cmd_str(jvmargs=jvmargs, classpath=cp, main=main, opts=opts, args=args)
     workunit_name = (workunit_name or main)
     if self._daemon:

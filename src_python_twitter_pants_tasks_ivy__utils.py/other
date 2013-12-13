@@ -8,7 +8,7 @@ import pkgutil
 import re
 import threading
 from twitter.common.collections import OrderedSet
-from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.common.dirutil import safe_mkdir, safe_open, safe_delete
 from twitter.pants import binary_util, get_buildroot, is_internal, is_jar, is_jvm, is_concrete
 from twitter.pants.base.generator import Generator, TemplateData
 from twitter.pants.base.revision import Revision

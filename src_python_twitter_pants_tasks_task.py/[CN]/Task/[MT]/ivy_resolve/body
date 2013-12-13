@@ -1,6 +1,5 @@
-def ivy_resolve(self, targets, java_runner=None, ivy_args=None, symlink_ivyxml=False, silent=False, workunit_name=None, workunit_labels=None):
+def ivy_resolve(self, targets, java_runner=None, symlink_ivyxml=False, silent=False, workunit_name=None, workunit_labels=None):
     java_runner = (java_runner or runjava_indivisible)
-    ivy_args = (ivy_args or [])
     targets = set(targets)
     if (not targets):
         return []
@@ -11,9 +10,10 @@ def ivy_resolve(self, targets, java_runner=None, ivy_args=None, symlink_ivyxml=F
         target_workdir = os.path.join(work_dir, global_vts.cache_key.hash)
         target_classpath_file = os.path.join(target_workdir, 'classpath')
         target_classpath_file_tmp = (target_classpath_file + '.tmp')
+        symlink_dir = os.path.join(target_workdir, 'jars')
         if (invalidation_check.invalid_vts or (not os.path.exists(target_classpath_file))):
             ivy_utils = IvyUtils(config=self.context.config, options=self.context.options, log=self.context.log)
-            args = (((['-cachepath', target_classpath_file_tmp] + ['-confs']) + confs) + ivy_args)
+            args = ((['-cachepath', target_classpath_file_tmp] + ['-confs']) + confs)
 
             def exec_ivy():
                 ivy_utils.exec_ivy(target_workdir=target_workdir, targets=targets, args=args, runjava=java_runner, workunit_name='ivy', workunit_factory=self.context.new_workunit, symlink_ivyxml=symlink_ivyxml)
@@ -24,9 +24,10 @@ def ivy_resolve(self, targets, java_runner=None, ivy_args=None, symlink_ivyxml=F
                 exec_ivy()
             if (not os.path.exists(target_classpath_file_tmp)):
                 raise TaskError(('Ivy failed to create classpath file at %s' % target_classpath_file_tmp))
-            shutil.move(target_classpath_file_tmp, target_classpath_file)
             if self.artifact_cache_writes_enabled():
                 self.update_artifact_cache([(global_vts, [target_classpath_file])])
+            IvyUtils.symlink_cachepath(target_classpath_file_tmp, symlink_dir, target_classpath_file)
+            os.unlink(target_classpath_file_tmp)
     with IvyUtils.cachepath(target_classpath_file) as classpath:
         stripped_classpath = [path.strip() for path in classpath]
         return [path for path in stripped_classpath if IvyUtils.is_mappable_artifact(path)]

@@ -1,6 +1,5 @@
-def __init__(self, context, classpath=None, workdir=None):
+def __init__(self, context, workdir=None):
     Task.__init__(self, context)
-    self._classpath = classpath
     self._nailgun_bootstrap_key = 'nailgun'
     nailgun_bootstrap_tools = context.config.getlist('nailgun', 'bootstrap-tools', default=[':nailgun-server'])
     self._bootstrap_utils.register_jvm_build_tools(self._nailgun_bootstrap_key, nailgun_bootstrap_tools)

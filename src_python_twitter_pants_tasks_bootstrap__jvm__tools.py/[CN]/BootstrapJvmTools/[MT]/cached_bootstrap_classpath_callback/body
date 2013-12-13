@@ -6,8 +6,7 @@ def cached_bootstrap_classpath_callback(self, key, tools):
         with cache_lock:
             if ('classpath' not in cache):
                 targets = list(self.resolve_tool_targets(tools))
-                ivy_args = ['-sync', '-symlink', '-types', 'jar', 'bundle']
                 workunit_name = ('bootstrap-%s' % str(key))
-                cache['classpath'] = self.ivy_resolve(targets, java_runner=java_runner, ivy_args=ivy_args, silent=True, workunit_name=workunit_name, workunit_labels=[WorkUnit.BOOTSTRAP])
+                cache['classpath'] = self.ivy_resolve(targets, java_runner=java_runner, silent=True, workunit_name=workunit_name, workunit_labels=[WorkUnit.BOOTSTRAP])
             return cache['classpath']
     return bootstrap_classpath
