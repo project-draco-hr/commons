@@ -2,7 +2,8 @@ def submit_async_work_chain(self, work_chain, workunit_parent, done_hook=None):
     'Submit work to be executed in the background.\n\n    - work_chain: An iterable of Work instances. Will be invoked serially. Each instance may\n                  have a different cardinality. There is no output-input chaining: the argument\n                  tuples must already be present in each work instance.  If any work throws an\n                  exception no subsequent work in the chain will be attempted.\n    - workunit_parent: Work is accounted for under this workunit.\n    - done_hook: If not None, invoked with no args after all work is done, or on error.\n    '
 
     def done():
-        done_hook()
+        if done_hook:
+            done_hook()
         with self._pending_workchains_cond:
             self._pending_workchains -= 1
             self._pending_workchains_cond.notify()

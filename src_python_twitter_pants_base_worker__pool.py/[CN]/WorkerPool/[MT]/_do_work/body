@@ -1,7 +1,7 @@
 def _do_work(self, func, args_tuple, workunit_name, workunit_parent, on_failure=None):
     try:
         if workunit_name:
-            with self._run_tracker.new_workunit(name=workunit_name, parent=workunit_parent):
+            with self._run_tracker.new_workunit_under_parent(name=workunit_name, parent=workunit_parent):
                 return func(*args_tuple)
         else:
             return func(*args_tuple)
