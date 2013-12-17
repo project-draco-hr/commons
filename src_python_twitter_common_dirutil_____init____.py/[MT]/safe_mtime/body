@@ -1,0 +1,6 @@
+def safe_mtime(filename):
+    '\n    Safely return the mtime of a file. Returns 0 if an OSError is raised.\n  '
+    try:
+        return os.path.getmtime(filename)
+    except OSError:
+        return 0
