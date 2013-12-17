@@ -1,0 +1,2 @@
+List<InetSocketAddress> hosts
+int maxConnections

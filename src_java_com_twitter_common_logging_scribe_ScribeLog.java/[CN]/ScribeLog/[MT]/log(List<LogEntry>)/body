@@ -3,7 +3,7 @@
     return client.Log(entries);
   }
  catch (  TException e) {
-    LOG.log(Level.WARNING,"Failed to submit log request!.");
+    LOG.log(Level.WARNING,"Failed to submit log request!.",e);
     return ResultCode.TRY_LATER;
   }
 }
