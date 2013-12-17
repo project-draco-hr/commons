@@ -5,7 +5,7 @@ def _ls(self, path, is_dir=False, is_recursive=False):
     if (exit_code != 0):
         raise self.InternalError(('Error occurred. %s.Check logs for details' % ls_result))
     file_list = []
-    if (ls_result == None):
+    if (ls_result is None):
         return file_list
     lines = ls_result.splitlines()
     for line in lines:
