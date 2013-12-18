@@ -1,0 +1,10 @@
+def _get_pidfiles_and_ports():
+    'Returns a list of pairs (pidfile, port) of all found pidfiles.'
+    pidfile_dir = os.path.join(get_buildroot(), '.pids')
+    pidfile_names = os.listdir(pidfile_dir)
+    ret = []
+    for pidfile_name in pidfile_names:
+        m = re.match('port_(\\d+)\\.pid', pidfile_name)
+        if (m is not None):
+            ret.append((os.path.join(pidfile_dir, pidfile_name), int(m.group(1))))
+    return ret

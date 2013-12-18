@@ -1,4 +1,0 @@
-def get_port_and_pidfile(context):
-    port = (context.options.port or context.config.getint('reporting', 'reporting_port'))
-    pidfile = os.path.join(get_buildroot(), '.pids', ('port_%d.pid' % port))
-    return (port, pidfile)
