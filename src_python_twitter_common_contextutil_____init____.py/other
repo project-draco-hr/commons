@@ -1,4 +1,3 @@
-import uuid
 __author__ = 'John Sirois, Brian Wickman'
 import os
 import shutil
@@ -6,6 +5,7 @@ import tarfile
 import tempfile
 import time
 import sys
+import uuid
 import zipfile
 from contextlib import closing, contextmanager
 from twitter.common.dirutil import safe_delete
