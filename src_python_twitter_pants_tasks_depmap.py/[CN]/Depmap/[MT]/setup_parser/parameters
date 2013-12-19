@@ -1,4 +1,4 @@
 cls
 option_group
 args
-mkflags
+mkflag

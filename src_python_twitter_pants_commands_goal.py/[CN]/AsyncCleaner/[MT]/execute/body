@@ -1,0 +1,2 @@
+def execute(self, targets):
+    _async_cautious_rmtree(self.context.config.getdefault('pants_workdir'))
