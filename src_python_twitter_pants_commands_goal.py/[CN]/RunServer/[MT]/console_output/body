@@ -1,10 +1,9 @@
-def execute(self, targets):
+def console_output(self, targets):
     DONE = '__done_reporting'
     pidfiles_and_ports = _get_pidfiles_and_ports()
     if (len(pidfiles_and_ports) > 0):
         (_, port) = pidfiles_and_ports[0]
-        self.context.log.info(('Server already running at http://localhost:%d' % port))
-        return
+        return [('Server already running at http://localhost:%d' % port)]
 
     def run_server(reporting_queue):
 
@@ -17,16 +16,6 @@ def execute(self, targets):
 
         def report_launch(actual_port):
             reporting_queue.put(('Launching server with pid %d at http://localhost:%d' % (os.getpid(), actual_port)))
-            show_latest_run_msg()
-
-        def show_latest_run_msg():
-            url = ('http://localhost:%d/run/latest' % actual_port)
-            try:
-                from colors import magenta
-                url = magenta(url)
-            except ImportError:
-                pass
-            reporting_queue.put(('Automatically see latest run at %s' % url))
 
         def done_reporting():
             reporting_queue.put(DONE)
@@ -50,6 +39,8 @@ def execute(self, targets):
     proc.daemon = True
     proc.start()
     s = reporting_queue.get()
+    ret = []
     while (s != DONE):
-        self.context.log.info(s)
+        ret.append(s)
         s = reporting_queue.get()
+    return ret
