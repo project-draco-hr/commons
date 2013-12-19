@@ -1,18 +1,10 @@
 def console_output(self, targets):
     DONE = '__done_reporting'
-    pidfiles_and_ports = _get_pidfiles_and_ports()
-    if (len(pidfiles_and_ports) > 0):
-        (_, port) = pidfiles_and_ports[0]
+    port = ReportingServerManager.get_current_server_port()
+    if port:
         return [('Server already running at http://localhost:%d' % port)]
 
     def run_server(reporting_queue):
-
-        def write_pidfile(actual_port):
-            pidfile_dir = os.path.join(get_buildroot(), '.pids')
-            safe_mkdir(pidfile_dir)
-            pidfile = os.path.join(pidfile_dir, ('port_%d.pid' % actual_port))
-            with open(pidfile, 'w') as outfile:
-                outfile.write(str(os.getpid()))
 
         def report_launch(actual_port):
             reporting_queue.put(('Launching server with pid %d at http://localhost:%d' % (os.getpid(), actual_port)))
@@ -27,7 +19,7 @@ def console_output(self, targets):
                 settings = ReportingServer.Settings(info_dir=info_dir, template_dir=template_dir, assets_dir=assets_dir, root=get_buildroot(), allowed_clients=self.context.options.allowed_clients)
                 server = ReportingServer(self.context.options.port, settings)
                 actual_port = server.server_port()
-                write_pidfile(actual_port)
+                ReportingServerManager.save_current_server_port(actual_port)
                 report_launch(actual_port)
                 done_reporting()
                 server.start()
@@ -43,4 +35,7 @@ def console_output(self, targets):
     while (s != DONE):
         ret.append(s)
         s = reporting_queue.get()
+    server_port = ReportingServerManager.get_current_server_port()
+    if server_port:
+        binary_util.ui_open(('http://localhost:%d/run/latest' % server_port))
     return ret

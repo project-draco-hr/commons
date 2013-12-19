@@ -6,4 +6,5 @@ from twitter.pants.reporting.plaintext_reporter import PlainTextReporter
 from twitter.pants.reporting.html_reporter import HtmlReporter
 from twitter.pants.reporting.quiet_reporter import QuietReporter
 from twitter.pants.reporting.report import ReportingError, Report
+from twitter.pants.reporting.reporting_server import ReportingServerManager
 StringIO = Compatibility.StringIO

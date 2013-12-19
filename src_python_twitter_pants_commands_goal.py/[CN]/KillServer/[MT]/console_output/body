@@ -1,6 +1,6 @@
 def console_output(self, targets):
-    pidfiles_and_ports = _get_pidfiles_and_ports()
-    if (len(pidfiles_and_ports) == 0):
+    pidfiles_and_ports = ReportingServerManager.get_current_server_pidfiles_and_ports()
+    if (not pidfiles_and_ports):
         return ['No server found.']
     for (pidfile, port) in pidfiles_and_ports:
         with open(pidfile, 'r') as infile:
