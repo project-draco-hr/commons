@@ -1,6 +1,6 @@
 {
-  Counter longVar=root.createCounter("long");
-  MetricRegistry barScope=root.scope("bar");
+  Counter longVar=metrics.createCounter("long");
+  MetricRegistry barScope=metrics.scope("bar");
   Counter longVar2=barScope.createCounter("long");
   checkSamples(ImmutableMap.<String,Number>of("long",0L,"bar.long",0L));
   longVar.add(10);

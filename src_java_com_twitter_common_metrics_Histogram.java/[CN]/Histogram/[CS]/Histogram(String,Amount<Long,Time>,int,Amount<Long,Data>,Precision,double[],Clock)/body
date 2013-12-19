@@ -1,0 +1,3 @@
+{
+  this(name,window,slices,maxMemory,precision,quantiles,clock,null);
+}

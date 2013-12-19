@@ -1,3 +1,0 @@
-{
-  this(name,new WindowedApproxHistogram(precision),DEFAULT_QUANTILES,registry);
-}

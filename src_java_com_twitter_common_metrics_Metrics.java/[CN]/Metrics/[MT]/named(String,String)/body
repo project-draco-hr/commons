@@ -1,0 +1,3 @@
+{
+  return histogramName + ScopedRegistry.DEFAULT_SCOPE_DELIMITER + statName;
+}

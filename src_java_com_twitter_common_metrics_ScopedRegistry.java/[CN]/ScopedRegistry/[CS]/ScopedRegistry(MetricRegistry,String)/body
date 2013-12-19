@@ -1,0 +1,4 @@
+{
+  this.parent=Preconditions.checkNotNull(parent);
+  this.name=MorePreconditions.checkNotBlank(name);
+}

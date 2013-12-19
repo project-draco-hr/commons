@@ -1,0 +1,4 @@
+{
+  histograms.add(histogram);
+  return histogram;
+}

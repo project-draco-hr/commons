@@ -1,0 +1,5 @@
+{
+  Preconditions.checkArgument(0.0 <= quantile && quantile <= 1.0);
+  this.quantile=quantile;
+  this.value=value;
+}

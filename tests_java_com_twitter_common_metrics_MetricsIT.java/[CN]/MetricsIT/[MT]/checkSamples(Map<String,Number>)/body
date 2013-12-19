@@ -1,5 +1,5 @@
 {
-  Map<String,Number> samples=Maps.newHashMap(root.sample());
+  Map<String,Number> samples=Maps.newHashMap(metrics.sample());
   for (  Map.Entry<String,Number> expectedSample : expected.entrySet()) {
     Number value=samples.remove(expectedSample.getKey());
     assertNotNull("Missing metric " + expectedSample.getKey(),value);

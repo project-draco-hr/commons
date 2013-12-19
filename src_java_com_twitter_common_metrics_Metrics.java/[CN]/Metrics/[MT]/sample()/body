@@ -1,7 +1,29 @@
 {
   ImmutableMap.Builder<String,Number> samples=ImmutableMap.builder();
-  for (  Map.Entry<String,Gauge<?>> metric : metrics.entrySet()) {
-    samples.put(metric.getKey(),metric.getValue().read());
+  for (  Map.Entry<String,Gauge<?>> metric : gauges.entrySet()) {
+    Gauge<?> gauge=metric.getValue();
+    if (gauge == null) {
+      gauges.remove(metric.getKey());
+    }
+ else {
+      samples.put(metric.getKey(),gauge.read());
+    }
+  }
+  for (  Map.Entry<String,LongAdder> metric : counters.entrySet()) {
+    samples.put(metric.getKey(),metric.getValue().sum());
+  }
+  for (  HistogramInterface h : histograms) {
+    Snapshot snapshot=h.snapshot();
+    samples.put(named(h.getName(),"count"),snapshot.count());
+    samples.put(named(h.getName(),"sum"),snapshot.sum());
+    samples.put(named(h.getName(),"avg"),snapshot.avg());
+    samples.put(named(h.getName(),"min"),snapshot.min());
+    samples.put(named(h.getName(),"max"),snapshot.max());
+    samples.put(named(h.getName(),"stddev"),snapshot.stddev());
+    for (    Percentile p : snapshot.percentiles()) {
+      String percentileName=named(h.getName(),gaugeName(p.getQuantile()));
+      samples.put(percentileName,p.getValue());
+    }
   }
   return samples.build();
 }

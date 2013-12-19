@@ -1,11 +1,6 @@
 {
   final LongAdder adder=new LongAdder();
-  register(new AbstractGauge<Long>(name){
-    @Override public Long read(){
-      return adder.sum();
-    }
-  }
-);
+  counters.put(name,adder);
   return new Counter(){
     public void increment(){
       adder.increment();

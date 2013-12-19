@@ -1,4 +1,4 @@
 {
-  stats=new Statistics();
+  stats.clear();
   histogram.clear();
 }

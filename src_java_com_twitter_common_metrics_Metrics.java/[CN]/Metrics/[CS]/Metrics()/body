@@ -1,2 +1,4 @@
 {
+  Map<HistogramInterface,Boolean> underlying=Maps.newConcurrentMap();
+  histograms=Collections.newSetFromMap(underlying);
 }
