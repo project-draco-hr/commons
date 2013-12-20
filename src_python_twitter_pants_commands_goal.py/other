@@ -75,12 +75,10 @@ try:
                 _cautious_rmtree(new_path)
 except ImportError:
     pass
-goal(name='invalidate', action=Invalidator).install().with_description('Invalidate all targets')
+goal(name='invalidate', action=Invalidator, dependencies=['ng-killall']).install().with_description('Invalidate all targets')
 goal(name='clean-all', action=Cleaner, dependencies=['invalidate']).install().with_description('Cleans all build output')
 goal(name='clean-all-async', action=AsyncCleaner, dependencies=['invalidate']).install().with_description('Cleans all build output in a background process')
-ng_killall = goal(name='ng-killall', action=NailgunKillall)
-ng_killall.install().with_description('Kill any running nailgun servers spawned by pants.')
-ng_killall.install('clean-all', first=True)
+goal(name='ng-killall', action=NailgunKillall).install().with_description('Kill any running nailgun servers spawned by pants.')
 goal(name='server', action=RunServer).install().with_description('Run the pants reporting server.')
 goal(name='killserver', action=KillServer).install().with_description('Kill the pants reporting server.')
 goal(name='bootstrap-jvm-tools', action=BootstrapJvmTools).install('bootstrap').with_description('Bootstrap tools needed for building')
