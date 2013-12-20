@@ -1,5 +1,5 @@
 def __init__(self, port, settings):
-    renderer = MustacheRenderer(Renderer(search_dirs=settings.template_dir))
+    renderer = MustacheRenderer(settings.template_dir, __name__)
 
 
     class MyHandler(PantsHandler):

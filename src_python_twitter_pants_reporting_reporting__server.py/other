@@ -2,6 +2,7 @@ import itertools
 import json
 import mimetypes
 import os
+import pkgutil
 import pystache
 import re
 import urllib

@@ -1,2 +1,3 @@
 self
-pystache_renderer
+template_dir
+package_name
