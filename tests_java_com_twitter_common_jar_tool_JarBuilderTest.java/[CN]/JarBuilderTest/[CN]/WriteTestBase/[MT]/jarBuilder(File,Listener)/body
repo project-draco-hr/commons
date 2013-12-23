@@ -1,0 +1,3 @@
+{
+  return tearDownCloser.register(new JarBuilder(destinationJar,listener));
+}

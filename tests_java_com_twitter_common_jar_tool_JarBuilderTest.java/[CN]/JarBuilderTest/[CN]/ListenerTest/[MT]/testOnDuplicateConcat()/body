@@ -1,0 +1,11 @@
+{
+  Listener listener=createMock(Listener.class);
+  Capture<Iterable<? extends Entry>> concatenated=new Capture<Iterable<? extends Entry>>();
+  listener.onConcat(eq("concatenated/write"),capture(concatenated));
+  replay(listener);
+  File one=folder.newFile("one");
+  File two=folder.newFile("two");
+  File three=folder.newFile("three");
+  jarBuilder(folder.newFile(),listener).add(one,"concatenated/write").add(two,"concatenated/write").add(three,"concatenated/write").write(DuplicateHandler.always(DuplicateAction.CONCAT));
+  assertEquals(ImmutableList.of("one","two","three"),FluentIterable.from(concatenated.getValue()).transform(GET_NAME).toList());
+}

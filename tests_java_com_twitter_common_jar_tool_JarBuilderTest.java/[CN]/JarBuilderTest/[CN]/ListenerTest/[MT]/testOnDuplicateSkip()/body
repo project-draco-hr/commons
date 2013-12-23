@@ -1,0 +1,14 @@
+{
+  Listener listener=createMock(Listener.class);
+  Capture<Optional<Entry>> retained=new Capture<Optional<Entry>>();
+  Capture<Iterable<? extends Entry>> skipped=new Capture<Iterable<? extends Entry>>();
+  listener.onSkip(capture(retained),capture(skipped));
+  replay(listener);
+  File one=folder.newFile("one");
+  File two=folder.newFile("two");
+  File three=folder.newFile("three");
+  jarBuilder(folder.newFile(),listener).add(one,"skipped/write").add(two,"skipped/write").add(three,"skipped/write").write(DuplicateHandler.always(DuplicateAction.SKIP));
+  assertEquals("one",retained.getValue().get().getName());
+  assertEquals("skipped/write",retained.getValue().get().getJarPath());
+  assertEquals(ImmutableList.of("two","three"),FluentIterable.from(skipped.getValue()).transform(GET_NAME).toList());
+}
