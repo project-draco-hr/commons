@@ -1,1 +1,2 @@
 DuplicateHandler duplicateHandler
+Iterable<Pattern> skipPatterns

@@ -67,6 +67,12 @@
 ,"bool","");
   test(StandardArgs.class,new Command(){
     @Override public void execute(){
+      assertThat(StandardArgs.REGEX.get().matcher("jack").matches(),is(true));
+    }
+  }
+,"regex",".*ack$");
+  test(StandardArgs.class,new Command(){
+    @Override public void execute(){
       assertThat(StandardArgs.BOOL.get(),is(false));
     }
   }

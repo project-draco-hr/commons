@@ -1,3 +1,4 @@
+Predicate<CharSequence> skipPath
 DuplicateHandler duplicateHandler
 String jarPath
 Collection<ReadableEntry> itemEntries

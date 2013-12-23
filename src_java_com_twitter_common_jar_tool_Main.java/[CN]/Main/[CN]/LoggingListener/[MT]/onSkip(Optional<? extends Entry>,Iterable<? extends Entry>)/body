@@ -1,0 +1,10 @@
+{
+  if (LOG.isLoggable(Level.FINE)) {
+    if (original.isPresent()) {
+      LOG.fine(String.format("Retaining %s and skipping %s",identify(original.get()),identify(skipped)));
+    }
+ else {
+      LOG.fine(String.format("Skipping %s",identify(skipped)));
+    }
+  }
+}

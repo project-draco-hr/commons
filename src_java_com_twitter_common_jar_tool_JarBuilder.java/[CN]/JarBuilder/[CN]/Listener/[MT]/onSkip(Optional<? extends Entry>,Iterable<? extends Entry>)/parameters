@@ -1,0 +1,2 @@
+Optional<? extends Entry> original
+Iterable<? extends Entry> skipped

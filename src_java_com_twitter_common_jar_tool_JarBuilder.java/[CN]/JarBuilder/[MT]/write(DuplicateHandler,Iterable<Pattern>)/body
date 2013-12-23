@@ -1,11 +1,13 @@
 {
-  final Iterable<ReadableEntry> merged=getEntries(duplicateHandler);
+  Preconditions.checkNotNull(duplicateHandler);
+  Predicate<CharSequence> skipPath=Predicates.or(Iterables.transform(ImmutableList.copyOf(skipPatterns),AS_PATH_SELECTOR));
+  final Iterable<ReadableEntry> entries=getEntries(skipPath,duplicateHandler);
   FileUtils.SYSTEM_TMP.doWithFile(new ExceptionalClosure<File,IOException>(){
     @Override public void execute(    File tmp) throws IOException {
       try {
         JarWriter writer=jarWriter(tmp);
         writer.write(JarFile.MANIFEST_NAME,manifest == null ? DEFAULT_MANIFEST : manifest);
-        for (        ReadableEntry entry : merged) {
+        for (        ReadableEntry entry : entries) {
           writer.write(entry.getJarPath(),entry.contents);
         }
       }

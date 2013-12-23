@@ -1,0 +1,3 @@
+{
+  return write(duplicateHandler,ImmutableList.copyOf(skipPatterns));
+}

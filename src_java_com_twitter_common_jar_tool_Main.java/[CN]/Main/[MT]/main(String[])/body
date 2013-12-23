@@ -48,7 +48,7 @@
   }
   DuplicateHandler duplicateHandler=new DuplicateHandler(DEFAULT_ACTION.get(),POLICIES.get());
   try {
-    jarBuilder.write(duplicateHandler);
+    jarBuilder.write(duplicateHandler,SKIP.get());
   }
  catch (  DuplicateEntryException e) {
     exit(1,"Refusing to write duplicate entry: %s",e.getMessage());
