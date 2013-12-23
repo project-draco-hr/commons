@@ -1,1 +1,2 @@
 JarOutputStream out
+boolean compress

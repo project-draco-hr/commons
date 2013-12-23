@@ -1,0 +1,8 @@
+{
+  JarEntry entry=new JarEntry(path);
+  entry.setMethod(compress ? JarEntry.DEFLATED : JarEntry.STORED);
+  if (!compress) {
+    prepareEntry(entry,contents);
+  }
+  return entry;
+}

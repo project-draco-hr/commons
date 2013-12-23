@@ -1,6 +1,8 @@
 {
   Closer closer=Closer.create();
-  InputStream entryIn=closer.register(jar.getInputStream(jar.getJarEntry(path)));
+  JarEntry jarEntry=jar.getJarEntry(path);
+  assertEquals(compressed ? JarEntry.DEFLATED : JarEntry.STORED,jarEntry.getMethod());
+  InputStream entryIn=closer.register(jar.getInputStream(jarEntry));
   try {
     assertEquals(expectedContent,new String(ByteStreams.toByteArray(entryIn),Charsets.UTF_8));
   }

@@ -1,0 +1,3 @@
+{
+  assertContents(jar,path,expectedContent,false);
+}

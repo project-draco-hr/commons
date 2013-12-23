@@ -5,7 +5,7 @@
   FileUtils.SYSTEM_TMP.doWithFile(new ExceptionalClosure<File,IOException>(){
     @Override public void execute(    File tmp) throws IOException {
       try {
-        JarWriter writer=jarWriter(tmp);
+        JarWriter writer=jarWriter(tmp,compress);
         writer.write(JarFile.MANIFEST_NAME,manifest == null ? DEFAULT_MANIFEST : manifest);
         for (        ReadableEntry entry : entries) {
           writer.write(entry.getJarPath(),entry.contents);

@@ -1,5 +1,5 @@
 {
   ensureParentDir(path);
-  out.putNextEntry(new JarEntry(path));
+  out.putNextEntry(entryFactory.createEntry(path,contents));
   ByteStreams.copy(contents,out);
 }

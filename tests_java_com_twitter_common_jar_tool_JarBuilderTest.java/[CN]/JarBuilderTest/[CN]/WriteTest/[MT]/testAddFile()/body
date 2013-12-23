@@ -3,7 +3,7 @@
   doWithJar(destinationJar,new ExceptionalClosure<JarFile,IOException>(){
     @Override public void execute(    JarFile jar) throws IOException {
       assertListing(jar,"meaning/","meaning/of/","meaning/of/life");
-      assertContents(jar,"meaning/of/life","42");
+      assertStoredContents(jar,"meaning/of/life","42");
     }
   }
 );

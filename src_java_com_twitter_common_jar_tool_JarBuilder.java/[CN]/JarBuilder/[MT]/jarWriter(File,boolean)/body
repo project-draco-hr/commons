@@ -7,5 +7,5 @@
     }
   }
 );
-  return new JarWriter(jar);
+  return new JarWriter(jar,compress);
 }

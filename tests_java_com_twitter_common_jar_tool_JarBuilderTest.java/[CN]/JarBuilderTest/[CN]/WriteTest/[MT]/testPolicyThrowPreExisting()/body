@@ -3,7 +3,7 @@
   File destinationJar=jarBuilder().add(content("1/137"),"meaning/of/life").write();
   JarBuilder jarBuilder=jarBuilder(destinationJar).add(content("42"),"meaning/of/life");
   try {
-    jarBuilder.write(alwaysThrow);
+    jarBuilder.write(true,alwaysThrow);
     fail("Expected jar processing to throw a DuplicateEntryException.");
   }
  catch (  DuplicateEntryException e) {

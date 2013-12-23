@@ -1,0 +1,2 @@
+JarEntry entry
+InputSupplier<? extends InputStream> contents
