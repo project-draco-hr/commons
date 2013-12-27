@@ -1,0 +1,23 @@
+{
+  final Amount<Long,Time> responseTime=Amount.of(100L,Time.NANOSECONDS);
+  int numCalls=2;
+  response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+  expectLastCall().times(numCalls);
+  filterChain.doFilter(EasyMock.anyObject(HttpServletRequest.class),EasyMock.anyObject(HttpServletResponse.class));
+  expectLastCall().andAnswer(new IAnswer<Void>(){
+    @Override public Void answer() throws Throwable {
+      clock.advance(responseTime);
+      HttpServletResponse responseArg=(HttpServletResponse)EasyMock.getCurrentArguments()[1];
+      responseArg.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      return null;
+    }
+  }
+).times(numCalls);
+  control.replay();
+  for (int i=0; i < numCalls; i++) {
+    filter.doFilter(request,response,filterChain);
+  }
+  SlidingStats stat=filter.counters.get(HttpServletResponse.SC_NOT_FOUND);
+  assertEquals(responseTime.getValue() * numCalls,stat.getTotalCounter().get());
+  assertEquals(numCalls,stat.getEventCounter().get());
+}

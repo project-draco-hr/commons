@@ -1,0 +1,6 @@
+{
+  long start=clock.nowNanos();
+  ResponseWithStatus wrapper=new ResponseWithStatus(response);
+  chain.doFilter(request,wrapper);
+  counters.getUnchecked(wrapper.wrappedStatus).accumulate(clock.nowNanos() - start);
+}
