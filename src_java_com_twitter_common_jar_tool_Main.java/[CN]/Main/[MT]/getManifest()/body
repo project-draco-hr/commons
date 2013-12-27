@@ -1,0 +1,22 @@
+{
+  if (!MANIFEST.hasAppliedValue() && !MAIN_CLASS.hasAppliedValue() && !CLASS_PATH.hasAppliedValue()) {
+    return null;
+  }
+  Manifest manifest=JarBuilder.createDefaultManifest();
+  if (MANIFEST.hasAppliedValue()) {
+    try {
+      loadManifest(manifest,MANIFEST.get());
+    }
+ catch (    IOException e) {
+      throw new IOException("Failed to load manifest from " + MANIFEST.get(),e);
+    }
+  }
+  if (MAIN_CLASS.hasAppliedValue()) {
+    manifest.getMainAttributes().put(Name.MAIN_CLASS,MAIN_CLASS.get());
+  }
+  if (CLASS_PATH.hasAppliedValue()) {
+    String classpath=CLASS_PATH_JOINER.join(FluentIterable.from(CLASS_PATH.get()).transformAndConcat(ENTRY_TO_PATHS));
+    manifest.getMainAttributes().put(Name.CLASS_PATH,classpath);
+  }
+  return manifest;
+}

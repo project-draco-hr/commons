@@ -6,6 +6,6 @@
   File one=folder.newFile("one");
   File two=folder.newFile("two");
   File three=folder.newFile("three");
-  jarBuilder(folder.newFile(),listener).add(one,"concatenated/write").add(two,"concatenated/write").add(three,"concatenated/write").write(false,DuplicateHandler.always(DuplicateAction.CONCAT));
+  jarBuilder(folder.newFile(),listener).addFile(one,"concatenated/write").addFile(two,"concatenated/write").addFile(three,"concatenated/write").write(false,DuplicateHandler.always(DuplicateAction.CONCAT));
   assertEquals(ImmutableList.of("one","two","three"),FluentIterable.from(concatenated.getValue()).transform(GET_NAME).toList());
 }

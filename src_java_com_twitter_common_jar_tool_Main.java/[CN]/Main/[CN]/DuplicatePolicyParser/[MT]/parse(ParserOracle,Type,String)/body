@@ -1,6 +1,6 @@
 {
   List<String> components=ImmutableList.copyOf(REGEX_ACTION_SPLITTER.split(raw));
-  Preconditions.checkArgument(components.size() == 2,"Failed to parse jar path regex/action pair " + raw);
+  Preconditions.checkArgument(components.size() == 2,"Failed to parse jar path regex/action pair %s",raw);
   String regex=components.get(0);
   Parser<DuplicateAction> actionParser=parserOracle.get(TypeToken.of(DuplicateAction.class));
   DuplicateAction action=actionParser.parse(parserOracle,DuplicateAction.class,components.get(1));

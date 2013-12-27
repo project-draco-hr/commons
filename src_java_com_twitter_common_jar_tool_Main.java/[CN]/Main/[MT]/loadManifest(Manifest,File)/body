@@ -1,0 +1,13 @@
+{
+  Closer closer=Closer.create();
+  try {
+    FileInputStream input=closer.register(new FileInputStream(file));
+    manifest.read(input);
+  }
+ catch (  IOException e) {
+    throw closer.rethrow(e);
+  }
+ finally {
+    closer.close();
+  }
+}

@@ -7,7 +7,7 @@
   File one=folder.newFile("one");
   File two=folder.newFile("two");
   File three=folder.newFile("three");
-  jarBuilder(folder.newFile(),listener).add(one,"replaced/write").add(two,"replaced/write").add(three,"replaced/write").write(false,DuplicateHandler.always(DuplicateAction.REPLACE));
+  jarBuilder(folder.newFile(),listener).addFile(one,"replaced/write").addFile(two,"replaced/write").addFile(three,"replaced/write").write(false,DuplicateHandler.always(DuplicateAction.REPLACE));
   assertEquals(ImmutableList.of("one","two"),FluentIterable.from(originals.getValue()).transform(GET_NAME).toList());
   assertEquals("three",replacement.getValue().getName());
   assertEquals("replaced/write",replacement.getValue().getJarPath());

@@ -30,18 +30,18 @@
   }
 );
   JarBuilder jarBuilder=closer.register(new JarBuilder(target,new LoggingListener(target)));
-  if (MAIN_CLASS.hasAppliedValue()) {
-    Manifest manifest=JarBuilder.createDefaultManifest();
-    manifest.getMainAttributes().put(Name.MAIN_CLASS,MAIN_CLASS.get());
-    jarBuilder.useCustomManifest(manifest);
+  try {
+    @Nullable Manifest manifest=getManifest();
+    if (manifest != null) {
+      jarBuilder.useCustomManifest(manifest);
+    }
   }
- else   if (MANIFEST.hasAppliedValue()) {
-    jarBuilder.useCustomManifest(MANIFEST.get());
+ catch (  IOException e) {
+    exit(1,"Failed to configure custom manifest: %s",e.getMessage());
+    return;
   }
-  for (  Map.Entry<File,String> entry : FILES.get().entrySet()) {
-    File file=entry.getKey();
-    String jarPath=entry.getValue();
-    jarBuilder.add(file,jarPath);
+  for (  FileSource fileSource : FILES.get()) {
+    fileSource.addTo(jarBuilder);
   }
   for (  File jar : JARS.get()) {
     jarBuilder.addJar(jar);

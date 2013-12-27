@@ -5,7 +5,7 @@
   File jar=jarBuilder().add(content("more\n"),"meaning/of/life").write();
   File dir=folder.newFolder("life/of");
   FileUtils.write(new File(dir,"life"),"jane");
-  jarBuilder(destinationJar).addJar(jar).add(dir,"meaning/of").write(true,alwaysConcat);
+  jarBuilder(destinationJar).addJar(jar).addDirectory(dir,Optional.of("meaning/of")).write(true,alwaysConcat);
   doWithJar(destinationJar,new ExceptionalClosure<JarFile,IOException>(){
     @Override public void execute(    JarFile jar) throws IOException {
       assertListing(jar,"meaning/","meaning/of/","meaning/of/life");

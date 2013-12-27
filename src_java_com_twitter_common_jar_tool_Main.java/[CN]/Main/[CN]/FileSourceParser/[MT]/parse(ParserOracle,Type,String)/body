@@ -1,0 +1,7 @@
+{
+  List<String> components=ImmutableList.copyOf(DESTINATION_SPLITTER.split(raw));
+  Preconditions.checkArgument(1 <= components.size() && components.size() <= 2,"Failed to parse entry %s",raw);
+  File source=new File(components.get(0));
+  @Nullable String destination=components.size() == 2 ? components.get(1) : null;
+  return new FileSource(source,destination);
+}
