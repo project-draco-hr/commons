@@ -1,0 +1,21 @@
+{
+  filterChain.doFilter(EasyMock.anyObject(HttpServletRequest.class),EasyMock.anyObject(HttpServletResponse.class));
+  expectLastCall().andThrow(new IOException());
+  filterChain.doFilter(EasyMock.anyObject(HttpServletRequest.class),EasyMock.anyObject(HttpServletResponse.class));
+  expectLastCall().andThrow(new ServletException());
+  control.replay();
+  try {
+    filter.doFilter(request,response,filterChain);
+    fail();
+  }
+ catch (  IOException e) {
+    assertEquals(1,filter.exceptionCount.get());
+  }
+  try {
+    filter.doFilter(request,response,filterChain);
+    fail();
+  }
+ catch (  ServletException e) {
+    assertEquals(2,filter.exceptionCount.get());
+  }
+}
