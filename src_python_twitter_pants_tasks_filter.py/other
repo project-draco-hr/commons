@@ -1,7 +1,7 @@
 import operator
 import re
 import sys
-import twitter.pants
+import twitter.pants.base.build_file_aliases
 from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base.address import Address
 from twitter.pants.base.target import Target
