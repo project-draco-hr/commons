@@ -5,7 +5,7 @@ def configure_compile_context(self, targets):
         return (target.is_codegen or target.is_apt or (self.skip_java and is_java(target)) or (self.skip_scala and is_scala(target)) or (self.intransitive and (target not in self.context.target_roots)))
     jars = OrderedSet()
     excludes = OrderedSet()
-    compile = OrderedSet()
+    compiles = OrderedSet()
 
     def prune(target):
         if isinstance(target, JvmTarget):
@@ -13,10 +13,10 @@ def configure_compile_context(self, targets):
                 excludes.update(target.excludes)
             jars.update((jar for jar in target.jar_dependencies if jar.rev))
             if is_cp(target):
-                target.walk(compile.add)
+                target.walk(compiles.add)
     for target in targets:
         target.walk(prune)
-    self.context.replace_targets(compile)
+    self.context.replace_targets(compiles)
     self.binary = self.context.add_new_target(self.work_dir, JvmBinary, name=('%s-external-jars' % self.project_name), dependencies=jars, excludes=excludes, configurations=(self.classes_conf, self.sources_conf))
     self.require_jar_dependencies(predicate=(lambda t: (t == self.binary)))
     self.context.log.debug(('pruned to cp:\n\t%s' % '\n\t'.join((str(t) for t in self.context.targets()))))

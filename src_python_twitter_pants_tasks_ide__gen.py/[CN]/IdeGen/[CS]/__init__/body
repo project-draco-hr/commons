@@ -12,15 +12,18 @@ def __init__(self, context):
     self.work_dir = os.path.abspath((context.options.ide_gen_project_dir or os.path.join(context.config.get('ide', 'workdir'), self.__class__.__name__, self.project_name)))
     self.cwd = (os.path.abspath(context.options.ide_gen_project_cwd) if context.options.ide_gen_project_cwd else self.work_dir)
     self.intransitive = context.options.ide_gen_intransitive
-    checkstyle_suppression_files = context.config.getdefault('checkstyle_suppression_files', type=list, default=[])
-    debug_port = context.config.getint('ide', 'debug_port')
+    self.checkstyle_suppression_files = context.config.getdefault('checkstyle_suppression_files', type=list, default=[])
+    self.debug_port = context.config.getint('ide', 'debug_port')
     self.classes_conf = context.config.get('ide', 'classes_conf')
     self.sources_conf = context.config.get('ide', 'sources_conf')
-    scala_compiler_profile = None
+    self.checkstyle_bootstrap_key = 'checkstyle'
+    checkstyle = context.config.getlist('checkstyle', 'bootstrap-tools', default=[':twitter-checkstyle'])
+    self._bootstrap_utils.register_jvm_build_tools(self.checkstyle_bootstrap_key, checkstyle)
+    self.scalac_bootstrap_key = None
     if (not self.skip_scala):
-        scala_compiler_profile = context.config.getdefault('scala_compile_profile')
-    (targets, self._project) = self.configure_project(context.targets(), checkstyle_suppression_files, debug_port, scala_compiler_profile)
-    self.configure_compile_context(targets)
+        self.scalac_bootstrap_key = 'scalac'
+        scalac = context.config.getlist('scala-compile', 'compile-bootstrap-tools', default=[':scala-compile-2.9.3'])
+        self._bootstrap_utils.register_jvm_build_tools(self.scalac_bootstrap_key, scalac)
     if self.python:
         self.context.products.require('python')
     if (not self.skip_java):

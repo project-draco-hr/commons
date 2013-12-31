@@ -6,7 +6,7 @@ from collections import defaultdict, namedtuple
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir
 from twitter.pants.base.build_environment import get_buildroot
-from twitter.pants.binary_util import profile_classpath, JvmCommandLine
+from twitter.pants.binary_util import JvmCommandLine
 from twitter.pants.targets import JavaLibrary, JavaThriftLibrary, ScalaLibrary
 from twitter.pants.tasks import TaskError
 from twitter.pants.tasks.nailgun_task import NailgunTask

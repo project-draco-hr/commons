@@ -2,4 +2,3 @@ self
 targets
 checkstyle_suppression_files
 debug_port
-scala_compiler_profile

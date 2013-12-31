@@ -1,4 +1,4 @@
-def configure_project(self, targets, checkstyle_suppression_files, debug_port, scala_compiler_profile):
+def configure_project(self, targets, checkstyle_suppression_files, debug_port):
     jvm_targets = Target.extract_jvm_targets(targets)
     if self.intransitive:
         jvm_targets = set(self.context.target_roots).intersection(jvm_targets)
@@ -10,5 +10,5 @@ def configure_project(self, targets, checkstyle_suppression_files, debug_port, s
         project.configure_python(python_source_paths, python_test_paths, python_lib_paths)
     extra_source_paths = self.context.config.getlist('ide', 'extra_jvm_source_paths', default=[])
     extra_test_paths = self.context.config.getlist('ide', 'extra_jvm_test_paths', default=[])
-    all_targets = project.configure_jvm(scala_compiler_profile, extra_source_paths, extra_test_paths)
+    all_targets = project.configure_jvm(extra_source_paths, extra_test_paths)
     return (all_targets, project)

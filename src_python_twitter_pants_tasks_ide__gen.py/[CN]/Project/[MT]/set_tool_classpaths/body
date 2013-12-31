@@ -1,0 +1,3 @@
+def set_tool_classpaths(self, checkstyle_classpath, scalac_classpath):
+    self.checkstyle_classpath = checkstyle_classpath
+    self.scala_compiler_classpath = scalac_classpath

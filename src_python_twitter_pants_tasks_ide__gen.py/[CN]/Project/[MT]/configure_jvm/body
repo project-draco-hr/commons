@@ -1,4 +1,4 @@
-def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_paths):
+def configure_jvm(self, extra_source_paths, extra_test_paths):
     "\n      Configures this project's source sets returning the full set of targets the project is\n      comprised of.  The full set can be larger than the initial set of targets when any of the\n      initial targets only has partial ownership of its source set's directories.\n    "
     analyzed = OrderedSet()
     targeted = set()
@@ -51,13 +51,12 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
             return filter(is_sibling, [Target.get(a) for a in candidates if (a != target.address)])
     for target in self.targets:
         target.walk(configure_target, predicate=source_target)
-    self.configure_profiles(scala_compiler_profile)
     unexcludable_paths = set()
     for source_set in self.sources:
         parent = os.path.join(self.root_dir, source_set.source_base, source_set.path)
         while True:
             unexcludable_paths.add(parent)
-            (parent, dir) = os.path.split(parent)
+            (parent, _) = os.path.split(parent)
             if (parent == self.root_dir):
                 break
     for source_set in self.sources:
@@ -65,7 +64,7 @@ def configure_jvm(self, scala_compiler_profile, extra_source_paths, extra_test_p
         source_base = os.path.join(self.root_dir, source_set.source_base)
         for (root, dirs, _) in os.walk(os.path.join(source_base, source_set.path)):
             if dirs:
-                paths.update([os.path.join(root, dir) for dir in dirs])
+                paths.update([os.path.join(root, directory) for directory in dirs])
         unused_children = (paths - targeted)
         if unused_children:
             for child in unused_children:
