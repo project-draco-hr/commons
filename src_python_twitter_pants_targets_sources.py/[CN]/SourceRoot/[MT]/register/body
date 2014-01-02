@@ -1,4 +1,4 @@
 @staticmethod
-def register(basedir, *types):
+def register(basedir):
     'Registers the given basedir as a source root for the given target types.'
-    return SourceRoot(basedir, *types)
+    return SourceRoot(basedir)

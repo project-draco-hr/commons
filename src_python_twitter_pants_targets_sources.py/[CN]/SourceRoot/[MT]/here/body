@@ -1,4 +1,0 @@
-@staticmethod
-def here(*types):
-    'Registers the cwd as a source root for the given target types.'
-    return SourceRoot.register(None, *types)

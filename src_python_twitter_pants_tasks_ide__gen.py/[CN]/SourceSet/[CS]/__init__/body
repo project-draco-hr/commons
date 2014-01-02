@@ -5,3 +5,5 @@ def __init__(self, root_dir, source_base, path, is_test):
     self.path = path
     self.is_test = is_test
     self._excludes = []
+    if is_test:
+        SourceSet.TEST_BASES.add(self.source_base)

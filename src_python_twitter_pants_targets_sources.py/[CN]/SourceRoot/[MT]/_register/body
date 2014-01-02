@@ -1,5 +1,5 @@
 @staticmethod
 def _register(sourceroot):
-    for t in sourceroot.types:
-        SourceRoot._ROOTS_BY_TYPE[t].add(sourceroot.basedir)
-        SourceRoot._TYPES_BY_ROOT[sourceroot.basedir].add(t)
+    SourceRoot._ROOTS.add(sourceroot._basedir)
+    if (sourceroot._allowed_target_types is not None):
+        SourceRoot._ALLOWED_TARGET_TYPES[sourceroot._basedir] = sourceroot._allowed_target_types

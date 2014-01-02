@@ -1,20 +1,22 @@
 @staticmethod
 def find(target):
-    "Finds the source root for the given target.  If none is registered, the parent\n    directory of the target's BUILD file is returned.\n    "
+    "Finds the source root for the given target.\n\n    If none is registered, returns the parent directory of the target's BUILD file.\n    "
     target_path = os.path.relpath(target.address.buildfile.parent_path, get_buildroot())
 
     def _find():
-        for typ in target.__class__.mro():
-            for root in SourceRoot._ROOTS_BY_TYPE.get(typ, ()):
-                if target_path.startswith(root):
-                    return root
+        for root in SourceRoot._ROOTS:
+            if target_path.startswith(root):
+                if ((root in SourceRoot._ALLOWED_TARGET_TYPES) and (not any(map((lambda t: isinstance(target, t)), SourceRoot._ALLOWED_TARGET_TYPES[root])))):
+                    raise TargetDefinitionException(target, ('Target type %s not allowed under %s' % (target.__class__.__name__, root)))
+                return root
+        return None
     root = _find()
     if root:
         return root
     for buildfile in reversed(target.address.buildfile.ancestors()):
         if (buildfile not in SourceRoot._SEARCHED):
-            SourceRoot._SEARCHED.add(buildfile)
             ParseContext(buildfile).parse()
+            SourceRoot._SEARCHED.add(buildfile)
             root = _find()
             if root:
                 return root

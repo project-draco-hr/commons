@@ -1,19 +1,7 @@
 def generate_project(self, project):
 
-    def is_test_target_type(ttype):
-        return issubclass(ttype, (JavaTests, ScalaTests))
-    is_test_by_base = {}
-
     def is_test(source_set):
-        if source_set.is_test:
-            return True
-        base = source_set.source_base
-        if (base not in is_test_by_base):
-            is_test_by_base[base] = any(map(is_test_target_type, SourceRoot.types(base)))
-        istest = is_test_by_base[base]
-        if istest:
-            self.context.log.debug(('Marked non-test source set as test (%s, %s)' % (source_set.source_base, source_set.path)))
-        return istest
+        return (source_set.source_base in SourceSet.TEST_BASES)
 
     def create_content_root(source_set):
         root_relative_path = (os.path.join(source_set.source_base, source_set.path) if source_set.path else source_set.source_base)
