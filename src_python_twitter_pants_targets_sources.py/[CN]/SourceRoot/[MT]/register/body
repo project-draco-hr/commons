@@ -1,4 +1,4 @@
 @staticmethod
-def register(basedir):
-    'Registers the given basedir as a source root for the given target types.'
-    return SourceRoot(basedir)
+def register(basedir, *allowed_target_types):
+    'Registers the given basedir (relative to the buildroot) as a source root.\n\n    :allowed_target_types Optional list of target types. If specified, we enforce that\n                          only targets of those types appear under this source root.\n    '
+    SourceRoot._register(basedir, *allowed_target_types)

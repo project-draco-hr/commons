@@ -1,3 +1,4 @@
-@classmethod
-def lazy_rel_source_root(cls, reldir):
-    return partial(cls, reldir=reldir)
+@staticmethod
+def lazy_rel_source_root(build_file_dir):
+    'Captures the directory of the BUILD file that calls it.'
+    return partial(SourceRoot._register_relative_to_build_file, build_file_dir)

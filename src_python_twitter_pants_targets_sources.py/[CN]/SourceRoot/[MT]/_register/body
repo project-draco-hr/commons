@@ -1,5 +1,10 @@
 @staticmethod
-def _register(sourceroot):
-    SourceRoot._ROOTS.add(sourceroot._basedir)
-    if (sourceroot._allowed_target_types is not None):
-        SourceRoot._ALLOWED_TARGET_TYPES[sourceroot._basedir] = sourceroot._allowed_target_types
+def _register(source_root_dir, *allowed_target_types):
+    'Registers a source root.\n\n    :source_root_dir The source root directory against which we resolve source paths,\n                     relative to the build root.\n    :allowed_target_types Optional list of target types. If specified, we enforce that\n                          only targets of those types appear under this source root.\n    '
+    buildroot = get_buildroot()
+    normpath = os.path.normpath(os.path.join(buildroot, source_root_dir))
+    if (not normpath.startswith(buildroot)):
+        raise ValueError(('Source root %s is not under the build root %s' % (normpath, buildroot)))
+    SourceRoot._ROOTS.add(source_root_dir)
+    if allowed_target_types:
+        SourceRoot._ALLOWED_TARGET_TYPES[source_root_dir] = allowed_target_types
