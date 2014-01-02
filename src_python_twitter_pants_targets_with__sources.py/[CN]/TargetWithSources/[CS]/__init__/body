@@ -2,5 +2,5 @@ def __init__(self, name, sources=None, exclusives=None):
     Target.__init__(self, name, exclusives=exclusives)
     self.add_labels('sources')
     self.target_base = SourceRoot.find(self)
-    self.sources = None
-    self._sources = (sources or [])
+    self._unresolved_sources = (sources or [])
+    self._resolved_sources = None

@@ -1,5 +1,5 @@
-def _resolve_paths(self, rel_base, paths):
-    'Resolves paths relative to the given rel_base from the build root.\n\n    For example:\n      target: ~/workspace/src/java/com/twitter/common/base/BUILD\n      rel_base: src/resources\n\n    Resolves paths from:\n      ~/workspace/src/resources/com/twitter/common/base\n    '
+def _resolve_paths(self, paths):
+    'Resolves paths.'
     if (not paths):
         return []
 

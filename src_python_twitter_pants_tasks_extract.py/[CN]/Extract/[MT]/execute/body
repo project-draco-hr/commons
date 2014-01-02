@@ -8,4 +8,4 @@ def execute(self, targets):
                 for jar in jars:
                     sources.update(self._extract(os.path.join(basedir, jar)))
         for placeholder in placeholders:
-            placeholder.sources = sources
+            placeholder.set_resolved_sources(sources)

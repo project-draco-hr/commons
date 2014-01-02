@@ -1,5 +1,5 @@
 @property
 def sources(self):
     if (self._resolved_sources is None):
-        self.sources = self._resolve_paths(self.target_base, (self._sources or []))
+        self._resolved_sources = self._resolve_paths((self._unresolved_sources or []))
     return self._resolved_sources
