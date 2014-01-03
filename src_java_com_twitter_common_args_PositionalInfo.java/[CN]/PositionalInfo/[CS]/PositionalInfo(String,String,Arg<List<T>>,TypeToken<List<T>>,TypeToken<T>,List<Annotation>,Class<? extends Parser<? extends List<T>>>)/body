@@ -1,5 +1,0 @@
-{
-  super(help,arg,type,verifierAnnotations,parser);
-  this.elementType=elementType;
-  this.canonicalName=canonicalName;
-}

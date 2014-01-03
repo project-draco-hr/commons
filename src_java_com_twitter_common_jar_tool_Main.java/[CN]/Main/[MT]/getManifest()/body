@@ -1,22 +1,14 @@
 {
-  if (!MANIFEST.hasAppliedValue() && !MAIN_CLASS.hasAppliedValue() && !CLASS_PATH.hasAppliedValue()) {
+  if (!manifest.hasAppliedValue() && !mainClass.hasAppliedValue() && !classPath.hasAppliedValue()) {
     return null;
   }
-  Manifest manifest=JarBuilder.createDefaultManifest();
-  if (MANIFEST.hasAppliedValue()) {
-    try {
-      loadManifest(manifest,MANIFEST.get());
-    }
- catch (    IOException e) {
-      throw new IOException("Failed to load manifest from " + MANIFEST.get(),e);
-    }
+  Manifest mf=loadManifest();
+  if (mainClass.hasAppliedValue()) {
+    mf.getMainAttributes().put(Name.MAIN_CLASS,mainClass.get());
   }
-  if (MAIN_CLASS.hasAppliedValue()) {
-    manifest.getMainAttributes().put(Name.MAIN_CLASS,MAIN_CLASS.get());
+  if (classPath.hasAppliedValue()) {
+    String classpath=CLASS_PATH_JOINER.join(FluentIterable.from(classPath.get()).transformAndConcat(ENTRY_TO_PATHS));
+    mf.getMainAttributes().put(Name.CLASS_PATH,classpath);
   }
-  if (CLASS_PATH.hasAppliedValue()) {
-    String classpath=CLASS_PATH_JOINER.join(FluentIterable.from(CLASS_PATH.get()).transformAndConcat(ENTRY_TO_PATHS));
-    manifest.getMainAttributes().put(Name.CLASS_PATH,classpath);
-  }
-  return manifest;
+  return mf;
 }

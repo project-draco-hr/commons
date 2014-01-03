@@ -3,10 +3,16 @@
     @Nullable Configuration classpathConfiguration=configSupplier.get();
     Set<? extends Element> parsers=getAnnotatedElements(roundEnv,ArgParser.class);
     @Nullable Set<String> parsedTypes=getParsedTypes(classpathConfiguration,parsers);
-    for (    ArgInfo cmdLineInfo : processAnnotatedArgs(parsedTypes,roundEnv,CmdLine.class)) {
+    Set<? extends Element> cmdlineArgs=getAnnotatedElements(roundEnv,CmdLine.class);
+    Set<? extends Element> positionalArgs=getAnnotatedElements(roundEnv,Positional.class);
+    ImmutableSet<? extends Element> invalidArgs=Sets.intersection(cmdlineArgs,positionalArgs).immutableCopy();
+    if (!invalidArgs.isEmpty()) {
+      error("An Arg cannot be annotated with both @CmdLine and @Positional, found bad Arg " + "fields: %s",invalidArgs);
+    }
+    for (    ArgInfo cmdLineInfo : processAnnotatedArgs(parsedTypes,cmdlineArgs,CmdLine.class)) {
       configBuilder.addCmdLineArg(cmdLineInfo);
     }
-    for (    ArgInfo positionalInfo : processAnnotatedArgs(parsedTypes,roundEnv,Positional.class)) {
+    for (    ArgInfo positionalInfo : processAnnotatedArgs(parsedTypes,positionalArgs,Positional.class)) {
       configBuilder.addPositionalInfo(positionalInfo);
     }
     checkPositionalArgsAreLists(roundEnv);
@@ -20,7 +26,7 @@
             configBuilder.build(classpathConfiguration).store(cmdLinePropertiesResource,"Generated via apt by " + getClass().getName());
           }
   finally {
-            Closeables.closeQuietly(cmdLinePropertiesResource);
+            closeQuietly(cmdLinePropertiesResource);
           }
         }
       }

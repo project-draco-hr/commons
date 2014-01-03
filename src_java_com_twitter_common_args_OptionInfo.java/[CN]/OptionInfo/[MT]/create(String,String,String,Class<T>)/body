@@ -1,3 +1,0 @@
-{
-  return new OptionInfo<T>(checkValidName(name),help,Arg.<T>create(),TypeToken.of(type),prefix,ImmutableList.<Annotation>of(),null);
-}

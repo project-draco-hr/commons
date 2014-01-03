@@ -1,0 +1,4 @@
+{
+  super(canonicalizer.apply(name),name,help,arg,type,verifierAnnotations,parser);
+  this.canonicalizer=canonicalizer;
+}

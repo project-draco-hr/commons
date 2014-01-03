@@ -1,0 +1,3 @@
+Set<String> parsedTypes
+Set<? extends Element> args
+Class<? extends Annotation> argAnnotation

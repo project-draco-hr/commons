@@ -3,8 +3,9 @@
   arg.get();
   try {
     arg.set(true);
-    Assert.fail();
+    fail("Expected set after get to throw");
   }
  catch (  IllegalStateException e) {
+    assertFalse(arg.get());
   }
 }

@@ -1,0 +1,8 @@
+{
+  Preconditions.checkNotNull(argsInfo);
+  ImmutableList<String> arguments=ImmutableList.copyOf(args);
+  ParserOracle parserOracle=Parsers.fromConfiguration(argsInfo.getConfiguration());
+  Verifiers verifiers=Verifiers.fromConfiguration(argsInfo.getConfiguration());
+  Pair<ImmutableMap<String,String>,List<String>> results=mapArguments(arguments);
+  return process(parserOracle,verifiers,argsInfo,results.getFirst(),results.getSecond());
+}

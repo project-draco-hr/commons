@@ -1,0 +1,3 @@
+{
+  return String.format("FileSource{source=%s, destination=%s}",source,destination);
+}

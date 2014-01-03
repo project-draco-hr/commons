@@ -1,0 +1,11 @@
+{
+class InnerApp {
+    @Range(lower=0.0,upper=1.0) @CmdLine(name="level",help="help") private final Arg<Double> level=Arg.create();
+  }
+  InnerApp app1=new InnerApp();
+  InnerApp app2=new InnerApp();
+  new ArgScanner().parse(Args.from(ArgFilters.selectClass(InnerApp.class),app1),ImmutableList.of("-level=0.5"));
+  new ArgScanner().parse(Args.from(ArgFilters.selectClass(InnerApp.class),app2),ImmutableList.of("-level=0.00729"));
+  assertEquals(0.5,app1.level.get(),0.00001);
+  assertEquals(0.00729,app2.level.get(),0.00001);
+}

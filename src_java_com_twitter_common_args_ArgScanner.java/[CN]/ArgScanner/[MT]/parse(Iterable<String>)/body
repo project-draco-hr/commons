@@ -1,3 +1,3 @@
 {
-  return parse(ArgFilters.SELECT_ALL,args);
+  return parse(ArgFilters.SELECT_ALL,ImmutableList.copyOf(args));
 }

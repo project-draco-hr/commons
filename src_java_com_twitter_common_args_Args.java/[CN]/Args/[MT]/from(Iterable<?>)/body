@@ -1,0 +1,3 @@
+{
+  return from(Predicates.<Field>alwaysTrue(),sources);
+}

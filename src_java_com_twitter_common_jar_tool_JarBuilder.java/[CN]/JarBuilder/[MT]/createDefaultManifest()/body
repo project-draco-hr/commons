@@ -1,6 +1,3 @@
 {
-  Manifest mf=new Manifest();
-  mf.getMainAttributes().put(Name.MANIFEST_VERSION,"1.0");
-  mf.getMainAttributes().put(new Name("Created-By"),JarBuilder.class.getName());
-  return mf;
+  return ensureDefaultManifestEntries(new Manifest());
 }

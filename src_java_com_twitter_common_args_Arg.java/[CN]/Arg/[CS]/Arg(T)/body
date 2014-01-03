@@ -1,4 +1,4 @@
 {
   this.defaultValue=defaultValue;
-  this.value=defaultValue;
+  value=defaultValue;
 }

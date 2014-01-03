@@ -1,7 +1,0 @@
-String name
-String help
-Arg<T> arg
-TypeToken<T> type
-String prefix
-List<Annotation> verifierAnnotations
-Class<? extends Parser<? extends T>> parser

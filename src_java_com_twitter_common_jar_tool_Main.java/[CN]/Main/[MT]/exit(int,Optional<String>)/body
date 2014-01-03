@@ -1,7 +1,0 @@
-{
-  if (message.isPresent()) {
-    PrintStream out=code == 0 ? System.out : System.err;
-    out.println(message.get());
-  }
-  System.exit(code);
-}

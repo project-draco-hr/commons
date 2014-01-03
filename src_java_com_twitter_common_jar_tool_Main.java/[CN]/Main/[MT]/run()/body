@@ -1,0 +1,50 @@
+{
+  if (mainClass.hasAppliedValue() && manifest.hasAppliedValue()) {
+    throw new ExitException(1,"Can specify main or manifest but not both.");
+  }
+  if (target.get().size() != 1) {
+    throw new ExitException(1,"Must supply exactly 1 target jar path.");
+  }
+  final File targetJar=Iterables.getOnlyElement(this.target.get());
+  if (!update.get() && targetJar.exists() && !targetJar.delete()) {
+    throw new ExitException(1,"Failed to delete file at requested target path %s",targetJar);
+  }
+  final Closer closer=Closer.create();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    @Override public void run(){
+      try {
+        closer.close();
+      }
+ catch (      IOException e) {
+        LOG.warning("Failed to close one or more resources: " + e);
+      }
+    }
+  }
+);
+  JarBuilder jarBuilder=closer.register(new JarBuilder(targetJar,new LoggingListener(targetJar)));
+  try {
+    @Nullable Manifest mf=getManifest();
+    if (mf != null) {
+      jarBuilder.useCustomManifest(mf);
+    }
+  }
+ catch (  IOException e) {
+    throw new ExitException(1,"Failed to configure custom manifest: %s",e);
+  }
+  for (  FileSource fileSource : files.get()) {
+    fileSource.addTo(jarBuilder);
+  }
+  for (  File jar : jars.get()) {
+    jarBuilder.addJar(jar);
+  }
+  DuplicateHandler duplicateHandler=new DuplicateHandler(defaultAction.get(),policies.get());
+  try {
+    jarBuilder.write(compress.get(),duplicateHandler,skip.get());
+  }
+ catch (  DuplicateEntryException e) {
+    throw new ExitException(1,"Refusing to write duplicate entry: %s",e);
+  }
+catch (  IOException e) {
+    throw new ExitException(1,"Unexpected problem writing target jar %s: %s",targetJar,e);
+  }
+}

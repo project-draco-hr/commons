@@ -1,5 +1,5 @@
 {
   valueApplied=false;
   valueObserved=false;
-  this.value=hasDefault ? defaultValue : null;
+  value=hasDefault ? defaultValue : null;
 }

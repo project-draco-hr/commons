@@ -1,10 +1,6 @@
 {
-  T value=getArg().uncheckedGet();
-  for (  Pair<? extends Verifier<? super T>,Annotation> pair : getVerifiers(verifierOracle)) {
-    Verifier<? super T> verifier=pair.getFirst();
-    Annotation annotation=pair.getSecond();
-    if (value != null || verifier instanceof NotNullVerifier) {
-      verifier.verify(value,annotation);
-    }
+  @Nullable T value=getArg().uncheckedGet();
+  for (  ValueVerifier<T> valueVerifier : getVerifiers(verifierOracle)) {
+    valueVerifier.verify(value);
   }
 }

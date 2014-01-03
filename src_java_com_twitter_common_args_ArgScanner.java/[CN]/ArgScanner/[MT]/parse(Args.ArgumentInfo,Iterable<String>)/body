@@ -1,4 +1,0 @@
-{
-  Configuration configuration=load();
-  return parse(argumentInfo,configuration,args);
-}

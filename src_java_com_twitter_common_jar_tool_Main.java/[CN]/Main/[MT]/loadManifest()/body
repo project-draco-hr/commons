@@ -1,0 +1,17 @@
+{
+  Manifest mf=new Manifest();
+  if (this.manifest.hasAppliedValue()) {
+    Closer closer=Closer.create();
+    try {
+      FileInputStream input=closer.register(new FileInputStream(this.manifest.get()));
+      mf.read(input);
+    }
+ catch (    IOException e) {
+      throw closer.rethrow(new IOException("Failed to load manifest from " + this.manifest.get(),e));
+    }
+ finally {
+      closer.close();
+    }
+  }
+  return JarBuilder.ensureDefaultManifestEntries(mf);
+}

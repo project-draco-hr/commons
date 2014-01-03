@@ -1,0 +1,4 @@
+{
+  this.verifier=verifier;
+  this.annotation=annotation;
+}
