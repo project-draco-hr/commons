@@ -1,9 +1,0 @@
-@classmethod
-def process_logging_options(cls, options):
-    numeric_level = getattr(logging, options.log_level.upper(), None)
-    if (not isinstance(numeric_level, int)):
-        raise ValueError(('Invalid log level: %s' % options.log_level))
-    if (options.log_file is not None):
-        logging.basicConfig(level=numeric_level, file=options.log_file)
-    else:
-        logging.basicConfig(level=numeric_level)

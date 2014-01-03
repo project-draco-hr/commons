@@ -1,4 +1,0 @@
-@classmethod
-def configure_logging_options(cls, parser):
-    parser.add_option('--log-file', dest='log_file', metavar='FILE', default=None, help='Log messages to FILE; Default to stdout')
-    parser.add_option('--log-level', dest='log_level', default='warn', help='Log level as text (one of info, warn, error, critical)')

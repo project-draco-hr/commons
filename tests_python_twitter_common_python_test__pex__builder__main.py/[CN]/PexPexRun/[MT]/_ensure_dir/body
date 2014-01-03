@@ -1,6 +1,0 @@
-def _ensure_dir(self, dirname):
-    try:
-        os.makedirs(dirname)
-    except OSError as e:
-        if (e.errno != os.errno.EEXIST):
-            raise e

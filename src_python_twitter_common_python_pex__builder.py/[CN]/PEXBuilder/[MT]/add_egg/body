@@ -1,6 +1,9 @@
 def add_egg(self, egg):
     '\n      helper for add_distribution\n    '
-    metadata = EggMetadata(zipimporter(egg))
+    if os.path.isdir(egg):
+        metadata = PathMetadata(egg, os.path.join(egg, 'EGG-INFO'))
+    else:
+        metadata = EggMetadata(zipimporter(egg))
     dist = Distribution.from_filename(egg, metadata)
     self.add_distribution(dist)
     self.add_requirement(dist.as_requirement(), dynamic=False, repo=None)
