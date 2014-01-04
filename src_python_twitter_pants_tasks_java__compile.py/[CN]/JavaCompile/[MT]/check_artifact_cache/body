@@ -8,11 +8,11 @@ def check_artifact_cache(self, vts):
                     global_deps.load(self._depfile)
                 for vt in cached_vts:
                     for target in vt.targets:
-                        depfile = JavaCompile.create_depfile_path(self._depfile_tmpdir, [target])
+                        depfile = JavaCompile.create_depfile_path(self._analysis_tmpdir, [target])
                         if os.path.exists(depfile):
                             deps = Dependencies(self._classes_dir)
                             deps.load(depfile)
                             global_deps.merge(deps)
                 global_deps.save(self._depfile)
-    self._ensure_depfile_tmpdir()
+    self._ensure_analysis_tmpdir()
     return Task.do_check_artifact_cache(self, vts, post_process_cached_vts=post_process_cached_vts)

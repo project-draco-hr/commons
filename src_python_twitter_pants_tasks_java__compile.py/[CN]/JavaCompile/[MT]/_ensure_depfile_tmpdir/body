@@ -1,4 +1,0 @@
-def _ensure_depfile_tmpdir(self):
-    if (not os.path.exists(self._depfile_tmpdir)):
-        os.makedirs(self._depfile_tmpdir)
-        self.context.background_worker_pool().add_shutdown_hook((lambda : safe_rmtree(self._depfile_tmpdir)))

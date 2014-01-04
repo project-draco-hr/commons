@@ -1,6 +1,7 @@
-def __init__(self, context, nailgun_task, color, bootstrap_utils):
+def __init__(self, context, nailgun_task, jvm_args, color, bootstrap_utils):
     self.context = context
     self._nailgun_task = nailgun_task
+    self._jvm_args = jvm_args
     self._color = color
     self._bootstrap_utils = bootstrap_utils
     self._pants_home = get_buildroot()
@@ -17,6 +18,5 @@ def __init__(self, context, nailgun_task, color, bootstrap_utils):
     else:
         self._plugins_bootstrap_key = None
     self._main = context.config.get('scala-compile', 'main')
-    self._jvm_args = context.config.getlist('scala-compile', 'jvm_args')
     self._java_home = context.java_home
     self._ivy_home = context.ivy_home

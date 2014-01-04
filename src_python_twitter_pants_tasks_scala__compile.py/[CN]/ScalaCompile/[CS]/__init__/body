@@ -1,24 +1,8 @@
 def __init__(self, context):
     JvmCompile.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
     color = (not context.options.no_color)
-    self._zinc_utils = ZincUtils(context=context, nailgun_task=self, color=color, bootstrap_utils=self._bootstrap_utils)
-    self._partition_size_hint = (context.options.scala_compile_partition_size_hint if (context.options.scala_compile_partition_size_hint != (-1)) else context.config.getint('scala-compile', 'partition_size_hint', default=1000))
-    self._opts = context.config.getlist('scala-compile', 'args')
-    if context.options.scala_compile_warnings:
-        self._opts.extend(context.config.getlist('scala-compile', 'warning_args'))
-    else:
-        self._opts.extend(context.config.getlist('scala-compile', 'no_warning_args'))
-    workdir = context.config.get('scala-compile', 'workdir')
-    self._classes_dir = os.path.join(workdir, 'classes')
-    self._analysis_dir = os.path.join(workdir, 'analysis')
-    safe_mkdir(self._classes_dir)
-    safe_mkdir(self._analysis_dir)
+    self._zinc_utils = ZincUtils(context=context, nailgun_task=self, jvm_args=self._jvm_args, color=color, bootstrap_utils=self._bootstrap_utils)
     self._analysis_file = os.path.join(self._analysis_dir, 'global_analysis.valid')
     self._invalid_analysis_file = os.path.join(self._analysis_dir, 'global_analysis.invalid')
-    self._resources_dir = os.path.join(workdir, 'resources')
-    self._confs = context.config.getlist('scala-compile', 'confs')
-    self.context.products.require_data('exclusives_groups')
-    self.setup_artifact_cache_from_config(config_section='scala-compile')
-    self._analysis_tmpdir = os.path.join(self._analysis_dir, 'artifact_cache_tmpdir')
     self._inject_java_cycles()
     self._deleted_sources = None

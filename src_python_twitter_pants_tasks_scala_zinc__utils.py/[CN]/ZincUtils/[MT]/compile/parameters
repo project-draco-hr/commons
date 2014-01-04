@@ -1,4 +1,5 @@
 self
+opts
 classpath
 sources
 output_dir

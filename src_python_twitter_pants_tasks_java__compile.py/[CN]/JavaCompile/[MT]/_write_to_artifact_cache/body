@@ -1,14 +1,14 @@
 def _write_to_artifact_cache(self, vts, sources_by_target):
-    self._ensure_depfile_tmpdir()
+    self._ensure_analysis_tmpdir()
     vt_by_target = dict([(vt.target, vt) for vt in vts.versioned_targets])
-    splits = [(sources, JavaCompile.create_depfile_path(self._depfile_tmpdir, [target])) for (target, sources) in sources_by_target.items()]
+    splits = [(sources, JavaCompile.create_depfile_path(self._analysis_tmpdir, [target])) for (target, sources) in sources_by_target.items()]
     deps = Dependencies(self._classes_dir)
     if os.path.exists(self._depfile):
         deps.load(self._depfile)
     deps.split(splits)
     vts_artifactfiles_pairs = []
     for (target, sources) in sources_by_target.items():
-        artifacts = [JavaCompile.create_depfile_path(self._depfile_tmpdir, [target])]
+        artifacts = [JavaCompile.create_depfile_path(self._analysis_tmpdir, [target])]
         for source in sources:
             for cls in deps.classes_by_source.get(source, []):
                 artifacts.append(os.path.join(self._classes_dir, cls))

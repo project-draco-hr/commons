@@ -1,5 +1,6 @@
-def compile(self, classpath, sources, output_dir, analysis_file, upstream_analysis_files):
-    args = [('-S' + x) for x in self._scalac_args]
+def compile(self, opts, classpath, sources, output_dir, analysis_file, upstream_analysis_files):
+    args = list(opts)
+    args.extend(self._plugin_args())
     if len(upstream_analysis_files):
         args.extend(['-analysis-map', ','.join([('%s:%s' % kv) for kv in upstream_analysis_files.items()])])
     args.extend(['-analysis-cache', analysis_file, '-classpath', ':'.join((self._compiler_classpath + classpath)), '-d', output_dir])

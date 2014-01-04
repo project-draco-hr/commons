@@ -1,35 +1,15 @@
 def __init__(self, context):
     JvmCompile.__init__(self, context, workdir=context.config.get('java-compile', 'nailgun_dir'))
-    if (context.options.java_compile_partition_size_hint != (-1)):
-        self._partition_size_hint = context.options.java_compile_partition_size_hint
-    else:
-        self._partition_size_hint = context.config.getint('java-compile', 'partition_size_hint', default=1000)
-    workdir = context.config.get('java-compile', 'workdir')
-    self._classes_dir = os.path.join(workdir, 'classes')
-    self._resources_dir = os.path.join(workdir, 'resources')
-    self._depfile_dir = os.path.join(workdir, 'depfiles')
-    self._depfile = os.path.join(self._depfile_dir, 'global_depfile')
-    safe_mkdir(self._classes_dir)
-    safe_mkdir(self._depfile_dir)
+    self._depfile = os.path.join(self._analysis_dir, 'global_depfile')
     self._jmake_bootstrap_key = 'jmake'
     external_tools = context.config.getlist('java-compile', 'jmake-bootstrap-tools', default=[':jmake'])
     self._bootstrap_utils.register_jvm_build_tools(self._jmake_bootstrap_key, external_tools)
     self._compiler_bootstrap_key = 'java-compiler'
     compiler_bootstrap_tools = context.config.getlist('java-compile', 'compiler-bootstrap-tools', default=[':java-compiler'])
     self._bootstrap_utils.register_jvm_build_tools(self._compiler_bootstrap_key, compiler_bootstrap_tools)
-    self._opts = context.config.getlist('java-compile', 'args')
-    self._jvm_args = context.config.getlist('java-compile', 'jvm_args')
     self._javac_opts = []
     if context.options.java_compile_args:
         for arg in context.options.java_compile_args:
             self._javac_opts.extend(shlex.split(arg))
     else:
         self._javac_opts.extend(context.config.getlist('java-compile', 'javac_args', default=[]))
-    if context.options.java_compile_warnings:
-        self._opts.extend(context.config.getlist('java-compile', 'warning_args'))
-    else:
-        self._opts.extend(context.config.getlist('java-compile', 'no_warning_args'))
-    self._confs = context.config.getlist('java-compile', 'confs')
-    self.context.products.require_data('exclusives_groups')
-    self.setup_artifact_cache_from_config(config_section='java-compile')
-    self._depfile_tmpdir = os.path.join(self._depfile_dir, 'depfile_tmpdir')

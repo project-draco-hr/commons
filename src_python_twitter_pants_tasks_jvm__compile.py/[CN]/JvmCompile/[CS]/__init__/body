@@ -1,9 +1,28 @@
 def __init__(self, context, workdir):
     NailgunTask.__init__(self, context, workdir=workdir)
+    concrete_class = self.__class__
+    config_section = concrete_class._config_section
 
     def get_lang_specific_option(opt):
         full_opt_name = ((self.language() + '_') + opt)
         return getattr(context.options, full_opt_name, None)
+    workdir = context.config.get(config_section, 'workdir')
+    self._classes_dir = os.path.join(workdir, 'classes')
+    self._resources_dir = os.path.join(workdir, 'resources')
+    self._analysis_dir = os.path.join(workdir, 'analysis')
+    safe_mkdir(self._classes_dir)
+    safe_mkdir(self._analysis_dir)
+    self._analysis_tmpdir = os.path.join(self._analysis_dir, 'artifact_cache_tmpdir')
+    self._opts = context.config.getlist(config_section, 'args')
+    if get_lang_specific_option('compile_warnings'):
+        self._opts.extend(context.config.getlist(config_section, 'warning_args'))
+    else:
+        self._opts.extend(context.config.getlist(config_section, 'no_warning_args'))
+    self._partition_size_hint = get_lang_specific_option('partition_size_hint')
+    if (self._partition_size_hint == (-1)):
+        self._partition_size_hint = context.config.getint(config_section, 'partition_size_hint', default=1000)
+    self._jvm_args = context.config.getlist(config_section, 'jvm_args')
+    self._confs = context.config.getlist(config_section, 'confs')
 
     def munge_flag(flag):
         return (None if (flag == 'off') else flag)
@@ -14,3 +33,5 @@ def __init__(self, context, workdir):
         self._dep_analyzer = JvmDependencyAnalyzer(self.context, check_missing_deps, check_missing_direct_deps, check_unnecessary_deps)
     else:
         self._dep_analyzer = None
+    self.context.products.require_data('exclusives_groups')
+    self.setup_artifact_cache_from_config(config_section=config_section)
