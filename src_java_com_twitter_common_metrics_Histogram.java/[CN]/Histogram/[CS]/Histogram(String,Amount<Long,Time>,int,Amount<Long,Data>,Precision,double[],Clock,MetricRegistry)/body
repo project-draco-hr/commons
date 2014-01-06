@@ -14,7 +14,7 @@
  else {
     this.histogram=new WindowedApproxHistogram(window,slices,precision,clock);
   }
-  this.stats=new Statistics();
+  this.stats=new WindowedStatistics(window,slices,clock);
   if (registry != null) {
     registry.registerHistogram(this);
   }

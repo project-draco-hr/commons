@@ -1,0 +1,4 @@
+{
+  int i=(getCurrentIndex() + 1) % buffers.length;
+  return buffers[i];
+}
