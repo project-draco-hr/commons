@@ -1,9 +1,9 @@
 def __init__(self, context):
     Task.__init__(self, context)
-    self.jvm_args = context.config.getlist('scala-repl', 'jvm_args', default=[])
-    if context.options.run_jvmargs:
-        for arg in context.options.run_jvmargs:
-            self.jvm_args.extend(shlex.split(arg))
+    self._jvm_options = context.config.getlist('scala-repl', 'jvm_args', default=[])
+    if context.options.run_jvm_options:
+        for arg in context.options.run_jvm_options:
+            self._jvm_options.extend(shlex.split(arg))
     self.confs = context.config.getlist('scala-repl', 'confs')
     self._bootstrap_key = 'scala-repl'
     bootstrap_tools = context.config.getlist('scala-repl', 'bootstrap-tools')

@@ -1,7 +1,7 @@
-def __init__(self, context, nailgun_task, jvm_args, color, bootstrap_utils):
+def __init__(self, context, nailgun_task, jvm_options, color, bootstrap_utils):
     self.context = context
     self._nailgun_task = nailgun_task
-    self._jvm_args = jvm_args
+    self._jvm_options = jvm_options
     self._color = color
     self._bootstrap_utils = bootstrap_utils
     self._pants_home = get_buildroot()

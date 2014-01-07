@@ -5,14 +5,14 @@ def execute(self, targets):
             bootstrapped_cp = self._bootstrap_utils.get_jvm_build_tools_classpath(self._junit_bootstrap_key)
             junit_classpath = self.classpath(bootstrapped_cp, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0]))
 
-            def run_tests(classpath, main, jvmargs=None):
+            def run_tests(classpath, main, jvm_options=None):
 
                 def test_workunit_factory(name, labels=list(), cmd=''):
                     return self.context.new_workunit(name=name, labels=([WorkUnit.TEST] + labels), cmd=cmd)
                 result = 0
                 for batch in self._partition(tests):
                     with binary_util.safe_args(batch) as batch_tests:
-                        result += abs(binary_util.runjava_indivisible(jvmargs=((jvmargs or []) + self.java_args), classpath=classpath, main=main, opts=self.opts, args=batch_tests, workunit_factory=test_workunit_factory, workunit_name='run'))
+                        result += abs(binary_util.runjava_indivisible(jvm_options=((jvm_options or []) + self.jvm_options), classpath=classpath, main=main, opts=self.opts, args=batch_tests, workunit_factory=test_workunit_factory, workunit_name='run'))
                         if ((result != 0) and self.fail_fast):
                             break
                 if (result != 0):
@@ -58,7 +58,7 @@ def execute(self, targets):
                         binary_util.ui_open(self.coverage_html_file)
                 instrument_code()
                 try:
-                    run_tests((([self.coverage_instrument_dir] + junit_classpath) + emma_classpath), 'com.twitter.common.testing.runner.JUnitConsoleRunner', jvmargs=[('-Demma.coverage.out.file=%s' % self.coverage_file)])
+                    run_tests((([self.coverage_instrument_dir] + junit_classpath) + emma_classpath), 'com.twitter.common.testing.runner.JUnitConsoleRunner', jvm_options=[('-Demma.coverage.out.file=%s' % self.coverage_file)])
                 finally:
                     generate_reports()
             else:

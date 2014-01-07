@@ -4,6 +4,6 @@ main
 classpath
 opts
 args
-jvmargs
+jvm_options
 workunit_name
 workunit_labels

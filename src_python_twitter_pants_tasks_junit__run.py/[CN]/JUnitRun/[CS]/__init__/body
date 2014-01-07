@@ -8,11 +8,11 @@ def __init__(self, context):
     self._emma_bootstrap_key = 'emma'
     emma_bootstrap_tools = context.config.getlist('junit-run', 'emma-bootstrap-tools', default=[':emma'])
     self._bootstrap_utils.register_jvm_build_tools(self._emma_bootstrap_key, emma_bootstrap_tools)
-    self.java_args = context.config.getlist('junit-run', 'args', default=[])
-    if context.options.junit_run_jvmargs:
-        self.java_args.extend(context.options.junit_run_jvmargs)
+    self.jvm_options = context.config.getlist('junit-run', 'args', default=[])
+    if context.options.junit_run_jvm_options:
+        self.jvm_options.extend(context.options.junit_run_jvm_options)
     if context.options.junit_run_debug:
-        self.java_args.extend(context.config.getlist('jvm', 'debug_args'))
+        self.jvm_options.extend(context.config.getlist('jvm', 'debug_args'))
     self.test_classes = context.options.junit_run_tests
     self.context.products.require('classes')
     self.outdir = (context.options.junit_run_outdir or context.config.get('junit-run', 'workdir'))

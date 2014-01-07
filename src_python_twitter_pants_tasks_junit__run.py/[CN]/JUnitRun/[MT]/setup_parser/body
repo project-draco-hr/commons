@@ -4,7 +4,7 @@ def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('debug'), mkflag('debug', negate=True), dest='junit_run_debug', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Run junit tests with a debugger')
     option_group.add_option(mkflag('fail-fast'), mkflag('fail-fast', negate=True), dest='junit_run_fail_fast', action='callback', callback=mkflag.set_bool, default=False, help='[%default] Fail fast on the first test failure in a suite')
     option_group.add_option(mkflag('batch-size'), type='int', default=sys.maxint, dest='junit_run_batch_size', help='[ALL] Runs at most this many tests in a single test process.')
-    option_group.add_option(mkflag('jvmargs'), dest='junit_run_jvmargs', action='append', help='Runs junit tests in a jvm with these extra jvm args.')
+    option_group.add_option(mkflag('jvmargs'), dest='junit_run_jvm_options', action='append', help='Runs junit tests in a jvm with these extra jvm options.')
     option_group.add_option(mkflag('test'), dest='junit_run_tests', action='append', help='[%default] Force running of just these tests.  Tests can be specified using any of: [classname], [classname]#[methodname], [filename] or [filename]#[methodname]')
     outdir = mkflag('outdir')
     option_group.add_option(outdir, dest='junit_run_outdir', help='Emit output in to this directory.')

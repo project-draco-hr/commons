@@ -1,6 +1,6 @@
 self
 context
 nailgun_task
-jvm_args
+jvm_options
 color
 bootstrap_utils

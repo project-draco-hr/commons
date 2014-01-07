@@ -1,4 +1,4 @@
-jvmargs
+jvm_options
 classpath
 main
 opts

@@ -5,6 +5,6 @@ def execute(self, targets):
     shutil.copyfile(agent_jar, allocation_jar)
     os.environ['ALLOCATION_JAR'] = str(allocation_jar)
     benchmark_tools_classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(self._benchmark_bootstrap_key)
-    exit_code = runjava_indivisible(jvmargs=self.java_args, classpath=self.classpath(benchmark_tools_classpath), main='com.google.caliper.Runner', opts=self.caliper_args, workunit_name='caliper')
+    exit_code = runjava_indivisible(jvm_options=self.jvm_options, classpath=self.classpath(benchmark_tools_classpath), main='com.google.caliper.Runner', opts=self.caliper_args, workunit_name='caliper')
     if (exit_code != 0):
         raise TaskError()

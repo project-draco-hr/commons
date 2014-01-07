@@ -21,7 +21,7 @@ def __init__(self, context, workdir):
     self._partition_size_hint = get_lang_specific_option('partition_size_hint')
     if (self._partition_size_hint == (-1)):
         self._partition_size_hint = context.config.getint(config_section, 'partition_size_hint', default=1000)
-    self._jvm_args = context.config.getlist(config_section, 'jvm_args')
+    self._jvm_options = context.config.getlist(config_section, 'jvm_args')
     self._confs = context.config.getlist(config_section, 'confs')
 
     def munge_flag(flag):

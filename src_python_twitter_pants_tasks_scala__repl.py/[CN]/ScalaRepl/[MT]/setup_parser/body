@@ -1,4 +1,4 @@
 @classmethod
 def setup_parser(cls, option_group, args, mkflag):
-    option_group.add_option(mkflag('jvmargs'), dest='run_jvmargs', action='append', help='Run the repl in a jvm with these extra jvm args.')
+    option_group.add_option(mkflag('jvmargs'), dest='run_jvm_options', action='append', help='Run the repl in a jvm with these extra jvm options.')
     option_group.add_option(mkflag('args'), dest='run_args', action='append', help='run the repl in a jvm with extra args.')

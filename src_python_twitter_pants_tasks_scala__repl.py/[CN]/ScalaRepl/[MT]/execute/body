@@ -5,7 +5,7 @@ def execute(self, targets):
     def repl_workunit_factory(name, labels=list(), cmd=''):
         return self.context.new_workunit(name=name, labels=([WorkUnit.REPL] + labels), cmd=cmd)
     tools_classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(self._bootstrap_key)
-    kwargs = {'jvmargs': self.jvm_args, 'classpath': self.classpath(tools_classpath, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0])), 'main': self.main, 'args': self.args, }
+    kwargs = {'jvm_options': self._jvm_options, 'classpath': self.classpath(tools_classpath, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0])), 'main': self.main, 'args': self.args, }
     cmd = runjava_indivisible(dryrun=True, **kwargs)
     with self.context.new_workunit(name='repl', labels=[WorkUnit.REPL, WorkUnit.JVM], cmd=cmd):
         print ''

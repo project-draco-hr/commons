@@ -120,24 +120,24 @@ def execute(self, targets):
             else:
                 resolver = repo['resolver']
                 path = repo.get('path')
-                jvmargs = []
+                jvm_options = []
                 auth = repo['auth']
                 if auth:
                     (user, password) = auth
-                    jvmargs.append(('-Dlogin=%s' % user))
-                    jvmargs.append(('-Dpassword=%s' % password))
+                    jvm_options.append(('-Dlogin=%s' % user))
+                    jvm_options.append(('-Dpassword=%s' % password))
                 ivysettings = self.generate_ivysettings(published, publish_local=path)
                 opts = ['-settings', ivysettings, '-ivy', ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
                 if self.snapshot:
                     opts.append('-overwrite')
-                result = binary_util.runjava_indivisible(jvmargs=jvmargs, classpath=self.ivycp, opts=opts, workunit_name='ivy')
+                result = binary_util.runjava_indivisible(jvm_options=jvm_options, classpath=self.ivycp, opts=opts, workunit_name='ivy')
                 if (result != 0):
                     raise TaskError(('Failed to push %s - ivy failed with %d' % (jar_coordinate(jar, newver.version()), result)))
                 if synth_target:
                     opts = ['-settings', ivysettings, '-ivy', idl_ivyxml, '-deliverto', ('%s/[organisation]/[module]/ivy-[revision].xml' % self.outdir), '-publish', resolver, '-publishpattern', ('%s/[organisation]/[module]/[artifact]-[revision](-[classifier]).[ext]' % self.outdir), '-revision', newver.version(), '-m2compatible']
                     if self.snapshot:
                         opts.append('-overwrite')
-                    result = binary_util.runjava_indivisible(jvmargs=jvmargs, classpath=self.ivycp, opts=opts, workunit_name='ivy')
+                    result = binary_util.runjava_indivisible(jvm_options=jvm_options, classpath=self.ivycp, opts=opts, workunit_name='ivy')
                     if (result != 0):
                         raise TaskError(('Failed to push %s - ivy failed with %d' % (jar_coordinate(jar, newver.version()), result)))
                 if self.commit:

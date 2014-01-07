@@ -5,4 +5,4 @@ def compile(self, classpath, sources, fingerprint, depfile):
     opts.extend(['-jcpath', ':'.join(compiler_classpath), '-jcmainclass', 'com.twitter.common.tools.Compiler', '-C-Tdependencyfile', ('-C%s' % depfile)])
     opts.extend(map((lambda arg: ('-C%s' % arg)), self._javac_opts))
     opts.extend(self._opts)
-    return self.runjava_indivisible(_JMAKE_MAIN, classpath=jmake_classpath, opts=opts, args=sources, jvmargs=self._jvm_args, workunit_name='jmake', workunit_labels=[WorkUnit.COMPILER])
+    return self.runjava_indivisible(_JMAKE_MAIN, classpath=jmake_classpath, opts=opts, args=sources, jvm_options=self._jvm_options, workunit_name='jmake', workunit_labels=[WorkUnit.COMPILER])
