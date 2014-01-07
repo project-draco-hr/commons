@@ -3,12 +3,12 @@ def exec_ivy(self, target_workdir, targets, args, runjava=None, workunit_name='i
     runjava = (runjava or binary_util.runjava_indivisible)
     ivyxml = os.path.join(target_workdir, 'ivy.xml')
     (jars, excludes) = self._calculate_classpath(targets)
-    ivy_opts = ['-settings', self._ivy_settings, '-cache', self._cachedir, '-ivy', ivyxml]
-    ivy_opts.extend(args)
+    ivy_args = ['-settings', self._ivy_settings, '-cache', self._cachedir, '-ivy', ivyxml]
+    ivy_args.extend(args)
     if (not self._transitive):
-        ivy_opts.append('-notransitive')
-    ivy_opts.extend(self._opts)
-    runjava_args = dict(main='org.apache.ivy.Main', opts=ivy_opts, workunit_name=workunit_name, classpath=ivy_classpath, workunit_factory=workunit_factory)
+        ivy_args.append('-notransitive')
+    ivy_args.extend(self._opts)
+    runjava_args = dict(main='org.apache.ivy.Main', args=ivy_args, workunit_name=workunit_name, classpath=ivy_classpath, workunit_factory=workunit_factory)
 
     def safe_link(src, dest):
         if os.path.exists(dest):

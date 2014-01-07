@@ -13,11 +13,11 @@ def __init__(self, context, workdir):
     safe_mkdir(self._classes_dir)
     safe_mkdir(self._analysis_dir)
     self._analysis_tmpdir = os.path.join(self._analysis_dir, 'artifact_cache_tmpdir')
-    self._opts = context.config.getlist(config_section, 'args')
+    self._args = context.config.getlist(config_section, 'args')
     if get_lang_specific_option('compile_warnings'):
-        self._opts.extend(context.config.getlist(config_section, 'warning_args'))
+        self._args.extend(context.config.getlist(config_section, 'warning_args'))
     else:
-        self._opts.extend(context.config.getlist(config_section, 'no_warning_args'))
+        self._args.extend(context.config.getlist(config_section, 'no_warning_args'))
     self._partition_size_hint = get_lang_specific_option('partition_size_hint')
     if (self._partition_size_hint == (-1)):
         self._partition_size_hint = context.config.getint(config_section, 'partition_size_hint', default=1000)

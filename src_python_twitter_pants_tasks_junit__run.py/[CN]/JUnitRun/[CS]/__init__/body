@@ -32,18 +32,18 @@ def __init__(self, context):
     self.coverage_report_html = (self.coverage_report_html_open or context.options.junit_run_coverage_html)
     self.coverage = (self.coverage or self.coverage_report_html_open)
     self.coverage_html_file = os.path.join(self.coverage_dir, 'html', 'index.html')
-    self.opts = []
+    self._args = []
     if (context.options.junit_run_xmlreport or context.options.junit_run_suppress_output):
         if self.fail_fast:
-            self.opts.append('-fail-fast')
+            self._args.append('-fail-fast')
         if context.options.junit_run_xmlreport:
-            self.opts.append('-xmlreport')
-        self.opts.append('-suppress-output')
-        self.opts.append('-outdir')
-        self.opts.append(self.outdir)
+            self._args.append('-xmlreport')
+        self._args.append('-suppress-output')
+        self._args.append('-outdir')
+        self._args.append(self.outdir)
     if context.options.junit_run_per_test_timer:
-        self.opts.append('-per-test-timer')
+        self._args.append('-per-test-timer')
     if context.options.junit_run_default_parallel:
-        self.opts.append('-default-parallel')
-    self.opts.append('-parallel-threads')
-    self.opts.append(str(context.options.junit_run_parallel_threads))
+        self._args.append('-default-parallel')
+    self._args.append('-parallel-threads')
+    self._args.append(str(context.options.junit_run_parallel_threads))

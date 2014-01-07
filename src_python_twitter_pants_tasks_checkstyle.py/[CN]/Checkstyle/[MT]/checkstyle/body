@@ -4,11 +4,12 @@ def checkstyle(self, sources, targets):
     classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(self._checkstyle_bootstrap_key)
     cp = egroups.get_classpath_for_group(etag)
     classpath.extend((jar for (conf, jar) in cp if (conf in self._confs)))
-    opts = ['-c', self._configuration_file, '-f', 'plain']
+    args = ['-c', self._configuration_file, '-f', 'plain']
     if self._properties:
         properties_file = os.path.join(self._work_dir, 'checkstyle.properties')
         with safe_open(properties_file, 'w') as pf:
             for (k, v) in self._properties.items():
                 pf.write(('%s=%s\n' % (k, v)))
-        opts.extend(['-p', properties_file])
-    return self.runjava(CHECKSTYLE_MAIN, classpath=classpath, opts=opts, args=sources, workunit_name='checkstyle')
+        args.extend(['-p', properties_file])
+    args.extend(sources)
+    return self.runjava(CHECKSTYLE_MAIN, classpath=classpath, args=args, workunit_name='checkstyle')
