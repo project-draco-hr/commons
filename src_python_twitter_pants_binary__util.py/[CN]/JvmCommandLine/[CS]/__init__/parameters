@@ -2,5 +2,4 @@ self
 jvm_options
 classpath
 main
-opts
 args

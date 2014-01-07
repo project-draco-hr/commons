@@ -7,7 +7,7 @@ def exec_ivy(self, target_workdir, targets, args, runjava=None, workunit_name='i
     ivy_args.extend(args)
     if (not self._transitive):
         ivy_args.append('-notransitive')
-    ivy_args.extend(self._opts)
+    ivy_args.extend(self._args)
     runjava_args = dict(main='org.apache.ivy.Main', args=ivy_args, workunit_name=workunit_name, classpath=ivy_classpath, workunit_factory=workunit_factory)
 
     def safe_link(src, dest):

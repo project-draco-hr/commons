@@ -1,13 +1,12 @@
 from __future__ import division, print_function
 import os
 import errno
-import itertools
 import posixpath
 import subprocess
 from contextlib import closing, contextmanager
 from twitter.common import log
 from twitter.common.contextutil import environment_as, temporary_file, temporary_dir
-from twitter.common.dirutil import chmod_plus_x, safe_delete, safe_mkdir, safe_open, touch
+from twitter.common.dirutil import chmod_plus_x, safe_delete, safe_open
 from twitter.common.lang import Compatibility
 from twitter.pants.base.workunit import WorkUnit
 if Compatibility.PY3:

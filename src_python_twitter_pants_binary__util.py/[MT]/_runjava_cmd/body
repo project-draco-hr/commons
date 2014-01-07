@@ -1,4 +1,4 @@
-def _runjava_cmd(jvm_options=None, classpath=None, main=None, opts=None, args=None):
+def _runjava_cmd(jvm_options=None, classpath=None, main=None, args=None):
     cmd = ['java']
     if jvm_options:
         cmd.extend(jvm_options)
@@ -6,8 +6,6 @@ def _runjava_cmd(jvm_options=None, classpath=None, main=None, opts=None, args=No
         cmd.extend((('-cp' if main else '-jar'), os.pathsep.join(classpath)))
     if main:
         cmd.append(main)
-    if opts:
-        cmd.extend(opts)
     if args:
         cmd.extend(args)
     return cmd

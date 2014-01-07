@@ -1,5 +1,5 @@
 def callable_cmd(self, use_args=True):
-    'Returns a list ready to be used by subprocess.call() or subprocess.Popen()\n    opts= can be either a list of strings or (better) a list of tuples\n    args= is a list of paths'
+    'Returns a list ready to be used by subprocess.call() or subprocess.Popen()'
     cmd = ['java']
     if self.jvm_options:
         cmd.extend(self.jvm_options)
@@ -7,8 +7,6 @@ def callable_cmd(self, use_args=True):
         cmd.extend((('-cp' if self.main else '-jar'), os.pathsep.join(self.classpath)))
     if self.main:
         cmd.append(self.main)
-    if self.opts:
-        cmd.extend(itertools.chain(*self.opts))
     if (self.args and use_args):
         cmd.extend(self.args)
     return cmd

@@ -1,7 +1,6 @@
 jvm_options
 classpath
 main
-opts
 args
 dryrun
 workunit_factory

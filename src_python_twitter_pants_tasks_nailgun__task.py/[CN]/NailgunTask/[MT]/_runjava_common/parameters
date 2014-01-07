@@ -2,7 +2,6 @@ self
 runjava
 main
 classpath
-opts
 args
 jvm_options
 workunit_name
