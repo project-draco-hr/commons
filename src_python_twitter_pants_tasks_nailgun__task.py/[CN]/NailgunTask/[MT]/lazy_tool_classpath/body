@@ -1,0 +1,2 @@
+def lazy_tool_classpath(self, key, java_runner=None):
+    return Task.lazy_tool_classpath(self, key, (java_runner or self.runjava_indivisible))
