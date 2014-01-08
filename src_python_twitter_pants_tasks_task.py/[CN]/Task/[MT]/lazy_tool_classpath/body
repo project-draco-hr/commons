@@ -1,0 +1,2 @@
+def lazy_tool_classpath(self, key, java_runner=None):
+    return self.tool_classpath(key, java_runner)
