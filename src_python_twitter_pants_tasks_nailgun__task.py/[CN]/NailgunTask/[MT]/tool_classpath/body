@@ -1,0 +1,2 @@
+def tool_classpath(self, key, java_runner=None):
+    return Task.tool_classpath(self, key, (java_runner or self.runjava_indivisible))

@@ -1,0 +1,2 @@
+def register_jvm_tool(self, key, target_addrs):
+    self._jvm_tool_bootstrapper.register_jvm_tool(key, target_addrs)
