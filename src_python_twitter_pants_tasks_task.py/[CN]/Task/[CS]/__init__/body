@@ -7,4 +7,4 @@ def __init__(self, context):
     self._artifact_cache = None
     self._artifact_cache_setup_lock = threading.Lock()
     self._build_invalidator_dir = os.path.join(context.config.get('tasks', 'build_invalidator'), self.product_type())
-    self._bootstrap_utils = BootstrapUtils(self.context.products)
+    self._jvm_tool_bootstrapper = JvmToolBootstrapper(self.context.products)

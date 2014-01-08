@@ -2,4 +2,4 @@ def __init__(self, context):
     CodeGen.__init__(self, context)
     NailgunTask.__init__(self, context)
     for (compiler, tools) in self._all_possible_antlr_bootstrap_tools():
-        self._bootstrap_utils.register_jvm_build_tools(compiler, tools)
+        self._jvm_tool_bootstrapper.register_jvm_tool(compiler, tools)

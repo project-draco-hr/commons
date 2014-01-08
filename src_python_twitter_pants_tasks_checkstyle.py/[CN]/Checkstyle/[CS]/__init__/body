@@ -3,7 +3,7 @@ def __init__(self, context):
     NailgunTask.__init__(self, context, workdir=workdir)
     self._checkstyle_bootstrap_key = 'checkstyle'
     bootstrap_tools = context.config.getlist('checkstyle', 'bootstrap-tools', default=[':twitter-checkstyle'])
-    self._bootstrap_utils.register_jvm_build_tools(self._checkstyle_bootstrap_key, bootstrap_tools)
+    self._jvm_tool_bootstrapper.register_jvm_tool(self._checkstyle_bootstrap_key, bootstrap_tools)
     self._configuration_file = context.config.get('checkstyle', 'configuration')
     self._work_dir = context.config.get('checkstyle', 'workdir')
     self._properties = context.config.getdict('checkstyle', 'properties')

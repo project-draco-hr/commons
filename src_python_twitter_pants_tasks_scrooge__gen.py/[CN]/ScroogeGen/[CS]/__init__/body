@@ -5,4 +5,4 @@ def __init__(self, context, strict=False, verbose=True):
     for info in INFO_FOR_COMPILER.values():
         config = info['config']
         bootstrap_tools = context.config.getlist(config, 'bootstrap-tools', default=[(':%s' % config)])
-        self._bootstrap_utils.register_jvm_build_tools(config, bootstrap_tools)
+        self._jvm_tool_bootstrapper.register_jvm_tool(config, bootstrap_tools)

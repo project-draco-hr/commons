@@ -1,6 +1,6 @@
 @property
 def _plugin_jars(self):
     if self._plugins_bootstrap_key:
-        return self._bootstrap_utils.get_jvm_build_tools_classpath(self._plugins_bootstrap_key)
+        return self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._plugins_bootstrap_key)
     else:
         return []

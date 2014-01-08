@@ -1,4 +1,4 @@
-def get_jvm_build_tools_classpath(self, key, java_runner=None):
+def get_jvm_tool_classpath(self, key, java_runner=None):
     'Get a callback to resolve the targets previously registered under the key.'
     callback_product_map = (self._products.get_data('jvm_build_tools_classpath_callbacks') or {})
     callback = callback_product_map.get(key)

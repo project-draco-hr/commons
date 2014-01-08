@@ -1,8 +1,8 @@
 def execute(self, targets):
     'Stages IDE project artifacts to a project directory and generates IDE configuration files.'
     checkstyle_enabled = (len(Phase.goals_of_type(Checkstyle)) > 0)
-    checkstyle_classpath = (self._bootstrap_utils.get_jvm_build_tools_classpath(self.checkstyle_bootstrap_key) if checkstyle_enabled else [])
-    scalac_classpath = (self._bootstrap_utils.get_jvm_build_tools_classpath(self.scalac_bootstrap_key) if self.scalac_bootstrap_key else [])
+    checkstyle_classpath = (self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self.checkstyle_bootstrap_key) if checkstyle_enabled else [])
+    scalac_classpath = (self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self.scalac_bootstrap_key) if self.scalac_bootstrap_key else [])
     (targets, self._project) = self.configure_project(targets, self.checkstyle_suppression_files, self.debug_port)
     self._project.set_tool_classpaths(checkstyle_classpath, scalac_classpath)
     self.configure_compile_context(targets)

@@ -3,4 +3,4 @@ context
 nailgun_task
 jvm_options
 color
-bootstrap_utils
+jvm_tool_bootstrapper

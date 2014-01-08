@@ -5,7 +5,7 @@ def _generate_ivy_report(self, targets):
         no_deps_xml = (no_deps_xml_template % dict(organisation=organisation, module=module, conf=conf, timestamp=time.strftime('%Y%m%d%H%M%S')))
         with open(report, 'w') as report_handle:
             print(no_deps_xml, file=report_handle)
-    classpath = self._bootstrap_utils.get_jvm_build_tools_classpath(self._ivy_bootstrap_key, self.runjava_indivisible)
+    classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._ivy_bootstrap_key, self.runjava_indivisible)
     reports = []
     (org, name) = self._ivy_utils.identify(targets)
     xsl = os.path.join(self._cachedir, 'ivy-report.xsl')

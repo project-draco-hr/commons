@@ -2,7 +2,7 @@ def _spawn_nailgun_server(self, workunit):
     self.context.log.debug('No ng server found, spawning...')
     with _safe_open(self._ng_out, 'w'):
         pass
-    ng_classpath = os.pathsep.join(self._bootstrap_utils.get_jvm_build_tools_classpath(self._nailgun_bootstrap_key))
+    ng_classpath = os.pathsep.join(self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._nailgun_bootstrap_key))
     pid = os.fork()
     if (pid != 0):
         return self._await_nailgun_server(workunit)

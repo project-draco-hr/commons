@@ -7,7 +7,7 @@ def execute(self, targets):
                 return self.context.new_workunit(name=name, labels=([WorkUnit.TEST] + labels), cmd=cmd)
             args = (['--color'] if self.color else [])
             args.append(('--specs=%s' % ','.join(tests)))
-            bootstrapped_cp = self._bootstrap_utils.get_jvm_build_tools_classpath(self._specs_bootstrap_key)
+            bootstrapped_cp = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._specs_bootstrap_key)
             result = runjava_indivisible(jvm_options=self._jvm_options, classpath=self.classpath(bootstrapped_cp, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0])), main='com.twitter.common.testing.ExplicitSpecsRunnerMain', args=args, workunit_factory=workunit_factory, workunit_name='specs')
             if (result != 0):
                 raise TaskError()

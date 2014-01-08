@@ -4,10 +4,10 @@ def __init__(self, context):
     self.confs = context.config.getlist('junit-run', 'confs')
     self._junit_bootstrap_key = 'junit'
     junit_bootstrap_tools = context.config.getlist('junit-run', 'junit-bootstrap-tools', default=[':junit'])
-    self._bootstrap_utils.register_jvm_build_tools(self._junit_bootstrap_key, junit_bootstrap_tools)
+    self._jvm_tool_bootstrapper.register_jvm_tool(self._junit_bootstrap_key, junit_bootstrap_tools)
     self._emma_bootstrap_key = 'emma'
     emma_bootstrap_tools = context.config.getlist('junit-run', 'emma-bootstrap-tools', default=[':emma'])
-    self._bootstrap_utils.register_jvm_build_tools(self._emma_bootstrap_key, emma_bootstrap_tools)
+    self._jvm_tool_bootstrapper.register_jvm_tool(self._emma_bootstrap_key, emma_bootstrap_tools)
     self.jvm_options = context.config.getlist('junit-run', 'args', default=[])
     if context.options.junit_run_jvm_options:
         self.jvm_options.extend(context.options.junit_run_jvm_options)
