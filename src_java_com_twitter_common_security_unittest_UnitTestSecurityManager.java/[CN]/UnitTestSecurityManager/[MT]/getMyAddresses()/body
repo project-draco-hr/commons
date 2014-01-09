@@ -1,0 +1,13 @@
+{
+  try {
+    return ImmutableSet.copyOf(Iterators.concat(Iterators.transform(Iterators.forEnumeration(NetworkInterface.getNetworkInterfaces()),new Function<NetworkInterface,Iterator<InetAddress>>(){
+      @Override public Iterator<InetAddress> apply(      NetworkInterface iface){
+        return Iterators.forEnumeration(iface.getInetAddresses());
+      }
+    }
+)));
+  }
+ catch (  SocketException e) {
+    return Collections.emptySet();
+  }
+}

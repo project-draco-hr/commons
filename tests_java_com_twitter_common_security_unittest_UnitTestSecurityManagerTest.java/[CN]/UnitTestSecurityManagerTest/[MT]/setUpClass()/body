@@ -1,0 +1,8 @@
+{
+  try {
+    myAddress=InetAddress.getByName("192.168.123.1");
+  }
+ catch (  UnknownHostException e) {
+    throw new ExceptionInInitializerError(e);
+  }
+}
