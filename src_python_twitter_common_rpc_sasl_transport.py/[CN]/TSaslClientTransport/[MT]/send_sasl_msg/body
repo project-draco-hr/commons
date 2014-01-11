@@ -1,4 +1,6 @@
 def send_sasl_msg(self, status, body):
+    if (body is None):
+        body = ''
     header = pack('>BI', status, len(body))
     self.transport.write((header + body))
     self.transport.flush()
