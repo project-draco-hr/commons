@@ -1,11 +1,9 @@
 from __future__ import print_function
-__author__ = 'Brian Wickman'
-from collections import defaultdict
-import os
-import sys
-import pkg_resources
 from twitter.common.collections import OrderedSet
-from twitter.common.python.fetcher import Fetcher
-from twitter.common.python.resolver import Resolver
-from twitter.pants.base import Config
-from twitter.pants.targets import PythonBinary, PythonLibrary, PythonAntlrLibrary, PythonRequirement, PythonThriftLibrary, PythonTests
+from twitter.common.python.fetcher import Fetcher, PyPIFetcher
+from twitter.common.python.http import Crawler
+from twitter.common.python.obtainer import Obtainer
+from twitter.common.python.platforms import Platform
+from twitter.common.python.resolver import ResolverBase
+from twitter.common.python.translator import ChainedTranslator, EggTranslator, SourceTranslator
+from twitter.pants.targets import PythonBinary, PythonRequirement

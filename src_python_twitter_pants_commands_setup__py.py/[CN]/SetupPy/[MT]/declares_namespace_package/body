@@ -1,0 +1,16 @@
+@classmethod
+def declares_namespace_package(cls, filename):
+    'Given a filename, walk its ast and determine if it is declaring a namespace package.\n       Intended only for __init__.py files though it will work for any .py.'
+    with open(filename) as fp:
+        init_py = ast.parse(fp.read(), filename)
+    calls = [node for node in ast.walk(init_py) if isinstance(node, ast.Call)]
+    for call in calls:
+        if (len(call.args) != 1):
+            continue
+        if (isinstance(call.func, ast.Attribute) and (call.func.attr != 'declare_namespace')):
+            continue
+        if (isinstance(call.func, ast.Name) and (call.func.id != 'declare_namespace')):
+            continue
+        if (isinstance(call.args[0], ast.Name) and (call.args[0].id == '__name__')):
+            return True
+    return False

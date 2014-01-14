@@ -1,0 +1,2 @@
+def requirement_string(self):
+    return ('%s==0.0.0' % self.package_name())

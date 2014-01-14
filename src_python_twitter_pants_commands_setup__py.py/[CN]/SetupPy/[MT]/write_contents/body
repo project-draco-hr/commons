@@ -1,0 +1,26 @@
+def write_contents(self, chroot):
+    'Write contents of the target.'
+
+    def write_target_source(target, src):
+        chroot.link(os.path.join(target.target_base, src), os.path.join(self.SOURCE_ROOT, src))
+        while True:
+            src = os.path.dirname(src)
+            if (not src):
+                break
+            if os.path.exists(os.path.join(target.target_base, src, '__init__.py')):
+                chroot.link(os.path.join(target.target_base, src, '__init__.py'), os.path.join(self.SOURCE_ROOT, src, '__init__.py'))
+
+    def write_codegen_source(relpath, abspath):
+        chroot.link(abspath, os.path.join(self.SOURCE_ROOT, relpath))
+
+    def write_target(target):
+        if isinstance(target, tuple(self.GENERATED_TARGETS.keys())):
+            for (relpath, abspath) in self.iter_generated_sources(target, self._root, self._config):
+                write_codegen_source(relpath, abspath)
+        else:
+            for source in (list(target.sources) + list(target.resources)):
+                write_target_source(target, source)
+    write_target(self.target)
+    for dependency in self.minified_dependencies(self.target):
+        if (isinstance(dependency, PythonTarget) and (not dependency.provides)):
+            write_target(dependency)

@@ -1,0 +1,33 @@
+@classmethod
+def find_packages(cls, chroot):
+    'Detect packages, namespace packages and resources from an existing chroot.\n\n       Returns a tuple of:\n         set(packages)\n         set(namespace_packages)\n         map(package => set(files))\n    '
+    base = os.path.join(chroot.path(), cls.SOURCE_ROOT)
+    (packages, namespace_packages) = (set(), set())
+    resources = defaultdict(set)
+
+    def iter_files():
+        for (root, _, files) in os.walk(base):
+            module = os.path.relpath(root, base).replace(os.path.sep, '.')
+            for filename in files:
+                yield (module, filename, os.path.join(root, filename))
+    for (module, filename, real_filename) in iter_files():
+        if (filename != '__init__.py'):
+            continue
+        packages.add(module)
+        if cls.declares_namespace_package(real_filename):
+            namespace_packages.add(module)
+    for (module, filename, real_filename) in iter_files():
+        if filename.endswith('.py'):
+            if (module not in packages):
+                print(('WARNING!  %s is source but does not belong to a package!' % real_filename))
+            else:
+                continue
+        submodule = cls.nearest_subpackage(module, packages)
+        if (submodule == module):
+            resources[submodule].add(filename)
+        else:
+            assert module.startswith((submodule + '.'))
+            relative_module = module[(len(submodule) + 1):]
+            relative_filename = os.path.join(relative_module.replace('.', os.path.sep), filename)
+            resources[submodule].add(relative_filename)
+    return (packages, namespace_packages, resources)

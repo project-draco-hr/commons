@@ -1,12 +1,23 @@
 def write_setup(self, chroot):
-    setup_keywords = self.target.provides._kw
+    'Write the setup.py of a target.  Must be run after writing the contents to the chroot.'
+    setup_keywords = self.target.provides.setup_py_keywords
+    package_dir = {'': self.SOURCE_ROOT, }
+    (packages, namespace_packages, resources) = self.find_packages(chroot)
+    if namespace_packages:
+        setup_keywords['namespace_packages'] = list(sorted(namespace_packages))
+    if packages:
+        setup_keywords.update(package_dir=package_dir, packages=list(sorted(packages)), package_data=dict(((package, list(rs)) for (package, rs) in resources.items())))
     install_requires = set()
-    package_dir = {'': 'src', }
-    (packages, namespace_packages) = self.establish_namespaces(chroot)
-    for dep in self.dependencies:
+    for dep in self.minified_dependencies(self.target):
         if isinstance(dep, PythonRequirement):
-            install_requires.add(str(dep._requirement))
+            install_requires.add(str(dep.requirement))
         elif (isinstance(dep, PythonTarget) and dep.provides):
             install_requires.add(dep.provides.key)
-    setup_keywords.update(install_requires=list(install_requires), package_dir=package_dir, packages=list(packages), namespace_packages=list(namespace_packages))
+    setup_keywords['install_requires'] = list(install_requires)
+    for (binary_name, entry_point) in self.iter_entry_points(self.target):
+        if ('entry_points' not in setup_keywords):
+            setup_keywords['entry_points'] = {}
+        if ('console_scripts' not in setup_keywords['entry_points']):
+            setup_keywords['entry_points']['console_scripts'] = []
+        setup_keywords['entry_points']['console_scripts'].append(('%s = %s' % (binary_name, entry_point)))
     chroot.write((SETUP_BOILERPLATE % {'setup_dict': pprint.pformat(setup_keywords, indent=4), 'setup_target': repr(self.target), }), 'setup.py')

@@ -1,12 +1,25 @@
 def execute(self):
+    if (self.options.pex and self.options.ipython):
+        self.error('Cannot specify both --pex and --ipython!')
+    if (self.options.entry_point and self.options.ipython):
+        self.error('Cannot specify both --entry_point and --ipython!')
     if self.options.verbose:
         print(('Build operating on target: %s %s' % (self.target, (('Extra targets: %s' % ' '.join(map(str, self.extra_targets))) if self.extra_targets else ''))))
-    if self.options.resolve:
-        executor = PythonResolver(([self.target] + self.extra_targets))
-        executor.dump()
-        return 0
-    executor = PythonChroot(self.target, self.root_dir, extra_targets=self.extra_targets, conn_timeout=self.options.conn_timeout)
-    builder = executor.dump()
+    builder = PEXBuilder(tempfile.mkdtemp(), interpreter=self.interpreter, pex_info=(self.target.pexinfo if isinstance(self.target, PythonBinary) else None))
+    if self.options.entry_point:
+        builder.set_entry_point(self.options.entry_point)
+    if self.options.ipython:
+        if (not self.config.has_section('python-ipython')):
+            self.error('No python-ipython sections defined in your pants.ini!')
+        builder.info.entry_point = self.config.get('python-ipython', 'entry_point')
+        if (builder.info.entry_point is None):
+            self.error('Must specify entry_point for IPython in the python-ipython section of your pants.ini!')
+        requirements = self.config.getlist('python-ipython', 'requirements', default=[])
+        with ParseContext.temp():
+            for requirement in requirements:
+                self.extra_targets.append(PythonRequirement(requirement))
+    executor = PythonChroot(self.target, self.root_dir, builder=builder, interpreter=self.interpreter, extra_targets=self.extra_targets, conn_timeout=self.options.conn_timeout)
+    executor.dump()
     if self.options.pex:
         pex_name = os.path.join(self.root_dir, 'dist', ('%s.pex' % self.target.name))
         builder.build(pex_name)
@@ -14,10 +27,10 @@ def execute(self):
         return 0
     else:
         builder.freeze()
-        pex = PEX(builder.path())
+        pex = PEX(builder.path(), interpreter=self.interpreter)
         po = pex.run(args=list(self.args), blocking=False)
         try:
-            po.wait()
+            return po.wait()
         except KeyboardInterrupt:
             po.send_signal(signal.SIGINT)
             raise

@@ -1,0 +1,4 @@
+@property
+def package_dir(self):
+    'Return the code generation root.'
+    return '.'

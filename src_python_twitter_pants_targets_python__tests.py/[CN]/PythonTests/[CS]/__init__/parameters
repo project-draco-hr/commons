@@ -6,4 +6,4 @@ dependencies
 timeout
 coverage
 soft_dependencies
-exclusives
+entry_point

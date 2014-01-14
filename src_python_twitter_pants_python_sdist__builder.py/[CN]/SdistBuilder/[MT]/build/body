@@ -1,0 +1,7 @@
+@classmethod
+def build(cls, setup_root, target, interpreter=None):
+    packager = Packager(setup_root, interpreter=interpreter, install_dir=os.path.join(setup_root, 'dist'))
+    try:
+        return packager.sdist()
+    except Packager.InstallFailure as e:
+        raise cls.SetupError(str(e))

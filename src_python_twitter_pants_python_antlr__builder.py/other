@@ -1,9 +1,6 @@
 from __future__ import print_function
-__author__ = 'Benjy Weinberger'
 import os
-import sys
-import shutil
-import tempfile
 import subprocess
-from twitter.common.dirutil.chroot import RelativeChroot
-from twitter.pants.python.egg_builder import EggBuilder
+import sys
+from twitter.common.dirutil import safe_mkdir
+from .code_generator import CodeGenerator

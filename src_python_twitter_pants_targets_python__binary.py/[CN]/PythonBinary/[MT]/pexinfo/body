@@ -1,0 +1,14 @@
+@property
+def pexinfo(self):
+    info = PexInfo.default()
+    info.build_properties = get_build_info()._asdict()
+    for repo in self._repositories:
+        info.add_repository(repo)
+    for index in self._indices:
+        info.add_index(index)
+    info.zip_safe = self._zip_safe
+    info.always_write_cache = self._always_write_cache
+    info.inherit_path = self._inherit_path
+    info.entry_point = self.entry_point
+    info.ignore_errors = self._ignore_errors
+    return info

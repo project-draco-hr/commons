@@ -1,0 +1,14 @@
+def setup_distribute(self, interpreter, dest):
+    obtainer = Obtainer(self._crawler, self._fetchers, [])
+    obtainer_iterator = obtainer.iter(self._setuptools_requirement)
+    links = [link for link in obtainer_iterator if isinstance(link, SourceLink)]
+    for link in links:
+        self._logger(('Fetching %s' % link))
+        sdist = link.fetch()
+        self._logger(('Installing %s' % sdist))
+        installer = Installer(sdist, strict=False, interpreter=interpreter)
+        dist = installer.distribution()
+        self._logger(('Distilling %s' % dist))
+        egg = Distiller(dist).distill(into=dest)
+        safe_link(egg, os.path.join(dest, 'distribute'))
+        break

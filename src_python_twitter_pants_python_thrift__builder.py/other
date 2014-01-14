@@ -1,11 +1,9 @@
 from __future__ import print_function
-__author__ = 'Brian Wickman'
 import os
-import sys
-import tempfile
 import subprocess
+import sys
 from twitter.common.dirutil import safe_rmtree
-from twitter.common.dirutil.chroot import RelativeChroot
-from twitter.pants.python.egg_builder import EggBuilder
+from twitter.pants.base.build_environment import get_buildroot
+from twitter.pants.python.code_generator import CodeGenerator
 from twitter.pants.targets.python_thrift_library import PythonThriftLibrary
 from twitter.pants.thrift_util import calculate_compile_roots, select_thrift_binary

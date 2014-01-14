@@ -3,7 +3,6 @@ import collections
 import os
 import sys
 from twitter.common.collections import OrderedSet, maybe_list
-from twitter.common.decorators import deprecated_with_warning
 from twitter.pants.base.address import Address
 from twitter.pants.base.hash_utils import hash_all
 from twitter.pants.base.parse_context import ParseContext

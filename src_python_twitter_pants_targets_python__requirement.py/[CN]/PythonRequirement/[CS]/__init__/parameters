@@ -1,7 +1,7 @@
 self
 requirement
-dynamic
-repository
 name
+repository
 version_filter
-exclusives
+use_2to3
+compatibility

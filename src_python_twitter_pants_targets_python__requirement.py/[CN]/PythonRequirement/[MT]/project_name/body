@@ -1,0 +1,3 @@
+@property
+def project_name(self):
+    return self._requirement.project_name
