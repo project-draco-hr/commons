@@ -1,5 +1,4 @@
 def test_client_connect_times_out():
-    import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(('localhost', 0))
     (_, port) = sock.getsockname()

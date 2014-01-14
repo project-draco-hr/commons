@@ -1,6 +1,6 @@
 {
   try {
-    writer.name(field.name);
+    getCurrentWriter().name(field.name);
   }
  catch (  IOException ex) {
     throw new TException(ex);

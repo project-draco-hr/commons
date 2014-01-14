@@ -1,0 +1,3 @@
+def urllib_opener(proxy_host, proxy_port, proxy_type=socks.PROXY_TYPE_SOCKS5, **kw):
+    '\n    Construct a proxied urllib opener via the SOCKS proxy at proxy_host:proxy_port.\n\n    proxy_type may be socks.PROXY_TYPE_SOCKS4 or socks.PROXY_TYPE_SOCKS5, by\n    default the latter.  the remaining keyword arguments will be passed to SocksiPyHandler,\n    e.g. rdns, username, password.\n  '
+    return urllib_request.build_opener(SocksiPyHandler(proxy_type, proxy_host, proxy_port, **kw))

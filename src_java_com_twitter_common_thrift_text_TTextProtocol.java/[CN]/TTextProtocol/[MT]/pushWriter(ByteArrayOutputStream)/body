@@ -1,0 +1,7 @@
+{
+  OutputStreamWriter osw=new OutputStreamWriter(baos,Charsets.UTF_8);
+  JsonWriter writer=new JsonWriter(osw);
+  writer.setIndent("  ");
+  WriterByteArrayOutputStream wbaos=new WriterByteArrayOutputStream(writer,baos);
+  writers.push(wbaos);
+}

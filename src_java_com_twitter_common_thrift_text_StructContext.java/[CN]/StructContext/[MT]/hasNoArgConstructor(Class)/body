@@ -1,0 +1,10 @@
+{
+  Constructor[] allConstructors=clazz.getConstructors();
+  for (  Constructor ctor : allConstructors) {
+    Class<?>[] pType=ctor.getParameterTypes();
+    if (pType.length == 0) {
+      return true;
+    }
+  }
+  return false;
+}

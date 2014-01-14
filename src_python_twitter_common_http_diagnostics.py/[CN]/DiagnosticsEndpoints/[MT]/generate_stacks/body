@@ -8,4 +8,4 @@ def generate_stacks(cls):
             tb.append(('  File: "%s", line %d, in %s' % (filename, lineno, name)))
             if line:
                 tb.append(('    %s' % line.strip()))
-    return (('<pre>' + '<br>'.join(tb)) + '</pre>')
+    return '\n'.join(tb)

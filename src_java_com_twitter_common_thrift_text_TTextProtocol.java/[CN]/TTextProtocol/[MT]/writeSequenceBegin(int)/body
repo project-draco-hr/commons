@@ -5,7 +5,7 @@
   }
   pushContext(new SequenceContext(null));
   try {
-    writer.beginArray();
+    getCurrentWriter().beginArray();
   }
  catch (  IOException ex) {
     throw new TTransportException(ex);

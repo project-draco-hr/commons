@@ -1,3 +1,3 @@
-def safe_mkdir_for(file, clean=False):
+def safe_mkdir_for(path, clean=False):
     "\n    Ensure that the parent directory for a file is present.  If it's not there, create it.\n    If it is, no-op. If clean is True, ensure the directory is empty.\n  "
-    safe_mkdir(os.path.dirname(file), clean)
+    safe_mkdir(os.path.dirname(path), clean)

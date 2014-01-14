@@ -1,0 +1,9 @@
+def make_handler(*args, **kw):
+    opener = urllib_opener(*args, **kw)
+    our_handler = None
+    for handler in opener.handlers:
+        if isinstance(handler, SocksiPyHandler):
+            our_handler = handler
+            break
+    assert (our_handler is not None)
+    return our_handler

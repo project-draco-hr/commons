@@ -1,0 +1,7 @@
+def _init_metrics(self):
+    self._session_expirations = AtomicGauge('session_expirations')
+    self._connection_losses = AtomicGauge('connection_losses')
+    self.metrics.register(self._session_expirations)
+    self.metrics.register(self._connection_losses)
+    self.metrics.register(LambdaGauge('session_id', (lambda : self.session_id)))
+    self.metrics.register(LambdaGauge('live', (lambda : int(self._live.is_set()))))

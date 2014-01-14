@@ -12,3 +12,4 @@ ignore_errors
 allow_pypi
 platforms
 compatibility
+exclusives

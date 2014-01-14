@@ -5,3 +5,4 @@ repository
 version_filter
 use_2to3
 compatibility
+exclusives

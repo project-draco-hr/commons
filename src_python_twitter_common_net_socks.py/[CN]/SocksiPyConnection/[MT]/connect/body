@@ -1,0 +1,6 @@
+def connect(self):
+    self.sock = socks.socksocket()
+    self.sock.setproxy(*self._proxyargs)
+    if ((not hasattr(socket, '_GLOBAL_DEFAULT_TIMEOUT')) or (self.timeout != socket._GLOBAL_DEFAULT_TIMEOUT)):
+        self.sock.settimeout(self.timeout)
+    self.sock.connect((str(self.host), self.port))

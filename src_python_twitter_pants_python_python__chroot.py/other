@@ -2,6 +2,7 @@ from __future__ import print_function
 from collections import defaultdict
 import os
 import random
+import shutil
 import sys
 import tempfile
 from twitter.common.collections import OrderedSet

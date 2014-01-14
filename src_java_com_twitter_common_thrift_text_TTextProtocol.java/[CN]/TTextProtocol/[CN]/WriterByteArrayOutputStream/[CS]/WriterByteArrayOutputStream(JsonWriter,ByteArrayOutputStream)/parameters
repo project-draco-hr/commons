@@ -1,0 +1,2 @@
+JsonWriter writer
+ByteArrayOutputStream baos

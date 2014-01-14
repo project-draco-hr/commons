@@ -1,6 +1,6 @@
 {
   try {
-    writer.endArray();
+    getCurrentWriter().endArray();
   }
  catch (  IOException ex) {
     throw new TTransportException(ex);

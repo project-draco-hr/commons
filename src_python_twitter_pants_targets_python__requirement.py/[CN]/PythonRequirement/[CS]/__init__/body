@@ -1,8 +1,8 @@
-def __init__(self, requirement, name=None, repository=None, version_filter=None, use_2to3=False, compatibility=None):
+def __init__(self, requirement, name=None, repository=None, version_filter=None, use_2to3=False, compatibility=None, exclusives=None):
     self._requirement = Requirement.parse(requirement)
     self._repository = repository
     self._name = (name or self._requirement.project_name)
     self._use_2to3 = use_2to3
     self._version_filter = (version_filter or (lambda py, pl: True))
     self.compatibility = (compatibility or [''])
-    Target.__init__(self, self._name)
+    Target.__init__(self, self._name, exclusives=exclusives)

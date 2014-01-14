@@ -1,10 +1,8 @@
 {
   super(trans);
+  writers=new Stack<WriterByteArrayOutputStream>();
   ByteArrayOutputStream mybaos=new TTransportOutputStream();
-  OutputStreamWriter osw;
-  osw=new OutputStreamWriter(mybaos,Charsets.UTF_8);
-  writer=new JsonWriter(osw);
-  writer.setIndent("  ");
+  pushWriter(mybaos);
   reset();
   try {
     parser=createParser();
