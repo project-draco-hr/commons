@@ -1,2 +1,3 @@
 def add_info(self, key, val):
-    self.add_infos((key, val))
+    'Adds the given info and returns a dict composed of just this added info.'
+    return self.add_infos((key, val))

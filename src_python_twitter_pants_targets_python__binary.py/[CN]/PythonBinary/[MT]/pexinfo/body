@@ -1,7 +1,6 @@
 @property
 def pexinfo(self):
     info = PexInfo.default()
-    info.build_properties = get_build_info()._asdict()
     for repo in self._repositories:
         info.add_repository(repo)
     for index in self._indices:

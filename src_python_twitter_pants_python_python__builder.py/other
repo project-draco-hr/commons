@@ -1,6 +1,4 @@
-__author__ = 'John Sirois'
-from twitter.pants.base.builder import Builder
 from twitter.pants.targets import PythonBinary, PythonTests, PythonTestSuite
-from twitter.pants.python.binary_builder import PythonBinaryBuilder
-from twitter.pants.python.test_builder import PythonTestBuilder
-from twitter.pants.python.lint_builder import PythonLintBuilder
+from .binary_builder import PythonBinaryBuilder
+from .lint_builder import PythonLintBuilder
+from .test_builder import PythonTestBuilder
