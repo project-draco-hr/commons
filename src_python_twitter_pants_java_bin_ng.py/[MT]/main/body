@@ -3,7 +3,7 @@ def main(args):
     if options.show_help:
         app.help()
     if (options.show_version or options.just_version):
-        print('Python NailGun client version 0.0.1', file=sys.stdout)
+        print(('Python NailGun client version %s' % VERSION))
         if options.just_version:
             sys.exit(0)
     command = re.compile('.pex$').sub('', os.path.basename(sys.argv[0]))
@@ -14,5 +14,9 @@ def main(args):
         command = args[0]
         args_index = 1
     ng = NailgunClient(host=options.ng_host, port=options.ng_port)
-    result = ng(command, *args[args_index:], **os.environ)
-    sys.exit(result)
+    try:
+        result = ng(command, *args[args_index:], **os.environ)
+        sys.exit(result)
+    except ng.NailgunError as e:
+        print(('Problem executing command: %s' % e), file=sys.stderr)
+        sys.exit(1)
