@@ -4,5 +4,5 @@ def dir_hash(cls, d):
     names = sorted((f for f in cls._iter_files(d) if (not f.endswith('.pyc'))))
 
     def stream_factory(name):
-        return open(os.path.join(d, name))
+        return open(os.path.join(d, name), 'rb')
     return cls._compute_hash(names, stream_factory)

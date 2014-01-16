@@ -1,11 +1,9 @@
-def test_caching():
+@mock.patch('os.path.getmtime')
+def test_caching(getmtime_mock):
     URL = 'http://www.google.com'
     DATA = 'This is google.com!'
     clock = ThreadedClock()
-    m = mox.Mox()
-    m.StubOutWithMock(os.path, 'getmtime')
-    os.path.getmtime(mox.IgnoreArg()).MultipleTimes().AndReturn(0)
-    m.ReplayAll()
+    getmtime_mock.return_value = 0
     opener = MockOpener(DATA)
     web = CachedWeb(clock=clock, opener=opener)
     assert (not os.path.exists(web.translate_url(URL)))
@@ -23,5 +21,3 @@ def test_caching():
     with contextlib.closing(web.open(URL, ttl=0.5)) as fp:
         assert (fp.read() == DATA)
     assert opener.opened.is_set(), 'expect expired url to cause http get'
-    m.UnsetStubs()
-    m.VerifyAll()

@@ -1,2 +1,3 @@
 def __contains__(self, url):
-    return (self.age(url) > 0)
+    age = self.age(url)
+    return ((age is not None) and (age > 0))

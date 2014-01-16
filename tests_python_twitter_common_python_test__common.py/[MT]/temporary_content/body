@@ -10,5 +10,5 @@ def temporary_content(content_map, interp=None, seed=31337):
                 if isinstance(size_or_content, int):
                     fp.write(random_bytes(size_or_content))
                 else:
-                    fp.write((size_or_content % interp))
+                    fp.write((size_or_content % interp).encode('utf-8'))
         yield td

@@ -1,6 +1,7 @@
-def __init__(self, targets, args, root_dir, conn_timeout=None):
+def __init__(self, targets, args, root_dir, interpreter=None, conn_timeout=None):
     self.targets = targets
     self.args = args
     self.root_dir = root_dir
+    self.interpreter = (interpreter or PythonInterpreter.get())
     self.successes = {}
     self._conn_timeout = conn_timeout

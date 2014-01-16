@@ -1,9 +1,5 @@
-def test_open_resolve_failure():
-    m = mox.Mox()
-    m.StubOutWithMock(socket, 'gethostbyname')
-    socket.gethostbyname('www.google.com').AndRaise(socket.gaierror(errno.EADDRNOTAVAIL, 'Could not resolve host.'))
-    m.ReplayAll()
+@mock.patch('socket.gethostbyname')
+def test_open_resolve_failure(gethostbyname_mock):
+    gethostbyname_mock.side_effect = socket.gaierror(errno.EADDRNOTAVAIL, 'Could not resolve host.')
     with pytest.raises(urllib_error.URLError):
         Web().open('http://www.google.com')
-    m.UnsetStubs()
-    m.VerifyAll()

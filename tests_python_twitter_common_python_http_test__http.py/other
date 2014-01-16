@@ -3,18 +3,20 @@ import errno
 import os
 import socket
 import threading
-import urllib2
 from twitter.common.contextutil import temporary_dir
 from twitter.common.lang import Compatibility
 from twitter.common.python.http import CachedWeb, Web
 from twitter.common.testing.clock import ThreadedClock
-import mox
 import pytest
 if Compatibility.PY3:
+    from unittest import mock
     import urllib.error as urllib_error
     import urllib.parse as urlparse
     import urllib.request as urllib_request
+    URLLIB_REQUEST = 'urllib.request'
 else:
+    import mock
     import urllib2 as urllib_request
     import urllib2 as urllib_error
     import urlparse
+    URLLIB_REQUEST = 'urllib2'

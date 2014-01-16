@@ -14,6 +14,7 @@ from twitter.common.contextutil import temporary_file
 from twitter.common.dirutil import safe_mkdir
 from twitter.common.lang import Compatibility
 from twitter.common.quantity import Amount, Time
+from twitter.common.python.interpreter import PythonInterpreter
 from twitter.common.python.pex import PEX
 from twitter.common.python.pex_builder import PEXBuilder
 from twitter.pants.base import Config, ParseContext

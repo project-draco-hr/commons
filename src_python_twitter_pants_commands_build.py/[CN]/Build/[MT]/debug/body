@@ -1,0 +1,3 @@
+def debug(self, message):
+    if self.options.verbose:
+        print(message, file=sys.stderr)
