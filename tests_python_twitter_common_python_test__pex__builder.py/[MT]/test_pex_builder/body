@@ -1,0 +1,20 @@
+def test_pex_builder():
+    with nested(temporary_dir(), make_distribution('p1', zipped=True)) as (td, p1):
+        write_pex(td, exe_main, dists=[p1])
+        success_txt = os.path.join(td, 'success.txt')
+        PEX(td).run(args=[success_txt])
+        assert os.path.exists(success_txt)
+        with open(success_txt) as fp:
+            assert (fp.read() == 'success')
+    with nested(temporary_dir(), temporary_dir(), make_distribution('p1', zipped=True)) as (td1, td2, p1):
+        target_egg_dir = os.path.join(td2, os.path.basename(p1.location))
+        safe_mkdir(target_egg_dir)
+        with closing(zipfile.ZipFile(p1.location, 'r')) as zf:
+            zf.extractall(target_egg_dir)
+        p1 = DistributionHelper.distribution_from_path(target_egg_dir)
+        write_pex(td1, exe_main, dists=[p1])
+        success_txt = os.path.join(td1, 'success.txt')
+        PEX(td1).run(args=[success_txt])
+        assert os.path.exists(success_txt)
+        with open(success_txt) as fp:
+            assert (fp.read() == 'success')

@@ -1,2 +1,0 @@
-def __iter__(self):
-    return (zi for zi in _zipfile_namecache[self._archive])

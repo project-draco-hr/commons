@@ -11,7 +11,7 @@ def minimum_path(cls):
     site_distributions = OrderedSet()
     for path_element in sys.path:
         if any((path_element.startswith(site_lib) for site_lib in site_libs)):
-            TRACER.log(('Inspecting path element: %s' % path_element))
+            TRACER.log(('Inspecting path element: %s' % path_element), V=2)
             site_distributions.update((dist.location for dist in find_distributions(path_element)))
     user_site_distributions = OrderedSet((dist.location for dist in find_distributions(USER_SITE)))
     for path in site_distributions:

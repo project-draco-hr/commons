@@ -1,2 +1,0 @@
-def handle(self, name):
-    return DirWrapperHandle(os.path.basename(self._zf.fp.name), None, name, self.reader(name))

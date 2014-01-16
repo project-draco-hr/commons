@@ -1,5 +1,0 @@
-from twitter.common.python import pex_bootstrapper as pb
-try:
-    from unittest import mock
-except ImportError:
-    import mock

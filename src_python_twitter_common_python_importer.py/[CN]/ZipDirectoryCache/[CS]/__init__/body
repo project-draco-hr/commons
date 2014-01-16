@@ -1,3 +1,0 @@
-def __init__(self, shadow):
-    self.__shadow = shadow
-    self.__lookaside = {}

@@ -1,4 +1,0 @@
-def __init__(self, archive):
-    _zipfile_cache[archive]
-    self._archive = archive
-    MappingView.__init__(self, _zipfile_cache)

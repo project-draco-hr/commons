@@ -1,5 +1,0 @@
-def listdir(self):
-    for f in self._zf.namelist():
-        if (f.endswith('\\') or f.endswith('/')):
-            continue
-        yield f

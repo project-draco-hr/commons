@@ -1,0 +1,16 @@
+def test_hash():
+    empty_hash = sha1().hexdigest()
+    with temporary_file() as fp:
+        fp.flush()
+        assert (empty_hash == CacheHelper.hash(fp.name))
+    with temporary_file() as fp:
+        string = ((('asdf' * 1024) * sha1().block_size) + 'extra padding')
+        fp.write(string)
+        fp.flush()
+        assert (sha1(string).hexdigest() == CacheHelper.hash(fp.name))
+    with temporary_file() as fp:
+        empty_hash = sha1()
+        fp.write('asdf')
+        fp.flush()
+        hash_output = CacheHelper.hash(fp.name, digest=empty_hash)
+        assert (hash_output == empty_hash.hexdigest())

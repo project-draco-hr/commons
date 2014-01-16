@@ -1,7 +1,0 @@
-@staticmethod
-def walk(dist):
-    'yields filename, stream for all files in the distribution'
-    for (fn, content) in DistributionHelper.walk_metadata(dist):
-        yield (fn, BytesIO(content))
-    for (fn, content) in DistributionHelper.walk_data(dist):
-        yield (fn, content)

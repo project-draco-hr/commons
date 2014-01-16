@@ -1,6 +1,0 @@
-def get_code(self, fullmodname):
-    'Return bytecode for a module.'
-    with self._log_nested(('entering get_code(%s)' % fullmodname), at_level=3):
-        (submodname, is_package, fullpath, code) = self._get_code(fullmodname)
-    self._log(('exiting get_code(%s) => submodname: %s, is_package: %s, fullpath: %s' % (fullmodname, submodname, is_package, fullpath)), at_level=3)
-    return code

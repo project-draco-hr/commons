@@ -1,0 +1,8 @@
+def test_load_internal_cache_unzipped():
+    with nested(yield_pex_builder(zip_safe=True), temporary_dir()) as (pb, pex_root):
+        pex = pb.path()
+        pb.info.pex_root = pex_root
+        pb.freeze()
+        dists = list(PEXEnvironment.load_internal_cache(pb.path(), pb.info))
+        assert (len(dists) == 1)
+        assert normalize(dists[0].location).startswith(normalize(os.path.join(pb.path(), pb.info.internal_cache)))

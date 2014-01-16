@@ -4,5 +4,5 @@ def run(self, args=(), with_chroot=False, blocking=True, setsid=False):
     self.clean_environment(forking=True)
     cmdline = self.cmdline(args)
     TRACER.log(('PEX.run invoking %s' % ' '.join(cmdline)))
-    process = subprocess.Popen(cmdline, cwd=(self._pex.path() if with_chroot else os.getcwd()), preexec_fn=(os.setsid if setsid else None))
+    process = subprocess.Popen(cmdline, cwd=(self._pex if with_chroot else os.getcwd()), preexec_fn=(os.setsid if setsid else None))
     return (process.wait() if blocking else process)

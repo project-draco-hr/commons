@@ -1,4 +1,0 @@
-def __init__(self, path):
-    (self.archive, self.prefix, self.zipfile) = Nested.open(path)
-    self.prefix = ((self.prefix + '/') if self.prefix else self.prefix)
-    self.zipfile = Nested.get(self.archive, zipfile=self.zipfile)
