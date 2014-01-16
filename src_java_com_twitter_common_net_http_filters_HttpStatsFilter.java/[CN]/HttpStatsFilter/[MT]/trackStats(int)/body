@@ -1,0 +1,18 @@
+{
+  long endTime=clock.nowNanos();
+  Object startTimeAttribute=servletRequest.getAttribute(REQUEST_START_TIME);
+  if (startTimeAttribute == null) {
+    LOG.fine("No start time attribute was found on the request, this filter should be wired" + " as both a servlet filter and a container filter.");
+    return;
+  }
+  long elapsed=endTime - ((Long)startTimeAttribute).longValue();
+  statusCounters.getUnchecked(status).accumulate(elapsed);
+  AbstractResourceMethod matchedMethod=extendedUriInfo.getMatchedMethod();
+  TrackRequestStats trackRequestStats=matchedMethod.getAnnotation(TrackRequestStats.class);
+  if (trackRequestStats == null) {
+    Method method=matchedMethod.getMethod();
+    LOG.fine("The method that handled this request (" + method.getDeclaringClass() + "#"+ method.getName()+ ") is not annotated with "+ TrackRequestStats.class.getSimpleName()+ ". No request stats will recorded.");
+    return;
+  }
+  requestCounters.getUnchecked(Pair.of(trackRequestStats.identifier(),status)).accumulate(elapsed);
+}

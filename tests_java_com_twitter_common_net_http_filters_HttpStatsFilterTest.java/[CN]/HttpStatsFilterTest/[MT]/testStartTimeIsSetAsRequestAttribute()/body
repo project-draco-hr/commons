@@ -1,0 +1,7 @@
+{
+  request.setAttribute(HttpStatsFilter.REQUEST_START_TIME,REQUEST_TIME.getValue());
+  filterChain.doFilter(request,response);
+  control.replay();
+  clock.advance(REQUEST_TIME);
+  filter.doFilter(request,response,filterChain);
+}

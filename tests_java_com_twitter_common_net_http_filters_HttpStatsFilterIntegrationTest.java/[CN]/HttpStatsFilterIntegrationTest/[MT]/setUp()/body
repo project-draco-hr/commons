@@ -1,0 +1,29 @@
+{
+  Stats.flush();
+  server=new HttpServerDispatch();
+  server.listen(0);
+  server.registerFilter(GuiceFilter.class,"/*",HttpServerDispatch.Dispatch.REQUEST);
+  clock=new FakeClock();
+  final Injector injector=Guice.createInjector(new AbstractModule(){
+    @Override protected void configure(){
+      bind(TestServlet.class).in(Singleton.class);
+      bind(Clock.class).toInstance(clock);
+      bind(HttpStatsFilter.class).in(Singleton.class);
+    }
+  }
+,new JerseyServletModule(){
+    @Override protected void configureServlets(){
+      filter("/*").through(HttpStatsFilter.class);
+      serve("/*").with(GuiceContainer.class,ImmutableMap.of(PROPERTY_CONTAINER_RESPONSE_FILTERS,HttpStatsFilter.class.getName()));
+    }
+  }
+);
+  server.getRootContext().addEventListener(new GuiceServletContextListener(){
+    @Override protected Injector getInjector(){
+      return injector;
+    }
+  }
+);
+  ClientConfig config=new DefaultClientConfig();
+  client=Client.create(config);
+}

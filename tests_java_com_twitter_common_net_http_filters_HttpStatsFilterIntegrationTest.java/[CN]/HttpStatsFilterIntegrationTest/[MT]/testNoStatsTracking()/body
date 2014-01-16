@@ -1,0 +1,4 @@
+{
+  getResource("/goodbye");
+  assertNull(Stats.getVariable("http_goodbye_200_responses_events"));
+}

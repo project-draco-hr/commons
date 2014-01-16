@@ -1,0 +1,15 @@
+{
+  extendedUriInfo=createMock(ExtendedUriInfo.class);
+  servletRequest=createMock(HttpServletRequest.class);
+  List<Object> injectables=Lists.newArrayList(extendedUriInfo,servletRequest);
+  for (  Field f : filter.getClass().getDeclaredFields()) {
+    if (f.isAnnotationPresent(Context.class)) {
+      for (      Object injectable : injectables) {
+        if (f.getType().isInstance(injectable)) {
+          f.setAccessible(true);
+          f.set(filter,injectable);
+        }
+      }
+    }
+  }
+}

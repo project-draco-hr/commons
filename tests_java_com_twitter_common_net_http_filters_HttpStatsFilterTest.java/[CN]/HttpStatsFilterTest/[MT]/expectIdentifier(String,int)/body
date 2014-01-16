@@ -1,0 +1,7 @@
+{
+  AbstractResourceMethod matchedMethod=createMock(AbstractResourceMethod.class);
+  expect(extendedUriInfo.getMatchedMethod()).andReturn(matchedMethod).times(times);
+  TrackRequestStats annotation=createMock(TrackRequestStats.class);
+  expect(matchedMethod.getAnnotation(TrackRequestStats.class)).andReturn(annotation).times(times);
+  expect(annotation.identifier()).andReturn(identifier).times(times);
+}

@@ -1,4 +1,0 @@
-{
-  super.setStatus(sc,sm);
-  wrappedStatus=sc;
-}

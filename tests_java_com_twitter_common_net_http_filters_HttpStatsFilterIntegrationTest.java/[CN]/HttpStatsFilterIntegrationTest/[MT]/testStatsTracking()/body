@@ -1,0 +1,4 @@
+{
+  getResource("/hello");
+  assertStatValue("http_hello_200_responses_events",1);
+}

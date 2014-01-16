@@ -1,0 +1,3 @@
+{
+  return Response.ok("goodbye cruel world").build();
+}

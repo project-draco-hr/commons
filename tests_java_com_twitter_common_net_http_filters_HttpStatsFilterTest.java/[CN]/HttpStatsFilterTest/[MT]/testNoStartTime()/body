@@ -1,0 +1,7 @@
+{
+  expect(servletRequest.getAttribute(HttpStatsFilter.REQUEST_START_TIME)).andReturn(null);
+  expect(containerResponse.getStatus()).andReturn(HttpServletResponse.SC_OK);
+  control.replay();
+  assertEquals(containerResponse,filter.filter(containerRequest,containerResponse));
+  assertEquals(0,filter.statusCounters.asMap().keySet().size());
+}

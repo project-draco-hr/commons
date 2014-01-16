@@ -1,8 +1,8 @@
 {
-  long start=clock.nowNanos();
-  ResponseWithStatus wrapper=new ResponseWithStatus(response);
+  long startTime=clock.nowNanos();
+  request.setAttribute(REQUEST_START_TIME,startTime);
   try {
-    chain.doFilter(request,wrapper);
+    chain.doFilter(request,response);
   }
  catch (  IOException e) {
     exceptionCount.incrementAndGet();
@@ -12,5 +12,4 @@ catch (  ServletException e) {
     exceptionCount.incrementAndGet();
     throw e;
   }
-  counters.getUnchecked(wrapper.wrappedStatus).accumulate(clock.nowNanos() - start);
 }
