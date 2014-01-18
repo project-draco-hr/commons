@@ -1,0 +1,8 @@
+{
+  try {
+    test.execute();
+    fail("Expected UnsupportedOperationException to be thrown.");
+  }
+ catch (  UnsupportedOperationException e) {
+  }
+}
