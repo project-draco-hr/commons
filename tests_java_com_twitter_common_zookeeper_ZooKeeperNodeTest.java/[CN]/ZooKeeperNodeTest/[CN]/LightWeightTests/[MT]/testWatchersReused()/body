@@ -1,0 +1,35 @@
+{
+  expect(zooKeeperClient.registerExpirationHandler(isA(Command.class))).andReturn(null);
+  expect(zooKeeperClient.get()).andReturn(zk);
+  Capture<Watcher> dataWatcher1=createCapture();
+  expect(zk.getData(eq("/foo"),capture(dataWatcher1),isA(Stat.class))).andThrow(new NoNodeException());
+  dataUpdateListener.execute(null);
+  expect(zooKeeperClient.get()).andReturn(zk);
+  Capture<Watcher> existenceWatcher1=createCapture();
+  expect(zk.exists(eq("/foo"),capture(existenceWatcher1))).andReturn(new Stat());
+  expect(zooKeeperClient.get()).andReturn(zk);
+  Capture<Watcher> dataWatcher2=createCapture();
+  expect(zk.getData(eq("/foo"),capture(dataWatcher2),isA(Stat.class))).andReturn("bob".getBytes());
+  expect(deserializer.deserialize(aryEq("bob".getBytes()),isA(Stat.class))).andReturn("fred");
+  dataUpdateListener.execute("fred");
+  expect(zooKeeperClient.registerExpirationHandler(isA(Command.class))).andReturn(null);
+  expect(zooKeeperClient.get()).andReturn(zk);
+  Capture<Watcher> dataWatcher3=createCapture();
+  expect(zk.getData(eq("/foo"),capture(dataWatcher3),isA(Stat.class))).andThrow(new NoNodeException());
+  dataUpdateListener.execute(null);
+  expect(zooKeeperClient.get()).andReturn(zk);
+  Capture<Watcher> existenceWatcher2=createCapture();
+  expect(zk.exists(eq("/foo"),capture(existenceWatcher2))).andReturn(new Stat());
+  expect(zooKeeperClient.get()).andReturn(zk);
+  Capture<Watcher> dataWatcher4=createCapture();
+  expect(zk.getData(eq("/foo"),capture(dataWatcher4),isA(Stat.class))).andReturn("bip".getBytes());
+  expect(deserializer.deserialize(aryEq("bip".getBytes()),isA(Stat.class))).andReturn("frog");
+  dataUpdateListener.execute("frog");
+  control.replay();
+  node.init();
+  node.init();
+  assertSame(dataWatcher1.getValue(),dataWatcher2.getValue());
+  assertSame(dataWatcher2.getValue(),dataWatcher3.getValue());
+  assertSame(dataWatcher3.getValue(),dataWatcher4.getValue());
+  assertSame(existenceWatcher1.getValue(),existenceWatcher2.getValue());
+}
