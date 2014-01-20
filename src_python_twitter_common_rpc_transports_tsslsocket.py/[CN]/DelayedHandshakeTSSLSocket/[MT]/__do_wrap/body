@@ -1,0 +1,2 @@
+def __do_wrap(self, handshake_on_connect=False):
+    self.handle = ssl.wrap_socket(self.handle, ssl_version=self.SSL_VERSION, do_handshake_on_connect=handshake_on_connect, ca_certs=self.ca_certs, cert_reqs=self.cert_reqs)

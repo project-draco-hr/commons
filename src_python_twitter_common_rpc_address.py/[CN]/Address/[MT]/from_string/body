@@ -1,6 +1,6 @@
 @staticmethod
 def from_string(*args, **kw):
-    if (kw or (len(args) != 1) or (not isinstance(args[0], str)) or (not (len(args[0].split(':')) == 2))):
+    if (kw or (len(args) != 1) or (not isinstance(args[0], Compatibility.string)) or (not (len(args[0].split(':')) == 2))):
         raise Address.InvalidFormat('from_string expects "host:port" string.')
     (host, port) = args[0].split(':')
     try:

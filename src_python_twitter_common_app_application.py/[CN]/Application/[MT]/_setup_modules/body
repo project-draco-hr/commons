@@ -1,3 +1,4 @@
+@pre_initialization
 def _setup_modules(self):
     '\n      Setup all initialized modules.\n    '
     module_registry = AppModule.module_registry()

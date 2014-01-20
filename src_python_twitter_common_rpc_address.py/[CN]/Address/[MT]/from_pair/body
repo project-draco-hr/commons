@@ -1,6 +1,6 @@
 @staticmethod
 def from_pair(*args, **kw):
-    if (kw or (len(args) != 2) or (not isinstance(args[0], str)) or (not isinstance(args[1], (int, long)))):
+    if (kw or (len(args) != 2) or (not isinstance(args[0], Compatibility.string)) or (not isinstance(args[1], (int, long)))):
         raise Address.InvalidFormat('from_pair expects host, port as input!')
     Address.sanity_check(args[0], args[1])
     return Address(args[0], args[1])

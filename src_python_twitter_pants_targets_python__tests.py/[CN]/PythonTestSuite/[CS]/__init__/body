@@ -1,2 +1,2 @@
-def __init__(self, name, dependencies=None, exclusives=None):
-    PythonTarget.__init__(self, name, (), (), dependencies, exclusives=exclusives)
+def __init__(self, name, dependencies=None):
+    PythonTarget.__init__(self, name, (), (), dependencies)

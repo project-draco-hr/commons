@@ -1,0 +1,2 @@
+def build_connection(self, host, port=None, strict=None, timeout=None):
+    return SocksiPyConnection(host=host, port=port, strict=strict, timeout=timeout, *self._args, **self._kw)

@@ -1,0 +1,6 @@
+def setUp(self):
+    if (GroupTestBase.SERVER is None):
+        GroupTestBase.SERVER = ZookeeperServer()
+    self._server = GroupTestBase.SERVER
+    self._server.restart()
+    self._zk = self.make_zk(self._server.ensemble)

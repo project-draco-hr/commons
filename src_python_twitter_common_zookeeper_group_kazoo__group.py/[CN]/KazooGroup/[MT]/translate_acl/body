@@ -1,0 +1,5 @@
+@classmethod
+def translate_acl(cls, acl):
+    if ((not isinstance(acl, dict)) or any(((key not in acl) for key in ('perms', 'scheme', 'id')))):
+        raise TypeError(('Expected acl to be Acl-like, got %s' % type(acl)))
+    return ksec.ACL(acl['perms'], ksec.Id(acl['scheme'], acl['id']))

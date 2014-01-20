@@ -1,0 +1,9 @@
+import os
+import glob
+from twitter.common import app
+from twitter.common.java.perfdata import PerfData
+app.add_option('-f', dest='filename', default=None, help='Filename to load hsperfdata from.')
+app.add_option('--hsperfdata_root', dest='hsperfdata_root', default='/tmp', help='Root directory to search for hsperfdata files.')
+app.add_option('-l', dest='list', default=False, action='store_true', help='List pids.')
+app.add_option('-p', dest='pid', default=None, type=int, help='PID to load hsperfdata from.')
+app.main()

@@ -1,9 +1,14 @@
 {
   try {
-    writer.endObject();
+    getCurrentWriter().endObject();
     popContext();
+    if (getCurrentContext().isMapKey()) {
+      String writerString=getWriterString();
+      popWriter();
+      getCurrentWriter().name(writerString);
+    }
     if (1 == contextStack.size()) {
-      writer.flush();
+      getCurrentWriter().flush();
     }
   }
  catch (  IOException ex) {

@@ -1,3 +1,4 @@
 self
 binary
 interpreter
+distribute_path

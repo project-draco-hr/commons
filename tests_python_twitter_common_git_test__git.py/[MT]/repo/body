@@ -1,0 +1,13 @@
+@pytest.fixture
+def repo(tmpdir):
+    with pushd(tmpdir.strpath):
+        repo = git.Repo.init(tmpdir.strpath)
+        filename = 'test'
+        tmpdir.join(filename).write(first_commit_file_content)
+        repo.index.add([filename])
+        repo.index.commit('initial commit')
+        repo.create_head('a')
+        tmpdir.join(filename).write('more content')
+        repo.index.add([filename])
+        repo.index.commit('second commit')
+        return repo

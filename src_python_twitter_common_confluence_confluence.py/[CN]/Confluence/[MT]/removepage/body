@@ -1,6 +1,6 @@
 def removepage(self, page):
     'Deletes a page from confluence.\n\n    raises ConfluenceError if the page could not be removed.\n    '
     try:
-        self._server.confluence1.removePage(self._session_token, page)
-    except Fault as e:
+        self._api_entrypoint.removePage(self._session_token, page)
+    except XMLRPCError as e:
         raise ConfluenceError(('Failed to delete page: %s' % e))

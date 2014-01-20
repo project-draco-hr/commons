@@ -1,0 +1,2 @@
+def tearDown(self):
+    twitter.common.fs.hdfs.os = self.original_os

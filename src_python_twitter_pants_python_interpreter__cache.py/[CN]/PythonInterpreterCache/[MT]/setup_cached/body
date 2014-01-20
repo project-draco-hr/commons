@@ -1,0 +1,7 @@
+def setup_cached(self):
+    for interpreter_dir in os.listdir(self._path):
+        path = os.path.join(self._path, interpreter_dir)
+        pi = self.interpreter_from_path(path)
+        if pi:
+            self._logger(('Found interpreter %s: %s (cached)' % (pi.binary, str(pi.identity))))
+            self._interpreters.add(pi)

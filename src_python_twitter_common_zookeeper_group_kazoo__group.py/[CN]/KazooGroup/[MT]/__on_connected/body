@@ -1,0 +1,2 @@
+def __on_connected(self, callback):
+    return self.__on_state(callback, KazooState.CONNECTED)

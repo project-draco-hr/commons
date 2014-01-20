@@ -46,9 +46,9 @@ def _monitor_members(self):
         monitor_queue = self._monitor_queue[:]
         self._monitor_queue = []
         members = set((Membership(self.znode_to_id(child)) for child in children))
-        for (membership, promise) in monitor_queue:
+        for (membership, capture) in monitor_queue:
             if (set(membership) != members):
-                promise.set(members)
+                capture.set(members)
             else:
-                self._monitor_queue.append((membership, promise))
+                self._monitor_queue.append((membership, capture))
     do_monitor()

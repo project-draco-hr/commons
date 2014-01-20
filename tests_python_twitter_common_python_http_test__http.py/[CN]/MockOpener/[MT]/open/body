@@ -1,5 +1,5 @@
 def open(self, url, conn_timeout=None):
-    if (conn_timeout and (conn_timeout == Amount(0, Time.SECONDS))):
+    if (conn_timeout == 0):
         raise urllib_error.URLError(('Could not reach %s within deadline.' % url))
     if url.startswith('http'):
         self.opened.set()

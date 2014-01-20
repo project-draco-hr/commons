@@ -1,2 +1,0 @@
-def __init__(self, target):
-    Exception.__init__(self, ('Not a valid Python dependency! Found: %s' % target))

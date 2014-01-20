@@ -1,0 +1,4 @@
+def setup(self, app):
+    self._stats = dict(((k, StatusStats()) for k in (1, 2, 3, 4, 5)))
+    for (code_prefix, observable) in self._stats.items():
+        self.metrics.register_observable(('%dxx' % code_prefix), observable)

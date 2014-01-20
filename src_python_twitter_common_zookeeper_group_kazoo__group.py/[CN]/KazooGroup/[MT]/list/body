@@ -1,0 +1,12 @@
+def list(self):
+    wait_event = threading.Event()
+    while True:
+        wait_event.clear()
+        try:
+            try:
+                return sorted((Membership(self.znode_to_id(znode)) for znode in self._zk.get_children(self._path) if self.znode_owned(znode)))
+            except ke.NoNodeException:
+                return []
+        except self.DISCONNECT_EXCEPTIONS:
+            self._once(KazooState.CONNECTED, wait_event.set)
+            wait_event.wait()

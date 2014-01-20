@@ -1,0 +1,4 @@
+def build(self, interpreter=None):
+    self.generate()
+    self.dump_setup_py()
+    return SdistBuilder.build(self.sdist_root, self.target, interpreter=interpreter)

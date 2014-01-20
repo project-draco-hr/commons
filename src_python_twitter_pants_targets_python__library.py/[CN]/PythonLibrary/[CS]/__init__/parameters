@@ -4,5 +4,5 @@ sources
 resources
 dependencies
 provides
-module
+compatibility
 exclusives

@@ -1,17 +1,10 @@
 def _dump_library(self, library):
 
-    def translate_module(module):
-        if (module is None):
-            module = ''
-        return module.replace('.', os.path.sep)
-
-    def copy_to_chroot(base, path, relative_to, add_function):
+    def copy_to_chroot(base, path, add_function):
         src = os.path.join(self._root, base, path)
-        dst = os.path.join(translate_module(relative_to), path)
-        self.debug(('    Copying %s -> %s' % (src, dst)))
-        add_function(src, dst)
-    self.debug(('  Dumping library: %s [relative module: %s]' % (library, library.module)))
+        add_function(src, path)
+    self.debug(('  Dumping library: %s' % library))
     for filename in library.sources:
-        copy_to_chroot(library.target_base, filename, library.module, self._builder.add_source)
+        copy_to_chroot(library.target_base, filename, self._builder.add_source)
     for filename in library.resources:
-        copy_to_chroot(library.target_base, filename, library.module, self._builder.add_resource)
+        copy_to_chroot(library.target_base, filename, self._builder.add_resource)

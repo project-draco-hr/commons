@@ -1,5 +1,6 @@
 def resolve(self, issue, comment=None):
-    data = {'fields': {'resolution': {'name': 'Fixed', }, }, 'transition': {'id': Jira.RESOLVED_STATUS_ID, }, }
+    transition_id = self._get_resolve_transition_id(issue)
+    data = {'fields': {'resolution': {'name': 'Fixed', }, }, 'transition': {'id': transition_id, }, }
     if comment:
         data['update'] = {'comment': [{'add': {'body': comment, }, }], }
     try:

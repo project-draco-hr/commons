@@ -1,14 +1,14 @@
-from abc import abstractmethod
 import functools
 import posixpath
-import socket
 import threading
-import zookeeper
+import time
 try:
     from twitter.common import log
 except ImportError:
     import logging as log
 from twitter.common.concurrent import Future
 from twitter.common.exceptions import ExceptionalThread
-from twitter.common.lang import Interface
+from twitter.common.quantity import Amount, Time
 from twitter.common.zookeeper.constants import ReturnCode
+from .group_base import Capture, GroupBase, GroupInterface, Membership, set_different
+import zookeeper

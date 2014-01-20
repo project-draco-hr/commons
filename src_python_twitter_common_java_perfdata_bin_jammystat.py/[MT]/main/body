@@ -1,0 +1,16 @@
+def main(args, options):
+    if (len(args) > 0):
+        app.error('Must provide hsperfdata via -f/-p')
+    if options.list:
+        print_pids()
+        return
+    perfdata = None
+    if options.filename:
+        perfdata = PerfData.get(file_provider())
+    elif options.pid:
+        perfdata = PerfData.get(pid_provider())
+    if (perfdata is None):
+        app.error('No hsperfdata provider specified!')
+    perfdata.sample()
+    for key in sorted(perfdata):
+        print ('%s: %s' % (key, perfdata[key]))

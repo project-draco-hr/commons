@@ -1,0 +1,6 @@
+def test_waits_for_nodes_to_be_created_if_they_dont_exist(self):
+    mock_zk = _mock_zk()
+    ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    _unhappy_path(mock_zk, NoNodeError)
+    mock_zk.exists_async.assert_called_with(DEFAULT_PATH, ANY)
+    mock_zk.exists_async.return_value.rawlink.assert_called_with(ANY)

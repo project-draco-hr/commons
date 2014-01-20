@@ -1,0 +1,9 @@
+@property
+def entry_point(self):
+    if self._entry_point:
+        return self._entry_point
+    elif self.sources:
+        assert (len(self.sources) == 1)
+        return self._translate_to_entry_point(self.sources[0])
+    else:
+        return None

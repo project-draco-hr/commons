@@ -1,4 +1,4 @@
-@pytest.mark.skipif('sys.version_info >= (3,0)')
+@skipifpy3k
 def test_basic_server_method_binding():
 
 
@@ -13,6 +13,6 @@ def test_basic_server_method_binding():
         def hello(self, first='Zaphod', last='Beeblebrox'):
             return ('Hello, %s %s!' % (first, last))
     server = MyServer()
-    assert (server.app().handle('/hello') == 'Hello, Zaphod Beeblebrox!')
-    assert (server.app().handle('/hello/Brian') == 'Hello, Brian Beeblebrox!')
-    assert (server.app().handle('/hello/Brian/Horfgorf') == 'Hello, Brian Horfgorf!')
+    assert (server.app.handle('/hello') == 'Hello, Zaphod Beeblebrox!')
+    assert (server.app.handle('/hello/Brian') == 'Hello, Brian Beeblebrox!')
+    assert (server.app.handle('/hello/Brian/Horfgorf') == 'Hello, Brian Horfgorf!')

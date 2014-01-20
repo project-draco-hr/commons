@@ -3,4 +3,5 @@ target
 root_dir
 extra_targets
 builder
+interpreter
 conn_timeout

@@ -1,0 +1,19 @@
+@mock.patch('twitter.common.zookeeper.serverset.serverset.ActiveKazooGroup')
+@mock.patch('twitter.common.zookeeper.serverset.serverset.validate_group_implementation')
+def test_internal_monitor(mock_group_impl_validator, MockActiveKazooGroup):
+    mock_zk = mock.Mock(spec=KazooClient)
+    mock_group = mock.MagicMock(spec=GroupInterface)
+    MockActiveKazooGroup.mock_add_spec(ActiveKazooGroup)
+    MockActiveKazooGroup.return_value = mock_group
+    mock_group_impl_validator.return_value = True
+
+    def devnull(*args, **kwargs):
+        pass
+    serverset = ServerSet(mock_zk, '/some/path/to/group', on_join=devnull, on_leave=devnull)
+    members = [Membership(id) for id in range(2)]
+    print ('Members are: %s' % members)
+    serverset._internal_monitor(frozenset(members))
+    for call in mock_group.info.mock_calls:
+        (_, (_, callback), _) = call
+        callback(ServiceInstance.unpack(SERVICE_INSTANCE_JSON))
+    assert (len(serverset._members) == 2)

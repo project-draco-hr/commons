@@ -1,0 +1,6 @@
+import textwrap
+from twitter.common.jira import Jira, JiraError
+import mock
+import pytest
+GOOD_TRANSITIONS = textwrap.dedent('{\n                                        "transitions": [\n                                          {\n                                            "id": 1,\n                                            "name": "Test"\n                                          },\n                                          {\n                                            "id": 2,\n                                            "name": "Resolve"\n                                          }\n                                        ]\n                                      }')
+BAD_TRANSITIONS = textwrap.dedent('{\n                                        "transitions": [\n                                          {\n                                            "id": 1,\n                                            "name": "Test"\n                                          },\n                                          {\n                                            "id": 2,\n                                            "name": "Fail"\n                                          }\n                                        ]\n                                      }')

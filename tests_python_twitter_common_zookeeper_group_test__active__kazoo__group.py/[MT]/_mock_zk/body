@@ -1,0 +1,4 @@
+def _mock_zk(state=KeeperState.CONNECTED):
+    mock_zk = Mock(name='zk', spec=KazooClient)
+    mock_zk.state = state
+    return mock_zk

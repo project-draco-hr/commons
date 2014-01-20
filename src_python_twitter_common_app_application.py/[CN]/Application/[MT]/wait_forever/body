@@ -1,0 +1,4 @@
+def wait_forever(self):
+    'Convenience function to block the application until it is terminated\n       by ^C or lifecycle functions.'
+    while True:
+        time.sleep(0.5)

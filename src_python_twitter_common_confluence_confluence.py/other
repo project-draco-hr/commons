@@ -1,7 +1,11 @@
-from twitter.common import log
+'Code to ease publishing text to Confluence wikis.'
 import getpass
+import mimetypes
 import urllib
+from twitter.common import log
+from os.path import basename
 try:
-    from xmlrpclib import ServerProxy, Fault
+    from xmlrpclib import ServerProxy, Error as XMLRPCError, Binary
 except ImportError:
-    from xmlrpc.client import ServerProxy, Fault
+    from xmlrpc.client import ServerProxy, Error as XMLRPCError, Binary
+mimetypes.init()

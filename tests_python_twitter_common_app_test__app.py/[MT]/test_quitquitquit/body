@@ -1,0 +1,13 @@
+def test_quitquitquit():
+
+    def main():
+        app.wait_forever()
+
+    def wait_and_quit():
+        time.sleep(0.5)
+        app.quitquitquit()
+    stop_thread = ExceptionalThread(target=wait_and_quit)
+    stop_thread.start()
+    app = TestApplication(main)
+    app.main()
+    assert (app.exited_rc == 0)

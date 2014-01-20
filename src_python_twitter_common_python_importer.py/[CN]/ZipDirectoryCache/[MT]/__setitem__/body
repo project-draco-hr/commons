@@ -1,0 +1,5 @@
+def __setitem__(self, key, value):
+    try:
+        self.__shadow[key] = value
+    except TypeError:
+        self.__lookaside[key] = value

@@ -1,4 +1,6 @@
+import os
+from twitter.common.collections import maybe_list
 from twitter.common.lang import Compatibility
-from twitter.common.python.platforms import Platform
-from twitter.pants.base import TargetDefinitionException
-from twitter.pants.targets.python_target import PythonTarget
+from twitter.common.python.pex_info import PexInfo
+from twitter.pants.base import Target, TargetDefinitionException
+from .python_target import PythonTarget

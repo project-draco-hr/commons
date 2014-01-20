@@ -1,0 +1,9 @@
+def sample(self):
+    with self._lock:
+        self._buffer = self._provider()
+        try:
+            new_map = self._builder(self._buffer)
+            if new_map:
+                self._map = new_map
+        except ValueError as e:
+            raise self.ParseError(str(e))

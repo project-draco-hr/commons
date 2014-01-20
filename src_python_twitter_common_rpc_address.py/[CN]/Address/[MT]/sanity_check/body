@@ -1,6 +1,6 @@
 @staticmethod
 def sanity_check(host, port):
-    if (not isinstance(host, str)):
+    if (not isinstance(host, Compatibility.string)):
         raise Address.InvalidFormat(('Host must be a string, got %s' % host))
     if (not isinstance(port, (int, long))):
         raise Address.InvalidFormat(('Port must be an integer, got %s' % port))

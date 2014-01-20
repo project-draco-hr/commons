@@ -1,3 +1,0 @@
-def tearDown(self):
-    self._zk.stop()
-    self._server.stop()

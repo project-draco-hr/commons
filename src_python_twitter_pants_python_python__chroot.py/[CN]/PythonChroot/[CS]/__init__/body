@@ -1,9 +1,11 @@
-def __init__(self, target, root_dir, extra_targets=None, builder=None, conn_timeout=None):
+def __init__(self, target, root_dir, extra_targets=None, builder=None, interpreter=None, conn_timeout=None):
     self._config = Config.load()
     self._target = target
     self._root = root_dir
-    self._key_generator = CacheKeyGenerator()
+    self._interpreter = (interpreter or PythonInterpreter.get())
     self._extra_targets = (list(extra_targets) if (extra_targets is not None) else [])
-    self._resolver = MultiResolver.from_target(self._config, target, conn_timeout=conn_timeout)
-    self._builder = (builder or PEXBuilder(tempfile.mkdtemp()))
-    self._egg_cache_root = os.path.join(self._config.get('python-setup', 'artifact_cache'), ('%s' % PythonIdentity.get()))
+    self._resolver = MultiResolver(self._config, target, conn_timeout=conn_timeout)
+    self._builder = (builder or PEXBuilder(tempfile.mkdtemp(), interpreter=self._interpreter))
+    self._egg_cache_root = os.path.join(self._config.get('python-setup', 'artifact_cache'), str(self._interpreter.identity))
+    self._key_generator = CacheKeyGenerator()
+    self._build_invalidator = BuildInvalidator(self._egg_cache_root)

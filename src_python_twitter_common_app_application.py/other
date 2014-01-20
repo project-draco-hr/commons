@@ -1,22 +1,23 @@
 from __future__ import print_function
-__author__ = 'Dave Buchfuhrer, Brian Wickman'
 try:
     import ConfigParser
 except ImportError:
     import configparser as ConfigParser
-import atexit
+from collections import defaultdict, deque
 import copy
+from functools import partial, wraps
 import inspect
 import optparse
 import os
 import shlex
+import signal
 import sys
 import threading
-from collections import defaultdict, deque
-from functools import partial
+import time
+import traceback
 from twitter.common import options
-from twitter.common.app.module import AppModule
-from twitter.common.app.inspection import Inspection
 from twitter.common.lang import Compatibility
 from twitter.common.process import daemonize
 from twitter.common.util import topological_sort
+from .inspection import Inspection
+from .module import AppModule

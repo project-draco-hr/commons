@@ -1,0 +1,2 @@
+def test_endpoint_hash_equality():
+    assert (Endpoint('host', 8340).__hash__() == Endpoint('host', 8340).__hash__())

@@ -1,3 +1,0 @@
-def test_deprecated_raises_on_nonfunction(self):
-    with pytest.raises(ValueError):
-        deprecated('high five!')

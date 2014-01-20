@@ -1,7 +1,7 @@
 def add_basic_info(self, run_id, timestamp):
-    'A helper function to add basic build info.'
+    'Adds basic build info and returns a dict composed of just this added info.'
     datetime = time.strftime('%A %b %d, %Y %H:%M:%S', time.localtime(timestamp))
     user = getpass.getuser()
     machine = socket.gethostname()
     path = get_buildroot()
-    self.add_infos(('id', run_id), ('timestamp', timestamp), ('datetime', datetime), ('user', user), ('machine', machine), ('path', path))
+    return self.add_infos(('id', run_id), ('timestamp', timestamp), ('datetime', datetime), ('user', user), ('machine', machine), ('path', path))

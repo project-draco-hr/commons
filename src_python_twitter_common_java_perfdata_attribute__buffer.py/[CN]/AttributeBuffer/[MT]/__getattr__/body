@@ -1,0 +1,5 @@
+def __getattr__(self, attribute):
+    if (attribute not in self.attributes):
+        return self.__getattribute__(attribute)
+    (format_str, data_range) = self.attributes[attribute]
+    return self.unpack(format_str, data_range)

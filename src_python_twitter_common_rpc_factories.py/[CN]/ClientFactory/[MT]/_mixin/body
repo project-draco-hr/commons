@@ -1,0 +1,4 @@
+def _mixin(self, klazz, mixin):
+    if (mixin not in klazz.__bases__):
+        klazz.__bases__ += (mixin,)
+    return klazz

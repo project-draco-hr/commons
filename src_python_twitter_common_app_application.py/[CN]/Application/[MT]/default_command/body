@@ -3,6 +3,6 @@ def default_command(self, function):
     if (Inspection.find_calling_module() == '__main__'):
         if (None in self._commands):
             defaults = (self._commands[None].__name__, function.__name__)
-            raise Application.Error(('Found two default commands: %s and %s' % defaults))
+            raise self.Error(('Found two default commands: %s and %s' % defaults))
         self._commands[None] = function
     return function

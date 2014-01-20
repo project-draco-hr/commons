@@ -1,5 +1,11 @@
 @contextmanager
 def open_zip(path_or_file, *args, **kwargs):
     '\n    A with-context for zip files.  Passes through positional and kwargs to zipfile.ZipFile.\n  '
-    with closing(zipfile.ZipFile(path_or_file, *args, **kwargs)) as zip:
-        yield zip
+    try:
+        zf = zipfile.ZipFile(path_or_file, *args, **kwargs)
+    except zipfile.BadZipfile as bze:
+        raise zipfile.BadZipfile(('Bad Zipfile %s: %s' % (path_or_file, bze)))
+    try:
+        yield zf
+    finally:
+        zf.close()

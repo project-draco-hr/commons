@@ -1,0 +1,8 @@
+def list_pids():
+    options = app.get_options()
+    pattern = os.path.join(options.hsperfdata_root, 'hsperfdata_*', '*')
+    for path in glob.glob(pattern):
+        (root, pid) = os.path.split(path)
+        dirname = os.path.basename(root)
+        role = dirname[len('hsperfdata_'):]
+        yield (path, role, int(pid))

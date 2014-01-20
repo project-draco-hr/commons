@@ -1,0 +1,8 @@
+{
+  TTextProtocolTestMsgUnion msg=new TTextProtocolTestMsgUnion();
+  msg.setU(TestUnion.f2(2));
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  msg.write(new TTextProtocol(new TIOStreamTransport(baos)));
+  String expectedMsg="{\n" + "  \"u\": {\n" + "    \"f2\": 2\n"+ "  }\n"+ "}";
+  assertEquals(expectedMsg,baos.toString());
+}

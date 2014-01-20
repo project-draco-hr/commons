@@ -1,0 +1,7 @@
+def _run_module_teardown(self):
+    if (self._state != self.SHUTDOWN):
+        raise self.Error('Expected application to be in SHUTDOWN state!')
+    self._debug_log('Shutting application down.')
+    self._teardown_modules()
+    self._debug_log('Finishing up module teardown.')
+    self.dump_profile()

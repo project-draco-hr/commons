@@ -1,9 +1,9 @@
 {
   getCurrentContext().read();
-  if (getCurrentContext().isMapKey()) {
-    throw new TException(OBJECT_AS_KEY_ILLEGAL);
-  }
   JsonElement curElem=getCurrentContext().getCurrentChild();
+  if (getCurrentContext().isMapKey()) {
+    curElem=new JsonStreamParser(curElem.getAsString()).next();
+  }
   if (!curElem.isJsonObject()) {
     throw new TException("Expected JSON Object!");
   }

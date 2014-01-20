@@ -1,7 +1,15 @@
-@staticmethod
-def create_tunnel(remote_host, remote_port, tunnel_host=None, tunnel_port=None):
-    '\n      Create a tunnel via tunnel_host, tunnel_port to the remote_host, remote_port.\n      If tunnel_port not supplied, a random port will be chosen.\n    '
+@classmethod
+def create_tunnel(cls, remote_host, remote_port, tunnel_host, tunnel_port=None, timeout=DEFAULT_TIMEOUT):
+    '\n      Create or retrieve a memoized SSH tunnel to the remote host & port, using\n      tunnel_host:tunnel_port as the tunneling server.\n    '
     tunnel_key = (remote_host, remote_port)
-    if (tunnel_key in TunnelHelper.TUNNELS):
-        return ('localhost', TunnelHelper.TUNNELS[tunnel_key][0])
-    (tunnel_host, tunnel_port) = TunnelHelper.acquire_host_pair(tunnel_host, tunnel_port)
+    if (tunnel_key in cls.TUNNELS):
+        return ('localhost', cls.TUNNELS[tunnel_key][0])
+    (tunnel_host, tunnel_port) = cls.acquire_host_pair(tunnel_host, tunnel_port)
+    cls.log(('opening connection to %s:%s via %s:%s' % (remote_host, remote_port, tunnel_host, tunnel_port)))
+    ssh_cmd_args = ('ssh', '-N', '-T', '-L', ('%d:%s:%s' % (tunnel_port, remote_host, remote_port)), tunnel_host)
+    ssh_popen = subprocess.Popen(ssh_cmd_args, stdin=subprocess.PIPE)
+    cls.TUNNELS[tunnel_key] = (tunnel_port, ssh_popen)
+    if (not cls.wait_for_accept(tunnel_port, ssh_popen, timeout)):
+        raise cls.TunnelError(('Could not establish tunnel to %s via %s' % (remote_host, tunnel_host)))
+    cls.log('session established')
+    return ('localhost', tunnel_port)

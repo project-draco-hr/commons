@@ -1,8 +1,9 @@
 def __init__(self, zk, path, underlying=None, on_join=None, on_leave=None, **kwargs):
     '\n      Construct a ServerSet at :path given zookeeper handle :zh.\n\n      If :underlying is specified, use that as the underlying Group implementation.  Must be a\n      subclass of twitter.common.zookeeper.group.GroupInterface.\n\n      If :on_join is specified, it will be called with a ServiceInstance object every time a\n      new service joins the ServerSet.  If :on_leave is specified, it will be called with\n      a ServiceInstance object every time a server leaves the ServerSet.\n\n      All remaining arguments are passed to the underlying Group implementation.\n    '
-    default_underlying = (Group if ((on_join is None) and (on_leave is None)) else ActiveGroup)
-    underlying = (underlying or default_underlying)
-    assert issubclass(underlying, GroupInterface), 'Underlying group implementation must be a subclass of GroupInterface.'
+    underlying = (underlying or first((pick_group(zk, on_join, on_leave) for pick_group in GROUP_SELECTORS)))
+    if (underlying is None):
+        raise ValueError("Couldn't find a suitable group implementation!")
+    validate_group_implementation(underlying)
     self._path = path
     self._group = underlying(zk, path, **kwargs)
 

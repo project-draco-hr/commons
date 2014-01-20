@@ -2,7 +2,7 @@ def test_safe_operations():
     with ZookeeperServer() as server:
         zk = ZooKeeper(server.ensemble)
         assert (zk.safe_create('/a/b/c/d') == '/a/b/c/d')
-        session_id = zk.session_id()
+        session_id = zk.session_id
         finish_event = threading.Event()
 
 
@@ -20,7 +20,7 @@ def test_safe_operations():
         assert finish_event.is_set()
         assert zk.exists('/a/b/c/d')
         assert zk.exists('/foo/bar/baz/bak')
-        session_id = zk.session_id()
+        session_id = zk.session_id
         assert zk.safe_delete('/a')
         delete_event = threading.Event()
 

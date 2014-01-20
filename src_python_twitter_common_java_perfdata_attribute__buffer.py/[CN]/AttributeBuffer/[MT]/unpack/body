@@ -1,0 +1,11 @@
+def unpack(self, format_str, data_range):
+    'Unpack a stream from the underlying buffer data_range using format_str.'
+    new_format_str = ''.join((('%c%c' % (('>' if (self.endianness is self.BIG_ENDIAN) else '<'), format)) for format in format_str))
+    try:
+        value = struct.unpack(new_format_str, self.data[data_range])
+    except struct.error as e:
+        raise ValueError(('Possibly corrupt data buffer: %s' % e))
+    if (len(format_str) > 1):
+        return value
+    else:
+        return value[0]

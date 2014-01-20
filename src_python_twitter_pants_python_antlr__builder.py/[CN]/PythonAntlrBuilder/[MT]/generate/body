@@ -1,0 +1,16 @@
+def generate(self):
+    path = self.sdist_root
+    package = ''
+    for module_name in self.target.module.split('.'):
+        path = os.path.join(path, module_name)
+        if (package == ''):
+            package = module_name
+        else:
+            package = ((package + '.') + module_name)
+        safe_mkdir(path)
+        with open(os.path.join(path, '__init__.py'), 'w') as f:
+            if (package != self.target.module):
+                f.write("__import__('pkg_resources').declare_namespace(__name__)")
+                self.created_namespace_packages.add(package)
+        self.created_packages.add(package)
+    self.run_antlrs(path)

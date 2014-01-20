@@ -1,0 +1,27 @@
+def test_mock_connect():
+    m = mox.Mox()
+
+
+    class MockSocket(object):
+
+        def setproxy(self, *args):
+            self.args = args
+
+        def settimeout(self, value):
+            self.timeout = value
+
+        def connect(self, tup):
+            (self.host, self.port) = tup
+    mock_socket = MockSocket()
+    m.StubOutWithMock(socks, 'socksocket')
+    socks.socksocket().AndReturn(mock_socket)
+    m.ReplayAll()
+    handler = make_handler('foo', 1234)
+    conn = handler.build_connection('www.google.com', timeout=1)
+    conn.connect()
+    assert (mock_socket.args == conn._proxyargs)
+    assert (mock_socket.timeout == 1)
+    assert (mock_socket.host == 'www.google.com')
+    assert (mock_socket.port == 80)
+    m.UnsetStubs()
+    m.VerifyAll()

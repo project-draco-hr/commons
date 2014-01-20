@@ -1,7 +1,7 @@
 def storepage(self, page):
     'Stores a page object, updating the page if it already exists.\n\n    returns the stored page, or None if the page could not be stored.\n    '
     try:
-        return self._server.confluence1.storePage(self._session_token, page)
-    except Fault as e:
+        return self._api_entrypoint.storePage(self._session_token, page)
+    except XMLRPCError as e:
         log.error(('Failed to store page %s: %s' % (page.get('title', '[unknown title]'), e)))
         return None

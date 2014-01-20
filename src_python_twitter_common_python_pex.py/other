@@ -1,21 +1,22 @@
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+import contextlib
 from distutils import sysconfig
+from hashlib import sha1
 import os
+import shutil
 from site import USER_SITE
 import sys
-from distutils import sysconfig
-from site import USER_SITE
-from types import GeneratorType
-from twitter.common.collections import OrderedSet
-from twitter.common.contextutil import mutable_sys
-from twitter.common.dirutil import safe_mkdir
-from twitter.common.lang import Compatibility
+import uuid
+import zipfile
 from .base import maybe_requirement_list
+from .common import mutable_sys, open_zip, safe_mkdir, safe_rmtree
+from .compatibility import exec_function
 from .dirwrapper import PythonDirectoryWrapper
 from .interpreter import PythonInterpreter
+from .orderedset import OrderedSet
 from .pex_info import PexInfo
 from .platforms import Platform
 from .tracer import Tracer
 from .util import DistributionHelper
-from pkg_resources import find_distributions, DistributionNotFound, Environment, Requirement, WorkingSet
+from pkg_resources import DistributionNotFound, EntryPoint, Environment, Requirement, WorkingSet, find_distributions
 TRACER = Tracer(predicate=Tracer.env_filter('PEX_VERBOSE'), prefix='twitter.common.python.pex: ')

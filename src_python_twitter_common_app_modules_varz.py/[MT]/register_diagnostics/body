@@ -1,11 +1,9 @@
 def register_diagnostics():
-    import os, sys, time
     rm = RootMetrics().scope('sys')
     now = time.time()
     rm.register(LambdaGauge('uptime', (lambda : (time.time() - now))))
     rm.register(Label('argv', repr(sys.argv)))
     rm.register(Label('path', repr(sys.path)))
-    rm.register(LambdaGauge('modules', (lambda : ', '.join(sys.modules.keys()))))
     rm.register(Label('version', sys.version))
     rm.register(Label('platform', sys.platform))
     rm.register(Label('executable', sys.executable))

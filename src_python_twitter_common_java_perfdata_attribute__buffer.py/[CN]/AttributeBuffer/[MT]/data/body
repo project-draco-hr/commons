@@ -1,0 +1,3 @@
+@abstractproperty
+def data(self):
+    'Return the data stream of this attribute buffer.'

@@ -1,0 +1,5 @@
+@mock.patch('twitter.common.jira.jira.Jira.get_transitions')
+def test_get_resolve_transition_id(mock_transitions):
+    mock_transitions.return_value = GOOD_TRANSITIONS
+    jira = Jira('test')
+    assert (jira._get_resolve_transition_id('test-7') == 2)

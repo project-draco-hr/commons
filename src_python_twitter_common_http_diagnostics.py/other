@@ -1,14 +1,14 @@
+import pstats
 import sys
 import threading
 import traceback
-import pstats
 try:
     import cStringIO as StringIO
 except ImportError:
     import StringIO
-from twitter.common.http import HttpServer
 try:
     from twitter.common import app
     HAS_APP = True
 except ImportError:
     HAS_APP = False
+from .server import HttpServer, route

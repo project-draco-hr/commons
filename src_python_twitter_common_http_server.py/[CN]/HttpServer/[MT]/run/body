@@ -2,4 +2,4 @@ def run(self, hostname, port, server='wsgiref'):
     '\n      Start a webserver on hostname & port.\n    '
     self._hostname = hostname
     self._port = port
-    bottle.run(self._app, host=hostname, port=port, server=server)
+    self._app.run(host=hostname, port=port, server=server)

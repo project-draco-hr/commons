@@ -1,9 +1,12 @@
-def __init__(self, name, sources, resources=None, dependencies=None, provides=None, exclusives=None):
-    TargetWithSources.__init__(self, name, sources, exclusives=exclusives)
-    processed_dependencies = resolve(dependencies)
+def __init__(self, name, sources, resources=None, dependencies=None, provides=None, compatibility=None, exclusives=None):
+    TargetWithSources.__init__(self, name, sources=sources, exclusives=exclusives)
+    TargetWithDependencies.__init__(self, name, dependencies=dependencies, exclusives=exclusives)
     self.add_labels('python')
     self.resources = (self._resolve_paths(resources) if resources else OrderedSet())
-    self.dependencies = OrderedSet((processed_dependencies or ()))
     self.provides = provides
-    if self.provides:
-        self.provides.library = self
+    self.compatibility = (compatibility or [''])
+    for req in self.compatibility:
+        try:
+            PythonIdentity.parse_requirement(req)
+        except ValueError as e:
+            raise TargetDefinitionException(str(e))

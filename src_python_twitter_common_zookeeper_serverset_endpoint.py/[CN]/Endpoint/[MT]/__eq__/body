@@ -1,2 +1,2 @@
 def __eq__(self, other):
-    return ((self.host == other.host) and (self.port == other.port))
+    return (isinstance(other, self.__class__) and (self.__key() == other.__key()))

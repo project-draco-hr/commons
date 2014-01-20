@@ -1,9 +1,7 @@
-def _register_command(self, function, command_name=None):
+@pre_initialization
+def _register_command(self, function, command_name):
     '\n      Registers function as the handler for command_name. Uses function.__name__ if command_name\n      is None.\n    '
-    if (Inspection.find_calling_module() == '__main__'):
-        if (command_name is None):
-            command_name = function.__name__
-        if (command_name in self._commands):
-            raise Application.Error(('Found two definitions for command %s' % command_name))
-        self._commands[command_name] = function
+    if (command_name in self._commands):
+        raise self.Error(('Found two definitions for command %s' % command_name))
+    self._commands[command_name] = function
     return function

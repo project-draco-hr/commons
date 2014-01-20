@@ -1,10 +1,12 @@
 @classmethod
 def rglobs(cls, *globspecs, **kw):
-    'Returns a Fileset that containing the union of all files matched by the\n       globspecs applied at each directory beneath the root.  By default the\n       root is the current working directory, but can be overridden with the\n       \'root\' keyword argument.  Unlike Fileset.globs, rcfiles are matched\n       by \'*\' (e.g.  ".bashrc"), matching the semantics of \'ls -a\'.\n    '
+    'Returns a Fileset that contains the union of all files matched by the\n       globspecs applied at each directory beneath the root.  By default the\n       root is the current working directory, but can be overridden with the\n       \'root\' keyword argument.\n\n       File names starting with \'.\' are not returned unless explicitly globbed.\n       For example, ".*" matches ".bashrc" but "*" does not, mirroring the\n       semantics of \'ls\' without \'-a\'.\n    '
     root = kw.pop('root', os.curdir)
 
     def matcher(path):
         for globspec in globspecs:
-            if fnmatch.fnmatch(path, globspec):
-                return True
+            if (not (globspec.startswith('*') and os.path.basename(path).startswith('.'))):
+                if fnmatch.fnmatch(path, globspec):
+                    return True
+        return False
     return cls((lambda : set(cls._do_rglob(matcher, allow_dirs=False, root=root, **kw))))

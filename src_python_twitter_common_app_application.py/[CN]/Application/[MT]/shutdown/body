@@ -1,0 +1,5 @@
+def shutdown(self, return_code):
+    self._wrap_method((lambda : self._run_shutdown_commands(return_code)), method_name='shutdown commands')
+    self._state = self.SHUTDOWN
+    self._run_module_teardown()
+    self.quit(return_code)

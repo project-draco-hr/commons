@@ -1,0 +1,2 @@
+def test_endpoint_inequality():
+    assert (Endpoint('host', 8340) != Endpoint('xhost', 8341))

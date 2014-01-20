@@ -1,0 +1,2 @@
+def response_asserter(intended, status, headers):
+    assert (int(status.split()[0]) == intended)

@@ -1,0 +1,22 @@
+@skipifpy3k
+def test_basic_server_error_binding():
+    BREAKAGE = '*****breakage*****'
+
+
+    class MyServer(object):
+
+        @HttpServer.route('/broken')
+        def broken_handler(self):
+            raise Exception('unhandled exception!')
+
+        @HttpServer.error(404)
+        @HttpServer.error(500)
+        def error_handler(self, error):
+            return BREAKAGE
+    server = HttpServer()
+    mserver = MyServer()
+    server.mount_routes(mserver)
+    resp = server.app(make_request('/nonexistent_page'), functools.partial(response_asserter, 404))
+    assert (resp[0] == BREAKAGE)
+    resp = server.app(make_request('/broken'), functools.partial(response_asserter, 500))
+    assert (resp[0] == BREAKAGE)

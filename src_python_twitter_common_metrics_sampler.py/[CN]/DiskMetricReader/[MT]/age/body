@@ -1,0 +1,6 @@
+@property
+def age(self):
+    try:
+        return (time.time() - os.path.getmtime(self._filename))
+    except (IOError, OSError):
+        return 0

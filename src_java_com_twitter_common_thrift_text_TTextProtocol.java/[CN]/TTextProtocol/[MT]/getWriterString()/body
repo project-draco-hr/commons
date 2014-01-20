@@ -1,0 +1,13 @@
+{
+  WriterByteArrayOutputStream wbaos=writers.peek();
+  String ret;
+  try {
+    wbaos.writer.flush();
+    ret=new String(wbaos.baos.toByteArray());
+    wbaos.writer.close();
+  }
+ catch (  IOException e) {
+    throw new TException(e);
+  }
+  return ret;
+}

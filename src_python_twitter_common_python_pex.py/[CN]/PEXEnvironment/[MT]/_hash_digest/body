@@ -1,0 +1,8 @@
+@staticmethod
+def _hash_digest(filename, hasher=sha1):
+    file_hash = hasher()
+    block_size = (file_hash.block_size * 1024)
+    with open(filename, 'rb') as fh:
+        for chunk in iter((lambda : fh.read(block_size)), ''):
+            file_hash.update(chunk)
+    return file_hash.hexdigest()

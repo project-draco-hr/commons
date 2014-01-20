@@ -45,7 +45,7 @@ def reconnect(self):
             self._clear_completions()
         elif (state == zookeeper.EXPIRED_SESSION_STATE):
             self._logger('Session lost, clearing live state.')
-            self._gauge_session_expirations.increment()
+            self._session_expirations.increment()
             self._live.clear()
             self._authenticated.clear()
             self._zh = None
@@ -53,7 +53,7 @@ def reconnect(self):
             self.reconnect()
         else:
             self._logger('Connection lost, clearing live state.')
-            self._gauge_connection_losses.increment()
+            self._connection_losses.increment()
             self._live.clear()
     self._handler = connection_handler
     timeout_ms = int((self._timeout_secs * 1000))

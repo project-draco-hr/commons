@@ -1,0 +1,3 @@
+@property
+def attributes(self):
+    return self.ATTRIBUTES

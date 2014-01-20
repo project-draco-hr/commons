@@ -1,8 +1,5 @@
 {
   getCurrentContext().read();
-  if (getCurrentContext().isMapKey()) {
-    throw new TException(OBJECT_AS_KEY_ILLEGAL);
-  }
   JsonElement structElem;
   if (1 == contextStack.size()) {
     structElem=parser.next();
@@ -12,6 +9,9 @@
   }
  else {
     structElem=getCurrentContext().getCurrentChild();
+  }
+  if (getCurrentContext().isMapKey()) {
+    structElem=new JsonStreamParser(structElem.getAsString()).next();
   }
   if (!structElem.isJsonObject()) {
     throw new TException("Expected Json Object!");

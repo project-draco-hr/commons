@@ -1,0 +1,2 @@
+def test_endpoint_hash_inequality():
+    assert (Endpoint('host', 8340).__hash__() != Endpoint('xhost', 8341).__hash__())

@@ -2,7 +2,8 @@ def test_app_registry_dependencies_simple(self):
     self.factory.new_module('first')
     self.factory.new_module('second', dependencies='first')
     self.factory.new_module('third', dependencies='second')
-    app.init(force_args=[])
+    app = Application(force_args=[])
+    app.init()
     assert (self.factory.value('first') > 0), 'first callback should be called'
     assert (self.factory.value('second') > 0), 'second callback should be called'
     assert (self.factory.value('third') > 0), 'third callback should be called'

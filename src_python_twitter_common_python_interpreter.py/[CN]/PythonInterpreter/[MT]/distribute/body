@@ -1,0 +1,3 @@
+@property
+def distribute(self):
+    return self._distribute

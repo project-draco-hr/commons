@@ -1,0 +1,22 @@
+def cancel(self, member, callback=None):
+    capture = Capture(callback)
+
+    def do_cancel():
+        self._zk.delete_async(posixpath.join(self._path, self.id_to_znode(member.id))).rawlink(adelete_completion)
+
+    def adelete_completion(result):
+        try:
+            success = result.get()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._once(KazooState.CONNECTED, do_cancel)
+            return
+        except ke.NoNodeError:
+            success = True
+        except ke.KazooException as e:
+            log.warning(('Unexpected Kazoo result in cancel: (%s)%s' % (type(e), e)))
+            success = False
+        future = self._members.pop(member.id, Future())
+        future.set_result(Membership.error())
+        capture.set(success)
+    do_cancel()
+    return capture()

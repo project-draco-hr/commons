@@ -2,7 +2,10 @@ def setup_parser(self, parser, args):
     parser.set_usage('\n  %prog py (options) [spec] args\n')
     parser.disable_interspersed_args()
     parser.add_option('-t', '--timeout', dest='conn_timeout', type='int', default=Config.load().getdefault('connection_timeout'), help='Number of seconds to wait for http connections.')
-    parser.add_option('--pex', dest='pex', default=False, action='store_true', help='dump a .pex of this chroot')
-    parser.add_option('--resolve', dest='resolve', default=False, action='store_true', help='resolve targets instead of building.')
-    parser.add_option('-v', '--verbose', dest='verbose', default=False, action='store_true', help='show verbose output.')
+    parser.add_option('--pex', dest='pex', default=False, action='store_true', help='Dump a .pex of this chroot instead of attempting to execute it.')
+    parser.add_option('--ipython', dest='ipython', default=False, action='store_true', help='Run the target environment in an IPython interpreter.')
+    parser.add_option('-r', '--req', dest='extra_requirements', default=[], action='append', help='Additional Python requirements to add to this chroot.')
+    parser.add_option('-i', '--interpreter', dest='interpreter', default=None, help='The interpreter requirement for this chroot.')
+    parser.add_option('-e', '--entry_point', dest='entry_point', default=None, help='The entry point for the generated PEX.')
+    parser.add_option('-v', '--verbose', dest='verbose', default=False, action='store_true', help='Show verbose output.')
     parser.epilog = 'Interact with the chroot of the specified target.'

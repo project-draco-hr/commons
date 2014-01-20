@@ -1,0 +1,7 @@
+def __state_listener(self, state):
+    'Process appropriate callbacks on any kazoo state transition.'
+    with self.__queue_lock:
+        self.__state = state
+        (self.__listener_queue, triggered) = partition(self.__listener_queue, (lambda element: (element[0] == state)))
+    for (_, callback) in triggered:
+        callback()

@@ -1,4 +1,4 @@
-@staticmethod
-def reset():
+@classmethod
+def reset(cls):
     'Reset the global application.  Only useful for testing.'
-    Application._Global = Application()
+    cls._GLOBAL = cls()

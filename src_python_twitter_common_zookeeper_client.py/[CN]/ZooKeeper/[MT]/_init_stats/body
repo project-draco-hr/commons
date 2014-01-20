@@ -1,3 +1,0 @@
-def _init_stats(self):
-    self._gauge_session_expirations = AtomicGauge('session-expirations')
-    self._gauge_connection_losses = AtomicGauge('connection-losses')

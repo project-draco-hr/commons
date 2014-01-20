@@ -1,0 +1,10 @@
+def test_watches_again_if_no_node_raised_in_exists_completion(self):
+    mock_zk = _mock_zk(state=KeeperState.EXPIRED_SESSION)
+    ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    _unhappy_path(mock_zk, NoNodeError)
+    assert (mock_zk.exists_async.call_count == 1)
+    exists_completion = _extract_callback(mock_zk.exists_async)
+    mock_async_result = Mock()
+    mock_async_result.get.side_effect = NoNodeError
+    exists_completion(mock_async_result)
+    assert (mock_zk.exists_async.call_count == 2)

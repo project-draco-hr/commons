@@ -20,5 +20,5 @@ def __init__(self, servers=None, timeout_secs=None, watch=None, max_reconnects=N
     self._watch = watch
     self._logger = logger
     self._max_reconnects = (max_reconnects if (max_reconnects is not None) else default_reconnects)
-    self._init_stats()
+    self._init_metrics()
     self.reconnect()

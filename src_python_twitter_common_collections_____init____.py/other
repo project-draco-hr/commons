@@ -1,5 +1,5 @@
-from twitter.common.lang import Compatibility
-if Compatibility.PY2:
+from sys import version_info
+if (version_info[0] == 2):
     from .ordereddict import OrderedDict
 else:
     from collections import OrderedDict

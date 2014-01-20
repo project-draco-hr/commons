@@ -1,4 +1,5 @@
-@staticmethod
-def mako_view(*args, **kwargs):
+@classmethod
+def mako_view(cls, *args, **kwargs):
+    'Helper function for annotating mako-specific views.'
     kwargs.update(template_adapter=bottle.MakoTemplate)
-    return HttpServer.view(*args, **kwargs)
+    return cls.view(*args, **kwargs)

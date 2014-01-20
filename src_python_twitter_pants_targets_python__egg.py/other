@@ -1,6 +1,6 @@
 __author__ = 'Brian Wickman'
 import os
-import glob
-from zipimport import zipimporter
+from glob import glob as fsglob
 from pkg_resources import Distribution, EggMetadata, PathMetadata
-from twitter.pants.targets.python_requirement import PythonRequirement
+from zipimport import zipimporter
+from .python_requirement import PythonRequirement

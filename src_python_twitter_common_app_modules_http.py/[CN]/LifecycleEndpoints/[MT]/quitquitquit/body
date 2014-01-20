@@ -1,0 +1,3 @@
+@HttpServer.route('/quitquitquit', method='POST')
+def quitquitquit(self):
+    app.quitquitquit()

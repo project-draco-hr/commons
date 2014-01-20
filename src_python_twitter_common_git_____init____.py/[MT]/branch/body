@@ -3,11 +3,8 @@ def branch(sha, project=None, repo=None):
     "\n    Perform actions at a given sha in a repository.  Implemented as a context manager.\n    Must be run in the CWD of a git repository.\n\n    sha: A fully-qualified revision as specified in:\n      http://www.kernel.org/pub/software/scm/git/docs/git-rev-parse.html\n\n    project (optional): A label to prepend to the temporary branch.\n\n    repo (optional): The location of the .git repository (by default current working directory.)\n\n    Example:\n      import subprocess\n      from twitter.common.git import branch\n      with branch('master@{yesterday}'):\n        subprocess.check_call('./pants tests/python/twitter/common:all')\n  "
     (active_head, repo, branch_name) = validate_args(sha, project, repo)
     try:
-        try:
-            checkout_branch(repo, sha, branch_name)
-            yield
-        except Exception as e:
-            print(('Caught exception: %s' % e))
+        checkout_branch(repo, sha, branch_name)
+        yield
     finally:
         print(('Resetting head: %s' % active_head))
         active_head.checkout()

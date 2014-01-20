@@ -1,0 +1,3 @@
+@property
+def zip_unsafe_cache(self):
+    return self._pex_info.get('zip_unsafe_cache', os.path.expanduser(os.path.join('~', '.pex', 'code')))

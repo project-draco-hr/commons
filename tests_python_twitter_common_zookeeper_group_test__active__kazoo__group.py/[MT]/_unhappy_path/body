@@ -1,0 +1,5 @@
+def _unhappy_path(mock_zk, side_effect):
+    mock_async_result = Mock()
+    mock_async_result.get.side_effect = side_effect
+    completion_callback = _extract_callback(mock_zk.get_children_async)
+    completion_callback(mock_async_result)

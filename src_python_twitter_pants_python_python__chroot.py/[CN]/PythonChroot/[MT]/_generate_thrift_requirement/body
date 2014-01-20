@@ -1,0 +1,2 @@
+def _generate_thrift_requirement(self, library):
+    return self._generate_requirement(library, PythonThriftBuilder)

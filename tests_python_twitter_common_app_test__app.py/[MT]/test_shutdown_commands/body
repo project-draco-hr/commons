@@ -1,0 +1,20 @@
+def test_shutdown_commands():
+    shutdown1 = threading.Event()
+    shutdown2 = threading.Event()
+    shutdown_rc = []
+
+    def shutdown_command(event, rc):
+        shutdown_rc.append((rc, event))
+        event.set()
+
+    def simple_main():
+        return 0
+    app = TestApplication(simple_main)
+    app.register_shutdown_command(partial(shutdown_command, shutdown1))
+    app.register_shutdown_command(partial(shutdown_command, shutdown2))
+    app.main()
+    shutdown1.wait(timeout=1.0)
+    shutdown2.wait(timeout=1.0)
+    assert (shutdown_rc == [(0, shutdown1), (0, shutdown2)])
+    assert shutdown1.is_set()
+    assert shutdown2.is_set()

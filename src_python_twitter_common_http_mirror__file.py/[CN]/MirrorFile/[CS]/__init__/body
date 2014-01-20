@@ -1,9 +1,0 @@
-def __init__(self, http_host, http_path, local_file, https=False):
-    "\n      Given a file pointed to by 'url', mirror it to 'local_file', providing operations\n      to check that it's up to date.\n    "
-    self._http_path = http_path
-    self._http_host = http_host
-    self._local_filename = local_file
-    self._connection_class = (httplib.HTTPSConnection if https else httplib.HTTPConnection)
-    self._local_mtime = None
-    self._web_mtime = None
-    self._exists = os.path.exists(local_file)

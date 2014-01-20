@@ -1,0 +1,10 @@
+def test_notifies_watchers_when_children_are_added(self):
+    mock_zk = _mock_zk()
+    mock_callback = Mock(name='monitor callback')
+
+    def first_callback(*args, **kwargs):
+        group.monitor(frozenset([Membership(1)]), mock_callback)
+    group = ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    group.monitor(callback=first_callback)
+    (members, _) = _happy_path(group, mock_zk, 1)
+    mock_callback.assert_called_with(members)

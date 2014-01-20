@@ -1,0 +1,16 @@
+def addattachment(self, page, filename):
+    'Add an attachment to an existing page.\n    Note: this will first read the entire file into memory'
+    mime_type = mimetypes.guess_type(filename, strict=False)[0]
+    if (not mime_type):
+        raise ConfluenceError(('Failed to detect MIME type of %s' % filename))
+    try:
+        with open(filename, 'rb') as f:
+            file_data = f.read()
+        attachment = dict(fileName=basename(filename), contentType=mime_type)
+        return self._api_entrypoint.addAttachment(self._session_token, page['id'], attachment, Binary(file_data))
+    except (IOError, OSError) as e:
+        log.error(('Failed to read data from file %s: %s' % (filename, str(e))))
+        return None
+    except XMLRPCError as e:
+        log.error(('Failed to add file attachment %s to page: %s' % (filename, page.get('title', '[unknown title]'))))
+        return None

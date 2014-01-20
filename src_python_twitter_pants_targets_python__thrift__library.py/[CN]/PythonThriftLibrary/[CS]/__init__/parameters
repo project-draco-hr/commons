@@ -3,6 +3,5 @@ name
 sources
 resources
 dependencies
-thrift_version
 provides
 exclusives

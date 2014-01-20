@@ -1,11 +1,35 @@
 def activate(self):
     if self._activated:
         return
+    if (os.environ.get('PEX_FORCE_LOCAL', (not self._pex_info.zip_safe)) and os.path.isfile(self._pex)):
+        pex_chksum = self._hash_digest(self._pex)
+        explode_dir = os.path.join(self._pex_info.zip_unsafe_cache, pex_chksum)
+        TRACER.log(('zip_safe is False, explode_dir: %s' % explode_dir))
+        if (not os.path.exists(explode_dir)):
+            explode_tmp = ((explode_dir + '.') + uuid.uuid4().hex)
+            with TRACER.timed(('Unzipping %s' % self._pex)):
+                try:
+                    safe_mkdir(explode_tmp)
+                    with open_zip(self._pex) as pex_zip:
+                        pex_files = (x for x in pex_zip.namelist() if (not x.startswith('.')))
+                        pex_zip.extractall(explode_tmp, pex_files)
+                except:
+                    safe_rmtree(explode_tmp)
+                    raise
+            TRACER.log(('Renaming %s to %s' % (explode_tmp, explode_dir)))
+            os.rename(explode_tmp, explode_dir)
+        TRACER.log(('Adding to the head of sys.path: %s' % explode_dir))
+        sys.path.insert(0, explode_dir)
+        for (name, module) in sys.modules.items():
+            if hasattr(module, '__path__'):
+                module_dir = os.path.join(explode_dir, *name.split('.'))
+                TRACER.log(('Adding to the head of %s.__path__: %s' % (module.__name__, module_dir)))
+                module.__path__.insert(0, module_dir)
     if self._pex_info.inherit_path:
         self._ws = WorkingSet(sys.path)
     all_reqs = [Requirement.parse(req) for (req, _, _) in self._pex_info.requirements]
     for req in all_reqs:
-        with TRACER.timed(('Resolved %s' % str(req))):
+        with TRACER.timed(('Resolving %s' % req)):
             try:
                 resolved = self._ws.resolve([req], env=self)
             except DistributionNotFound as e:
@@ -14,9 +38,9 @@ def activate(self):
                     raise
                 continue
         for dist in resolved:
-            with TRACER.timed(('  Activated %s' % dist)):
+            with TRACER.timed(('Activated %s' % dist)):
                 if os.environ.get('PEX_FORCE_LOCAL', (not self._really_zipsafe(dist))):
-                    with TRACER.timed('    Locally caching'):
+                    with TRACER.timed('Locally caching'):
                         new_dist = DistributionHelper.maybe_locally_cache(dist, self._pex_info.install_cache)
                         new_dist.activate()
                 else:

@@ -1,0 +1,7 @@
+def test_should_watch_group_path_on_init(self):
+    mock_zk = _mock_zk()
+    mock_async_result = Mock()
+    mock_zk.get_children_async.return_value = mock_async_result
+    ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    mock_zk.get_children_async.assert_called_with(DEFAULT_PATH, ANY)
+    mock_async_result.rawlink.assert_called_with(ANY)

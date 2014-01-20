@@ -1,0 +1,13 @@
+def test_bad_ensemble():
+    with pytest.raises(ZooKeeper.InvalidEnsemble):
+        ZooKeeper.expand_ensemble('localhost:')
+    with pytest.raises(ZooKeeper.InvalidEnsemble):
+        ZooKeeper.expand_ensemble('localhost:sheeps')
+    m = mox.Mox()
+    m.StubOutWithMock(socket, 'gethostbyname_ex')
+    socket.gethostbyname_ex('zookeeper.twitter.com').AndRaise(socket.gaierror(8, 'nodename nor servname provided, or not known'))
+    m.ReplayAll()
+    with pytest.raises(ZooKeeper.InvalidEnsemble):
+        ZooKeeper.expand_ensemble('zookeeper.twitter.com:2181')
+    m.UnsetStubs()
+    m.VerifyAll()

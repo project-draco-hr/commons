@@ -1,6 +1,0 @@
-def filename(self):
-    if (not self._exists):
-        ioe = IOError(('%s does not exist' % self._local_filename))
-        ioe.errno = errno.ENOENT
-        raise ioe
-    return self._local_filename

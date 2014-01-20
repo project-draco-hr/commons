@@ -1,3 +1,0 @@
-def deprecated(function):
-    '@deprecated annotation.  logs a warning to the twitter common logging framework\n     should calls be made to the decorated function.\n\n     e.g.\n     @deprecated\n     def qsort(lst):\n       ...\n  '
-    return _deprecated_wrap_fn(function)

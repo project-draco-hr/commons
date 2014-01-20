@@ -1,0 +1,3 @@
+def quitquitquit(self):
+    self._state = self.ABORTING
+    os.kill(os.getpid(), signal.SIGINT)

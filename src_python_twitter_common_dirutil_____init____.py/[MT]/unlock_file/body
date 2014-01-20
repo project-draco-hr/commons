@@ -1,5 +1,7 @@
 def unlock_file(fp, close=False):
     '\n    Unlock a file pointer.\n\n    If close=True the file pointer will be closed after unlocking.\n\n    Always returns True.\n  '
+    if (not HAS_FCNTL):
+        raise RuntimeError('Interpreter does not support fcntl!')
     try:
         fcntl.flock(fp, fcntl.LOCK_UN)
     finally:

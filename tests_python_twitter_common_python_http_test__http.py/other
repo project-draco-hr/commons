@@ -7,7 +7,6 @@ import urllib2
 from twitter.common.contextutil import temporary_dir
 from twitter.common.lang import Compatibility
 from twitter.common.python.http import CachedWeb, Web
-from twitter.common.quantity import Amount, Time
 from twitter.common.testing.clock import ThreadedClock
 import mox
 import pytest

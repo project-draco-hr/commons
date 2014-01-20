@@ -1,0 +1,6 @@
+import subprocess
+from twitter.common.contextutil import pushd
+from twitter.common.git import branch, git
+import git
+import pytest
+first_commit_file_content = 'first commit content'

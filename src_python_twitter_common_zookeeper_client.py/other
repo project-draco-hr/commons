@@ -16,7 +16,7 @@ try:
     from twitter.common.log.options import LogOptions
 except ImportError:
     import logging as log
-from twitter.common.metrics import AtomicGauge
+from twitter.common.metrics import AtomicGauge, LambdaGauge, Observable
 try:
     from Queue import Queue, Empty
 except ImportError:

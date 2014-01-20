@@ -6,7 +6,7 @@ def test_session_event():
             if (zk._live.is_set() and (state != zookeeper.CONNECTED_STATE)):
                 disconnected.set()
         zk = ZooKeeper(server.ensemble, watch=on_event)
-        session_id = zk.session_id()
+        session_id = zk.session_id
         children = []
         completion_event = threading.Event()
 

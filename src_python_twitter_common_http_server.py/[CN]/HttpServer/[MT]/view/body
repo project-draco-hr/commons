@@ -1,7 +1,8 @@
-@staticmethod
-def view(*args, **kwargs):
+@classmethod
+def view(cls, *args, **kwargs):
+    'Postprocess the output of this method with a view.  For more information see:\n       http://bottlepy.org/docs/dev/tutorial.html#templates'
 
     def annotated(function):
-        setattr(function, HttpServer.VIEW_ATTRIBUTE, (args, kwargs))
+        setattr(function, cls.VIEW_ATTRIBUTE, (args, kwargs))
         return function
     return annotated

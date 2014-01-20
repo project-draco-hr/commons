@@ -1,5 +1,0 @@
-def resolve(self, requirements):
-    requirements = list(requirements)
-    for platform in self._platforms:
-        self._resolver.resolve(requirements, platform=platform)
-    return self._resolver.distributions()

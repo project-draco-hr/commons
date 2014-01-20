@@ -1,0 +1,6 @@
+@mock.patch('twitter.common.jira.jira.Jira.get_transitions')
+def test_get_resolve_transition_id_error(mock_transitions):
+    mock_transitions.return_value = BAD_TRANSITIONS
+    jira = Jira('test')
+    with pytest.raises(JiraError):
+        jira._get_resolve_transition_id('test-7')

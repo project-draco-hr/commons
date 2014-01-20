@@ -1,0 +1,4 @@
+def test_constructor_unwrapping():
+    handler = make_handler('foo', 1234, password='bork')
+    connection = handler.build_connection('www.google.com', port=80)
+    assert (connection._proxyargs == (socks.PROXY_TYPE_SOCKS5, 'foo', 1234, True, None, 'bork'))

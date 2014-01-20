@@ -1,0 +1,12 @@
+@classmethod
+def translate_acl_list(cls, acls):
+    if (acls is None):
+        return acls
+    try:
+        acls = list(acls)
+    except (ValueError, TypeError):
+        raise TypeError(('ACLs should be a list, got %s' % type(acls)))
+    if all((isinstance(acl, ksec.ACL) for acl in acls)):
+        return acls
+    else:
+        return [cls.translate_acl(acl) for acl in acls]

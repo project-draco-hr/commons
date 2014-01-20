@@ -1,0 +1,5 @@
+def _observable_listener(self, state):
+    if (state == KazooState.LOST):
+        self.__session_expirations.increment()
+    elif (state == KazooState.SUSPENDED):
+        self.__connection_losses.increment()

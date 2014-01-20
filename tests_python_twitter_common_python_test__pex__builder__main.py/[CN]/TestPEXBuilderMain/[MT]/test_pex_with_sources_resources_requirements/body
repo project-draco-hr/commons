@@ -1,2 +1,0 @@
-def test_pex_with_sources_resources_requirements(self):
-    self._ensure_mybottle_pex_properly_built(setup_py=_mybottle_setup_py, requirements_txt=_mybottle_requirements_txt)

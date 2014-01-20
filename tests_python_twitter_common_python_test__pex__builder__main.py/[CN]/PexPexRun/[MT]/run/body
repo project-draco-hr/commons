@@ -1,9 +1,0 @@
-def run(self):
-    cmd = [self.pexpex, '--source-dir={0}'.format(self.source_dir_fullpath), '--entry-point={0}'.format(self.entry_point), '--pex-name={0}'.format(self.pex_name), '--log-level=info']
-    if (not os.path.isfile(self.pexpex)):
-        logging.warn('pex.pex not found at {0}. Creating.'.format(self.pexpex))
-        assert (subprocess.check_call('./pants src/python/twitter/common/python:pex', shell=True) == 0)
-    if (self.requirements_txt is not None):
-        cmd.append('--requirements-txt={0}'.format(self.requirements_txt_fullpath))
-    cmd_str = ' '.join(cmd)
-    return subprocess.check_call(cmd_str, shell=True)

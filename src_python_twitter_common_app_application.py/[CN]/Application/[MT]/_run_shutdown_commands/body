@@ -1,0 +1,4 @@
+def _run_shutdown_commands(self, return_code):
+    while ((self._state != self.SHUTDOWN) and self._shutdown_commands):
+        command = self._shutdown_commands.pop(0)
+        command(return_code)

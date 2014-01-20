@@ -1,0 +1,5 @@
+def __init__(self):
+    self._count = AtomicGauge('count')
+    self._ns = AtomicGauge('total_ns')
+    self.metrics.register(self._count)
+    self.metrics.register(self._ns)

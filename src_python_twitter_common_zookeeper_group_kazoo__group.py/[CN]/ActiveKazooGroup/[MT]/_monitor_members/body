@@ -1,0 +1,71 @@
+def _monitor_members(self):
+
+    def wait_exists():
+        self._zk.exists_async(self._path, exists_watch).rawlink(exists_completion)
+
+    def exists_watch(event):
+        if (event.state == KeeperState.EXPIRED_SESSION):
+            wait_exists()
+            return
+        if (event.type == EventType.CREATED):
+            do_monitor()
+        elif (event.type == EventType.DELETED):
+            wait_exists()
+
+    def exists_completion(result):
+        try:
+            stat = result.get()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._once(KazooState.CONNECTED, wait_exists)
+            return
+        except ke.NoNodeError:
+            wait_exists()
+            return
+        except ke.KazooException as e:
+            log.warning(('Unexpected exists_completion result: (%s)%s' % (type(e), e)))
+            return
+        if stat:
+            do_monitor()
+
+    def do_monitor():
+        self._zk.get_children_async(self._path, get_watch).rawlink(get_completion)
+
+    def get_watch(event):
+        if (event.state == KeeperState.EXPIRED_SESSION):
+            wait_exists()
+            return
+        if (event.state != KeeperState.CONNECTED):
+            return
+        if (event.type == EventType.DELETED):
+            wait_exists()
+            return
+        do_monitor()
+
+    def get_completion(result):
+        try:
+            children = result.get()
+        except self.DISCONNECT_EXCEPTIONS:
+            self._once(KazooState.CONNECTED, do_monitor)
+            return
+        except ke.NoNodeError:
+            wait_exists()
+            return
+        except ke.KazooException as e:
+            log.warning(('Unexpected get_completion result: (%s)%s' % (type(e), e)))
+            return
+        children = [child for child in children if self.znode_owned(child)]
+        (_, new) = self._update_children(children)
+        for child in new:
+
+            def devnull(*args, **kw):
+                pass
+            self.info(child, callback=devnull)
+        monitor_queue = self._monitor_queue[:]
+        self._monitor_queue = []
+        members = set((Membership(self.znode_to_id(child)) for child in children))
+        for (membership, capture) in monitor_queue:
+            if (set(membership) != members):
+                capture.set(members)
+            else:
+                self._monitor_queue.append((membership, capture))
+    do_monitor()

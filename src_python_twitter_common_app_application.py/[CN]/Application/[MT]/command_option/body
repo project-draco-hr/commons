@@ -1,10 +1,11 @@
+@pre_initialization
 def command_option(self, *args, **kwargs):
     '\n      Decorator to add an option only for a specific command.\n    '
 
     def register_option(function):
         added_option = self._get_option_from_args(args, kwargs)
-        if (not hasattr(function, Application.OPTIONS_ATTR)):
-            setattr(function, Application.OPTIONS_ATTR, deque())
-        getattr(function, Application.OPTIONS_ATTR).appendleft(added_option)
+        if (not hasattr(function, self.OPTIONS_ATTR)):
+            setattr(function, self.OPTIONS_ATTR, deque())
+        getattr(function, self.OPTIONS_ATTR).appendleft(added_option)
         return function
     return register_option

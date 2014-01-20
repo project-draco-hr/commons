@@ -1,0 +1,2 @@
+def _extract_callback(mock):
+    return mock.return_value.rawlink.call_args[0][0]

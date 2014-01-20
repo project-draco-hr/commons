@@ -1,0 +1,5 @@
+def _find_distribute(self):
+    for item in sys.path:
+        for dist in find_distributions(item):
+            if (dist in self.COMPATIBLE_SETUPTOOLS):
+                return dist.location

@@ -1,2 +1,11 @@
 def test_expand_ensemble():
-    assert (ZooKeeper.expand_ensemble('localhost:1234') == '127.0.0.1:1234')
+    m = mox.Mox()
+    m.StubOutWithMock(socket, 'gethostbyname_ex')
+    socket.gethostbyname_ex('localhost').AndReturn(('localhost', [], ['foo']))
+    socket.gethostbyname_ex('localhost').AndReturn(('localhost', [], ['bar']))
+    socket.gethostbyname_ex('localhost').AndReturn(('localhost', [], ['baz', 'bak']))
+    m.ReplayAll()
+    assert (ZooKeeper.expand_ensemble('localhost:1234') == 'foo:1234')
+    assert (ZooKeeper.expand_ensemble('localhost:1234,localhost') == 'bar:1234,baz:2181,bak:2181')
+    m.UnsetStubs()
+    m.VerifyAll()

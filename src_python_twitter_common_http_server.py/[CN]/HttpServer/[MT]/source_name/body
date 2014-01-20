@@ -1,0 +1,3 @@
+@classmethod
+def source_name(cls, class_or_instance):
+    return getattr(class_or_instance, '__name__', class_or_instance.__class__.__name__)

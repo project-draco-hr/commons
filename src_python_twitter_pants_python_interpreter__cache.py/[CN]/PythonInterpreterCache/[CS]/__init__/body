@@ -1,0 +1,12 @@
+def __init__(self, config, logger=None):
+    self._path = config.get('python-setup', 'interpreter_cache')
+    setuptools_req = ('setuptools==%s' % config.get('python-setup', 'setuptools_version'))
+    try:
+        self._setuptools_requirement = Requirement.parse(setuptools_req, replacement=False)
+    except TypeError:
+        self._setuptools_requirement = Requirement.parse(setuptools_req)
+    safe_mkdir(self._path)
+    self._fetchers = MultiResolver.fetchers(config)
+    self._crawler = MultiResolver.crawler(config)
+    self._interpreters = set()
+    self._logger = (logger or (lambda msg: True))

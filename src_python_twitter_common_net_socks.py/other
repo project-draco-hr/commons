@@ -1,0 +1,11 @@
+'\n  A SOCKS HTTPConnection handler.  Adapted from https://gist.github.com/e000/869791\n'
+from __future__ import absolute_import
+import socket
+import socks
+try:
+    from http.client import HTTPConnection
+    import urllib.request as urllib_request
+except ImportError:
+    from httplib import HTTPConnection
+    import urllib2 as urllib_request
+__all__ = ('opener',)

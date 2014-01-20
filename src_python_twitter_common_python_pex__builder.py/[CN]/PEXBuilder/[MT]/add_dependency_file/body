@@ -1,2 +1,0 @@
-def add_dependency_file(self, filename, env_filename):
-    self._chroot.link(filename, os.path.join(PEXBuilder.DEPENDENCY_DIR, env_filename))

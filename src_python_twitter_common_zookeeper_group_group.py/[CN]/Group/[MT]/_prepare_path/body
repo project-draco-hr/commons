@@ -2,6 +2,7 @@ def _prepare_path(self, success):
 
 
     class Background(ExceptionalThread):
+        BACKOFF = Amount(5, Time.SECONDS)
 
         def run(_):
             child = '/'
@@ -20,7 +21,8 @@ def _prepare_path(self, success):
                             success.set(False)
                             return
                     except zookeeper.OperationTimeoutException:
-                        pass
+                        time.sleep(Background.BACKOFF.as_(Time.SECONDS))
+                        continue
             success.set(True)
     background = Background()
     background.daemon = True

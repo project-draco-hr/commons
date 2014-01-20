@@ -1,27 +1,27 @@
 def join(self, blob, callback=None, expire_callback=None):
-    membership_promise = Promise(callback)
-    exists_promise = Promise(expire_callback)
+    membership_capture = Capture(callback)
+    exists_capture = Capture(expire_callback)
 
     def on_prepared(success):
         if success:
             do_join()
         else:
-            membership_promise.set(Membership.error())
-    prepare_promise = Promise(on_prepared)
+            membership_capture.set(Membership.error())
+    prepare_capture = Capture(on_prepared)
 
     def do_join():
         self._zk.acreate(posixpath.join(self._path, self.MEMBER_PREFIX), blob, self._acl, (zookeeper.SEQUENCE | zookeeper.EPHEMERAL), acreate_completion)
 
     def exists_watch(_, event, state, path):
         if (((event == zookeeper.SESSION_EVENT) and (state == zookeeper.EXPIRED_SESSION_STATE)) or (event == zookeeper.DELETED_EVENT)):
-            exists_promise.set()
+            exists_capture.set()
 
     def exists_completion(path, _, rc, stat):
         if (rc in self._zk.COMPLETION_RETRY):
             self._zk.aexists(path, exists_watch, functools.partial(exists_completion, path))
             return
         if (rc == zookeeper.NONODE):
-            exists_promise.set()
+            exists_capture.set()
 
     def acreate_completion(_, rc, path):
         if (rc in self._zk.COMPLETION_RETRY):
@@ -38,6 +38,6 @@ def join(self, blob, callback=None, expire_callback=None):
                 self._zk.aexists(path, exists_watch, functools.partial(exists_completion, path))
         else:
             membership = Membership.error()
-        membership_promise.set(membership)
-    self._prepare_path(prepare_promise)
-    return membership_promise()
+        membership_capture.set(membership)
+    self._prepare_path(prepare_capture)
+    return membership_capture()

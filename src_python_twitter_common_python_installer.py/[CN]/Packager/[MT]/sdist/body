@@ -1,0 +1,6 @@
+@after_installation
+def sdist(self):
+    dists = os.listdir(self._install_tmp)
+    if (len(dists) != 1):
+        raise self.InstallFailure('Ambiguous source distributions found.')
+    return os.path.join(self._install_tmp, dists[0])

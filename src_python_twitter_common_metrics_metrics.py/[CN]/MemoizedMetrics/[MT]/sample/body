@@ -1,0 +1,3 @@
+def sample(self):
+    self._sample = self._provider.sample()
+    return self._sample

@@ -2,12 +2,12 @@ def _add_default_options(self, argv):
     '\n      Return an argument list with options from the rc file prepended.\n    '
     rc_filename = self._rc_filename()
     options = argv
-    if ((Application.IGNORE_RC_FLAG not in argv) and os.path.exists(rc_filename)):
-        command = (self._command or Application.NO_COMMAND)
+    if ((self.IGNORE_RC_FLAG not in argv) and os.path.exists(rc_filename)):
+        command = (self._command or self.NO_COMMAND)
         rc_config = ConfigParser.SafeConfigParser()
         rc_config.read(rc_filename)
-        if rc_config.has_option(command, Application.OPTIONS):
-            default_options_str = rc_config.get(command, Application.OPTIONS)
+        if rc_config.has_option(command, self.OPTIONS):
+            default_options_str = rc_config.get(command, self.OPTIONS)
             default_options = shlex.split(default_options_str, True)
             options = (default_options + options)
     return options

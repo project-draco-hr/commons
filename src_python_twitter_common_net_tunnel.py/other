@@ -3,11 +3,6 @@ import errno
 import socket
 import subprocess
 import time
+from twitter.common import log
 from twitter.common.quantity import Amount, Time
-try:
-    from twitter.common import app
-    HAS_APP = True
-    app.add_option('--tunnel_host', type='string', dest='tunnel_host', default='nest1.corp.twitter.com', help='Host to tunnel commands through (default: %default)')
-except ImportError:
-    HAS_APP = False
 __all__ = ('TunnelHelper',)

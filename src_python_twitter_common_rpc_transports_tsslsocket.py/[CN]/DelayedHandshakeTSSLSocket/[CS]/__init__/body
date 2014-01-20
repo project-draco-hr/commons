@@ -1,0 +1,6 @@
+def __init__(self, *args, **kw):
+    self.__delay_handshake = kw.pop('delay_handshake', False)
+    self.__socket_factory = kw.pop('socket_factory', socket)
+    if ('unix_socket' in kw):
+        raise ValueError(('%s does not support unix_sockets!' % self.__class__.__name__))
+    TSSLSocket.__init__(self, *args, **kw)

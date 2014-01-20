@@ -1,0 +1,3 @@
+@property
+def package_dir(self):
+    return 'gen-py'

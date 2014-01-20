@@ -1,0 +1,8 @@
+def post_initialization(method):
+
+    @wraps(method)
+    def wrapped_method(self, *args, **kw):
+        if (self._state < self.INITIALIZED):
+            raise self.Error('Cannot perform operation before initialization!')
+        return method(self, *args, **kw)
+    return wrapped_method

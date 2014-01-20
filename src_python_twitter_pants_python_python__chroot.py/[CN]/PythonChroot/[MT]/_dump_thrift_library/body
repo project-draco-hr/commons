@@ -1,2 +1,0 @@
-def _dump_thrift_library(self, library):
-    self._dump_built_library(library, PythonThriftBuilder(library, self._root, self._config))

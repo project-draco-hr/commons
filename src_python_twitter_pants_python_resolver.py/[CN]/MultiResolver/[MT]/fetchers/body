@@ -1,0 +1,9 @@
+@classmethod
+def fetchers(cls, config, target=None):
+    fetchers = []
+    fetchers.extend((Fetcher([url]) for url in config.getlist('python-repos', 'repos', [])))
+    fetchers.extend((PyPIFetcher(url) for url in config.getlist('python-repos', 'indices', [])))
+    if (target and isinstance(target, PythonBinary)):
+        fetchers.extend((Fetcher([url]) for url in target.repositories))
+        fetchers.extend((PyPIFetcher(url) for url in target.indices))
+    return fetchers

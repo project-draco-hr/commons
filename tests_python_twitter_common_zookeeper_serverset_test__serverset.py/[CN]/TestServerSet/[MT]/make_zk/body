@@ -1,0 +1,3 @@
+@classmethod
+def make_zk(cls, ensemble):
+    return ZooKeeper(ensemble)

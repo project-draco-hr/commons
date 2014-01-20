@@ -1,5 +1,14 @@
-import os
 import copy
-import types
+import os
 import threading
+import types
 import bottle
+__all__ = ('abort', 'HttpServer', 'mako_view', 'redirect', 'request', 'response', 'route', 'static_file', 'view')
+abort = HttpServer.abort
+mako_view = HttpServer.mako_view
+redirect = HttpServer.redirect
+request = HttpServer.request
+response = HttpServer.response
+route = HttpServer.route
+static_file = HttpServer.static_file
+view = HttpServer.view

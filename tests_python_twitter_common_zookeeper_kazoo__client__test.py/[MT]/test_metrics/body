@@ -1,0 +1,24 @@
+def test_metrics():
+    with ZookeeperServer() as server:
+        event = threading.Event()
+
+        def state_change(state):
+            event.set()
+            return True
+        zk = TwitterKazooClient(('localhost:%d' % server.zookeeper_port))
+        zk.start()
+        zk.live.wait(timeout=MAX_EVENT_WAIT_SECS)
+        zk.add_listener(state_change)
+        sample = zk.metrics.sample()
+        assert (sample['session_id'] == zk._session_id)
+        assert (sample['session_expirations'] == 0)
+        assert (sample['connection_losses'] == 0)
+        old_session_id = zk._session_id
+        server.expire(zk._session_id)
+        event.wait(timeout=MAX_EVENT_WAIT_SECS)
+        zk.live.wait(timeout=MAX_EVENT_WAIT_SECS)
+        sample = zk.metrics.sample()
+        assert (sample['session_id'] == zk._session_id)
+        assert (old_session_id != zk._session_id)
+        assert (sample['session_expirations'] == 1)
+        assert (sample['connection_losses'] > 0)

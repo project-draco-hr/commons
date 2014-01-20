@@ -1,6 +1,0 @@
-def set_different(promise, current_members, actual_members):
-    current_members = set(current_members)
-    actual_members = set(actual_members)
-    if (current_members != actual_members):
-        promise.set(actual_members)
-        return True

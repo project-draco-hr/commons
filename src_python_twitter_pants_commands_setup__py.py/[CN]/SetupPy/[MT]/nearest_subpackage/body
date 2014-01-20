@@ -1,0 +1,10 @@
+@classmethod
+def nearest_subpackage(cls, package, all_packages):
+    'Given a package, find its nearest parent in all_packages.'
+
+    def shared_prefix(candidate):
+        zipped = itertools.izip(package.split('.'), candidate.split('.'))
+        matching = itertools.takewhile((lambda pair: (pair[0] == pair[1])), zipped)
+        return [pair[0] for pair in matching]
+    shared_packages = list(filter(None, map(shared_prefix, all_packages)))
+    return ('.'.join(max(shared_packages, key=len)) if shared_packages else package)

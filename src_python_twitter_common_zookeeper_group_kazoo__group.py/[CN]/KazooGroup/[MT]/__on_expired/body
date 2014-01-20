@@ -1,0 +1,2 @@
+def __on_expired(self, callback):
+    return self.__on_state(callback, KazooState.LOST)

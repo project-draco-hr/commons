@@ -1,0 +1,3 @@
+@classmethod
+def make_zk(cls, ensemble, **kw):
+    raise NotImplementedError

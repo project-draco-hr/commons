@@ -1,0 +1,10 @@
+def test_updates_internal_state_when_children_are_removed(self):
+    mock_zk = _mock_zk()
+    group = ActiveKazooGroup(mock_zk, DEFAULT_PATH)
+    (members, completion_callback) = _happy_path(group, mock_zk, 2)
+    (member_remaining, member_removed) = list(members)
+    znode_member_id = ActiveKazooGroup.id_to_znode(member_remaining.id)
+    mock_get_children_result = Mock(name='mock get children async result')
+    mock_get_children_result.get = Mock(return_value=[znode_member_id])
+    completion_callback(mock_get_children_result)
+    assert (member_removed not in group._members)

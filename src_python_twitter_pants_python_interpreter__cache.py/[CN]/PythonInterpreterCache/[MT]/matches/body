@@ -1,0 +1,4 @@
+def matches(self, filters):
+    for interpreter in self._interpreters:
+        if any((interpreter.identity.matches(filt) for filt in filters)):
+            yield interpreter

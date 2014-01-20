@@ -1,0 +1,3 @@
+@property
+def specs(self):
+    return self._requirement.specs

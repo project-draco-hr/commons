@@ -1,17 +1,20 @@
 from __future__ import print_function
-import shutil
-__author__ = 'Brian Wickman'
 from collections import defaultdict
 import os
+import random
+import shutil
 import sys
 import tempfile
 from twitter.common.collections import OrderedSet
-from twitter.common.dirutil import safe_rmtree, safe_mkdir_for
-from twitter.common.python.interpreter import PythonIdentity
+from twitter.common.decorators import lru_cache
+from twitter.common.dirutil import safe_mkdir, safe_rmtree
+from twitter.common.python.interpreter import PythonInterpreter
 from twitter.common.python.pex_builder import PEXBuilder
 from twitter.common.python.platforms import Platform
-from twitter.pants.base import Config
-from twitter.pants.base.build_invalidator import CacheKeyGenerator
+from twitter.common.quantity import Amount, Time
+from twitter.pants.base import Config, ParseContext, TargetDefinitionException
+from twitter.pants.base.build_invalidator import BuildInvalidator, CacheKeyGenerator
 from twitter.pants.targets import PythonAntlrLibrary, PythonBinary, PythonLibrary, PythonRequirement, PythonTests, PythonThriftLibrary
 from .antlr_builder import PythonAntlrBuilder
+from .resolver import MultiResolver
 from .thrift_builder import PythonThriftBuilder

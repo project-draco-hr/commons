@@ -1,4 +1,6 @@
+cls
 remote_host
 remote_port
 tunnel_host
 tunnel_port
+timeout

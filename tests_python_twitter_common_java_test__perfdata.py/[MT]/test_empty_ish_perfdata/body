@@ -1,0 +1,7 @@
+def test_empty_ish_perfdata():
+    provider = (lambda : '')
+    with pytest.raises(ValueError):
+        perfdata = PerfData.get(provider)
+    provider = (lambda : PerfData.MAGIC)
+    with pytest.raises(ValueError):
+        perfdata = PerfData.get(provider)

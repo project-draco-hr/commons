@@ -1,3 +1,5 @@
-import pytest
-import sys
+import functools
+import wsgiref.util
 from twitter.common.http import HttpServer
+import pytest
+skipifpy3k = pytest.mark.skipif('sys.version_info >= (3,0)')

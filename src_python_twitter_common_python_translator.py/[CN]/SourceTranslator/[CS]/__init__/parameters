@@ -1,5 +1,6 @@
 self
 install_cache
+interpreter
 platform
-python
+use_2to3
 conn_timeout

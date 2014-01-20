@@ -1,0 +1,10 @@
+def _get_resolve_transition_id(self, issue):
+    'Find the transition id to resolve the issue'
+    try:
+        transitions = json.loads(self.get_transitions(issue))['transitions']
+    except (KeyError, ValueError) as e:
+        raise JiraError('Transitions list did not have the expected JSON format: %s', e)
+    for transition in transitions:
+        if (transition['name'] == 'Resolve'):
+            return transition['id']
+    raise JiraError(textwrap.dedent(("\n    Could not find the id of the JIRA 'Resolve' transition, here were the\n    available transitions:\n    %s\n    " % transitions)))

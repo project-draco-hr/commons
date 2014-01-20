@@ -1,0 +1,6 @@
+def bootstrap_pex(entry_point):
+    if needs_modified_importer(entry_point):
+        from . import importer
+        importer.monkeypatch()
+    from . import pex
+    pex.PEX(entry_point).execute()

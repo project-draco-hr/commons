@@ -1,17 +1,15 @@
+'\ntwitter.common.python support for interpreter environments.\n'
+from __future__ import absolute_import
 try:
     from numbers import Integral
 except ImportError:
     Integral = (int, long)
+from collections import defaultdict
 import os
 import re
 import subprocess
 import sys
-from collections import defaultdict
-if (not hasattr(__builtins__, 'any')):
-
-    def any(genexpr):
-        for expr in genexpr:
-            if expr:
-                return True
-        return False
-ID_PY = '\nimport sys\n\nif hasattr(sys, \'subversion\'):\n  subversion = sys.subversion[0]\nelse:\n  subversion = \'CPython\'\n\nprint("%s %s %s %s" % (\n  subversion,\n  sys.version_info[0],\n  sys.version_info[1],\n  sys.version_info[2]))\n'
+from .tracer import Tracer
+from pkg_resources import find_distributions, Distribution, Requirement
+TRACER = Tracer(predicate=Tracer.env_filter('PEX_VERBOSE'), prefix='twitter.common.python.interpreter: ')
+ID_PY = '\nimport sys\n\nif hasattr(sys, \'subversion\'):\n  subversion = sys.subversion[0]\nelse:\n  subversion = \'CPython\'\n\nsetuptools_path = None\ntry:\n  import pkg_resources\n  try:\n    setuptools_req = pkg_resources.Requirement.parse(\'setuptools>=1\', replacement=False)\n  except TypeError:\n    setuptools_req = pkg_resources.Requirement.parse(\'setuptools>=1\')\n  for item in sys.path:\n    for dist in pkg_resources.find_distributions(item):\n      if dist in setuptools_req:\n        setuptools_path = dist.location\n        break\nexcept ImportError:\n  pass\n\nprint("%s %s %s %s" % (\n  subversion,\n  sys.version_info[0],\n  sys.version_info[1],\n  sys.version_info[2]))\nprint(setuptools_path)\n'

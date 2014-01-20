@@ -1,6 +1,6 @@
 import functools
 import threading
-from thrift.Thrift import TMessageType, TApplicationException
+from thrift.Thrift import TApplicationException, TMessageType
 from thrift.protocol import TBinaryProtocol
-from gen.twitter.finagle.thrift.ttypes import ConnectionOptions, ClientId, UpgradeReply, RequestHeader, ResponseHeader
-from twitter.common.rpc.finagle.trace import Trace
+from gen.twitter.finagle.thrift.ttypes import ClientId, ConnectionOptions, RequestHeader, ResponseHeader, UpgradeReply
+from .trace import Trace

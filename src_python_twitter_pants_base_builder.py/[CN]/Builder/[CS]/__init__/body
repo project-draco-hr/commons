@@ -1,3 +1,0 @@
-def __init__(self, ferror, root_dir):
-    self.ferror = ferror
-    self.root_dir = root_dir

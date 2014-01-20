@@ -1,0 +1,5 @@
+def __init__(self, hsperf_provider, hsperf_builder):
+    self._provider = hsperf_provider
+    self._builder = hsperf_builder
+    self._map = {}
+    self._lock = threading.RLock()

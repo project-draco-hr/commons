@@ -1,13 +1,16 @@
-def mount_routes(self, cls):
-    '\n      Mount the routes from another class.\n\n      The routes must be added to the class via the HttpServer.route annotation.\n    '
-    for attr in dir(cls):
-        class_attr = getattr(cls, attr)
-        if hasattr(class_attr, HttpServer.ROUTES_ATTRIBUTE):
-            self._bind_method(cls, attr)
-            if hasattr(class_attr, HttpServer.VIEW_ATTRIBUTE):
-                (args, kw) = getattr(class_attr, HttpServer.VIEW_ATTRIBUTE)
-                setattr(self, attr, bottle.view(*args, **kw)(getattr(self, attr)))
-            for (args, kwargs) in getattr(class_attr, HttpServer.ROUTES_ATTRIBUTE):
-                kwargs = copy.deepcopy(kwargs)
-                kwargs.update({'callback': getattr(self, attr), })
-                self._app.route(*args, **kwargs)
+def mount_routes(self, class_instance):
+    '\n      Mount the routes from another class instance.\n\n      The routes must be added to the class via the HttpServer.route annotation and not directly\n      from the bottle.route decorator.\n    '
+    for callback_name in dir(class_instance):
+        callback = getattr(class_instance, callback_name)
+        if (hasattr(callback, self.ROUTES_ATTRIBUTE) or hasattr(callback, self.ERROR_ATTRIBUTE)):
+            self._bind_method(class_instance, callback_name)
+            if hasattr(callback, self.VIEW_ATTRIBUTE):
+                (args, kw) = getattr(callback, self.VIEW_ATTRIBUTE)
+                callback = bottle.view(*args, **kw)(callback)
+                setattr(self, callback_name, callback)
+            for (args, kw) in getattr(callback, self.ROUTES_ATTRIBUTE, ()):
+                kw = self._apply_plugins(class_instance, copy.deepcopy(kw))
+                kw.update(callback=callback)
+                self._app.route(*args, **kw)
+            for error_code in getattr(callback, self.ERROR_ATTRIBUTE, ()):
+                self._app.error(error_code)(callback)

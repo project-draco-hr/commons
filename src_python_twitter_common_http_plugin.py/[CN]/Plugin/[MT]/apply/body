@@ -1,0 +1,3 @@
+@abstractmethod
+def apply(self, callback, route):
+    'Given the Bottle callback and Route object, return a (possibly)\n       decorated version of the original callback function, e.g. a\n       version that profiles the endpoint.\n\n       For more information see:\n         http://bottlepy.org/docs/stable/plugindev.html\n    '

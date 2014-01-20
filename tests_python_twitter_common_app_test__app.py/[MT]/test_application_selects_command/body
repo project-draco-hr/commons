@@ -1,0 +1,53 @@
+def test_application_selects_command():
+
+    def real_main():
+        return 0
+
+    def make_app_with_commands(*args, **kw):
+        app = TestApplication(*args, **kw)
+
+        @app.command
+        def command_two(args):
+            assert (args == ['a', 'b'])
+            return 2
+
+        @app.command
+        def command_three():
+            return 3
+
+        @app.command
+        @app.command_option('--foo', action='store_true', default=False)
+        def command_four(args, options):
+            return (100 + int(options.foo))
+        return app
+    app = make_app_with_commands(real_main, force_args=['a', 'b'])
+    app.main()
+    assert (app.exited_rc == 1)
+    app = make_app_with_commands(real_main, force_args=['command_two', 'a', 'b'])
+    app.main()
+    assert (app.exited_rc == 2)
+    app = make_app_with_commands(real_main, force_args=['command_three', 'a', 'b'])
+    app.main()
+    assert (app.exited_rc == 1)
+    app = make_app_with_commands(real_main, force_args=['command_three'])
+    app.main()
+    assert (app.exited_rc == 3)
+    app = make_app_with_commands(real_main, force_args=['command_four', '--foo'])
+    app.main()
+    assert (app.exited_rc == 101)
+    app = make_app_with_commands(real_main, force_args=['command_four'])
+    app.main()
+    assert (app.exited_rc == 100)
+    app = make_app_with_commands(None, force_args=[])
+    app.main()
+    assert (app.exited_rc == 1)
+    app = make_app_with_commands(None, force_args=[])
+
+    @app.default_command
+    def actual_main():
+        return 0
+    app.main()
+    assert (app.exited_rc == 0)
+    app = TestApplication(None, force_args=[])
+    app.main()
+    assert (app.exited_rc == 1)

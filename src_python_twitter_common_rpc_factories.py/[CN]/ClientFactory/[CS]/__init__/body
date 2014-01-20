@@ -1,2 +1,3 @@
-def __init__(self, client_iface):
+def __init__(self, client_iface, connection):
     self._client_iface = client_iface
+    self._connection = connection

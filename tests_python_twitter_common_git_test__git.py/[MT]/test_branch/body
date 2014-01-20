@@ -1,0 +1,5 @@
+def test_branch(tmpdir, repo):
+    with branch('a', repo=repo):
+        with pushd(tmpdir.strpath):
+            with open('test') as f:
+                assert (f.read() == first_commit_file_content)

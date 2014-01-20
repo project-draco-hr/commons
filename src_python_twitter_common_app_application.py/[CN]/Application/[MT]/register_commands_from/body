@@ -1,0 +1,6 @@
+def register_commands_from(self, *modules):
+    '\n      Given an imported module, walk the module for commands that have been\n      annotated with @app.command and register them against this\n      application.\n    '
+    for module in modules:
+        for (_, function) in inspect.getmembers(module, predicate=(lambda fn: callable(fn))):
+            if self._is_app_command(function):
+                self._register_command(function, self._get_command_name(function))

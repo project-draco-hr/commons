@@ -1,0 +1,3 @@
+@abstractproperty
+def endianness(self):
+    'Return the endianness of the buffers.'

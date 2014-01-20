@@ -4,7 +4,7 @@
     String className=frames[i].getClassName();
     try {
       Class clazz=Class.forName(className);
-      if (TBase.class.isAssignableFrom(clazz)) {
+      if (isTBase(clazz) && !isAbstract(clazz) && hasNoArgConstructor(clazz)) {
         @SuppressWarnings("unchecked") Class<? extends TBase> asTBase=clazz.asSubclass(TBase.class);
         return asTBase;
       }

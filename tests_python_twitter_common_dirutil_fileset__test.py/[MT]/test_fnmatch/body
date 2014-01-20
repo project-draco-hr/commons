@@ -4,9 +4,12 @@ def test_fnmatch():
         assert leq(Fileset.zglobs('?.txt'))
         assert leq(Fileset.zglobs('[].txt'))
         assert leq(Fileset.zglobs('.*'), '.txt')
-        assert leq(Fileset.rglobs('*.txt'), '.txt')
+        assert leq(Fileset.zglobs('*.py', '.*'), '.txt')
+        assert leq(Fileset.rglobs('*.txt'))
         assert leq(Fileset.rglobs('?.txt'))
         assert leq(Fileset.rglobs('[].txt'))
+        assert leq(Fileset.rglobs('.*'), '.txt')
+        assert leq(Fileset.rglobs('*.py', '.*'), '.txt')
     with Fileset.over(['a.txt']):
         for operation in (Fileset.rglobs, Fileset.zglobs):
             assert leq(operation('*.txt'), 'a.txt')

@@ -1,0 +1,2 @@
+def __additional_endpoints_string(self):
+    return [('%s=>%s' % (key, val)) for (key, val) in self.additional_endpoints.items()]

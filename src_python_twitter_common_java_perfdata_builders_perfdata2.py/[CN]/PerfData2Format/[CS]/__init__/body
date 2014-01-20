@@ -1,0 +1,2 @@
+def __init__(self, endianness=SimpleAttributeBuffer.LITTLE_ENDIAN):
+    self._endianness = endianness

@@ -1,7 +1,0 @@
-from __future__ import print_function
-__author__ = 'Benjy Weinberger'
-import glob
-import os
-import subprocess
-import sys
-from twitter.common.contextutil import environment_as, pushd

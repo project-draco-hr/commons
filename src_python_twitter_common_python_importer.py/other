@@ -1,5 +1,6 @@
 "\nPure python implementation of zipimport based upon Google AppEngine's\n[see http://code.google.com/appengine/articles/django10_zipimport.html]\n\nModified to allow for nested zip archives, also necessary patches to\npkg_resources (as of distribute 0.6.24) in order to get over bugs in\nzipinfo handling.\n\nUsage:\n  from twitter.common.python.importer import *\n  monkeypatch()\n"
-from collections import MappingView
+from __future__ import absolute_import
+from collections import MappingView, MutableMapping
 import contextlib
 import os
 import sys
@@ -9,9 +10,9 @@ import traceback
 import types
 import zipfile
 import zipimport as builtin_zipimport
-from twitter.common.lang import Compatibility
-from twitter.common.python.marshaller import CodeMarshaller
-StringIO = Compatibility.BytesIO
+from .compatibility import BytesIO, PY3, exec_function
+from .marshaller import CodeMarshaller
+StringIO = BytesIO
 _zipfile_cache = {}
 _zipfile_namecache = {}
-_zip_directory_cache = builtin_zipimport._zip_directory_cache
+_zip_directory_cache = ZipDirectoryCache(builtin_zipimport._zip_directory_cache)

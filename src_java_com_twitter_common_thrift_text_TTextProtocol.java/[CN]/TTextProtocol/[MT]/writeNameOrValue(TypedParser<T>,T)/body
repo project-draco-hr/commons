@@ -2,10 +2,10 @@
   getCurrentContext().write();
   try {
     if (getCurrentContext().isMapKey()) {
-      writer.name(val.toString());
+      getCurrentWriter().name(val.toString());
     }
  else {
-      helper.writeValue(writer,val);
+      helper.writeValue(getCurrentWriter(),val);
     }
   }
  catch (  IOException ex) {

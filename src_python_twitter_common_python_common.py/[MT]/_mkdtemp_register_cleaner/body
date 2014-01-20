@@ -1,0 +1,8 @@
+def _mkdtemp_register_cleaner(cleaner):
+    global _MKDTEMP_CLEANER
+    if (not cleaner):
+        return
+    assert callable(cleaner)
+    if (_MKDTEMP_CLEANER is None):
+        atexit.register(cleaner)
+        _MKDTEMP_CLEANER = cleaner

@@ -1,0 +1,19 @@
+def generate(self):
+    self.run_thrifts()
+    for (root, _, files) in os.walk(os.path.normpath(self.package_root)):
+        reldir = os.path.relpath(root, self.package_root)
+        if (reldir == '.'):
+            continue
+        if ('__init__.py' not in files):
+            continue
+        init_py_abspath = os.path.join(root, '__init__.py')
+        module_path = self.path_to_module(reldir)
+        self.created_packages.add(module_path)
+        if (os.path.getsize(init_py_abspath) == 0):
+            with open(init_py_abspath, 'wb') as f:
+                f.write("__import__('pkg_resources').declare_namespace(__name__)")
+            self.created_namespace_packages.add(module_path)
+        else:
+            pass
+    if (not self.created_packages):
+        raise self.CodeGenerationException(('No Thrift structures declared in %s!' % self.target))

@@ -1,0 +1,4 @@
+def make_request(path):
+    test_req = {'REQUEST_METHOD': 'GET', 'PATH_INFO': path, }
+    wsgiref.util.setup_testing_defaults(test_req)
+    return test_req

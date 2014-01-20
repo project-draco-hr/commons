@@ -1,0 +1,8 @@
+def setup_interpreter(self, interpreter):
+    interpreter_dir = os.path.join(self._path, str(interpreter.identity))
+    safe_mkdir(interpreter_dir)
+    safe_link(interpreter.binary, os.path.join(interpreter_dir, 'python'))
+    if interpreter.distribute:
+        safe_link(interpreter.distribute, os.path.join(interpreter_dir, 'distribute'))
+    else:
+        self.setup_distribute(interpreter, interpreter_dir)

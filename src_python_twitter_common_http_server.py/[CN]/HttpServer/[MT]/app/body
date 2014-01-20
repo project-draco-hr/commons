@@ -1,3 +1,4 @@
+@property
 def app(self):
     '\n      Return the bottle app object associated with this HttpServer instance.\n    '
     return self._app

@@ -1,0 +1,6 @@
+@classmethod
+def to_code(cls, b):
+    try:
+        return cls.MAP[b][1]
+    except KeyError:
+        raise ValueError(('Unknown TypeCode: %r' % b))

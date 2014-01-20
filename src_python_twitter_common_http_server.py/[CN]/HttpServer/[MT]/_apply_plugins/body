@@ -1,0 +1,8 @@
+@classmethod
+def _apply_plugins(cls, class_instance, kw):
+    plugins = kw.get('apply', [])
+    skiplist = kw.get('skip', [])
+    class_plugins = getattr(class_instance, 'plugins', [])
+    class_skiplist = getattr(class_instance, 'skiplist', [])
+    kw.update(apply=(plugins + class_plugins), skip=(skiplist + class_skiplist))
+    return kw

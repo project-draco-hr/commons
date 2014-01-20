@@ -1,4 +1,4 @@
 install_cache
 platform
-python
+interpreter
 conn_timeout

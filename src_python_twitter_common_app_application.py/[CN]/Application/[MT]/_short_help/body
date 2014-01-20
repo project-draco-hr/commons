@@ -1,3 +1,4 @@
 def _short_help(self, option, opt, value, parser):
     self._construct_partial_parser().print_help()
-    sys.exit(1)
+    self._exit_function(1)
+    return
