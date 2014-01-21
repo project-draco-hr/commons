@@ -1,5 +1,0 @@
-def __delitem__(self, key):
-    try:
-        del self.__lookaside[key]
-    except KeyError:
-        del self.__shadow[key]

@@ -1,9 +1,0 @@
-def test_generate_prefixes(self):
-    (a, b, sep) = ('a', 'b', os.sep)
-    assert (list(Nested._generate_prefixes(sep)) == [])
-    assert (list(Nested._generate_prefixes('')) == [])
-    assert (list(Nested._generate_prefixes('.')) == [])
-    a_sep_b = ((a + sep) + b)
-    assert (list(Nested._generate_prefixes(a_sep_b)) == [a_sep_b, a])
-    sep_a_sep_b = (((sep + a) + sep) + b)
-    assert (list(Nested._generate_prefixes(sep_a_sep_b)) == [sep_a_sep_b, (sep + a)])

@@ -1,4 +1,0 @@
-def __init__(self, path, env):
-    self._activated = False
-    self._path = path
-    self._env = env

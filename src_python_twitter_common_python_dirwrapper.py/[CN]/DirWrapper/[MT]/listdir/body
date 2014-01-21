@@ -1,4 +1,0 @@
-def listdir(self):
-    for (dir, dirs, files) in os.walk(self._dir):
-        for f in files:
-            yield os.path.relpath(os.path.join(dir, f), self._dir)

@@ -1,2 +1,0 @@
-def dest(self):
-    return self._dest

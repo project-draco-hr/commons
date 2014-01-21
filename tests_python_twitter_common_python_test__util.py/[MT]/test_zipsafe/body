@@ -1,0 +1,4 @@
+def test_zipsafe():
+    for zipped in (False, True):
+        with make_distribution(zipped=zipped) as dist:
+            assert DistributionHelper.zipsafe(dist)

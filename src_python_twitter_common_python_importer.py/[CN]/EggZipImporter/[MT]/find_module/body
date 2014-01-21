@@ -1,8 +1,0 @@
-def find_module(self, fullmodname, path=None):
-    "PEP-302-compliant find_module() method.\n\n    Args:\n      fullmodname: The dot-separated full module name, e.g. 'django.core.mail'.\n      path: Optional and ignored; present for API compatibility only.\n\n    Returns:\n      None if the module isn't found in the archive; self if it is found.\n    "
-    try:
-        (submodname, is_package, relpath) = self._get_info(fullmodname)
-    except ImportError:
-        return None
-    else:
-        return self

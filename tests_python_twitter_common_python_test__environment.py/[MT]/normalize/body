@@ -1,0 +1,2 @@
+def normalize(path):
+    return os.path.normpath(os.path.realpath(path))

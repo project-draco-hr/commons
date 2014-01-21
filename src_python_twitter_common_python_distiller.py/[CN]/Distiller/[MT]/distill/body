@@ -11,7 +11,7 @@ def distill(self, into=None, strip_pyc=False):
     if os.path.exists(filename):
         self._log(('Found pre-cached artifact: %s, skipping distillation.' % filename))
         return filename
-    with closing(zipfile.ZipFile((filename + '~'), 'w', compression=zipfile.ZIP_DEFLATED)) as zf:
+    with open_zip((filename + '~'), 'w', compression=zipfile.ZIP_DEFLATED) as zf:
         for fn in self._installed_files:
             rel_fn = self._relpath(fn)
             if (not self._is_top_level(fn)):
@@ -23,6 +23,7 @@ def distill(self, into=None, strip_pyc=False):
             if (strip_pyc and (fn.endswith('.pyc') or fn.endswith('.pyo'))):
                 self._log(('Stripping %s' % rel_fn))
                 continue
+            self._log(('Writing %s' % fn))
             zf.write(fn, arcname=rel_fn)
             if (fn in native_deps):
                 (fn_base, extension) = os.path.splitext(rel_fn)
@@ -36,6 +37,7 @@ def distill(self, into=None, strip_pyc=False):
                 self._log(('Writing namespace package stub for %s' % nspkg))
                 zf.writestr(nspkg_init, NAMESPACE_STUB)
         for (fn, content) in self._egg_info():
+            self._log(('Writing %s' % fn))
             zf.writestr(fn, content)
     os.rename((filename + '~'), filename)
     return filename

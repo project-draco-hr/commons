@@ -1,0 +1,7 @@
+def __init__(self, pex, pex_info, platform=Platform.current(), python=Platform.python()):
+    self._internal_cache = os.path.join(pex, pex_info.internal_cache)
+    self._pex = pex
+    self._pex_info = pex_info
+    self._activated = False
+    self._working_set = None
+    super(PEXEnvironment, self).__init__(platform=platform, python=python, search_path=(sys.path if pex_info.inherit_path else []))

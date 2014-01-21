@@ -1,5 +1,6 @@
-def __init__(self, target, root_dir, run_tracker, conn_timeout=None):
+def __init__(self, target, root_dir, run_tracker, interpreter=None, conn_timeout=None):
     self.target = target
+    self.interpreter = (interpreter or PythonInterpreter.get())
     if (not isinstance(target, PythonBinary)):
         raise PythonBinaryBuilder.NotABinaryTargetException(('Target %s is not a PythonBinary!' % target))
     config = Config.load()
@@ -11,5 +12,5 @@ def __init__(self, target, root_dir, run_tracker, conn_timeout=None):
     build_properties.update(run_info.add_scm_info())
     pexinfo = target.pexinfo.copy()
     pexinfo.build_properties = build_properties
-    builder = PEXBuilder(distpath, pex_info=pexinfo)
-    self.chroot = PythonChroot(target, root_dir, builder=builder, conn_timeout=conn_timeout)
+    builder = PEXBuilder(distpath, pex_info=pexinfo, interpreter=self.interpreter)
+    self.chroot = PythonChroot(target, root_dir, builder=builder, interpreter=self.interpreter, conn_timeout=conn_timeout)

@@ -1,5 +1,0 @@
-@staticmethod
-def all_distributions(path=sys.path):
-    for element in path:
-        for dist in find_distributions(element):
-            yield dist

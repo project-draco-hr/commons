@@ -1,9 +1,9 @@
 from __future__ import absolute_import
+import contextlib
 import errno
+from hashlib import sha1
 import os
 import shutil
-import sys
-import tempfile
-from .common import safe_rmtree, safe_open, safe_mkdir
-from .compatibility import BytesIO
-from pkg_resources import find_distributions, PathMetadata, Distribution
+import uuid
+from .common import safe_open, safe_rmtree
+from pkg_resources import Distribution, EggMetadata, PathMetadata, find_distributions

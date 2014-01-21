@@ -2,6 +2,7 @@ from __future__ import print_function
 import os
 import tempfile
 import time
+from twitter.common.python.interpreter import PythonInterpreter
 from twitter.common.python.pex_builder import PEXBuilder
 from twitter.pants.base import Config
 from twitter.pants.targets import PythonBinary

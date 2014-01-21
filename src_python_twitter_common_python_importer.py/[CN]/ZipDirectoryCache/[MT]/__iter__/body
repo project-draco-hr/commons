@@ -1,5 +1,0 @@
-def __iter__(self):
-    for key in self.__shadow:
-        yield key
-    for key in self.__lookaside:
-        yield key

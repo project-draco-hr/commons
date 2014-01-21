@@ -1,0 +1,24 @@
+import contextlib
+import os
+import random
+from textwrap import dedent
+import zipfile
+from twitter.common.contextutil import temporary_dir
+from twitter.common.dirutil import safe_mkdir, safe_mkdtemp
+from twitter.common.lang import Compatibility
+from twitter.common.python.distiller import Distiller
+from twitter.common.python.installer import Installer
+from twitter.common.python.util import DistributionHelper
+if Compatibility.PY3:
+    from contextlib import ExitStack
+
+    @contextlib.contextmanager
+    def nested(*context_managers):
+        enters = []
+        with ExitStack() as stack:
+            for manager in context_managers:
+                enters.append(stack.enter_context(manager))
+            yield tuple(enters)
+else:
+    from contextlib import nested
+PROJECT_CONTENT = {'setup.py': dedent("\n      from setuptools import setup\n\n      setup(\n          name='%(project_name)s',\n          version='0.0.0',\n          packages=['my_package'],\n          package_data={'my_package': ['package_data/*.dat']},\n      )\n  "), 'my_package/__init__.py': 0, 'my_package/my_module.py': '%(content)s', 'my_package/package_data/resource1.dat': 1000, 'my_package/package_data/resource2.dat': 1000, }

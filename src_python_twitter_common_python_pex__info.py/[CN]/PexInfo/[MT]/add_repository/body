@@ -1,2 +1,0 @@
-def add_repository(self, repo):
-    self._repositories.add(repo)

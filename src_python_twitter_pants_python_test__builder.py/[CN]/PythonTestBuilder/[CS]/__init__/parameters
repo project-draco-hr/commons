@@ -2,4 +2,5 @@ self
 targets
 args
 root_dir
+interpreter
 conn_timeout

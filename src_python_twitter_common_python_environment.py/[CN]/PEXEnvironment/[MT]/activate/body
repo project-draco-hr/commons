@@ -1,0 +1,5 @@
+def activate(self):
+    if self._activated:
+        return
+    with TRACER.timed('Activating PEX virtual environment'):
+        self._activate()

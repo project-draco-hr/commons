@@ -1,0 +1,10 @@
+def test_hash_consistency():
+    for reverse in (False, True):
+        with temporary_content(CONTENT) as td:
+            dir_hash = CacheHelper.dir_hash(td)
+            with temporary_file() as tf:
+                zipped = write_zipfile(td, tf.name, reverse=reverse)
+                with contextlib.closing(zipfile.ZipFile(tf.name, 'r')) as zf:
+                    zip_hash = CacheHelper.zip_hash(zf)
+                    assert (zip_hash == dir_hash)
+                    assert (zip_hash != sha1().hexdigest())

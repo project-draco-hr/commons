@@ -1,5 +1,6 @@
 import contextlib
 import os
+import pytest
 from zipfile import ZipFile
 from twitter.common.contextutil import temporary_dir
 from twitter.common.python.http import EggLink, Link, SourceLink, Web
