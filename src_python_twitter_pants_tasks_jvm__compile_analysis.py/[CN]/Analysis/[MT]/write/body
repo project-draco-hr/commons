@@ -1,0 +1,3 @@
+def write(self, outfile, rebasings=None):
+    'Write this Analysis to outfile.\n\n    rebasings: A list of path prefix pairs [from_prefix, to_prefix] to rewrite.\n               to_prefix may be None, in which case matching paths are removed entirely.\n    '
+    raise NotImplementedError()

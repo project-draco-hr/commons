@@ -1,0 +1,3 @@
+def parse_products(self, infile):
+    'An efficient parser of just the src->class mappings.\n\n    Returns a dict of src -> list of classfiles.\n    '
+    raise NotImplementedError()

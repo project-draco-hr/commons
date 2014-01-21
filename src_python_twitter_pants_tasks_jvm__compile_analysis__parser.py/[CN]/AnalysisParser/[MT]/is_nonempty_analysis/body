@@ -1,0 +1,8 @@
+def is_nonempty_analysis(self, path):
+    'Returns whether an analysis at a specified path is nontrivial.'
+    if (not os.path.exists(path)):
+        return False
+    empty_prefix = self.empty_prefix()
+    with open(path, 'r') as infile:
+        prefix = infile.read(len(empty_prefix))
+    return (prefix != empty_prefix)

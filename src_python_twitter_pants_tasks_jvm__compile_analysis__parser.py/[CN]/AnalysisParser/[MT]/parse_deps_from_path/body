@@ -1,0 +1,4 @@
+def parse_deps_from_path(self, infile_path, classpath_indexer):
+    'An efficient parser of just the src->dep mappings.\n\n    classpath_indexer - a no-arg method that an implementation may call if it needs a mapping\n                        of class->element on the classpath that provides that class.\n                        We use this indirection to avoid unnecessary precomputation.\n    '
+    with open(infile_path, 'r') as infile:
+        return self.parse_deps(infile, classpath_indexer)

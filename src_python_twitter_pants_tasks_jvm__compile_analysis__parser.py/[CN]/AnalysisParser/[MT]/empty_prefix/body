@@ -1,0 +1,3 @@
+def empty_prefix(self):
+    'Returns a prefix indicating a trivial analysis file.\n\n    I.e., this prefix is present at the begnning of an analysis file iff the analysis is trivial.\n    '
+    raise NotImplementedError()

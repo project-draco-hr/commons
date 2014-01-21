@@ -1,0 +1,4 @@
+def _rebase_from_path(self, input_analysis_path, output_analysis_path, rebasings):
+    'Rebase file paths in an analysis file.\n\n    rebasings: A list of path prefix pairs [from_prefix, to_prefix] to rewrite.\n               to_prefix may be None, in which case matching paths are removed entirely.\n    '
+    analysis = self.parser.parse_from_path(input_analysis_path)
+    analysis.write_to_path(output_analysis_path, rebasings=rebasings)

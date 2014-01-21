@@ -1,0 +1,5 @@
+def merge_from_paths(self, analysis_paths, merged_analysis_path):
+    'Merge multiple analysis files into one.'
+    analyses = [self.parser.parse_from_path(path) for path in analysis_paths]
+    merged_analysis = self._analysis_cls.merge(analyses)
+    merged_analysis.write_to_path(merged_analysis_path)
