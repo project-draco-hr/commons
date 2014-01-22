@@ -1,7 +1,7 @@
-def _owning_targets(self, file):
-    for build_file in self._candidate_owners(file):
-        is_build_file = (build_file.full_path == os.path.join(get_buildroot(), file))
+def _owning_targets(self, path):
+    for build_file in self._candidate_owners(path):
+        is_build_file = (build_file.full_path == os.path.join(get_buildroot(), path))
         for address in Target.get_all_addresses(build_file):
             target = Target.get(address)
-            if (target and (is_build_file or (target.has_sources() and self._owns(target, file)))):
+            if (target and (is_build_file or (target.has_sources() and self._owns(target, path)))):
                 yield target

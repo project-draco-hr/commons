@@ -1,5 +1,5 @@
-def _candidate_owners(self, file):
-    build_file = BuildFile(get_buildroot(), relpath=os.path.dirname(file), must_exist=False)
+def _candidate_owners(self, path):
+    build_file = BuildFile(get_buildroot(), relpath=os.path.dirname(path), must_exist=False)
     if build_file.exists():
         yield build_file
     for sibling in build_file.siblings():

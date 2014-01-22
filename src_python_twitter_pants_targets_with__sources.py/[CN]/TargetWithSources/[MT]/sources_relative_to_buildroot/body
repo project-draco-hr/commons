@@ -1,0 +1,3 @@
+def sources_relative_to_buildroot(self):
+    for src in self.sources:
+        yield os.path.join(self.target_base, src)
