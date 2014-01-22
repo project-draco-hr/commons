@@ -1,0 +1,6 @@
+@property
+def java_sysprops(self):
+    'The system properties of the JVM we use.'
+    if (self._java_sysprops is None):
+        self._java_sysprops = find_all_java_sysprops()
+    return self._java_sysprops
