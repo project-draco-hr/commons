@@ -1,0 +1,10 @@
+def classnames_from_source_file(self, path):
+    basedir = calculate_basedir(path)
+    relpath = os.path.relpath(path, basedir)
+    class_mappings_for_src = self.context.products.get('classes').get(relpath)
+    if (not class_mappings_for_src):
+        self.context.log.warn(('File %s contains no classes' % path))
+    else:
+        for classes in class_mappings_for_src.values():
+            for cls in classes:
+                yield JUnitRun.classfile_to_classname(cls)

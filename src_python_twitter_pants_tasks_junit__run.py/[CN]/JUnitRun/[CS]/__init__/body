@@ -13,7 +13,7 @@ def __init__(self, context):
         self.jvm_options.extend(context.options.junit_run_jvm_options)
     if context.options.junit_run_debug:
         self.jvm_options.extend(context.config.getlist('jvm', 'debug_args'))
-    self.test_classes = context.options.junit_run_tests
+    self.tests_to_run = context.options.junit_run_tests
     self.context.products.require('classes')
     self.outdir = (context.options.junit_run_outdir or context.config.get('junit-run', 'workdir'))
     self.batch_size = context.options.junit_run_batch_size

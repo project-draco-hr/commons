@@ -1,5 +1,0 @@
-def calculate_tests(self, targets):
-    for target in self.test_target_candidates(targets):
-        for test in target.sources:
-            for cls in self.normalize(test, target.target_base):
-                yield cls

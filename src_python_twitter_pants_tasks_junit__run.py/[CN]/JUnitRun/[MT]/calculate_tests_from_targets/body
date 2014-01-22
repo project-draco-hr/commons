@@ -1,0 +1,6 @@
+def calculate_tests_from_targets(self, targets):
+    targets_to_classes = self.context.products.get('classes')
+    for target in self.test_target_candidates(targets):
+        for classes in targets_to_classes.get(target).values():
+            for cls in classes:
+                yield JUnitRun.classfile_to_classname(cls)
