@@ -3,9 +3,9 @@ def _compute_missing_deps(self, srcs, actual_deps):
 
     def must_be_explicit_dep(dep):
         return (not dep.startswith(self._context.java_home))
-    targets_by_file = self.get_targets_by_file()
-    transitive_deps_by_target = self.get_transitive_deps_by_target()
-    missing_file_deps = []
+    targets_by_file = self._get_targets_by_file()
+    transitive_deps_by_target = self._get_transitive_deps_by_target()
+    missing_file_deps = OrderedSet()
     missing_tgt_deps_map = defaultdict(list)
     missing_direct_tgt_deps_map = defaultdict(list)
     buildroot = get_buildroot()
@@ -16,7 +16,7 @@ def _compute_missing_deps(self, srcs, actual_deps):
             for actual_dep in filter(must_be_explicit_dep, actual_deps.get(src, [])):
                 actual_dep_tgts = targets_by_file.get(actual_dep)
                 if (actual_dep_tgts is None):
-                    missing_file_deps.append((src_tgt, actual_dep))
+                    missing_file_deps.add((src_tgt, actual_dep))
                 elif (src_tgt not in actual_dep_tgts):
                     canonical_actual_dep_tgt = next(iter(actual_dep_tgts))
                     if actual_dep_tgts.isdisjoint(transitive_deps_by_target.get(src_tgt, [])):
@@ -25,4 +25,4 @@ def _compute_missing_deps(self, srcs, actual_deps):
                         missing_direct_tgt_deps_map[(src_tgt, canonical_actual_dep_tgt)].append((src, actual_dep))
         else:
             raise TaskError(('Requested dep info for unknown source file: %s' % src))
-    return (missing_file_deps, missing_tgt_deps_map.items(), missing_direct_tgt_deps_map.items())
+    return (list(missing_file_deps), missing_tgt_deps_map.items(), missing_direct_tgt_deps_map.items())
