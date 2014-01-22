@@ -1,6 +1,6 @@
 def __init__(self, context, workdir):
     NailgunTask.__init__(self, context, workdir=workdir)
-    concrete_class = self.__class__
+    concrete_class = type(self)
     config_section = concrete_class._config_section
 
     def get_lang_specific_option(opt):

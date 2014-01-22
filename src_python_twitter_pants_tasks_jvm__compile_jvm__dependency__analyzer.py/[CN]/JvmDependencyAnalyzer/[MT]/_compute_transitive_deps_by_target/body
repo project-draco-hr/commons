@@ -8,5 +8,4 @@ def _compute_transitive_deps_by_target(self):
                 transitive_deps.update(transitive_deps_by_target.get(dep, []))
                 transitive_deps.add(dep)
             transitive_deps_by_target[target] = transitive_deps
-    self._transitive_deps_by_target = transitive_deps_by_target
     return transitive_deps_by_target

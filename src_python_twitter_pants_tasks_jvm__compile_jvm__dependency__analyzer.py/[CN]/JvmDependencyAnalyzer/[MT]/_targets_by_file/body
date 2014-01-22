@@ -1,6 +1,7 @@
-def _get_targets_by_file(self):
+@property
+def _targets_by_file(self):
     'Compute the targets_by_file mapping for all targets in-play for this pants run.\n\n    Memoizes for efficiency. Should only be called after codegen, so that all synthetic targets\n    and injected deps are taken into account.\n    '
-    if (self._targets_by_file is None):
+    if (self._lazy_targets_by_file is None):
         return self._compute_targets_by_file()
     else:
-        return self._targets_by_file
+        return self._lazy_targets_by_file
