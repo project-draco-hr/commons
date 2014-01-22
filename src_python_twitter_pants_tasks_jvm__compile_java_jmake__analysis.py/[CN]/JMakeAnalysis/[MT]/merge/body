@@ -1,0 +1,8 @@
+@classmethod
+def merge(cls, analyses):
+    merged_pcd_entries = []
+    merged_src_to_deps = {}
+    for analysis in analyses:
+        merged_pcd_entries.extend(analysis.pcd_entries)
+        merged_src_to_deps.update(analysis.src_to_deps)
+    return JMakeAnalysis(merged_pcd_entries, merged_src_to_deps)

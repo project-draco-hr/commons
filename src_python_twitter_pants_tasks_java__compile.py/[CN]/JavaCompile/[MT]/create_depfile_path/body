@@ -1,4 +1,0 @@
-@staticmethod
-def create_depfile_path(depfile_dir, targets):
-    compilation_id = Target.maybe_readable_identify(targets)
-    return (os.path.join(depfile_dir, compilation_id) + '.dependencies')

@@ -1,0 +1,3 @@
+def __init__(self, pcd_entries, src_to_deps):
+    self.pcd_entries = pcd_entries
+    self.src_to_deps = src_to_deps

@@ -1,0 +1,11 @@
+def post_process(self, relevant_targets):
+    all_processors = set()
+    for target in relevant_targets:
+        if (target.is_apt and target.processors):
+            all_processors.update(target.processors)
+    processor_info_file = os.path.join(self._classes_dir, JavaCompile._PROCESSOR_INFO_FILE)
+    if os.path.exists(processor_info_file):
+        with safe_open(processor_info_file, 'r') as f:
+            for processor in f:
+                all_processors.add(processor)
+    self._write_processor_info(processor_info_file, all_processors)

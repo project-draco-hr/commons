@@ -1,9 +1,0 @@
-def _compute_classes_by_source(self, depfile=None):
-    'Compute src->classes.'
-    if (depfile is None):
-        depfile = self._depfile
-    if (not os.path.exists(depfile)):
-        return {}
-    deps = Dependencies(self._classes_dir)
-    deps.load(depfile)
-    return deps.classes_by_source

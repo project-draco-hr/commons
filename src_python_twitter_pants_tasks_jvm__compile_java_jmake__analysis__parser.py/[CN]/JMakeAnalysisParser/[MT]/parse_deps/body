@@ -1,0 +1,19 @@
+def parse_deps(self, infile, classpath_indexer):
+    buildroot = get_buildroot()
+    classpath_elements_by_class = classpath_indexer()
+    self._expect_header(infile.readline(), 'pcd entries')
+    num_pcd_entries = self._parse_num_items(infile.readline())
+    for _ in xrange(0, num_pcd_entries):
+        infile.readline()
+    src_to_deps = self._parse_deps_at_position(infile)
+    ret = defaultdict(set)
+    for (src, deps) in src_to_deps.items():
+        for dep in deps:
+            rel_classfile = (dep + '.class')
+            classpath_element = classpath_elements_by_class.get(rel_classfile, None)
+            if classpath_element:
+                ret[src].add(classpath_element)
+            else:
+                classfile = os.path.join(buildroot, self._classes_dir, rel_classfile)
+                ret[src].add(classfile)
+    return ret

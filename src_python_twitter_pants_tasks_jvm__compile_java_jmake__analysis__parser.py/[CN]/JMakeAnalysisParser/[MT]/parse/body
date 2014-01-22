@@ -1,0 +1,12 @@
+def parse(self, infile):
+    self._expect_header(infile.readline(), 'pcd entries')
+    num_pcd_entries = self._parse_num_items(infile.readline())
+    pcd_entries = []
+    for i in xrange(0, num_pcd_entries):
+        line = infile.readline()
+        tpl = line.split('\t')
+        if (len(tpl) != 5):
+            raise ParseError(('Line must contain 5 tab-separated fields: %s' % line))
+        pcd_entries.append(tpl)
+    src_to_deps = self._parse_deps_at_position(infile)
+    return JMakeAnalysis(pcd_entries, src_to_deps)

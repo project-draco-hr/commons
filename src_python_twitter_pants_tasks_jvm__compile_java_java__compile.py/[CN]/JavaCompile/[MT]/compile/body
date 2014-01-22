@@ -1,0 +1,12 @@
+def compile(self, args, classpath, sources, classes_output_dir, analysis_file):
+    jmake_classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._jmake_bootstrap_key, self.runjava_indivisible)
+    args = ['-classpath', ':'.join((classpath + [self._classes_dir])), '-d', self._classes_dir, '-pdb', analysis_file, '-pdb-text-format']
+    compiler_classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._compiler_bootstrap_key, self.runjava_indivisible)
+    args.extend(['-jcpath', ':'.join(compiler_classpath), '-jcmainclass', 'com.twitter.common.tools.Compiler'])
+    args.extend(map((lambda arg: ('-C%s' % arg)), self._javac_opts))
+    args.extend(self._args)
+    args.extend(sources)
+    result = self.runjava_indivisible(JavaCompile._JMAKE_MAIN, classpath=jmake_classpath, jvm_options=self._jvm_options, args=args, workunit_name='jmake', workunit_labels=[WorkUnit.COMPILER])
+    if (result != 0):
+        default_message = ('Unexpected error - JMake returned %d' % result)
+        raise TaskError(_JMAKE_ERROR_CODES.get(result, default_message))

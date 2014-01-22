@@ -1,0 +1,22 @@
+def split(self, splits, catchall=False):
+    buildroot = get_buildroot()
+    src_to_split_idx = {}
+    for (i, split) in enumerate(splits):
+        for s in split:
+            src_to_split_idx[(s if os.path.isabs(s) else os.path.join(buildroot, s))] = i
+    num_outputs = ((len(splits) + 1) if catchall else len(splits))
+    catchall_idx = (len(splits) if catchall else (-1))
+    split_pcd_entries = []
+    split_src_to_deps = []
+    for _ in xrange(0, num_outputs):
+        split_pcd_entries.append([])
+        split_src_to_deps.append({})
+    for pcd_entry in self.pcd_entries:
+        split_idx = src_to_split_idx.get(pcd_entry[1], catchall_idx)
+        if (split_idx != (-1)):
+            split_pcd_entries[split_idx].append(pcd_entry)
+    for (src, deps) in self.src_to_deps.items():
+        split_idx = src_to_split_idx.get(src, catchall_idx)
+        if (split_idx != (-1)):
+            split_src_to_deps[split_idx][src] = deps
+    return [JMakeAnalysis(x, y) for (x, y) in zip(split_pcd_entries, split_src_to_deps)]
