@@ -1,0 +1,3 @@
+def extra_classpath_elements(self):
+    'Extra classpath elements common to all compiler invocations.\n\n    E.g., jars for compiler plugins.\n    '
+    return []

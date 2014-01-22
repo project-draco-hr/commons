@@ -1,0 +1,3 @@
+def compile(self, args, classpath, sources, classes_output_dir, analysis_file):
+    'Invoke the compiler.\n\n    Must raise TaskError on compile failure.\n\n    Subclasses must implement.'
+    raise NotImplementedError()

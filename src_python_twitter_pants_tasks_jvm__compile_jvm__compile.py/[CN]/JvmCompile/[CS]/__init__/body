@@ -4,15 +4,19 @@ def __init__(self, context, workdir):
     config_section = concrete_class._config_section
 
     def get_lang_specific_option(opt):
-        full_opt_name = ((self.language() + '_') + opt)
+        full_opt_name = ((self._language + '_') + opt)
         return getattr(context.options, full_opt_name, None)
+    self._pants_workdir = context.config.getdefault('pants_workdir')
     workdir = context.config.get(config_section, 'workdir')
     self._classes_dir = os.path.join(workdir, 'classes')
     self._resources_dir = os.path.join(workdir, 'resources')
     self._analysis_dir = os.path.join(workdir, 'analysis')
     safe_mkdir(self._classes_dir)
     safe_mkdir(self._analysis_dir)
+    self._analysis_file = os.path.join(self._analysis_dir, 'global_analysis.valid')
+    self._invalid_analysis_file = os.path.join(self._analysis_dir, 'global_analysis.invalid')
     self._analysis_tmpdir = os.path.join(self._analysis_dir, 'artifact_cache_tmpdir')
+    self._lazy_analysis_tools = None
     self._args = context.config.getlist(config_section, 'args')
     if get_lang_specific_option('compile_warnings'):
         self._args.extend(context.config.getlist(config_section, 'warning_args'))
@@ -33,5 +37,7 @@ def __init__(self, context, workdir):
         self._dep_analyzer = JvmDependencyAnalyzer(self.context, check_missing_deps, check_missing_direct_deps, check_unnecessary_deps)
     else:
         self._dep_analyzer = None
+    self._class_to_jarfile = None
     self.context.products.require_data('exclusives_groups')
     self.setup_artifact_cache_from_config(config_section=config_section)
+    self._deleted_sources = None

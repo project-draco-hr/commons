@@ -1,0 +1,16 @@
+def find_all_bootstrap_jars(self):
+
+    def get_path(key):
+        return self.context.java_sysprops.get(key, '').split(':')
+
+    def find_jars_in_dirs(dirs):
+        ret = []
+        for d in dirs:
+            if os.path.isdir(d):
+                ret.extend(filter((lambda s: s.endswith('.jar')), os.listdir(d)))
+        return ret
+    boot_classpath = get_path('sun.boot.class.path')
+    override_jars = find_jars_in_dirs(get_path('java.endorsed.dirs'))
+    extension_jars = find_jars_in_dirs(get_path('java.ext.dirs'))
+    bootstrap_jars = filter(os.path.isfile, ((override_jars + boot_classpath) + extension_jars))
+    return bootstrap_jars
