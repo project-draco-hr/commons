@@ -1,6 +1,0 @@
-@staticmethod
-def _find_repeated_at_header(lines_iter, header):
-    header_line = (header + ':\n')
-    while (lines_iter.next() != header_line):
-        pass
-    return Util.parse_section(lines_iter, expected_header=None)

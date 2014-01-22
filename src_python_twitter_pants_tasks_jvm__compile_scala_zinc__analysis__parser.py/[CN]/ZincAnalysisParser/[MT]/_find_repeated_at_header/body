@@ -1,0 +1,5 @@
+def _find_repeated_at_header(self, lines_iter, header):
+    header_line = (header + ':\n')
+    while (lines_iter.next() != header_line):
+        pass
+    return self._parse_section(lines_iter, expected_header=None)

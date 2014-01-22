@@ -1,4 +1,0 @@
-@staticmethod
-def parse_multiple_sections(lines_iter, expected_headers):
-    'Parse multiple sections.'
-    return [Util.parse_section(lines_iter, header) for header in expected_headers]

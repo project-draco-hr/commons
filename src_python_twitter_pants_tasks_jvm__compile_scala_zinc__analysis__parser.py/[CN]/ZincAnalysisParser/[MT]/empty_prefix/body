@@ -1,0 +1,2 @@
+def empty_prefix(self):
+    return 'products:\n0 items\n'

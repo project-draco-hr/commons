@@ -1,0 +1,2 @@
+def extra_classpath_elements(self):
+    return self._zinc_utils.plugin_jars()

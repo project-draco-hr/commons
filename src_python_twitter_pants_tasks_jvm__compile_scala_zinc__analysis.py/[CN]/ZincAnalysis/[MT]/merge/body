@@ -1,0 +1,48 @@
+@classmethod
+def merge(cls, analyses):
+    src_prod = ZincAnalysis.merge_dicts([a.relations.src_prod for a in analyses])
+    binary_dep = ZincAnalysis.merge_dicts([a.relations.binary_dep for a in analyses])
+    classes = ZincAnalysis.merge_dicts([a.relations.classes for a in analyses])
+    used = ZincAnalysis.merge_dicts([a.relations.used for a in analyses])
+    class_to_source = dict(((v, k) for (k, vs) in classes.iteritems() for v in vs))
+
+    def merge_dependencies(internals, externals):
+        internal = ZincAnalysis.merge_dicts(internals)
+        naive_external = ZincAnalysis.merge_dicts(externals)
+        external = defaultdict(list)
+        for (k, vs) in naive_external.iteritems():
+            for v in vs:
+                vfile = class_to_source.get(v)
+                if (vfile and (vfile in src_prod)):
+                    internal[k].append(vfile)
+                else:
+                    external[k].append(v)
+        return (internal, external)
+    (internal, external) = merge_dependencies([a.relations.internal_src_dep for a in analyses], [a.relations.external_dep for a in analyses])
+    (internal_pi, external_pi) = merge_dependencies([a.relations.internal_src_dep_pi for a in analyses], [a.relations.external_dep_pi for a in analyses])
+    (member_ref_internal, member_ref_external) = merge_dependencies([a.relations.member_ref_internal_dep for a in analyses], [a.relations.member_ref_external_dep for a in analyses])
+    (inheritance_internal, inheritance_external) = merge_dependencies([a.relations.inheritance_internal_dep for a in analyses], [a.relations.inheritance_external_dep for a in analyses])
+    relations = Relations((src_prod, binary_dep, internal, external, internal_pi, external_pi, member_ref_internal, member_ref_external, inheritance_internal, inheritance_external, classes, used))
+    products = ZincAnalysis.merge_dicts([a.stamps.products for a in analyses])
+    sources = ZincAnalysis.merge_dicts([a.stamps.sources for a in analyses])
+    binaries = ZincAnalysis.merge_dicts([a.stamps.binaries for a in analyses])
+    classnames = ZincAnalysis.merge_dicts([a.stamps.classnames for a in analyses])
+    stamps = Stamps((products, sources, binaries, classnames))
+    internal_apis = ZincAnalysis.merge_dicts([a.apis.internal for a in analyses])
+    naive_external_apis = ZincAnalysis.merge_dicts([a.apis.external for a in analyses])
+    external_apis = defaultdict(list)
+    for (k, vs) in naive_external_apis.iteritems():
+        kfile = class_to_source[k]
+        if (kfile in src_prod):
+            internal_apis[kfile] = vs
+        else:
+            external_apis[k] = vs
+    apis = APIs((internal_apis, external_apis))
+    source_infos = SourceInfos((ZincAnalysis.merge_dicts([a.source_infos.source_infos for a in analyses]),))
+    compilation_vals = sorted(set([x[0] for a in analyses for x in a.compilations.compilations.itervalues()]))
+    compilations_dict = defaultdict(list)
+    for (i, v) in enumerate(compilation_vals):
+        compilations_dict[('%03d' % i)] = [v]
+    compilations = Compilations((compilations_dict,))
+    compile_setup = (analyses[0].compile_setup if (len(analyses) > 0) else CompileSetup((defaultdict(list),)))
+    return ZincAnalysis(relations, stamps, apis, source_infos, compilations, compile_setup)

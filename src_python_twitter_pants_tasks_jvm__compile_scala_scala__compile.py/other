@@ -1,0 +1,6 @@
+from twitter.pants.targets.scala_library import ScalaLibrary
+from twitter.pants.tasks.jvm_compile.analysis_tools import AnalysisTools
+from twitter.pants.tasks.jvm_compile.jvm_compile import JvmCompile
+from twitter.pants.tasks.jvm_compile.scala.zinc_analysis import ZincAnalysis
+from twitter.pants.tasks.jvm_compile.scala.zinc_analysis_parser import ZincAnalysisParser
+from twitter.pants.tasks.jvm_compile.scala.zinc_utils import ZincUtils

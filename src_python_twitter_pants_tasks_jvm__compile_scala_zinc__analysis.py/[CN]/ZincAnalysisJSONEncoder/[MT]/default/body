@@ -1,0 +1,8 @@
+def default(self, obj):
+    if isinstance(obj, ZincAnalysisElement):
+        ret = {}
+        for (h, a) in zip(obj.__class__.headers, obj.args):
+            ret[h] = a
+        return ret
+    else:
+        super(ZincAnalysisJSONEncoder, self).default(obj)

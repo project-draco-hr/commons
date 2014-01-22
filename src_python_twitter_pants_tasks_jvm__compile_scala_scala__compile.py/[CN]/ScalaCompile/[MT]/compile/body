@@ -1,0 +1,3 @@
+def compile(self, args, classpath, sources, classes_output_dir, analysis_file):
+    upstream = {classes_output_dir: self._analysis_file, }
+    return self._zinc_utils.compile(args, classpath, sources, classes_output_dir, analysis_file, upstream)

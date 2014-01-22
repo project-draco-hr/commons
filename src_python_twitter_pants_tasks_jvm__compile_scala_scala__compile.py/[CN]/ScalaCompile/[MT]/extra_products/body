@@ -1,0 +1,6 @@
+def extra_products(self, target):
+    ret = []
+    if (target.is_scalac_plugin and target.classname):
+        (basedir, info_file) = ZincUtils.write_plugin_info(self._resources_dir, target)
+        ret.append((basedir, [info_file]))
+    return ret

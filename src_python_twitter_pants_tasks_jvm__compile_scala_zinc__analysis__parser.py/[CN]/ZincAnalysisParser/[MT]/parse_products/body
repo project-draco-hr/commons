@@ -1,0 +1,4 @@
+def parse_products(self, infile):
+    'An efficient parser of just the products section.'
+    self._verify_version(infile)
+    return self._find_repeated_at_header(infile, 'products')

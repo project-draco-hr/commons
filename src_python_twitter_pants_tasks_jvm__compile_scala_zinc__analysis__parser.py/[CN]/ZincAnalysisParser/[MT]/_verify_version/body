@@ -1,0 +1,4 @@
+def _verify_version(self, lines_iter):
+    version_line = lines_iter.next()
+    if (version_line != ZincAnalysis.FORMAT_VERSION_LINE):
+        raise ParseError(('Unrecognized version line: ' + version_line))

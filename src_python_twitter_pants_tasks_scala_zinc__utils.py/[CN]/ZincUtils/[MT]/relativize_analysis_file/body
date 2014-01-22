@@ -1,6 +1,0 @@
-def relativize_analysis_file(self, src, dst):
-    with temporary_dir() as tmp_analysis_dir:
-        tmp_analysis_file = os.path.join(tmp_analysis_dir, 'analysis.relativized')
-        rebasings = [(self._java_home, None), (self._ivy_home, ZincUtils.IVY_HOME_PLACEHOLDER), (self._pants_home, ZincUtils.PANTS_HOME_PLACEHOLDER)]
-        Analysis.rebase(src, tmp_analysis_file, rebasings)
-        shutil.move(tmp_analysis_file, dst)

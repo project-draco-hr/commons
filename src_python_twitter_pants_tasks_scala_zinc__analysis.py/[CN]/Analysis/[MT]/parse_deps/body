@@ -1,8 +1,0 @@
-@staticmethod
-def parse_deps(infile):
-    'An efficient parser of just the binary, source and external deps sections.\n\n    Returns a dict of src -> list of deps, where each item in deps is either a binary dep,\n    source dep or external dep, i.e., either a source file, a class file or a jar file.\n\n    All paths are absolute.\n    '
-    Analysis._verify_version(infile)
-    bin_deps = Analysis._find_repeated_at_header(infile, 'binary dependencies')
-    src_deps = Analysis._find_repeated_at_header(infile, 'direct source dependencies')
-    ext_deps = Analysis._find_repeated_at_header(infile, 'direct external dependencies')
-    return Util.merge_dicts([bin_deps, src_deps, ext_deps])

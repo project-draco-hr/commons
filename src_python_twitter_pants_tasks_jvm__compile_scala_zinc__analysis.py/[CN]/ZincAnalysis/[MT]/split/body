@@ -1,0 +1,65 @@
+def split(self, splits, catchall=False):
+    buildroot = get_buildroot()
+    splits = [set([(s if os.path.isabs(s) else os.path.join(buildroot, s)) for s in x]) for x in splits]
+    if catchall:
+        remainder_sources = set(self.stamps.sources.keys()).difference(*splits)
+        splits.append(remainder_sources)
+    src_prod_splits = self._split_dict(self.relations.src_prod, splits)
+    binary_dep_splits = self._split_dict(self.relations.binary_dep, splits)
+    classes_splits = self._split_dict(self.relations.classes, splits)
+    representatives = dict(((k, min(vs)) for (k, vs) in self.relations.classes.iteritems()))
+
+    def split_dependencies(all_internal, all_external):
+        naive_internals = self._split_dict(all_internal, splits)
+        naive_externals = self._split_dict(all_external, splits)
+        internals = []
+        externals = []
+        for (naive_internal, external, split) in zip(naive_internals, naive_externals, splits):
+            internal = defaultdict(list)
+            for (k, vs) in naive_internal.iteritems():
+                for v in vs:
+                    if (v in split):
+                        internal[k].append(v)
+                    else:
+                        external[k].append(representatives[v])
+            internals.append(internal)
+            externals.append(external)
+        return (internals, externals)
+    (internal_splits, external_splits) = split_dependencies(self.relations.internal_src_dep, self.relations.external_dep)
+    (internal_pi_splits, external_pi_splits) = split_dependencies(self.relations.internal_src_dep_pi, self.relations.external_dep_pi)
+    (member_ref_internal_splits, member_ref_external_splits) = split_dependencies(self.relations.member_ref_internal_dep, self.relations.member_ref_external_dep)
+    (inheritance_internal_splits, inheritance_external_splits) = split_dependencies(self.relations.inheritance_internal_dep, self.relations.inheritance_external_dep)
+    used_splits = self._split_dict(self.relations.used, splits)
+    relations_splits = []
+    for args in zip(src_prod_splits, binary_dep_splits, internal_splits, external_splits, internal_pi_splits, external_pi_splits, member_ref_internal_splits, member_ref_external_splits, inheritance_internal_splits, inheritance_external_splits, classes_splits, used_splits):
+        relations_splits.append(Relations(args))
+    stamps_splits = []
+    for (src_prod, binary_dep, split) in zip(src_prod_splits, binary_dep_splits, splits):
+        products_set = set(itertools.chain(*src_prod.values()))
+        binaries_set = set(itertools.chain(*binary_dep.values()))
+        products = dict(((k, v) for (k, v) in self.stamps.products.iteritems() if (k in products_set)))
+        sources = dict(((k, v) for (k, v) in self.stamps.sources.iteritems() if (k in split)))
+        binaries = dict(((k, v) for (k, v) in self.stamps.binaries.iteritems() if (k in binaries_set)))
+        classnames = dict(((k, v) for (k, v) in self.stamps.classnames.iteritems() if (k in binaries_set)))
+        stamps_splits.append(Stamps((products, sources, binaries, classnames)))
+    naive_internal_api_splits = self._split_dict(self.apis.internal, splits)
+    naive_external_api_splits = self._split_dict(self.apis.external, splits)
+    internal_api_splits = []
+    external_api_splits = []
+    for (naive_internal_apis, external_apis, split) in zip(naive_internal_api_splits, naive_external_api_splits, splits):
+        internal_apis = defaultdict(list)
+        for (k, vs) in naive_internal_apis.iteritems():
+            if (k in split):
+                internal_apis[k] = vs
+            else:
+                external_apis[representatives[k]] = vs
+        internal_api_splits.append(internal_apis)
+        external_api_splits.append(external_apis)
+    apis_splits = []
+    for args in zip(internal_api_splits, external_api_splits):
+        apis_splits.append(APIs(args))
+    source_info_splits = [SourceInfos((x,)) for x in self._split_dict(self.source_infos.source_infos, splits)]
+    analyses = []
+    for (relations, stamps, apis, source_infos) in zip(relations_splits, stamps_splits, apis_splits, source_info_splits):
+        analyses.append(ZincAnalysis(relations, stamps, apis, source_infos, self.compilations, self.compile_setup))
+    return analyses

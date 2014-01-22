@@ -1,3 +1,0 @@
-@classmethod
-def parse(cls, lines_iter):
-    return cls(Util.parse_multiple_sections(lines_iter, cls.headers))

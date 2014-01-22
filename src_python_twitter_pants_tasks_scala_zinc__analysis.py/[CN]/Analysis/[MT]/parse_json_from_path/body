@@ -1,5 +1,0 @@
-@staticmethod
-def parse_json_from_path(infile_path):
-    'Parse an Analysis instance from a JSON file.'
-    with open(infile_path, 'r') as infile:
-        return Analysis.parse_from_json(infile)

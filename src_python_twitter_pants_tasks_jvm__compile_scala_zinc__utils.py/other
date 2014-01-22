@@ -1,0 +1,13 @@
+import os
+import textwrap
+from contextlib import closing
+from itertools import chain
+from xml.etree import ElementTree
+from twitter.common.collections import OrderedDict
+from twitter.common.contextutil import open_zip as open_jar
+from twitter.common.dirutil import safe_open
+from twitter.pants.base.build_environment import get_buildroot
+from twitter.pants.base.hash_utils import hash_file
+from twitter.pants.base.workunit import WorkUnit
+from twitter.pants.tasks import TaskError
+_PLUGIN_INFO_FILE = 'scalac-plugin.xml'

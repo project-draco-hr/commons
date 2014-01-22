@@ -1,8 +1,0 @@
-def __init__(self, context):
-    JvmCompile.__init__(self, context, workdir=context.config.get('scala-compile', 'nailgun_dir'))
-    color = (not context.options.no_color)
-    self._zinc_utils = ZincUtils(context=context, nailgun_task=self, jvm_options=self._jvm_options, color=color, jvm_tool_bootstrapper=self._jvm_tool_bootstrapper)
-    self._analysis_file = os.path.join(self._analysis_dir, 'global_analysis.valid')
-    self._invalid_analysis_file = os.path.join(self._analysis_dir, 'global_analysis.invalid')
-    self._inject_java_cycles()
-    self._deleted_sources = None
