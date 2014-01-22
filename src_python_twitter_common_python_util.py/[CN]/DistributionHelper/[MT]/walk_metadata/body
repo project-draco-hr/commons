@@ -1,0 +1,10 @@
+@staticmethod
+def walk_metadata(dist, path='/'):
+    'yields filename, content for files identified as metadata in the distribution'
+    for rel_fn in filter(None, dist.metadata_listdir(path)):
+        full_fn = os.path.join(path, rel_fn)
+        if dist.metadata_isdir(full_fn):
+            for (fn, content) in DistributionHelper.walk_metadata(dist, full_fn):
+                yield (fn, content)
+        else:
+            yield (os.path.join('EGG-INFO', full_fn[1:]), to_bytes(dist.get_metadata(full_fn)))
