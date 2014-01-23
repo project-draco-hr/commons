@@ -1,7 +1,0 @@
-def split(self, splits):
-    'Split dep information out of this object.\n\n    splits: a list of pairs (srcs, path) where srcs is a list of files (relative to the build root)\n            whose deps info is to be written to path.\n    '
-    for (srcs, path) in splits:
-        dst_deps = Dependencies(self.outputdir)
-        for src in srcs:
-            dst_deps.add(src, self.classes_by_source.get(src, set()))
-        dst_deps.save(path)
