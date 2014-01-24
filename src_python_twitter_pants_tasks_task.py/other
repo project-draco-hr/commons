@@ -6,6 +6,7 @@ import sys
 import threading
 from contextlib import contextmanager
 from twitter.common.collections.orderedset import OrderedSet
+from twitter.common.dirutil import safe_mkdir
 from twitter.pants import Config
 from twitter.pants.base.worker_pool import Work
 from twitter.pants.cache import create_artifact_cache
