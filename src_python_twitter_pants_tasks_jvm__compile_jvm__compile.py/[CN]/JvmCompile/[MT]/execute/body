@@ -18,7 +18,7 @@ def execute(self, targets):
             for tgt in invalid_targets:
                 invalid_sources_by_target[tgt] = sources_by_target[tgt]
             invalid_sources = list(itertools.chain.from_iterable(invalid_sources_by_target.values()))
-            deleted_sources = self._get_deleted_sources()
+            deleted_sources = self._deleted_sources()
             self._ensure_analysis_tmpdir()
             tmpdir = os.path.join(self._analysis_tmpdir, str(uuid.uuid4()))
             os.mkdir(tmpdir)
@@ -34,9 +34,8 @@ def execute(self, targets):
                         invalid_analysis_tmp = newly_invalid_analysis_tmp
                     shutil.move(valid_analysis_tmp, self._analysis_file)
                     shutil.move(invalid_analysis_tmp, self._invalid_analysis_file)
-            if self.context.products.isrequired('classes'):
-                valid_targets = list((set(relevant_targets) - set(invalid_targets)))
-                self._add_products_to_genmap(valid_targets, sources_by_target, self._analysis_file)
+            valid_targets = list((set(relevant_targets) - set(invalid_targets)))
+            self._register_products(valid_targets, sources_by_target, self._analysis_file)
             partitions = []
             for vts in invalidation_check.invalid_vts_partitioned:
                 partition_tmpdir = os.path.join(tmpdir, Target.maybe_readable_identify(vts.targets))
@@ -60,8 +59,7 @@ def execute(self, targets):
                     else:
                         shutil.copy(analysis_file, new_valid_analysis)
                     shutil.move(new_valid_analysis, self._analysis_file)
-                    if self.context.products.isrequired('classes'):
-                        self._add_products_to_genmap(vts.targets, sources_by_target, analysis_file)
+                    self._register_products(vts.targets, sources_by_target, analysis_file)
                     if self._dep_analyzer:
                         self._dep_analyzer.update(vts.targets)
                         actual_deps = self._analysis_parser.parse_deps_from_path(analysis_file, (lambda : self._compute_classpath_elements_by_class(cp_entries)))
@@ -76,8 +74,8 @@ def execute(self, targets):
                         self._analysis_tools.split_to_paths(self._invalid_analysis_file, [(sources, discarded_invalid_analysis)], new_invalid_analysis)
                         shutil.move(new_invalid_analysis, self._invalid_analysis_file)
                 vts.update()
-        elif self.context.products.isrequired('classes'):
-            self._add_products_to_genmap(relevant_targets, sources_by_target, self._analysis_file)
+        else:
+            self._register_products(relevant_targets, sources_by_target, self._analysis_file)
     for conf in self._confs:
         egroups.update_compatible_classpaths(group_id, [(conf, self._classes_dir)])
     self.post_process(relevant_targets)

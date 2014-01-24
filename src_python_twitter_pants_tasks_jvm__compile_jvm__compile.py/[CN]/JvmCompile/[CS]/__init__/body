@@ -40,4 +40,4 @@ def __init__(self, context, workdir):
     self._class_to_jarfile = None
     self.context.products.require_data('exclusives_groups')
     self.setup_artifact_cache_from_config(config_section=config_section)
-    self._deleted_sources = None
+    self._lazy_deleted_sources = None

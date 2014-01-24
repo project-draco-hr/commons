@@ -1,4 +1,5 @@
 def _compute_sources_by_target(self, targets):
+    'Returns map target -> list of sources (relative to buildroot).'
 
     def calculate_sources(target):
         sources = [s for s in target.sources_relative_to_buildroot() if s.endswith(self._file_suffix)]

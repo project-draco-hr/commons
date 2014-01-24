@@ -1,4 +1,4 @@
 def parse_products_from_path(self, infile_path):
-    'An efficient parser of just the src->class mappings.'
+    'An efficient parser of just the src->class mappings.\n\n    Returns a map of src -> list of classfiles. All paths are absolute.\n    '
     with open(infile_path, 'r') as infile:
         return self.parse_products(infile)

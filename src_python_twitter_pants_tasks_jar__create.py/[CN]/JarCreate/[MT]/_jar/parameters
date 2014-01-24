@@ -1,4 +1,3 @@
 self
 jvm_targets
-genmap
 add_genjar
