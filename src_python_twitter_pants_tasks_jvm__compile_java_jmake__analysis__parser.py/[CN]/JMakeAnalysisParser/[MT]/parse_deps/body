@@ -14,6 +14,6 @@ def parse_deps(self, infile, classpath_indexer):
             if classpath_element:
                 ret[src].add(classpath_element)
             else:
-                classfile = os.path.join(buildroot, self._classes_dir, rel_classfile)
+                classfile = os.path.join(buildroot, self.classes_dir, rel_classfile)
                 ret[src].add(classfile)
     return ret
