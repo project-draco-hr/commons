@@ -1,6 +1,0 @@
-@property
-def _transitive_deps_by_target(self):
-    'Compute the transitive_deps_by_target mapping from all targets in-play for this pants run.\n\n    Memoizes for efficiency. Should only be called after codegen, so that all synthetic targets\n    and injected deps are taken into account.\n    '
-    if (self._lazy_transitive_deps_by_target is None):
-        self._lazy_transitive_deps_by_target = self._compute_transitive_deps_by_target()
-    return self._lazy_transitive_deps_by_target

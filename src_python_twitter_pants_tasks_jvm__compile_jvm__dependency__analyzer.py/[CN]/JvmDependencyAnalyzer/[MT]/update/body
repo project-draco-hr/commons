@@ -1,3 +1,0 @@
-def update(self, targets):
-    'Trigger an update of the latest classfile mappings for the specified targets.\n\n    Call this after compiling those targets.\n    '
-    self._update_target_classfile_mappings(self._targets_by_file, targets)

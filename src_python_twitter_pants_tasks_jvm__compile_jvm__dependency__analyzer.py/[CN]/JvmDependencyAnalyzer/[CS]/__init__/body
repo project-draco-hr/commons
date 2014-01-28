@@ -5,5 +5,3 @@ def __init__(self, context, check_missing_deps, check_missing_direct_deps, check
     self._check_missing_deps = check_missing_deps
     self._check_missing_direct_deps = check_missing_direct_deps
     self._check_unnecessary_deps = check_unnecessary_deps
-    self._lazy_targets_by_file = None
-    self._lazy_transitive_deps_by_target = None

@@ -1,4 +1,5 @@
 def _compute_transitive_deps_by_target(self):
+    'Map from target to all the targets it depends on, transitively.'
     sorted_targets = reversed(InternalTarget.sort_targets(self._context.targets()))
     transitive_deps_by_target = defaultdict(set)
     for target in sorted_targets:
