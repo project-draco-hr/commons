@@ -5,5 +5,6 @@ def __init__(self, context):
     self.zip64 = (context.options.binary_create_zip64 or context.config.getbool('binary-create', 'zip64', default=False))
     self.deployjar = context.options.jvm_binary_create_deployjar
     context.products.require('jars', predicate=self.is_binary)
+    context.products.require('classes', predicate=self.is_binary)
     if self.deployjar:
         self.require_jar_dependencies()
