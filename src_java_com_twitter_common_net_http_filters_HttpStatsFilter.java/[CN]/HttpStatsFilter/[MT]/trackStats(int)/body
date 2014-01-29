@@ -14,5 +14,5 @@
     LOG.fine("The method that handled this request (" + method.getDeclaringClass() + "#"+ method.getName()+ ") is not annotated with "+ TrackRequestStats.class.getSimpleName()+ ". No request stats will recorded.");
     return;
   }
-  requestCounters.getUnchecked(Pair.of(trackRequestStats.identifier(),status)).accumulate(elapsed);
+  requestCounters.getUnchecked(Pair.of(trackRequestStats.value(),status)).accumulate(elapsed);
 }
