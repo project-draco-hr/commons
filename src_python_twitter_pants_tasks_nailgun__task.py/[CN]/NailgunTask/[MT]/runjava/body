@@ -1,6 +1,7 @@
 def runjava(self, classpath, main, args=None, jvm_args=None, workunit_name=None, workunit_labels=None):
     'Runs the java main using the given classpath and args.\n\n    If --no-ng-daemons is specified then the java main is run in a freshly spawned subprocess,\n    otherwise a persistent nailgun server dedicated to this Task subclass is used to speed up\n    amortized run times.\n    '
+    executor = self.create_java_executor()
     try:
-        return util.execute_java(classpath, main, args=args, jvm_args=jvm_args, executor=self.java_executor, workunit_factory=self.context.new_workunit, workunit_name=workunit_name, workunit_labels=workunit_labels)
-    except self._java.Error as e:
+        return util.execute_java(classpath, main, args=args, jvm_args=jvm_args, executor=executor, workunit_factory=self.context.new_workunit, workunit_name=workunit_name, workunit_labels=workunit_labels)
+    except executor.Error as e:
         raise TaskError(e)

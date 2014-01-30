@@ -9,8 +9,6 @@ def execute(self, targets):
     for target in gentargets:
         partial_cmd = self.PartialCmd(compiler=self.compiler_for_name[target.compiler], language=target.language, rpc_style=target.rpc_style, namespace_map=(tuple(target.namespace_map.items()) if target.namespace_map else ()))
         partial_cmds[partial_cmd].add(target)
-    for partial_cmd in partial_cmds:
-        self.profile_classpath(partial_cmd.compiler.profile)
     for (partial_cmd, tgts) in partial_cmds.items():
         gen_files_for_source = self.gen(partial_cmd, tgts)
         outdir = partial_cmd.outdir

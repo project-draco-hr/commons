@@ -1,15 +1,11 @@
 def __init__(self, context, minimum_version=None, jdk=False):
     super(NailgunTask, self).__init__(context)
-    workdir = os.path.join(context.config.get('nailgun', 'workdir'), self.__class__.__name__)
+    self._workdir = os.path.join(context.config.get('nailgun', 'workdir'), self.__class__.__name__)
+    self._nailgun_bootstrap_key = 'nailgun'
+    self._jvm_tool_bootstrapper.register_jvm_tool(self._nailgun_bootstrap_key, [':nailgun-server'])
     start = time.time()
     try:
         self._dist = Distribution.cached(minimum_version=minimum_version, jdk=jdk)
         context.log.debug(('Located java distribution in %.3fs' % (time.time() - start)))
     except Distribution.Error as e:
         raise TaskError(e)
-    if context.options.nailgun_daemon:
-        nailgun_profile = context.config.get('nailgun', 'profile', default='nailgun')
-        classpath = self.profile_classpath(nailgun_profile)
-        self._java = NailgunExecutor(workdir, classpath, distribution=self._dist)
-    else:
-        self._java = SubprocessExecutor(self._dist)

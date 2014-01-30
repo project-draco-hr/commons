@@ -1,6 +1,0 @@
-def profile_classpath(self, profile):
-    "Ensures the classpath for the given profile ivy.xml is available and returns it as a list of\n    paths.\n\n    If the classpath has changed since the last check for this profile this Task's build cache is\n    invalidated.\n\n    profile: The name of the tool profile classpath to ensure.\n    "
-    (updated, classpath) = profile_cp(profile, java_executor=SubprocessExecutor(self._dist), config=self.context.config)
-    if updated:
-        self.invalidate()
-    return classpath

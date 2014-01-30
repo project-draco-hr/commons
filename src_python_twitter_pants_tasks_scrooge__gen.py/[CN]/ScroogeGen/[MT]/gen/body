@@ -1,5 +1,5 @@
 def gen(self, partial_cmd, targets):
-    with self.invalidated(targets, invalidate_dependants=True) as invalidation_check:
+    with self.invalidated(targets, invalidate_dependents=True) as invalidation_check:
         invalid_targets = []
         for vt in invalidation_check.invalid_vts:
             invalid_targets.extend(vt.targets)

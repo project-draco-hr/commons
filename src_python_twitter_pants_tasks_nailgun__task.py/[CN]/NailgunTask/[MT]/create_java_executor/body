@@ -1,0 +1,8 @@
+def create_java_executor(self):
+    "Create java executor that uses this task's ng daemon, if allowed.\n\n    Call only in execute() or later. TODO: Enforce this.\n    "
+    if self.context.options.nailgun_daemon:
+        classpath = os.pathsep.join(self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._nailgun_bootstrap_key))
+        client = NailgunExecutor(self._workdir, classpath, distribution=self._dist)
+    else:
+        client = SubprocessExecutor(self._dist)
+    return client

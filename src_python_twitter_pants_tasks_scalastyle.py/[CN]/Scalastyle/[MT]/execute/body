@@ -24,7 +24,8 @@ def execute(self, targets):
     if scala_sources:
 
         def call(srcs):
-            return self.runjava(main=Scalastyle._MAIN, classpath=self.profile_classpath('scalastyle'), args=(['-c', self._scalastyle_config] + srcs))
+            cp = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._scalastyle_bootstrap_key)
+            return self.runjava(main=Scalastyle._MAIN, classpath=cp, args=(['-c', self._scalastyle_config] + srcs))
         result = Xargs(call).execute(scala_sources)
         if (result != 0):
             raise TaskError(('java %s ... exited non-zero (%i)' % (Scalastyle._MAIN, result)))
