@@ -1,0 +1,5 @@
+def parse(self, spec):
+    'Parses the given target spec into one or more targets.\n\n    Returns a generator of target, address pairs in which the target may be None if the address\n    points to a non-existent target.\n    '
+    for address in self._parse_addresses(spec):
+        target = Target.get(address)
+        yield (target, address)

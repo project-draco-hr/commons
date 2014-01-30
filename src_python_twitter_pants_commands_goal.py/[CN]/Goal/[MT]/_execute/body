@@ -1,0 +1,8 @@
+@staticmethod
+def _execute(context, phases, print_timing, force_stats_upload):
+    build_stats = None
+    if context.config.getdefault('stats_collection', bool, default=False):
+        user = context.config.getdefault('user')
+        build_stats = BuildTimeStats(user, force_stats_upload)
+    engine = GroupEngine(print_timing=print_timing, build_stats=build_stats)
+    return engine.execute(context, phases)

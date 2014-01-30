@@ -1,0 +1,3 @@
+def __init__(self, run_tracker, root_dir, parser, args):
+    self.targets = []
+    Command.__init__(self, run_tracker, root_dir, parser, args)

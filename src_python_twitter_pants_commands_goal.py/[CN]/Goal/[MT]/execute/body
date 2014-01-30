@@ -1,0 +1,8 @@
+@staticmethod
+def execute(context, *names):
+    parser = OptionParser()
+    phases = [Phase(name) for name in names]
+    Phase.setup_parser(parser, [], phases)
+    (options, _) = parser.parse_args([])
+    context = Context(context.config, options, context.target_roots, log=context.log)
+    return Goal._execute(context, phases, print_timing=False, force_stats_upload=False)

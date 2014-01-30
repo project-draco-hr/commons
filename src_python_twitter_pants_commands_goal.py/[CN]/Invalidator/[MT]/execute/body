@@ -1,0 +1,3 @@
+def execute(self, targets):
+    build_invalidator_dir = self.context.config.get('tasks', 'build_invalidator')
+    _cautious_rmtree(build_invalidator_dir)

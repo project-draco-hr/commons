@@ -1,5 +1,5 @@
 def test_locate(self):
-    with pytest.raises(ContextError):
+    with pytest.raises(ParseContext.ContextError):
         ParseContext.locate()
     with temporary_dir() as root_dir:
         a_context = ParseContext(create_buildfile(root_dir, 'a'))

@@ -1,5 +1,5 @@
-def resolve_target_sources(target_sources, extension=None, relative_to_target_base=False):
-    'Given a list of pants targets, extract their sources as a list.\n\n  Filters against the extension if given and optionally returns the paths relative to the target\n  base.\n  '
+def _resolve_target_sources(self, target_sources, extension=None, relative_to_target_base=False):
+    'Given a list of pants targets, extract their sources as a list.\n\n    Filters against the extension if given and optionally returns the paths relative to the target\n    base.\n    '
     resolved_sources = []
     for resolved in Target.resolve_all(target_sources):
         if hasattr(resolved, 'sources'):

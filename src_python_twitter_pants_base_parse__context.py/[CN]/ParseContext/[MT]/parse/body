@@ -8,6 +8,7 @@ def parse(self, **globalargs):
                 if (buildfile not in ParseContext._parsed):
                     ParseContext._parsed.add(buildfile)
                     buildfile_dir = os.path.dirname(buildfile.full_path)
+                    from twitter.pants.targets.sources import SourceRoot
 
 
                     class RelativeSourceRoot(object):

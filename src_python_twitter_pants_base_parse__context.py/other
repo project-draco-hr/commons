@@ -3,7 +3,7 @@ import copy
 import os
 from contextlib import contextmanager
 from twitter.common.lang import Compatibility
-from twitter.pants.targets import SourceRoot
 from .build_environment import get_buildroot
+from .build_file import BuildFile
 from .fileset import Fileset
-from . import BuildFile, Config
+from .config import Config

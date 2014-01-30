@@ -1,0 +1,2 @@
+def execute(self, targets):
+    NailgunTask.killall(self.context.log, everywhere=self.context.options.ng_killall_everywhere)

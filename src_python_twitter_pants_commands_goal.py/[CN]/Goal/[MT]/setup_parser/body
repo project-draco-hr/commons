@@ -1,0 +1,70 @@
+def setup_parser(self, parser, args):
+    self.config = Config.load()
+    Goal.add_global_options(parser)
+    if (not args):
+        args.append('goals')
+    if ((len(args) == 1) and (args[0] in set(['-h', '--help', 'help']))):
+
+        def format_usage(usages):
+            left_colwidth = 0
+            for (left, right) in usages:
+                left_colwidth = max(left_colwidth, len(left))
+            lines = []
+            for (left, right) in usages:
+                lines.append(('  %s%s%s' % (left, (' ' * ((left_colwidth - len(left)) + 1)), right)))
+            return '\n'.join(lines)
+        usages = [('%prog goal goals ([spec]...)', Phase('goals').description), ('%prog goal help [goal] ([spec]...)', Phase('help').description), ('%prog goal [goal] [spec]...', 'Attempt goal against one or more targets.'), ('%prog goal [goal] ([goal]...) -- [spec]...', 'Attempts all the specified goals.')]
+        parser.set_usage(('\n%s' % format_usage(usages)))
+        parser.epilog = 'Either lists all installed goals, provides extra help for a goal or else attempts to achieve the specified goal for the listed targets.\n                       Note that target specs accept two special forms:\n                         [dir]:  to include all targets in the specified directory\n                         [dir]:: to include all targets found in all BUILD files recursively under\n                                 the directory'
+        parser.print_help()
+        sys.exit(0)
+    else:
+        (goals, specs) = Goal.parse_args(args)
+        self.requested_goals = goals
+        with self.run_tracker.new_workunit(name='setup', labels=[WorkUnit.SETUP]):
+            with self.check_errors('The following bootstrap_buildfiles cannot be loaded:') as error:
+                with self.run_tracker.new_workunit(name='bootstrap', labels=[WorkUnit.SETUP]):
+                    for path in self.config.getlist('goals', 'bootstrap_buildfiles', default=[]):
+                        try:
+                            buildfile = BuildFile(get_buildroot(), os.path.relpath(path, get_buildroot()))
+                            ParseContext(buildfile).parse()
+                        except (TypeError, ImportError, TaskError, GoalError):
+                            error(path, include_traceback=True)
+                        except (IOError, SyntaxError):
+                            error(path)
+            self.run_tracker.run_info.add_scm_info()
+            spec_parser = SpecParser(self.root_dir)
+            with self.check_errors('The following targets could not be loaded:') as error:
+                with self.run_tracker.new_workunit(name='parse', labels=[WorkUnit.SETUP]):
+                    for spec in specs:
+                        try:
+                            for (target, address) in spec_parser.parse(spec):
+                                if target:
+                                    self.targets.append(target)
+                                    unused = list(target.resolve())
+                                else:
+                                    siblings = Target.get_all_addresses(address.buildfile)
+                                    prompt = ('did you mean' if (len(siblings) == 1) else 'maybe you meant one of these')
+                                    error(('%s => %s?:\n    %s' % (address, prompt, '\n    '.join((str(a) for a in siblings)))))
+                        except (TypeError, ImportError, TaskError, GoalError):
+                            error(spec, include_traceback=True)
+                        except (IOError, SyntaxError, TargetDefinitionException):
+                            error(spec)
+        self.phases = [Phase(goal) for goal in goals]
+        rcfiles = self.config.getdefault('rcfiles', type=list, default=[])
+        if rcfiles:
+            rcfile = RcFile(rcfiles, default_prepend=False, process_default=True)
+            sections = OrderedSet()
+            for phase in Engine.execution_order(self.phases):
+                for goal in phase.goals():
+                    sections.add(goal.name)
+                    for clazz in goal.task_type.mro():
+                        if (clazz == Task):
+                            break
+                        sections.add(('%s.%s' % (clazz.__module__, clazz.__name__)))
+            augmented_args = rcfile.apply_defaults(sections, args)
+            if (augmented_args != args):
+                del args[:]
+                args.extend(augmented_args)
+                sys.stderr.write(('(using pantsrc expansion: pants goal %s)\n' % ' '.join(augmented_args)))
+        Phase.setup_parser(parser, args, self.phases)

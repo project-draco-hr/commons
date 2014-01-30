@@ -1,7 +1,7 @@
 from collections import defaultdict, namedtuple
 from twitter.common import log
 from twitter.common.collections import OrderedDict, OrderedSet
-from twitter.pants import is_concrete, TaskError
 from twitter.pants.goal import Goal
 from twitter.pants.targets.internal import InternalTarget
+from twitter.pants.tasks import TaskError
 from .engine import Engine

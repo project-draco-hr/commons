@@ -1,8 +1,10 @@
-__author__ = 'John Sirois'
 import os
 import pytest
 import unittest
 from textwrap import dedent
 from twitter.common.contextutil import temporary_dir
 from twitter.common.dirutil import safe_mkdir
-from twitter.pants.base import Address, BuildFile, ContextError, ParseContext, Target
+from twitter.pants.base.address import Address
+from twitter.pants.base.build_file import BuildFile
+from twitter.pants.base.parse_context import ParseContext
+from twitter.pants.base.target import Target
