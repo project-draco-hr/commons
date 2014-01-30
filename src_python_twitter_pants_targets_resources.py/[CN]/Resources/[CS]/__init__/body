@@ -1,4 +1,4 @@
-def __init__(self, name, sources):
+def __init__(self, name, sources, exclusives=None):
     '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the resources\n      this library provides.\n    '
-    InternalTarget.__init__(self, name)
+    InternalTarget.__init__(self, name, dependencies=None, exclusives=exclusives)
     TargetWithSources.__init__(self, name, sources=sources)

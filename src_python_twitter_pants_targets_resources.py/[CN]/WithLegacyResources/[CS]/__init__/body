@@ -11,7 +11,7 @@ def __init__(self, name, sources=None, resources=None, exclusives=None):
         resources_seq = (resources if isinstance(resources, Sequence) else [resources])
         if all(map(is_resources, resources_seq)):
             self.resources = list(self.resolve_all(resources_seq, Resources))
-        elif all(map((lambda resource: (isinstance(resource, Fileset) or isinstance(resource, Compatibility.string))), resources_seq)):
+        elif all(map((lambda resource: isinstance(resource, (Fileset, Compatibility.string))), resources_seq)):
             sibling_resources_base = os.path.join(os.path.dirname(self.target_base), 'resources')
             base_relpath = os.path.relpath(self.address.buildfile.relpath, self.target_base)
             resources_dir = os.path.join(sibling_resources_base, base_relpath)

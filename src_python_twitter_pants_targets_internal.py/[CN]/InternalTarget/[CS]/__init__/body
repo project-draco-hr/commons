@@ -8,8 +8,8 @@ def __init__(self, name, dependencies, exclusives=None):
     self._dependencies = OrderedSet()
     self._internal_dependencies = OrderedSet()
     self._jar_dependencies = OrderedSet()
-    self._deps = dependencies
+    self._deps = self.processed_dependencies
     if dependencies:
-        maybe_list(dependencies, expected_type=(ExternalDependency, AnonymousDeps, Target), raise_type=partial(TargetDefinitionException, self))
+        maybe_list(self.processed_dependencies, expected_type=(ExternalDependency, AnonymousDeps, Target), raise_type=partial(TargetDefinitionException, self))
     self._post_construct(self.update_dependencies, self.processed_dependencies)
     self._post_construct(self.inject_dependencies)

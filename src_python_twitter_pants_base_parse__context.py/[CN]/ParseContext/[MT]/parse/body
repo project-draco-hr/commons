@@ -22,6 +22,6 @@ def parse(self, **globalargs):
                         def __init__(self, basedir, *allowed_target_types):
                             SourceRoot.register(os.path.join(buildfile_dir, basedir), *allowed_target_types)
                     eval_globals = copy.copy(pants_context)
-                    eval_globals.update({'ROOT_DIR': buildfile.root_dir, '__file__': buildfile.full_path, 'globs': Fileset.lazy_rel_globs(buildfile_dir), 'rglobs': Fileset.lazy_rel_rglobs(buildfile_dir), 'source_root': RelativeSourceRoot, })
+                    eval_globals.update({'ROOT_DIR': buildfile.root_dir, '__file__': buildfile.full_path, 'globs': partial(Fileset.globs, root=buildfile_dir), 'rglobs': partial(Fileset.rglobs, root=buildfile_dir), 'zglobs': partial(Fileset.zglobs, root=buildfile_dir), 'source_root': RelativeSourceRoot, })
                     eval_globals.update(globalargs)
                     Compatibility.exec_function(buildfile.code(), eval_globals)

@@ -1,9 +1,10 @@
 import collections
 import copy
 import os
+from functools import partial
 from contextlib import contextmanager
+from twitter.common.dirutil.fileset import Fileset
 from twitter.common.lang import Compatibility
 from .build_environment import get_buildroot
 from .build_file import BuildFile
-from .fileset import Fileset
 from .config import Config
