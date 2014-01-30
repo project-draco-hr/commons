@@ -1,0 +1,5 @@
+def sources_absolute_paths(self):
+    "Returns the absolute paths of this target's sources.\n\n    Prefer this over .sources unless you need to know about the target_base.\n    "
+    abs_target_base = os.path.join(get_buildroot(), self.target_base)
+    for src in self.sources:
+        yield os.path.join(abs_target_base, src)
