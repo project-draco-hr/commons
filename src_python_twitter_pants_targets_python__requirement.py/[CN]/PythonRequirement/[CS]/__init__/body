@@ -5,4 +5,4 @@ def __init__(self, requirement, name=None, repository=None, version_filter=None,
     self._use_2to3 = use_2to3
     self._version_filter = (version_filter or (lambda py, pl: True))
     self.compatibility = (compatibility or [''])
-    super(Target, self).__init__(self._name, exclusives=exclusives)
+    Target.__init__(self, self._name, exclusives=exclusives)

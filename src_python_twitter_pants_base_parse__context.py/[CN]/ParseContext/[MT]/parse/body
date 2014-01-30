@@ -5,6 +5,7 @@ def parse(self, **globalargs):
         pants_context = self.default_globals(Config.load())
         with ParseContext.activate(self):
             for buildfile in buildfile_family:
+                self._active_buildfile = buildfile
                 if (buildfile not in ParseContext._parsed):
                     ParseContext._parsed.add(buildfile)
                     buildfile_dir = os.path.dirname(buildfile.full_path)

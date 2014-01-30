@@ -1,0 +1,4 @@
+@property
+def current_buildfile(self):
+    ' This property return the current build file being parsed from all BUILD files co-located\n    with this BUILD file within the family.\n    '
+    return self._active_buildfile

@@ -1,7 +1,7 @@
 def _calculate_classpath(self, targets):
 
     def is_jardependant(target):
-        return (is_jar(target) or is_jvm(target))
+        return (target.is_jar or target.is_jvm)
     jars = OrderedDict()
     excludes = set()
 
@@ -11,13 +11,13 @@ def _calculate_classpath(self, targets):
         jars[coordinate] = (jar if (not existing) else self._resolve_conflict(existing=existing, proposed=jar))
 
     def collect_jars(target):
-        if is_jar(target):
+        if target.is_jar:
             add_jar(target)
         elif target.jar_dependencies:
             for jar in target.jar_dependencies:
                 if jar.rev:
                     add_jar(jar)
-        if (is_jvm(target) and target.excludes):
+        if (target.is_jvm and target.excludes):
             excludes.update(target.excludes)
     for target in targets:
         target.walk(collect_jars, is_jardependant)

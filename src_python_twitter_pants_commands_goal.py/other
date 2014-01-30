@@ -45,7 +45,6 @@ goal(name='targets', action=TargetsHelp).install().with_description('List all ta
 goal(name='help', action=Help).install().with_description('Provide help for the specified goal.')
 from twitter.pants.targets import JavaTests as junit_tests
 from twitter.pants.targets import Benchmark, JvmBinary
-from twitter.pants import junit_tests
 from twitter.pants.targets import Benchmark, JavaLibrary, JvmBinary, ScalacPlugin, ScalaLibrary, ScalaTests
 from twitter.pants.tasks.antlr_gen import AntlrGen
 from twitter.pants.tasks.benchmark_run import BenchmarkRun
