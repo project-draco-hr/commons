@@ -8,6 +8,7 @@ def _register(cls, source_root_dir, *allowed_target_types):
         abspath = os.path.normpath(os.path.join(buildroot, source_root_dir))
     if (not abspath.startswith(buildroot)):
         raise ValueError(('Source root %s is not under the build root %s' % (abspath, buildroot)))
+    source_root_dir = os.path.relpath(abspath, buildroot)
     types = cls._TYPES_BY_ROOT.get(source_root_dir)
     if (types is None):
         types = OrderedSet()
