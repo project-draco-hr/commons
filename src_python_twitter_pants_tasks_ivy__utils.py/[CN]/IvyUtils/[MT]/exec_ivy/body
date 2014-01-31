@@ -16,7 +16,7 @@ def exec_ivy(self, target_workdir, targets, args, ivy=None, workunit_name='ivy',
         os.symlink(src, dest)
     with IvyUtils.ivy_lock:
         self._generate_ivy(targets, jars, excludes, ivyxml)
-        runner = ivy.runner(args=ivy_args)
+        runner = ivy.runner(args=ivy_args, jvm_args=self._jvm_args)
         try:
             result = util.execute_runner(runner, workunit_factory=workunit_factory, workunit_name=workunit_name)
             if symlink_ivyxml:

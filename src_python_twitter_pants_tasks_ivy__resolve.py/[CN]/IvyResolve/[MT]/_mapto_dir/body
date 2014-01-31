@@ -1,3 +1,0 @@
-def _mapto_dir(self):
-    'Subclasses can override to establish an isolated jar mapping directory.'
-    return os.path.join(self._work_dir, 'mapped-jars')

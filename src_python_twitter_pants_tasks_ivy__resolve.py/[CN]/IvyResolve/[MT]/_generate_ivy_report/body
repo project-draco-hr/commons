@@ -5,7 +5,7 @@ def _generate_ivy_report(self, targets):
         no_deps_xml = (no_deps_xml_template % dict(organisation=organisation, module=module, conf=conf, timestamp=time.strftime('%Y%m%d%H%M%S')))
         with open(report, 'w') as report_handle:
             print(no_deps_xml, file=report_handle)
-    classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._ivy_bootstrap_key, self.runjava_indivisible)
+    classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._ivy_bootstrap_key, self.create_java_executor())
     reports = []
     (org, name) = self._ivy_utils.identify(targets)
     xsl = os.path.join(self._cachedir, 'ivy-report.xsl')
@@ -17,7 +17,7 @@ def _generate_ivy_report(self, targets):
             make_empty_report(xml, org, name, conf)
         out = os.path.join(self._outdir, ('%(org)s-%(name)s-%(conf)s.html' % params))
         args = ['-IN', xml, '-XSL', xsl, '-OUT', out]
-        if (0 != self.runjava_indivisible('org.apache.xalan.xslt.Process', classpath=classpath, args=args, workunit_name='report')):
+        if (0 != self.runjava(classpath=classpath, main='org.apache.xalan.xslt.Process', args=args, workunit_name='report')):
             raise TaskError
         reports.append(out)
     css = os.path.join(self._outdir, 'ivy-report.css')
