@@ -57,9 +57,9 @@ def execute(self, targets):
                         binary_util.ui_open(self.coverage_html_file)
                 instrument_code()
                 try:
-                    run_tests((([self.coverage_instrument_dir] + junit_classpath) + emma_classpath), 'com.twitter.common.junit.runner.ConsoleRunner', jvm_args=[('-Demma.coverage.out.file=%s' % self.coverage_file)])
+                    run_tests((([self.coverage_instrument_dir] + junit_classpath) + emma_classpath), JUnitRun._MAIN, jvm_args=[('-Demma.coverage.out.file=%s' % self.coverage_file)])
                 finally:
                     generate_reports()
             else:
                 self.context.lock.release()
-                run_tests(junit_classpath, 'com.twitter.common.testing.runner.JUnitConsoleRunner')
+                run_tests(junit_classpath, JUnitRun._MAIN)
