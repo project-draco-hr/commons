@@ -1,3 +1,0 @@
-def __init__(self, context):
-    Task.__init__(self, context)
-    self.context.products.require('java')

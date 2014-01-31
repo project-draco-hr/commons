@@ -1,4 +1,4 @@
-def execute(self, classpath, main, args=None, jvm_args=None, stdout=None, stderr=None):
-    "Launches the java program defined by the classpath and main.\n\n    :param list classpath: the classpath for the java program\n    :param string main: the fully qualified class name of the java program's entry point\n    :param list args: an optional sequence of args to pass to the java program\n    :param list jvm_args: an optional sequence of args for the underlying jvm\n\n    Returns the exit code of the java program.\n    Raises Executor.Error if there was a problem launching java itself.\n    "
-    executor = self.runner(classpath, main, args=args, jvm_args=jvm_args)
+def execute(self, classpath, main, jvm_options=None, args=None, stdout=None, stderr=None):
+    "Launches the java program defined by the classpath and main.\n\n    :param list classpath: the classpath for the java program\n    :param string main: the fully qualified class name of the java program's entry point\n    :param list jvm_options: an optional sequence of options for the underlying jvm\n    :param list args: an optional sequence of args to pass to the java program\n\n    Returns the exit code of the java program.\n    Raises Executor.Error if there was a problem launching java itself.\n    "
+    executor = self.runner(classpath=classpath, main=main, jvm_options=jvm_options, args=args)
     return executor.run(stdout=stdout, stderr=stderr)

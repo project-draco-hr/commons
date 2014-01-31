@@ -6,7 +6,8 @@ def run(self, lock):
                 if issubclass(goal.task_type, ConsoleTask):
                     return True
         return False
-    update_reporting(self.options, is_console_task(), self.run_tracker)
+    is_explain = self.options.explain
+    update_reporting(self.options, (is_console_task() or is_explain), self.run_tracker)
     if self.options.dry_run:
         print('****** Dry Run ******')
     context = Context(self.config, self.options, self.run_tracker, self.targets, requested_goals=self.requested_goals, lock=lock)

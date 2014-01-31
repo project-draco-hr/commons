@@ -1,4 +1,4 @@
-jvm_args
 classpath
 main
+jvm_options
 args

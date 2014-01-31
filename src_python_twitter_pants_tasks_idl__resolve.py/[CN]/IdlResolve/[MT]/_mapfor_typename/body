@@ -1,2 +1,0 @@
-def _mapfor_typename(self):
-    return 'idl_dependencies'

@@ -6,6 +6,6 @@ def execute(self, targets):
         egroups = self.context.products.get_data('exclusives_groups')
         group_key = egroups.get_group_key_for_target(binaries[0])
         group_classpath = egroups.get_classpath_for_group(group_key)
-        result = execute_java(classpath=self.classpath(confs=self.confs, exclusives_classpath=group_classpath), main=main, args=self.args, jvm_args=self.jvm_args, workunit_labels=[WorkUnit.RUN], workunit_name='run', stdin=sys.stdin)
+        result = execute_java(classpath=self.classpath(confs=self.confs, exclusives_classpath=group_classpath), main=main, jvm_options=self.jvm_args, args=self.args, workunit_labels=[WorkUnit.RUN], workunit_name='run')
         if (result != 0):
             raise TaskError(('java %s ... exited non-zero (%i)' % (main, result)), exit_code=result)

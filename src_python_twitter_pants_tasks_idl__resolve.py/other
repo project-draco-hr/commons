@@ -1,4 +1,0 @@
-__author__ = 'Phil Hom'
-import os
-from .extract import Extract
-from .ivy_resolve import IvyResolve

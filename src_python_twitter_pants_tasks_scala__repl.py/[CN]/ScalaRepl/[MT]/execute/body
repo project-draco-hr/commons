@@ -5,7 +5,7 @@ def execute(self, targets):
     classpath = self.classpath(tools_classpath, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0]))
     print ''
     try:
-        execute_java(classpath, self.main, self.args, self.jvm_args, workunit_labels=[WorkUnit.REPL, WorkUnit.JVM], workunit_name='repl')
+        execute_java(classpath=classpath, main=self.main, jvm_options=self.jvm_args, args=self.args, workunit_labels=[WorkUnit.REPL, WorkUnit.JVM], workunit_name='repl')
     except KeyboardInterrupt:
         pass
     self.restore_ssty_options()

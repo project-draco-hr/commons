@@ -1,6 +1,6 @@
 self
+jvm_options
 args
-jvm_args
 stdout
 stderr
 executor

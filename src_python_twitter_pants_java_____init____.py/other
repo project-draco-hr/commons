@@ -2,4 +2,4 @@ from .distribution import Distribution
 from .executor import Executor, SubprocessExecutor
 from .nailgun_client import NailgunClient
 from .nailgun_executor import NailgunExecutor
-__all__ = ('runjava', 'Distribution', 'Executor', 'NailgunClient', 'NailgunExecutor', 'SubprocessExecutor')
+__all__ = ('Distribution', 'Executor', 'NailgunClient', 'NailgunExecutor', 'SubprocessExecutor')

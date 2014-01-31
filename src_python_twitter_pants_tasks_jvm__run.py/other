@@ -1,5 +1,4 @@
 import shlex
-import sys
 from twitter.pants.base.workunit import WorkUnit
 from twitter.pants.targets import JvmBinary
 from .java.util import execute_java

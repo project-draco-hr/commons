@@ -1,6 +1,0 @@
-def __init__(self, context):
-    Task.__init__(self, context)
-    context.products.require('idl_dependencies', predicate=self._is_idl_jar_thrift_library)
-    self._workdir = self.context.config.get('idl-extract', 'workdir')
-    if (self._workdir is None):
-        self._workdir = os.path.join(self.get_workdir(), 'idl')

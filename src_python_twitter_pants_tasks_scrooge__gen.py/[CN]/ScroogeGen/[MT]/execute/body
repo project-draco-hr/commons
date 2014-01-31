@@ -1,5 +1,5 @@
 def execute(self, targets):
-    gentargets_by_dependee = self.context.dependants(on_predicate=self.is_gentarget, from_predicate=(lambda t: (not self.is_gentarget(t))))
+    gentargets_by_dependee = self.context.dependents(on_predicate=self.is_gentarget, from_predicate=(lambda t: (not self.is_gentarget(t))))
     dependees_by_gentarget = defaultdict(set)
     for (dependee, tgts) in gentargets_by_dependee.items():
         for gentarget in tgts:

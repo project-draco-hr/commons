@@ -1,4 +1,4 @@
-def spawn(self, classpath, main, args=None, jvm_args=None, **subprocess_args):
+def spawn(self, classpath, main, jvm_options=None, args=None, **subprocess_args):
     'Spawns the java program passing any extra subprocess kwargs on to subprocess.Popen.\n\n    Returns the Popen process object handle to the spawned java program subprocess.\n    '
-    cmd = self._create_command(*self._scrub_args(jvm_args, classpath, main, args))
+    cmd = self._create_command(*self._scrub_args(classpath, main, jvm_options, args))
     return self._spawn(cmd, **subprocess_args)

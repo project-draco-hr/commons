@@ -1,6 +1,6 @@
-def execute(self, args=None, jvm_args=None, stdout=None, stderr=None, executor=None):
+def execute(self, jvm_options=None, args=None, stdout=None, stderr=None, executor=None):
     'Executes the ivy commandline client with the given args.\n\n    Raises Ivy.Error if the command fails for any reason.\n    '
-    runner = self.runner(args=args, jvm_args=jvm_args, executor=executor)
+    runner = self.runner(jvm_options=jvm_options, args=args, executor=executor)
     try:
         result = runner.run(stdout=stdout, stderr=stderr)
         if (result != 0):

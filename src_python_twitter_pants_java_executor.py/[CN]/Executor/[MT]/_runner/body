@@ -1,3 +1,3 @@
 @abstractmethod
-def _runner(self, jvm_args, classpath, main, args):
+def _runner(self, classpath, main, jvm_options, args):
     'Subclasses should return a `Runner` that can execute the given java main.'

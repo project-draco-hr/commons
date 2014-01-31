@@ -1,5 +1,5 @@
-def _runner(self, jvm_args, classpath, main, args):
-    command = self._create_command(jvm_args, classpath, main, args)
+def _runner(self, classpath, main, jvm_options, args):
+    command = self._create_command(classpath, main, jvm_options, args)
 
 
     class Runner(self.Runner):

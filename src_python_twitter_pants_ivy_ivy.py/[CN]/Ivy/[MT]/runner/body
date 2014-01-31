@@ -1,10 +1,10 @@
-def runner(self, args=None, jvm_args=None, executor=None):
+def runner(self, jvm_options=None, args=None, executor=None):
     'Creates an ivy commandline client runner for the given args.'
     executor = (executor or self._java)
     if (not isinstance(executor, Executor)):
         raise ValueError(('The executor argument must be an Executor instance, given %s of type %s' % (executor, type(executor))))
     if (self._ivy_cache_dir and ('-cache' not in args)):
-        jvm_args = ([('-Divy.cache.dir=%s' % self._ivy_cache_dir)] + (jvm_args or []))
+        jvm_options = ([('-Divy.cache.dir=%s' % self._ivy_cache_dir)] + (jvm_options or []))
     if (self._ivy_settings and ('-settings' not in args)):
         args = (['-settings', self._ivy_settings] + args)
-    return executor.runner(self._classpath, 'org.apache.ivy.Main', args=args, jvm_args=jvm_args)
+    return executor.runner(self._classpath, 'org.apache.ivy.Main', jvm_options=jvm_options, args=args)

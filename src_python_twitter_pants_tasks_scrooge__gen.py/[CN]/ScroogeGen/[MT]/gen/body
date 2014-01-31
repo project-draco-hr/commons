@@ -28,7 +28,7 @@ def gen(self, partial_cmd, targets):
             args.extend(['--gen-file-map', gen_file_map_path])
             args.extend(changed_srcs)
             classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(compiler.name)
-            returncode = self.runjava(classpath, compiler.main, args=args, jvm_args=compiler.jvm_args, workunit_name=compiler.name)
+            returncode = self.runjava(classpath=classpath, main=compiler.main, jvm_options=compiler.jvm_args, args=args, workunit_name=compiler.name)
             try:
                 if (0 == returncode):
                     gen_files_for_source = self.parse_gen_file_map(gen_file_map_path, outdir)
