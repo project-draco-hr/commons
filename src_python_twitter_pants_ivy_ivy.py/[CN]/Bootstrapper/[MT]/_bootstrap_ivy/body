@@ -4,12 +4,12 @@ def _bootstrap_ivy(self, bootstrap_jar_cache_path):
             fetcher = Fetcher()
             checksummer = fetcher.ChecksumListener(digest=hashlib.sha1())
             try:
-                print ('Downloading %s' % self._bootstrap_jar_url)
+                log.info(('\nDownloading %s' % self._bootstrap_jar_url))
                 fetcher.download(self._bootstrap_jar_url, listener=fetcher.ProgressListener().wrap(checksummer), path_or_fd=bootstrap_jar, timeout=self._timeout)
-                print ('sha1: %s' % checksummer.checksum)
+                log.info(('sha1: %s' % checksummer.checksum))
                 bootstrap_jar.close()
                 touch(bootstrap_jar_cache_path)
                 shutil.move(bootstrap_jar.name, bootstrap_jar_cache_path)
             except fetcher.Error as e:
                 raise self.Error(('Problem fetching the ivy bootstrap jar! %s' % e))
-    return Ivy(bootstrap_jar_cache_path, ivy_settings=self.ivy_settings, ivy_cache_dir=self.ivy_cache_dir)
+    return Ivy(bootstrap_jar_cache_path, ivy_settings=self._ivy_settings, ivy_cache_dir=self.ivy_cache_dir)

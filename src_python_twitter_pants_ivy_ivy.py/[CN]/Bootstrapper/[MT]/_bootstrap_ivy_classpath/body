@@ -1,4 +1,4 @@
-def _bootstrap_ivy_classpath(self, retry=True):
+def _bootstrap_ivy_classpath(self, executor, workunit_factory, retry=True):
     ivy_cache = os.path.join(self._config.getdefault('pants_cachedir'), 'tools', 'jvm', 'ivy')
     digest = hashlib.sha1()
     if os.path.isfile(self._version_or_ivyxml):
@@ -15,7 +15,7 @@ def _bootstrap_ivy_classpath(self, retry=True):
         else:
             args.extend(['-dependency', 'org.apache.ivy', 'ivy', self._version_or_ivyxml])
         try:
-            ivy.execute(args)
+            ivy.execute(args=args, executor=executor, workunit_factory=workunit_factory, workunit_name='ivy-bootstrap')
         except ivy.Error as e:
             safe_delete(classpath)
             raise self.Error(('Failed to bootstrap an ivy classpath! %s' % e))
@@ -24,6 +24,6 @@ def _bootstrap_ivy_classpath(self, retry=True):
         if (not all(map(os.path.exists, cp))):
             safe_delete(classpath)
             if retry:
-                return self._bootstrap_ivy_classpath(retry=False)
+                return self._bootstrap_ivy_classpath(executor, workunit_factory, retry=False)
             raise self.Error(('Ivy bootstrapping failed - invalid classpath: %s' % ':'.join(cp)))
         return cp

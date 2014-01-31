@@ -1,6 +1,5 @@
-@property
-def classpath(self):
+def _get_classpath(self, executor, workunit_factory):
     'Returns the bootstrapped ivy classpath as a list of jar paths.\n\n    :raises: Bootstrapper.Error if the classpath could not be bootstrapped\n    '
     if (not self._classpath):
-        self._classpath = self._bootstrap_ivy_classpath()
+        self._classpath = self._bootstrap_ivy_classpath(executor, workunit_factory)
     return self._classpath

@@ -5,7 +5,7 @@ def run_antlrs(self, output_dir):
         args.append(abs_path)
     try:
         ivy = Bootstrapper.default_ivy()
-        ivy.execute(args)
+        ivy.execute(args=args)
         return True
     except (Bootstrapper.Error, Ivy.Error) as e:
         print(('ANTLR generation failed! %s' % e), file=sys.stderr)

@@ -1,2 +1,3 @@
 self
 java_executor
+bootstrap_workunit_factory
