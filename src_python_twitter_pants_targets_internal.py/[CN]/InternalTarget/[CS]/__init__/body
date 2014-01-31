@@ -2,14 +2,11 @@ def __init__(self, name, dependencies, exclusives=None):
     '\n    :param string name: The name of this module target, addressable via pants via the\n      portion of the spec following the colon.\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    '
     Target.__init__(self, name, exclusives=exclusives)
     self._injected_deps = []
-    self.processed_dependencies = resolve(dependencies)
+    self._processed_dependencies = resolve(dependencies)
     self.add_labels('internal')
     self.dependency_addresses = OrderedSet()
     self._dependencies = OrderedSet()
     self._internal_dependencies = OrderedSet()
     self._jar_dependencies = OrderedSet()
-    self._deps = self.processed_dependencies
     if dependencies:
-        maybe_list(self.processed_dependencies, expected_type=(ExternalDependency, AnonymousDeps, Target), raise_type=partial(TargetDefinitionException, self))
-    self._post_construct(self.update_dependencies, self.processed_dependencies)
-    self._post_construct(self.inject_dependencies)
+        maybe_list(self._processed_dependencies, expected_type=(ExternalDependency, AnonymousDeps, Target), raise_type=partial(TargetDefinitionException, self))
