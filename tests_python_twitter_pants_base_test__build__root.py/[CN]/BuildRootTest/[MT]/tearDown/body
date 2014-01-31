@@ -1,2 +1,3 @@
 def tearDown(self):
     BuildRoot().reset()
+    safe_rmtree(self.new_root)

@@ -1,0 +1,3 @@
+@property
+def exit_code(self):
+    return self._exit_code

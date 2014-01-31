@@ -1,7 +1,6 @@
 import pytest
 import unittest
 from textwrap import dedent
-from twitter.pants import is_java, is_scala
 from twitter.pants.engine import GroupEngine
 from twitter.pants.engine.group_engine import GroupIterator, GroupMember
 from twitter.pants.goal import Goal, Group

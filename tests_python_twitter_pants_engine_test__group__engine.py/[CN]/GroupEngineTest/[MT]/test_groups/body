@@ -1,7 +1,7 @@
 def test_groups(self):
     self.install_goal('resolve')
-    self.install_goal('javac', group=Group('jvm', is_java), dependencies=['resolve'], phase='compile')
-    self.install_goal('scalac', group=Group('jvm', is_scala), dependencies=['resolve'], phase='compile')
+    self.install_goal('javac', group=Group('jvm', (lambda t: t.is_java)), dependencies=['resolve'], phase='compile')
+    self.install_goal('scalac', group=Group('jvm', (lambda t: t.is_scala)), dependencies=['resolve'], phase='compile')
     self.install_goal('checkstyle', phase='compile')
     result = self.engine.execute(self.context, self.as_phases('compile'))
     self.assertEqual(0, result)

@@ -3,4 +3,4 @@ def __init__(self, name, sources, dependencies=None, provides=None):
     TargetWithSources.__init__(self, name, sources)
     InternalTarget.__init__(self, name, maybe_list((dependencies or ()), expected_type=(JarLibrary, Pants, ThriftJar, ThriftLibrary), raise_type=partial(TargetDefinitionException, self)))
     self._provides = provides
-    self.is_codegen = True
+    self.add_labels('codegen')

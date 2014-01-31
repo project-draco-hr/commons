@@ -1,13 +1,13 @@
-def __init__(self, config):
+def __init__(self, info_dir, stats_upload_url=None, num_foreground_workers=8, num_background_workers=8):
     self.run_timestamp = time.time()
     cmd_line = ' '.join((['./pants'] + sys.argv[1:]))
     millis = ((self.run_timestamp * 1000) % 1000)
     run_id = ('pants_run_%s_%d' % (time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime(self.run_timestamp)), millis))
-    self.info_dir = os.path.join(config.getdefault('info_dir'), run_id)
+    self.info_dir = os.path.join(info_dir, run_id)
     self.run_info = RunInfo(os.path.join(self.info_dir, 'info'))
     self.run_info.add_basic_info(run_id, self.run_timestamp)
     self.run_info.add_info('cmd_line', cmd_line)
-    self.stats_url = config.getdefault('stats_upload_url', default=None)
+    self.stats_url = stats_upload_url
     link_to_latest = os.path.join(os.path.dirname(self.info_dir), 'latest')
     if os.path.exists(link_to_latest):
         os.unlink(link_to_latest)
@@ -15,8 +15,8 @@ def __init__(self, config):
     self.cumulative_timings = AggregatedTimings(os.path.join(self.info_dir, 'cumulative_timings'))
     self.self_timings = AggregatedTimings(os.path.join(self.info_dir, 'self_timings'))
     self.artifact_cache_stats = ArtifactCacheStats(os.path.join(self.info_dir, 'artifact_cache_stats'))
-    self._num_foreground_workers = config.getdefault('num_foreground_workers', default=8)
-    self._num_background_workers = config.getdefault('num_background_workers', default=8)
+    self._num_foreground_workers = num_foreground_workers
+    self._num_background_workers = num_background_workers
     self.report = None
     self._threadlocal = threading.local()
     self._main_root_workunit = None
