@@ -6,7 +6,7 @@ def execute(self, targets):
             args.append(('--specs=%s' % ','.join(tests)))
             specs_runner_main = 'com.twitter.common.testing.ExplicitSpecsRunnerMain'
             bootstrapped_cp = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._specs_bootstrap_key)
-            result = execute_java(classpath=self.classpath(bootstrapped_cp, confs=self.confs), main=specs_runner_main, jvm_options=self.jvm_args, args=args, workunit_labels=[WorkUnit.TEST], workunit_name='specs')
+            result = execute_java(classpath=self.classpath(bootstrapped_cp, confs=self.confs), main=specs_runner_main, jvm_options=self._jvm_options, args=args, workunit_factory=self.context.new_workunit, workunit_name='specs', workunit_labels=[WorkUnit.TEST])
             if (result != 0):
                 raise TaskError(('java %s ... exited non-zero (%i)' % (specs_runner_main, result)))
         if self.tests:

@@ -6,6 +6,6 @@ def execute(self, targets):
     os.environ['ALLOCATION_JAR'] = str(allocation_jar)
     benchmark_tools_classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._benchmark_bootstrap_key)
     caliper_main = 'com.google.caliper.Runner'
-    exit_code = execute_java(classpath=self.classpath(benchmark_tools_classpath), main=caliper_main, jvm_options=self.jvm_args, args=self.caliper_args, workunit_name='caliper')
+    exit_code = execute_java(classpath=self.classpath(benchmark_tools_classpath), main=caliper_main, jvm_options=self.jvm_args, args=self.caliper_args, workunit_factory=self.context.new_workunit, workunit_name='caliper')
     if (exit_code != 0):
         raise TaskError(('java %s ... exited non-zero (%i)' % (caliper_main, exit_code)))
