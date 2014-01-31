@@ -1,4 +1,13 @@
 def run(self, lock):
+    if self.options.log_level:
+        LogOptions.set_stderr_log_level((self.options.log_level or 'info').upper())
+        logdir = (self.options.logdir or self.config.get('goals', 'logdir', default=None))
+        if logdir:
+            safe_mkdir(logdir)
+            LogOptions.set_log_dir(logdir)
+            log.init('goals')
+        else:
+            log.init()
 
     def is_console_task():
         for phase in self.phases:
