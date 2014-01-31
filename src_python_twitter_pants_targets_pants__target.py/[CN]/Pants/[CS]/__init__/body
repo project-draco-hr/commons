@@ -13,4 +13,4 @@ def __init__(self, spec, exclusives=None):
     except IOError as e:
         self.address = parse_context.buildfile.relpath
         raise TargetDefinitionException(self, ('%s%s' % (self._DEFINITION_ERROR_MSG, e)))
-    Target.__init__(self, self.address.target_name, reinit_check=False, exclusives=exclusives)
+    Target.__init__(self, self.address.target_name, exclusives=exclusives)

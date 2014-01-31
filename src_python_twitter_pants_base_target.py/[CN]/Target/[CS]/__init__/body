@@ -1,6 +1,6 @@
-def __init__(self, name, reinit_check=True, exclusives=None):
+def __init__(self, name, exclusives=None):
     '\n    :param string name: The target name.\n    '
-    if ((not reinit_check) or (not hasattr(self, '_initialized'))):
+    if (not hasattr(self, '_initialized')):
         if (not isinstance(name, Compatibility.string)):
             self.address = ('%s:%s' % (ParseContext.locate().current_buildfile, str(name)))
             raise TargetDefinitionException(self, ('Invalid target name: %s' % name))
