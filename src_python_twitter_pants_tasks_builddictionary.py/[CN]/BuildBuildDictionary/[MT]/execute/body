@@ -1,7 +1,7 @@
 def execute(self, targets):
     self._gen_goals_reference()
     d = assemble()
-    template = resource_string(__name__, os.path.join(self._templates_dir, 'page.mk'))
+    template = resource_string(__name__, os.path.join(self._templates_dir, 'page.mustache'))
     tocs = [tocl(d), tags_tocl(d, ['java', 'scala', 'jvm', 'anylang'], 'JVM'), tags_tocl(d, ['python', 'anylang'], 'Python')]
     defns = [d[t]['defn'] for t in sorted(d.keys(), key=str.lower)]
     filename = os.path.join(self._outdir, 'build_dictionary.rst')

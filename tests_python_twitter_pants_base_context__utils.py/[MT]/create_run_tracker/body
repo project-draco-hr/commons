@@ -1,0 +1,7 @@
+def create_run_tracker(info_dir=None):
+    'Creates a ``RunTracker`` and starts it.\n\n  :param string info_dir: An optional director for the run tracker to store state; defaults to a\n    new temp dir that will be be cleaned up on interpreter exit.\n  '
+    info_dir = (info_dir or safe_mkdtemp())
+    run_tracker = RunTracker(info_dir)
+    report = Report()
+    run_tracker.start(report)
+    return run_tracker

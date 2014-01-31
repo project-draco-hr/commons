@@ -7,8 +7,8 @@ def console_output(self, _):
                 (from_list, module, type_name) = dependees_type.rsplit('.', 2)
                 __import__(('%s.%s' % (from_list, module)), fromlist=[from_list])
             except (ImportError, ValueError):
-                if hasattr(twitter.pants, dependees_type):
-                    type_name = getattr(twitter.pants, dependees_type)
+                if hasattr(twitter.pants.base.build_file_context, dependees_type):
+                    type_name = getattr(twitter.pants.base.build_file_context, dependees_type)
                 else:
                     raise TaskError(('Invalid type name: %s' % dependees_type))
             base_paths.update(SourceRoot.roots(type_name))

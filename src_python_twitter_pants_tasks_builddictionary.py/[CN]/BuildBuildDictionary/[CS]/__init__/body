@@ -1,4 +1,4 @@
 def __init__(self, context):
-    Task.__init__(self, context)
+    super(BuildBuildDictionary, self).__init__(context)
     self._templates_dir = os.path.join('templates', 'builddictionary')
     self._outdir = os.path.join(self.context.config.getdefault('pants_distdir'), 'builddict')
