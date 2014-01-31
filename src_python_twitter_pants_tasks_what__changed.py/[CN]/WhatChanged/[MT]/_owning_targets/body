@@ -5,5 +5,5 @@ def _owning_targets(self, path):
             target = Target.get(address)
             if (target != target.derived_from):
                 continue
-            if (target and (is_build_file or ((target.has_sources() or target.has_resources) and self._owns(target, file_)))):
+            if (target and (is_build_file or ((target.has_sources() or target.has_resources) and self._owns(target, path)))):
                 yield target
