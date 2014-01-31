@@ -13,12 +13,9 @@ def _create_chunks(self):
     for (chunk_num, target) in enumerate(coalesced):
         target_flavor = discriminator(target)
         if ((target_flavor != flavor) and (chunk_num > chunk_start)):
-            chunks.append((flavor, OrderedSet(coalesced[chunk_start:chunk_num])))
+            chunks.append(OrderedSet(coalesced[chunk_start:chunk_num]))
             chunk_start = chunk_num
         flavor = target_flavor
     if (chunk_start < len(coalesced)):
-        chunks.append((flavor, OrderedSet(coalesced[chunk_start:])))
-    log.debug(('::: created chunks(%d)' % len(chunks)))
-    for (i, (flavor, chunk)) in enumerate(chunks):
-        log.debug(('  chunk(%d:%s):\n\t%s' % (i, flavor, '\n\t'.join(sorted(map(str, chunk))))))
-    return map((lambda (flavor, chunk): chunk), chunks)
+        chunks.append(OrderedSet(coalesced[chunk_start:]))
+    return chunks
