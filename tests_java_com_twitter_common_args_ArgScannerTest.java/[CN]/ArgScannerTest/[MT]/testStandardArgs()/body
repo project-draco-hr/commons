@@ -91,7 +91,7 @@
 ,"data_amount","1Gb");
   test(StandardArgs.class,new Command(){
     @Override public void execute(){
-      assertThat(StandardArgs.RANGE.get(),is(Ranges.closed(1,5)));
+      assertThat(StandardArgs.RANGE.get(),is(com.google.common.collect.Range.closed(1,5)));
     }
   }
 ,"range","1-5");
