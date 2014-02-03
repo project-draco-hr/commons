@@ -1,4 +1,5 @@
 def _compute_targets_by_file(self):
+    'Returns a map from abs path of source, class or jar file to an OrderedSet of targets.\n\n    The value is usually a singleton, because a source or class file belongs to a single target.\n    However a single jar may be provided (transitively or intransitively) by multiple JarLibrary targets.\n    But if there is a JarLibrary target that depends on a jar directly, then that "canonical" target\n    will be the first one in the list of targets.\n    '
     targets_by_file = defaultdict(OrderedSet)
     jarlibs_by_id = defaultdict(set)
     buildroot = get_buildroot()
@@ -10,12 +11,11 @@ def _compute_targets_by_file(self):
             for jardep in target.dependencies:
                 if isinstance(jardep, JarDependency):
                     jarlibs_by_id[(jardep.org, jardep.name)].add(target)
-    genmap = self._context.products.get('classes')
-    for (tgt, products) in genmap.itermappings():
-        if isinstance(tgt, JvmTarget):
-            for (basedir, classes) in products.items():
-                for cls in classes:
-                    targets_by_file[os.path.join(basedir, cls)].add(tgt)
+    classes_by_target = self._context.products.get_data('classes_by_target')
+    for (tgt, target_products) in classes_by_target.items():
+        for (_, classes) in target_products.abs_paths():
+            for cls in classes:
+                targets_by_file[cls].add(tgt)
     with Task.symlink_map_lock:
         all_symlinks_map = self._context.products.get_data('symlink_map').copy()
 
@@ -50,5 +50,4 @@ def _compute_targets_by_file(self):
             for ivyinfo in ivyinfos:
                 for ref in ivyinfo.modules_by_ref:
                     register_transitive_jars_for_ref(ivyinfo, ref)
-        self._lazy_targets_by_file = targets_by_file
     return targets_by_file

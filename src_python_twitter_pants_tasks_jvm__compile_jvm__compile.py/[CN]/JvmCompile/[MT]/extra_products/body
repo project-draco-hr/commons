@@ -1,3 +1,3 @@
 def extra_products(self, target):
-    'Any extra, out-of-band products created for a target.\n\n    E.g., targets that produce scala compiler plugins produce an info file.\n    Returns list of (basedir, prods), where prods is a list of files under basedir.\n    '
+    'Any extra, out-of-band products created for a target.\n\n    E.g., targets that produce scala compiler plugins produce an info file.\n    Returns a list of pairs (root, [absolute paths of files under root]).\n    '
     return []

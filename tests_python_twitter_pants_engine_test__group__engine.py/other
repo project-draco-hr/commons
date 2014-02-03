@@ -1,3 +1,4 @@
+import os
 import pytest
 import unittest
 from textwrap import dedent
@@ -8,3 +9,4 @@ from twitter.pants.tasks import Task
 from ..base.context_utils import create_context
 from ..base_build_root_test import BaseBuildRootTest
 from .base_engine_test import EngineTestBase
+from twitter.pants.tasks.check_exclusives import ExclusivesMapping

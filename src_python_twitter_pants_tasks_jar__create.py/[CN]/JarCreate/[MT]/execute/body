@@ -7,7 +7,7 @@ def execute(self, targets):
     def add_genjar(typename, target, name):
         self.context.products.get(typename).add(target, self._output_dir).append(name)
     if self.jar_classes:
-        self.jar(jar_targets(is_jvm_library), self.context.products.get('classes'), functools.partial(add_genjar, 'jars'))
+        self._jar(jar_targets(is_jvm_library), functools.partial(add_genjar, 'jars'))
     if self.jar_idl:
         self.idljar(jar_targets(is_idl_library), functools.partial(add_genjar, 'idl_jars'))
     if self.jar_sources:

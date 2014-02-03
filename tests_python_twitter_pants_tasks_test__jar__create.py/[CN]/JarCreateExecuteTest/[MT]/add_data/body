@@ -1,0 +1,13 @@
+@contextmanager
+def add_data(self, context, data_type, target, *products):
+    make_products = (lambda : defaultdict(MultipleRootedProducts))
+    data_by_target = context.products.get_data(data_type, make_products)
+    with temporary_dir() as outdir:
+
+        def create_product(product):
+            abspath = os.path.join(outdir, product)
+            with safe_open(abspath, mode='w') as fp:
+                fp.write(product)
+            return abspath
+        data_by_target[target].add_abs_paths(outdir, map(create_product, products))
+        yield temporary_dir

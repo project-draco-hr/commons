@@ -1,3 +1,4 @@
+import os
 from twitter.pants.targets.scala_library import ScalaLibrary
 from twitter.pants.tasks.jvm_compile.analysis_tools import AnalysisTools
 from twitter.pants.tasks.jvm_compile.jvm_compile import JvmCompile

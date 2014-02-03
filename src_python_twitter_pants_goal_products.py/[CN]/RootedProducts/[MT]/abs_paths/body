@@ -1,0 +1,3 @@
+def abs_paths(self):
+    for relpath in self._rel_paths:
+        yield os.path.join(self._root, relpath)

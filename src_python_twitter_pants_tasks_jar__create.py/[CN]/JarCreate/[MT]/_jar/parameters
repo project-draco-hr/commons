@@ -1,0 +1,3 @@
+self
+jvm_targets
+add_genjar

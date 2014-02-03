@@ -1,14 +1,15 @@
 from __future__ import print_function
-from collections import namedtuple, defaultdict
-from contextlib import contextmanager
 import os
 import xml
 import pkgutil
 import re
 import threading
+import errno
+from collections import namedtuple, defaultdict
+from contextlib import contextmanager
 from twitter.common.collections import OrderedSet
-from twitter.common.dirutil import safe_mkdir, safe_open, safe_delete
-from twitter.pants import get_buildroot
+from twitter.common.dirutil import safe_mkdir, safe_open
+from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base.generator import Generator, TemplateData
 from twitter.pants.base.revision import Revision
 from twitter.pants.base.target import Target

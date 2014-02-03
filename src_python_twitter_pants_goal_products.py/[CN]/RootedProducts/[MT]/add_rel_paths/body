@@ -1,0 +1,2 @@
+def add_rel_paths(self, rel_paths):
+    self._rel_paths.update(rel_paths)

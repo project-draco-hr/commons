@@ -1,5 +1,8 @@
 def setUp(self):
     super(GroupEngineTest, self).setUp()
     self.context = create_context(options=dict(explain=False), target_roots=self.targets('src/java:e'))
+    exclusives_mapping = ExclusivesMapping(self.context)
+    exclusives_mapping._populate_target_maps(self.context.targets())
+    self.context.products.set_data('exclusives_groups', exclusives_mapping)
     self.engine = GroupEngine(print_timing=False)
     self.recorded_actions = []
