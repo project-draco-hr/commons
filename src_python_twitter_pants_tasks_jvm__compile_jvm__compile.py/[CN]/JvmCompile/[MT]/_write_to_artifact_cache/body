@@ -10,8 +10,7 @@ def _write_to_artifact_cache(self, analysis_file, vts, sources_by_target):
     for (target, sources) in sources_by_target.items():
         artifacts = []
         for source in sources:
-            for cls in classes_by_source.get(source, []):
-                artifacts.append(os.path.join(self._classes_dir, cls))
+            artifacts.extend(classes_by_source.get(source, []))
         vt = vt_by_target.get(target)
         if (vt is not None):
             vts_artifactfiles_pairs.append((vt, (artifacts + [JvmCompile._portable_analysis_for_target(self._analysis_tmpdir, target)])))

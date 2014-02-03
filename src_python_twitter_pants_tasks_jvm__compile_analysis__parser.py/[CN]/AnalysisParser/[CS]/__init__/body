@@ -1,0 +1,2 @@
+def __init__(self, classes_dir):
+    self.classes_dir = classes_dir

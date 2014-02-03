@@ -1,2 +1,0 @@
-def update(self, classes_by_tgt):
-    self._update_targets_by_file(classes_by_tgt)

@@ -1,4 +1,5 @@
 import os
 import shutil
 from twitter.common.dirutil import safe_mkdir
+from twitter.pants.goal.products import MultipleRootedProducts
 from twitter.pants.tasks import Task

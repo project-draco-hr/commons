@@ -1,0 +1,2 @@
+def add_rel_paths(self, root, rel_paths):
+    self._get_products_for_root(root).add_rel_paths(rel_paths)

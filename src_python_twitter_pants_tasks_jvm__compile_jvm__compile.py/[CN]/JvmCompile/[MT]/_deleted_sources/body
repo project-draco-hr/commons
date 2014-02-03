@@ -1,0 +1,12 @@
+def _deleted_sources(self):
+    'Returns the list of sources present in the last analysis that have since been deleted.\n\n    This is a global list. We have no way of associating them to individual targets.\n    Paths are relative to buildroot.\n    '
+    if (self._lazy_deleted_sources is None):
+        with self.context.new_workunit('find-deleted-sources'):
+            if os.path.exists(self._analysis_file):
+                products = self._analysis_parser.parse_products_from_path(self._analysis_file)
+                buildroot = get_buildroot()
+                old_sources = products.keys()
+                self._lazy_deleted_sources = [os.path.relpath(src, buildroot) for src in old_sources if (not os.path.exists(src))]
+            else:
+                self._lazy_deleted_sources = []
+    return self._lazy_deleted_sources

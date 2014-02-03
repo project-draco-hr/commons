@@ -1,5 +1,5 @@
 def insert(self, cache_key, paths):
-    "Cache the output of a build.\n\n    If there is an existing set of artifacts for this key they are deleted.\n\n    TODO: Check that they're equal? They might not have to be if there are multiple equivalent\n          outputs.\n\n    cache_key: A CacheKey object.\n    paths: List of paths to generated dirs/files. These must be under the artifact_root.\n    "
+    "Cache the output of a build.\n\n    If there is an existing set of artifacts for this key they are deleted.\n\n    TODO: Check that they're equal? They might not have to be if there are multiple equivalent\n          outputs.\n\n    cache_key: A CacheKey object.\n    paths: List of absolute paths to generated dirs/files. These must be under the artifact_root.\n    "
     missing_files = filter((lambda f: (not os.path.exists(f))), paths)
     try:
         if missing_files:

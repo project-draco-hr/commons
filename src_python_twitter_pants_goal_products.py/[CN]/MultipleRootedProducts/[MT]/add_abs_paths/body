@@ -1,0 +1,2 @@
+def add_abs_paths(self, root, abs_paths):
+    self._get_products_for_root(root).add_abs_paths(abs_paths)
