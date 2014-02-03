@@ -1,0 +1,2 @@
+def __init__(self, name, main, basename=None, source=None, resources=None, dependencies=None, excludes=[], deploy_excludes=[]):
+    JvmBinary.__init__(self, name=name, main=main, basename=basename, source=source, resources=resources, dependencies=dependencies, excludes=excludes, deploy_excludes=(((deploy_excludes or []) + LOGGING_EXCLUDES) + ON_STORM_CLUSTER_EXCLUDES), configurations=None)
