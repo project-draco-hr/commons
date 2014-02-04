@@ -1,10 +1,10 @@
-def mapjars(self, genmap, target, executor):
+def mapjars(self, genmap, target, executor, workunit_factory=None):
     '\n    Parameters:\n      genmap: the jar_dependencies ProductMapping entry for the required products.\n      target: the target whose jar dependencies are being retrieved.\n    '
     mapdir = os.path.join(self._mapto_dir(), target.id)
     safe_mkdir(mapdir, clean=True)
     ivyargs = ['-retrieve', ('%s/[organisation]/[artifact]/[conf]/[organisation]-[artifact]-[revision](-[classifier]).[ext]' % mapdir), '-symlink', '-confs']
     ivyargs.extend((target.configurations or self._confs))
-    self.exec_ivy(mapdir, [target], ivyargs, ivy=Bootstrapper.default_ivy(executor))
+    self.exec_ivy(mapdir, [target], ivyargs, ivy=Bootstrapper.default_ivy(executor), workunit_factory=workunit_factory, workunit_name='map-jars')
     for org in os.listdir(mapdir):
         orgdir = os.path.join(mapdir, org)
         if os.path.isdir(orgdir):

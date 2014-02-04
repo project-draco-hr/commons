@@ -5,11 +5,10 @@ def __init__(self, name, binary, bundles, basename=None):
     for b in maybe_list(util.resolve(binary), expected_type=(Pants, JvmBinary), raise_type=partial(TargetDefinitionException, self)):
         binary_list.extend(b.resolve())
     if (len(binary_list) != 1):
-        raise TargetDefinitionException(self, ('binary must resolve to a JvmBinary target, found %s' % binary))
-    self._binary = binary
+        raise TargetDefinitionException(self, ('binary must resolve to a single JvmBinary target, found %s' % binary))
+    self._resolved_binary = binary_list[0]
     self._bundles = maybe_list(bundles, expected_type=Bundle, raise_type=partial(TargetDefinitionException, self))
     if (name == basename):
         raise TargetDefinitionException(self, 'basename must not equal name.')
     self.basename = (basename or name)
-    self._resolved_binary = None
     self._resolved_bundles = []
