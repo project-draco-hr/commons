@@ -1,0 +1,3 @@
+@property
+def cmd(self):
+    return self._command
