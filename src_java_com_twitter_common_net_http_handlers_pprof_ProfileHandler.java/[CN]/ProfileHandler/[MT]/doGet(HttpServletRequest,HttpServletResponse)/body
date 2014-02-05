@@ -11,6 +11,6 @@
     profile.writeGoogleProfile(responseBody);
   }
   finally {
-    Closeables.closeQuietly(responseBody);
+    Closeables.close(responseBody,true);
   }
 }
