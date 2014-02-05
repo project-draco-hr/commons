@@ -1,3 +1,3 @@
-def __init__(self):
-    super(Executor, self).__init__(self)
+def __init__(self, distribution=None):
+    super(CommandLineGrabber, self).__init__(distribution=distribution)
     self._command = None
