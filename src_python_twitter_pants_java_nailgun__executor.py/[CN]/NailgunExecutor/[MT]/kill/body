@@ -4,9 +4,6 @@ def kill(self):
     if endpoint:
         self._log_kill(endpoint.pid, endpoint.port)
         try:
-            try:
-                os.kill(endpoint.pid, 9)
-            except OSError:
-                pass
-        finally:
-            os.remove(self._pidfile)
+            os.kill(endpoint.pid, 9)
+        except OSError:
+            pass

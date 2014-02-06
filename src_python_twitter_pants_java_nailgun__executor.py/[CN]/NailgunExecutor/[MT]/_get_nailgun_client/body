@@ -8,5 +8,6 @@ def _get_nailgun_client(self, jvm_args, classpath, stdout, stderr):
         return self._create_ngclient(endpoint.port, stdout, stderr)
     else:
         if (running and updated):
+            log.debug(('Killing ng server with fingerprint %s @ pid:%d port:%d' % endpoint))
             self.kill()
         return self._spawn_nailgun_server(new_fingerprint, jvm_args, classpath, stdout, stderr)

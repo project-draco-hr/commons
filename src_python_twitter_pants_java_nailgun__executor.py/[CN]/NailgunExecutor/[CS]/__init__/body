@@ -3,7 +3,7 @@ def __init__(self, workdir, nailgun_classpath, distribution=None, ins=None):
     self._nailgun_classpath = maybe_list(nailgun_classpath)
     if (not isinstance(workdir, Compatibility.string)):
         raise ValueError(('Workdir must be a path string, given %s' % workdir))
-    self._pidfile = os.path.join(workdir, 'pid')
+    self._workdir = workdir
     self._ng_out = os.path.join(workdir, 'stdout')
     self._ng_err = os.path.join(workdir, 'stderr')
     self._ins = ins

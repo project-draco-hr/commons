@@ -18,9 +18,9 @@ try:
 
         def cmdline_matches(cmdline):
             if everywhere:
-                return any(filter((lambda arg: arg.startswith(NailgunExecutor.PANTS_NG_ARG_PREFIX)), cmdline))
+                return any(filter((lambda arg: arg.startswith(NailgunExecutor._PANTS_NG_ARG_PREFIX)), cmdline))
             else:
-                return (NailgunExecutor.PANTS_NG_ARG in cmdline)
+                return (NailgunExecutor._PANTS_NG_ARG in cmdline)
         for proc in psutil.process_iter():
             try:
                 if (('java' == proc.name) and cmdline_matches(proc.cmdline)):
@@ -46,11 +46,11 @@ try:
                 return port
         return None
 
-    def _find(pidfile):
-        pidfile_arg = NailgunExecutor.create_pidfile_arg(pidfile)
+    def _find(workdir):
+        owner_arg = NailgunExecutor.create_owner_arg(workdir)
         for proc in _find_ngs(everywhere=False):
             try:
-                if (pidfile_arg in proc.cmdline):
+                if (owner_arg in proc.cmdline):
                     fingerprint = NailgunExecutor.parse_fingerprint_arg(proc.cmdline)
                     port = _find_ng_listen_port(proc)
                     if (fingerprint and port):

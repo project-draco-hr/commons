@@ -1,0 +1,3 @@
+@staticmethod
+def create_owner_arg(workdir):
+    return ('-Dpants.nailgun.owner=%s' % workdir)
