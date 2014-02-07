@@ -1,6 +1,5 @@
 from __future__ import print_function
 import os
-from twitter.pants import is_internal
 from twitter.pants.java.jar import open_jar
 from twitter.pants.targets import JavaLibrary, ScalaLibrary
 from . import Task
