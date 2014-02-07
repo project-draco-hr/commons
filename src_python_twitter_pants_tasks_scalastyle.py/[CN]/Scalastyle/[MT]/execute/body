@@ -5,7 +5,7 @@ def execute(self, targets):
     check_targets = list()
     for target in targets:
         for tgt in target.resolve():
-            if has_sources(tgt, '.scala'):
+            if tgt.has_sources('.scala'):
                 check_targets.append(tgt)
 
     def filter_excludes(filename):
