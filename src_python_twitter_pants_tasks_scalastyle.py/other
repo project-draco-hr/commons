@@ -1,4 +1,4 @@
-import os.path
+import os
 import re
 from twitter.pants.base.config import Config
 from twitter.pants.process.xargs import Xargs
