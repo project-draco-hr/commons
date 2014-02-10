@@ -5,7 +5,7 @@ def open(self, url, ttl=None, conn_timeout=None):
         if expired:
             try:
                 self.cache(url, conn_timeout=conn_timeout)
-            except (urllib_error.URLError, BadStatusLine):
+            except (urllib_error.URLError, HTTPException):
                 if ((not self._failsoft) or (url not in self)):
                     raise
         return self.decode_url(url)
