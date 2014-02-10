@@ -4,7 +4,7 @@ import os
 import re
 import threading
 from ..compatibility import PY3
-from .http import CachedWeb, Web
+from .http import CachedWeb, Web, BadStatusLine
 from .tracer import TRACER
 if PY3:
     from queue import Empty, Queue
