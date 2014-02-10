@@ -1,0 +1,2 @@
+def __init__(self, file, roots, error):
+    Exception.__init__(self, ('Could not copy the source %s in root(s): %s due to %s' % (file, roots, error)))

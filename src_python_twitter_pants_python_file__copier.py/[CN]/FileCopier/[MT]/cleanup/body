@@ -1,0 +1,6 @@
+def cleanup(self, pid):
+    if (os.getpid() == pid):
+        for source in self._sources:
+            target = os.path.join(self._copy_root, source)
+            if os.path.exists(target):
+                os.unlink(target)

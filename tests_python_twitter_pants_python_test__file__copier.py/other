@@ -1,0 +1,12 @@
+import os
+import sys
+import unittest
+from tempfile import mkdtemp
+from twitter.common.dirutil import safe_rmtree
+from twitter.pants import BuildRoot, get_buildroot
+from twitter.pants.python.file_copier import FileCopier
+from twitter.pants.targets.sources import SourceRoot
+from twitter.pants.targets.python_thrift_library import PythonThriftLibrary
+sys.path.append(os.path.join(get_buildroot(), 'src/python/twitter'))
+from twadoop.pants.targets.remote_python_thrift_library import RemotePythonThriftLibrary
+from mock import patch

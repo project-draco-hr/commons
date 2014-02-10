@@ -1,0 +1,5 @@
+def _find_file(self, source, bases):
+    for base in bases:
+        if (os.path.commonprefix([os.path.abspath(base), os.path.abspath(source)]) == os.path.abspath(base)):
+            return base
+    return None

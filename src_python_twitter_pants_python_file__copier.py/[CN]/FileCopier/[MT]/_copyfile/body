@@ -1,0 +1,12 @@
+def _copyfile(self, source, source_root):
+    target_source = os.path.relpath(source, source_root)
+    dest_file = os.path.join(self._copy_root, target_source)
+    safe_mkdir(os.path.dirname(dest_file))
+    try:
+        shutil.copyfile(source, dest_file)
+        self._sources.append(dest_file)
+        return dest_file
+    except IOError as e:
+        raise self.FileCopierError(source, source_root, e.strerror)
+    except OSError as e:
+        raise self.FileCopierError(source, source_root, e.strerror)

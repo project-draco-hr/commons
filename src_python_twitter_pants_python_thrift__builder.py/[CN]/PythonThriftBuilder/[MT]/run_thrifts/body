@@ -1,8 +1,27 @@
 def run_thrifts(self):
+    '\n    Generate Python thrift code using thrift compiler specified in pants config.\n\n    Thrift fields conflicting with Python keywords are suffixed with a trailing\n    underscore (e.g.: from_).\n    '
+    self._workdir = os.path.join(self.config.getdefault(option='thrift_workdir'), 'py-thrift')
 
     def is_py_thrift(target):
         return isinstance(target, PythonThriftLibrary)
-    (bases, roots) = calculate_compile_roots([self.target], is_py_thrift)
-    for src in roots:
-        if (not self._run_thrift(src, bases)):
+    (bases, target_thrifts_sources) = calculate_compile_sources([self.target], is_py_thrift)
+    no_new_thrifts = False
+    thrifts = target_thrifts_sources
+    all_thrifts = target_thrifts_sources
+    while (not no_new_thrifts):
+        if (not thrifts):
+            no_new_thrifts = True
+        else:
+            inc_thrifts = set()
+            for source in thrifts:
+                inc_thrifts.update(find_includes(bases, source))
+            thrifts = inc_thrifts.difference(thrifts)
+            all_thrifts.update(inc_thrifts)
+    copier = FileCopier(self._workdir)
+    copied_sources = set()
+    for src in all_thrifts:
+        thrift_roots = [RemotePythonThriftLibrary, PythonThriftLibrary]
+        copied_sources.add(self._modify_thrift(copier.find_and_copy_relative_file(src, thrift_roots)))
+    for src in copied_sources:
+        if (not self._run_thrift(src)):
             raise PythonThriftBuilder.CodeGenerationException(('Could not generate .py from %s!' % src))

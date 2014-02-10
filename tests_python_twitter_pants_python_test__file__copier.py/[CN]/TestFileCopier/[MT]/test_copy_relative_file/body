@@ -1,0 +1,5 @@
+def test_copy_relative_file(self):
+    with patch('shutil.copyfile') as mock:
+        file_copier = FileCopier(self.file_root)
+        file_copier.copy_relative_file('src/extra/com/twitter/example.thrift', 'src/extra')
+        mock.assert_called_once_with('src/extra/com/twitter/example.thrift', os.path.join(self.file_root, 'com/twitter/example.thrift'))

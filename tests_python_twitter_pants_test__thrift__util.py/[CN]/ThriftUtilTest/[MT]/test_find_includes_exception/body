@@ -1,0 +1,6 @@
+def test_find_includes_exception(self):
+    with temporary_dir() as dir:
+        a = os.path.join(dir, 'a')
+        main = self.write(os.path.join(a, 'main.thrift'), '\n        include "sub/a_included.thrift # Todo"\n        include "b_included.thrift"\n      ')
+        self.write(os.path.join(a, 'sub', 'a_included.thrift'), '# noop')
+        self.assertRaises(ValueError, find_includes, basedirs=set([a]), source=main)

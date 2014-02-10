@@ -1,0 +1,7 @@
+@classmethod
+def setUpClass(self):
+    self.root = mkdtemp(suffix='_BUILD_ROOT')
+    BuildRoot().path = self.root
+    self.file_root = mkdtemp(suffix='_FILE_ROOT')
+    SourceRoot.register(os.path.realpath(os.path.join(self.root, 'src/thrift')), PythonThriftLibrary)
+    SourceRoot.register(os.path.realpath(os.path.join(self.root, '.pantsd/thrift')), RemotePythonThriftLibrary)

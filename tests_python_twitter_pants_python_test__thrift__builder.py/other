@@ -1,0 +1,8 @@
+import os
+from textwrap import dedent
+from twitter.pants import PythonThriftLibrary, SourceRoot
+from twitter.pants.base_build_root_test import BaseBuildRootTest
+from twitter.pants.base.context_utils import create_config
+from twitter.pants.python.thrift_builder import PythonThriftBuilder
+from mock import call, MagicMock, mock_open, patch
+sample_ini_test = '\n[DEFAULT]\npants_workdir: %(buildroot)s\nthrift_workdir: %(pants_workdir)s/thrift\n'
