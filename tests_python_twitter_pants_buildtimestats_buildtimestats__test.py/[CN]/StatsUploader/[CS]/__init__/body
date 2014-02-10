@@ -1,4 +1,0 @@
-def __init__(self, host, port, endpoint, max_delay, stats_file, user, force_upload):
-    self._calls = []
-    RealStatsUploader.__init__(self, host, port, endpoint, max_delay, stats_file, user, force_upload)
-    self._stats_http_client = StatsHttpClient(host, port, endpoint, self._stats_dir)

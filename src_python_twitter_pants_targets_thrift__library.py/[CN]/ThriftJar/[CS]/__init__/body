@@ -1,5 +1,0 @@
-def __init__(self, org, name, rev=None, force=False, url=None, mutable=None, classifier='idl'):
-    '\n    :param string org: Equivalent to Maven groupId.\n    :param string name: Equivalent to Maven artifactId.\n    :param string rev: Equivalent to Maven version.\n    :param boolean force: Force this version.\n    :param string url: Artifact URL if using a non-standard repository layout.\n    :param boolean mutable: If the artifact changes and should not be cached.\n    :param string classifier: Equivalent to Maven classifier.\n    '
-    JarDependency.__init__(self, org, name, rev=rev, force=force, url=url, mutable=mutable)
-    self._configurations.append('idl')
-    self.with_artifact(configuration='idl', classifier=classifier)

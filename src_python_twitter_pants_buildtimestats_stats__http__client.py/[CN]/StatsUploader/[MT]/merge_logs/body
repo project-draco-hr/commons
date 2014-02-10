@@ -1,7 +1,0 @@
-def merge_logs(self):
-    prefix = os.path.join('/tmp', self._user, 'buildtime_uploader')
-    self.append_log_file('DEBUG')
-    self.append_log_file('INFO')
-    self.append_log_file('FATAL')
-    self.append_log_file('ERROR')
-    self.append_log_file('WARNING')

@@ -1,4 +1,0 @@
-def __init__(self, name, sources, dependencies=None, provides=None):
-    TargetWithSources.__init__(self, name, sources=sources)
-    TargetWithDependencies.__init__(self, name, dependencies=dependencies)
-    self.provides = provides

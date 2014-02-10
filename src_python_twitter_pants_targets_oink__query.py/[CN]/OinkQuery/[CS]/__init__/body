@@ -1,5 +1,0 @@
-def __init__(self, name, dependencies, sources=None, excludes=None, deploy_excludes=None):
-    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param dependencies: List of targets (probably ``java_library`` targets\n      to "link" in.\n    :param string sources: Optional list of ``.yml`` files that represent the\n      Oink Query job.\n    :param excludes: List of ``exclude``\\s to filter this target\'s transitive\n      dependencies against.\n    :param deploy_excludes: List of ``excludes`` to apply at deploy time.\n      If you, for example, deploy a a servlet that has one version of\n      ``servlet.jar`` onto a Tomcat environment that provides another version,\n      they might conflict. ``deploy_excludes`` gives you a way to build your\n      code but exclude the conflicting ``jar`` when deploying.\n    '
-    JvmTarget.__init__(self, name, sources, dependencies, excludes)
-    self.configurations = None
-    self.deploy_excludes = ((deploy_excludes or []) + OINK_EXCLUDES)

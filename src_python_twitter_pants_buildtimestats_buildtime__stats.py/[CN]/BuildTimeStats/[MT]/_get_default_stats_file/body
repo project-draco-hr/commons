@@ -1,2 +1,0 @@
-def _get_default_stats_file(self):
-    return os.path.join(get_buildroot(), DEFAULT_STATS_FILE)

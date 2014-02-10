@@ -14,7 +14,5 @@ def execute(self, context, phases):
                 return (e.exit_code if isinstance(e, TaskError) else 1)
         finally:
             timer.finish()
-            if self._build_stats:
-                self._build_stats.record_stats(timer.timings, timer.elapsed)
             if self._print_timing:
                 print(timer.render_timing_report())

@@ -1,5 +1,0 @@
-import re
-from twitter.pants.base import manual, TargetDefinitionException
-from .jar_dependency import JarDependency
-from .java_thrift_library import JavaThriftLibrary
-from .thrift_library import ThriftJar

@@ -1,4 +1,0 @@
-def __init__(self, name, sources, provides=None, dependencies=None, exclusives=None):
-    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the source code\n      this library is compiled from.\n    :type sources: list of strings\n    :param Artifact provides:\n      The :class:`twitter.pants.targets.artifact.Artifact`\n      to publish that represents this target outside the repo.\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    '
-    JavaThriftLibrary.__init__(self, name, sources, provides=provides, compiler='scrooge', language='java', dependencies=dependencies, exclusives=exclusives)
-    self.add_labels('codegen', 'java')

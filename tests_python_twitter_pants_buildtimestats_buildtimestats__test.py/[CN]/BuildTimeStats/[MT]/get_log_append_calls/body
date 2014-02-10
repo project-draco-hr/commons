@@ -1,2 +1,0 @@
-def get_log_append_calls(self):
-    return self._su.get_calls()

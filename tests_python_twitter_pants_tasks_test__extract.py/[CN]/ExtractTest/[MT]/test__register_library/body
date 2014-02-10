@@ -1,9 +1,0 @@
-def test__register_library(self):
-    relpath = 'test__register_library/a'
-    self.create_target(relpath, dedent("\n      thrift_library(name='mybird', sources=None)\n      "))
-    self.create_target(relpath, dedent("\n      thrift_library(name='urbird', sources=None,\n        dependencies=[pants(':mybird')])\n      "))
-    lib = Extract._register_library(self.target(('%s:mybird' % relpath)))
-    self.assertTrue(isinstance(lib, JavaThriftLibrary))
-    self.assertDeps(lib)
-    lib = Extract._register_library(self.target(('%s:urbird' % relpath)), generated_deps=[self.target(('%s:__compiled_idl_mybird' % relpath))])
-    self.assertDeps(lib, self.target(('%s:__compiled_idl_mybird' % relpath)))

@@ -1,5 +1,0 @@
-def __init__(self, context):
-    super(OinkBundleCreate, self).__init__(context)
-    self.outdir = context.config.getdefault('outdir')
-    self.context.products.require('jars', predicate=(lambda t: t.is_java))
-    self.context.products.require('jar_dependencies', predicate=self.is_oink_query)

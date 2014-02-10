@@ -1,9 +1,0 @@
-from functools import partial
-from twitter.common.collections import maybe_list
-from twitter.pants.base import manual, TargetDefinitionException
-from .internal import InternalTarget
-from .jar_dependency import JarDependency
-from .jar_library import JarLibrary
-from .jarable import Jarable
-from .pants_target import Pants
-from .with_sources import TargetWithSources

@@ -1,5 +1,4 @@
-from __future__ import print_function
-from twitter.common.dirutil import Fileset
+from twitter.pants.goal import Goal, Group, Phase
 from twitter.pants.targets import Pants
 from twitter.pants.base import Config
 from twitter.pants.goal import Context, Goal, Group, Phase
@@ -8,7 +7,6 @@ pants = Pants
 goal = Goal
 group = Group
 phase = Phase
-from twitter.pants.tasks.extract import Extract
-compiled_idl = Extract.compiled_idl
 from twitter.pants.base.build_file_aliases import *
 from twitter.pants.base.build_file_helpers import *
+from twitter.pants.base.build_environment import *

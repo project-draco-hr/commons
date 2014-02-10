@@ -1,2 +1,0 @@
-def valid_dependency(self, dep):
-    return isinstance(dep, (ThriftJar, ThriftLibrary))

@@ -1,6 +1,0 @@
-@classmethod
-def is_registered_jar(cls, org, name):
-    'Check if the jar is registered.\n\n    :param string org: Maven groupId of the jar.\n    :param string name: Maven artifactId of the jar.\n    :returns: True if the jar is registered.\n    :rtype: bool\n    '
-    assert isinstance(org, Compatibility.string)
-    assert isinstance(name, Compatibility.string)
-    return ((org, name) in cls._REGISTERED_JARS)

@@ -1,4 +1,3 @@
-def __init__(self, print_timing=False, build_stats=None):
-    'Creates an engine that prints no timings and records no build stats by default.\n\n    :param print_timing: ``True`` to print detailed timings at the end of the run.\n    :param build_stats:  A ``BuildTimeStats`` object for recording run timings.\n    '
+def __init__(self, print_timing=False):
+    'Creates an engine that prints no timings by default.\n\n    :param print_timing: ``True`` to print detailed timings at the end of the run.\n    '
     self._print_timing = print_timing
-    self._build_stats = build_stats

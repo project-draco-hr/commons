@@ -1,8 +1,0 @@
-def test_is_registered_jar(self):
-    Extract._REGISTERED_JARS.clear()
-    jar = JarDependency(org='com.twitter', name='mybird')
-    self.assertRaises(AssertionError, Extract.is_registered_jar, org=None, name=jar.name)
-    self.assertRaises(AssertionError, Extract.is_registered_jar, org=jar.org, name=None)
-    self.assertFalse(Extract.is_registered_jar(jar.org, jar.name))
-    Extract._register_jar(jar)
-    self.assertTrue(Extract.is_registered_jar(jar.org, jar.name))

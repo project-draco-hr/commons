@@ -1,6 +1,0 @@
-def __init__(self, name, sources, dependencies=None, provides=None):
-    '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the source code\n      this library is compiled from.\n    :type sources: list of strings\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    :param provides: An optional :class:`twitter.pants.targets.Artifact` that describes how this\n      thrift IDL library is published as a jar.\n    '
-    TargetWithSources.__init__(self, name, sources)
-    InternalTarget.__init__(self, name, maybe_list((dependencies or ()), expected_type=(JarLibrary, Pants, ThriftJar, ThriftLibrary), raise_type=partial(TargetDefinitionException, self)))
-    self._provides = provides
-    self.add_labels('codegen')

@@ -1,7 +1,0 @@
-def record_stats(self, timings, elapsed):
-    'Records all the stats for -x flag\n    and the network stats\n    '
-    timing_stats = self.compute_stats(timings, elapsed)
-    stats = {}
-    stats['timings'] = timing_stats
-    stats['args'] = sys.argv[1:]
-    self.stats_uploader_daemon(stats)

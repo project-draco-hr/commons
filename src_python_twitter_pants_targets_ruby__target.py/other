@@ -1,3 +1,0 @@
-from twitter.common.collections import OrderedSet
-from twitter.pants.targets.with_dependencies import TargetWithDependencies
-from twitter.pants.targets.with_sources import TargetWithSources
