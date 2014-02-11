@@ -2,5 +2,3 @@ self
 jar
 transitive
 configurations
-classifier
-synth

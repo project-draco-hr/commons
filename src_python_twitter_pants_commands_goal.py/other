@@ -1,5 +1,4 @@
 from __future__ import print_function
-import daemon
 import inspect
 import multiprocessing
 import os
@@ -37,7 +36,7 @@ except ImportError:
 else:
     turn_off_colored_logging = False
 StringIO = Compatibility.StringIO
-goal(name='goals', action=List).install().with_description('List all documented goals.')
+goal(name='goals', action=ListGoals).install().with_description('List all documented goals.')
 goal(name='targets', action=TargetsHelp).install().with_description('List all target types.')
 goal(name='help', action=Help).install().with_description('Provide help for the specified goal.')
 from twitter.pants.targets import JavaTests as junit_tests
@@ -53,7 +52,6 @@ from twitter.pants.tasks.bundle_create import BundleCreate
 from twitter.pants.tasks.checkstyle import Checkstyle
 from twitter.pants.tasks.check_published_deps import CheckPublishedDeps
 from twitter.pants.tasks.detect_duplicates import DuplicateDetector
-from twitter.pants.tasks.extract import Extract
 from twitter.pants.tasks.check_exclusives import CheckExclusives
 from twitter.pants.tasks.filedeps import FileDeps
 from twitter.pants.tasks.ivy_resolve import IvyResolve

@@ -1,5 +1,0 @@
-@classmethod
-def setUpClass(cls):
-    super(WithLegacyResourcesTest, cls).setUpClass()
-    cls.resource_path = 'a/b.js'
-    cls.create_file(os.path.join('main/resources', cls.resource_path), 'alert("!");')

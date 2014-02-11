@@ -1,6 +1,6 @@
 def __init__(self, name, sources, provides=None, dependencies=None, excludes=None, resources=None, processors=None, exclusives=None):
     "\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the source code\n      this library is compiled from.\n    :type sources: list of strings\n    :param Artifact provides:\n      The :class:`twitter.pants.targets.artifact.Artifact`\n      to publish that represents this target outside the repo.\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    :param excludes: List of :class:`twitter.pants.targets.exclude.Exclude` instances\n      to filter this target's transitive dependencies against.\n    :param resources: An optional list of file paths (DEPRECATED) or\n      ``resources`` targets (which in turn point to file paths). The paths\n      indicate text file resources to place in this module's jar.\n    :param processors: A list of the fully qualified class names of the\n      annotation processors this library exports.\n    :param exclusives: An optional map of exclusives tags. See CheckExclusives for details.\n    "
-    ExportableJvmLibrary.__init__(self, name, sources, provides, dependencies, excludes, exclusives=exclusives)
-    WithLegacyResources.__init__(self, name, sources=sources, resources=resources, exclusives=exclusives)
-    self.add_labels('java', 'apt')
+    super(AnnotationProcessor, self).__init__(name, sources, provides, dependencies, excludes, exclusives=exclusives)
+    self.resources = list(self.resolve_all(resources, Resources))
     self.processors = processors
+    self.add_labels('java', 'apt')

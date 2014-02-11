@@ -1,3 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    option_group.add_option(mkflag('outdir'), dest='thriftstore_gen_create_outdir', help='Emit thriftstore generated code in to this directory.')

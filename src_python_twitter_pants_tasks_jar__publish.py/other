@@ -1,5 +1,4 @@
 from __future__ import print_function
-import copy
 import functools
 import getpass
 import hashlib
@@ -18,6 +17,6 @@ from twitter.pants.base.address import Address
 from twitter.pants.base.target import Target
 from twitter.pants.base.generator import Generator, TemplateData
 from twitter.pants.ivy import Bootstrapper, Ivy
-from twitter.pants.targets import AnnotationProcessor, InternalTarget, JavaLibrary, JavaThriftLibrary, Resources, ScalaLibrary, ThriftJar, ThriftLibrary
+from twitter.pants.targets import InternalTarget, Resources
 from twitter.pants.tasks.scm_publish import ScmPublish, Semver
 from . import Task, TaskError

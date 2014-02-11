@@ -1,0 +1,4 @@
+@property
+def derived_from(self):
+    'Returns the target this target was derived from.\n\n    If this target was not derived from another, returns itself.\n    '
+    return self._derived_from

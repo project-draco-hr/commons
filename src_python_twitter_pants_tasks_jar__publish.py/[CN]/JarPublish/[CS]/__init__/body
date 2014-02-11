@@ -42,7 +42,7 @@ def __init__(self, context, scm=None):
                         siblings = Target.get_all_addresses(address.buildfile)
                         prompt = ('did you mean' if (len(siblings) == 1) else 'maybe you meant one of these')
                         raise TaskError(('%s => %s?:\n    %s' % (address, prompt, '\n    '.join((str(a) for a in siblings)))))
-                    if (not is_exported(target)):
+                    if (not target.is_exported):
                         raise TaskError(('%s is not an exported target' % coordinate))
                     return (target.provides.org, target.provides.name)
                 except (ImportError, SyntaxError, TypeError):
@@ -68,4 +68,3 @@ def __init__(self, context, scm=None):
         self.restart_at = parse_jarcoordinate(context.options.jar_publish_restart_at)
     context.products.require('jars')
     context.products.require('source_jars')
-    context.products.require('idl_jars')

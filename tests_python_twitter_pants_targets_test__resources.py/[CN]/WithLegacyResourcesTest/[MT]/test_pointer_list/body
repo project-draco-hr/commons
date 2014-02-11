@@ -1,5 +1,0 @@
-def test_pointer_list(self):
-    resources = self._create_resources()
-    self.create_target('d/e/f', dedent("\n      dependencies(name='ref', dependencies=[pants('main/resources:test')])\n\n      from twitter.pants.targets.resources import WithLegacyResources\n      WithLegacyResources(name='jane', resources=[pants('main/resources:test'), pants(':ref')])\n      ").strip())
-    jane = self.target('d/e/f/BUILD:jane')
-    self.assertEquals([resources, resources], jane.resources)

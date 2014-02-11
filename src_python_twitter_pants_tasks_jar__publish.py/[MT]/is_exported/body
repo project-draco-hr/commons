@@ -1,2 +1,0 @@
-def is_exported(target):
-    return (target.is_exported and (isinstance(target, AnnotationProcessor) or isinstance(target, JavaLibrary) or isinstance(target, ScalaLibrary)))

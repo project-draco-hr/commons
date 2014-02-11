@@ -34,4 +34,4 @@ def run(self, lock):
             unknown.append(phase)
     if unknown:
         return _list_goals(context, ('Unknown goal(s): %s' % ' '.join((phase.name for phase in unknown))))
-    return Goal._execute(context, self.phases, print_timing=self.options.time, force_stats_upload=self.options.force_upload)
+    return Goal._execute(context, self.phases, print_timing=self.options.time)

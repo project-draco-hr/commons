@@ -1,2 +1,2 @@
-def templateargs(self, target_jar, confs=None, synth=False):
+def templateargs(self, target_jar, confs=None):
     return dict(artifact=target_jar)

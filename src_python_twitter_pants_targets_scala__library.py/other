@@ -1,5 +1,5 @@
 from twitter.common.collections import maybe_list
 from twitter.pants.base import manual, Target, TargetDefinitionException
 from .exportable_jvm_library import ExportableJvmLibrary
-from .resources import WithLegacyResources
+from .resources import Resources
 from . import JavaLibrary

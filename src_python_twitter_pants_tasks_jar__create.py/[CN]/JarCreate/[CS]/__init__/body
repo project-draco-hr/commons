@@ -10,9 +10,6 @@ def __init__(self, context, jar_javadoc=False):
     if self.jar_classes:
         products.require_data('classes_by_target')
         products.require_data('resources_by_target')
-    self.jar_idl = (products.isrequired('idl_jars') or options.jar_create_idl)
-    if self.jar_idl:
-        products.require('idl')
     definitely_create_javadoc = (options.jar_create_javadoc or products.isrequired('javadoc_jars'))
     definitely_dont_create_javadoc = (options.jar_create_javadoc is False)
     create_javadoc = (jar_javadoc and (options.jar_create_javadoc is None))

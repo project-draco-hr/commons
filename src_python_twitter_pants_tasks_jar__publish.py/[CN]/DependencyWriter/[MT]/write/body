@@ -1,23 +1,20 @@
-def write(self, target, path, confs=None, synth=False):
+def write(self, target, path, confs=None):
 
-    def as_jar(internal_target, is_tgt=False):
+    def as_jar(internal_target):
         (jar, _, _, _) = self.get_db(internal_target).as_jar_with_version(internal_target)
-        if (synth and is_tgt):
-            jar.name += '-only'
         return jar
     dependencies = OrderedDict()
     internal_codegen = {}
     for dep in target_internal_dependencies(target):
         jar = as_jar(dep)
-        dependencies[(jar.org, jar.name)] = self.internaldep(jar, dep, synth)
+        dependencies[(jar.org, jar.name)] = self.internaldep(jar, dep)
         if dep.is_codegen:
             internal_codegen[jar.name] = jar.name
     for jar in target.jar_dependencies:
         if jar.rev:
-            classifier = (jar.classifier if isinstance(jar, ThriftJar) else None)
-            dependencies[(jar.org, jar.name)] = self.jardep(jar, classifier=classifier)
-    target_jar = self.internaldep(as_jar(target, is_tgt=True)).extend(dependencies=dependencies.values())
-    template_kwargs = self.templateargs(target_jar, confs, synth)
+            dependencies[(jar.org, jar.name)] = self.jardep(jar)
+    target_jar = self.internaldep(as_jar(target)).extend(dependencies=dependencies.values())
+    template_kwargs = self.templateargs(target_jar, confs)
     with safe_open(path, 'w') as output:
         template = pkgutil.get_data(__name__, self.template_relpath)
         Generator(template, **template_kwargs).write(output)

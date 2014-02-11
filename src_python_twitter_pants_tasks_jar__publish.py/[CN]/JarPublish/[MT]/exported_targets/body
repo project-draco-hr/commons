@@ -16,5 +16,5 @@ def exported_targets(self):
             candidates.update(get_synthetic('scala', candidate))
 
     def exportable(tgt):
-        return ((tgt in candidates) and is_exported(tgt))
+        return ((tgt in candidates) and tgt.is_exported)
     return OrderedSet(filter(exportable, reversed(InternalTarget.sort_targets(filter(exportable, candidates)))))

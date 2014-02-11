@@ -1,3 +1,2 @@
-def internaldep(self, jar_dependency, dep=None, synth=False):
-    classifier = ('idl' if ((dep.is_codegen and synth) or isinstance(dep, ThriftLibrary)) else None)
-    return self.jardep(jar_dependency, classifier=classifier, synth=synth)
+def internaldep(self, jar_dependency, dep=None):
+    return self.jardep(jar_dependency)

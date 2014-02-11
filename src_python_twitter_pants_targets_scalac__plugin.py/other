@@ -1,1 +1,2 @@
-from twitter.pants.targets.scala_library import ScalaLibrary
+from twitter.pants.base import manual
+from .scala_library import ScalaLibrary

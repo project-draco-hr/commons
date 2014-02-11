@@ -1,5 +1,5 @@
 def __init__(self, name, sources, provides=None, dependencies=None, excludes=None, exclusives=None):
     "\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the source code\n      this library is compiled from.\n    :type sources: list of strings\n    :param provides:\n      An optional Dependency object indicating the The ivy artifact to export.\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    :param excludes: List of :class:`twitter.pants.targets.exclude.Exclude` instances\n      to filter this target's transitive dependencies against.\n    :param buildflags: Unused, and will be removed in a future release.\n    "
     self._provides = provides
-    JvmTarget.__init__(self, name, sources, dependencies, excludes, exclusives=exclusives)
+    super(ExportableJvmLibrary, self).__init__(name, sources, dependencies, excludes, exclusives=exclusives)
     self.add_labels('exportable')

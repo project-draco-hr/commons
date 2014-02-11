@@ -16,4 +16,4 @@ def __init__(self, name, exclusives=None):
             for k in exclusives:
                 self.declared_exclusives[k].add(exclusives[k])
         self.exclusives = None
-        self.derived_from = self
+        self._derived_from = self

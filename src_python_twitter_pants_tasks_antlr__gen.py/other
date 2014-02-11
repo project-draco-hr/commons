@@ -1,4 +1,3 @@
-__author__ = 'Brian Larson'
 import os
 from twitter.common.collections import OrderedSet
 from twitter.common.dirutil import safe_mkdir

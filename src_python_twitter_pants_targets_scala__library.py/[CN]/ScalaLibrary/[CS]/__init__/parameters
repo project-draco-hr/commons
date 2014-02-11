@@ -6,6 +6,4 @@ provides
 dependencies
 excludes
 resources
-deployjar
-buildflags
 exclusives

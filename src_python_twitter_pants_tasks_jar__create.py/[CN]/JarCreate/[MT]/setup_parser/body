@@ -6,4 +6,3 @@ def setup_parser(cls, option_group, args, mkflag):
     option_group.add_option(mkflag('classes'), mkflag('classes', negate=True), dest='jar_create_classes', default=True, action='callback', callback=mkflag.set_bool, help='[%default] Create class jars.')
     option_group.add_option(mkflag('sources'), mkflag('sources', negate=True), dest='jar_create_sources', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Create source jars.')
     option_group.add_option(mkflag('javadoc'), mkflag('javadoc', negate=True), dest='jar_create_javadoc', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Create javadoc jars.')
-    option_group.add_option(mkflag('idl'), mkflag('idl', negate=True), dest='jar_create_idl', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Create Thrift jars.')

@@ -1,5 +1,0 @@
-def test_pointer(self):
-    resources = self._create_resources()
-    self.create_target('a/b/c', dedent("\n      from twitter.pants.targets.resources import WithLegacyResources\n      WithLegacyResources(name='jake', resources=pants('main/resources:test'))\n      ").strip())
-    jake = self.target('a/b/c/BUILD:jake')
-    self.assertEquals([resources], jake.resources)

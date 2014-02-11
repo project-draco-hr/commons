@@ -1,3 +1,2 @@
-__author__ = 'John Sirois'
 from . import Command
 from copy import copy

@@ -1,2 +1,0 @@
-def is_idl_library(target):
-    return (target.has_sources('.thrift') and isinstance(target, (ThriftLibrary, JavaThriftLibrary)))

@@ -1,2 +1,0 @@
-def invalidate_for(self):
-    return set('java')

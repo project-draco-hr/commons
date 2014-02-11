@@ -1,4 +1,0 @@
-def test_mixed_legacy_and_pointer(self):
-    self._create_resources()
-    self.create_target(self.test_mixed_legacy_and_pointer.__name__, dedent("\n      from twitter.pants.targets.resources import WithLegacyResources\n      WithLegacyResources(name='margot', resources=[pants('main/resources:test'), 'margot.txt'])\n      ").strip())
-    self.assertRaises(ValueError, self.target, ('%s:margot' % self.test_mixed_legacy_and_pointer.__name__))

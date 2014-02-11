@@ -5,5 +5,4 @@ java_sources
 dependencies
 excludes
 resources
-buildflags
 exclusives

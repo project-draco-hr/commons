@@ -1,2 +1,2 @@
-def _jardep(self, jar, transitive=True, configurations='default', classifier=None, synth=False):
-    return TemplateData(org=jar.org, module=(jar.name + ('-only' if synth else '')), version=jar.rev, mutable=False, force=jar.force, excludes=[self.create_exclude(exclude) for exclude in jar.excludes], transitive=transitive, artifacts=jar.artifacts, is_idl=(classifier == 'idl'), configurations=configurations)
+def _jardep(self, jar, transitive=True, configurations='default'):
+    return TemplateData(org=jar.org, module=jar.name, version=jar.rev, mutable=False, force=jar.force, excludes=[self.create_exclude(exclude) for exclude in jar.excludes], transitive=transitive, artifacts=jar.artifacts, configurations=configurations)
