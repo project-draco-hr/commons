@@ -1,4 +1,0 @@
-def test_invalid_dependencies_indirect(self):
-    indirect = self.target('invalid/indirect:jar')
-    with pytest.raises(TargetDefinitionException):
-        self.assertTrue((len(indirect.dependencies) > 0))

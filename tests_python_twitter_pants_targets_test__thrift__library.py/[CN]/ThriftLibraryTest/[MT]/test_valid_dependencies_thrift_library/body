@@ -1,4 +1,0 @@
-def test_valid_dependencies_thrift_library(self):
-    target = self.target('valid:local-thrifts')
-    self.assertEquals(0, len(target.sources))
-    self.assertEquals(set([self.target('valid:empty'), self.target('valid:split')]), set(target.dependencies))

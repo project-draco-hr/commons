@@ -1,8 +1,0 @@
-def test_valid_dependencies_thrift_jar(self):
-    target = self.target('valid:remote-thrifts')
-    self.assertEquals(0, len(target.sources))
-    expected = set(self.target('3rdparty:thrift-jar').resolve())
-    expected.update(self.target('valid:anon').resolve())
-    expected.add(ThriftJar(org='foo', name='bop', rev='0.0.1'))
-    expected.add(ThriftJar(org='foo', name='bam', rev='0.0.1'))
-    self.assertEquals(expected, set(target.dependencies))
