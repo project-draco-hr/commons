@@ -1,0 +1,5 @@
+def move(self, src, dst):
+    if self._delete_scratch:
+        shutil.move(src, dst)
+    else:
+        shutil.copy(src, dst)
