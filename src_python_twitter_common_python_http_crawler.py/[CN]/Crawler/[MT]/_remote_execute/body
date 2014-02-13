@@ -2,7 +2,7 @@ def _remote_execute(self, url):
     try:
         with contextlib.closing(self._open(url, conn_timeout=self._conn_timeout)) as index_fp:
             index_content = self.decode_page(index_fp)
-    except urllib_error.URLError as e:
+    except FetchError as e:
         TRACER.log(('Failed to fetch %s: %s' % (url, e)))
         return (set(), set())
     links = set((urljoin(url, link) for link in PageParser.links(index_content)))
