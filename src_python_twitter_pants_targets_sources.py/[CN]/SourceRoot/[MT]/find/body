@@ -7,7 +7,7 @@ def find(cls, target):
         for (root_dir, types) in cls._TYPES_BY_ROOT.items():
             if target_path.startswith(root_dir):
                 if (types and (not isinstance(target, tuple(types)))):
-                    raise TargetDefinitionException(target, ('Target type %s not allowed under %s' % (target.__class__.__name__, root)))
+                    raise TargetDefinitionException(target, ('Target type %s not allowed under %s' % (target.__class__.__name__, root_dir)))
                 return root_dir
         return None
     root = _find()
