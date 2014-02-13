@@ -1,11 +1,11 @@
 def __init__(self, name, main=None, basename=None, source=None, resources=None, dependencies=None, excludes=None, deploy_excludes=None, configurations=None, exclusives=None):
     '\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param string main: The name of the ``main`` class, e.g.,\n      ``\'com.twitter.common.examples.pingpong.Main\'``. This class may be\n      present as the source of this target or depended-upon library.\n    :param string basename: Base name for the generated ``.jar`` file, e.g.,\n      ``\'pingpong\'``. (By default, uses ``name`` param)\n    :param string source: Name of one ``.java`` or ``.scala`` file (a good\n      place for a ``main``).\n    :param resources: List of ``resource``\\s to include in bundle.\n    :param dependencies: List of targets (probably ``java_library`` and\n     ``scala_library`` targets) to "link" in.\n    :param excludes: List of ``exclude``\\s to filter this target\'s transitive\n     dependencies against.\n    :param deploy_excludes: List of ``excludes`` to apply at deploy time.\n      If you, for example, deploy a java servlet that has one version of\n      ``servlet.jar`` onto a Tomcat environment that provides another version,\n      they might conflict. ``deploy_excludes`` gives you a way to build your\n      code but exclude the conflicting ``jar`` when deploying.\n    :param configurations: Ivy configurations to resolve for this target.\n      This parameter is not intended for general use.\n    :type configurations: tuple of strings\n    '
-    JvmTarget.__init__(self, name=name, sources=([source] if source else None), dependencies=dependencies, excludes=excludes, configurations=configurations, exclusives=exclusives)
+    super(JvmBinary, self).__init__(name=name, sources=([source] if source else None), dependencies=dependencies, excludes=excludes, configurations=configurations, exclusives=exclusives)
     if (main and (not isinstance(main, Compatibility.string))):
         raise TargetDefinitionException(self, 'main must be a fully qualified classname')
     if (source and (not isinstance(source, Compatibility.string))):
         raise TargetDefinitionException(self, 'source must be a single relative file path')
     self.main = main
     self.basename = (basename or name)
-    self.resources = list(self.resolve_all(resources, Resources))
+    self.resources = resources
     self.deploy_excludes = (deploy_excludes or [])

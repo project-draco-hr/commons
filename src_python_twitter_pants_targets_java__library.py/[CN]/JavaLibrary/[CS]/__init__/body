@@ -3,5 +3,5 @@ def __init__(self, name, sources=None, provides=None, dependencies=None, exclude
     super(JavaLibrary, self).__init__(name, sources, provides, dependencies, excludes, exclusives=exclusives)
     if ((sources is None) and (resources is None)):
         raise TargetDefinitionException(self, 'Must specify sources and/or resources.')
-    self.resources = list(self.resolve_all(resources, Resources))
+    self.resources = resources
     self.add_labels('java')

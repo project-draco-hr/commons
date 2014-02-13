@@ -1,2 +1,0 @@
-def test_idl_jar_not_required(self):
-    self.assert_idl_jar_contents(self.context(), empty=True)

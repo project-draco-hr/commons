@@ -1,7 +1,0 @@
-def assert_idl_jar_contents(self, context, empty=False):
-    JarCreate(context).execute(context.targets())
-    if empty:
-        self.assertTrue(context.products.get('idl_jars').empty())
-    else:
-        self.assert_jar_contents(context, 'idl_jars', self.jtl, 'com/', 'com/twitter/', 'com/twitter/d.thrift')
-        self.assert_jar_contents(context, 'idl_jars', self.tl, 'com/', 'com/twitter/', 'com/twitter/e.thrift')

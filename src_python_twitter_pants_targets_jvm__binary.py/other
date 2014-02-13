@@ -9,4 +9,4 @@ from twitter.pants.targets import util
 from .internal import InternalTarget
 from .jvm_target import JvmTarget
 from .pants_target import Pants
-from .resources import Resources
+from .resources import WithResources

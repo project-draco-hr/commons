@@ -1,2 +1,0 @@
-def test_idl_jar_flagged(self):
-    self.assert_idl_jar_contents(self.context(jar_create_idl=True))

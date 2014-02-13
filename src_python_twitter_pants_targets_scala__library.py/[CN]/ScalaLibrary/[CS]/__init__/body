@@ -3,7 +3,7 @@ def __init__(self, name, sources=None, java_sources=None, provides=None, depende
     super(ScalaLibrary, self).__init__(name, sources, provides, dependencies, excludes, exclusives=exclusives)
     if ((sources is None) and (resources is None)):
         raise TargetDefinitionException(self, 'Must specify sources and/or resources.')
-    self.resources = list(self.resolve_all(resources, Resources))
+    self.resources = resources
     self.java_sources = []
     self._post_construct(self._link_java_cycles, java_sources)
     self.add_labels('scala')
