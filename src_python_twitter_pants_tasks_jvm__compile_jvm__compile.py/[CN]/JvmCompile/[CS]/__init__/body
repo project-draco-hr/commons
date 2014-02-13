@@ -11,6 +11,7 @@ def __init__(self, context, minimum_version=None, jdk=False):
     self._classes_dir = os.path.join(workdir, 'classes')
     self._resources_dir = os.path.join(workdir, 'resources')
     self._analysis_dir = os.path.join(workdir, 'analysis')
+    self._delete_scratch = get_lang_specific_option('delete_scratch')
     safe_mkdir(self._classes_dir)
     safe_mkdir(self._analysis_dir)
     self._analysis_file = os.path.join(self._analysis_dir, 'global_analysis.valid')

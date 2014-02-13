@@ -32,8 +32,8 @@ def execute(self, targets):
                         self._analysis_tools.merge_from_paths([self._invalid_analysis_file, newly_invalid_analysis_tmp], invalid_analysis_tmp)
                     else:
                         invalid_analysis_tmp = newly_invalid_analysis_tmp
-                    shutil.move(valid_analysis_tmp, self._analysis_file)
-                    shutil.move(invalid_analysis_tmp, self._invalid_analysis_file)
+                    self.move(valid_analysis_tmp, self._analysis_file)
+                    self.move(invalid_analysis_tmp, self._invalid_analysis_file)
             valid_targets = list((set(relevant_targets) - set(invalid_targets)))
             self._register_products(valid_targets, sources_by_target, self._analysis_file)
             partitions = []
@@ -58,7 +58,7 @@ def execute(self, targets):
                             self._analysis_tools.merge_from_paths([self._analysis_file, analysis_file], new_valid_analysis)
                     else:
                         shutil.copy(analysis_file, new_valid_analysis)
-                    shutil.move(new_valid_analysis, self._analysis_file)
+                    self.move(new_valid_analysis, self._analysis_file)
                     self._register_products(vts.targets, sources_by_target, analysis_file)
                     if self._dep_analyzer:
                         actual_deps = self._analysis_parser.parse_deps_from_path(analysis_file, (lambda : self._compute_classpath_elements_by_class(cp_entries)))
@@ -71,7 +71,7 @@ def execute(self, targets):
                         new_invalid_analysis = (analysis_file + '.invalid.new')
                         discarded_invalid_analysis = (analysis_file + '.invalid.discard')
                         self._analysis_tools.split_to_paths(self._invalid_analysis_file, [(sources, discarded_invalid_analysis)], new_invalid_analysis)
-                        shutil.move(new_invalid_analysis, self._invalid_analysis_file)
+                        self.move(new_invalid_analysis, self._invalid_analysis_file)
                 vts.update()
         else:
             self._register_products(relevant_targets, sources_by_target, self._analysis_file)
