@@ -1,0 +1,5 @@
+@classmethod
+def path(cls, relpath=None):
+    'Returns the active parse context path or `os.getcwd()` if there is no active context.\n\n    If relpath is specified the path returned will be joined to it but in either case the returned\n    path will be absolute.\n    '
+    base = (os.getcwd() if (not ParseContext._active) else cls.locate().current_buildfile.parent_path)
+    return os.path.abspath((os.path.join(base, relpath) if relpath else base))
