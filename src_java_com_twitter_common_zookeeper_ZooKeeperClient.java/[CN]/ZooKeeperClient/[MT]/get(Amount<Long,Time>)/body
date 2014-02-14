@@ -15,8 +15,10 @@ case SyncConnected:
     break;
 }
 }
+synchronized (watchers) {
 for (Watcher watcher : watchers) {
 watcher.process(event);
+}
 }
 }
 }
