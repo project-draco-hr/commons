@@ -1,0 +1,11 @@
+def get_link_types(self):
+    'Returns a list of the available link types'
+    link_types = []
+    with self._api_call_guard():
+        try:
+            link_types_data = json.loads(self.api_call('issueLinkType'))
+        except (KeyError, ValueError) as e:
+            raise JiraError(cause=e, message='Transitions list did not have the expected JSON format')
+    for link_type in link_types_data['issueLinkTypes']:
+        link_types.append(link_type['name'])
+    return link_types

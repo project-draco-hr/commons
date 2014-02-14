@@ -1,0 +1,5 @@
+def get_issue_links(self, issue):
+    'Returns the links section of an issue'
+    issue_data = self.get_issue(issue)
+    issue_parsed = json.loads(issue_data)
+    return issue_parsed['fields']['issuelinks']

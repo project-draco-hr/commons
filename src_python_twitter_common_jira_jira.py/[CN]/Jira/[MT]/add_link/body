@@ -1,0 +1,10 @@
+def add_link(self, inward_issue, outward_issue, comment=None, link_type='Related'):
+    'Add a link between the inward_issue and the outward_issue'
+    link_types = self.get_link_types()
+    if (not (link_type in link_types)):
+        raise JiraError(message=("Error: Link type of '%s' not valid: " % link_type))
+    data = {'type': {'name': link_type, }, 'inwardIssue': {'key': inward_issue, }, 'outwardIssue': {'key': outward_issue, }, }
+    if comment:
+        data['comment'] = {'body': comment, }
+    with self._api_call_guard():
+        return self.api_call('issueLink', data)

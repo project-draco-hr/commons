@@ -1,0 +1,5 @@
+def add_watcher(self, issue, watcher):
+    'Adds the given watcher to the given issue'
+    endpoint = ('issue/%s/watchers' % issue)
+    with self._api_call_guard():
+        return self.api_call(endpoint, watcher)

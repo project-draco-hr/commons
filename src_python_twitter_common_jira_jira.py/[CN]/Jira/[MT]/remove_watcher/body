@@ -1,0 +1,5 @@
+def remove_watcher(self, issue, watcher):
+    'Removes the given watcher from the given issue'
+    endpoint = ('issue/%s/watchers?username=%s' % (issue, watcher))
+    with self._api_call_guard():
+        return self.api_call(endpoint, send_delete=True)
