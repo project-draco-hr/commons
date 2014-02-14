@@ -1,6 +1,11 @@
 @manual.builddict(tags=['python'])
 def PythonEgg(glob, name=None):
     "Refers to pre-built Python eggs in the file system. (To instead fetch\n  eggs in a ``pip``/``easy_install`` way, use ``python_requirement``)\n\n  E.g., ``egg(name='foo', glob='foo-0.1-py2.6.egg')`` would pick up the\n  file ``foo-0.1-py2.6.egg`` from the ``BUILD`` file's directory; targets\n  could depend on it by name ``foo``.\n\n  :param string glob: File glob pattern.\n  :param string name: Target name; by default uses the egg's project name.\n  "
+    try:
+        parse_context = ParseContext.locate()
+        glob = os.path.join(parse_context.current_buildfile.parent_path, glob)
+    except ParseContext.ContextError:
+        pass
     eggs = fsglob(glob)
     requirements = set()
     for egg in eggs:
