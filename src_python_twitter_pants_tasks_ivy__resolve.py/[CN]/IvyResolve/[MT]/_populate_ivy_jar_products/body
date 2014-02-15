@@ -5,4 +5,4 @@ def _populate_ivy_jar_products(self, targets):
         ivyinfo = self._ivy_utils.parse_xml_report(targets, conf)
         if ivyinfo:
             ivy_products[conf].append(ivyinfo)
-    self.context.products.set_data('ivy_jar_products', ivy_products)
+    self.context.products.safe_create_data('ivy_jar_products', (lambda : ivy_products))

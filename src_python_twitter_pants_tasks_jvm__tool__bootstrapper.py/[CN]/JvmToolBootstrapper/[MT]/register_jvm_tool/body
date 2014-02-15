@@ -8,4 +8,4 @@ def register_jvm_tool(self, key, tools):
             raise TaskError(('Attemping to change tools under %s from %s to %s.' % (key, existing, tools)))
     else:
         tool_product_map[key] = tools
-        self._products.set_data('jvm_build_tools', tool_product_map)
+        self._products.safe_create_data('jvm_build_tools', (lambda : tool_product_map))

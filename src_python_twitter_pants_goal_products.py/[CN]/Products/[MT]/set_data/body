@@ -1,3 +1,0 @@
-def set_data(self, typename, data):
-    ' Stores a required data product.\n\n    If the product already exists, the value is replaced.\n    '
-    self.data_products[typename] = data

@@ -1,4 +1,5 @@
 def execute(self, targets):
+    self._create_empty_products()
     relevant_targets = [t for t in targets if t.has_sources(self._file_suffix)]
     if (not relevant_targets):
         return
