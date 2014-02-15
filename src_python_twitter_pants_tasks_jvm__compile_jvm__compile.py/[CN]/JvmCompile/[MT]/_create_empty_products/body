@@ -1,0 +1,8 @@
+def _create_empty_products(self):
+    make_products = (lambda : defaultdict(MultipleRootedProducts))
+    if self.context.products.is_required_data('classes_by_source'):
+        self.context.products.safe_create_data('classes_by_source', make_products)
+    if self.context.products.is_required_data('classes_by_target'):
+        self.context.products.safe_create_data('classes_by_target', make_products)
+    if self.context.products.is_required_data('resources_by_target'):
+        self.context.products.safe_create_data('resources_by_target', make_products)
