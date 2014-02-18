@@ -1,0 +1,5 @@
+def auth_fail(self, gss_context=None):
+    resp = HTTPResponse(self._fail_response, status=401)
+    resp.set_header('Content-Type', self._content_type)
+    resp.set_header('WWW-Authenticate', ('Negotiate' + ((' ' + gss_context) if gss_context else '')))
+    return resp
