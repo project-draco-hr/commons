@@ -8,6 +8,9 @@
   long elapsed=endTime - ((Long)startTimeAttribute).longValue();
   statusCounters.getUnchecked(status).accumulate(elapsed);
   AbstractResourceMethod matchedMethod=extendedUriInfo.getMatchedMethod();
+  if (matchedMethod == null) {
+    return;
+  }
   TrackRequestStats trackRequestStats=matchedMethod.getAnnotation(TrackRequestStats.class);
   if (trackRequestStats == null) {
     Method method=matchedMethod.getMethod();
