@@ -1,0 +1,4 @@
+@property
+def is_java_agent(self):
+    'Returns `True` if the target is a java agent.'
+    return self.has_label('java_agent')

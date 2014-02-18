@@ -1,0 +1,4 @@
+@property
+def can_retransform(self):
+    'Returns `True` if the ability to retransform classes is needed by this agent.'
+    return self._can_retransform

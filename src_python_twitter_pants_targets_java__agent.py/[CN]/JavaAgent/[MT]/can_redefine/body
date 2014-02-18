@@ -1,0 +1,4 @@
+@property
+def can_redefine(self):
+    'Returns `True` if the ability to redefine classes is needed by this agent.'
+    return self._can_redefine

@@ -1,4 +1,4 @@
-from twitter.pants.targets import AnnotationProcessor, Artifact, Benchmark, Bundle, Credentials, JarLibrary, PythonEgg, Exclude, JarDependency, JavaLibrary, JavaAntlrLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, JvmApp, JvmBinary, Page, Pants, PythonArtifact, PythonBinary, PythonLibrary, PythonAntlrLibrary, PythonRequirement, PythonThriftLibrary, PythonTests, PythonTestSuite, Repository, Resources, ScalaLibrary, ScalaTests, ScalacPlugin, SourceRoot, Wiki
+from twitter.pants.targets import AnnotationProcessor, Artifact, Benchmark, Bundle, Credentials, Exclude, JarDependency, JarLibrary, JavaAgent, JavaAntlrLibrary, JavaLibrary, JavaProtobufLibrary, JavaTests, JavaThriftLibrary, JvmApp, JvmBinary, Page, Pants, PythonArtifact, PythonBinary, PythonEgg, PythonLibrary, PythonAntlrLibrary, PythonRequirement, PythonThriftLibrary, PythonTests, PythonTestSuite, Repository, Resources, ScalaLibrary, ScalaTests, ScalacPlugin, SourceRoot, Wiki
 annotation_processor = AnnotationProcessor
 artifact = Artifact
 benchmark = Benchmark
@@ -9,6 +9,7 @@ egg = PythonEgg
 exclude = Exclude
 fancy_pants = Pants
 jar = JarDependency
+java_agent = JavaAgent
 java_library = JavaLibrary
 java_antlr_library = JavaAntlrLibrary
 java_protobuf_library = JavaProtobufLibrary
