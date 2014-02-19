@@ -1,0 +1,4 @@
+def resolve(self):
+    unused_resolved_java_sources = self.java_sources
+    for resolved in super(ScalaLibrary, self).resolve():
+        yield resolved

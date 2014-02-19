@@ -1,7 +1,7 @@
 @classmethod
 def setUpClass(cls):
     super(WhatChangedTest, cls).setUpClass()
-    cls.create_target('root', dedent("\n      source_root('src/py', python_library)\n    "))
+    cls.create_target('root', dedent("\n      source_root('src/py', python_library)\n      source_root('resources/a1', resources)\n    "))
     cls.create_target('root/src/py/a', dedent("\n      python_library(\n        name='alpha',\n        sources=['b/c', 'd'],\n        resources=['test.resources']\n      )\n\n      jar_library(\n        name='beta',\n        dependencies=[\n          jar(org='gamma', name='ray', rev='1.137.bruce_banner')\n        ]\n      )\n    "))
     cls.create_target('root/src/py/1', dedent("\n      python_library(\n        name='numeric',\n        sources=['2']\n      )\n    "))
     cls.create_target('root/src/thrift', dedent("\n      java_thrift_library(\n        name='thrift',\n        sources=['a.thrift']\n      )\n\n      python_thrift_library(\n        name='py-thrift',\n        sources=['a.thrift']\n      )\n    "))

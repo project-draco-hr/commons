@@ -1,0 +1,5 @@
+def resolve(self):
+    unused_resolved_binary = self.binary
+    unused_resolved_bundles = self.bundles
+    for resolved in super(JvmApp, self).resolve():
+        yield resolved

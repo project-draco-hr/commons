@@ -1,0 +1,4 @@
+def resolve(self):
+    unused_resolved_resources = self.resources
+    for resolved in super(WithResources, self).resolve():
+        yield resolved
