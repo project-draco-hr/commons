@@ -4,6 +4,6 @@ def __init__(self, name, sources=None, java_sources=None, provides=None, depende
     if ((sources is None) and (resources is None)):
         raise TargetDefinitionException(self, 'Must specify sources and/or resources.')
     self.resources = resources
-    self.java_sources = []
-    self._post_construct(self._link_java_cycles, java_sources)
+    self._java_sources = []
+    self._raw_java_sources = util.resolve(java_sources)
     self.add_labels('scala')
