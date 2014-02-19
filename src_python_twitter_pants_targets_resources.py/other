@@ -1,3 +1,4 @@
 from twitter.pants.base import manual
+from twitter.pants.targets import util
 from .internal import InternalTarget
 from .with_sources import TargetWithSources

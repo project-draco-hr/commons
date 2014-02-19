@@ -1,3 +1,7 @@
 @property
 def resources(self):
+    if (self._raw_resources is not None):
+        self._resources = list(self.resolve_all(self._raw_resources, Resources))
+        self.update_dependencies(self._resources)
+        self._raw_resources = None
     return self._resources
