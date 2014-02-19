@@ -4,7 +4,7 @@ def maven_layout(basedir=None):
     def root(path, *types):
         SourceRoot.register((os.path.join(basedir, path) if basedir else path), *types)
     root('src/main/antlr', JavaAntlrLibrary, Page, PythonAntlrLibrary)
-    root('src/main/java', AnnotationProcessor, JavaLibrary, JvmBinary, Page)
+    root('src/main/java', AnnotationProcessor, JavaAgent, JavaLibrary, JvmBinary, Page)
     root('src/main/protobuf', JavaProtobufLibrary, Page)
     root('src/main/python', Page, PythonBinary, PythonLibrary)
     root('src/main/resources', Page, Resources)
