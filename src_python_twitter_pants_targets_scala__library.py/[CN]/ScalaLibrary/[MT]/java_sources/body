@@ -2,6 +2,7 @@
 def java_sources(self):
     if (self._raw_java_sources is not None):
         self._java_sources = list(Target.resolve_all(maybe_list(self._raw_java_sources, Target), JavaLibrary))
+        self._raw_java_sources = None
         for java_target in self._java_sources:
             java_target.update_dependencies([self])
     return self._java_sources
