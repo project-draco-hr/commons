@@ -5,11 +5,11 @@ def activate(cls, ctx):
     if hasattr(ctx, '_on_context_exit'):
         raise cls.ContextError('Context actions registered outside this parse context arg active')
     try:
-        ParseContext._active.append(ctx)
+        cls._active.append(ctx)
         ctx._on_context_exit = []
         yield
     finally:
         for (func, args, kwargs) in ctx._on_context_exit:
             func(*args, **kwargs)
         del ctx._on_context_exit
-        ParseContext._active.pop()
+        cls._active.pop()

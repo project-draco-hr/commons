@@ -5,7 +5,7 @@ from twitter.common.dirutil import Fileset
 from twitter.common.lang import Compatibility
 from twitter.pants.base import manual, ParseContext
 from twitter.pants.base.target import TargetDefinitionException
-from twitter.pants.targets import util
+from twitter.pants.targets import JarLibrary, util
 from .internal import InternalTarget
 from .jvm_target import JvmTarget
 from .pants_target import Pants

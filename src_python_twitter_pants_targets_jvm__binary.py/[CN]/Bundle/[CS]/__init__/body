@@ -1,12 +1,12 @@
-def __init__(self, mapper=None, relative_to=None):
-    "\n    :param mapper: Function that takes a path string and returns a path string. Takes a path in\n      the source tree, returns a path to use in the resulting bundle. By default, an identity mapper.\n    :param string relative_to: Set up a simple mapping from source path to bundle path.\n      E.g., ``relative_to='common'`` removes that prefix from all files in the application bundle.\n    "
+def __init__(self, base=None, mapper=None, relative_to=None):
+    "\n    :param mapper: Function that takes a path string and returns a path string. Takes a path in\n      the source tree, returns a path to use in the resulting bundle. By default, an identity\n      mapper.\n    :param string relative_to: Set up a simple mapping from source path to bundle path.\n      E.g., ``relative_to='common'`` removes that prefix from all files in the application bundle.\n    "
     if (mapper and relative_to):
         raise ValueError("Must specify exactly one of 'mapper' or 'relative_to'")
     if relative_to:
-        base = ParseContext.path(relative_to)
+        base = (base or ParseContext.path(relative_to))
         if (not os.path.isdir(base)):
             raise ValueError(('Could not find a directory to bundle relative to at %s' % base))
         self.mapper = RelativeToMapper(base)
     else:
-        self.mapper = (mapper or RelativeToMapper(ParseContext.path()))
+        self.mapper = (mapper or RelativeToMapper((base or ParseContext.path())))
     self.filemap = {}
