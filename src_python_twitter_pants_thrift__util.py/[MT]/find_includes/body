@@ -8,10 +8,14 @@ def find_includes(basedirs, source, log=None):
             match = INCLUDE_PARSER.match(line)
             if match:
                 capture = match.group(1)
+                added = False
                 for basedir in all_basedirs:
                     include = os.path.join(basedir, capture)
                     if os.path.exists(include):
                         if log:
                             log.debug(('%s has include %s' % (source, include)))
                         includes.add(include)
+                        added = True
+                if (not added):
+                    raise ValueError(('%s included in %s not found in bases %s' % (include, source, all_basedirs)))
     return includes
