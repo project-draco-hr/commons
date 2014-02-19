@@ -1,0 +1,11 @@
+@property
+def dependency_addresses(self):
+    if (self._dependency_addresses is None):
+        self._dependency_addresses = set()
+        for dependency in self.dependencies:
+            if hasattr(dependency, 'address'):
+                self._dependency_addresses.add(dependency.address)
+            if hasattr(dependency, 'declared_exclusives'):
+                for k in self.declared_exclusives:
+                    dependency.declared_exclusives[k] |= self.declared_exclusives[k]
+    return self._dependency_addresses

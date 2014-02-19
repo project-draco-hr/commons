@@ -1,0 +1,12 @@
+def _excludes(self, dep):
+    '\n    A generator for Exclude objects that will recursively exclude all artifacts\n    provided by the given dep.\n    '
+    if isinstance(dep, JarDependency):
+        yield Exclude(dep.org, dep.name)
+    elif isinstance(dep, ExportableJvmLibrary):
+        if (not dep.provides):
+            raise TargetDefinitionException(self, ('Targets passed to `overrides` must represent published artifacts. %s does not.' % dep))
+        yield Exclude(dep.provides.org, dep.provides.name)
+    elif isinstance(dep, JarLibrary):
+        for d in dep._pre_override_dependencies:
+            for exclude in self._excludes(d):
+                yield exclude
