@@ -23,7 +23,7 @@ def console_output(self, targets):
                 return ('%s\n  %s' % (address, '\n  '.join(target.description.strip().split('\n'))))
         print_fn = print_documented
     else:
-        print_fn = (lambda address: str(address))
+        print_fn = (lambda addr: str(addr))
     visited = set()
     for address in self._addresses():
         result = print_fn(address)
