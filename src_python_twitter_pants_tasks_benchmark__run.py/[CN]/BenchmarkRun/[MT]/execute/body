@@ -5,7 +5,8 @@ def execute(self, targets):
     shutil.copyfile(agent_jar, allocation_jar)
     os.environ['ALLOCATION_JAR'] = str(allocation_jar)
     benchmark_tools_classpath = self._jvm_tool_bootstrapper.get_jvm_tool_classpath(self._benchmark_bootstrap_key)
+    classpath = self.classpath(benchmark_tools_classpath, confs=self.confs, exclusives_classpath=self.get_base_classpath_for_target(targets[0]))
     caliper_main = 'com.google.caliper.Runner'
-    exit_code = execute_java(classpath=self.classpath(benchmark_tools_classpath), main=caliper_main, jvm_options=self.jvm_args, args=self.caliper_args, workunit_factory=self.context.new_workunit, workunit_name='caliper')
+    exit_code = execute_java(classpath=classpath, main=caliper_main, jvm_options=self.jvm_args, args=self.caliper_args, workunit_factory=self.context.new_workunit, workunit_name='caliper')
     if (exit_code != 0):
         raise TaskError(('java %s ... exited non-zero (%i)' % (caliper_main, exit_code)))
