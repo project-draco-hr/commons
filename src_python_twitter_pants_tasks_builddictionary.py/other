@@ -1,4 +1,3 @@
-import cgi
 import inspect
 import os
 import twitter.pants

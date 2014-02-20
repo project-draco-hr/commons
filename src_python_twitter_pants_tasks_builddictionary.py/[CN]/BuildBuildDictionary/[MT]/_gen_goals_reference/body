@@ -1,8 +1,15 @@
 def _gen_goals_reference(self):
     'Generate the goals reference rst doc.'
-    phases = dict()
-    for (phase, goals) in Phase.all():
-        phases[phase] = goals
+    phase_dict = {}
+    phase_names = []
+    for (phase, raw_goals) in Phase.all():
+        goals = []
+        for g in raw_goals:
+            doc = (g.task_type.__doc__ or '').replace('\n', ' ').strip()
+            goals.append(TemplateData(name=g.task_type.__name__, doc=doc))
+        phase_dict[phase.name] = TemplateData(phase=phase, goals=goals)
+        phase_names.append(phase.name)
+    phases = [phase_dict[name] for name in sorted(phase_names, key=str.lower)]
     template = resource_string(__name__, os.path.join(self._templates_dir, 'goals_reference.mustache'))
     filename = os.path.join(self._outdir, 'goals_reference.rst')
     self.context.log.info(('Generating %s' % filename))
