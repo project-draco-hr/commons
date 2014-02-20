@@ -1,5 +1,9 @@
 def test_check_exclusives(self):
-    (a, b, c, d, e) = self.setupTargets()
+    a = MockTarget('a', exclusives={'a': '1', 'b': '1', })
+    b = MockTarget('b', exclusives={'a': '1', })
+    c = MockTarget('c', exclusives={'a': '2', })
+    d = MockTarget('d', dependencies=[a, b])
+    e = MockTarget('e', dependencies=[a, c], exclusives={'c': '1', })
     context = Context(CheckExclusivesTest.config, options={}, run_tracker=None, target_roots=[d, e])
     check_exclusives_task = CheckExclusives(context, signal_error=True)
     try:
