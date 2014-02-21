@@ -5,7 +5,7 @@ def exec_ivy(self, target_workdir, targets, args, confs=None, ivy=None, workunit
     ivyxml = os.path.join(target_workdir, 'ivy.xml')
     (jars, excludes) = self._calculate_classpath(targets)
     ivy_args = ['-ivy', ivyxml]
-    confs_to_resolve = (confs or self._confs)
+    confs_to_resolve = (confs or ['default'])
     ivy_args.append('-confs')
     ivy_args.extend(confs_to_resolve)
     ivy_args.extend(args)
