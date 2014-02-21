@@ -6,6 +6,23 @@
   }
   Preconditions.checkNotNull(zooKeeperServers);
   Preconditions.checkArgument(!Iterables.isEmpty(zooKeeperServers),"Must present at least 1 ZK server");
+  Thread watcherProcessor=new Thread("ZookeeperClient-watcherProcessor"){
+    @Override public void run(){
+      while (true) {
+        try {
+          WatchedEvent event=eventQueue.take();
+          for (          Watcher watcher : watchers) {
+            watcher.process(event);
+          }
+        }
+ catch (        InterruptedException e) {
+        }
+      }
+    }
+  }
+;
+  watcherProcessor.setDaemon(true);
+  watcherProcessor.start();
   Iterable<String> servers=Iterables.transform(ImmutableSet.copyOf(zooKeeperServers),InetSocketAddressHelper.INET_TO_STR);
   this.zooKeeperServers=Joiner.on(',').join(servers).concat(chrootPath.or(""));
 }
