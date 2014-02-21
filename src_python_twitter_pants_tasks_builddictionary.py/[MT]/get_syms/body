@@ -4,6 +4,8 @@ def get_syms():
     for s in vc:
         if (s in PREDEFS):
             continue
+        if s[0].isupper():
+            continue
         o = vc[s]
         r[s] = o
     return r

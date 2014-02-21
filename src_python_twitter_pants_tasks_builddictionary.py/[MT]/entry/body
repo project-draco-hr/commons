@@ -20,4 +20,4 @@ def entry(nom, classdoc=None, msg_rst=None, argspec=None, funcdoc=None, methods=
         while (trimmed and (not trimmed[0])):
             trimmed.pop(0)
         return '\n'.join([(' ' + t) for t in trimmed])
-    return TemplateData(nom=nom.strip(), classdoc=indent_docstring_by_1(classdoc), msg_rst=indent_docstring_by_1(msg_rst), argspec=argspec, funcdoc=indent_docstring_by_1(funcdoc), methods=methods)
+    return TemplateData(nom=nom.strip(), classdoc=indent_docstring_by_1(classdoc), msg_rst=indent_docstring_by_1(msg_rst), argspec=argspec, funcdoc=indent_docstring_by_1(funcdoc), methods=methods, showmethods=(methods and (len(methods) > 0)))

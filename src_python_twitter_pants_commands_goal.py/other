@@ -124,6 +124,7 @@ goal(name='filedeps', action=FileDeps).install('filedeps').with_description('Pri
 goal(name='pathdeps', action=PathDeps).install('pathdeps').with_description('Print out a list of all paths containing build files the target depends on')
 goal(name='list', action=ListTargets).install('list').with_description('List available BUILD targets.')
 goal(name='buildlint', action=BuildLint, dependencies=['compile']).install()
+goal(name='builddict', action=BuildBuildDictionary).install()
 from twitter.pants.tasks.idea_gen import IdeaGen
 goal(name='idea', action=IdeaGen, dependencies=['jar', 'bootstrap']).install().with_description('Create an IntelliJ IDEA project from the given targets.')
 from twitter.pants.tasks.eclipse_gen import EclipseGen
