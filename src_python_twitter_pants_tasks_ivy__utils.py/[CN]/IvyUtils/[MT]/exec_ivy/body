@@ -1,10 +1,13 @@
-def exec_ivy(self, target_workdir, targets, args, ivy=None, workunit_name='ivy', workunit_factory=None, symlink_ivyxml=False):
+def exec_ivy(self, target_workdir, targets, args, confs=None, ivy=None, workunit_name='ivy', workunit_factory=None, symlink_ivyxml=False):
     ivy = (ivy or Bootstrapper.default_ivy())
     if (not isinstance(ivy, Ivy)):
         raise ValueError(('The ivy argument supplied must be an Ivy instance, given %s of type %s' % (ivy, type(ivy))))
     ivyxml = os.path.join(target_workdir, 'ivy.xml')
     (jars, excludes) = self._calculate_classpath(targets)
     ivy_args = ['-ivy', ivyxml]
+    confs_to_resolve = (confs or self._confs)
+    ivy_args.append('-confs')
+    ivy_args.extend(confs_to_resolve)
     ivy_args.extend(args)
     if (not self._transitive):
         ivy_args.append('-notransitive')
@@ -15,7 +18,7 @@ def exec_ivy(self, target_workdir, targets, args, ivy=None, workunit_name='ivy',
             os.unlink(dest)
         os.symlink(src, dest)
     with IvyUtils.ivy_lock:
-        self._generate_ivy(targets, jars, excludes, ivyxml)
+        self._generate_ivy(targets, jars, excludes, ivyxml, confs_to_resolve)
         runner = ivy.runner(jvm_options=self._jvm_options, args=ivy_args)
         try:
             result = util.execute_runner(runner, workunit_factory=workunit_factory, workunit_name=workunit_name)

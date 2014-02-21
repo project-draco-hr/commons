@@ -1,3 +1,0 @@
-def _mapfor_typename(self):
-    'Subclasses can override to identify the product map typename that should trigger jar mapping.\n    '
-    return 'jar_dependencies'

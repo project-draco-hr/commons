@@ -13,7 +13,7 @@ def generate_project(self, project):
     scala = None
     if project.has_scala:
         scala = TemplateData(language_level=self.scala_language_level, maximum_heap_size=self.scala_maximum_heap_size, fsc=self.fsc, compiler_classpath=project.scala_compiler_classpath)
-    configured_module = TemplateData(root_dir=get_buildroot(), path=self.module_filename, content_roots=content_roots, bash=self.bash, python=project.has_python, scala=scala, internal_jars=[cp_entry.jar for cp_entry in project.internal_jars], internal_source_jars=[cp_entry.source_jar for cp_entry in project.internal_jars if cp_entry.source_jar], external_jars=[cp_entry.jar for cp_entry in project.external_jars], external_source_jars=[cp_entry.source_jar for cp_entry in project.external_jars if cp_entry.source_jar], extra_components=[])
+    configured_module = TemplateData(root_dir=get_buildroot(), path=self.module_filename, content_roots=content_roots, bash=self.bash, python=project.has_python, scala=scala, internal_jars=[cp_entry.jar for cp_entry in project.internal_jars], internal_source_jars=[cp_entry.source_jar for cp_entry in project.internal_jars if cp_entry.source_jar], external_jars=[cp_entry.jar for cp_entry in project.external_jars], external_javadoc_jars=[cp_entry.javadoc_jar for cp_entry in project.external_jars if cp_entry.javadoc_jar], external_source_jars=[cp_entry.source_jar for cp_entry in project.external_jars if cp_entry.source_jar], extra_components=[])
     outdir = os.path.abspath(self.intellij_output_dir)
     if (not os.path.exists(outdir)):
         os.makedirs(outdir)

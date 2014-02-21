@@ -19,7 +19,7 @@ def __init__(self, org, name, rev=None, force=False, ext=None, url=None, apidocs
         for k in exclusives:
             self.declared_exclusives[k] |= exclusives[k]
     self.withSources = self.with_sources
-    self.withDocs = self.with_sources
+    self.withDocs = self.with_docs
     self.declared_exclusives = defaultdict(set)
     if (exclusives is not None):
         for k in exclusives:

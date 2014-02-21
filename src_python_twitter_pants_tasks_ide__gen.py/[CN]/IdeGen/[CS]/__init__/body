@@ -14,8 +14,6 @@ def __init__(self, context):
     self.intransitive = context.options.ide_gen_intransitive
     self.checkstyle_suppression_files = context.config.getdefault('checkstyle_suppression_files', type=list, default=[])
     self.debug_port = context.config.getint('ide', 'debug_port')
-    self.classes_conf = context.config.get('ide', 'classes_conf')
-    self.sources_conf = context.config.get('ide', 'sources_conf')
     self.checkstyle_bootstrap_key = 'checkstyle'
     checkstyle = context.config.getlist('checkstyle', 'bootstrap-tools', default=[':twitter-checkstyle'])
     self._jvm_tool_bootstrapper.register_jvm_tool(self.checkstyle_bootstrap_key, checkstyle)

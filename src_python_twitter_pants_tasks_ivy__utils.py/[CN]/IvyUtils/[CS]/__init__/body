@@ -1,4 +1,4 @@
-def __init__(self, config, options, log):
+def __init__(self, config, options, log, confs=None):
     self._log = log
     self._config = config
     self._options = options
@@ -9,7 +9,7 @@ def __init__(self, config, options, log):
     self._jvm_options.append('-Dsun.io.useCanonCaches=false')
     self._work_dir = config.get('ivy-resolve', 'workdir')
     self._template_path = os.path.join('templates', 'ivy_resolve', 'ivy.mustache')
-    self._confs = config.getlist('ivy-resolve', 'confs')
+    self._confs = (maybe_list(confs) if confs else ['default'])
     if self._mutable_pattern:
         try:
             self._mutable_pattern = re.compile(self._mutable_pattern)

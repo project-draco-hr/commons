@@ -6,7 +6,7 @@ def ivy_resolve(self, targets, executor=None, symlink_ivyxml=False, silent=False
     if (not targets):
         return []
     work_dir = self.context.config.get('ivy-resolve', 'workdir')
-    confs = self.context.config.getlist('ivy-resolve', 'confs')
+    ivy_utils = IvyUtils(config=self.context.config, options=self.context.options, log=self.context.log)
     with self.invalidated(targets, only_buildfiles=True, invalidate_dependents=True, silent=silent) as invalidation_check:
         global_vts = VersionedTargetSet.from_versioned_targets(invalidation_check.all_vts)
         target_workdir = os.path.join(work_dir, global_vts.cache_key.hash)
@@ -15,8 +15,7 @@ def ivy_resolve(self, targets, executor=None, symlink_ivyxml=False, silent=False
         raw_target_classpath_file_tmp = (raw_target_classpath_file + '.tmp')
         symlink_dir = os.path.join(work_dir, 'jars')
         if (invalidation_check.invalid_vts or (not os.path.exists(raw_target_classpath_file))):
-            ivy_utils = IvyUtils(config=self.context.config, options=self.context.options, log=self.context.log)
-            args = ((['-cachepath', raw_target_classpath_file_tmp] + ['-confs']) + confs)
+            args = ['-cachepath', raw_target_classpath_file_tmp]
 
             def exec_ivy():
                 ivy_utils.exec_ivy(target_workdir=target_workdir, targets=targets, args=args, ivy=ivy, workunit_name='ivy', workunit_factory=self.context.new_workunit, symlink_ivyxml=symlink_ivyxml)
@@ -38,4 +37,4 @@ def ivy_resolve(self, targets, executor=None, symlink_ivyxml=False, silent=False
         self.context.products.safe_create_data('symlink_map', (lambda : all_symlinks_map))
     with IvyUtils.cachepath(target_classpath_file) as classpath:
         stripped_classpath = [path.strip() for path in classpath]
-        return [path for path in stripped_classpath if IvyUtils.is_mappable_artifact(path)]
+        return [path for path in stripped_classpath if ivy_utils.is_classpath_artifact(path)]

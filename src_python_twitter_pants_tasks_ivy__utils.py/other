@@ -7,7 +7,7 @@ import threading
 import errno
 from collections import namedtuple, defaultdict
 from contextlib import contextmanager
-from twitter.common.collections import OrderedSet
+from twitter.common.collections import OrderedSet, maybe_list
 from twitter.common.dirutil import safe_mkdir, safe_open
 from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base.generator import Generator, TemplateData
@@ -16,6 +16,6 @@ from twitter.pants.base.target import Target
 from twitter.pants.ivy import Bootstrapper, Ivy
 from twitter.pants.java import util
 from . import TaskError
-IvyModuleRef = namedtuple('IvyModuleRef', ['org', 'name', 'rev', 'conf'])
-IvyArtifact = namedtuple('IvyArtifact', ['path'])
+IvyModuleRef = namedtuple('IvyModuleRef', ['org', 'name', 'rev'])
+IvyArtifact = namedtuple('IvyArtifact', ['path', 'classifier'])
 IvyModule = namedtuple('IvyModule', ['ref', 'artifacts', 'callers'])

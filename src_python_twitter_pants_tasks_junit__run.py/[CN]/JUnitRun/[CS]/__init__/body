@@ -1,7 +1,7 @@
 def __init__(self, context):
     super(JUnitRun, self).__init__(context)
     context.products.require_data('exclusives_groups')
-    self.confs = context.config.getlist('junit-run', 'confs')
+    self.confs = context.config.getlist('junit-run', 'confs', default=['default'])
     self._junit_bootstrap_key = 'junit'
     junit_bootstrap_tools = context.config.getlist('junit-run', 'junit-bootstrap-tools', default=[':junit'])
     self._jvm_tool_bootstrapper.register_jvm_tool(self._junit_bootstrap_key, junit_bootstrap_tools)

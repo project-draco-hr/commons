@@ -23,4 +23,4 @@ def map_internal_jars(self, targets):
                         jar = jars[0]
                         cp_source_jar = os.path.join(internal_source_jar_dir, jar)
                         shutil.copy(os.path.join(base, jar), cp_source_jar)
-                self._project.internal_jars.add(ClasspathEntry(cp_jar, cp_source_jar))
+                self._project.internal_jars.add(ClasspathEntry(cp_jar, source_jar=cp_source_jar))

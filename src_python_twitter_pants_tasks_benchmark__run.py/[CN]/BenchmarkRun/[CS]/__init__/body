@@ -1,7 +1,7 @@
 def __init__(self, context):
     super(BenchmarkRun, self).__init__(context)
     config = context.config
-    self.confs = config.getlist('benchmark-run', 'confs')
+    self.confs = config.getlist('benchmark-run', 'confs', default=['default'])
     self.jvm_args = config.getlist('benchmark-run', 'jvm_args', default=['-Xmx1g', '-XX:MaxPermSize=256m'])
     self._benchmark_bootstrap_key = 'benchmark-tool'
     benchmark_bootstrap_tools = config.getlist('benchmark-run', 'bootstrap-tools', default=[':benchmark-caliper-0.5'])

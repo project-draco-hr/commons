@@ -11,14 +11,11 @@ def parse_xml_report(self, targets, conf):
         name = module.get('name')
         for revision in module.findall('revision'):
             rev = revision.get('name')
-            confs = self._split_conf(revision.get('conf'))
             artifacts = []
             for artifact in revision.findall('artifacts/artifact'):
-                artifacts.append(IvyArtifact(artifact.get('location')))
+                artifacts.append(IvyArtifact(path=artifact.get('location'), classifier=artifact.get('extra-classifier')))
             callers = []
             for caller in revision.findall('caller'):
-                for caller_conf in self._split_conf(caller.get('conf')):
-                    callers.append(IvyModuleRef(caller.get('organisation'), caller.get('name'), caller.get('callerrev'), caller_conf))
-            for conf in confs:
-                ret.add_module(IvyModule(IvyModuleRef(org, name, rev, conf), artifacts, callers))
+                callers.append(IvyModuleRef(caller.get('organisation'), caller.get('name'), caller.get('callerrev')))
+            ret.add_module(IvyModule(IvyModuleRef(org, name, rev), artifacts, callers))
     return ret

@@ -1,0 +1,5 @@
+@property
+def configurations(self):
+    confs = OrderedSet(self._configurations)
+    confs.update((artifact.conf for artifact in self.artifacts if artifact.conf))
+    return list(confs)

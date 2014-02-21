@@ -12,8 +12,8 @@ def execute(self, targets):
                 groups.update_compatible_classpaths(group_key, [(conf, path)])
         if self._report:
             self._generate_ivy_report(group_targets)
-    create_jardeps_for = self.context.products.isrequired(self._ivy_utils._mapfor_typename())
+    create_jardeps_for = self.context.products.isrequired('jar_dependencies')
     if create_jardeps_for:
-        genmap = self.context.products.get(self._ivy_utils._mapfor_typename())
+        genmap = self.context.products.get('jar_dependencies')
         for target in filter(create_jardeps_for, targets):
             self._ivy_utils.mapjars(genmap, target, executor=executor, workunit_factory=self.context.new_workunit)

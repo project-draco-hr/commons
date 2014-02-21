@@ -27,7 +27,7 @@ def __init__(self, context, minimum_version=None, jdk=False):
     if (self._partition_size_hint == (-1)):
         self._partition_size_hint = context.config.getint(config_section, 'partition_size_hint', default=1000)
     self._jvm_options = context.config.getlist(config_section, 'jvm_args')
-    self._confs = context.config.getlist(config_section, 'confs')
+    self._confs = context.config.getlist(config_section, 'confs', default=['default'])
 
     def munge_flag(flag):
         return (None if (flag == 'off') else flag)

@@ -17,6 +17,6 @@ def configure_compile_context(self, targets):
     for target in targets:
         target.walk(prune)
     self.context.replace_targets(compiles)
-    self.binary = self.context.add_new_target(self.work_dir, JvmBinary, name=('%s-external-jars' % self.project_name), dependencies=jars, excludes=excludes, configurations=(self.classes_conf, self.sources_conf))
+    self.binary = self.context.add_new_target(self.work_dir, JvmBinary, name=('%s-external-jars' % self.project_name), dependencies=jars, excludes=excludes, configurations=('default', 'sources', 'javadoc'))
     self.require_jar_dependencies(predicate=(lambda t: (t == self.binary)))
     self.context.log.debug(('pruned to cp:\n\t%s' % '\n\t'.join((str(t) for t in self.context.targets()))))
