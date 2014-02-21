@@ -1,1 +1,1 @@
-TypeParameterizedParser<Set>
+TypeParameterizedParser<Set<?>>

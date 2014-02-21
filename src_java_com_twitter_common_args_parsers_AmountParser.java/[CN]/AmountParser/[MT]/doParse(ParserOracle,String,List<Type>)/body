@@ -1,13 +1,13 @@
 {
   Type valueType=typeParams.get(0);
-  Parser parser=parserOracle.get(TypeToken.of(valueType));
+  Parser<?> parser=parserOracle.get(TypeToken.of(valueType));
   Matcher matcher=AMOUNT_PATTERN.matcher(raw);
   checkArgument(matcher.matches(),"Value '" + raw + "' must be of the format 1ns, 4mb, etc.");
   Number number=(Number)parser.parse(parserOracle,valueType,matcher.group(1));
   String unitRaw=matcher.group(2);
   Type unitType=typeParams.get(1);
-  Parser<Unit> unitParser=parserOracle.get(TypeToken.of(Unit.class));
-  Unit unit=unitParser.parse(parserOracle,unitType,unitRaw);
+  @SuppressWarnings("rawtypes") Parser<Unit> unitParser=parserOracle.get(TypeToken.of(Unit.class));
+  @SuppressWarnings("rawtypes") Unit unit=unitParser.parse(parserOracle,unitType,unitRaw);
   checkArgument(unit.getClass() == unitType,String.format("Unit type (%s) does not match argument type (%s).",unit.getClass(),unitType));
   return create(valueType,number,unit);
 }

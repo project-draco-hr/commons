@@ -1,1 +1,1 @@
-NonParameterizedTypeParser<Unit>
+NonParameterizedTypeParser<Unit<?>>
