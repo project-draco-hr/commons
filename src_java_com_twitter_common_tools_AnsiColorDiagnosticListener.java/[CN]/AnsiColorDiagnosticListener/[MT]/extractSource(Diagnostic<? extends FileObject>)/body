@@ -25,4 +25,7 @@
  catch (  IOException e) {
     return null;
   }
+catch (  IndexOutOfBoundsException e) {
+    return null;
+  }
 }
