@@ -3,6 +3,6 @@
 def test_unreachable_error(create_connection_mock, gethostbyname_mock):
     gethostbyname_mock.return_value = '1.2.3.4'
     create_connection_mock.side_effect = socket.error(errno.ENETUNREACH, 'Could not reach network.')
-    with pytest.raises(urllib_error.URLError):
+    with pytest.raises(FetchError):
         Web().open('http://www.google.com')
     gethostbyname_mock.assert_called_once_with('www.google.com')

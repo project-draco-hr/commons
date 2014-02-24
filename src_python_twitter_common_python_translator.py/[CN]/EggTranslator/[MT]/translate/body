@@ -6,7 +6,7 @@ def translate(self, link):
         return None
     try:
         egg = link.fetch(location=self._install_cache, conn_timeout=self._conn_timeout)
-    except urllib_error.URLError as e:
+    except link.UnreadableLink as e:
         TRACER.log(('Failed to fetch %s: %s' % (link, e)))
         return None
     return dist_from_egg(egg)

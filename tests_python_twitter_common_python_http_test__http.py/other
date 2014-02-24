@@ -3,7 +3,6 @@ import errno
 import os
 import socket
 import threading
-from twitter.common.contextutil import temporary_dir
 from twitter.common.lang import Compatibility
 from twitter.common.python.http import CachedWeb, Web, FetchError
 from twitter.common.testing.clock import ThreadedClock

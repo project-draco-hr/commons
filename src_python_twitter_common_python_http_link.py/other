@@ -4,6 +4,7 @@ import os
 import posixpath
 import tarfile
 import zipfile
+from .http import FetchError
 from ..base import maybe_requirement
 from ..common import safe_mkdir, safe_mkdtemp
 from ..compatibility import PY3
