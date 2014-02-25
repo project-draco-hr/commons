@@ -1,0 +1,20 @@
+{
+  DynamicHostSet<String> hostSet=createMock(new Clazz<DynamicHostSet<String>>(){
+  }
+);
+  final Capture<HostChangeMonitor<String>> monitorCapture=createCapture();
+  final Command unwatchCommand=createMock(Command.class);
+  expect(hostSet.watch(capture(monitorCapture))).andAnswer(new IAnswer<Command>(){
+    @Override public Command answer() throws Throwable {
+      HostChangeMonitor<String> monitor=monitorCapture.getValue();
+      monitor.onChange(ImmutableSet.of("jack","jill"));
+      return unwatchCommand;
+    }
+  }
+);
+  unwatchCommand.execute();
+  expectLastCall();
+  control.replay();
+  ImmutableSet<String> snapshot=DynamicHostSetUtil.getSnapshot(hostSet);
+  assertEquals(ImmutableSet.of("jack","jill"),snapshot);
+}
