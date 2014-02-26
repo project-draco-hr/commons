@@ -1,2 +1,0 @@
-def set_version(self, target, version):
-    self._props[target.provides.name] = version

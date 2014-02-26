@@ -1,4 +1,0 @@
-def execute(self, targets):
-    self.check_clean_master(commit=((not self._dryrun) and self._commit))
-    safe_mkdir(self._output_dir)
-    self.gem(filter(is_ruby_library, self.context.target_roots))

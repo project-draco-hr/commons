@@ -1,8 +1,0 @@
-def __init__(self, context, scm=None):
-    Task.__init__(self, context)
-    ScmPublish.__init__(self, (scm or get_scm()), self.context.config.getlist(ThriftGemerator._CONFIG_SECTION, 'restrict_push_branches'))
-    options = context.options
-    self._output_dir = (options.thrift_gemerator_outdir or self.get_workdir(section=ThriftGemerator._CONFIG_SECTION, workdir='gems'))
-    self._override = options.thrift_gemerator_override
-    self._dryrun = options.gem_publish_dryrun
-    self._commit = options.gem_publish_commit

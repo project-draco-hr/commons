@@ -1,4 +1,0 @@
-from twitter.pants.targets.jvm_binary import JvmBinary
-from twitter.pants.targets.exclude import Exclude
-BLACKLIST_EXCLUDES = [Exclude(org='log4j')]
-ON_STORM_CLUSTER_EXCLUDES = [Exclude(org='storm', name='storm'), Exclude(org='backtype', name='jzmq'), Exclude(org='com.esotericsoftware.kryo', name='kryo'), Exclude(org='com.googlecode.disruptor', name='disruptor'), Exclude(org='ch.qos.logback'), Exclude(org='org.slf4j'), Exclude(org='org.clojure', name='clojure'), Exclude(org='org.clojure', name='math.numeric-tower'), Exclude(org='org.clojure', name='tools.logging')]
