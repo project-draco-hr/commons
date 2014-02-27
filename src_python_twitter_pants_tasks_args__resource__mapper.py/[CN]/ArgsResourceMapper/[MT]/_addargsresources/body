@@ -2,9 +2,9 @@ def _addargsresources(self, jar, target):
     lines = set()
     for resourcedir in [os.path.join(classdir, RESOURCE_RELDIR) for classdir in self.classdirs]:
         if os.path.exists(resourcedir):
-            for file in os.listdir(resourcedir):
-                if file.startswith(RESOURCE_BASENAME):
-                    with open(os.path.join(resourcedir, file)) as resource:
+            for path in os.listdir(resourcedir):
+                if path.startswith(RESOURCE_BASENAME):
+                    with open(os.path.join(resourcedir, path)) as resource:
                         lines.update(resource.readlines())
     if lines:
 
@@ -16,7 +16,7 @@ def _addargsresources(self, jar, target):
                 self.classnames = set()
 
                 def add_classnames(target):
-                    if (isinstance(target, JavaLibrary) or isinstance(target, ScalaLibrary)):
+                    if target.has_sources('.java'):
                         target_products = classes_by_target.get(target)
                         if target_products:
                             for (_, classes) in target_products.rel_paths():
@@ -43,4 +43,5 @@ def _addargsresources(self, jar, target):
                     return ((components[2] in self.classnames) and (components[3] in self.classnames))
                 else:
                     return True
-        self._addargs((lines if self.include_all else filter(Args(self.context, self.transitive, self.context.products.get_data('classes_by_target')).matches, lines)), jar, target)
+        classes_by_target = self.context.products.get_data('classes_by_target')
+        self._addargs((lines if self.include_all else filter(Args(self.context, self.transitive, classes_by_target).matches, lines)), jar, target)

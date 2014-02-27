@@ -1,0 +1,5 @@
+{
+  client.execute("/ping/hello/" + (PingHandler.DEFAULT_TTL - 1));
+  control.replay();
+  handler.incoming("hello");
+}
