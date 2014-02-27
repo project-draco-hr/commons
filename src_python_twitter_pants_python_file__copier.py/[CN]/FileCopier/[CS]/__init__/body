@@ -1,5 +1,0 @@
-def __init__(self, copy_root):
-    '\n    :param copy_root: The destination at which you want to copy the files.\n    '
-    self._copy_root = copy_root
-    self._sources = []
-    atexit.register(self.cleanup, os.getpid())

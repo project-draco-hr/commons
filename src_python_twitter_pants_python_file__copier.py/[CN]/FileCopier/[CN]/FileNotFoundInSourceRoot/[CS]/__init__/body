@@ -1,2 +1,0 @@
-def __init__(self, file, roots):
-    Exception.__init__(self, ('Source %s not found in root(s): %s' % (file, roots)))

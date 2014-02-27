@@ -1,6 +1,0 @@
-from __future__ import print_function
-import atexit
-import os
-import shutil
-from twitter.common.dirutil import safe_mkdir, safe_rmtree
-from twitter.pants.targets import SourceRoot

@@ -1,5 +1,0 @@
-def test_find_and_copy_relative_file(self):
-    with patch('shutil.copyfile') as mock:
-        file_copier = FileCopier(self.file_root)
-        file_copier.find_and_copy_relative_file('src/thrift/com/twitter/example.thrift', [RemotePythonThriftLibrary, PythonThriftLibrary])
-        mock.assert_called_once_with('src/thrift/com/twitter/example.thrift', os.path.join(self.file_root, 'com/twitter/example.thrift'))

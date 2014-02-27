@@ -3,12 +3,10 @@ import functools
 import keyword
 import os
 import re
+import shutil
 import subprocess
 import sys
-from twitter.pants.base.build_environment import get_buildroot
+from twitter.common.dirutil import safe_mkdir
 from twitter.pants.python.code_generator import CodeGenerator
-from twitter.pants.python.file_copier import FileCopier
 from twitter.pants.targets.python_thrift_library import PythonThriftLibrary
-from twitter.pants.thrift_util import calculate_compile_sources, find_includes, select_thrift_binary
-sys.path.append(os.path.join(get_buildroot(), 'src/python/twitter'))
-from twadoop.pants.targets.remote_python_thrift_library import RemotePythonThriftLibrary
+from twitter.pants.thrift_util import select_thrift_binary

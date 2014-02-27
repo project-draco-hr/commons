@@ -1,3 +1,0 @@
-def copy_relative_file(self, source, source_root):
-    '\n    Copies the source file at relative position from given source_root\n    to the copy_root at the relative position\n    :param source:  Source file at relative position to source_root\n    :param source_root: source root   in which the source file exists\n    '
-    return self._copyfile(source, source_root)

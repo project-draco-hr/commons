@@ -1,3 +1,0 @@
-def test_file_not_found_exception(self):
-    file_copier = FileCopier(self.file_root)
-    self.assertRaises(file_copier.FileNotFoundInSourceRoot, file_copier.find_and_copy_relative_file, 'some_where_else/com/twitter/example.thrift', [RemotePythonThriftLibrary, PythonThriftLibrary])
