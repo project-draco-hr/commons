@@ -1,2 +1,2 @@
 MetricRegistry stats
-MemoryUsage usage
+MemoryReporter mem

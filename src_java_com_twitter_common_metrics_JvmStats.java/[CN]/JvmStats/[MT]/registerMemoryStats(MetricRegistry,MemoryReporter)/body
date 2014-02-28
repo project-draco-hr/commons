@@ -1,20 +1,20 @@
 {
-  if (usage != null) {
+  if (mem.getUsage() != null) {
     stats.register(new AbstractGauge<Long>("committed"){
       @Override public Long read(){
-        return usage.getCommitted();
+        return mem.getUsage().getCommitted();
       }
     }
 );
     stats.register(new AbstractGauge<Long>("max"){
       @Override public Long read(){
-        return usage.getMax();
+        return mem.getUsage().getMax();
       }
     }
 );
     stats.register(new AbstractGauge<Long>("used"){
       @Override public Long read(){
-        return usage.getUsed();
+        return mem.getUsage().getUsed();
       }
     }
 );
