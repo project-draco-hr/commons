@@ -2,3 +2,4 @@ self
 endpoint
 post_json
 authorization
+send_delete

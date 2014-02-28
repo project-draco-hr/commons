@@ -1,0 +1,8 @@
+def apply(self, app, route):
+    'Main entry-point for bottle plugins.'
+
+    @wraps(app, assigned=())
+    def wrapped_app(*args, **kwargs):
+        with environment_as(KRB5_KTNAME=self._keytab):
+            return self.authorize(request, app, args, kwargs)
+    return wrapped_app

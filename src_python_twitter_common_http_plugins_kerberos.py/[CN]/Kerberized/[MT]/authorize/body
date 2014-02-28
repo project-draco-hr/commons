@@ -1,0 +1,37 @@
+def authorize(self, req, app, app_args, app_kwargs):
+    'Perform a Kerberos authentication handshake with the KDC.'
+    http_auth = req.environ.get(self.AUTH_HEADER)
+    if (not http_auth):
+        log.info('kerberos: rejecting non-authed request from %s', req.environ.get('REMOTE_ADDR'))
+        return self.auth_fail()
+    log.debug('kerberos: processing auth: %s', http_auth)
+    (auth_type, auth_key) = self.parse_auth_header(http_auth)
+    if (auth_type == 'Negotiate'):
+        try:
+            (result, context) = kerberos.authGSSServerInit(self._service)
+            log.debug('kerberos: authGSSServerInit(%s) -> %s, %s', self._service, result, context)
+        except kerberos.GSSError as e:
+            log.warning('kerberos: GSSError during init: %s', e)
+            (result, context) = (0, None)
+        if (not self.check_result(result)):
+            log.warning('kerberos: bad result from authGSSServerInit(%s): %s', self._service, result)
+            return self.auth_error()
+        gss_key = None
+        try:
+            result = kerberos.authGSSServerStep(context, auth_key)
+            log.debug('kerberos: authGSSServerStep(%s, %s) -> %s', context, auth_key, result)
+            gss_key = kerberos.authGSSServerResponse(context)
+            log.debug('kerberos: authGSSServerResponse(%s) -> %s', context, gss_key)
+        except kerberos.GSSError as e:
+            log.warning('kerberos: GSSError(%s)', e)
+            result = 0
+        if (not self.check_result(result)):
+            return self.auth_fail(gss_key)
+        username = kerberos.authGSSServerUserName(context)
+        req.environ['REMOTE_USER'] = username
+        log.info('kerberos: authenticated user %s from %s', username, req.environ.get('REMOTE_ADDR'))
+        response.set_header('WWW-Authenticate', ('Negotiate ' + str(gss_key)))
+        kerberos.authGSSServerClean(context)
+        return app(*app_args, **app_kwargs)
+    else:
+        return self.auth_fail()

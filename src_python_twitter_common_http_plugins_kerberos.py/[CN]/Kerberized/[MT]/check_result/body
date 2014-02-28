@@ -1,0 +1,2 @@
+def check_result(self, result, success=1):
+    return (result == success)

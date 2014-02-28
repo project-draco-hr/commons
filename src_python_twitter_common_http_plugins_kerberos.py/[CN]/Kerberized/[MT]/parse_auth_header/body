@@ -1,0 +1,2 @@
+def parse_auth_header(self, line):
+    return line.split(' ', 1)
