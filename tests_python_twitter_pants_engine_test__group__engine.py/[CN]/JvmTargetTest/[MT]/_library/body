@@ -1,0 +1,3 @@
+@classmethod
+def _library(cls, path, target_type, name, deps=None):
+    cls.create_target(path, dedent(("\n      %(target_type)s(name='%(name)s',\n        dependencies=[%(deps)s],\n        sources=[],\n      )\n    " % dict(target_type=target_type, name=name, deps=','.join((('pants("%s")' % d) for d in (deps or [])))))))

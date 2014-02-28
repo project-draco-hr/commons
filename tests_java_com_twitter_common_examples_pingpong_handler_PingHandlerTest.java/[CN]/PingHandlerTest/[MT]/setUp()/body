@@ -1,0 +1,6 @@
+{
+  client=createMock(new Clazz<Closure<String>>(){
+  }
+);
+  handler=new PingHandler(client);
+}

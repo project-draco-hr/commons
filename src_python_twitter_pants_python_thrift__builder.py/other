@@ -1,9 +1,12 @@
 from __future__ import print_function
+import functools
+import keyword
 import os
+import re
+import shutil
 import subprocess
 import sys
-from twitter.common.dirutil import safe_rmtree
-from twitter.pants.base.build_environment import get_buildroot
+from twitter.common.dirutil import safe_mkdir
 from twitter.pants.python.code_generator import CodeGenerator
 from twitter.pants.targets.python_thrift_library import PythonThriftLibrary
-from twitter.pants.thrift_util import calculate_compile_roots, select_thrift_binary
+from twitter.pants.thrift_util import select_thrift_binary
