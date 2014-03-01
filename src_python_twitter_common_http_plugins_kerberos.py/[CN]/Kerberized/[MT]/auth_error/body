@@ -1,0 +1,4 @@
+def auth_error(self):
+    resp = HTTPResponse(self._err_response, status=500)
+    resp.set_header('Content-Type', self._content_type)
+    return resp

@@ -1,2 +1,0 @@
-def is_ruby_library(target):
-    return isinstance(target, RubyThriftLibrary)

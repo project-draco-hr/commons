@@ -1,0 +1,3 @@
+def __init__(self, target, root_dir, config, target_suffix=None):
+    super(PythonThriftBuilder, self).__init__(target, root_dir, config, target_suffix=target_suffix)
+    self._workdir = os.path.join(config.getdefault(option='thrift_workdir'), 'py-thrift')

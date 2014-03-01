@@ -1,0 +1,5 @@
+def remove_link(self, link_id):
+    'Remove a link specified by by the link ID. The link ID can be found with get_issue_links()'
+    endpoint = ('issueLink/%s' % link_id)
+    with self._api_call_guard():
+        self.api_call(endpoint, send_delete=True)

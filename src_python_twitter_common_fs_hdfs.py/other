@@ -2,7 +2,6 @@ __author__ = 'tdesai'
 import os
 import subprocess
 import sys
-import tempfile
 from twitter.common.contextutil import environment_as, temporary_file
 from twitter.common.quantity import Amount, Data
 from twitter.common.string import ScanfParser

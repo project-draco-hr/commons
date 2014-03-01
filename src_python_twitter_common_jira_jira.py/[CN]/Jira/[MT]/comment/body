@@ -1,5 +1,3 @@
 def comment(self, issue, comment):
-    try:
+    with self._api_call_guard():
         self.api_call(('issue/%s/comment' % issue), {'body': comment, })
-    except urllib2.URLError as e:
-        raise JiraError(cause=e)

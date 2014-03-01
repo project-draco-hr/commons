@@ -14,7 +14,7 @@ def _run():
     parser.add_option(_LOG_EXIT_OPTION, action='store_true', default=False, dest='log_exit', help='Log an exit message on success or failure.')
     config = Config.load()
     roots = config.getlist('parse', 'roots', default=[])
-    sys.path.extend(roots)
+    sys.path.extend(map((lambda root: os.path.join(root_dir, root)), roots))
     run_tracker = RunTracker.from_config(config)
     report = initial_reporting(config, run_tracker)
     run_tracker.start(report)

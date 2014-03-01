@@ -24,7 +24,7 @@ def join(self, blob, callback=None, expire_callback=None):
 
     def acreate_completion(result):
         try:
-            path = self._zk.unchroot(result.get())
+            path = result.get()
         except self.DISCONNECT_EXCEPTIONS:
             self._once(KazooState.CONNECTED, do_join)
             return

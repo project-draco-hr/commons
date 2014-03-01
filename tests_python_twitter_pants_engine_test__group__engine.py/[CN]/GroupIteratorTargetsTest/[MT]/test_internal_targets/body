@@ -1,0 +1,3 @@
+def test_internal_targets(self):
+    self.java_library('root', 'colorless', deps=[])
+    self.iterate('root:colorless')

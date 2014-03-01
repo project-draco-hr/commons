@@ -1,0 +1,5 @@
+def test_all_does_not_raise_with_empty_path_envvar(self):
+    ' additionally, tests that the module does not raise at import '
+    with patch.dict(os.environ, clear=True):
+        reload(interpreter)
+        interpreter.PythonInterpreter.all()

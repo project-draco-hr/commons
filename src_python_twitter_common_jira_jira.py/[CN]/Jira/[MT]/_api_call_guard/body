@@ -1,0 +1,8 @@
+@contextmanager
+def _api_call_guard(self, http_error_msg=None, url_error_msg=None):
+    try:
+        yield
+    except urllib2.HTTPError as e:
+        raise JiraError(cause=e, message=http_error_msg)
+    except urllib2.URLError as e:
+        raise JiraError(cause=e, message=url_error_msg)

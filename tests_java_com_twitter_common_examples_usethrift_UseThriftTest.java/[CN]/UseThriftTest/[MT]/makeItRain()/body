@@ -1,0 +1,4 @@
+{
+  Distance notMuch=new Distance().setNumber(8).setUnit("mm");
+  Precipitation sprinkle=new Precipitation().setDistance(notMuch);
+}

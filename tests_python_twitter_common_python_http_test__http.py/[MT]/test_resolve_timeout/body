@@ -10,6 +10,6 @@ def test_resolve_timeout():
 
         def _reachable(self, fullurl):
             return True
-    with pytest.raises(urllib_error.URLError):
+    with pytest.raises(FetchError):
         FakeWeb().open('http://www.google.com')
     event.set()

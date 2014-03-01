@@ -1,0 +1,5 @@
+def get_issue(self, issue):
+    'Returns the data for the given issue'
+    endpoint = ('issue/%s' % issue)
+    with self._api_call_guard():
+        return self.api_call(endpoint)

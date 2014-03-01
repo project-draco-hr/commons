@@ -1,0 +1,7 @@
+def __init__(self, keytab, service='HTTP', fail_response=None, err_response=None, content_type=None):
+    "Params\n\n       keytab           path to kerberos keytab (e.g. '/etc/krb5.tab')\n       service          kerberos service name (optional, defaults to HTTP)\n       fail_response    response body to send on auth failures (optional)\n       err_response     response body to send on auth errors (optional)\n       content_type     content-type for fail/err responses, e.g. to support json APIs (optional)\n    "
+    self._keytab = keytab
+    self._service = service
+    self._fail_response = (fail_response or self.DEFAULT_AUTH_FAIL)
+    self._err_response = (err_response or self.DEFAULT_AUTH_ERR)
+    self._content_type = (content_type or self.DEFAULT_CONTENT_TYPE)

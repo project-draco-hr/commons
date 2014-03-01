@@ -5,4 +5,5 @@ import textwrap
 import urllib
 import urllib2
 import urlparse
+from contextlib import contextmanager
 from twitter.common import log

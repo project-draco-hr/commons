@@ -1,7 +1,2 @@
-from __future__ import print_function
 from abc import abstractmethod
-from functools import wraps
-import pprint
-import time
 from twitter.common.lang import Interface
-from .server import request

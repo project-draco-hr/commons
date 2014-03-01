@@ -1,0 +1,18 @@
+def _modify_thrift(self, source):
+    "\n    Replaces the python keywords in the thrift file\n\n    Find all python keywords in each thrift file and appends a trailing underscore.\n    For example, 'from' will be converted to 'from_'.\n    "
+    rewrites = []
+    renames = dict(((kw, ('%s_' % kw)) for kw in keyword.kwlist))
+    token_regex = re.compile(('(\\W)(%s)(\\W)' % '|'.join(renames.keys())), re.MULTILINE)
+
+    def token_replace(match):
+        return ('%s%s%s' % (match.group(1), renames[match.group(2)], match.group(3)))
+
+    def replace_tokens(contents):
+        return token_regex.sub(token_replace, contents)
+    rewrites.append(replace_tokens)
+    with open(source) as contents:
+        modified = functools.reduce((lambda txt, rewrite: rewrite(txt)), rewrites, contents.read())
+        contents.close()
+        with open(source, 'w') as thrift:
+            thrift.write(modified)
+    return source
