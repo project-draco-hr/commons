@@ -23,5 +23,5 @@ from twitter.pants.targets.python_requirement import PythonRequirement
 from twitter.pants.targets.python_tests import PythonTests
 from twitter.pants.targets.python_thrift_library import PythonThriftLibrary
 from .antlr_builder import PythonAntlrBuilder
-from .resolver import MultiResolver
+from .resolver import resolve_multi
 from .thrift_builder import PythonThriftBuilder

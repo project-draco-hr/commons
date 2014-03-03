@@ -1,7 +1,0 @@
-def make_installer(self, reqs, interpreter, platform):
-    assert ((len(reqs) == 1) and isinstance(reqs[0], PythonRequirement)), ('Got requirement list: %s' % repr(reqs))
-    req = reqs[0]
-    fetchers = (([Fetcher([req.repository])] + self._fetchers) if req.repository else self._fetchers)
-    translator = ChainedTranslator(EggTranslator(install_cache=self._install_cache, platform=platform, python=interpreter.python), SourceTranslator(install_cache=self._install_cache, interpreter=interpreter, platform=platform, use_2to3=req.use_2to3))
-    obtainer = Obtainer(self._crawler, fetchers, translator)
-    return obtainer.obtain

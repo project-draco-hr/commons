@@ -1,9 +1,9 @@
 from __future__ import print_function
 from .base import maybe_requirement_list
-from .fetcher import PyPIFetcher
+from .fetcher import Fetcher, PyPIFetcher
 from .http import Crawler
 from .interpreter import PythonInterpreter
 from .obtainer import Obtainer
 from .platforms import Platform
-from .translator import Translator
-from pkg_resources import Environment, WorkingSet, find_distributions
+from .translator import ChainedTranslator, EggTranslator, SourceTranslator
+from pkg_resources import Environment, WorkingSet

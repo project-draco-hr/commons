@@ -1,2 +1,0 @@
-def make_installer(self, requirements, interpreter, platform):
-    return None

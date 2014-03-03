@@ -1,7 +1,0 @@
-def resolve(self, requirements, interpreter=None):
-    resolved = OrderedSet()
-    requirements = list(requirements)
-    for platform in self._platforms:
-        for req in requirements:
-            resolved.update(super(MultiResolver, self).resolve(req, platform=platform, interpreter=interpreter))
-    return list(resolved)

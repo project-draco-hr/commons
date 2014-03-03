@@ -1,3 +1,0 @@
-def make_installer(self, reqs, interpreter, platform):
-    obtainer = Obtainer(self._crawler, self._fetchers, Translator.default(self._install_cache, interpreter=interpreter, platform=platform, conn_timeout=self._conn_timeout))
-    return obtainer.obtain

@@ -1,5 +1,13 @@
 def build_pex(args, options):
-    pex_builder = PEXBuilder(path=safe_mkdtemp())
+    interpreter = None
+    if options.python:
+        if os.path.exists(options.python):
+            interpreter = PythonInterpreter.from_binary(options.python)
+        else:
+            interpreter = PythonInterpreter.from_env(options.python)
+        if (interpreter is None):
+            die(('Failed to find interpreter: %s' % options.python))
+    pex_builder = PEXBuilder(path=safe_mkdtemp(), interpreter=interpreter)
     pex_info = pex_builder.info
     pex_info.zip_safe = options.zip_safe
     pex_info.always_write_cache = options.always_write_cache
@@ -8,8 +16,7 @@ def build_pex(args, options):
     fetchers = [Fetcher(options.repos)]
     if options.pypi:
         fetchers.append(PyPIFetcher())
-    resolver = Resolver(cache=options.cache_dir, fetchers=fetchers, install_cache=options.cache_dir)
-    resolveds = resolver.resolve(options.requirements)
+    resolveds = requirement_resolver(options.requirements, cache=options.cache_dir, fetchers=fetchers, interpreter=interpreter, platform=options.platform)
     if resolveds:
         log('Resolved distributions:', v=options.verbosity)
     for pkg in resolveds:
@@ -29,15 +36,4 @@ def build_pex(args, options):
         pex_builder.info.entry_point = options.entry_point
     else:
         log('Creating environment PEX.', v=options.verbosity)
-    if (options.pex_name is not None):
-        log(('Saving PEX file to %s' % options.pex_name), v=options.verbosity)
-        tmp_name = (options.pex_name + '~')
-        safe_delete(tmp_name)
-        pex_builder.build(tmp_name)
-        os.rename(tmp_name, options.pex_name)
-    else:
-        pex_builder.freeze()
-        log(('Running PEX file at %s with args %s' % (pex_builder.path(), args)), v=options.verbosity)
-        pex = PEX(pex_builder.path())
-        return pex.run(args=list(args))
-    return 0
+    return pex_builder

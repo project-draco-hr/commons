@@ -6,7 +6,7 @@ def __init__(self, config, logger=None):
     except TypeError:
         self._setuptools_requirement = Requirement.parse(setuptools_req)
     safe_mkdir(self._path)
-    self._fetchers = MultiResolver.fetchers(config)
-    self._crawler = MultiResolver.crawler(config)
+    self._fetchers = fetchers_from_config(config)
+    self._crawler = crawler_from_config(config)
     self._interpreters = set()
     self._logger = (logger or (lambda msg: True))

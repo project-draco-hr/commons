@@ -1,9 +1,0 @@
-def __init__(self, config, target, conn_timeout=None):
-    platforms = config.getlist('python-setup', 'platforms', ['current'])
-    if (isinstance(target, PythonBinary) and target.platforms):
-        platforms = target.platforms
-    self._install_cache = config.get('python-setup', 'install_cache')
-    self._crawler = self.crawler(config, conn_timeout=conn_timeout)
-    self._fetchers = self.fetchers(config, target)
-    self._platforms = get_platforms(platforms)
-    super(MultiResolver, self).__init__(cache=self._install_cache)

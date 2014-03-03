@@ -1,10 +1,12 @@
 from __future__ import print_function
-from twitter.common.collections import OrderedSet
+import os
+import time
+from twitter.common.dirutil import touch
 from twitter.common.python.fetcher import Fetcher, PyPIFetcher
 from twitter.common.python.http import Crawler
 from twitter.common.python.obtainer import Obtainer
+from twitter.common.python.interpreter import PythonInterpreter
 from twitter.common.python.platforms import Platform
-from twitter.common.python.resolver import ResolverBase
+from twitter.common.python.resolver import requirement_is_exact
 from twitter.common.python.translator import ChainedTranslator, EggTranslator, SourceTranslator
-from twitter.pants.targets.python_binary import PythonBinary
-from twitter.pants.targets.python_requirement import PythonRequirement
+from pkg_resources import Environment, WorkingSet

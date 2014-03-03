@@ -1,6 +1,0 @@
-def __init__(self, cache=None, crawler=None, fetchers=None, install_cache=None, conn_timeout=None):
-    self._crawler = (crawler or Crawler())
-    self._fetchers = (fetchers or [PyPIFetcher()])
-    self._install_cache = install_cache
-    self._conn_timeout = conn_timeout
-    super(Resolver, self).__init__(cache=cache)

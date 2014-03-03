@@ -8,7 +8,7 @@ def _run_python_test(self, target):
             builder = PEXBuilder(interpreter=self.interpreter)
             builder.info.entry_point = target.entry_point
             builder.info.ignore_errors = target._soft_dependencies
-            chroot = PythonChroot(target, self.root_dir, extra_targets=self.generate_test_targets(), builder=builder, interpreter=self.interpreter, conn_timeout=self._conn_timeout)
+            chroot = PythonChroot(target, self.root_dir, extra_targets=self.generate_test_targets(), builder=builder, platforms=('current',), interpreter=self.interpreter, conn_timeout=self._conn_timeout)
             builder = chroot.dump()
             builder.freeze()
             test_args = PythonTestBuilder.generate_junit_args(target)

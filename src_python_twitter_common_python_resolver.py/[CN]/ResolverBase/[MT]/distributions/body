@@ -1,2 +1,0 @@
-def distributions(self):
-    return self._entries

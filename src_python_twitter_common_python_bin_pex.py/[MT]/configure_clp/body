@@ -2,6 +2,8 @@ def configure_clp():
     usage = '%prog [options]\n\n%prog builds a PEX (Python Executable) file based on the given specifications: sources, requirements, their dependencies and other options'
     parser = OptionParser(usage=usage, version='%prog 0.2')
     parser.add_option('--pypi', '--no-pypi', dest='pypi', default=True, action='callback', callback=parse_bool, help='Whether to use pypi to resolve dependencies; Default: use pypi')
+    parser.add_option('--python', dest='python', default=None, help='The Python interpreter to use to build the pex.  Either specify an explicit path to an interpreter, or specify a binary accessible on $PATH. Default: Use current interpreter.')
+    parser.add_option('--platform', dest='platform', default=Platform.current(), help='The platform for which to build the PEX.  Default: %%default')
     parser.add_option('--zip-safe', '--not-zip-safe', dest='zip_safe', default=True, action='callback', callback=parse_bool, help='Whether or not the sources in the pex file are zip safe.  If they are not zip safe, they will be written to disk prior to execution; Default: zip safe.')
     parser.add_option('--always-write-cache', dest='always_write_cache', default=False, action='store_true', help='Always write the internally cached eggs to disk prior to invoking the pex source code.  This can use less memory in RAM constrained environments. [Default: %default]')
     parser.add_option('--ignore-errors', dest='ignore_errors', default=False, action='store_true', help='Ignore run-time requirement resolution errors when invoking the pex. [Default: %default]')

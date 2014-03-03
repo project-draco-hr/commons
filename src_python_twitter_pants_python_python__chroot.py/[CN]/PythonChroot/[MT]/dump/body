@@ -14,14 +14,23 @@ def dump(self):
     for antlr in targets['antlrs']:
         generated_reqs.add(self._generate_antlr_requirement(antlr))
     targets['reqs'] |= generated_reqs
+    reqs_to_build = OrderedSet()
     for req in targets['reqs']:
         if (not req.should_build(self._interpreter.python, Platform.current())):
             self.debug(('Skipping %s based upon version filter' % req))
             continue
+        reqs_to_build.add(req)
         self._dump_requirement(req._requirement, False, req._repository)
-    reqs_to_build = (req for req in targets['reqs'] if req.should_build(self._interpreter.python, Platform.current()))
-    for dist in self._resolver.resolve(reqs_to_build, interpreter=self._interpreter):
-        self._dump_distribution(dist)
+    platforms = self._platforms
+    if isinstance(self._target, PythonBinary):
+        platforms = self._target.platforms
+    distributions = resolve_multi(self._config, reqs_to_build, interpreter=self._interpreter, platforms=platforms)
+    locations = set()
+    for (platform, dist_set) in distributions.items():
+        for dist in dist_set:
+            if (dist.location not in locations):
+                self._dump_distribution(dist)
+            locations.add(dist.location)
     if (len(targets['binaries']) > 1):
         print('WARNING: Target has multiple python_binary targets!', file=sys.stderr)
     return self._builder

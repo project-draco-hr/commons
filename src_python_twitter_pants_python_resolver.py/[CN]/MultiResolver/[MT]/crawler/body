@@ -1,3 +1,0 @@
-@classmethod
-def crawler(cls, config, conn_timeout=None):
-    return Crawler(cache=config.get('python-setup', 'download_cache'), conn_timeout=conn_timeout)

@@ -1,4 +1,0 @@
-def __init__(self, cache=None):
-    self._cached_entries = (set(find_distributions(cache)) if cache else set())
-    self._entries = set()
-    super(ResolverBase, self).__init__(entries=[])
