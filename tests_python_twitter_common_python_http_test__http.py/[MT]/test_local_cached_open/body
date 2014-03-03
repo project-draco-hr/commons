@@ -1,0 +1,11 @@
+def test_local_cached_open():
+    cache = safe_mkdtemp()
+    web = CachedWeb(cache=cache)
+    source_dir = safe_mkdtemp()
+    source = os.path.join(source_dir, 'filename')
+    with open(source, 'w') as fp:
+        fp.write('data')
+    with contextlib.closing(web.open(source)) as cached_fp1:
+        assert ('data' == cached_fp1.read())
+    with contextlib.closing(web.open(source)) as cached_fp2:
+        assert ('data' == cached_fp2.read())
