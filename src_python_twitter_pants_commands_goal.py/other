@@ -28,6 +28,7 @@ from twitter.pants.reporting.reporting_server import ReportingServer, ReportingS
 from twitter.pants.tasks import Task, TaskError
 from twitter.pants.tasks.console_task import ConsoleTask
 from twitter.pants.goal import Context, GoalError, Phase
+from twitter.pants.tasks.list_goals import ListGoals
 from twitter.pants.tasks.targets_help import TargetsHelp
 try:
     import colors

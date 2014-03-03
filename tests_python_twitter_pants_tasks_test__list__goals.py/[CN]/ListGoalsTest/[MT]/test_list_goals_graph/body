@@ -1,0 +1,6 @@
+def test_list_goals_graph(self):
+    Phase.clear()
+    Goal(name=self._LIST_GOALS_NAME, action=ListGoals).install().with_description(self._LIST_GOALS_DESC)
+    Goal(name=self._LLAMA_NAME, action=ListGoalsTest.LlamaTask).install().with_description(self._LLAMA_DESC)
+    Goal(name=self._ALPACA_NAME, action=ListGoalsTest.AlpacaTask, dependencies=[self._LLAMA_NAME]).install()
+    self.assert_console_output('digraph G {\n  rankdir=LR;\n  graph [compound=true];', '  subgraph cluster_goals {\n    node [style=filled];\n    color = blue;\n    label = "goals";', '    goals_goals [label="goals"];', '  }', '  subgraph cluster_llama {\n    node [style=filled];\n    color = blue;\n    label = "llama";', '    llama_llama [label="llama"];', '  }', '  subgraph cluster_alpaca {\n    node [style=filled];\n    color = blue;\n    label = "alpaca";', '    alpaca_alpaca [label="alpaca"];', '  }', '  alpaca_alpaca -> llama_llama [ltail=cluster_alpaca lhead=cluster_llama];', '}', args=['--test-graph'])

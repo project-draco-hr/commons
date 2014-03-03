@@ -1,0 +1,9 @@
+def test_list_goals(self):
+    Phase.clear()
+    self.assert_console_output(self._INSTALLED_HEADER)
+    Goal(name=self._LIST_GOALS_NAME, action=ListGoals).install().with_description(self._LIST_GOALS_DESC)
+    self.assert_console_output(self._INSTALLED_HEADER, ('  %s: %s' % (self._LIST_GOALS_NAME, self._LIST_GOALS_DESC)))
+    Goal(name=self._LLAMA_NAME, action=ListGoalsTest.LlamaTask).install().with_description(self._LLAMA_DESC)
+    self.assert_console_output(self._INSTALLED_HEADER, ('  %s: %s' % (self._LIST_GOALS_NAME, self._LIST_GOALS_DESC)), ('  %s: %s' % (self._LLAMA_NAME, self._LLAMA_DESC)))
+    Goal(name=self._ALPACA_NAME, action=ListGoalsTest.AlpacaTask, dependencies=[self._LLAMA_NAME]).install()
+    self.assert_console_output(self._INSTALLED_HEADER, ('  %s: %s' % (self._LIST_GOALS_NAME, self._LIST_GOALS_DESC)), ('  %s: %s' % (self._LLAMA_NAME, self._LLAMA_DESC)))
