@@ -6,5 +6,15 @@ def attempt(self, timer, context, phases):
     if explain:
         print ('Phase Execution Order:\n\n%s\n' % execution_phases)
         print 'Phase [Goal->Task] Order:\n'
-    for phase_executor in phase_executors:
-        phase_executor.attempt(timer, explain)
+    serialized_phase_executors = list(filter((lambda pe: pe.phase.serialize), phase_executors))
+    outer_lock_holder = (serialized_phase_executors[(-1)] if serialized_phase_executors else None)
+    if outer_lock_holder:
+        context.acquire_lock()
+    try:
+        for phase_executor in phase_executors:
+            phase_executor.attempt(timer, explain)
+            if (phase_executor is outer_lock_holder):
+                context.release_lock()
+    finally:
+        if outer_lock_holder:
+            context.release_lock()

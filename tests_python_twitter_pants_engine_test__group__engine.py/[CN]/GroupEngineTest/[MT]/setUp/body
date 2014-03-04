@@ -1,6 +1,7 @@
 def setUp(self):
     super(GroupEngineTest, self).setUp()
     self.context = create_context(options=dict(explain=False), target_roots=self.targets('src/java:e', 'src/python:f'))
+    self.assertTrue(self.context.is_unlocked())
     exclusives_mapping = ExclusivesMapping(self.context)
     exclusives_mapping._populate_target_maps(self.context.targets())
     self.context.products.safe_create_data('exclusives_groups', (lambda : exclusives_mapping))
