@@ -1,5 +1,5 @@
-import pytest
 from textwrap import dedent
-from twitter.pants import TaskError
 from twitter.pants.tasks.dependencies import Dependencies
-from . import ConsoleTaskTest
+from twitter.pants.tasks.task_error import TaskError
+from twitter.pants.tasks.test_base import ConsoleTaskTest
+import pytest

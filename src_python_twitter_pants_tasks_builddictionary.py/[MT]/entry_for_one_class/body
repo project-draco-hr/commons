@@ -7,7 +7,7 @@ def entry_for_one_class(nom, klas):
         methods = []
         for attrname in dir(klas):
             attr = getattr(klas, attrname)
-            attr_bdi = twitter.pants.base.get_builddict_info(attr)
+            attr_bdi = get_builddict_info(attr)
             if (not attr_bdi):
                 continue
             if inspect.ismethod(attr):

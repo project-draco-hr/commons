@@ -2,8 +2,9 @@ import inspect
 from optparse import OptionGroup
 from twitter.pants.base.build_manual import manual
 from twitter.pants.tasks import Task
-from twitter.pants.goal.phase import Phase
-from twitter.pants.goal.context import Context
-from twitter.pants.goal.group import Group
-from twitter.pants.goal.run_tracker import RunTracker
+from .error import GoalError
+from .phase import Phase
+from .context import Context
+from .group import Group
+from .run_tracker import RunTracker
 __all__ = ('Context', 'Goal', 'GoalError', 'Group', 'Phase', 'RunTracker')

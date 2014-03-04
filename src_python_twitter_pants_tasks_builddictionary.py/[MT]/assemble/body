@@ -9,7 +9,7 @@ def assemble(predefs=PREDEFS, symbol_hash=None):
     if (symbol_hash is None):
         symbol_hash = get_syms()
     for k in symbol_hash:
-        bdi = twitter.pants.base.get_builddict_info(symbol_hash[k])
+        bdi = get_builddict_info(symbol_hash[k])
         if (bdi is None):
             continue
         d[k] = bdi.copy()

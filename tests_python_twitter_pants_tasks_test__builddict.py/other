@@ -1,6 +1,6 @@
 from contextlib import closing
 from StringIO import StringIO
 from twitter.pants.tasks.builddictionary import assemble, BuildBuildDictionary
-from . import prepare_task, TaskTest
+from twitter.pants.tasks.test_base import prepare_task, TaskTest
 OUTDIR = '/tmp/dist'
 sample_ini_test_1 = ('\n[DEFAULT]\noutdir: %s\n' % OUTDIR)

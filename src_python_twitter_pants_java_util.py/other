@@ -1,2 +1,3 @@
 from twitter.pants.base.workunit import WorkUnit
-from twitter.pants.java import Executor, NailgunExecutor, SubprocessExecutor
+from .executor import Executor, SubprocessExecutor
+from .nailgun_executor import NailgunExecutor

@@ -1,6 +1,6 @@
 def get_syms():
     r = {}
-    vc = twitter.pants.base.ParseContext.default_globals()
+    vc = ParseContext.default_globals()
     for s in vc:
         if (s in PREDEFS):
             continue
