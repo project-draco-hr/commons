@@ -15,6 +15,6 @@ def _activate(self):
             raise
     for dist in resolved:
         with TRACER.timed(('Activated %s' % dist)):
+            working_set.add(dist)
             dist.activate()
-    self._working_set = working_set
-    self._activated = True
+    return working_set
