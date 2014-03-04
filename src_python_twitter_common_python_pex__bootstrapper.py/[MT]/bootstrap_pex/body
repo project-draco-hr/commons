@@ -1,3 +1,4 @@
 def bootstrap_pex(entry_point):
+    monkeypatch_build_zipmanifest()
     from . import pex
     pex.PEX(entry_point).execute()
