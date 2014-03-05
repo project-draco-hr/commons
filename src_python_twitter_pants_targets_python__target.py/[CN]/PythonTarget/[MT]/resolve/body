@@ -1,7 +1,0 @@
-def resolve(self):
-    for dep in super(PythonTarget, self).resolve():
-        yield dep
-    if self.provides:
-        for binary in self.provides.binaries.values():
-            for dep in binary.resolve():
-                yield dep
