@@ -1,0 +1,5 @@
+def failsafe_parse(requirement):
+    try:
+        return Requirement.parse(requirement, replacement=False)
+    except TypeError:
+        return Requirement.parse(requirement)

@@ -1,3 +1,0 @@
-def _log(self, msg):
-    if self._debug:
-        print(msg, file=sys.stderr)

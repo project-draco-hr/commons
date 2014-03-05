@@ -24,12 +24,10 @@ def build_pex(args, options):
         pex_builder.add_distribution(pkg)
         pex_builder.add_requirement(pkg.as_requirement())
     for source_dir in options.source_dirs:
-        dist = Installer(source_dir).distribution()
-        if (not dist):
+        try:
+            egg_path = EggInstaller(source_dir).bdist()
+        except EggInstaller.Error:
             die(('Failed to run installer for %s' % source_dir), CANNOT_DISTILL)
-        egg_path = Distiller(dist).distill()
-        if (not egg_path):
-            die(('Failed to distill %s into egg' % dist), CANNOT_DISTILL)
         pex_builder.add_egg(egg_path)
     if (options.entry_point is not None):
         log(('Setting entry point to %s' % options.entry_point), v=options.verbosity)

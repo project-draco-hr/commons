@@ -1,4 +1,4 @@
 self
 binary
-interpreter
-distribute_path
+identity
+extras

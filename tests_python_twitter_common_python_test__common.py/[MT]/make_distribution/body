@@ -1,15 +1,9 @@
 @contextlib.contextmanager
 def make_distribution(name='my_project', zipped=False, zip_safe=True):
-    interp = {'project_name': name, }
-    if zip_safe:
-        interp['content'] = dedent("\n    def do_something():\n      print('hello world!')\n    ")
-    else:
-        interp['content'] = dedent("\n    if __file__ == 'derp.py':\n      print('i am an idiot')\n    ")
+    interp = {'project_name': name, 'zip_safe': zip_safe, }
     with temporary_content(PROJECT_CONTENT, interp=interp) as td:
-        installer = Installer(td)
-        distribution = installer.distribution()
-        distiller = Distiller(distribution, debug=True)
-        dist_location = distiller.distill(into=safe_mkdtemp())
+        installer = EggInstaller(td)
+        dist_location = installer.bdist()
         if zipped:
             yield DistributionHelper.distribution_from_path(dist_location)
         else:

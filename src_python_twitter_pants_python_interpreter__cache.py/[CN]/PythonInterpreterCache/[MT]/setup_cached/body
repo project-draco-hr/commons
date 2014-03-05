@@ -3,5 +3,5 @@ def setup_cached(self):
         path = os.path.join(self._path, interpreter_dir)
         pi = self.interpreter_from_path(path)
         if pi:
-            self._logger(('Found interpreter %s: %s (cached)' % (pi.binary, str(pi.identity))))
+            self._logger(('Detected interpreter %s: %s' % (pi.binary, str(pi.identity))))
             self._interpreters.add(pi)

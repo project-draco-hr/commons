@@ -4,7 +4,7 @@ import subprocess
 import sys
 import tempfile
 from .common import safe_mkdtemp, safe_rmtree
-from .interpreter import PythonInterpreter
+from .interpreter import PythonInterpreter, PythonCapability
 from .tracer import TRACER
 from pkg_resources import Distribution, PathMetadata
 __all__ = ('Installer', 'Packager')

@@ -1,3 +1,5 @@
 @staticmethod
 def default(install_cache=None, platform=Platform.current(), interpreter=PythonInterpreter.get(), conn_timeout=None):
-    return ChainedTranslator(EggTranslator(install_cache=install_cache, platform=platform, python=interpreter.python, conn_timeout=conn_timeout), SourceTranslator(install_cache=install_cache, interpreter=interpreter, conn_timeout=conn_timeout))
+    egg_translator = EggTranslator(install_cache=install_cache, platform=platform, python=interpreter.python, conn_timeout=conn_timeout)
+    source_translator = SourceTranslator(install_cache=install_cache, interpreter=interpreter, conn_timeout=conn_timeout)
+    return ChainedTranslator(egg_translator, source_translator)

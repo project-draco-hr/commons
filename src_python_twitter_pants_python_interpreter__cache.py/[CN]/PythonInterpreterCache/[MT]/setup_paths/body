@@ -3,10 +3,9 @@ def setup_paths(self, paths):
         identity_str = str(interpreter.identity)
         path = os.path.join(self._path, identity_str)
         pi = self.interpreter_from_path(path)
-        if ((pi is None) or (pi.distribute is None)):
-            self._logger(('Found interpreter %s: %s (%s)' % (interpreter.binary, str(interpreter.identity), ('uncached' if (pi is None) else 'incomplete'))))
+        if (pi is None):
             self.setup_interpreter(interpreter)
             pi = self.interpreter_from_path(path)
-            if ((pi is None) or (pi.distribute is None)):
+            if (pi is None):
                 continue
         self._interpreters.add(pi)

@@ -1,13 +1,9 @@
-@classmethod
-def interpreter_from_path(cls, path):
+def interpreter_from_path(self, path):
     interpreter_dir = os.path.basename(path)
     identity = PythonIdentity.from_path(interpreter_dir)
     try:
         executable = os.readlink(os.path.join(path, 'python'))
     except OSError:
         return None
-    try:
-        distribute_path = os.readlink(os.path.join(path, 'distribute'))
-    except OSError:
-        distribute_path = None
-    return PythonInterpreter(executable, identity, distribute_path)
+    interpreter = PythonInterpreter(executable, identity)
+    return resolve(self._config, interpreter, logger=self._logger)

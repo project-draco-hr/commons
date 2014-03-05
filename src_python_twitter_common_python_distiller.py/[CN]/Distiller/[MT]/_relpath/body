@@ -1,2 +1,0 @@
-def _relpath(self, fn):
-    return os.path.relpath(fn, self._dist.location)

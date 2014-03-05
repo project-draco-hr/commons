@@ -1,16 +1,11 @@
 def run(self):
     if (self._installed is not None):
         return self._installed
-    if ((self._interpreter.distribute is None) and self._strict):
-        self._installed = False
-        print('Failed to find distribute in sys.path!', file=sys.stderr)
-        return self._installed
-    setup_bootstrap = (Installer.SETUP_BOOTSTRAP % {'setuptools_path': (self._interpreter.distribute or ''), 'setup_py': 'setup.py', })
     with TRACER.timed(('Installing %s' % self._install_tmp), V=2):
         command = [self._interpreter.binary, '-']
         command.extend(self._setup_command())
-        po = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=self._source_dir)
-        (so, se) = po.communicate(setup_bootstrap.encode('ascii'))
+        po = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=self._interpreter.sanitized_environment(), cwd=self._source_dir)
+        (so, se) = po.communicate(self.bootstrap_script.encode('ascii'))
         self._installed = (po.returncode == 0)
     if (not self._installed):
         print(('Failed to install stdout:\n%s' % so.decode('utf-8')), file=sys.stderr)

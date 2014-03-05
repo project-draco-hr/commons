@@ -1,6 +1,0 @@
-def _native_deps(self):
-    native_deps = set()
-    for fn in self._installed_files:
-        if any((fn.endswith(extension) for extension in Distiller.NATIVE_EXTENSIONS)):
-            native_deps.add(fn)
-    return native_deps

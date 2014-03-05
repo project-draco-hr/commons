@@ -2,5 +2,6 @@ def __init__(self, install_cache=None, interpreter=PythonInterpreter.get(), plat
     self._interpreter = interpreter
     self._use_2to3 = use_2to3
     self._install_cache = (install_cache or safe_mkdtemp())
+    safe_mkdir(self._install_cache)
     self._conn_timeout = conn_timeout
     self._platform = platform

@@ -5,3 +5,5 @@ def __init__(self, source_dir, strict=True, interpreter=None, install_dir=None):
     self._installed = None
     self._strict = strict
     self._interpreter = (interpreter or PythonInterpreter.get())
+    if ((not self._interpreter.satisfies(self.capability)) and strict):
+        raise self.IncapableInterpreter(('Interpreter %s not capable of running %s' % (self._interpreter, self.__class__.__name__)))

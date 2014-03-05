@@ -2,11 +2,10 @@ from __future__ import absolute_import
 from abc import abstractmethod
 import os
 from zipimport import zipimporter
-from .common import chmod_plus_w, safe_rmtree, safe_mkdtemp
+from .common import chmod_plus_w, safe_rmtree, safe_mkdir, safe_mkdtemp
 from .compatibility import AbstractClass
-from .distiller import Distiller
 from .http import EggLink, SourceLink
-from .installer import Installer
+from .installer import Installer, EggInstaller
 from .interpreter import PythonInterpreter
 from .platforms import Platform
 from .tracer import TRACER

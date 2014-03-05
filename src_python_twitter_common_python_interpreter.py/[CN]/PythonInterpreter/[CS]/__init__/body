@@ -1,10 +1,6 @@
-def __init__(self, binary=None, interpreter=None, distribute_path=None):
-    '\n      :binary => binary of python interpreter\n                 (if None, default to sys.executable)\n    '
-    self._binary = (binary or sys.executable)
+def __init__(self, binary, identity, extras=None):
+    'Construct a PythonInterpreter.\n\n       You should probably PythonInterpreter.from_binary instead.\n\n       :param binary: The full path of the python binary.\n       :param identity: The :class:`PythonIdentity` of the PythonInterpreter.\n       :param extras: A mapping from (dist.key, dist.version) to dist.location\n                      of the extras associated with this interpreter.\n    '
+    self._binary = binary
     self._binary_stat = os.stat(self._binary)
-    if (self._binary == sys.executable):
-        self._identity = (interpreter or PythonIdentity.get())
-        self._distribute = (distribute_path or self._find_distribute())
-    else:
-        self._identity = (interpreter or self.from_binary(self._binary).identity)
-        self._distribute = distribute_path
+    self._extras = (extras or {})
+    self._identity = identity

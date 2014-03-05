@@ -13,18 +13,15 @@ def translate(self, link):
         if (self._use_2to3 and (version >= (3,))):
             with TRACER.timed(('Translating 2->3 %s' % link.name)):
                 self.run_2to3(unpack_path)
-        with TRACER.timed(('Installing %s' % link.name)):
-            installer = Installer(unpack_path, interpreter=self._interpreter, strict=(link.name != 'distribute'))
-        with TRACER.timed(('Distilling %s' % link.name)):
+        installer = EggInstaller(unpack_path, interpreter=self._interpreter, strict=(link.name != 'distribute'))
+        with TRACER.timed(('Packaging %s' % link.name)):
             try:
-                dist = installer.distribution()
+                dist_path = installer.bdist()
             except Installer.InstallFailure:
                 return None
-            egg_directory = Distiller(dist).distill(into=self._install_cache)
-            if (egg_directory is None):
-                TRACER.log(('Failed to distill %s into %s' % (dist, self._install_cache)))
-                return None
-            dist = dist_from_egg(egg_directory)
+            target_path = os.path.join(self._install_cache, os.path.basename(dist_path))
+            os.rename(dist_path, target_path)
+            dist = dist_from_egg(target_path)
             if Platform.distribution_compatible(dist, python=self._interpreter.python, platform=self._platform):
                 return dist
     finally:

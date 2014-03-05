@@ -1,7 +1,0 @@
-def _package_name(self):
-    egg_name = self._dist.egg_name()
-    if (self._dist.platform and (not egg_name.endswith(self._dist.platform))):
-        egg_name = ((egg_name + '-') + self._dist.platform)
-    elif self._native_deps():
-        egg_name = ((egg_name + '-') + get_build_platform())
-    return (egg_name + '.egg')

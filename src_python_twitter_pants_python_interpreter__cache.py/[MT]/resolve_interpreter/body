@@ -1,0 +1,14 @@
+def resolve_interpreter(config, interpreter, requirement, logger=print):
+    "Given a :class:`PythonInterpreter` and :class:`Config`, and a requirement,\n     return an interpreter with the capability of resolving that requirement or\n     None if it's not possible to install a suitable requirement."
+    interpreter_cache = config.get('python-setup', 'interpreter_cache')
+    interpreter_dir = os.path.join(interpreter_cache, str(interpreter.identity))
+    if interpreter.satisfies(PythonCapability([requirement])):
+        return interpreter
+
+    def installer_provider(sdist):
+        return EggInstaller(sdist, strict=(requirement.key != 'setuptools'), interpreter=interpreter)
+    egg = resolve_and_link(config, requirement, os.path.join(interpreter_dir, requirement.key), installer_provider, logger=logger)
+    if egg:
+        return interpreter.with_extra(egg.name, egg.raw_version, egg.url)
+    else:
+        logger(('Failed to resolve requirement %s for %s' % (requirement, interpreter)))
