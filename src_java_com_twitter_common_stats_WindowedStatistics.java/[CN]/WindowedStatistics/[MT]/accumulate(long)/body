@@ -1,4 +1,5 @@
 {
+  sync(getCurrentIndex());
   for (int i=0; i < buffers.length - 1; i++) {
     int j=(buffers.length + getCurrentIndex() - i) % buffers.length;
     buffers[j].accumulate(value);
