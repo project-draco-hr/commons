@@ -1,2 +1,3 @@
 def crawler_from_config(config, conn_timeout=None):
-    return Crawler(cache=config.get('python-setup', 'download_cache'), conn_timeout=conn_timeout)
+    download_cache = PythonSetup(config).scratch_dir('download_cache', default_name='downloads')
+    return Crawler(cache=download_cache, conn_timeout=conn_timeout)

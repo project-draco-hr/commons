@@ -51,7 +51,7 @@ def setup_parser(self, parser, args):
                         except (IOError, SyntaxError, TargetDefinitionException):
                             error(spec)
         self.phases = [Phase(goal) for goal in goals]
-        rcfiles = self.config.getdefault('rcfiles', type=list, default=[])
+        rcfiles = self.config.getdefault('rcfiles', type=list, default=['/etc/pantsrc', '~/.pants.rc'])
         if rcfiles:
             rcfile = RcFile(rcfiles, default_prepend=False, process_default=True)
             sections = OrderedSet()

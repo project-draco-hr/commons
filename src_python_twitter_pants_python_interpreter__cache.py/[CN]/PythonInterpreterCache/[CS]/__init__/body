@@ -1,5 +1,5 @@
 def __init__(self, config, logger=None):
-    self._path = config.get('python-setup', 'interpreter_cache')
+    self._path = self.cache_dir(config)
     self._config = config
     safe_mkdir(self._path)
     self._interpreters = set()

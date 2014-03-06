@@ -1,7 +1,7 @@
 def select_binary(base_path, version, name, config=None):
     'Selects a binary matching the current os and architecture.\n\n  Raises TaskError if no binary of the given version and name could be found.\n  '
     config = (config or Config.load())
-    bootstrap_dir = config.getdefault('pants_bootstrapdir', default=os.path.expanduser('~/.pants.d'))
+    bootstrap_dir = config.getdefault('pants_bootstrapdir')
     baseurl = config.getdefault('pants_support_baseurl')
     timeout_secs = config.getdefault('pants_support_fetch_timeout_secs', type=int, default=30)
     (sysname, _, release, _, machine) = os.uname()

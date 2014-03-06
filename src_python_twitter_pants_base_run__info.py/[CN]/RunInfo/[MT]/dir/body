@@ -1,0 +1,4 @@
+@classmethod
+def dir(cls, config):
+    'Returns the configured base directory run info files are stored under.'
+    return config.getdefault('info_dir', default=os.path.join(config.getdefault('pants_workdir'), 'runs'))

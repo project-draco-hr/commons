@@ -6,6 +6,6 @@ def __init__(self, target, root_dir, extra_targets=None, builder=None, platforms
     self._interpreter = (interpreter or PythonInterpreter.get())
     self._extra_targets = (list(extra_targets) if (extra_targets is not None) else [])
     self._builder = (builder or PEXBuilder(tempfile.mkdtemp(), interpreter=self._interpreter))
-    self._egg_cache_root = os.path.join(self._config.get('python-setup', 'artifact_cache'), str(self._interpreter.identity))
+    self._egg_cache_root = os.path.join(PythonSetup(self._config).scratch_dir('artifact_cache', default_name='artifacts'), str(self._interpreter.identity))
     self._key_generator = CacheKeyGenerator()
     self._build_invalidator = BuildInvalidator(self._egg_cache_root)

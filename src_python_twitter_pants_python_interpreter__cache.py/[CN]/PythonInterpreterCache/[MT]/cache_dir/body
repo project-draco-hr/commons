@@ -1,0 +1,3 @@
+@staticmethod
+def cache_dir(config):
+    return PythonSetup(config).scratch_dir('interpreter_cache', default_name='interpreters')

@@ -1,6 +1,6 @@
 def resolve_interpreter(config, interpreter, requirement, logger=print):
     "Given a :class:`PythonInterpreter` and :class:`Config`, and a requirement,\n     return an interpreter with the capability of resolving that requirement or\n     None if it's not possible to install a suitable requirement."
-    interpreter_cache = config.get('python-setup', 'interpreter_cache')
+    interpreter_cache = PythonInterpreterCache.cache_dir(config)
     interpreter_dir = os.path.join(interpreter_cache, str(interpreter.identity))
     if interpreter.satisfies(PythonCapability([requirement])):
         return interpreter

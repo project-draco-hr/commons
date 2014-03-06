@@ -5,7 +5,7 @@ def resolve_multi(config, requirements, interpreter=None, platforms=None, conn_t
     interpreter = (interpreter or PythonInterpreter.get())
     if (not isinstance(interpreter, PythonInterpreter)):
         raise TypeError(('Expected interpreter to be a PythonInterpreter, got %s' % type(interpreter)))
-    install_cache = config.get('python-setup', 'install_cache')
+    install_cache = PythonSetup(config).scratch_dir('install_cache', default_name='eggs')
     platforms = get_platforms((platforms or config.getlist('python-setup', 'platforms', ['current'])))
     crawler = crawler_from_config(config, conn_timeout=conn_timeout)
     fetchers = fetchers_from_config(config)
