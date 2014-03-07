@@ -1,5 +1,5 @@
 def with_binaries(self, *args, **kw):
-    "\n      Add binaries tagged to this artifact, e.g.\n\n      provides = setup_py(\n        name = 'my_library',\n        zip_safe = True\n      ).with_binaries(\n        my_command = pants(':my_library_bin')\n      )\n\n      This adds a console_script entry_point for the python_binary target\n      pointed at by :my_library_bin.  Currently only supports\n      python_binaries that specify entry_point explicitly instead of source.\n\n      Also can take a dictionary, e.g.\n      with_binaries({'my-command': pants(...)})\n    "
+    "Add binaries tagged to this artifact.\n\n    For example: ::\n\n      provides = setup_py(\n        name = 'my_library',\n        zip_safe = True\n      ).with_binaries(\n        my_command = pants(':my_library_bin')\n      )\n\n    This adds a console_script entry_point for the python_binary target\n    pointed at by :my_library_bin.  Currently only supports\n    python_binaries that specify entry_point explicitly instead of source.\n\n    Also can take a dictionary, e.g.\n    with_binaries({'my-command': pants(...)})\n    "
     for arg in args:
         if isinstance(arg, dict):
             self._binaries.update(arg)

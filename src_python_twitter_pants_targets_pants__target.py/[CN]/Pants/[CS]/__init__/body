@@ -1,5 +1,5 @@
 def __init__(self, spec, exclusives=None):
-    '\n    :param string spec: target address. E.g.,\n      src/main/java/com/twitter/common/util/BUILD:util\n    '
+    '\n    :param string spec: target address. E.g., `src/java/com/twitter/common/util/BUILD\\:util`\n    '
     parse_context = ParseContext.locate()
 
     def parse_address():
