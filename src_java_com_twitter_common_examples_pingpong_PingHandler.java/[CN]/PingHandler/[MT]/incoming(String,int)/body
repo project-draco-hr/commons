@@ -1,8 +1,0 @@
-{
-  LOG.info("Got ping, ttl=" + ttl);
-  PINGS.incrementAndGet();
-  if (ttl > 1) {
-    client.execute("/ping/" + message + "/"+ (ttl - 1));
-  }
-  return "pong\n";
-}
