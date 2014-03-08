@@ -15,7 +15,7 @@ def resolve_and_link(config, requirement, target_link, installer_provider, logge
         installer = installer_provider(sdist)
         dist_location = installer.bdist()
         target_location = os.path.join(os.path.dirname(target_link), os.path.basename(dist_location))
-        os.rename(dist_location, target_location)
+        shutil.move(dist_location, target_location)
         safe_link(target_location, target_link)
         logger(('    installed %s' % target_location))
         return EggLink(target_location)

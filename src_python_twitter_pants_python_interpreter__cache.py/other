@@ -1,5 +1,6 @@
 from __future__ import print_function
 import os
+import shutil
 from twitter.common.dirutil import safe_mkdir
 from twitter.common.python.http.link import SourceLink
 from twitter.common.python.http.link import EggLink
