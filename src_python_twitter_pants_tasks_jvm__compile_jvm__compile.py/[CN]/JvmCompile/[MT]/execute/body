@@ -47,6 +47,8 @@ def execute(self, targets):
             if (self._analysis_parser.is_nonempty_analysis(self._invalid_analysis_file) and partitions):
                 with self.context.new_workunit(name='partition-analysis'):
                     splits = [(x[1], x[2]) for x in partitions]
+                    if splits:
+                        splits[0] = ((splits[0][0] + deleted_sources), splits[0][1])
                     self._analysis_tools.split_to_paths(self._invalid_analysis_file, splits)
             for partition in partitions:
                 (vts, sources, analysis_file) = partition
