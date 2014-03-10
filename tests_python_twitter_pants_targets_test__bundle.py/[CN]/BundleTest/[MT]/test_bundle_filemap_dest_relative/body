@@ -1,0 +1,9 @@
+def test_bundle_filemap_dest_relative(self):
+    self.create_dir('src/java/org/archimedes/crown/gold/config')
+    self.create_file('src/java/org/archimedes/crown/gold/config/five.xml')
+    self.create_target('src/java/org/archimedes/crown/BUILD', dedent("\n      jvm_app(name='crown',\n        binary=jvm_binary(name='unused'),\n        bundles=bundle(relative_to='gold').add('gold/config/five.xml'))\n    "))
+    app = self.target('src/java/org/archimedes/crown')
+    for k in app.bundles[0].filemap.keys():
+        if k.endswith('archimedes/crown/gold/config/five.xml'):
+            fivexml_key = k
+    self.assertEquals(app.bundles[0].filemap.values()[0], 'config/five.xml')

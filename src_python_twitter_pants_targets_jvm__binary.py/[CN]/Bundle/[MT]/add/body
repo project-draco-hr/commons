@@ -3,5 +3,11 @@ def add(self, *filesets):
     'Add files to the bundle, where ``filesets`` is a filename, ``globs``, or ``rglobs``.\n    Note this is a variable length param and may be specified any number of times.\n    '
     for fileset in filesets:
         paths = (fileset() if isinstance(fileset, Fileset) else (fileset if hasattr(fileset, '__iter__') else [fileset]))
-        self.filemap.update(((os.path.abspath(path), self.mapper(path)) for path in paths))
+        for path in paths:
+            abspath = path
+            if (not os.path.isabs(abspath)):
+                abspath = os.path.join(self._base, path)
+            if (not os.path.exists(abspath)):
+                raise ValueError(('Given path: %s with absolute path: %s which does not exist' % (path, abspath)))
+            self.filemap[abspath] = self.mapper(abspath)
     return self

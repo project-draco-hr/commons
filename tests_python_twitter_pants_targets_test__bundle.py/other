@@ -1,0 +1,5 @@
+import unittest
+from textwrap import dedent
+from twitter.pants.base_build_root_test import BaseBuildRootTest
+from twitter.pants.base.parse_context import ParseContext
+from twitter.pants.targets.jvm_binary import Bundle

@@ -1,0 +1,10 @@
+def test_bundle_filemap_dest_byglobs(self):
+    self.create_dir('src/java/org/archimedes/tub/config')
+    self.create_file('src/java/org/archimedes/tub/config/one.xml')
+    self.create_file('src/java/org/archimedes/tub/config/two.xml')
+    self.create_target('src/java/org/archimedes/tub/BUILD', dedent("\n      jvm_app(name='tub',\n        binary=jvm_binary(name='unused'),\n        bundles=bundle().add(globs('config/*.xml')))\n    "))
+    app = self.target('src/java/org/archimedes/tub')
+    for k in app.bundles[0].filemap.keys():
+        if k.endswith('archimedes/tub/config/one.xml'):
+            onexml_key = k
+    self.assertEquals(app.bundles[0].filemap[onexml_key], 'config/one.xml')
