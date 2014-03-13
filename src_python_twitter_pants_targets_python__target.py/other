@@ -4,3 +4,4 @@ from twitter.common.python.interpreter import PythonIdentity
 from twitter.pants.base.target import Target, TargetDefinitionException
 from .with_dependencies import TargetWithDependencies
 from .with_sources import TargetWithSources
+from twitter.pants.targets.python_artifact import PythonArtifact
