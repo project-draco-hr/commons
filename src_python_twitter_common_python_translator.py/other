@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 from abc import abstractmethod
 import os
+import shutil
 import warnings
 from .common import chmod_plus_w, safe_rmtree, safe_mkdir, safe_mkdtemp
 from .compatibility import AbstractClass
