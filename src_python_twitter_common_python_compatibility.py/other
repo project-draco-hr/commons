@@ -38,4 +38,16 @@ if PY3:
         return locals_map
 else:
     eval(compile('\ndef exec_function(ast, globals_map):\n  locals_map = globals_map\n  exec ast in globals_map, locals_map\n  return locals_map\n', '<exec_function>', 'exec'))
-__all__ = ('AbstractClass', 'BytesIO', 'PY2', 'PY3', 'StringIO', 'bytes', 'exec_functionstring', 'to_bytes')
+if PY3:
+    from contextlib import contextmanager, ExitStack
+
+    @contextmanager
+    def nested(*context_managers):
+        enters = []
+        with ExitStack() as stack:
+            for manager in context_managers:
+                enters.append(stack.enter_context(manager))
+            yield tuple(enters)
+else:
+    from contextlib import nested
+__all__ = ('AbstractClass', 'BytesIO', 'PY2', 'PY3', 'StringIO', 'bytes', 'exec_function', 'nested', 'string', 'to_bytes')
