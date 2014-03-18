@@ -1,0 +1,6 @@
+def test_add_new_finder():
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = None
+            add_finder('foo', 'bar')
+            mock_register_finder.assert_called_with('foo', 'bar')

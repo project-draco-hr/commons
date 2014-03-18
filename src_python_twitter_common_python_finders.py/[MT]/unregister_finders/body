@@ -1,0 +1,8 @@
+def unregister_finders():
+    'Unregister finders necessary for PEX to function properly.'
+    global __PREVIOUS_FINDER
+    if (not __PREVIOUS_FINDER):
+        return
+    pkg_resources.register_finder(zipimport.zipimporter, __PREVIOUS_FINDER)
+    _remove_finder(pkgutil.ImpImporter, find_wheels_on_path)
+    __PREVIOUS_FINDER = None

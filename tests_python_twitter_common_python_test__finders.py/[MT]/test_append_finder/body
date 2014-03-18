@@ -1,0 +1,11 @@
+def test_append_finder():
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = 'bar'
+            add_finder('foo', 'baz')
+            mock_register_finder.assert_called_with('foo', ChainedFinder(['bar', 'baz']))
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = ChainedFinder(['bar'])
+            add_finder('foo', 'baz')
+            mock_register_finder.assert_called_with('foo', ChainedFinder(['bar', 'baz']))

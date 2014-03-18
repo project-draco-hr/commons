@@ -1,0 +1,34 @@
+def test_remove_finder():
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = None
+            remove_finder('foo', 'baz')
+            assert (not mock_register_finder.called)
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = ChainedFinder(['bar'])
+            remove_finder('foo', 'baz')
+            assert (not mock_register_finder.called)
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            cf = ChainedFinder(['bar', 'baz', 'bak'])
+            mock_get_finder.return_value = cf
+            remove_finder('foo', 'baz')
+            assert (cf.finders == ['bar', 'bak'])
+            assert (not mock_register_finder.called)
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            cf = ChainedFinder(['bar', 'baz'])
+            mock_get_finder.return_value = cf
+            remove_finder('foo', 'baz')
+            mock_register_finder.assert_called_with('foo', 'bar')
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = 'bar'
+            remove_finder('foo', 'bar')
+            mock_register_finder.assert_called_with('foo', pkg_resources.find_nothing)
+    with mock.patch(GET_FINDER) as mock_get_finder:
+        with mock.patch(REGISTER_FINDER) as mock_register_finder:
+            mock_get_finder.return_value = ChainedFinder(['bar'])
+            remove_finder('foo', 'bar')
+            mock_register_finder.assert_called_with('foo', pkg_resources.find_nothing)
