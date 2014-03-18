@@ -1,4 +1,0 @@
-def test_link_preference():
-    sl = SourceLink('psutil-0.6.1.tar.gz')
-    el = EggLink('psutil-0.6.1-py2.6.egg')
-    assert (Obtainer.link_preference(el) > Obtainer.link_preference(sl))

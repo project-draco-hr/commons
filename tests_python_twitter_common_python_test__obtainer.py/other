@@ -1,4 +1,4 @@
 from twitter.common.python.fetcher import Fetcher
-from twitter.common.python.http import EggLink, SourceLink
+from twitter.common.python.package import EggPackage, SourcePackage
 from twitter.common.python.obtainer import Obtainer
 from pkg_resources import Requirement

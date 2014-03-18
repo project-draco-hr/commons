@@ -17,6 +17,6 @@ def cache_distribution(cls, zf, source, target_dir):
                 safe_rmtree(target_dir_tmp)
             else:
                 raise
-    distributions = list(find_distributions(target_dir))
-    assert (len(distributions) == 1), ('Failed to cache distribution %s' % source)
-    return distributions[0]
+    dist = DistributionHelper.distribution_from_path(target_dir)
+    assert (dist is not None), ('Failed to cache distribution %s' % source)
+    return dist

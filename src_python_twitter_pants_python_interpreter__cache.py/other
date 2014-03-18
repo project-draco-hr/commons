@@ -2,8 +2,7 @@ from __future__ import print_function
 import os
 import shutil
 from twitter.common.dirutil import safe_mkdir
-from twitter.common.python.http.link import SourceLink
-from twitter.common.python.http.link import EggLink
+from twitter.common.python.package import EggPackage, SourcePackage
 from twitter.common.python.installer import EggInstaller
 from twitter.common.python.interpreter import PythonCapability, PythonIdentity, PythonInterpreter
 from twitter.common.python.obtainer import Obtainer

@@ -1,2 +1,3 @@
 def __init__(self, links):
-    self._links = list(links)
+    self.__links = list(links)
+    super(FakeObtainer, self).__init__(FakeCrawler([]), [], [])

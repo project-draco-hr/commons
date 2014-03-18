@@ -4,3 +4,4 @@ interpreter
 platform
 use_2to3
 conn_timeout
+installer_impl

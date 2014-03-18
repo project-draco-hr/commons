@@ -1,8 +1,0 @@
-def _add_zipped_egg(self, egg):
-    with open_zip(egg) as zf:
-        for name in zf.namelist():
-            if name.endswith('/'):
-                continue
-            target = os.path.join(self._pex_info.internal_cache, os.path.basename(egg), name)
-            self._chroot.write(zf.read(name), target)
-        return CacheHelper.zip_hash(zf)

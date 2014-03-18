@@ -1,0 +1,4 @@
+def __init__(self, interpreter, platform=None):
+    platform = (platform or Platform.current())
+    self.__interpreter = interpreter
+    super(PantsEnvironment, self).__init__(search_path=[], python=interpreter.python, platform=platform)

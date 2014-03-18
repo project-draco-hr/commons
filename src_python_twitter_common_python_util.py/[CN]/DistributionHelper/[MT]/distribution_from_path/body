@@ -1,10 +1,8 @@
 @classmethod
-def distribution_from_path(cls, location, location_base=None):
-    "Returns a Distribution given a location.\n\n       If the distribution name should be based off a different egg name than\n       described by the location, supply location_base as an alternate name, e.g.\n       DistributionHelper.distribution_from_path('/path/to/wrong_package_name-3.2.1',\n           'right_package_name-1.2.3.egg')\n    "
-    location_base = (location_base or os.path.basename(location))
-    if os.path.isdir(location):
-        metadata = PathMetadata(location, os.path.join(location, 'EGG-INFO'))
-    else:
-        from zipimport import zipimporter
-        metadata = EggMetadata(zipimporter(location))
-    return Distribution.from_location(location, location_base, metadata=metadata)
+def distribution_from_path(cls, path):
+    'Returns a Distribution given a location.\n\n       If no distributions found or if the path contains multiple ambiguous\n       distributions, returns None.\n    '
+    register_finders()
+    distributions = list(find_distributions(path))
+    if (len(distributions) != 1):
+        return None
+    return distributions[0]

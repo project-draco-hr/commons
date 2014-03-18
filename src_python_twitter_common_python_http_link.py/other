@@ -2,13 +2,9 @@ from __future__ import absolute_import
 import contextlib
 import os
 import posixpath
-import tarfile
-import zipfile
-from .http import FetchError
-from ..base import maybe_requirement
 from ..common import safe_mkdir, safe_mkdtemp
 from ..compatibility import PY3
-from pkg_resources import Distribution, EGG_NAME, parse_version, safe_name
+from .http import FetchError
 if PY3:
     import urllib.parse as urlparse
 else:

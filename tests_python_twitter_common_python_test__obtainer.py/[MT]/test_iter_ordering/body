@@ -1,5 +1,6 @@
 def test_iter_ordering():
-    (PS, PS_EGG) = (SourceLink('psutil-0.6.1.tar.gz'), EggLink('psutil-0.6.1-py3.3-linux-x86_64.egg'))
-    PS_REQ = Requirement.parse('psutil')
-    assert (list(FakeObtainer([PS, PS_EGG]).iter(PS_REQ)) == [PS_EGG, PS])
-    assert (list(FakeObtainer([PS_EGG, PS]).iter(PS_REQ)) == [PS_EGG, PS])
+    tgz = SourcePackage('psutil-0.6.1.tar.gz')
+    egg = EggPackage('psutil-0.6.1-py3.3-linux-x86_64.egg')
+    req = Requirement.parse('psutil')
+    assert (list(FakeObtainer([tgz, egg]).iter(req)) == [egg, tgz])
+    assert (list(FakeObtainer([egg, tgz]).iter(req)) == [egg, tgz])

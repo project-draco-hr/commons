@@ -1,0 +1,10 @@
+def __init__(self, package_type, install_cache=None, interpreter=PythonInterpreter.get(), platform=Platform.current(), python=None, conn_timeout=None):
+    if python:
+        warnings.warn('python= keyword argument to Translator is deprecated.')
+        if (python != interpreter.python):
+            raise ValueError('Two different python interpreters supplied!')
+    self._package_type = package_type
+    self._install_cache = (install_cache or safe_mkdtemp())
+    self._platform = platform
+    self._identity = interpreter.identity
+    self._conn_timeout = conn_timeout

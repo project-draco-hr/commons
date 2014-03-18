@@ -1,0 +1,29 @@
+def test_egg_packages():
+    el = EggPackage('psutil-0.4.1-py2.6-macosx-10.7-intel.egg')
+    assert (el.name == 'psutil')
+    assert (el.raw_version == '0.4.1')
+    assert (el.py_version == '2.6')
+    assert (el.platform == 'macosx-10.7-intel')
+    for req in ('psutil', 'psutil>0.4', 'psutil==0.4.1', 'psutil>0.4.0,<0.4.2'):
+        assert el.satisfies(req)
+    for req in ('foo', 'bar==0.4.1'):
+        assert (not el.satisfies(req))
+    el = EggPackage('pytz-2012b-py2.6.egg')
+    assert (el.name == 'pytz')
+    assert (el.raw_version == '2012b')
+    assert (el.py_version == '2.6')
+    assert (el.platform is None)
+    with pytest.raises(EggPackage.InvalidLink):
+        EggPackage('bar.egg')
+    with pytest.raises(EggPackage.InvalidLink):
+        EggPackage('bar-1.egg')
+    with pytest.raises(EggPackage.InvalidLink):
+        EggPackage('bar-py2.6.egg')
+    dateutil = 'python_dateutil-1.5-py2.6.egg'
+    with create_layout([dateutil]) as td:
+        el = EggPackage(('file://' + os.path.join(td, dateutil)), opener=Web())
+        with temporary_dir() as td2:
+            loc1 = el.fetch()
+            assert (loc1 == os.path.join(td, dateutil))
+            el.fetch(location=td2)
+            assert (os.listdir(td2) == [dateutil])

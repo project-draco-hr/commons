@@ -14,7 +14,10 @@ def _activate(self):
                 TRACER.log(('  - %s' % dist))
             raise
     for dist in resolved:
-        with TRACER.timed(('Activated %s' % dist)):
+        with TRACER.timed(('Activating %s' % dist)):
             working_set.add(dist)
             dist.activate()
+            if os.path.isdir(dist.location):
+                with TRACER.timed('Adding sitedir'):
+                    site.addsitedir(dist.location)
     return working_set

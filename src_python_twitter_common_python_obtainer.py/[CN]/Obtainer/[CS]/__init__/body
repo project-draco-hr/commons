@@ -1,7 +1,8 @@
-def __init__(self, crawler, fetchers, translators):
+def __init__(self, crawler, fetchers, translators, precedence=DEFAULT_PACKAGE_PRECEDENCE):
     self._crawler = crawler
     self._fetchers = fetchers
     if isinstance(translators, (list, tuple)):
         self._translator = ChainedTranslator(*translators)
     else:
         self._translator = translators
+    self._precedence = precedence

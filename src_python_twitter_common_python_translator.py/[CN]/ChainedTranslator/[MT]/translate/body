@@ -1,5 +1,5 @@
-def translate(self, link):
+def translate(self, package):
     for tx in self._translators:
-        dist = tx.translate(link)
+        dist = tx.translate(package)
         if dist:
             return dist

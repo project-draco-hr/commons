@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 from abc import abstractmethod
 import os
-from zipimport import zipimporter
+import warnings
 from .common import chmod_plus_w, safe_rmtree, safe_mkdir, safe_mkdtemp
 from .compatibility import AbstractClass
-from .http import EggLink, SourceLink
-from .installer import Installer, EggInstaller
+from .installer import EggInstaller
 from .interpreter import PythonInterpreter
+from .package import EggPackage, Package, SourcePackage
 from .platforms import Platform
 from .tracer import TRACER
-from pkg_resources import Distribution, EggMetadata, PathMetadata
+from .util import DistributionHelper

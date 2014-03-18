@@ -10,10 +10,10 @@ def resolve_multi(config, requirements, interpreter=None, platforms=None, conn_t
     crawler = crawler_from_config(config, conn_timeout=conn_timeout)
     fetchers = fetchers_from_config(config)
     for platform in platforms:
-        env = PantsEnvironment(search_path=[], platform=platform, python=interpreter.python)
+        env = PantsEnvironment(interpreter, platform=platform)
         working_set = WorkingSet(entries=[])
         shared_options = dict(install_cache=install_cache, platform=platform)
-        egg_translator = EggTranslator(python=interpreter.python, **shared_options)
+        egg_translator = EggTranslator(interpreter=interpreter, **shared_options)
         egg_obtainer = Obtainer(crawler, [Fetcher([install_cache])], egg_translator)
 
         def installer(req):

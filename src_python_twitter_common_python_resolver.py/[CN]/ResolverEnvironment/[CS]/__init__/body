@@ -1,0 +1,4 @@
+def __init__(self, interpreter, *args, **kw):
+    kw['python'] = interpreter.python
+    self.__interpreter = interpreter
+    super(ResolverEnvironment, self).__init__(*args, **kw)

@@ -1,8 +1,7 @@
-def add_distribution(self, dist):
-    if (not dist.location.endswith('.egg')):
-        raise PEXBuilder.InvalidDependency('Non-egg dependencies not yet supported.')
+def add_distribution(self, dist, dist_name=None):
+    dist_name = (dist_name or os.path.basename(dist.location))
     if os.path.isdir(dist.location):
-        dist_hash = self._add_dir_egg(dist.location)
+        dist_hash = self._add_dist_dir(dist.location, dist_name)
     else:
-        dist_hash = self._add_zipped_egg(dist.location)
-    self._pex_info.add_distribution(os.path.basename(dist.location), dist_hash)
+        dist_hash = self._add_dist_zip(dist.location, dist_name)
+    self._pex_info.add_distribution(dist_name, dist_hash)

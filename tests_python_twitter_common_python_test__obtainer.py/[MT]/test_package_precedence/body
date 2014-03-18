@@ -1,0 +1,8 @@
+def test_package_precedence():
+    source = SourcePackage('psutil-0.6.1.tar.gz')
+    egg = EggPackage('psutil-0.6.1-py2.6.egg')
+    assert (Obtainer.package_precedence(egg) > Obtainer.package_precedence(source))
+    PRECEDENCE = (EggPackage,)
+    assert (Obtainer.package_precedence(source, PRECEDENCE) == (source.version, (-1)))
+    PRECEDENCE = (SourcePackage, EggPackage)
+    assert (Obtainer.package_precedence(source, PRECEDENCE) > Obtainer.package_precedence(egg, PRECEDENCE))

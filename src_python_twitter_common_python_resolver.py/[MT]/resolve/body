@@ -5,12 +5,15 @@ def resolve(requirements, cache=None, crawler=None, fetchers=None, obtainer=None
     fetchers = (fetchers or [PyPIFetcher()])
     interpreter = (interpreter or PythonInterpreter.get())
     platform = (platform or Platform.current())
-    shared_options = dict(install_cache=cache, platform=platform)
-    egg_translator = EggTranslator(python=interpreter.python, **shared_options)
-    cache_obtainer = (Obtainer(crawler, [Fetcher([cache])], egg_translator) if cache else None)
-    source_translator = SourceTranslator(interpreter=interpreter, **shared_options)
-    translator = ChainedTranslator(egg_translator, source_translator)
-    obtainer = Obtainer(crawler, fetchers, translator)
+    if cache:
+        shared_options = dict(install_cache=cache, platform=platform, interpreter=interpreter)
+        translator = EggTranslator(**shared_options)
+        cache_obtainer = Obtainer(crawler, [Fetcher([cache])], translator)
+    else:
+        cache_obtainer = None
+    if (not obtainer):
+        translator = Translator.default(install_cache=cache, platform=platform, interpreter=interpreter)
+        obtainer = Obtainer(crawler, fetchers, translator)
 
     def installer(req):
         if (cache_obtainer and requirement_is_exact(req)):
@@ -19,5 +22,5 @@ def resolve(requirements, cache=None, crawler=None, fetchers=None, obtainer=None
                 return dist
         return obtainer.obtain(req)
     working_set = WorkingSet(entries=[])
-    env = ResolverEnvironment(search_path=[], platform=platform, python=interpreter.python)
+    env = ResolverEnvironment(interpreter, search_path=[], platform=platform)
     return working_set.resolve(requirements, env=env, installer=installer)

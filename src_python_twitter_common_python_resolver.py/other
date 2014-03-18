@@ -4,6 +4,7 @@ from .fetcher import Fetcher, PyPIFetcher
 from .http import Crawler
 from .interpreter import PythonInterpreter
 from .obtainer import Obtainer
+from .package import distribution_compatible
 from .platforms import Platform
-from .translator import ChainedTranslator, EggTranslator, SourceTranslator
+from .translator import ChainedTranslator, EggTranslator, Translator
 from pkg_resources import Environment, WorkingSet

@@ -1,3 +1,0 @@
-def fetch(self, location=None, conn_timeout=None):
-    target = super(SourceLink, self).fetch(conn_timeout=conn_timeout)
-    return self._unpack(target, location)

@@ -1,6 +1,0 @@
-def dist_from_egg(egg_path):
-    if os.path.isdir(egg_path):
-        metadata = PathMetadata(egg_path, os.path.join(egg_path, 'EGG-INFO'))
-    else:
-        metadata = EggMetadata(zipimporter(egg_path))
-    return Distribution.from_filename(egg_path, metadata=metadata)
