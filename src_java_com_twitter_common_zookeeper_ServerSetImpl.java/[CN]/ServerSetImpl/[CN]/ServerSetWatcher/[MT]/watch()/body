@@ -1,14 +1,24 @@
 {
-  zkClient.registerExpirationHandler(new Command(){
+  Watcher onExpirationWatcher=zkClient.registerExpirationHandler(new Command(){
     @Override public void execute(){
       rebuildServerSet();
     }
   }
 );
-  return group.watch(new GroupChangeListener(){
-    @Override public void onGroupChange(    Iterable<String> memberIds){
-      notifyGroupChange(memberIds);
+  try {
+    return group.watch(new GroupChangeListener(){
+      @Override public void onGroupChange(      Iterable<String> memberIds){
+        notifyGroupChange(memberIds);
+      }
     }
-  }
 );
+  }
+ catch (  WatchException e) {
+    zkClient.unregister(onExpirationWatcher);
+    throw e;
+  }
+catch (  InterruptedException e) {
+    zkClient.unregister(onExpirationWatcher);
+    throw e;
+  }
 }
