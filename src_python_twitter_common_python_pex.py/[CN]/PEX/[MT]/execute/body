@@ -1,7 +1,6 @@
 def execute(self, args=()):
     entry_point = self.entry()
-    with mutable_sys():
-        (sys.path, sys.path_importer_cache) = self.minimum_path()
+    with self.patch_sys():
         working_set = self._env.activate()
         if ('PEX_COVERAGE' in os.environ):
             PEX.start_coverage()

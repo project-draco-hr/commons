@@ -1,3 +1,0 @@
-def _mkdtemp_atexit_cleaner():
-    for td in _MKDTEMP_DIRS.pop(os.getpid(), []):
-        safe_rmtree(td)

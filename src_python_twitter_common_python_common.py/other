@@ -9,6 +9,4 @@ import stat
 import tempfile
 import threading
 import zipfile
-_MKDTEMP_CLEANER = None
-_MKDTEMP_DIRS = defaultdict(set)
-_MKDTEMP_LOCK = threading.RLock()
+_MKDTEMP_SINGLETON = MktempTeardownRegistry()

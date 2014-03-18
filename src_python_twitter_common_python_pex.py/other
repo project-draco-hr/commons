@@ -4,7 +4,7 @@ from distutils import sysconfig
 import os
 from site import USER_SITE
 import sys
-from .common import mutable_sys, safe_mkdir
+from .common import safe_mkdir
 from .compatibility import exec_function
 from .environment import PEXEnvironment
 from .interpreter import PythonInterpreter

@@ -1,3 +1,0 @@
-def _mkdtemp_unregister_cleaner():
-    global _MKDTEMP_CLEANER
-    _MKDTEMP_CLEANER = None

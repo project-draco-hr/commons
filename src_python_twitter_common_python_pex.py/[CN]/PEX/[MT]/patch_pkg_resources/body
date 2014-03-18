@@ -1,6 +1,7 @@
 @classmethod
 @contextmanager
 def patch_pkg_resources(cls, working_set):
+    'Patch pkg_resources given a new working set.'
 
     def patch(working_set):
         pkg_resources.working_set = working_set
