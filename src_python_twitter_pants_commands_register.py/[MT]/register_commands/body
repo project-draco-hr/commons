@@ -1,0 +1,3 @@
+def register_commands():
+    for cmd in (Build, Goal, Help, Py, SetupPy):
+        cmd._register()

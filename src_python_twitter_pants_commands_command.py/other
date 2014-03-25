@@ -1,7 +1,4 @@
 from __future__ import print_function
-import inspect
-import sys
 from twitter.common.collections import OrderedSet
 from twitter.pants.base.build_file import BuildFile
 from twitter.pants.base.target import Target
-Command._register_modules()
