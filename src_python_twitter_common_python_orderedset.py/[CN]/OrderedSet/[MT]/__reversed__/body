@@ -1,6 +1,6 @@
 def __reversed__(self):
     end = self.end
-    curr = end[PREV]
+    curr = end[self.PREV]
     while (curr is not end):
-        yield curr[KEY]
-        curr = curr[PREV]
+        yield curr[self.KEY]
+        curr = curr[self.PREV]

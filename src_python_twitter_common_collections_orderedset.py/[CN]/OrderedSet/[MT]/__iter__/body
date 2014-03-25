@@ -1,6 +1,6 @@
 def __iter__(self):
     end = self.end
-    curr = end[NEXT]
+    curr = end[self.NEXT]
     while (curr is not end):
-        yield curr[KEY]
-        curr = curr[NEXT]
+        yield curr[self.KEY]
+        curr = curr[self.NEXT]
