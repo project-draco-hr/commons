@@ -1,4 +1,6 @@
 import itertools
+from .fetcher import PyPIFetcher
+from .http import Crawler
 from .package import EggPackage, Package, SourcePackage
 from .tracer import TRACER
-from .translator import ChainedTranslator
+from .translator import ChainedTranslator, Translator

@@ -1,0 +1,3 @@
+@property
+def install_requires(self):
+    return []

@@ -1,7 +1,4 @@
 requirements
-cache
-crawler
-fetchers
-obtainer
+obtainer_factory
 interpreter
 platform

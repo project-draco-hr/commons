@@ -1,5 +1,4 @@
 def iter(self, req):
     'Given a req, return a list of packages that satisfy the requirement in best match order.'
-    key = (lambda package: self.package_precedence(package, self._precedence))
-    for package in sorted(self.iter_unordered(req), key=key, reverse=True):
+    for package in self.sort(self.iter_unordered(req)):
         yield package

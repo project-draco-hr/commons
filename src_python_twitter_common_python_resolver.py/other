@@ -1,10 +1,8 @@
 from __future__ import print_function
-from .base import maybe_requirement_list
-from .fetcher import Fetcher, PyPIFetcher
-from .http import Crawler
+from collections import defaultdict
 from .interpreter import PythonInterpreter
-from .obtainer import Obtainer
-from .package import distribution_compatible
+from .obtainer import DefaultObtainerFactory
+from .orderedset import OrderedSet
+from .package import Package, distribution_compatible
 from .platforms import Platform
-from .translator import ChainedTranslator, EggTranslator, Translator
-from pkg_resources import Environment, WorkingSet
+from pkg_resources import Distribution

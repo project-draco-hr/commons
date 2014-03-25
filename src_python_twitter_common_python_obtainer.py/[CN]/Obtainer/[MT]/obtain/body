@@ -1,7 +1,3 @@
 def obtain(self, req):
     with TRACER.timed(('Obtaining %s' % req)):
-        packages = list(self.iter(req))
-        for package in packages:
-            dist = self._translator.translate(package)
-            if dist:
-                return dist
+        return self.translate_from(list(self.iter(req)))

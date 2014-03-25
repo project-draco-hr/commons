@@ -1,0 +1,3 @@
+@property
+def translator(self):
+    return self._translator
