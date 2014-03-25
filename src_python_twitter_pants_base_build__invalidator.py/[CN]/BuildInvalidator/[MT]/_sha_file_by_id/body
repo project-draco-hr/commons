@@ -1,2 +1,2 @@
 def _sha_file_by_id(self, id):
-    return (os.path.join(self._root, id) + '.hash')
+    return os.path.join(self._root, safe_filename(id, extension='.hash'))
