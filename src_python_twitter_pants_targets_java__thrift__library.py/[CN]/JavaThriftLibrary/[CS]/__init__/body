@@ -3,7 +3,6 @@ def __init__(self, name, sources, provides=None, dependencies=None, excludes=Non
     self._provides = provides
     super(JavaThriftLibrary, self).__init__(name, sources, dependencies, excludes, exclusives=exclusives)
     self.add_labels('codegen')
-    self.add_labels('java')
     if dependencies:
         if (not isinstance(dependencies, Iterable)):
             raise TargetDefinitionException(self, ('dependencies must be Iterable but was: %s' % dependencies))
