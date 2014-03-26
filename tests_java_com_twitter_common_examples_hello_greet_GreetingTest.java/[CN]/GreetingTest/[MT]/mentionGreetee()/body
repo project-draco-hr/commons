@@ -1,0 +1,4 @@
+{
+  String greetingForFoo=Greeting.greet("Foo");
+  assertEquals(true,greetingForFoo.contains("Foo"));
+}
