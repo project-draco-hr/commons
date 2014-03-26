@@ -1,10 +1,10 @@
 def resolve(requirements, obtainer_factory=None, interpreter=None, platform=None):
     'List all distributions needed to (recursively) meet `requirements`\n\n  When resolving dependencies, multiple (potentially incompatible) requirements may be encountered.\n  Handle this situation by iteratively filtering a set of potential project\n  distributions by new requirements, and finally choosing the highest version meeting all\n  requirements, or raise an error indicating unsatisfiable requirements.\n\n  Note: should `pkg_resources.WorkingSet.resolve` correctly handle multiple requirements in the\n  future this should go away in favor of using what setuptools provides.\n\n  :returns: List of :class:`pkg_resources.Distribution` instances meeting `requirements`.\n  '
     cache = _DistributionCache()
-    obtainer_factory = (obtainer_factory or DefaultObtainerFactory)
+    obtainer_factory = (obtainer_factory or DefaultObtainerFactory())
     interpreter = (interpreter or PythonInterpreter.get())
     platform = (platform or Platform.current())
-    requirements = list(requirements)
+    requirements = maybe_requirement_list(requirements)
     distribution_set = defaultdict(list)
     requirement_set = defaultdict(list)
     processed_requirements = set()

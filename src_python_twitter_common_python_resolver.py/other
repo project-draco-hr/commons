@@ -1,5 +1,6 @@
 from __future__ import print_function
 from collections import defaultdict
+from .base import maybe_requirement_list
 from .interpreter import PythonInterpreter
 from .obtainer import DefaultObtainerFactory
 from .orderedset import OrderedSet
