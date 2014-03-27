@@ -1,3 +1,4 @@
 @classmethod
-def default(cls):
-    return cls(Crawler(), fetchers=[PyPIFetcher()], translators=Translator.default())
+def default(cls, platform=Platform.current(), interpreter=None):
+    translator = Translator.default(platform=platform, interpreter=interpreter)
+    return cls(translators=translator)

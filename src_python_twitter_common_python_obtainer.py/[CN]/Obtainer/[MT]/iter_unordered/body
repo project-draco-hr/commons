@@ -1,5 +1,0 @@
-def iter_unordered(self, req):
-    urls = list(itertools.chain(*[fetcher.urls(req) for fetcher in self._fetchers]))
-    for package in filter(None, map(self.translate_href, self._crawler.crawl(*urls))):
-        if package.satisfies(req):
-            yield package

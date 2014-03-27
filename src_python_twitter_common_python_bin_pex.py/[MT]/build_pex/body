@@ -1,22 +1,12 @@
 def build_pex(args, options):
-    interpreter = None
-    if options.python:
-        if os.path.exists(options.python):
-            interpreter = PythonInterpreter.from_binary(options.python)
-        else:
-            interpreter = PythonInterpreter.from_env(options.python)
-        if (interpreter is None):
-            die(('Failed to find interpreter: %s' % options.python))
+    interpreter = interpreter_from_options(options)
     pex_builder = PEXBuilder(path=safe_mkdtemp(), interpreter=interpreter)
     pex_info = pex_builder.info
     pex_info.zip_safe = options.zip_safe
     pex_info.always_write_cache = options.always_write_cache
     pex_info.ignore_errors = options.ignore_errors
     pex_info.inherit_path = options.inherit_path
-    fetchers = [Fetcher(options.repos)]
-    if options.pypi:
-        fetchers.append(PyPIFetcher())
-    resolveds = requirement_resolver(options.requirements, cache=options.cache_dir, fetchers=fetchers, interpreter=interpreter, platform=options.platform)
+    resolveds = requirement_resolver(options.requirements, obtainer=build_obtainer(options), interpreter=interpreter, platform=options.platform)
     if resolveds:
         log('Resolved distributions:', v=options.verbosity)
     for pkg in resolveds:

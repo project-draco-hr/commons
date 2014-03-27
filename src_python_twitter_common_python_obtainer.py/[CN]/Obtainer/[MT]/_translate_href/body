@@ -1,2 +1,2 @@
-def translate_href(self, href):
+def _translate_href(self, href):
     return Package.from_href(href, opener=self._crawler.opener)

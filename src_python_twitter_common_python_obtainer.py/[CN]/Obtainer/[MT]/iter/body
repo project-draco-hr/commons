@@ -1,4 +1,4 @@
 def iter(self, req):
-    'Given a req, return a list of packages that satisfy the requirement in best match order.'
-    for package in self.sort(self.iter_unordered(req)):
+    'Return a list of packages that satisfy the requirement in best match order.'
+    for package in self._sort(self._iter_unordered(req)):
         yield package
