@@ -7,7 +7,7 @@ import threading
 import errno
 from collections import namedtuple, defaultdict
 from contextlib import contextmanager
-from twitter.common.collections import OrderedSet
+from twitter.common.collections import OrderedDict, OrderedSet
 from twitter.common.dirutil import safe_mkdir, safe_open
 from twitter.pants.base.build_environment import get_buildroot
 from twitter.pants.base.generator import Generator, TemplateData

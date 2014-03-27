@@ -2,7 +2,7 @@ def _calculate_classpath(self, targets):
 
     def is_jardependant(target):
         return (target.is_jar or target.is_jvm)
-    jars = {}
+    jars = OrderedDict()
     excludes = set()
 
     def add_jar(jar):
