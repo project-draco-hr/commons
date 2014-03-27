@@ -10,6 +10,7 @@
     rootWeight+=mergeWeight;
   }
  else {
+    allocate(level + 1);
     if (level == currentTop) {
       collapse1(buf,buffer[level],buffer[level + 1]);
       currentTop+=1;
