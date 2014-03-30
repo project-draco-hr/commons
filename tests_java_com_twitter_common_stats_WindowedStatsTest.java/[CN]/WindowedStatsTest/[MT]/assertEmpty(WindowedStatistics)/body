@@ -4,5 +4,5 @@
   assertEquals(0L,ws.populationSize());
   assertEquals(0L,ws.sum());
   assertEquals(0.0,ws.mean(),0.01);
-  assertEquals(Double.NaN,ws.standardDeviation(),0.01);
+  assertEquals(0.0,ws.standardDeviation(),0.01);
 }

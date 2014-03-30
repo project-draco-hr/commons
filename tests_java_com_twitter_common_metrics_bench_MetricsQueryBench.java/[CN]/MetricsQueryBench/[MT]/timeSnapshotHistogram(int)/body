@@ -1,0 +1,8 @@
+{
+  Snapshot res;
+  int i=n;
+  while (i != 0) {
+    res=hist.snapshot();
+    i--;
+  }
+}

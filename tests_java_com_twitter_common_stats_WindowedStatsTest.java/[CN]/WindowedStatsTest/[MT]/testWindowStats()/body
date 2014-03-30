@@ -4,6 +4,7 @@
   ws.accumulate(1L);
   assertEmpty(ws);
   clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
   assertEquals(1L,ws.max());
   assertEquals(1L,ws.min());
   assertEquals(1L,ws.populationSize());
@@ -11,5 +12,6 @@
   assertEquals(1.0,ws.mean(),0.01);
   assertEquals(0.0,ws.standardDeviation(),0.01);
   clock.advance(Amount.of(slices * sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
   assertEmpty(ws);
 }

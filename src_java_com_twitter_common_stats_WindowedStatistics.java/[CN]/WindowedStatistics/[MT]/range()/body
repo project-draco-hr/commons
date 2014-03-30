@@ -1,3 +1,3 @@
 {
-  return getPrevious().range();
+  return max - min;
 }

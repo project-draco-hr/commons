@@ -1,0 +1,49 @@
+{
+  FakeClock clock=new FakeClock();
+  Statistics reference=new Statistics();
+  WindowedStatistics ws=new WindowedStatistics(window,slices,clock);
+  for (int i=0; i < 1000; i++) {
+    reference.accumulate(i);
+    ws.accumulate(i);
+  }
+  clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEquals(reference.max(),ws.max());
+  assertEquals(reference.min(),ws.min());
+  assertEquals(reference.populationSize(),ws.populationSize());
+  assertEquals(reference.sum(),ws.sum());
+  assertEquals(reference.range(),ws.range());
+  assertEquals(reference.mean(),ws.mean(),0.01);
+  assertEquals(reference.variance(),ws.variance(),0.01);
+  assertEquals(reference.standardDeviation(),ws.standardDeviation(),0.01);
+  for (int i=0; i < 1000; i++) {
+    long x=i + 500;
+    reference.accumulate(x);
+    ws.accumulate(x);
+  }
+  clock.advance(Amount.of(sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEquals(reference.max(),ws.max());
+  assertEquals(reference.min(),ws.min());
+  assertEquals(reference.populationSize(),ws.populationSize());
+  assertEquals(reference.sum(),ws.sum());
+  assertEquals(reference.range(),ws.range());
+  assertEquals(reference.mean(),ws.mean(),0.01);
+  assertEquals(reference.variance(),ws.variance(),0.01);
+  assertEquals(reference.standardDeviation(),ws.standardDeviation(),0.01);
+  for (int i=0; i < 1000; i++) {
+    long x=i * i;
+    reference.accumulate(x);
+    ws.accumulate(x);
+  }
+  clock.advance(Amount.of(sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEquals(reference.max(),ws.max());
+  assertEquals(reference.min(),ws.min());
+  assertEquals(reference.populationSize(),ws.populationSize());
+  assertEquals(reference.sum(),ws.sum());
+  assertEquals(reference.range(),ws.range());
+  assertEquals(reference.mean(),ws.mean(),0.01);
+  assertEquals(reference.variance(),ws.variance(),0.01);
+  assertEquals(reference.standardDeviation(),ws.standardDeviation(),0.01);
+}

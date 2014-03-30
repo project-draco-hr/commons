@@ -2,7 +2,7 @@
   long[] res;
   int i=n;
   while (i != 0) {
-    res=bigHist.getQuantiles(QUANTILES);
+    res=approxHist.getQuantiles(QUANTILES);
     i--;
   }
 }

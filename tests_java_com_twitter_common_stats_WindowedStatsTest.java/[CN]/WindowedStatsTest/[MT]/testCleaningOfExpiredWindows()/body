@@ -7,7 +7,9 @@
   }
   assertEmpty(ws);
   clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
   assertEquals(n,ws.populationSize());
   clock.advance(Amount.of(100 * sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
   assertEmpty(ws);
 }

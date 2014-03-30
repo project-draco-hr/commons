@@ -1,4 +1,5 @@
 {
+  stats.refresh();
   final long count=stats.populationSize();
   final long sum=stats.sum();
   final double avg=stats.mean();
