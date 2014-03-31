@@ -1,0 +1,10 @@
+def save(self):
+    with open(self._path, u'w') as outfile:
+        if self._body:
+            for line in HEADER_COMMENT:
+                outfile.write(line)
+                outfile.write(u'\n')
+            outfile.write(u'\n')
+            for line in self._body:
+                outfile.write(line)
+                outfile.write(u'\n')

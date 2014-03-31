@@ -1,0 +1,4 @@
+def __init__(self, symbol):
+    self._symbol = symbol.strip()
+    if self._symbol.startswith(OLD_PANTS_PACKAGE):
+        self._symbol = self._symbol[8:]

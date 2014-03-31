@@ -1,0 +1,15 @@
+def __init__(self, path):
+    self._path = path
+    absdir = os.path.dirname(os.path.abspath(path))
+    if absdir.startswith(SRC_ROOT):
+        root = SRC_ROOT
+    elif absdir.startswith(TESTS_ROOT):
+        root = TESTS_ROOT
+    else:
+        raise Exception((u'File not in src or tests roots: %s' % path))
+    self._package = os.path.relpath(absdir, root).replace(os.path.sep, u'.')
+    self._old_lines = []
+    self._stdlib_imports = []
+    self._thirdparty_imports = []
+    self._pants_imports = []
+    self._body = []

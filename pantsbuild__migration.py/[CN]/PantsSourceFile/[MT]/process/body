@@ -1,0 +1,4 @@
+def process(self):
+    self.load()
+    self.parse_header()
+    self.save()

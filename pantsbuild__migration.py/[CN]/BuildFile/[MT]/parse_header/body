@@ -1,0 +1,11 @@
+def parse_header(self):
+    try:
+        p = next((i for (i, line) in enumerate(self._old_lines) if (line and (not line.startswith(u'#')))))
+    except StopIteration:
+        return
+
+    def translate(line):
+        return line.replace(u'src/python/twitter/pants', u'src/python/pants')
+    self._body = map(translate, self._old_lines[p:])
+    while (not self._body[(-1)]):
+        self._body = self._body[0:(-1)]

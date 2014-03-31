@@ -1,0 +1,2 @@
+def has_continuation(line):
+    return line.endswith(u'\\')

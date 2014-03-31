@@ -1,0 +1,13 @@
+def handle_path(path):
+    if os.path.isfile(path):
+        if path.endswith(u'.py'):
+            print((u'PROCESSING: %s' % path))
+            srcfile = PantsSourceFile(path)
+            srcfile.process()
+        elif os.path.basename(path).startswith(u'BUILD'):
+            print((u'PROCESSING: %s' % path))
+            srcfile = BuildFile(path)
+            srcfile.process()
+    elif os.path.isdir(path):
+        for p in os.listdir(path):
+            handle_path(os.path.join(path, p))

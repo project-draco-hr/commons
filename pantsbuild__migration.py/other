@@ -1,0 +1,18 @@
+from __future__ import nested_scopes, generators, division, absolute_import, with_statement, print_function, unicode_literals
+import os
+import re
+import sys
+PANTS_ROOT = os.path.dirname(os.path.realpath(__file__))
+SRC_ROOT = os.path.dirname(PANTS_ROOT)
+TESTS_ROOT = os.path.join(os.path.dirname(os.path.dirname(SRC_ROOT)), u'tests', u'python')
+KNOWN_STD_LIBS = set([u'abc', u'anydbm', u'argparse', u'array', u'asynchat', u'asyncore', u'atexit', u'base64', u'BaseHTTPServer', u'bisect', u'bz2', u'calendar', u'cgitb', u'cmd', u'codecs', u'collections', u'commands', u'compileall', u'ConfigParser', u'contextlib', u'Cookie', u'copy', u'cPickle', u'cProfile', u'cStringIO', u'csv', u'datetime', u'dbhash', u'dbm', u'decimal', u'difflib', u'dircache', u'dis', u'doctest', u'dumbdbm', u'EasyDialogs', u'errno', u'exceptions', u'filecmp', u'fileinput', u'fnmatch', u'fractions', u'functools', u'gc', u'gdbm', u'getopt', u'getpass', u'gettext', u'glob', u'grp', u'gzip', u'hashlib', u'heapq', u'hmac', u'imaplib', u'imp', u'inspect', u'itertools', u'json', u'linecache', u'locale', u'logging', u'mailbox', u'math', u'mhlib', u'mmap', u'multiprocessing', u'operator', u'optparse', u'os', u'pdb', u'pickle', u'pipes', u'pkgutil', u'platform', u'plistlib', u'pprint', u'profile', u'pstats', u'pwd', u'pyclbr', u'pydoc', u'Queue', u'random', u're', u'readline', u'resource', u'rlcompleter', u'robotparser', u'sched', u'select', u'shelve', u'shlex', u'shutil', u'signal', u'SimpleXMLRPCServer', u'site', u'sitecustomize', u'smtpd', u'smtplib', u'socket', u'SocketServer', u'sqlite3', u'string', u'StringIO', u'struct', u'subprocess', u'sys', u'sysconfig', u'tabnanny', u'tarfile', u'tempfile', u'textwrap', u'threading', u'time', u'timeit', u'trace', u'traceback', u'unittest', u'urllib', u'urllib2', u'urlparse', u'usercustomize', u'uuid', u'warnings', u'weakref', u'webbrowser', u'whichdb', u'xml', u'xmlrpclib', u'zipfile', u'zipimport', u'zlib', u'builtins', u'__builtin__'])
+OLD_PANTS_PACKAGE = u'twitter.pants'
+NEW_PANTS_PACKAGE = u'pants'
+IMPORT_RE = re.compile(u'import\\s+(.*)')
+FROM_IMPORT_RE = re.compile(u'from\\s+(.*)\\s+import\\s+(.*)')
+AUTHOR_RE = re.compile(u'__author__\\s*=\\s*.+')
+HEADER_COMMENT = [u'# Copyright 2014 Pants project contributors (see CONTRIBUTORS.md).', u'# Licensed under the Apache License, Version 2.0 (see LICENSE).']
+FUTURE_IMPORTS = [u'from __future__ import (nested_scopes, generators, division, absolute_import, with_statement,', u'                        print_function, unicode_literals)']
+if (__name__ == u'__main__'):
+    path = sys.argv[1]
+    handle_path(path)

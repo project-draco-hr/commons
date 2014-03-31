@@ -1,0 +1,2 @@
+def sort_key(self):
+    return (u'AAA' + self._symbol)
