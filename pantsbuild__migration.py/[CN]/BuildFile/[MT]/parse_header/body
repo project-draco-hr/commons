@@ -5,7 +5,7 @@ def parse_header(self):
         return
 
     def _translate(line):
-        return line.replace(u'twitter/pants', u'pants')
+        return line.replace(u'twitter/pants', u'pants').replace(u'twitter.pants', u'pants')
     self._body = map(_translate, self._old_lines[p:])
     while (not self._body[(-1)]):
         self._body = self._body[0:(-1)]

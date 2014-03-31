@@ -8,6 +8,13 @@ def handle_path(path):
             print((u'PROCESSING: %s' % path))
             srcfile = BuildFile(path)
             srcfile.process()
+        elif (path.endswith(u'.rst') or path.endswith(u'.sh') or path.endswith(u'pants.bootstrap') or path.endswith(u'taskdev.asc')):
+            print((u'PROCESSING: %s' % path))
+            with open(path, u'r') as infile:
+                content = infile.read()
+            new_content = content.replace(u'twitter.pants', u'pants').replace(u'twitter/pants', u'pants')
+            with open(path, u'w') as outfile:
+                outfile.write(new_content)
     elif os.path.isdir(path):
         for p in os.listdir(path):
             handle_path(os.path.join(path, p))
