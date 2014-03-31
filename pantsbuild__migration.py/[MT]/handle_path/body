@@ -1,6 +1,6 @@
 def handle_path(path):
     if os.path.isfile(path):
-        if path.endswith(u'.py'):
+        if (path.endswith(u'.py') and (not path.endswith(u'pantsbuild_migration.py'))):
             print((u'PROCESSING: %s' % path))
             srcfile = PantsSourceFile(path)
             srcfile.process()
