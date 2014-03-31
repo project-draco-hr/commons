@@ -2,4 +2,4 @@ def __init__(self, frm, symbols):
     self._from = frm.strip()
     if self._from.startswith(OLD_PANTS_PACKAGE):
         self._from = (NEW_PANTS_PACKAGE + self._from[len(OLD_PANTS_PACKAGE):])
-    self._symbols = [s.strip() for s in symbols]
+    self._symbols = filter(None, [filter((lambda c: (c not in u'()')), s.strip()).strip() for s in symbols])

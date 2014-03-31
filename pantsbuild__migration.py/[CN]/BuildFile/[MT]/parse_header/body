@@ -4,8 +4,8 @@ def parse_header(self):
     except StopIteration:
         return
 
-    def translate(line):
+    def _translate(line):
         return line.replace(u'src/python/twitter/pants', u'src/python/pants')
-    self._body = map(translate, self._old_lines[p:])
+    self._body = map(_translate, self._old_lines[p:])
     while (not self._body[(-1)]):
         self._body = self._body[0:(-1)]

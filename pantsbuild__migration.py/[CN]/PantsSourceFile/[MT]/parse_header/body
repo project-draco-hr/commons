@@ -48,11 +48,18 @@ def parse_header(self):
             while has_continuation(line_parts[(-1)]):
                 line_parts.append(lines_iter.next())
             line = u' '.join(([x[:(-1)].strip() for x in line_parts[:(-1)]] + [line_parts[(-1)].strip()]))
+            if (line.startswith(u'from ') and (u'(' in line)):
+                line_parts = [line]
+                next_line = u''
+                while (not (u')' in next_line)):
+                    next_line = lines_iter.next().strip()
+                    line_parts.append(next_line)
+                line = u' '.join(line_parts)
     except StopIteration:
         line_parts = []
 
-    def translate(line):
+    def _translate(line):
         return line.replace(u'twitter/pants', u'pants').replace(u'twitter.pants', u'pants')
-    self._body = map(translate, (([u''] + line_parts) + list(lines_iter)))
+    self._body = map(_translate, (([u''] + line_parts) + list(lines_iter)))
     while (self._body and (not self._body[(-1)])):
         self._body = self._body[0:(-1)]
