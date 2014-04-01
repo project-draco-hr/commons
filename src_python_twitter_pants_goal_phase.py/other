@@ -2,4 +2,4 @@ from __future__ import print_function
 from collections import defaultdict
 from twitter.pants.base.build_manual import manual
 from .error import GoalError
-PhaseBase = SingletonPhases('PhaseBase', (object,), {})
+PhaseBase = SingletonPhases(str('PhaseBase'), (object,), {})
