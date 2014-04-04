@@ -1,7 +1,7 @@
 {
   command=createMock(Command.class);
   taskExecutor=createMock(ScheduledExecutorService.class);
-  queue=createMock(new Clazz<BlockingQueue<RetryingRunnable>>(){
+  queue=createMock(new Clazz<BlockingQueue<RetryingRunnable<?>>>(){
   }
 );
   queueDrainer=createMock(Runnable.class);
