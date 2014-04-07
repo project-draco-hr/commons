@@ -1,0 +1,8 @@
+{
+  ImmutableMap.Builder<String,Number> samples=ImmutableMap.builder();
+  for (  Map.Entry<String,Gauge<?>> metric : gauges.entrySet()) {
+    Gauge<?> gauge=metric.getValue();
+    samples.put(metric.getKey(),gauge.read());
+  }
+  return samples.build();
+}

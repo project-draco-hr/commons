@@ -1,0 +1,7 @@
+{
+  ImmutableMap.Builder<String,Number> samples=ImmutableMap.builder();
+  for (  Map.Entry<String,LongAdder> metric : counters.entrySet()) {
+    samples.put(metric.getKey(),metric.getValue().sum());
+  }
+  return samples.build();
+}
