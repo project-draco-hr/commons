@@ -1,3 +1,7 @@
 {
-  gauges.put(gauge.getName(),gauge);
+  String key=gauge.getName();
+synchronized (NAME_LOCK) {
+    checkNameCollision(key);
+    gauges.put(key,gauge);
+  }
 }

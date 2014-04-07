@@ -1,0 +1,16 @@
+{
+  try {
+    Counter foo=metrics.createCounter("foo");
+    HistogramInterface foo2=metrics.createHistogram("foo");
+  }
+ catch (  IllegalArgumentException expected) {
+    Gauge foo=new AbstractGauge("foo"){
+      @Override public Number read(){
+        return 12;
+      }
+    }
+;
+    metrics.register(foo);
+    Counter foo2=metrics.createCounter("foo");
+  }
+}

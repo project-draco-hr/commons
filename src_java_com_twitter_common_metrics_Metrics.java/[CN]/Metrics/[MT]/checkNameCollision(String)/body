@@ -1,0 +1,5 @@
+{
+  if (gauges.containsKey(key) || counters.containsKey(key) || counters.containsKey(key)) {
+    throw new MetricCollisionException("A metric with the name " + key + " has already been defined");
+  }
+}

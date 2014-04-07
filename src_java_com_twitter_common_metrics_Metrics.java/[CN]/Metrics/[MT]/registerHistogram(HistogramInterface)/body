@@ -1,4 +1,8 @@
 {
-  histograms.add(histogram);
+  String key=histogram.getName();
+synchronized (NAME_LOCK) {
+    checkNameCollision(key);
+    histograms.put(key,histogram);
+  }
   return histogram;
 }

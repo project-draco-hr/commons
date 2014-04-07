@@ -2,17 +2,12 @@
   ImmutableMap.Builder<String,Number> samples=ImmutableMap.builder();
   for (  Map.Entry<String,Gauge<?>> metric : gauges.entrySet()) {
     Gauge<?> gauge=metric.getValue();
-    if (gauge == null) {
-      gauges.remove(metric.getKey());
-    }
- else {
-      samples.put(metric.getKey(),gauge.read());
-    }
+    samples.put(metric.getKey(),gauge.read());
   }
   for (  Map.Entry<String,LongAdder> metric : counters.entrySet()) {
     samples.put(metric.getKey(),metric.getValue().sum());
   }
-  for (  HistogramInterface h : histograms) {
+  for (  HistogramInterface h : histograms.values()) {
     Snapshot snapshot=h.snapshot();
     samples.put(named(h.getName(),"count"),snapshot.count());
     samples.put(named(h.getName(),"sum"),snapshot.sum());
