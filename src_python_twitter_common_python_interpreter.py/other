@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 from .base import maybe_requirement, maybe_requirement_list
+from .compatibility import string
 from .tracer import Tracer
 from pkg_resources import find_distributions, Distribution, Requirement
 TRACER = Tracer(predicate=Tracer.env_filter('PEX_VERBOSE'), prefix='twitter.common.python.interpreter: ')
