@@ -5,6 +5,7 @@ def write(self, target, path, confs=None):
         return jar
     dependencies = OrderedDict()
     internal_codegen = {}
+    configurations = set()
     for dep in target_internal_dependencies(target):
         jar = as_jar(dep)
         dependencies[(jar.org, jar.name)] = self.internaldep(jar, dep)
@@ -13,7 +14,8 @@ def write(self, target, path, confs=None):
     for jar in target.jar_dependencies:
         if jar.rev:
             dependencies[(jar.org, jar.name)] = self.jardep(jar)
-    target_jar = self.internaldep(as_jar(target)).extend(dependencies=dependencies.values())
+            configurations |= set(jar._configurations)
+    target_jar = self.internaldep(as_jar(target), configurations=list(configurations)).extend(dependencies=dependencies.values())
     template_kwargs = self.templateargs(target_jar, confs)
     with safe_open(path, 'w') as output:
         template = pkgutil.get_data(__name__, self.template_relpath)

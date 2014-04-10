@@ -1,3 +1,4 @@
 self
 jar_dependency
 dep
+configurations

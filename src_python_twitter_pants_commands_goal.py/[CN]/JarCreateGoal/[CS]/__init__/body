@@ -1,2 +1,0 @@
-def __init__(self, context):
-    super(JarCreateGoal, self).__init__(context, False)

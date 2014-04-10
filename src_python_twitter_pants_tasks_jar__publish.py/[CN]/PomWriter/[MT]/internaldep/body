@@ -1,2 +1,2 @@
-def internaldep(self, jar_dependency, dep=None):
+def internaldep(self, jar_dependency, dep=None, configurations=None):
     return self.jardep(jar_dependency)

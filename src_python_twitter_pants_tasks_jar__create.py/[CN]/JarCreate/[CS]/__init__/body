@@ -1,4 +1,4 @@
-def __init__(self, context, jar_javadoc=False):
+def __init__(self, context):
     Task.__init__(self, context)
     options = context.options
     products = context.products
@@ -12,7 +12,7 @@ def __init__(self, context, jar_javadoc=False):
         products.require_data('resources_by_target')
     definitely_create_javadoc = (options.jar_create_javadoc or products.isrequired('javadoc_jars'))
     definitely_dont_create_javadoc = (options.jar_create_javadoc is False)
-    create_javadoc = (jar_javadoc and (options.jar_create_javadoc is None))
+    create_javadoc = options.jar_create_javadoc
     if (definitely_create_javadoc and definitely_dont_create_javadoc):
         self.context.log.warn('javadoc jars are required but you have requested they not be created, creating anyway')
     self.jar_javadoc = (True if definitely_create_javadoc else (False if definitely_dont_create_javadoc else create_javadoc))

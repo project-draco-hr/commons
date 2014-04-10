@@ -8,7 +8,7 @@ def exported_targets(self):
         def get_synthetic(lang, target):
             mappings = self.context.products.get(lang).get(target)
             if mappings:
-                for generated in mappings.itervalues():
+                for (key, generated) in mappings.items():
                     for synthetic in generated:
                         yield synthetic
         for candidate in self.context.target_roots:

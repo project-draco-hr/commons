@@ -1,0 +1,3 @@
+def __init__(self):
+    self._login = collections.defaultdict((lambda : None))
+    self._password = collections.defaultdict((lambda : None))
