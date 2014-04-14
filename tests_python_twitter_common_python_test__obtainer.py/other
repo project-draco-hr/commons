@@ -1,5 +1,5 @@
 from twitter.common.python.fetcher import Fetcher
 from twitter.common.python.interpreter import PythonInterpreter
 from twitter.common.python.obtainer import Obtainer
-from twitter.common.python.package import EggPackage, SourcePackage
+from twitter.common.python.package import EggPackage, SourcePackage, WheelPackage
 from pkg_resources import Requirement, get_build_platform

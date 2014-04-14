@@ -4,6 +4,10 @@ def build_obtainer(options):
     fetchers = [Fetcher(options.repos)]
     if options.pypi:
         fetchers.append(PyPIFetcher())
-    translator = Translator.default(install_cache=options.cache_dir, platform=platform, interpreter=interpreter)
-    obtainer = CachingObtainer(install_cache=options.cache_dir, fetchers=fetchers, translators=translator)
+    translator = translator_from_options(options)
+    if options.use_wheel:
+        package_precedence = (WheelPackage, EggPackage, SourcePackage)
+    else:
+        package_precedence = (EggPackage, SourcePackage)
+    obtainer = CachingObtainer(install_cache=options.cache_dir, fetchers=fetchers, translators=translator, precedence=package_precedence)
     return obtainer

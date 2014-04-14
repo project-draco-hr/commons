@@ -1,5 +1,12 @@
 def test_zipsafe():
     make_egg = functools.partial(make_distribution, installer_impl=EggInstaller)
+    make_whl = functools.partial(make_distribution, installer_impl=WheelInstaller)
+    for zipped in (False, True):
+        for zip_safe in (False, True):
+            with make_egg(zipped=zipped, zip_safe=zip_safe) as dist:
+                assert (DistributionHelper.zipsafe(dist) is zip_safe)
+            with make_whl(zipped=zipped, zip_safe=zip_safe) as dist:
+                assert (not DistributionHelper.zipsafe(dist))
     for zipped in (False, True):
         for zip_safe in (False, True):
             with make_egg(zipped=zipped, zip_safe=zip_safe) as dist:

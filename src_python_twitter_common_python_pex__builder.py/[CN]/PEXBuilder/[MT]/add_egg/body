@@ -1,5 +1,2 @@
 def add_egg(self, egg):
-    '\n      helper for add_distribution\n    '
-    dist = DistributionHelper.distribution_from_path(egg)
-    self.add_distribution(dist)
-    self.add_requirement(dist.as_requirement(), dynamic=False, repo=None)
+    return self.add_dist_location(egg)

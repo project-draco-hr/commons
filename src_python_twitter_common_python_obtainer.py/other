@@ -7,7 +7,7 @@ from .base import requirement_is_exact
 from .common import safe_mkdtemp
 from .fetcher import PyPIFetcher, Fetcher
 from .http import Crawler
-from .package import EggPackage, Package, SourcePackage
+from .package import EggPackage, Package, SourcePackage, WheelPackage
 from .platforms import Platform
 from .tracer import TRACER
 from .translator import ChainedTranslator, Translator

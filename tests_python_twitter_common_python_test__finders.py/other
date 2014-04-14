@@ -1,5 +1,8 @@
 from twitter.common.python.finders import ChainedFinder, _add_finder as add_finder, _remove_finder as remove_finder
-import mock
+try:
+    import mock
+except ImportError:
+    from unittest import mock
 import pkg_resources
 GET_FINDER = 'twitter.common.python.finders._get_finder'
 REGISTER_FINDER = 'twitter.common.python.finders.pkg_resources.register_finder'

@@ -5,4 +5,6 @@ def unregister_finders():
         return
     pkg_resources.register_finder(zipimport.zipimporter, __PREVIOUS_FINDER)
     _remove_finder(pkgutil.ImpImporter, find_wheels_on_path)
+    if (importlib_bootstrap is not None):
+        _remove_finder(importlib_bootstrap.FileFinder, find_wheels_on_path)
     __PREVIOUS_FINDER = None
