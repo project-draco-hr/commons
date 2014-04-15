@@ -1,0 +1,6 @@
+{
+  String key=gauge.getName();
+  checkNameCollision(key);
+  gauges.put(key,gauge);
+  return gauge;
+}

@@ -1,0 +1,3 @@
+{
+  return gauges.remove(metricName) != null || counters.remove(metricName) != null || histograms.remove(metricName) != null;
+}

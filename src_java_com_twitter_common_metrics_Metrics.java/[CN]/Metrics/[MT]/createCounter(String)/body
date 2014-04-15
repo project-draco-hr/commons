@@ -1,10 +1,11 @@
 {
   final LongAdder adder=new LongAdder();
-synchronized (NAME_LOCK) {
-    checkNameCollision(name);
-    counters.put(name,adder);
-  }
+  checkNameCollision(name);
+  counters.put(name,adder);
   return new Counter(){
+    public String getName(){
+      return name;
+    }
     public void increment(){
       adder.increment();
     }

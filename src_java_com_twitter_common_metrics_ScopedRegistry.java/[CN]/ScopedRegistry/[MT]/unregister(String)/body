@@ -1,0 +1,3 @@
+{
+  return parent.unregister(scopeName(metricName));
+}
