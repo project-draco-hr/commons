@@ -1,4 +1,5 @@
 def execute(self, args=()):
+    'Execute the PEX.\n\n    This function makes assumptions that it is the last function called by\n    the interpreter.\n    '
     entry_point = self.entry()
     with self.patch_sys():
         working_set = self._env.activate()
@@ -13,3 +14,6 @@ def execute(self, args=()):
                 self.execute_entry(entry_point, args)
             else:
                 self.execute_interpreter()
+    if ('PEX_TEARDOWN_VERBOSE' not in os.environ):
+        sys.stderr = DevNull()
+        sys.excepthook = (lambda *a, **kw: None)
