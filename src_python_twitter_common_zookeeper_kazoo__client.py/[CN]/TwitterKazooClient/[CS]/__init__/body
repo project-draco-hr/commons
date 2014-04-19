@@ -1,4 +1,6 @@
 def __init__(self, *args, **kw):
+    if ('connection_retry' not in kw):
+        kw['connection_retry'] = KazooRetry(max_delay=DEFAULT_RETRY_MAX_DELAY_SECS, **DEFAULT_RETRY_DICT)
     super(TwitterKazooClient, self).__init__(*args, **kw)
     self.connecting = threading.Event()
     self.__session_expirations = AtomicGauge('session_expirations')
