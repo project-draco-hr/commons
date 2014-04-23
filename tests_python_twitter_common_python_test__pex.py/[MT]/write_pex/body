@@ -1,0 +1,7 @@
+def write_pex(td, exe_contents):
+    with open(os.path.join(td, 'exe.py'), 'w') as fp:
+        fp.write(exe_contents)
+    pb = PEXBuilder(path=td)
+    pb.set_executable(os.path.join(td, 'exe.py'))
+    pb.freeze()
+    return pb

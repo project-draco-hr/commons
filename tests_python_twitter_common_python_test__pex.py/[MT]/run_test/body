@@ -1,0 +1,6 @@
+def run_test(body, env=None):
+    with nested(temporary_dir(), temporary_dir()) as (td1, td2):
+        pb = write_pex(td1, body)
+        pex = os.path.join(td2, 'app.pex')
+        pb.build(pex)
+        return run_pex(pex, env=env)

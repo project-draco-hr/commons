@@ -1,0 +1,5 @@
+def test_pex_uncaught_exceptions():
+    body = "raise Exception('This is an exception')"
+    (so, rc) = run_test(body)
+    assert ('This is an exception' in so)
+    assert (rc == 1)

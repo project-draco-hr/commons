@@ -4,6 +4,7 @@ from distutils import sysconfig
 import os
 from site import USER_SITE
 import sys
+import traceback
 from .common import safe_mkdir
 from .compatibility import exec_function
 from .environment import PEXEnvironment
