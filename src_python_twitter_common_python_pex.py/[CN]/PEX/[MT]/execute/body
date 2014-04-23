@@ -16,7 +16,7 @@ def execute(self, args=()):
                         self.execute_entry(entry_point, args)
                     else:
                         self.execute_interpreter()
-        except:
+        except Exception:
             traceback.print_exc()
             raise
     finally:
