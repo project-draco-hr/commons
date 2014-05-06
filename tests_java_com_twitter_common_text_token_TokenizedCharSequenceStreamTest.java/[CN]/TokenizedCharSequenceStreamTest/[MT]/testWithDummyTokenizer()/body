@@ -1,9 +1,9 @@
 {
-  TokenStream stream=new TokenizedCharSequenceStream(new TokenStream(){
+  TwitterTokenStream stream=new TokenizedCharSequenceStream(new TwitterTokenStream(){
     @Override public boolean incrementToken(){
       throw new IllegalArgumentException("this should not be called!");
     }
-    @Override public void reset(    CharSequence input){
+    @Override public void reset(){
       throw new IllegalArgumentException("this should not be called!");
     }
   }

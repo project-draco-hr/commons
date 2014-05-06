@@ -1,5 +1,5 @@
 {
-  TokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  TwitterTokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
   mockStream.reset("When I was young , I liked insects .");
   PunctuationDetector stream=new PunctuationDetector(mockStream);
   CharSequenceTermAttribute termAttr=stream.getAttribute(CharSequenceTermAttribute.class);

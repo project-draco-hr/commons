@@ -1,0 +1,7 @@
+{
+  CharSequence input=inputCharSequence();
+  Preconditions.checkNotNull(input);
+  for (  TwitterTokenStream stream : aggregatedStreams) {
+    stream.reset(input);
+  }
+}

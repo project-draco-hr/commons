@@ -1,5 +1,5 @@
 {
-  TokenStream stream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  TwitterTokenStream stream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
   stream.reset("When I was young , I liked insects .");
   TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
   int cnt=0;

@@ -1,6 +1,6 @@
 {
   DefaultTextTokenizer tokenizer=new DefaultTextTokenizer.Builder().setKeepPunctuation(true).build();
-  TokenStream stream=tokenizer.getDefaultTokenStream();
+  TwitterTokenStream stream=tokenizer.getDefaultTokenStream();
   System.out.println("Attributes available:");
   Iterator<Class<? extends Attribute>> iter=stream.getAttributeClassesIterator();
   while (iter.hasNext()) {

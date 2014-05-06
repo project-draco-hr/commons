@@ -1,5 +1,5 @@
 {
-  TokenStream stream=new TokenizedCharSequenceStream(tokenizer);
+  TwitterTokenStream stream=new TokenizedCharSequenceStream(tokenizer);
   String text="This is a test #hashtag";
   TokenizedCharSequence tokenized=TokenizedCharSequence.createFrom(text,tokenizer);
   stream.reset(text);

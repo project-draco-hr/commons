@@ -1,3 +1,0 @@
-{
-  getNextEnabledInputStream().reset(input);
-}

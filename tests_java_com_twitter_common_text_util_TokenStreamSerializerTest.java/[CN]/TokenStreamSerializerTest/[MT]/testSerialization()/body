@@ -1,11 +1,11 @@
 {
   final String text="Hello, this is a test";
   TextTokenizer tokenizer=new DefaultTextTokenizer.Builder().setKeepPunctuation(false).build();
-  TokenStream stream=tokenizer.getDefaultTokenStream();
+  TwitterTokenStream stream=tokenizer.getDefaultTokenStream();
   stream.reset(text);
   TokenStreamSerializer serializer=TokenStreamSerializer.builder().add(new CharSequenceTermAttributeSerializer()).add(new TokenTypeAttributeSerializer()).add(new PositionIncrementAttributeSerializer()).build();
   byte[] data=serializer.serialize(stream);
-  TokenStream deserialized=serializer.deserialize(data,text);
+  TwitterTokenStream deserialized=serializer.deserialize(data,text);
   for (int i=0; i < 2; ++i) {
     stream.reset(text);
     while (stream.incrementToken()) {
