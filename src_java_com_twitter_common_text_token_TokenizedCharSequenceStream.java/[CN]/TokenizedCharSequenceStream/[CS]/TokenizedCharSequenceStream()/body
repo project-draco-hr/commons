@@ -1,6 +1,6 @@
 {
   super(new TwitterTokenStream(){
-    @Override public boolean incrementToken(){
+    @Override public final boolean incrementToken(){
       return false;
     }
     @Override public void reset(){
