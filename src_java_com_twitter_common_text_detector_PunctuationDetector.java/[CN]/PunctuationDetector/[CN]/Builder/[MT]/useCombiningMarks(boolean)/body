@@ -1,0 +1,4 @@
+{
+  this.useCombiningMarks=useCombiningMarks;
+  return this;
+}

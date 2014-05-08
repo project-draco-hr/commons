@@ -1,17 +1,15 @@
 {
-  TwitterTokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
-  mockStream.reset("When I was young , I liked insects .");
-  PunctuationDetector stream=new PunctuationDetector(mockStream);
-  CharSequenceTermAttribute termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
-  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+  TwitterTokenStream regexTokenizerStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  regexTokenizerStream.reset("When I was young , I liked insects .");
+  PunctuationDetector stream=new PunctuationDetector.Builder(regexTokenizerStream).build();
   int cnt=0;
   while (stream.incrementToken()) {
-    String token=termAttr.getTermString();
+    String token=stream.term().toString();
     if (",".equals(token) || ".".equals(token)) {
-      assertEquals(typeAttr.getType(),TokenType.PUNCTUATION);
+      assertEquals(TokenType.PUNCTUATION,stream.type());
     }
  else {
-      assertFalse(TokenType.PUNCTUATION.equals(typeAttr.getType()));
+      assertFalse(TokenType.PUNCTUATION.equals(stream.type()));
     }
     cnt++;
   }
@@ -19,11 +17,11 @@
   stream.reset("???????????? ??? ?????? ?????? ??? ?????? ??? ?????? ?????? ??? ???");
   cnt=0;
   while (stream.incrementToken()) {
-    if (ImmutableSet.of("[","???","???","???").contains(termAttr.getTermString())) {
-      assertEquals(typeAttr.getType(),TokenType.PUNCTUATION);
+    if (ImmutableSet.of("[","???","???","???").contains(stream.term().toString())) {
+      assertEquals(stream.type(),TokenType.PUNCTUATION);
     }
  else {
-      assertFalse(TokenType.PUNCTUATION.equals(typeAttr.getType()));
+      assertFalse(TokenType.PUNCTUATION.equals(stream.type()));
     }
     cnt++;
   }

@@ -1,12 +1,11 @@
 {
-  TwitterTokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
-  mockStream.reset("When I was young , I liked insects .");
-  PunctuationDetector stream=new PunctuationDetector(mockStream);
-  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
+  TwitterTokenStream regexTokenizerStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  regexTokenizerStream.reset("When I was young , I liked insects .");
+  PunctuationDetector stream=new PunctuationDetector.Builder(regexTokenizerStream).build();
   stream.reset("?? ?? ??? ??? ??? ??? ??? ??? ??? ???");
   int cnt=0;
   while (stream.incrementToken()) {
-    assertEquals(TokenType.PUNCTUATION,typeAttr.getType());
+    assertEquals(TokenType.PUNCTUATION,stream.type());
     cnt++;
   }
   assertEquals(10,cnt);

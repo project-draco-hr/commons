@@ -1,14 +1,12 @@
 {
-  TwitterTokenStream mockStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
-  mockStream.reset("Newline \n as punctuation");
-  PunctuationDetector stream=new PunctuationDetector(mockStream);
-  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
-  CharSequenceTermAttribute termAttr=stream.getAttribute(CharSequenceTermAttribute.class);
+  TwitterTokenStream regexTokenizerStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  regexTokenizerStream.reset("Newline \n as punctuation");
+  PunctuationDetector stream=new PunctuationDetector.Builder(regexTokenizerStream).build();
   int cnt=0;
   while (stream.incrementToken()) {
-    if (termAttr.getTermString().equals("\n")) {
+    if (stream.term().toString().equals("\n")) {
       cnt++;
-      assertEquals(TokenType.PUNCTUATION,typeAttr.getType());
+      assertEquals(TokenType.PUNCTUATION,stream.type());
     }
   }
   assertEquals(1,cnt);
