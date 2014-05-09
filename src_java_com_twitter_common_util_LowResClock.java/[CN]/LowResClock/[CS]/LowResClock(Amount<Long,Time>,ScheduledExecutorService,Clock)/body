@@ -1,0 +1,12 @@
+{
+  final long sleepTimeInMs=resolution.as(Time.MILLISECONDS);
+  Preconditions.checkArgument(sleepTimeInMs > 0);
+  underlying=clock;
+  time=underlying.nowMillis();
+  updaterHandler=executor.scheduleWithFixedDelay(new Runnable(){
+    @Override public void run(){
+      time=underlying.nowMillis();
+    }
+  }
+,0,sleepTimeInMs,TimeUnit.MILLISECONDS);
+}
