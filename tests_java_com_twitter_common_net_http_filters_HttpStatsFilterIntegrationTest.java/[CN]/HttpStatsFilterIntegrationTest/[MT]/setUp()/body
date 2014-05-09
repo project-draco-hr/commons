@@ -1,8 +1,8 @@
 {
   Stats.flush();
-  server=new HttpServerDispatch();
+  server=new JettyHttpServerDispatch();
   server.listen(0);
-  server.registerFilter(GuiceFilter.class,"/*",HttpServerDispatch.Dispatch.REQUEST);
+  server.registerFilter(GuiceFilter.class,"/*");
   clock=new FakeClock();
   final Injector injector=Guice.createInjector(new AbstractModule(){
     @Override protected void configure(){

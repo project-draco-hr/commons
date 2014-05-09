@@ -4,10 +4,10 @@
   Capture<Entry> replacement=new Capture<Entry>();
   listener.onReplace(capture(originals),capture(replacement));
   replay(listener);
-  File one=folder.newFile("one");
-  File two=folder.newFile("two");
-  File three=folder.newFile("three");
-  jarBuilder(folder.newFile(),listener).addFile(one,"replaced/write").addFile(two,"replaced/write").addFile(three,"replaced/write").write(false,DuplicateHandler.always(DuplicateAction.REPLACE));
+  File one=newFile("one");
+  File two=newFile("two");
+  File three=newFile("three");
+  jarBuilder(newFile(),listener).addFile(one,"replaced/write").addFile(two,"replaced/write").addFile(three,"replaced/write").write(false,DuplicateHandler.always(DuplicateAction.REPLACE));
   assertEquals(ImmutableList.of("one","two"),FluentIterable.from(originals.getValue()).transform(GET_NAME).toList());
   assertEquals("three",replacement.getValue().getName());
   assertEquals("replaced/write",replacement.getValue().getJarPath());

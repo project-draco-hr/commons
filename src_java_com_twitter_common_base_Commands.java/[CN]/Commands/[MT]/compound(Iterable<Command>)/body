@@ -1,0 +1,11 @@
+{
+  final ImmutableList<Command> executableCommands=ImmutableList.copyOf(commands);
+  return new Command(){
+    @Override public void execute(){
+      for (      Command command : executableCommands) {
+        command.execute();
+      }
+    }
+  }
+;
+}

@@ -3,6 +3,7 @@
     return false;
   }
  else {
-    return (count / (bufferSize * weight(level))) % 2 == 1;
+    long levelWeight=1 << (level - 1);
+    return (((count - leafCount) / bufferSize) & levelWeight) == 0;
   }
 }

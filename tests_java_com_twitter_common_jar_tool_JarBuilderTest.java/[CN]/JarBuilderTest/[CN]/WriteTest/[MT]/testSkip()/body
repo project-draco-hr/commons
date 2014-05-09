@@ -1,5 +1,5 @@
 {
-  File dir=folder.newFolder("life/of/brian");
+  File dir=newFolder("life/of/brian");
   FileUtils.write(new File(dir,"is"),"42");
   FileUtils.write(new File(dir,"used/to/be"),"4");
   File sourceJar=jarBuilder().add(content("1/137"),"meaning/of/the/universe").add(content("fine structure constant"),"meaning/of/the/universe/README").write();

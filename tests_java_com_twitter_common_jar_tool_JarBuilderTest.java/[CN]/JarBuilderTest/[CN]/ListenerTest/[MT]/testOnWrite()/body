@@ -3,6 +3,6 @@
   Capture<Entry> written=new Capture<Entry>();
   listener.onWrite(capture(written));
   replay(listener);
-  jarBuilder(folder.newFile(),listener).add(content("simple write"),"simple/write").write();
+  jarBuilder(newFile(),listener).add(content("simple write"),"simple/write").write();
   assertEquals("simple/write",written.getValue().getJarPath());
 }

@@ -1,0 +1,11 @@
+{
+  final File file=temporary.createFile();
+  addTearDown(new TearDown(){
+    @Override public void tearDown(){
+      file.delete();
+    }
+  }
+);
+  org.apache.commons.io.FileUtils.touch(file);
+  return file;
+}

@@ -3,6 +3,6 @@
   Capture<Iterable<? extends Entry>> skipped=new Capture<Iterable<? extends Entry>>();
   listener.onSkip(eq(Optional.<Entry>absent()),capture(skipped));
   replay(listener);
-  jarBuilder(folder.newFile(),listener).add(content("skipped write"),"skipped/write").write(false,DuplicateHandler.always(DuplicateAction.THROW),Pattern.compile("skipped/"));
+  jarBuilder(newFile(),listener).add(content("skipped write"),"skipped/write").write(false,DuplicateHandler.always(DuplicateAction.THROW),Pattern.compile("skipped/"));
   assertEquals("skipped/write",Iterables.getOnlyElement(skipped.getValue()).getJarPath());
 }
