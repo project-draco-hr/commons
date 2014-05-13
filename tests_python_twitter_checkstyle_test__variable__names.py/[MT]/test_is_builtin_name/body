@@ -1,7 +1,0 @@
-def test_is_builtin_name():
-    assert is_builtin_name('__foo__')
-    assert (not is_builtin_name('__fo_o__'))
-    assert (not is_builtin_name('__Foo__'))
-    assert (not is_builtin_name('__fOo__'))
-    assert (not is_builtin_name('__foo'))
-    assert (not is_builtin_name('foo__'))

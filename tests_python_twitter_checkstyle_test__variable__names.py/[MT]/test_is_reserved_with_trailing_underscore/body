@@ -1,6 +1,0 @@
-def test_is_reserved_with_trailing_underscore():
-    for name in ('super', 'id', 'type', 'class'):
-        assert is_reserved_with_trailing_underscore((name + '_'))
-        assert (not is_reserved_with_trailing_underscore((name + '__')))
-    for name in ('garbage', 'slots', 'metaclass'):
-        assert (not is_reserved_with_trailing_underscore((name + '_')))

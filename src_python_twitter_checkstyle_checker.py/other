@@ -1,11 +1,15 @@
 from __future__ import print_function
+import re
 from twitter.common import app
 from .common import Nit, PythonFile
 from .iterators import git_iterator, path_iterator
 from .plugins import list_plugins
 DEFAULT_BRANCH = 'master'
 app.add_option('-p', action='append', type='str', default=[], dest='plugins', help='Explicitly list plugins to enable.')
+app.add_option('-n', action='append', type='str', default=[], dest='skip_plugins', help='Explicitly list plugins to disable.')
+app.add_option('-l', '--list', action='store_true', default=False, dest='list_plugins', help='List available plugins and exit.')
 app.add_option('--diff', type='str', default=None, dest='diff', help='If specified, only checkstyle against the diff of the supplied branch, e.g. --diff=master. Defaults to master if no paths are specified.')
 app.add_option('-s', '--severity', default='COMMENT', type='choice', choices=('COMMENT', 'WARNING', 'ERROR'), dest='severity', help='Only messages at this severity or higher are logged.  Options: COMMENT, WARNING, ERROR.')
 app.add_option('--strict', default=False, action='store_true', dest='strict', help='If enabled, have non-zero exit status for any nit at WARNING or higher.')
-app.main()
+_NOQA_LINE_SEARCH = re.compile('# noqa\\b').search
+_NOQA_FILE_SEARCH = re.compile('# (flake8|checkstyle): noqa$').search

@@ -1,4 +1,0 @@
-def test_is_reserved_name():
-    for name in ('for', 'super', 'id', 'type', 'class'):
-        assert is_reserved_name(name)
-    assert (not is_reserved_name('none'))

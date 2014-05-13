@@ -1,0 +1,3 @@
+def nits(self):
+    for (line_no, _) in self.python_file.enumerate():
+        yield self.error('T999', 'I hate everything!', line_no)
