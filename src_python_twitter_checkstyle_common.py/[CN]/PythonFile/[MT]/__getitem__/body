@@ -1,0 +1,2 @@
+def __getitem__(self, line_number):
+    return self._lines[self.line_range(line_number)]

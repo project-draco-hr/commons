@@ -1,0 +1,33 @@
+@classmethod
+def iter_logical_lines(cls, blob):
+    'Returns an iterator of (start_line, stop_line, indent) for logical lines given the source\n       blob.\n    '
+    indent_stack = []
+    contents = []
+    line_number_start = None
+
+    def translate_logical_line(start, end, contents, endmarker=False):
+        while (contents[0] == '\n'):
+            start += 1
+            contents.pop(0)
+        while (contents[(-1)] == '\n'):
+            end -= 1
+            contents.pop()
+        indent = (len(indent_stack[(-1)]) if indent_stack else 0)
+        if endmarker:
+            indent = len(contents[0])
+        return (start, (end + 1), indent)
+    for token in cls.iter_tokens(blob):
+        (token_type, token_text, token_start) = token[0:3]
+        if (token_type == tokenize.INDENT):
+            indent_stack.append(token_text)
+        if (token_type == tokenize.DEDENT):
+            indent_stack.pop()
+        if (token_type in cls.SKIP_TOKENS):
+            continue
+        contents.append(token_text)
+        if (line_number_start is None):
+            line_number_start = token_start[0]
+        elif (token_type in (tokenize.NEWLINE, tokenize.ENDMARKER)):
+            yield translate_logical_line(line_number_start, (token_start[0] + (1 if (token_type is tokenize.NEWLINE) else (-1))), list(filter(None, contents)), endmarker=(token_type == tokenize.ENDMARKER))
+            contents = []
+            line_number_start = None

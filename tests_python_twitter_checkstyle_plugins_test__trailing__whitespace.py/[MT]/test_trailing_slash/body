@@ -1,0 +1,7 @@
+def test_trailing_slash():
+    tw = TrailingWhitespace(PythonFile.from_statement('\n  foo = \\\n    123\n  bar = """\n    bin/bash foo \\\n             bar \\\n             baz\n  """\n  '))
+    nits = list(tw.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T201')
+    assert (nits[0].severity == Nit.ERROR)
+    assert (nits[0]._line_number == 1)

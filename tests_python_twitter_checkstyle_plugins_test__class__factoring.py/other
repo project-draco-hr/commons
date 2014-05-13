@@ -1,0 +1,3 @@
+from twitter.checkstyle.common import Nit, PythonFile
+from twitter.checkstyle.plugins.class_factoring import ClassFactoring
+BAD_CLASS = PythonFile.from_statement('\nclass Distiller(object):\n  CONSTANT = "foo"\n\n  def foo(self, value):\n    return os.path.join(Distiller.CONSTANT, value)\n')

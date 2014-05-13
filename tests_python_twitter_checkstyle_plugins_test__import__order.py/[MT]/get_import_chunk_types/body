@@ -1,0 +1,4 @@
+def get_import_chunk_types(import_type):
+    chunks = list(ImportOrder(PythonFile(IMPORT_CHUNKS[import_type])).iter_import_chunks())
+    assert (len(chunks) == 1)
+    return tuple(map(type, chunks[0]))

@@ -1,0 +1,23 @@
+def test_off_by_one():
+    obl = OffByOneList([])
+    for index in ((-1), 0, 1):
+        with pytest.raises(IndexError):
+            obl[index]
+    for s in (slice(1, 1), slice(1, 2), slice((-2), (-1))):
+        assert (obl[s] == [])
+    for s in (slice((-1), 0), slice(0, 1)):
+        with pytest.raises(IndexError):
+            obl[s]
+    obl = OffByOneList([1, 2, 3])
+    for k in (1, 2, 3):
+        assert (obl[k] == k)
+        assert (obl[k:(k + 1)] == [k])
+        assert (obl.index(k) == k)
+        assert (obl.count(k) == 1)
+    assert (list(reversed(obl)) == [3, 2, 1])
+    for k in (0, 4):
+        with pytest.raises(IndexError):
+            obl[k]
+    for value in (None, 2.0, type):
+        with pytest.raises(TypeError):
+            obl[value]

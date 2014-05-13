@@ -1,0 +1,6 @@
+def exemplar_fail(code, severity, statement):
+    nits = list(FutureCompatibility(PythonFile.from_statement(statement)).nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == code)
+    assert (nits[0].severity == severity)
+    return nits[0]

@@ -1,0 +1,4 @@
+@property
+def tree(self):
+    'The parsed AST of this file.'
+    return self._tree

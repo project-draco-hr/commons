@@ -1,0 +1,33 @@
+def test_style_error():
+    pf = PythonFile(PYTHON_STATEMENT, 'keeper.py')
+
+
+    class ActualCheckstylePlugin(CheckstylePlugin):
+
+        def nits(self):
+            return []
+    cp = ActualCheckstylePlugin(pf)
+    se = cp.error('A123', 'You have a terrible taste in libraries.')
+    assert (se.line_number is None)
+    assert (se.code == 'A123')
+    str(se)
+    se = cp.error('A123', 'You have a terrible taste in libraries.', 7)
+    assert (se.line_number == '007')
+    str(se)
+    se = cp.error('A123', 'You have a terrible taste in libraries.', 2)
+    assert (se.line_number == '002-005')
+    assert (se.severity == Nit.ERROR)
+    str(se)
+    sw = cp.warning('A321', 'You have a terrible taste in libraries.', 2)
+    assert (sw.severity == Nit.WARNING)
+    assert (sw.code == 'A321')
+    str(sw)
+    import_from = None
+    for node in ast.walk(pf.tree):
+        if isinstance(node, ast.ImportFrom):
+            import_from = node
+    assert (import_from is not None)
+    ase = cp.error('B380', "I don't like your from import!", import_from)
+    assert (ase.severity == Nit.ERROR)
+    se = cp.error('B380', "I don't like your from import!", 2)
+    assert (str(se) == str(ase))

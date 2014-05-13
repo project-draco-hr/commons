@@ -1,0 +1,4 @@
+@property
+def filename(self):
+    'The filename of this Python file.'
+    return self._filename

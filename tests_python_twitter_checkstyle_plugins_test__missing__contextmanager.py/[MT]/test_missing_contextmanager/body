@@ -1,0 +1,12 @@
+def test_missing_contextmanager():
+    mcm = MissingContextManager(PythonFile.from_statement('\n    with open("derp.txt"):\n      pass\n    \n    with open("herp.txt") as fp:\n      fp.read()\n  '))
+    nits = list(mcm.nits())
+    assert (len(nits) == 0)
+    mcm = MissingContextManager(PythonFile.from_statement('\n    foo = open("derp.txt")\n  '))
+    nits = list(mcm.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T802')
+    assert (nits[0].severity == Nit.WARNING)
+    mcm = MissingContextManager(PythonFile.from_statement('\n    from urllib2 import urlopen\n    the_googs = urlopen("http://www.google.com").read()\n  '))
+    nits = list(mcm.nits())
+    assert (len(nits) == 0)

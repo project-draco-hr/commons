@@ -1,0 +1,16 @@
+def apply_filter(python_file, checker, line_filter):
+    if noqa_file_filter(python_file):
+        return
+    plugin = checker(python_file)
+    for nit in plugin:
+        if (nit._line_number is None):
+            yield nit
+            continue
+        nit_slice = python_file.line_range(nit._line_number)
+        for line_number in range(nit_slice.start, nit_slice.stop):
+            if noqa_line_filter(python_file, line_number):
+                break
+            if (line_filter and line_filter(python_file, line_number)):
+                break
+        else:
+            yield nit

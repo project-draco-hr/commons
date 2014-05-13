@@ -1,0 +1,3 @@
+@property
+def lines(self):
+    return (self.python_file[self._line_number] if self._line_number else [])

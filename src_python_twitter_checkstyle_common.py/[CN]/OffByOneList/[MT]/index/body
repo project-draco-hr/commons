@@ -1,0 +1,2 @@
+def index(self, value):
+    return (self._list.index(value) + 1)

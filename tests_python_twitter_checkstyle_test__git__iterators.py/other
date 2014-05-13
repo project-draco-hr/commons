@@ -1,0 +1,8 @@
+import os
+from twitter.checkstyle.iterators import git_iterator
+import pytest
+import git
+non_python_filename = 'non-python-file'
+python_filename = 'python-file.py'
+other_branch = 'other_branch'
+feature_branch = 'feature_branch'

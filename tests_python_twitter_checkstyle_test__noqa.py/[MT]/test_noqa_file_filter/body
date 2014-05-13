@@ -1,0 +1,4 @@
+def test_noqa_file_filter():
+    nits = apply_filter(PythonFile.from_statement("\n    # checkstyle: noqa\n    print('This is not fine')\n    print('This is fine')\n  "), Rage, None)
+    nits = list(nits)
+    assert (len(nits) == 0)

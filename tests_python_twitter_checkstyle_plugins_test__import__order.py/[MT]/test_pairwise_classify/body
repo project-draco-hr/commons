@@ -1,0 +1,21 @@
+def test_pairwise_classify():
+    for (first, second) in PAIRS:
+        io = ImportOrder(PythonFile(stitch_chunks(1, first, second)))
+        import_chunks = list(io.iter_import_chunks())
+        assert (len(import_chunks) == 2)
+        (module_types, chunk_errors) = io.classify_imports(import_chunks[0])
+        assert (len(module_types) == 1)
+        assert (len(chunk_errors) == 0)
+        assert (module_types.pop() == first)
+        (module_types, chunk_errors) = io.classify_imports(import_chunks[1])
+        assert (len(module_types) == 1)
+        assert (len(chunk_errors) == 0)
+        assert (module_types.pop() == second)
+    for (second, first) in PAIRS:
+        io = ImportOrder(PythonFile(stitch_chunks(1, first, second)))
+        import_chunks = list(io.iter_import_chunks())
+        assert (len(import_chunks) == 2)
+        nits = list(io.nits())
+        assert (len(nits) == 1)
+        assert (nits[0].code == 'T406')
+        assert (nits[0].severity == Nit.ERROR)

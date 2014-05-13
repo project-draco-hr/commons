@@ -1,0 +1,7 @@
+def test_py_file_added(tmpdir, repo):
+    repo.head.reference.commit
+    new_python_filename = 'newfile.py'
+    tmpdir.join(new_python_filename).write('some python to check')
+    repo.index.add([new_python_filename])
+    repo.index.commit('add a python file')
+    assert ([f[0] for f in git_iterator(None, Options())] == [new_python_filename])

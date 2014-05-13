@@ -1,0 +1,12 @@
+@pytest.fixture
+def repo(tmpdir):
+    os.chdir(tmpdir.strpath)
+    repo = git.Repo.init(tmpdir.strpath)
+    tmpdir.join(non_python_filename).write('content')
+    tmpdir.join(python_filename).write('content')
+    repo.index.add([python_filename, non_python_filename])
+    repo.index.commit('initial commit')
+    repo.create_head(other_branch)
+    repo.create_head(feature_branch)
+    repo.head.reference = repo.create_head(feature_branch)
+    return repo

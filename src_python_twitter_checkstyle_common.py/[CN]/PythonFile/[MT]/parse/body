@@ -1,0 +1,5 @@
+@classmethod
+def parse(cls, filename):
+    with open(filename) as fp:
+        blob = fp.read()
+    return cls(blob, filename)

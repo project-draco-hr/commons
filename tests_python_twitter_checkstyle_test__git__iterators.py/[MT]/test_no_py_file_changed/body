@@ -1,0 +1,5 @@
+def test_no_py_file_changed(tmpdir, repo):
+    tmpdir.join(non_python_filename).write('some more')
+    repo.index.add([non_python_filename])
+    repo.index.commit('modify a non-python file')
+    assert ([f[0] for f in git_iterator(None, Options())] == [])

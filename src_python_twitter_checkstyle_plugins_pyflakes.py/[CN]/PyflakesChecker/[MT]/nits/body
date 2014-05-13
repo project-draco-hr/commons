@@ -1,0 +1,4 @@
+def nits(self):
+    checker = FlakesChecker(self.python_file.tree, self.python_file.filename)
+    for message in sorted(checker.messages, key=(lambda msg: msg.lineno)):
+        yield FlakeError(self.python_file, message)

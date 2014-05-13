@@ -1,0 +1,7 @@
+def test_py_changed_in_branch(tmpdir, repo):
+    repo.heads.other_branch.checkout()
+    tmpdir.join(python_filename).write('some more')
+    repo.index.add([python_filename])
+    repo.index.commit('modify a python file in another branch')
+    repo.heads.feature_branch.checkout()
+    assert ([f[0] for f in git_iterator(None, Options(other_branch))] == [python_filename])

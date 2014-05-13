@@ -1,0 +1,5 @@
+def test_noqa_line_filter():
+    nits = apply_filter(PythonFile.from_statement("\n    print('This is not fine')\n    print('This is fine')  # noqa\n  "), Rage, None)
+    nits = list(nits)
+    assert (len(nits) == 1), ('Actually got nits: %s' % ' '.join((('%s:%s' % (nit._line_number, nit)) for nit in nits)))
+    assert (nits[0].code == 'T999')

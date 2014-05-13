@@ -1,0 +1,7 @@
+def path_iterator(args, options):
+    for path in args:
+        if os.path.isdir(path):
+            for filename in Fileset.rglobs('*.py', root=path)():
+                yield (os.path.join(path, filename), None)
+        elif os.path.isfile(path):
+            yield (path, None)

@@ -1,0 +1,7 @@
+def nit(self, code, severity, message, line_number_or_ast=None):
+    line_number = None
+    if isinstance(line_number_or_ast, Compatibility.integer):
+        line_number = line_number_or_ast
+    elif isinstance(line_number_or_ast, ast.AST):
+        line_number = getattr(line_number_or_ast, 'lineno', None)
+    return Nit(code, severity, self.python_file, message, line_number)

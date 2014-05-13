@@ -1,0 +1,2 @@
+def __init__(self, python_file, code, line_number, offset, text, doc):
+    super(PEP8Error, self).__init__(code, Nit.ERROR, python_file, text, line_number)

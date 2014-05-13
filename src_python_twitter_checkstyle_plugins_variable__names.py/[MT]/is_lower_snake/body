@@ -1,0 +1,4 @@
+@allow_underscores(2)
+def is_lower_snake(name):
+    'lower_snake_case, _with, __two_underscores_allowable.'
+    return (LOWER_SNAKE_RE.match(name) is not None)

@@ -1,0 +1,4 @@
+from twitter.checkstyle.common import Nit, PythonFile
+from twitter.checkstyle.plugins.variable_names import allow_underscores, is_builtin_name, is_lower_snake, is_reserved_name, is_reserved_with_trailing_underscore, is_upper_camel, PEP8VariableNames
+UPPER_CAMEL = ('Rate', 'HTTPRate', 'HttpRate', 'Justastringofwords')
+LOWER_SNAKE = ('quiet', 'quiet_noises')

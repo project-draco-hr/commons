@@ -1,0 +1,3 @@
+@abstractmethod
+def nits(self):
+    'Returns an iterable of Nit pertinent to the enclosed python file.'

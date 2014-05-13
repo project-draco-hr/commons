@@ -1,0 +1,5 @@
+def error(self, line_number, offset, text, check):
+    code = super(TwitterReporter, self).error(line_number, offset, text, check)
+    if code:
+        self._twitter_errors.append(PEP8Error(self._python_file, code, line_number, offset, text[5:], check.__doc__))
+    return code

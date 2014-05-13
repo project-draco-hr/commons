@@ -1,0 +1,3 @@
+@property
+def data_stream(self):
+    return StringIO(self._blob)

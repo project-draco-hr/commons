@@ -1,0 +1,3 @@
+def enumerate(self):
+    'Return an enumeration of line_number, line pairs.'
+    return enumerate(self, 1)
