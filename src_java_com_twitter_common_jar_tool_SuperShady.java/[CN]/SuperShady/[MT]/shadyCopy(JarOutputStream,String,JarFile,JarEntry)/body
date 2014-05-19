@@ -1,0 +1,32 @@
+{
+  JarEntry outEntry=new JarEntry(jarEntry);
+  ZE_NAME.set(outEntry,name);
+  if (outEntry.isDirectory()) {
+    outEntry.setMethod(ZipEntry.STORED);
+    outEntry.setSize(0);
+    outEntry.setCompressedSize(0);
+    outEntry.setCrc(0);
+    jarOut.putNextEntry(outEntry);
+    jarOut.closeEntry();
+  }
+ else   if (jarEntry.getMethod() == ZipEntry.STORED) {
+    InputStream is=jarIn.getInputStream(jarEntry);
+    jarOut.putNextEntry(outEntry);
+    IOUtils.copy(is,jarOut);
+    is.close();
+    jarOut.closeEntry();
+  }
+ else {
+    FilterInputStream zis=(FilterInputStream)jarIn.getInputStream(jarEntry);
+    InputStream is=FIS_IN.get(zis);
+    jarOut.putNextEntry(outEntry);
+    outEntry.setMethod(ZipEntry.STORED);
+    outEntry.setSize(jarEntry.getCompressedSize());
+    IOUtils.copy(is,jarOut);
+    zis.close();
+    CRC_VALUE.set(ZOS_CRC.get(jarOut),(int)jarEntry.getCrc());
+    jarOut.closeEntry();
+    outEntry.setMethod(ZipEntry.DEFLATED);
+    outEntry.setSize(jarEntry.getSize());
+  }
+}

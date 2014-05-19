@@ -1,0 +1,10 @@
+{
+  try {
+    Field field=clazz.getDeclaredField(name);
+    field.setAccessible(true);
+    return new FieldAccessor<T,V>(field,fieldType);
+  }
+ catch (  NoSuchFieldException e) {
+    throw new RuntimeException(e);
+  }
+}

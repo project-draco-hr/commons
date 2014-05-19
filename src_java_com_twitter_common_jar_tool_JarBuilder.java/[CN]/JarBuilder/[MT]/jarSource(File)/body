@@ -1,10 +1,10 @@
 {
-  return new FileSource(jar){
+  return new JarSource(jar){
     @Override public String identify(    String name){
       return String.format("%s!%s",source.getPath(),name);
     }
     @Override public String toString(){
-      return String.format("FileSource{jar=%s}",source.getPath());
+      return String.format("JarSource{jar=%s}",source.getPath());
     }
   }
 ;

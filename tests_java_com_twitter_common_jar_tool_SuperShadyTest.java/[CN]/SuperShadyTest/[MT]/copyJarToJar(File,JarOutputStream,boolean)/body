@@ -1,0 +1,17 @@
+{
+  Closer closer=Closer.create();
+  try {
+    JarFile jarIn=closer.register(new JarFile(jarFileIn));
+    Enumeration<JarEntry> en=jarIn.entries();
+    while (en.hasMoreElements()) {
+      JarEntry entry=en.nextElement();
+      if (!copyManifest && ("META-INF/".equals(entry.getName()) || "META-INF/MANIFEST.MF".equals(entry.getName()))) {
+        continue;
+      }
+      SuperShady.shadyCopy(jos,entry.getName(),jarIn,entry);
+    }
+  }
+  finally {
+    closer.close();
+  }
+}

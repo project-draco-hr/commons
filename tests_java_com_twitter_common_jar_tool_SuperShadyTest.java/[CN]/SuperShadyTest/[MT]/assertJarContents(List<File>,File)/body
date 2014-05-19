@@ -1,0 +1,8 @@
+{
+  Set<ChecksumEntry> inputEntries=new LinkedHashSet<ChecksumEntry>();
+  for (  File jarIn : jarsIn) {
+    inputEntries.addAll(getChecksummedEntries(jarIn));
+  }
+  Set<ChecksumEntry> outputEntries=getChecksummedEntries(jarOut);
+  assertJarContents(inputEntries,outputEntries);
+}

@@ -9,7 +9,7 @@
           @Override public void execute(          JarEntry entry) throws IOException {
             if (!entry.isDirectory() && !JarFile.MANIFEST_NAME.equals(entry.getName())) {
               NamedInputSupplier<InputStream> contents=NamedInputSupplier.create(jarSource,entry.getName(),entrySupplier(jarSupplier,entry));
-              add(entries,contents,entry.getName());
+              add(entries,contents,entry);
             }
           }
         }

@@ -1,0 +1,23 @@
+{
+  Set<ChecksumEntry> result=new LinkedHashSet<ChecksumEntry>();
+  Closer closer=Closer.create();
+  try {
+    JarFile jarFile=closer.register(new JarFile(file));
+    Enumeration<JarEntry> en=jarFile.entries();
+    while (en.hasMoreElements()) {
+      JarEntry entry=en.nextElement();
+      long jarFileCrc=entry.getCrc();
+      CheckedInputStream is=closer.register(new CheckedInputStream(jarFile.getInputStream(entry),new CRC32()));
+      while (is.read() != -1) {
+      }
+      assertEquals(jarFileCrc,is.getChecksum().getValue());
+      ChecksumEntry csEntry=new ChecksumEntry(entry,jarFileCrc);
+      assertFalse(result.contains(csEntry));
+      result.add(csEntry);
+    }
+  }
+  finally {
+    closer.close();
+  }
+  return result;
+}

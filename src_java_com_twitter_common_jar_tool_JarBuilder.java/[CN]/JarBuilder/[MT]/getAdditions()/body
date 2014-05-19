@@ -13,7 +13,7 @@
             }
           }
  else           if (!jarEntry.isDirectory()) {
-            entries.put(entryPath,new ReadableEntry(NamedInputSupplier.create(jarSource(target),entryPath,contents),entryPath));
+            entries.put(entryPath,new ReadableJarEntry(NamedInputSupplier.create(jarSource(target),entryPath,contents),jarEntry));
           }
         }
       }

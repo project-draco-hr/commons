@@ -1,0 +1,4 @@
+JarOutputStream jarOut
+String name
+JarFile jarIn
+JarEntry jarEntry

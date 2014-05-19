@@ -1,0 +1,10 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  ChecksumEntry that=(ChecksumEntry)o;
+  return Objects.equal(checksumValue,that.checksumValue) && Objects.equal(entry.getName(),that.entry.getName());
+}

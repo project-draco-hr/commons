@@ -7,9 +7,16 @@
       try {
         JarWriter writer=jarWriter(tmp,compress);
         writer.write(JarFile.MANIFEST_NAME,manifest == null ? DEFAULT_MANIFEST : manifest);
+        List<ReadableJarEntry> jarEntries=Lists.newArrayList();
         for (        ReadableEntry entry : entries) {
-          writer.write(entry.getJarPath(),entry.contents);
+          if (entry instanceof ReadableJarEntry) {
+            jarEntries.add((ReadableJarEntry)entry);
+          }
+ else {
+            writer.write(entry.getJarPath(),entry.contents);
+          }
         }
+        copyJarFiles(writer,jarEntries);
       }
  catch (      IOException e) {
         throw closer.rethrow(e);

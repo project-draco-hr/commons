@@ -1,0 +1,15 @@
+{
+  File aJar=copyResourceToTempFile(A_JAR);
+  File jarOut=File.createTempFile("testSuperShadySimple",".jar");
+  Closer closer=Closer.create();
+  try {
+    JarOutputStream jos=closer.register(new JarOutputStream(new FileOutputStream(jarOut)));
+    copyJarToJar(aJar,jos,true);
+    jos.close();
+    assertJarContents(Lists.newArrayList(aJar),jarOut);
+  }
+  finally {
+    closer.close();
+    jarOut.delete();
+  }
+}
