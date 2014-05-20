@@ -1,0 +1,10 @@
+{
+  final JarFile jarFile=new JarFile(file,verify);
+  closer.register(new Closeable(){
+    @Override public void close() throws IOException {
+      jarFile.close();
+    }
+  }
+);
+  return jarFile;
+}

@@ -1,4 +1,4 @@
 {
   ensureParentDir(path);
-  SuperShady.shadyCopy(out,path,jarIn,srcJarEntry);
+  JarEntryCopier.copyEntry(out,path,jarIn,srcJarEntry);
 }

@@ -3,7 +3,7 @@
   supplier=new InputSupplier<JarFile>(){
     @Override public JarFile getInput() throws IOException {
       try {
-        return closer.register(new JarFile(file,false));
+        return JarFileUtil.openJarFile(closer,file,false);
       }
  catch (      ZipException zex) {
         ZipException e=new ZipException("error in opening zip file " + file);

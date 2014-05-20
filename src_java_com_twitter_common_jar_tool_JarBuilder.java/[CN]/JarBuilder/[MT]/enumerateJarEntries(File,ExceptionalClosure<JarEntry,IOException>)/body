@@ -1,6 +1,6 @@
 {
   Closer jarFileCloser=Closer.create();
-  JarFile jar=jarFileCloser.register(new JarFile(jarFile));
+  JarFile jar=JarFileUtil.openJarFile(jarFileCloser,jarFile);
   try {
     for (Enumeration<JarEntry> entries=jar.entries(); entries.hasMoreElements(); ) {
       work.execute(entries.nextElement());
