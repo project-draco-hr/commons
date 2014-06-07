@@ -17,6 +17,7 @@
           }
         }
         copyJarFiles(writer,jarEntries);
+        closer.close();
         target.delete();
         org.apache.commons.io.FileUtils.moveFile(tmp,target);
       }
