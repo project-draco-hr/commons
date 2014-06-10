@@ -1,12 +1,14 @@
 from functools import wraps
 import os
 import sys
+import re
 import time
 from twitter.common import app, options
 from twitter.common.http import HttpServer, Plugin
 from twitter.common.metrics import AtomicGauge, Label, LambdaGauge, MetricSampler, MutatorGauge, Observable, RootMetrics
 from twitter.common.quantity import Amount, Time
 from .http import RootServer
+from bottle import request
 try:
     from twitter.common.python.pex import PEX
     HAS_PEX = True

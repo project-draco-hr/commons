@@ -1,0 +1,2 @@
+def _parse_filtered_arg(self):
+    return (request.GET.get('filtered', '') in ['true', '1'])

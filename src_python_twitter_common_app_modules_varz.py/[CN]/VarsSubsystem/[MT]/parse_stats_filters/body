@@ -1,0 +1,6 @@
+def parse_stats_filters(self, regexes_list_str):
+    if (len(regexes_list_str) > 0):
+        full_regexes = [(('^' + regex) + '$') for regex in regexes_list_str.split(',')]
+        return re.compile((('(' + ')|('.join(full_regexes)) + ')'))
+    else:
+        return None
