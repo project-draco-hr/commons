@@ -1,7 +1,7 @@
 from functools import wraps
 import os
-import sys
 import re
+import sys
 import time
 from twitter.common import app, options
 from twitter.common.http import HttpServer, Plugin
