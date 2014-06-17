@@ -5,7 +5,7 @@ def test_filtering_vars_filter_disabled_and_requested(self):
     rm.register(zone)
     rm.register(alpha)
     metrics = RootMetrics()
-    varsSubsystem = VarsSubsystem()
+    vars_subsystem = VarsSubsystem()
     regex = None
     endpoint = VarsEndpoint(period=Amount(60000, Time.MILLISECONDS), stats_filter=regex)
     request.GET.append('filtered', '1')
