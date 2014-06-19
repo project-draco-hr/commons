@@ -2,7 +2,7 @@ def setup_function(self):
     options = app.get_options()
     rs = RootServer()
     if rs:
-        varz = VarsEndpoint(period=Amount(options.twitter_common_metrics_vars_sampling_delay_ms, Time.MILLISECONDS))
+        varz = VarsEndpoint(period=Amount(options.twitter_common_metrics_vars_sampling_delay_ms, Time.MILLISECONDS), stats_filter=self.compile_stats_filters(options.twitter_common_app_modules_varz_stats_filter))
         rs.mount_routes(varz)
         register_diagnostics()
         register_build_properties()

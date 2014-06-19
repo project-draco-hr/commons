@@ -1,3 +1,8 @@
 @HttpServer.route('/vars.json')
 def handle_vars_json(self, var=None, value=None):
-    return self._monitor.sample()
+    filtered = self._parse_filtered_arg()
+    sample = self._monitor.sample()
+    if (filtered and self._stats_filter):
+        return dict(((key, val) for (key, val) in sample.items() if (not self._stats_filter.match(key))))
+    else:
+        return sample
