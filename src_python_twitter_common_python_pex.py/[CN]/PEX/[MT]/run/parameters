@@ -3,6 +3,3 @@ args
 with_chroot
 blocking
 setsid
-stdin
-stdout
-stderr

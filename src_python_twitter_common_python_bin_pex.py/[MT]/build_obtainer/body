@@ -4,6 +4,8 @@ def build_obtainer(options):
     fetchers = [Fetcher(options.repos)]
     if options.pypi:
         fetchers.append(PyPIFetcher())
+    if options.indices:
+        fetchers.extend((PyPIFetcher(index) for index in options.indices))
     translator = translator_from_options(options)
     if options.use_wheel:
         package_precedence = (WheelPackage, EggPackage, SourcePackage)

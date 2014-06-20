@@ -1,5 +1,12 @@
 from __future__ import absolute_import
 from abc import abstractmethod
 import random
+import warnings
 from .base import maybe_requirement
-from .compatibility import AbstractClass
+from .compatibility import AbstractClass, PY3
+if PY3:
+    import urllib.parse as urlparse
+    from urllib.parse import urljoin
+else:
+    import urlparse
+    from urlparse import urljoin
