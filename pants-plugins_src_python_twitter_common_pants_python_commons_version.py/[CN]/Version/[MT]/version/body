@@ -1,0 +1,5 @@
+def version(self):
+    if (self._version is None):
+        with open(os.path.join(get_buildroot(), self._rel_path)) as fp:
+            self._version = fp.read().strip()
+    return self._version

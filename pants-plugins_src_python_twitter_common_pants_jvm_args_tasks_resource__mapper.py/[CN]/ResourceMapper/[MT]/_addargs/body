@@ -1,0 +1,22 @@
+def _addargs(self, lines, target, resources_by_target, transitive):
+
+    def is_configuration_info(line):
+        line = line.strip()
+        return (line and (not line.startswith('#')))
+    if any(filter(is_configuration_info, lines)):
+        resource_root = os.path.join(self.workdir, target.id)
+        safe_mkdir(resource_root)
+        resource_index = ('0' if transitive else '1')
+        resource_rel_path = os.path.join(self.RESOURCE_RELDIR, '{0}.{1}'.format(self.RESOURCE_BASENAME, resource_index))
+        content = '# Created by pants goal args-apt\n'
+        content += ''.join(sorted(lines))
+        resource_path = os.path.join(resource_root, resource_rel_path)
+        with safe_open(resource_path, 'w') as resource_fp:
+            resource_fp.write(content)
+            self.context.log.debug('Added args-apt resource file {rel_path} for {target}:\n{content}'.format(rel_path=os.path.relpath(resource_path, get_buildroot()), target=target, content=content))
+        target_name = ('{0}.transitive'.format(target.id) if transitive else target.id)
+        spec_path = os.path.relpath(resource_root, get_buildroot())
+        address = SyntheticAddress(spec_path=spec_path, target_name=target_name)
+        args_apt_resources = self.context.add_new_target(address, Resources, derived_from=target, sources=[resource_rel_path])
+        target.inject_dependency(address)
+        resources_by_target[args_apt_resources].add_rel_paths(resource_root, [resource_rel_path])

@@ -1,0 +1,30 @@
+def _add_args_resources(self, target, resources_by_target, transitive):
+    classes_by_target = self.context.products.get_data('classes_by_target')
+    resource_dirs = set()
+
+    def collect_resource_dirs(tgt):
+        mapping = classes_by_target.get(tgt)
+        if mapping:
+            resource_dirs.update((os.path.join(base, self.RESOURCE_RELDIR) for (base, _) in mapping.rel_paths()))
+    if transitive:
+        target.walk(collect_resource_dirs)
+    else:
+        collect_resource_dirs(target)
+    lines = set()
+    for resource_dir in resource_dirs:
+        if os.path.exists(resource_dir):
+            for file_name in os.listdir(resource_dir):
+                if file_name.startswith(self.RESOURCE_BASENAME):
+                    with open(os.path.join(resource_dir, file_name)) as resource:
+                        lines.update(resource.readlines())
+    if lines:
+        args = Args.for_target(target, transitive, classes_by_target)
+        lines = filter(args.matches, lines)
+    if transitive:
+        resource_path = os.path.join(self.RESOURCE_RELDIR, self.RESOURCE_BASENAME)
+        for (base_dir, jar_path) in self.list_external_jar_dependencies(target):
+            with open_zip(os.path.join(base_dir, jar_path)) as jar:
+                for zipinfo in jar.infolist():
+                    if zipinfo.filename.startswith(resource_path):
+                        lines.update(jar.open(zipinfo).readlines())
+    self._addargs(lines, target, resources_by_target, transitive)
