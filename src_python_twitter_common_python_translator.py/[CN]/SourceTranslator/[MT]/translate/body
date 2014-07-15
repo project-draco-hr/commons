@@ -20,7 +20,10 @@ def translate(self, package):
             except self._installer_impl.InstallFailure:
                 return None
             target_path = os.path.join(self._install_cache, os.path.basename(dist_path))
-            shutil.move(dist_path, target_path)
+            if (not os.path.exists(target_path)):
+                target_path_tmp = (target_path + uuid4().get_hex())
+                shutil.move(dist_path, target_path_tmp)
+                os.rename(target_path_tmp, target_path)
             target_package = Package.from_href(target_path)
             if (not target_package):
                 return None
