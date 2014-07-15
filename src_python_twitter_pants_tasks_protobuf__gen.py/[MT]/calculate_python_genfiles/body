@@ -1,2 +1,0 @@
-def calculate_python_genfiles(source):
-    yield re.sub('\\.proto$', '_pb2.py', source)

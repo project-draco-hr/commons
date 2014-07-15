@@ -1,2 +1,0 @@
-def __init__(self, name, dependencies=None):
-    super(PythonTestSuite, self).__init__(name, (), (), dependencies)

@@ -1,5 +1,0 @@
-@staticmethod
-def create_options(**kwargs):
-    options = dict(jar_create_outdir=None, jar_create_transitive=None, jar_create_compressed=None, jar_create_classes=None, jar_create_sources=None, jar_create_idl=None, jar_create_javadoc=None)
-    options.update(**kwargs)
-    return options

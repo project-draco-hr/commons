@@ -1,2 +1,0 @@
-def _convert(self, amount, to_unit):
-    return Amount(int(amount.as_(to_unit)), to_unit)

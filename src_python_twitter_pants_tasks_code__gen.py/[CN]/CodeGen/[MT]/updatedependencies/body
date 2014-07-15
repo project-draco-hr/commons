@@ -1,5 +1,0 @@
-def updatedependencies(self, target, dependency):
-    if hasattr(target, 'update_dependencies'):
-        target.update_dependencies([dependency])
-    else:
-        target.dependencies.add(dependency)

@@ -1,9 +1,0 @@
-@classmethod
-@contextmanager
-def begin(cls, timer=None):
-    'Begins a new ``Timer`` and yields it in a with context.\n\n    The timer will be finished if not already by the block yielded to.\n    '
-    t = Timer(timer)
-    try:
-        yield t
-    finally:
-        t.finish()

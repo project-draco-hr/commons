@@ -1,3 +1,0 @@
-@classmethod
-def scala_library(cls, path, name, deps=None):
-    cls._library(path, 'scala_library', name, deps)

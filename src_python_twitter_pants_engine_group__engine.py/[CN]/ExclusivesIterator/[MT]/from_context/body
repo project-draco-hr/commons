@@ -1,4 +1,0 @@
-@classmethod
-def from_context(cls, context):
-    exclusives = context.products.get_data('exclusives_groups')
-    return cls(exclusives)

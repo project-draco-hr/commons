@@ -1,3 +1,0 @@
-def assert_console_output(self, *output, **kwargs):
-    'Verifies the expected output entries are emitted by the console task under test.\n\n    NB: order of entries is not tested, just presence.\n\n    *output:  the expected output entries\n    **kwargs: additional kwargs are passed to the task constructor except for config args, targets\n              and extra_targets which are passed to execute_console_task.\n    '
-    self.assertEqual(sorted(output), sorted(self.execute_console_task(**kwargs)))

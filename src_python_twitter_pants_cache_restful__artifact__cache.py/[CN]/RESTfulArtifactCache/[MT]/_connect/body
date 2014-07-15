@@ -1,5 +1,0 @@
-def _connect(self):
-    if self._ssl:
-        return httplib.HTTPSConnection(self._netloc, timeout=self._timeout_secs)
-    else:
-        return httplib.HTTPConnection(self._netloc, timeout=self._timeout_secs)

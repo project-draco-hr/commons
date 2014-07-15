@@ -1,6 +1,0 @@
-def gen_file_map(self, targets, outdir):
-    gen_file_map = defaultdict(set)
-    for target in targets:
-        target_gen_file_map = self.gen_file_map_for_target(target, outdir)
-        gen_file_map.update(target_gen_file_map)
-    return gen_file_map

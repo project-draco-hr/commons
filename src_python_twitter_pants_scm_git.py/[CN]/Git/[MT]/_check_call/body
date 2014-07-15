@@ -1,5 +1,0 @@
-def _check_call(self, args, failure_msg=None, raise_type=None):
-    cmd = self._create_git_cmdline(args)
-    self._log_call(cmd)
-    result = subprocess.call(cmd)
-    self._check_result(cmd, result, failure_msg, raise_type)

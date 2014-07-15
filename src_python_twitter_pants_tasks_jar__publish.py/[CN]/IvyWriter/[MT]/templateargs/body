@@ -1,2 +1,0 @@
-def templateargs(self, target_jar, confs=None):
-    return dict(lib=target_jar.extend(publications=(set(confs) if confs else set()), overrides=None))

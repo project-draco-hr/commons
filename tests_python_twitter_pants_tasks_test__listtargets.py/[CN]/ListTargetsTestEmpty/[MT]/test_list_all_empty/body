@@ -1,4 +1,0 @@
-def test_list_all_empty(self):
-    self.assertEqual('', self.execute_task())
-    self.assertEqual('', self.execute_task(args=['--test-sep=###']))
-    self.assertEqual([], self.execute_console_task())

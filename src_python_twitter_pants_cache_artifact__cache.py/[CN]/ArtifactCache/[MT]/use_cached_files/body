@@ -1,3 +1,0 @@
-def use_cached_files(self, cache_key):
-    "Use the files cached for the given key.\n\n    Returns an appropriate Artifact instance if files were found and used, None otherwise.\n    Callers will typically only care about the truthiness of the return value. They usually\n    don't need to tinker with the returned instance.\n\n    cache_key: A CacheKey object.\n    "
-    pass

@@ -1,3 +1,0 @@
-def outputs(self):
-    'Returns the map of output name -> output buffer.'
-    return self._outputs

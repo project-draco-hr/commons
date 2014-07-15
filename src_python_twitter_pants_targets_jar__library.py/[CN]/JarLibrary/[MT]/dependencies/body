@@ -1,5 +1,0 @@
-@property
-def dependencies(self):
-    if (self._dependencies is None):
-        self._dependencies = self._resolve_overrides()
-    return self._dependencies

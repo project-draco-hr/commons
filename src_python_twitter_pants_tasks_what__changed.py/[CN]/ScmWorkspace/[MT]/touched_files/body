@@ -1,5 +1,0 @@
-def touched_files(self, parent):
-    try:
-        return self._scm.changed_files(from_commit=parent, include_untracked=True)
-    except Scm.ScmException as e:
-        raise self.WorkspaceError('Problem detecting changed files.', e)

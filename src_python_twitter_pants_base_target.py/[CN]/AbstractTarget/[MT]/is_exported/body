@@ -1,4 +1,0 @@
-@property
-def is_exported(self):
-    'Returns True if the target provides an artifact exportable from the repo.'
-    return (self.has_label('exportable') and self.provides)

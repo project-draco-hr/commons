@@ -1,6 +1,0 @@
-def render_name(self, template_name, args):
-    if self._template_dir:
-        return self._pystache_renderer.render_name(template_name, MustacheRenderer.expand(args))
-    else:
-        template = pkgutil.get_data(self._package_name, os.path.join('templates', (template_name + '.mustache')))
-        return self.render(template, args)

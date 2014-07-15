@@ -1,3 +1,0 @@
-def _self_time(self):
-    'Returns the time spent in this workunit outside of any children.'
-    return (self.duration() - sum([child.duration() for child in self.children]))

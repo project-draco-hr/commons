@@ -1,8 +1,0 @@
-def test_pre_release_build(self):
-    self.assertEqual(Revision.semver('1.2.3-pre1.release.1+1'), Revision.semver('1.2.3-pre1.release.1+1'))
-    self.assertComponents(Revision.semver('1.2.3-pre1.release.1+1'), 1, 2, 3, 'pre1', 'release', 1, 1)
-    self.assertTrue((Revision.semver('1.2.3-pre1.release.1') < Revision.semver('1.2.3-pre2.release.1+1')))
-    self.assertTrue((Revision.semver('1.2.3-pre1.release.2') > Revision.semver('1.2.3-pre1.release.1+1')))
-    self.assertTrue((Revision.semver('1.2.3') < Revision.semver('1.2.3-pre2.release.2+1.foo')))
-    self.assertTrue((Revision.semver('1.2.3-pre1.release.2+1') < Revision.semver('1.2.3-pre1.release.2+1.foo')))
-    self.assertTrue((Revision.semver('1.2.3-pre1.release.2+1') < Revision.semver('1.2.3-pre1.release.2+2')))

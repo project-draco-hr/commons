@@ -1,3 +1,0 @@
-@staticmethod
-def _portable_analysis_for_target(analysis_dir, target):
-    return (JvmCompile._analysis_for_target(analysis_dir, target) + '.portable')

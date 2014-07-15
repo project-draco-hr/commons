@@ -1,4 +1,0 @@
-def _partition(self, tests):
-    stride = min(self.batch_size, len(tests))
-    for i in xrange(0, len(tests), stride):
-        yield tests[i:(i + stride)]

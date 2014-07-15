@@ -1,4 +1,0 @@
-def test_less(self):
-    self.assertTrue((Version('1.6') < Version('2')))
-    self.assertTrue((Version('1.6') < Version('1.6.1')))
-    self.assertTrue((Version('1.6') < Version('1.10')))

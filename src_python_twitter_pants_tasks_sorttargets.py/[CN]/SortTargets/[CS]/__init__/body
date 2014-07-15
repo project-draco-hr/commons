@@ -1,3 +1,0 @@
-def __init__(self, *args, **kwargs):
-    super(SortTargets, self).__init__(*args, **kwargs)
-    self._reverse = self.context.options.sort_targets_reverse

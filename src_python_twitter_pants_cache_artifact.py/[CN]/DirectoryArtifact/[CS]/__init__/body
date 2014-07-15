@@ -1,3 +1,0 @@
-def __init__(self, artifact_root, directory):
-    Artifact.__init__(self, artifact_root)
-    self._directory = directory

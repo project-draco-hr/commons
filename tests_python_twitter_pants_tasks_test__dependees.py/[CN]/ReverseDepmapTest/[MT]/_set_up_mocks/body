@@ -1,4 +1,0 @@
-def _set_up_mocks(self, class_type, src_roots):
-    self.mox.StubOutWithMock(SourceRoot, 'roots')
-    SourceRoot.roots(class_type).AndReturn(src_roots)
-    self.mox.ReplayAll()

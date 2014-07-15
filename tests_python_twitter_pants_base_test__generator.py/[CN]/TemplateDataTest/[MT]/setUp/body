@@ -1,2 +1,0 @@
-def setUp(self):
-    self.data = TemplateData(foo='bar', baz=42)

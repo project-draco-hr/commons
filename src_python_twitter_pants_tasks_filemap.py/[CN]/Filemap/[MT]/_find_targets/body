@@ -1,9 +1,0 @@
-def _find_targets(self):
-    if (len(self.context.target_roots) > 0):
-        for target in self.context.target_roots:
-            yield target
-    else:
-        for buildfile in BuildFile.scan_buildfiles(get_buildroot()):
-            target_addresses = Target.get_all_addresses(buildfile)
-            for target_address in target_addresses:
-                yield Target.get(target_address)

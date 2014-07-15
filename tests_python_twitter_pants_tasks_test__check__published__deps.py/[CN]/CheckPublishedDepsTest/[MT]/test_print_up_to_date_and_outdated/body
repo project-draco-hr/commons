@@ -1,2 +1,0 @@
-def test_print_up_to_date_and_outdated(self):
-    self.assert_console_output('outdated org.name#lib1 1.0.0 latest 2.0.0', 'up-to-date org.name#lib2 2.0.0', targets=[self.target('both')], args=['--test-print-uptodate'])

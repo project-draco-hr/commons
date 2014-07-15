@@ -1,2 +1,0 @@
-def get_as_dict(self):
-    return self._info.copy()

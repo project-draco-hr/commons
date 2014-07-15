@@ -1,3 +1,0 @@
-def __init__(self, context):
-    super(BootstrapJvmTools, self).__init__(context)
-    context.products.require_data('jvm_build_tools')

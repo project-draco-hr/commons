@@ -1,2 +1,0 @@
-def is_scala_library(target):
-    return (target.has_sources('.scala') and (not is_binary(target)))

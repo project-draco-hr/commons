@@ -1,2 +1,0 @@
-def assertComponents(self, revision, *expected):
-    self.assertEqual(list(expected), revision.components)

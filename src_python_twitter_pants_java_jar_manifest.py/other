@@ -1,3 +1,0 @@
-from contextlib import closing
-from twitter.common.lang import Compatibility
-StringIO = Compatibility.StringIO

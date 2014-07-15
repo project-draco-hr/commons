@@ -1,7 +1,0 @@
-@contextmanager
-def timing(self, label):
-    'Convenient timing context.\n\n    Use like this:\n\n    with timer.timing(label):\n      ... the work that will be timed ...\n    '
-    start = self.now()
-    yield None
-    elapsed = (self.now() - start)
-    self.log(label, [elapsed])

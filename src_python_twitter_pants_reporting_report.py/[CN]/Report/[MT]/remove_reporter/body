@@ -1,5 +1,0 @@
-def remove_reporter(self, name):
-    with self._lock:
-        ret = self._reporters[name]
-        del self._reporters[name]
-        return ret

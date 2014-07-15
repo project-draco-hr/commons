@@ -1,3 +1,0 @@
-def parse_deps(self, infile, classpath_indexer):
-    'An efficient parser of just the binary, source and external deps sections.\n\n    classpath_indexer - a no-arg method that an implementation may call if it needs a mapping\n                        of class->element on the classpath that provides that class.\n                        We use this indirection to avoid unnecessary precomputation.\n\n    Returns a dict of src -> iterable of deps, where each item in deps is either a binary dep,\n    source dep or external dep, i.e., either a source file, a class file or a jar file.\n\n    All paths are absolute.\n    '
-    raise NotImplementedError()

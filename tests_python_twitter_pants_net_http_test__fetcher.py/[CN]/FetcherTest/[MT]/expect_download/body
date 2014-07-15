@@ -1,8 +1,0 @@
-def expect_download(self, path_or_fd=None):
-    downloaded = ''
-    for chunk in self.expect_get('http://1', chunk_size_bytes=13, timeout_secs=13, listener=False):
-        downloaded += chunk
-    self.response.close()
-    self.mox.ReplayAll()
-    path = self.fetcher.download('http://1', path_or_fd=path_or_fd, chunk_size=Amount(13, Data.BYTES), timeout=Amount(13, Time.SECONDS))
-    return (downloaded, path)

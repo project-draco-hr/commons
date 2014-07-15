@@ -1,7 +1,0 @@
-def __init__(self, context, check_missing_deps, check_missing_direct_deps, check_unnecessary_deps):
-    self._context = context
-    self._context.products.require_data('classes_by_target')
-    self._context.products.require_data('ivy_jar_products')
-    self._check_missing_deps = check_missing_deps
-    self._check_missing_direct_deps = check_missing_direct_deps
-    self._check_unnecessary_deps = check_unnecessary_deps

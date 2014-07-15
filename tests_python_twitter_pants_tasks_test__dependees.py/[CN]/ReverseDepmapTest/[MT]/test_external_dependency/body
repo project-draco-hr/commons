@@ -1,2 +1,0 @@
-def test_external_dependency(self):
-    self.assert_console_output('src/java/example/BUILD:example2', targets=[self.target('src/java/example/BUILD:mybird')])

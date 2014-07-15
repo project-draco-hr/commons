@@ -1,6 +1,0 @@
-def __init__(self, sock, ins, out, err):
-    self._sock = sock
-    self._send_chunk = partial(self._send_chunk, sock)
-    self._input_reader = (self._InputReader(ins, self._sock, self.BUFF_SIZE) if ins else None)
-    self._out = out
-    self._err = err

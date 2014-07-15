@@ -1,6 +1,0 @@
-def localize(self, src_analysis, localized_analysis):
-    with temporary_dir() as tmp_analysis_dir:
-        tmp_analysis_file = os.path.join(tmp_analysis_dir, 'analysis')
-        rebasings = [(AnalysisTools._IVY_HOME_PLACEHOLDER, self._ivy_home), (AnalysisTools._PANTS_HOME_PLACEHOLDER, self._pants_home)]
-        self._rebase_from_path(src_analysis, tmp_analysis_file, rebasings)
-        shutil.move(tmp_analysis_file, localized_analysis)

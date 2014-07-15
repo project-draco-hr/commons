@@ -1,3 +1,0 @@
-def duration(self):
-    'Returns the time (in fractional seconds) spent in this workunit and its children.'
-    return ((self.end_time or time.time()) - self.start_time)

@@ -1,3 +1,0 @@
-@staticmethod
-def _is_jvm(target):
-    return (target.is_jvm or target.is_jvm_app)

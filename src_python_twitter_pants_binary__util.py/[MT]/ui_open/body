@@ -1,8 +1,0 @@
-def ui_open(*files):
-    'Attempts to open the given files using the preferred native viewer or editor.'
-    if files:
-        osname = os.uname()[0].lower()
-        if (not (osname in _OPENER_BY_OS)):
-            print(('Sorry, open currently not supported for ' + osname))
-        else:
-            _OPENER_BY_OS[osname](files)

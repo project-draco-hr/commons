@@ -1,6 +1,0 @@
-def test_hash_all(self):
-    self.digest.update('jake')
-    self.digest.update('jones')
-    self.digest.hexdigest().AndReturn('42')
-    self.mox.ReplayAll()
-    self.assertEqual('42', hash_all(['jake', 'jones'], digest=self.digest))

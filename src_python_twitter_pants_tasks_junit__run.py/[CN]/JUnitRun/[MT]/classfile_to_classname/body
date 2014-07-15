@@ -1,4 +1,0 @@
-@staticmethod
-def classfile_to_classname(cls):
-    (clsname, _) = os.path.splitext(cls.replace('/', '.'))
-    return clsname

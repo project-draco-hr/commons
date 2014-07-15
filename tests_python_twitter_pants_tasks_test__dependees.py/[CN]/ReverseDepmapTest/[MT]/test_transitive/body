@@ -1,2 +1,0 @@
-def test_transitive(self):
-    self.assert_console_output('overlaps/BUILD:one', 'overlaps/BUILD:three', 'overlaps/BUILD:four', 'overlaps/BUILD:five', args=['--test-transitive'], targets=[self.target('common/b')])

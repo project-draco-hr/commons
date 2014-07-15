@@ -1,3 +1,0 @@
-def submit_foreground_work_and_wait(self, work, workunit_parent=None):
-    'Returns the pool to which tasks can submit foreground (blocking) work.'
-    return self.run_tracker.foreground_worker_pool().submit_work_and_wait(work, workunit_parent=workunit_parent)

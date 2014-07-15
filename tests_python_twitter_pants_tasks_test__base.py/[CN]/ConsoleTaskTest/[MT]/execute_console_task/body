@@ -1,4 +1,0 @@
-def execute_console_task(self, config=None, args=None, targets=None, extra_targets=None, **kwargs):
-    "Creates a new task and executes it with the given config, command line args and targets.\n\n    config:        an optional string representing the contents of a pants.ini config.\n    args:          optional list of command line flags, these should be prefixed with '--test-'.\n    targets:       optional list of Target objects passed on the command line.\n    extra_targets: optional list of extra targets in the context in addition to those passed on the\n                   command line\n    **kwargs: additional kwargs are passed to the task constructor.\n\n    Returns the list of items returned from invoking the console task's console_output method.\n    "
-    task = prepare_task(self.task_type(), config=config, args=args, targets=targets, **kwargs)
-    return list(task.console_output((list((targets or ())) + list((extra_targets or ())))))

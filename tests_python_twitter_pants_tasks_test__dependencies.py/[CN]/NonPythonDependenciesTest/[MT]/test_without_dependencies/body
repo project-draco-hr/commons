@@ -1,2 +1,0 @@
-def test_without_dependencies(self):
-    self.assert_console_output('dependencies/BUILD:third', targets=[self.target('dependencies:third')])

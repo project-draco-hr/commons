@@ -1,2 +1,0 @@
-def jar_coordinate(jar, rev=None):
-    return coordinate(jar.org, jar.name, (rev or jar.rev))

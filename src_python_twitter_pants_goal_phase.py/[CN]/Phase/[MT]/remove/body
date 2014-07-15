@@ -1,8 +1,0 @@
-def remove(self, name):
-    "Removes the named goal from this phase's list of goals to attempt."
-    goals = self.goals()
-    for goal in goals:
-        if (goal.name == name):
-            goals.remove(goal)
-            return self
-    raise GoalError(('Goal %s does not exist in this phase, members are: %s' % (name, goals)))

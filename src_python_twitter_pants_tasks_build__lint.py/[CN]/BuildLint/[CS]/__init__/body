@@ -1,8 +1,0 @@
-def __init__(self, context):
-    Task.__init__(self, context)
-    context.products.require('missing_deps')
-    self.transitive = context.options.buildlint_transitive
-    self.actions = set(context.options.buildlint_actions)
-    self.include_intransitive = context.options.buildlint_include_intransitive
-    if (not self.actions):
-        self.actions.add('diff')

@@ -1,3 +1,0 @@
-@classmethod
-def fromConfig(cls, context, config):
-    return cls(context, **config._asdict())

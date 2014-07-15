@@ -1,2 +1,0 @@
-def tearDown(self):
-    Target._clear_all_addresses()

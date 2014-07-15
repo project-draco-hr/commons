@@ -1,3 +1,0 @@
-@classmethod
-def synthetic_name(cls, targets):
-    return (list(targets)[0].name if (len(targets) > 0) else 'empty')

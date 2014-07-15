@@ -1,3 +1,0 @@
-def __init__(self, cmd):
-    'Creates an xargs engine that calls cmd with argument chunks.\n\n    :param cmd: A function that can execute a command line in the form of a list of strings\n      passed as its sole argument.\n    '
-    self._cmd = cmd

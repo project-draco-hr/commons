@@ -1,4 +1,0 @@
-def __init__(self, action=None):
-    super(EngineTest.RecordingEngine, self).__init__(print_timing=False)
-    self._action = action
-    self._attempts = []

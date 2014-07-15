@@ -1,3 +1,0 @@
-import os
-from twitter.pants.base.build_environment import get_buildroot
-from twitter.pants.tasks import Task

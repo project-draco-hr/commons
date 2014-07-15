@@ -1,2 +1,0 @@
-def rel_paths(self):
-    return self._rel_paths

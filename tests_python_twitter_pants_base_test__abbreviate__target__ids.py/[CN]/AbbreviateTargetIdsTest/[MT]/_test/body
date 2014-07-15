@@ -1,2 +1,0 @@
-def _test(self, expected, *actual):
-    self.assertEqual(expected, abbreviate_target_ids(actual))

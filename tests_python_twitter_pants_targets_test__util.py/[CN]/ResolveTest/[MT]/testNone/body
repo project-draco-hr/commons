@@ -1,2 +1,0 @@
-def testNone(self):
-    self.assertEquals(resolve(None, clazz=MockPantsTarget), None)

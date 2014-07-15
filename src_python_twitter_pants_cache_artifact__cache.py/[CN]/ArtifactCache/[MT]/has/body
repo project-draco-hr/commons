@@ -1,2 +1,0 @@
-def has(self, cache_key):
-    pass

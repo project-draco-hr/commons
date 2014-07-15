@@ -1,2 +1,0 @@
-def setUp(self):
-    Target._clear_all_addresses()

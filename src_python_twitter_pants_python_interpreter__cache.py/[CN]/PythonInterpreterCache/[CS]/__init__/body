@@ -1,6 +1,0 @@
-def __init__(self, config, logger=None):
-    self._path = self.cache_dir(config)
-    self._config = config
-    safe_mkdir(self._path)
-    self._interpreters = set()
-    self._logger = (logger or (lambda msg: True))

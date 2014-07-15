@@ -1,2 +1,0 @@
-def _exit_and_fail(msg=None):
-    _do_exit(result=1, msg=msg)

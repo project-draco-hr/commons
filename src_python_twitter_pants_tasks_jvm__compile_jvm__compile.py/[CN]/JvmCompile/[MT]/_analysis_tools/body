@@ -1,5 +1,0 @@
-@property
-def _analysis_tools(self):
-    if (self._lazy_analysis_tools is None):
-        self._lazy_analysis_tools = self.create_analysis_tools()
-    return self._lazy_analysis_tools

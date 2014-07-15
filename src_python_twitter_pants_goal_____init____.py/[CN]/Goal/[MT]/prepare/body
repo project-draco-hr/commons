@@ -1,3 +1,0 @@
-def prepare(self, context):
-    'Prepares a Task that can be executed to achieve this goal.'
-    return self._task(context)

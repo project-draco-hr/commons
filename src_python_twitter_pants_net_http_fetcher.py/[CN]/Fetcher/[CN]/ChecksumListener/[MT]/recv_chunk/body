@@ -1,2 +1,0 @@
-def recv_chunk(self, data):
-    self.digest.update(data)

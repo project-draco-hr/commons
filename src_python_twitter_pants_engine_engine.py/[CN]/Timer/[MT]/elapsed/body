@@ -1,6 +1,0 @@
-@property
-def elapsed(self):
-    'Returns the total elapsed time in fractional seconds from the creation of this timer until\n    it was ``finished``.\n    '
-    if (self._elapsed is None):
-        raise ValueError('Timer has not been finished yet.')
-    return self._elapsed

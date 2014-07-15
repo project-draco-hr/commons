@@ -1,4 +1,0 @@
-@property
-def is_codegen(self):
-    'Returns True if the target is a codegen target.'
-    return self.has_label('codegen')

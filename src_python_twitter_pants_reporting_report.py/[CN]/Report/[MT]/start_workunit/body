@@ -1,5 +1,0 @@
-def start_workunit(self, workunit):
-    with self._lock:
-        self._workunits[workunit.id] = workunit
-        for reporter in self._reporters.values():
-            reporter.start_workunit(workunit)

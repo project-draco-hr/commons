@@ -1,9 +1,0 @@
-def _key_to_map(self, key):
-    result = {}
-    if ((key == '<none>') or (key == '')):
-        return result
-    pairs = key.split(',')
-    for p in pairs:
-        (k, v) = p.split('=')
-        result[k] = v
-    return result

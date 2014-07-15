@@ -1,2 +1,0 @@
-def error(self, *msg_elements):
-    self._maybe_log(Report.ERROR, *msg_elements)

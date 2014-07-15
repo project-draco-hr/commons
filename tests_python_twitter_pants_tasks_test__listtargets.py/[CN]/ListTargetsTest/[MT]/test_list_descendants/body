@@ -1,3 +1,0 @@
-def test_list_descendants(self):
-    self.assert_console_output('a/b/c/BUILD:c', 'a/b/c/BUILD:c2', 'a/b/c/BUILD:c3', targets=self.targets('a/b/c/::'))
-    self.assert_console_output('a/b/BUILD:b', 'a/b/c/BUILD:c', 'a/b/c/BUILD:c2', 'a/b/c/BUILD:c3', 'a/b/d/BUILD:d', 'a/b/e/BUILD:e1', targets=self.targets('a/b::'))

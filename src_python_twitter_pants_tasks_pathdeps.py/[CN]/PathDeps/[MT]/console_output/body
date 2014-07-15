@@ -1,2 +1,0 @@
-def console_output(self, targets):
-    return set((t.address.buildfile.parent_path for t in targets if hasattr(t, 'address')))

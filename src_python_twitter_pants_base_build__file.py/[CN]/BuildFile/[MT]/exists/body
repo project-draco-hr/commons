@@ -1,3 +1,0 @@
-def exists(self):
-    'Returns True if this BuildFile corresponds to a real BUILD file on disk.'
-    return os.path.exists(self.full_path)

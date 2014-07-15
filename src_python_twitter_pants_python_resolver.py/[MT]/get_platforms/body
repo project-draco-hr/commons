@@ -1,5 +1,0 @@
-def get_platforms(platform_list):
-
-    def translate(platform):
-        return (Platform.current() if (platform == 'current') else platform)
-    return tuple(set(map(translate, platform_list)))

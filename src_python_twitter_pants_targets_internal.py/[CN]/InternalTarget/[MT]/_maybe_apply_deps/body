@@ -1,7 +1,0 @@
-def _maybe_apply_deps(self):
-    if (self._processed_dependencies is not None):
-        self.update_dependencies(self._processed_dependencies)
-        self._processed_dependencies = None
-    if self._injected_deps:
-        self.update_dependencies(resolve(self._injected_deps))
-        self._injected_deps = []

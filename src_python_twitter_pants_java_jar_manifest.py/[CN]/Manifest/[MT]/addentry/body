@@ -1,6 +1,0 @@
-def addentry(self, header, value):
-    if (len(header) > 68):
-        raise ValueError(('Header name must be 68 characters or less, given %s' % header))
-    if self._contents:
-        self._contents += '\n'
-    self._contents += '\n'.join(self._wrap(('%s: %s' % (header, value))))

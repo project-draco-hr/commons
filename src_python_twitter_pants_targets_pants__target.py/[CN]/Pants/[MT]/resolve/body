@@ -1,6 +1,0 @@
-def resolve(self):
-    resolved = Target.get(self.address)
-    if (not resolved):
-        raise TargetDefinitionException(self, ('%s%s' % (self._DEFINITION_ERROR_MSG, self.address)))
-    for dep in resolved.resolve():
-        yield dep

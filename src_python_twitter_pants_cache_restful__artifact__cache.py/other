@@ -1,6 +1,0 @@
-import httplib
-import urlparse
-from twitter.common.contextutil import temporary_file_path, temporary_file
-from twitter.common.quantity import Amount, Data
-from twitter.pants.cache.artifact import TarballArtifact
-from twitter.pants.cache.artifact_cache import ArtifactCache

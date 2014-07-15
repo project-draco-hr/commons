@@ -1,3 +1,0 @@
-def run(self, lock):
-    'Subcommands that are serialized() should override if they need the ability to interact with\n    the global command lock.\n    The value returned should be an int, 0 indicating success and any other value indicating\n    failure.'
-    return self.execute()

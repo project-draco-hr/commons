@@ -1,3 +1,0 @@
-def insert(self, cache_key, paths):
-    if self._write_artifact_cache:
-        self._write_artifact_cache.insert(cache_key, paths)

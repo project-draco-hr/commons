@@ -1,6 +1,0 @@
-def _parse_num_items(self, line):
-    "Parse a line of the form '<num> items' and returns <num> as an int."
-    matchobj = JMakeAnalysisParser.num_items_re.match(line)
-    if (not matchobj):
-        raise ParseError(('Expected: "<num> items". Found: "%s"' % line))
-    return int(matchobj.group(1))

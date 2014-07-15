@@ -1,3 +1,0 @@
-def check_artifact_cache_for(self, invalidation_check):
-    'Decides which VTS to check the artifact cache for.\n\n    By default we check for each invalid target. Can be overridden, e.g., to\n    instead check only for a single artifact for the entire target set.\n    '
-    return invalidation_check.invalid_vts

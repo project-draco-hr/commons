@@ -1,9 +1,0 @@
-@staticmethod
-def _wrap(text):
-    with closing(StringIO(text)) as fp:
-        yield fp.read(70)
-        while True:
-            chunk = fp.read(69)
-            if (not chunk):
-                return
-            yield (' %s' % chunk)

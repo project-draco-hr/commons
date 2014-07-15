@@ -1,2 +1,0 @@
-def test_identical(self):
-    self.assert_console_output('common/a/BUILD:a', targets=[self.target('common/a'), self.target('common/a'), self.target('common/a')])

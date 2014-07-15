@@ -1,3 +1,0 @@
-def genlang(self, lang, targets):
-    'Subclass must override and generate code in :lang for the given targets.\n\n    May return a list of pairs (target, files) where files is a list of files\n    to be cached against the target.\n    '
-    raise NotImplementedError

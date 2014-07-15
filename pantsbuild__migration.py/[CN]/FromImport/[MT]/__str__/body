@@ -1,2 +1,0 @@
-def __str__(self):
-    return (u'from %s import %s' % (self._from, u', '.join(sorted(self._symbols))))

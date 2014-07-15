@@ -1,2 +1,0 @@
-def sort_key(self):
-    return (u'ZZZ' + self._from)

@@ -1,2 +1,0 @@
-def _report_targets(self, prefix, targets, suffix):
-    self.context.log.info(prefix, items_to_report_element([t.address.reference() for t in targets], 'target'), suffix)

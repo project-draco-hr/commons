@@ -1,3 +1,0 @@
-def end_workunit(self, workunit):
-    'A workunit has finished.'
-    pass

@@ -1,3 +1,0 @@
-def unaccounted_time(self):
-    'Returns non-leaf time spent in this workunit.\n\n    This assumes that all major work should be done in leaves.\n    TODO: Is this assumption valid?\n    '
-    return (0 if (len(self.children) == 0) else self._self_time())

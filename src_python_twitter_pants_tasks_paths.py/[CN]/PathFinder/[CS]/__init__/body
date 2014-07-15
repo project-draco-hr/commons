@@ -1,4 +1,0 @@
-def __init__(self, context):
-    ConsoleTask.__init__(self, context)
-    self.log = context.log
-    self.target_roots = context.target_roots

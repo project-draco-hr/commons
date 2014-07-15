@@ -1,6 +1,0 @@
-def __init__(self, context, parser, analysis_cls):
-    self.parser = parser
-    self._java_home = context.java_home
-    self._ivy_home = context.ivy_home
-    self._pants_home = get_buildroot()
-    self._analysis_cls = analysis_cls

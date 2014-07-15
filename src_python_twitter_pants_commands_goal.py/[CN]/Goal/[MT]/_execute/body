@@ -1,4 +1,0 @@
-@staticmethod
-def _execute(context, phases, print_timing):
-    engine = GroupEngine(print_timing=print_timing)
-    return engine.execute(context, phases)

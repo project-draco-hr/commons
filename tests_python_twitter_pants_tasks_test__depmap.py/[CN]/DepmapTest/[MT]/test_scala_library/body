@@ -1,2 +1,0 @@
-def test_scala_library(self):
-    self.assert_console_output('internal-common.c.c', targets=[self.target('common/c')])

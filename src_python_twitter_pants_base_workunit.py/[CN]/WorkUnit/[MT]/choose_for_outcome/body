@@ -1,6 +1,0 @@
-@staticmethod
-def choose_for_outcome(outcome, aborted_val, failure_val, warning_val, success_val, unknown_val):
-    'Returns one of the 5 arguments, depending on the outcome.'
-    if (outcome not in range(0, 5)):
-        raise Exception(('Invalid outcome: %s' % outcome))
-    return (aborted_val, failure_val, warning_val, success_val, unknown_val)[outcome]

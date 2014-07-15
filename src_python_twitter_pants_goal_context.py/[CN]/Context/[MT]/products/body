@@ -1,4 +1,0 @@
-@property
-def products(self):
-    'Returns the Products manager for the current run.'
-    return self._products

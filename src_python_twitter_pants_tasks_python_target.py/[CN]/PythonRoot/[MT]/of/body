@@ -1,4 +1,0 @@
-@classmethod
-def of(cls, target):
-    with ParseContext.temp():
-        return cls(target.name, dependencies=[target])

@@ -1,3 +1,0 @@
-def delete(self, cache_key):
-    if self._write_artifact_cache:
-        self._write_artifact_cache.delete(cache_key)

@@ -1,5 +1,0 @@
-import os
-import unittest
-from twitter.common.contextutil import temporary_dir
-from twitter.common.dirutil import safe_mkdir, touch
-from twitter.pants.fs.archive import TAR, TGZ, TBZ2, ZIP

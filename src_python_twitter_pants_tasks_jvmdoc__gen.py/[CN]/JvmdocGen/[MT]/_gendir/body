@@ -1,2 +1,0 @@
-def _gendir(self, target):
-    return os.path.join(self._output_dir, target.id)

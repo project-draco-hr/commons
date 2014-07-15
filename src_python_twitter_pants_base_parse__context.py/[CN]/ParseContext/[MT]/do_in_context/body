@@ -1,6 +1,0 @@
-def do_in_context(self, work):
-    'Executes the callable work in this parse context.'
-    if (not callable(work)):
-        raise TypeError('work must be a callable object')
-    with ParseContext.activate(self):
-        return work()

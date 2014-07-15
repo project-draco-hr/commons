@@ -1,4 +1,0 @@
-def test_no_source_root(self):
-    with register_sourceroot() as sourceroot:
-        sourceroot(os.path.join(get_buildroot(), 'fakeroot'))
-        self.assert_console_output('fakeroot: *')

@@ -1,2 +1,0 @@
-def _cleanse(self, output):
-    return output.strip().decode('utf-8')

@@ -1,8 +1,0 @@
-def create_config(sample_ini='', defaults=None):
-    'Creates a ``Config`` from the ``sample_ini`` file contents.\n\n  :param string sample_ini: The contents of the ini file containing the config values.\n  :param dict defaults: An optional dict of global default ini values to seed.\n  '
-    if (not isinstance(sample_ini, Compatibility.string)):
-        raise ValueError(('The sample_ini supplied must be a string, given: %s' % sample_ini))
-    parser = Config.create_parser(defaults)
-    with io.BytesIO(sample_ini) as ini:
-        parser.readfp(ini)
-    return Config(parser)

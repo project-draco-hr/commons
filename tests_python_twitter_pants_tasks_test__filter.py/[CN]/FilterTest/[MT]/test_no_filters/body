@@ -1,2 +1,0 @@
-def test_no_filters(self):
-    self.assert_console_output('common/a/BUILD:a', 'common/a/BUILD:foo', 'common/b/BUILD:b', 'common/b/BUILD:foo', 'common/c/BUILD:c', 'common/c/BUILD:foo', 'overlaps/BUILD:one', 'overlaps/BUILD:two', 'overlaps/BUILD:three', 'overlaps/BUILD:foo', targets=self.targets('::'))

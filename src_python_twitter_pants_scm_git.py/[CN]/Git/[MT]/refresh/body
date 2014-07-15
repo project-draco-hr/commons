@@ -1,3 +1,0 @@
-def refresh(self):
-    (remote, merge) = self._get_upstream()
-    self._check_call(['pull', '--ff-only', '--tags', remote, merge], raise_type=Scm.RemoteException)

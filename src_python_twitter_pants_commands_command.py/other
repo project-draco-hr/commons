@@ -1,4 +1,0 @@
-from __future__ import print_function
-from twitter.common.collections import OrderedSet
-from twitter.pants.base.build_file import BuildFile
-from twitter.pants.base.target import Target

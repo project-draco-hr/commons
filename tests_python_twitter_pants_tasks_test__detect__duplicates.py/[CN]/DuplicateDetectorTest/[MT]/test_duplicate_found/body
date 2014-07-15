@@ -1,4 +1,0 @@
-def test_duplicate_found(self):
-    options = {'fail_fast': False, }
-    task = DuplicateDetector(create_context(options=options))
-    self.assertTrue(task._is_conflicts(self.path_with_duplicates, None))

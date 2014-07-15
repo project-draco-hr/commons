@@ -1,5 +1,0 @@
-def _propagate_exclusives(self):
-    if (self.exclusives is None):
-        self.exclusives = collections.defaultdict(set)
-        self.add_to_exclusives(self.declared_exclusives)
-        self.walk((lambda t: self._propagate_exclusives_work(t)))

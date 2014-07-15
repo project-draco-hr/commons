@@ -1,8 +1,0 @@
-def test_validation(self):
-    with ParseContext.temp('PythonTargetTest/test_validation'):
-        self.assertRaises(TargetDefinitionException, PythonTarget, name='one', sources=[], provides=Artifact(org='com.twitter', name='one-jar', repo=Repository(name='internal', url=None, push_db=None, exclusives=None)))
-        name = 'test-with-PythonArtifact'
-        pa = PythonArtifact(name='foo', version='1.0', description='foo')
-        self.assertEquals(PythonTarget(name=name, provides=pa, sources=[]).name, name)
-        name = 'test-with-none'
-        self.assertEquals(PythonTarget(name=name, provides=None, sources=[]).name, name)

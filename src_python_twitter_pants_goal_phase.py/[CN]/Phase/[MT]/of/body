@@ -1,3 +1,0 @@
-@staticmethod
-def of(goal):
-    return Phase._phase_by_goal[goal]

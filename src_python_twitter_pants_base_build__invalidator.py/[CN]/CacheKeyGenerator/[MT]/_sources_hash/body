@@ -1,9 +1,0 @@
-def _sources_hash(self, sha, paths):
-    'Update a SHA1 digest with the content of all files under the given paths.\n\n    :returns: The files found under the given paths.\n    '
-    files = []
-    for (relative_filename, filename) in self._walk_paths(paths):
-        with open(filename, 'rb') as fd:
-            sha.update(Compatibility.to_bytes(relative_filename))
-            sha.update(fd.read())
-        files.append(filename)
-    return files

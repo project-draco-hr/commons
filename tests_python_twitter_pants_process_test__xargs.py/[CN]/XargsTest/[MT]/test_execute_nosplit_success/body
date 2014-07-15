@@ -1,4 +1,0 @@
-def test_execute_nosplit_success(self):
-    self.call(['one', 'two', 'three', 'four']).AndReturn(0)
-    self.mox.ReplayAll()
-    self.assertEqual(0, self.xargs.execute(['one', 'two', 'three', 'four']))

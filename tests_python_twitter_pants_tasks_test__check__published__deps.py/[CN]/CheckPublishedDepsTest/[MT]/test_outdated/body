@@ -1,2 +1,0 @@
-def test_outdated(self):
-    self.assert_console_output('outdated org.name#lib1 1.0.0 latest 2.0.0', targets=[self.target('outdated')])

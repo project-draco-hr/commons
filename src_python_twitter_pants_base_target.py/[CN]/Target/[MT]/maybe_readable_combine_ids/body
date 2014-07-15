@@ -1,5 +1,0 @@
-@classmethod
-def maybe_readable_combine_ids(cls, ids):
-    'Generates combined id for a set of ids, but if the set is a single id, just use that.'
-    ids = list(ids)
-    return (ids[0] if (len(ids) == 1) else cls.combine_ids(ids))

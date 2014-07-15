@@ -1,3 +1,0 @@
-def __init__(self, root):
-    self._root = root
-    self._rel_paths = OrderedSet()

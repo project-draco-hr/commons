@@ -1,3 +1,0 @@
-def rel_paths(self):
-    for (root, products) in self._rooted_products_by_root.items():
-        yield (root, products.rel_paths())

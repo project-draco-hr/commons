@@ -1,1 +1,0 @@
-from twitter.pants.cache.artifact_cache import ArtifactCache

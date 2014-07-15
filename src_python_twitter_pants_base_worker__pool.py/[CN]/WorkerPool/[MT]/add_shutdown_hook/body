@@ -1,2 +1,0 @@
-def add_shutdown_hook(self, hook):
-    self._shutdown_hooks.append(hook)

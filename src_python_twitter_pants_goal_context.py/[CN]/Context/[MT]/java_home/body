@@ -1,4 +1,0 @@
-@property
-def java_home(self):
-    'Find the java home for the JVM we use.'
-    return os.path.realpath(os.path.dirname(self.java_sysprops['java.home']))

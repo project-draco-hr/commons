@@ -1,3 +1,0 @@
-def getint(self, section, option, default=None):
-    'Equivalent to calling get with expected type int'
-    return self.get(section, option, type=int, default=default)

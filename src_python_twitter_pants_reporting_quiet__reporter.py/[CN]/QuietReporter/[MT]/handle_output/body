@@ -1,3 +1,0 @@
-def handle_output(self, workunit, label, s):
-    'Implementation of Reporter callback.'
-    pass

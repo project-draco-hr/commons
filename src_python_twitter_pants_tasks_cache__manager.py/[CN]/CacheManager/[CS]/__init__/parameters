@@ -1,6 +1,0 @@
-self
-cache_key_generator
-build_invalidator_dir
-invalidate_dependents
-extra_data
-only_externaldeps

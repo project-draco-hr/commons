@@ -1,2 +1,0 @@
-def test_all(self):
-    self.assert_console_output('common/a/one.py common/a/BUILD:a', 'common/b/two.py common/b/BUILD:b', 'common/b/three.py common/b/BUILD:b', 'common/c/four.py common/c/BUILD:c')

@@ -1,3 +1,0 @@
-@classmethod
-def register_source(cls, source, target):
-    cls._source_to_targets[source].add(target)

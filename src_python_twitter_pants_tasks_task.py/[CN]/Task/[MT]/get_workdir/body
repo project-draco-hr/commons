@@ -1,2 +1,0 @@
-def get_workdir(self, section='default', key='workdir', workdir=None):
-    return self.context.config.get(section, key, default=os.path.join(self._pants_workdir, (workdir or self.__class__.__name__.lower())))

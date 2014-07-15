@@ -1,7 +1,0 @@
-def _pagerank(self, dependees_by_target, dependencies_by_target, pagerank_by_target):
-    'Calculate PageRank.'
-    d = 0.85
-    for x in range(0, 100):
-        for (target, dependees) in dependees_by_target.iteritems():
-            contributions = map((lambda t: (pagerank_by_target[t] / len(dependencies_by_target[t]))), dependees)
-            pagerank_by_target[target] = ((1 - d) + (d * sum(contributions)))

@@ -1,6 +1,0 @@
-def do_handle_log(self, workunit, level, *msg_elements):
-    'Implementation of Reporter callback.'
-    content = ('<span class="%s">%s</span>' % (HtmlReporter._log_level_css_map[level], self._render_message(*msg_elements)))
-    args = {'content_id': uuid.uuid4(), 'workunit_id': workunit.id, 'content': content, }
-    s = self._renderer.render_name('append_to_workunit', args)
-    self._emit(s)

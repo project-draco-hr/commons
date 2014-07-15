@@ -1,2 +1,0 @@
-def serialize(self):
-    return any([x.serialize for x in self.goals()])

@@ -1,2 +1,0 @@
-def jardep(self, jar):
-    return self._jardep(jar, transitive=jar.transitive, configurations=jar._configurations)

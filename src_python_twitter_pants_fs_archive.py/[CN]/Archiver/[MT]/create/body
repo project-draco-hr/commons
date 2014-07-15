@@ -1,3 +1,0 @@
-@abstractmethod
-def create(self, basedir, outdir, name, prefix=None):
-    'Creates an archive of all files found under basedir to a file at outdir of the given name.\n\n    If prefix is specified, it should be prepended to all archive paths.\n    '

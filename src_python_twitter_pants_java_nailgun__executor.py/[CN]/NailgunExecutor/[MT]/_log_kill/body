@@ -1,4 +1,0 @@
-@staticmethod
-def _log_kill(pid, port=None, logger=None):
-    logger = (logger or log.info)
-    logger(('killing ng server @ pid:%d%s' % (pid, ((' port:%d' % port) if port else ''))))

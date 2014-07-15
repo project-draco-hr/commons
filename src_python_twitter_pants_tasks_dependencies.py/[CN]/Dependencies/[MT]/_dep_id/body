@@ -1,8 +1,0 @@
-def _dep_id(self, dep):
-    if isinstance(dep, JarDependency):
-        if dep.rev:
-            return (False, ('%s:%s:%s' % (dep.org, dep.name, dep.rev)))
-        else:
-            return (True, ('%s:%s' % (dep.org, dep.name)))
-    else:
-        return (True, str(dep.address))

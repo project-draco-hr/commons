@@ -1,2 +1,0 @@
-def version(self):
-    return ('%s.%s.%s' % (self.major, self.minor, (('%s-SNAPSHOT' % self.patch) if self.snapshot else self.patch)))

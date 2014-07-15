@@ -1,2 +1,0 @@
-def __init__(self, context, output_dir=None, confs=None, active=True):
-    super(ScaladocGen, self).__init__(context, scaladoc, output_dir, confs, active)

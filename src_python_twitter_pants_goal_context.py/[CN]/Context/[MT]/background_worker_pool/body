@@ -1,3 +1,0 @@
-def background_worker_pool(self):
-    'Returns the pool to which tasks can submit background work.'
-    return self.run_tracker.background_worker_pool()

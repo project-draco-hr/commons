@@ -1,3 +1,0 @@
-def test_type(self):
-    self.assert_console_output(args=['--test-type=page'])
-    self.assert_console_output(args=['--test-type=-java_library'])

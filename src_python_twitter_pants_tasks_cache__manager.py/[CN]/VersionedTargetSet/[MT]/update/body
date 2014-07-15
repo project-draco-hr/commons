@@ -1,2 +1,0 @@
-def update(self):
-    self._cache_manager.update(self)

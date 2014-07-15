@@ -1,2 +1,0 @@
-def should_build(self, python, platform):
-    return self._version_filter(python, platform)

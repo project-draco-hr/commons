@@ -1,3 +1,0 @@
-@classmethod
-def touch(cls, path):
-    touch(os.path.join(BuildFileTest.root_dir, path))

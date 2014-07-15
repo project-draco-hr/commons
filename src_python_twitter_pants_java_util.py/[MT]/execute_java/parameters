@@ -1,8 +1,0 @@
-classpath
-main
-jvm_options
-args
-executor
-workunit_factory
-workunit_name
-workunit_labels

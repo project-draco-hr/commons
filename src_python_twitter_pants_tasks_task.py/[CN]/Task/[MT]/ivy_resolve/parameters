@@ -1,7 +1,0 @@
-self
-targets
-executor
-symlink_ivyxml
-silent
-workunit_name
-workunit_labels

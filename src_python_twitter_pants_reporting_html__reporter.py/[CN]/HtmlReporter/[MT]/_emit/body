@@ -1,5 +1,0 @@
-def _emit(self, s):
-    'Append content to the main report file.'
-    if os.path.exists(self._html_dir):
-        self._report_file.write(s)
-        self._report_file.flush()

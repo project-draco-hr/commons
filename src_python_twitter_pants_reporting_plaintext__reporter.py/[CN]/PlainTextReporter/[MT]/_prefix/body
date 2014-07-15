@@ -1,5 +1,0 @@
-def _prefix(self, workunit, s):
-    if self.settings.indent:
-        return s.replace('\n', (('\n' + PlainTextReporter._time_string_filler) + self._indent(workunit)))
-    else:
-        return (PlainTextReporter._time_string_filler + s)

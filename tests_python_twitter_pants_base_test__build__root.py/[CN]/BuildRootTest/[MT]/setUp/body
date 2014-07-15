@@ -1,4 +1,0 @@
-def setUp(self):
-    self.original_root = BuildRoot().path
-    self.new_root = os.path.realpath(safe_mkdtemp())
-    BuildRoot().reset()

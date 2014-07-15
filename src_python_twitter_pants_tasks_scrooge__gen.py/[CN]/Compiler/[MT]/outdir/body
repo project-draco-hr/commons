@@ -1,6 +1,0 @@
-@property
-def outdir(self):
-    pants_workdir_fallback = os.path.join(get_buildroot(), '.pants.d')
-    workdir_fallback = os.path.join(self.context.config.getdefault('pants_workdir', default=pants_workdir_fallback), self.name)
-    outdir = (self.context.options.scrooge_gen_create_outdir or self.context.config.get(self.config_section, 'workdir', default=workdir_fallback))
-    return os.path.relpath(outdir)

@@ -1,3 +1,0 @@
-@abstractmethod
-def touched_files(self, parent):
-    'Returns the set of paths modified between the given parent commit and the current local\n    workspace state.\n    '

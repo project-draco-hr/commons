@@ -1,7 +1,0 @@
-def _tempname(self):
-    pants_workdir = self.context.config.getdefault('pants_workdir')
-    tmp_dir = os.path.join(pants_workdir, 'tmp')
-    safe_mkdir(tmp_dir)
-    (fd, path) = tempfile.mkstemp(dir=tmp_dir, prefix='')
-    os.close(fd)
-    return path

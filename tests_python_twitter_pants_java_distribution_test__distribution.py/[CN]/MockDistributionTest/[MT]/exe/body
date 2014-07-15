@@ -1,4 +1,0 @@
-@classmethod
-def exe(cls, name, version=None):
-    contents = (None if (not version) else textwrap.dedent(('\n        #!/bin/sh\n        if [ $# -ne 3 ]; then\n          # Sanity check a classpath switch with a value plus the classname for main\n          echo "Expected 3 arguments, got $#: $@" >&2\n          exit 1\n        fi\n        echo "java.version=%s"\n      ' % version)).strip())
-    return cls.EXE(name, contents=contents)

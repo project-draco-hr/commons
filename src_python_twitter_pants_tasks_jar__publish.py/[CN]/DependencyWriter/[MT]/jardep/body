@@ -1,3 +1,0 @@
-def jardep(self, jar_dependency):
-    'Subclasses must return a template data for the given external jar dependency.'
-    raise NotImplementedError()

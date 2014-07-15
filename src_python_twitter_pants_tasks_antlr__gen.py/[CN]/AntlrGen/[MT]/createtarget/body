@@ -1,4 +1,0 @@
-def createtarget(self, lang, gentarget, dependees):
-    if (lang != 'java'):
-        raise TaskError(('Unrecognized antlr gen lang: %s' % lang))
-    return self._create_java_target(gentarget, dependees)

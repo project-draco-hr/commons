@@ -1,3 +1,0 @@
-import unittest
-from twitter.birds.duck.ttypes import Duck
-from twitter.birds.goose.ttypes import Goose

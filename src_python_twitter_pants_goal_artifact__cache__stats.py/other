@@ -1,4 +1,0 @@
-import os
-from collections import defaultdict, namedtuple
-from twitter.common.dirutil import safe_mkdir
-CacheStat = namedtuple('CacheStat', ['hit_targets', 'miss_targets'])

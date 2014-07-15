@@ -1,7 +1,0 @@
-def compute_products(self):
-    "Returns the products in this analysis.\n\n    Returns a map of <src file full path> -> list of classfiles, relative to the classes dir.\n\n    Note that we don't currently use this method: We use JMakeAnalysisParser.parse_products()\n    to more efficiently read just the products out of the file. However we leave this\n    here for documentation of the meaning of the useful fields in pcd_entries.\n    "
-    src_to_classfiles = defaultdict(list)
-    for pcd_entry in self.pcd_entries:
-        srcfile = pcd_entry[1]
-        src_to_classfiles[srcfile].append((pcd_entry[0] + '.class'))
-    return src_to_classfiles

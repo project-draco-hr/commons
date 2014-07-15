@@ -1,2 +1,0 @@
-def test_python_binary(self):
-    self.assert_console_raises(TaskError, targets=[self.target('common/e')])

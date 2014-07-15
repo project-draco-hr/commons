@@ -1,2 +1,0 @@
-import unittest
-from twitter.pants.commands.goal import Goal, GoalError

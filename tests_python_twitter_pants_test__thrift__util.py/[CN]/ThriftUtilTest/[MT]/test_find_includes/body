@@ -1,9 +1,0 @@
-def test_find_includes(self):
-    with temporary_dir() as dir:
-        a = os.path.join(dir, 'a')
-        b = os.path.join(dir, 'b')
-        main = self.write(os.path.join(a, 'main.thrift'), '\n        include "sub/a_included.thrift" //Todo commet\n        include "b_included.thrift"\n        include "c_included.thrift" #jibberish\n        include "d_included.thrift" some ramdon\n      ')
-        a_included = self.write(os.path.join(a, 'sub', 'a_included.thrift'), '# noop')
-        b_included = self.write(os.path.join(b, 'b_included.thrift'), '# noop')
-        c_included = self.write(os.path.join(b, 'c_included.thrift'), '# noop')
-        self.assertEquals(set([a_included, b_included, c_included]), find_includes(basedirs=set([a, b]), source=main))

@@ -1,3 +1,0 @@
-def set_buildroot(path):
-    'Sets the pants ROOT_DIR.\n\n  Generally only useful for tests.\n  '
-    BuildRoot().path = path

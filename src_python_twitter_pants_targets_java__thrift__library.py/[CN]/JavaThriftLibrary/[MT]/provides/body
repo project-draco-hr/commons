@@ -1,3 +1,0 @@
-@property
-def provides(self):
-    return self._provides

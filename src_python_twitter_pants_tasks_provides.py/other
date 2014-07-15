@@ -1,8 +1,0 @@
-__author__ = 'Benjy Weinberger'
-import os
-import sys
-from twitter.common.collections import OrderedSet
-from twitter.common.contextutil import open_zip as open_jar
-from twitter.pants.tasks import Task
-from twitter.pants.tasks.ivy_utils import IvyModuleRef, IvyUtils
-from twitter.pants.targets.jvm_binary import JvmBinary

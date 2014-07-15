@@ -1,3 +1,0 @@
-@staticmethod
-def get_command(name):
-    return Command._commands.get(name, None)

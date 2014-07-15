@@ -1,3 +1,0 @@
-def __init__(self, msg, rc=None):
-    self._rc = rc
-    self._msg = msg

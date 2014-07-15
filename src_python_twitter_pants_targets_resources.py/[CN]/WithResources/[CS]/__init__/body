@@ -1,4 +1,0 @@
-def __init__(self, *args, **kwargs):
-    super(WithResources, self).__init__(*args, **kwargs)
-    self._resources = []
-    self._raw_resources = None

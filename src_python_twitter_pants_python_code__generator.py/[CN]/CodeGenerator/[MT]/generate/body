@@ -1,3 +1,0 @@
-def generate(self):
-    'Generate code for this target, updating the sets .created_packages and\n       .created_namespace_packages.'
-    raise NotImplementedError

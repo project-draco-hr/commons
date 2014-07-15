@@ -1,2 +1,0 @@
-def __init__(self, root_dir):
-    self._root_dir = root_dir

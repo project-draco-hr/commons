@@ -1,2 +1,0 @@
-def test_shorten(self):
-    self.assertEqual('**.jill', safe_filename('jack', '.jill', digest=self.FixedDigest(2), max_length=8))

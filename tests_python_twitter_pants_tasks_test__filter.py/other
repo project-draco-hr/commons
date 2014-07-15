@@ -1,3 +1,0 @@
-from textwrap import dedent
-from twitter.pants.tasks.filter import Filter
-from twitter.pants.tasks.test_base import ConsoleTaskTest

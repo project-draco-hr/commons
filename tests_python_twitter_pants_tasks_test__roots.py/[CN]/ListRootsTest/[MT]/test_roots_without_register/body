@@ -1,5 +1,0 @@
-def test_roots_without_register(self):
-    try:
-        self.assert_console_output()
-    except AssertionError:
-        self.fail('./pants goal roots failed without any registered SourceRoot.')

@@ -1,8 +1,0 @@
-def isrequired(self, typename):
-    'Returns a predicate that selects targets required for the given type if mappings are required.\n\n    Otherwise returns None.\n    '
-    if (typename not in self.products):
-        return None
-
-    def combine(first, second):
-        return (lambda target: (first(target) or second(target)))
-    return reduce(combine, self.predicates_for_type[typename], (lambda target: False))

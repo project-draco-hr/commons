@@ -1,4 +1,0 @@
-def test_target_candidates(self, targets):
-    for target in targets:
-        if isinstance(target, junit_tests):
-            yield target

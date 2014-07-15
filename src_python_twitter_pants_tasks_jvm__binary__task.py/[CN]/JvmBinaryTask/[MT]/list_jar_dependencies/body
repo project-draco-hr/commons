@@ -1,6 +1,0 @@
-def list_jar_dependencies(self, binary, confs=None):
-    jardepmap = (self.context.products.get('jar_dependencies') or {})
-    if confs:
-        return self._mapped_dependencies(jardepmap, binary, confs)
-    else:
-        return self._unexcluded_dependencies(jardepmap, binary)

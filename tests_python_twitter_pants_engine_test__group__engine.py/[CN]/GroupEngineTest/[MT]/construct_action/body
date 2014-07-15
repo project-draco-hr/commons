@@ -1,2 +1,0 @@
-def construct_action(self, tag):
-    return ('construct', tag, self.context)

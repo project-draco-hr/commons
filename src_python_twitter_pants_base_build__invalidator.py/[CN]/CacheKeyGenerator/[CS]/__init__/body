@@ -1,3 +1,0 @@
-def __init__(self, cache_key_gen_version=None):
-    'cache_key_gen_version - If provided, added to all cache keys. Allows you to invalidate all cache\n                               keys in a single pants repo, by changing this value in config.\n    '
-    self._cache_key_gen_version = (((cache_key_gen_version or '') + '_') + GLOBAL_CACHE_KEY_GEN_VERSION)

@@ -1,5 +1,0 @@
-def __hash__(self):
-    value = 17
-    value *= (37 + hash(self.buildfile.canonical_relpath))
-    value *= (37 + hash(self.target_name))
-    return value

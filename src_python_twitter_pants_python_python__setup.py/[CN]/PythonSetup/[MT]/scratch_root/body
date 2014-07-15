@@ -1,4 +1,0 @@
-@property
-def scratch_root(self):
-    'Returns the root scratch space for assembling python environments.\n\n    Components should probably carve out their own directory rooted here.  See `scratch_dir`.\n    '
-    return self._config.get(self._section, 'cache_root', default=os.path.join(self._config.getdefault('pants_workdir'), 'python'))

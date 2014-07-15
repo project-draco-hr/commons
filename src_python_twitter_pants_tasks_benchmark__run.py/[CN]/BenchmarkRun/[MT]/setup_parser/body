@@ -1,6 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    option_group.add_option(mkflag('target'), dest='target_class', action='append', help='Name of the benchmark class.')
-    option_group.add_option(mkflag('memory'), mkflag('memory', negate=True), dest='memory_profiling', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Enable memory profiling.')
-    option_group.add_option(mkflag('debug'), mkflag('debug', negate=True), dest='debug', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Enable caliper debug mode.')
-    option_group.add_option(mkflag('caliper-args'), dest='extra_caliper_args', default=[], action='append', help="Allows the user to pass additional command line options to caliper. Can be used multiple times and arguments will be concatenated. Example use: --bench-caliper-args='-Dsize=10,20 -Dcomplex=true,false' --bench-caliper-args=-Dmem=1,2,3")

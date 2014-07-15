@@ -1,3 +1,0 @@
-def getdict(self, section, option, default=None):
-    'Equivalent to calling get with expected type dict'
-    return self.get(section, option, type=dict, default=default)

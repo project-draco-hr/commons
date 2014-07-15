@@ -1,3 +1,0 @@
-def gen_file_map_for_target(self, target, outdir):
-    gen_file_map = self.gen_file_map_path_for_target(target, outdir)
-    return self.parse_gen_file_map(gen_file_map, outdir)

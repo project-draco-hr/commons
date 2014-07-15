@@ -1,3 +1,0 @@
-def get_group_key_for_target(self, target):
-    ' Get the exclusives key for a target '
-    return self.target_to_key[target]

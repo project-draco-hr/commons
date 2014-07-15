@@ -1,3 +1,0 @@
-def _post_construct(self, func, *args, **kwargs):
-    "Registers a command to invoke after this target's BUILD file is parsed."
-    ParseContext.locate().on_context_exit(func, *args, **kwargs)

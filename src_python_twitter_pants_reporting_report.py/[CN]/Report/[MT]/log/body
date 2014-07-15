@@ -1,5 +1,0 @@
-def log(self, workunit, level, *msg_elements):
-    'Log a message.\n\n    Each element of msg_elements is either a message string or a (message, detail) pair.\n    '
-    with self._lock:
-        for reporter in self._reporters.values():
-            reporter.handle_log(workunit, level, *msg_elements)

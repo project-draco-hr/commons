@@ -1,3 +1,0 @@
-def __init__(self, context, scm=None, outstream=sys.stdout):
-    'Creates a WhatChanged task that uses an Scm to determine changed files.\n\n    context:    The pants execution context.\n    scm:        The scm to use, taken from the globally configured scm if None.\n    outstream:  The stream to write changed files or targets to.\n    '
-    super(ScmWhatChanged, self).__init__(context, ScmWorkspace((scm or get_scm())), outstream)

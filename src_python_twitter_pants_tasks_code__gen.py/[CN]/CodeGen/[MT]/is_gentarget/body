@@ -1,3 +1,0 @@
-def is_gentarget(self, target):
-    'Subclass must return True if it handles generating for the target.'
-    raise NotImplementedError

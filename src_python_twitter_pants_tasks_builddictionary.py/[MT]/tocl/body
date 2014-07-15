@@ -1,4 +1,0 @@
-def tocl(d):
-    "Generate TOC, in-page links to the IDs we're going to define below"
-    anchors = sorted(d.keys(), key=str.lower)
-    return TemplateData(t='All The Things', e=[a for a in anchors])

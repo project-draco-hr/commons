@@ -1,7 +1,0 @@
-from __future__ import print_function
-import os
-import shutil
-import tempfile
-import textwrap
-from twitter.common.dirutil.chroot import RelativeChroot
-from twitter.pants.python.sdist_builder import SdistBuilder

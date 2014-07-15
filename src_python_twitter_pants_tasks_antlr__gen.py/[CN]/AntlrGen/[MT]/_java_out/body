@@ -1,3 +1,0 @@
-def _java_out(self, target):
-    key = self._CONFIG_SECTION_BY_COMPILER[target.compiler]
-    return os.path.join(self.context.config.get(key, 'workdir'), 'gen-java')

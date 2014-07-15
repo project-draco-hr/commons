@@ -1,2 +1,0 @@
-def is_python_root(target):
-    return isinstance(target, PythonRoot)

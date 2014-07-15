@@ -1,5 +1,0 @@
-import time
-from collections import namedtuple
-from contextlib import contextmanager
-from twitter.common.lang import Compatibility
-Timing = namedtuple('Timing', ['label', 'times', 'overlapping'])

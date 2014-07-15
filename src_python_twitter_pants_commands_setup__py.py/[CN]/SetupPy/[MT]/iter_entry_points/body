@@ -1,8 +1,0 @@
-@classmethod
-def iter_entry_points(cls, target):
-    'Yields the name, entry_point pairs of binary targets in this PythonArtifact.'
-    for (name, binary_target) in target.provides.binaries.items():
-        concrete_target = binary_target.get()
-        if ((not isinstance(concrete_target, PythonBinary)) or (concrete_target.entry_point is None)):
-            raise TargetDefinitionException(target, 'Cannot add a binary to a PythonArtifact if it does not contain an entry_point.')
-        yield (name, concrete_target.entry_point)

@@ -1,2 +1,0 @@
-def setUp(self):
-    self._buildroot = tempfile.mkdtemp(prefix='test_html_reporter')

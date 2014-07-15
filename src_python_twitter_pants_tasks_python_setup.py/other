@@ -1,4 +1,0 @@
-from functools import reduce
-from twitter.pants.tasks import Task, TaskError
-from twitter.pants.python.interpreter_cache import PythonInterpreterCache
-from .target import is_python_root

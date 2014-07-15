@@ -1,5 +1,0 @@
-def test_get_error_transient(self):
-    self.requests.get('http://foo', stream=True, timeout=60).AndRaise(requests.ConnectionError)
-    self.mox.ReplayAll()
-    with pytest.raises(self.fetcher.TransientError):
-        self.fetcher.fetch('http://foo', self.listener, chunk_size=Amount(1, Data.KB), timeout=Amount(1, Time.MINUTES))

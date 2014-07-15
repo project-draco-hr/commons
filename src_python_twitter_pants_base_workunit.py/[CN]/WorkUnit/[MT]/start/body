@@ -1,3 +1,0 @@
-def start(self):
-    'Mark the time at which this workunit started.'
-    self.start_time = time.time()

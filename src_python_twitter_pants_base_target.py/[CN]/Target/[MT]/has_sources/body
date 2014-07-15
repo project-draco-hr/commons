@@ -1,3 +1,0 @@
-def has_sources(self, extension=None):
-    'Returns True if the target has sources.\n\n    If an extension is supplied the target is further checked for at least 1 source with the given\n    extension.\n    '
-    return (self.has_label('sources') and ((not extension) or (hasattr(self, 'sources') and any((source.endswith(extension) for source in self.sources)))))

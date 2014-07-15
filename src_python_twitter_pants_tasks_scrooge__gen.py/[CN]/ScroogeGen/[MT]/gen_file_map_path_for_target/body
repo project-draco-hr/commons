@@ -1,2 +1,0 @@
-def gen_file_map_path_for_target(self, target, outdir):
-    return os.path.join(outdir, 'gen-file-map-by-target', target.id)

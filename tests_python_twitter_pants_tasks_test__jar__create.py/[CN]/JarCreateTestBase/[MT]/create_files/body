@@ -1,4 +1,0 @@
-@classmethod
-def create_files(cls, path, files):
-    for f in files:
-        cls.create_file(os.path.join(path, f), contents=f)

@@ -1,2 +1,0 @@
-def test_build_sibling(self):
-    self.assert_console_output('root/3rdparty/BUILD.twitter:dummy', workspace=self.workspace(files=['root/3rdparty/BUILD.twitter']))

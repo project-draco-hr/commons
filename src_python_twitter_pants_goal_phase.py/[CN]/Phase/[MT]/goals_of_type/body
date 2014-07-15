@@ -1,4 +1,0 @@
-@staticmethod
-def goals_of_type(goal_class):
-    'Returns all installed goals of the specified type.'
-    return [goal for goal in Phase._phase_by_goal.keys() if isinstance(goal, goal_class)]

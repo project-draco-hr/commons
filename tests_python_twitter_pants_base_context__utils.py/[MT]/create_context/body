@@ -1,6 +1,0 @@
-def create_context(config='', options=None, target_roots=None, **kwargs):
-    'Creates a ``Context`` with no config values, options, or targets by default.\n\n  :param config: Either a ``Context`` object or else a string representing the contents of the\n    pants.ini to parse the config from.\n  :param options: An optional dict of of option values.\n  :param target_roots: An optional list of target roots to seed the context target graph from.\n  :param ``**kwargs``: Any additional keyword arguments to pass through to the Context constructor.\n  '
-    config = (config if isinstance(config, Config) else create_config(config))
-    run_tracker = create_run_tracker()
-    target_roots = (maybe_list(target_roots, Target) if target_roots else [])
-    return Context(config, create_options((options or {})), run_tracker, target_roots, **kwargs)

@@ -1,3 +1,0 @@
-def write_json(self, outfile):
-    obj = dict(zip(('relations', 'stamps', 'apis', 'source_infos', 'compilations', 'compile_setup'), (self.relations, self.stamps, self.apis, self.source_infos, self.compilations, self.compile_setup)))
-    json.dump(obj, outfile, cls=ZincAnalysisJSONEncoder, sort_keys=True, indent=2)

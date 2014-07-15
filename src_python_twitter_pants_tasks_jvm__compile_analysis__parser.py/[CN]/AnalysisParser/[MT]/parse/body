@@ -1,3 +1,0 @@
-def parse(self, infile):
-    'Parse an analysis instance from an open file.'
-    raise NotImplementedError()

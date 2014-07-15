@@ -1,7 +1,0 @@
-def __init__(self, context):
-    self.context = context
-    self.conflicting_exclusives = {}
-    self.key_to_targets = defaultdict(set)
-    self.target_to_key = {}
-    self.ordering = None
-    self._group_classpaths = {}

@@ -1,3 +1,0 @@
-@abstractproperty
-def commit_id(self):
-    'Returns the id of the current commit.'

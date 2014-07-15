@@ -1,9 +1,0 @@
-def _extract_classpathdeps(self, targets):
-    'Subclasses can override to filter out a set of targets that should be resolved for classpath\n    dependencies.\n    '
-
-    def is_classpath(target):
-        return (target.is_jar or (target.is_internal and any((jar for jar in target.jar_dependencies if jar.rev))))
-    classpath_deps = OrderedSet()
-    for target in targets:
-        classpath_deps.update((t for t in target.resolve() if (t.is_concrete and is_classpath(t))))
-    return classpath_deps

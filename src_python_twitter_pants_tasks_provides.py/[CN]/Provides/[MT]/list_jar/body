@@ -1,3 +1,0 @@
-def list_jar(self, path):
-    with open_jar(path, 'r') as jar:
-        return jar.namelist()

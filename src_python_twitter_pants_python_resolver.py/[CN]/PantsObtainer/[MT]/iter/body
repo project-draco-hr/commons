@@ -1,8 +1,0 @@
-def iter(self, requirement):
-    if (hasattr(requirement, 'repository') and requirement.repository):
-        obtainer = Obtainer(crawler=self._crawler, fetchers=[Fetcher([requirement.repository])], translators=self._translator)
-        for package in obtainer.iter(requirement):
-            yield package
-    else:
-        for package in super(PantsObtainer, self).iter(requirement):
-            yield package

@@ -1,3 +1,0 @@
-def __init__(self, artifact_root):
-    self._artifact_root = artifact_root
-    self._relpaths = set()

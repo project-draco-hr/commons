@@ -1,9 +1,0 @@
-@classmethod
-def execute(cls, context, *names):
-    parser = OptionParser()
-    cls.add_global_options(parser)
-    phases = [Phase(name) for name in names]
-    Phase.setup_parser(parser, [], phases)
-    (options, _) = parser.parse_args([])
-    context = Context(context.config, options, context.run_tracker, context.target_roots, requested_goals=list(names))
-    return cls._execute(context, phases, print_timing=False)

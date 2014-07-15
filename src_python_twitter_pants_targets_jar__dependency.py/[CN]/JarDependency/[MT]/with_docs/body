@@ -1,4 +1,0 @@
-def with_docs(self):
-    'This requests the artifact have its javadoc jar fetched.\n    (This implies there *is* a javadoc jar to fetch.) Used in contexts\n    that can use source jars (as of 2014, just eclipse and idea goals).'
-    self._configurations.append('javadoc')
-    return self

@@ -1,8 +1,0 @@
-@staticmethod
-def save_current_server_port(port):
-    'Save the port of the currently-running server, so we can find it across pants runs.'
-    pidfile_dir = ReportingServerManager._get_pidfile_dir()
-    safe_mkdir(pidfile_dir)
-    pidfile = os.path.join(pidfile_dir, ('port_%d.pid' % port))
-    with open(pidfile, 'w') as outfile:
-        outfile.write(str(os.getpid()))

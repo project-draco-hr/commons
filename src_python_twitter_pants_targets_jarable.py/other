@@ -1,3 +1,0 @@
-from abc import abstractproperty
-from twitter.common.lang import AbstractClass
-from .jar_dependency import JarDependency

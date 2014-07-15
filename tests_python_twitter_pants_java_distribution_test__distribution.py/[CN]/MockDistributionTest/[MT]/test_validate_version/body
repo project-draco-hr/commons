@@ -1,7 +1,0 @@
-def test_validate_version(self):
-    with pytest.raises(Distribution.Error):
-        with self.distribution(executables=self.exe('java', '1.7.0_25')) as jdk:
-            Distribution(bin_path=jdk, minimum_version='1.7.0_45').validate()
-    with self.distribution(executables=self.exe('java', '1.7.0_25')) as jdk:
-        Distribution(bin_path=jdk, minimum_version='1.7.0_25').validate()
-        Distribution(bin_path=jdk, minimum_version=Revision.semver('1.6.0')).validate()

@@ -1,2 +1,0 @@
-def test_roots(self):
-    self.assert_console_output('overlaps/BUILD:two', targets=[self.target('common/c')], extra_targets=[self.target('common/a')])

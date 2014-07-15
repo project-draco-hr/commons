@@ -1,6 +1,0 @@
-def __iter__(self):
-    for chunk in self._create_chunks():
-        for group_member in self._group_members:
-            member_chunk = filter(group_member.predicate, chunk)
-            if (len(member_chunk) > 0):
-                yield (group_member, member_chunk)

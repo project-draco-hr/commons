@@ -1,3 +1,0 @@
-def check_artifact_cache(self, vts):
-    'Checks the artifact cache for the specified list of VersionedTargetSets.\n\n    Returns a pair (cached, uncached) of VersionedTargets that were\n    satisfied/unsatisfied from the cache.\n    '
-    return self.do_check_artifact_cache(vts)

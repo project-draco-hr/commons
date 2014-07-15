@@ -1,7 +1,0 @@
-@staticmethod
-def merge_dicts(dicts):
-    "Merges multiple dicts into one.\n\n    Assumes keys don't overlap.\n    "
-    ret = defaultdict(list)
-    for d in dicts:
-        ret.update(d)
-    return ret

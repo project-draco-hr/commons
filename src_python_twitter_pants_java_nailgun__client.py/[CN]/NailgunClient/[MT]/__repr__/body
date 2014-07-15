@@ -1,2 +1,0 @@
-def __repr__(self):
-    return ('NailgunClient(host=%r, port=%r, work_dir=%r)' % (self._host, self._port, self._work_dir))

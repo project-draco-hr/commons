@@ -1,3 +1,0 @@
-def force_invalidate_all(self):
-    'Force-invalidates all cached items.'
-    safe_mkdir(self._root, clean=True)

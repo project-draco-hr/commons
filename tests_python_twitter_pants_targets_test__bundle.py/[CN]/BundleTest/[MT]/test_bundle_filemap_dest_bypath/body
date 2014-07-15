@@ -1,6 +1,0 @@
-def test_bundle_filemap_dest_bypath(self):
-    self.create_dir('src/java/org/archimedes/buoyancy/config')
-    self.create_file('src/java/org/archimedes/buoyancy/config/densities.xml')
-    self.create_target('src/java/org/archimedes/buoyancy/BUILD', dedent("\n      jvm_app(name='buoyancy',\n        binary=jvm_binary(name='unused'),\n        bundles=bundle().add('config/densities.xml'))\n    "))
-    app = self.target('src/java/org/archimedes/buoyancy')
-    self.assertEquals(app.bundles[0].filemap.values()[0], 'config/densities.xml')

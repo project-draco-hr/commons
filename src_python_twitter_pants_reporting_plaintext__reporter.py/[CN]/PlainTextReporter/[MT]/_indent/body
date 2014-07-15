@@ -1,2 +1,0 @@
-def _indent(self, workunit):
-    return ('  ' * (len(workunit.ancestors()) - 1))

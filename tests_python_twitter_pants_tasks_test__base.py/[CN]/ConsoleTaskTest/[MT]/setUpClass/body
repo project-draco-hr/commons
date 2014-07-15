@@ -1,5 +1,0 @@
-@classmethod
-def setUpClass(cls):
-    super(ConsoleTaskTest, cls).setUpClass()
-    task_type = cls.task_type()
-    assert issubclass(task_type, ConsoleTask), ('task_type() must return a ConsoleTask subclass, got %s' % task_type)

@@ -1,5 +1,0 @@
-def _get_touched_files(self):
-    try:
-        return self._workspace.touched_files(self._parent)
-    except Workspace.WorkspaceError as e:
-        raise TaskError(e)

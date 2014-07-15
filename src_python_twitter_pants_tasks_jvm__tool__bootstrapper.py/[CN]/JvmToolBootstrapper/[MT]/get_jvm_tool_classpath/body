@@ -1,3 +1,0 @@
-def get_jvm_tool_classpath(self, key, executor=None):
-    'Get a classpath for the tool previously registered under the key.\n\n    Returns a list of paths.\n    '
-    return self.get_lazy_jvm_tool_classpath(key, executor)()

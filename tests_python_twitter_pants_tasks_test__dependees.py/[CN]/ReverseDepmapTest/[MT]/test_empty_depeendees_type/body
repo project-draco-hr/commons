@@ -1,3 +1,0 @@
-def test_empty_depeendees_type(self):
-    self._set_up_mocks(PythonTestSuite, [])
-    self.assert_console_raises(TaskError, args=['--test-type=python_test_suite'], targets=[self.target('common/d')])

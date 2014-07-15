@@ -1,3 +1,0 @@
-def do_handle_log(self, workunit, level, *msg_elements):
-    "Handle a message logged by pants code, after it's passed the log level check."
-    pass

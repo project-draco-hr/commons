@@ -1,3 +1,0 @@
-@classmethod
-def from_json_obj(cls, obj):
-    return cls([obj[header] for header in cls.headers])

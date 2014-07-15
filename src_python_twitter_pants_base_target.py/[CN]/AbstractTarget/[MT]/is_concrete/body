@@ -1,5 +1,0 @@
-@property
-def is_concrete(self):
-    'Returns true if a target resolves to itself.'
-    targets = list(self.resolve())
-    return ((len(targets) == 1) and (targets[0] == self))

@@ -1,7 +1,0 @@
-def _spawn(self, cmd, **subprocess_args):
-    with self._maybe_scrubbed_classpath():
-        log.debug(('Executing: %s' % ' '.join(cmd)))
-        try:
-            return subprocess.Popen(cmd, **subprocess_args)
-        except OSError as e:
-            raise self.Error(('Problem executing %s: %s' % (self._distribution.java, e)))

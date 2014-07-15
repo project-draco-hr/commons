@@ -1,2 +1,0 @@
-def list_goals(self, message):
-    return _list_goals(self.context, message)

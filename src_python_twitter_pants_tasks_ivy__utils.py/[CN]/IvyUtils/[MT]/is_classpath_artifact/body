@@ -1,3 +1,0 @@
-def is_classpath_artifact(self, path):
-    'Subclasses can override to determine whether a given artifact represents a classpath\n    artifact.'
-    return (path.endswith('.jar') or path.endswith('.war'))

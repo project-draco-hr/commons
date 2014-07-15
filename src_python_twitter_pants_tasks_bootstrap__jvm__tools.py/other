@@ -1,3 +1,0 @@
-import threading
-from twitter.pants.base.workunit import WorkUnit
-from . import Task, TaskError

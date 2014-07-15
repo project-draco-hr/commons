@@ -1,8 +1,0 @@
-def _create_filters(list_option, predicate):
-    for value in list_option:
-        (modifier, value) = _extract_modifier(value)
-        predicates = map(predicate, value.split(','))
-
-        def filter(target):
-            return modifier(any(map((lambda predicate: predicate(target)), predicates)))
-        yield filter

@@ -1,3 +1,0 @@
-@classmethod
-def task_type(cls):
-    return SortTargets

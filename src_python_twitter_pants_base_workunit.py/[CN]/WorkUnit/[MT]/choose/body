@@ -1,3 +1,0 @@
-def choose(self, aborted_val, failure_val, warning_val, success_val, unknown_val):
-    'Returns one of the 5 arguments, depending on our outcome.'
-    return WorkUnit.choose_for_outcome(self._outcome, aborted_val, failure_val, warning_val, success_val, unknown_val)

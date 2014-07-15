@@ -1,4 +1,0 @@
-def assertAddress(self, root_dir, path, name, address):
-    self.assertEqual(root_dir, address.buildfile.root_dir)
-    self.assertEqual(path, address.buildfile.relpath)
-    self.assertEqual(name, address.target_name)

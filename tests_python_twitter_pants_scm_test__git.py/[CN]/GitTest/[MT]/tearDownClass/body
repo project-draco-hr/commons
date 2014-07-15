@@ -1,6 +1,0 @@
-@classmethod
-def tearDownClass(cls):
-    safe_rmtree(cls.origin)
-    safe_rmtree(cls.gitdir)
-    safe_rmtree(cls.worktree)
-    safe_rmtree(cls.clone2)

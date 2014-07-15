@@ -1,8 +1,0 @@
-@contextmanager
-def create_jar(self, target, path):
-    existing = self._jars.setdefault(path, target)
-    if (target != existing):
-        raise TaskError(('Duplicate name: target %s tried to write %s already mapped to target %s' % (target, path, existing)))
-    self._jars[path] = target
-    with open_jar(path, 'w', compression=self.compression) as jar:
-        yield jar

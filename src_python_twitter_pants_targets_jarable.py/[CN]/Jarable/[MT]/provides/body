@@ -1,4 +1,0 @@
-@property
-def provides(self):
-    'Returns an optional :class:`twitter.pants.targets.Artifact` if this target is exportable.\n\n    Subclasses should override to provide an artifact descriptor when one applies, by default None\n    is supplied.\n    '
-    return None

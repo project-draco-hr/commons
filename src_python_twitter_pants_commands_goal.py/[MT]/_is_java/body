@@ -1,2 +1,0 @@
-def _is_java(target):
-    return ((target.is_java or (isinstance(target, (JvmBinary, junit_tests, Benchmark)) and _has_sources(target, '.java'))) and (not target.is_apt))

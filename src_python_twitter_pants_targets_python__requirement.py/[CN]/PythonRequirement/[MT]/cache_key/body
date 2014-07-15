@@ -1,2 +1,0 @@
-def cache_key(self):
-    return str(self._requirement)

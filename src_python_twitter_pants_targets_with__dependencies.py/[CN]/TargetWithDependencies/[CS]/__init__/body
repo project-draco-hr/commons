@@ -1,3 +1,0 @@
-def __init__(self, name, dependencies=None, exclusives=None):
-    Target.__init__(self, name, exclusives=exclusives)
-    self.dependencies = (OrderedSet(resolve(dependencies)) if dependencies else OrderedSet())

@@ -1,3 +1,0 @@
-def has_sources(self, extension=None):
-    '``Resources`` never own sources of any particular native type, like for example\n    ``JavaLibrary``.\n    '
-    return (extension is None)

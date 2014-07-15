@@ -1,3 +1,0 @@
-def is_forced(self, lang):
-    'Subclass may return True to force code generation for the given language.'
-    return False

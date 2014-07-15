@@ -1,4 +1,0 @@
-@classmethod
-def types(cls, root):
-    'Returns the set of target types rooted at root.'
-    return cls._TYPES_BY_ROOT[root]

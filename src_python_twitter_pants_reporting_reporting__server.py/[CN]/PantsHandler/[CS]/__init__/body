@@ -1,7 +1,0 @@
-def __init__(self, settings, renderer, request, client_address, server):
-    self._settings = settings
-    self._root = self._settings.root
-    self._renderer = renderer
-    self._client_address = client_address
-    self._GET_handlers = [('/runs/', self._handle_runs), ('/run/', self._handle_run), ('/browse/', self._handle_browse), ('/content/', self._handle_content), ('/assets/', self._handle_assets), ('/poll', self._handle_poll), ('/latestrunid', self._handle_latest_runid)]
-    BaseHTTPServer.BaseHTTPRequestHandler.__init__(self, request, client_address, server)

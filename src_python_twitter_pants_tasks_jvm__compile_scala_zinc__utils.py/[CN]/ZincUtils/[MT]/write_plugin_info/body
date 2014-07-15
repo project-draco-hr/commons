@@ -1,7 +1,0 @@
-@staticmethod
-def write_plugin_info(resources_dir, target):
-    root = os.path.join(resources_dir, target.id)
-    plugin_info_file = os.path.join(root, _PLUGIN_INFO_FILE)
-    with safe_open(plugin_info_file, 'w') as f:
-        f.write(textwrap.dedent(('\n        <plugin>\n          <name>%s</name>\n          <classname>%s</classname>\n        </plugin>\n      ' % (target.plugin, target.classname))).strip())
-    return (root, plugin_info_file)

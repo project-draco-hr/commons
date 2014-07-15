@@ -1,2 +1,0 @@
-def get_info(self, key):
-    return self._info.get(key, None)

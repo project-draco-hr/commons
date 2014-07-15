@@ -1,3 +1,0 @@
-def __init__(self, run_tracker, root_dir):
-    self._root_dir = root_dir
-    self._run_tracker = run_tracker

@@ -1,8 +1,0 @@
-def _get_nailgun_endpoint(self):
-    if self._find:
-        endpoint = self._find(self._workdir)
-        if endpoint:
-            log.debug(('Found ng server with fingerprint %s @ pid:%d port:%d' % endpoint))
-        return endpoint
-    else:
-        return None

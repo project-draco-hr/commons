@@ -1,4 +1,0 @@
-@property
-def java(self):
-    "Returns the path to this distribution's java command.\n\n    If this distribution has no valid java command raises Distribution.Error.\n    "
-    return self.binary('java')

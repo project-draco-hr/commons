@@ -1,4 +1,0 @@
-@property
-def identifier(self):
-    'A unique identifier for the BUILD target.\n\n    The generated id is safe for use as a path name on unix systems.\n    '
-    return self.id

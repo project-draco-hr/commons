@@ -1,3 +1,0 @@
-def tearDown(self):
-    if os.path.exists(self._buildroot):
-        shutil.rmtree(self._buildroot, ignore_errors=True)

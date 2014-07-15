@@ -1,4 +1,0 @@
-@classmethod
-def merge(cls, analyses):
-    'Merge multiple analysis instances into one.'
-    raise NotImplementedError()

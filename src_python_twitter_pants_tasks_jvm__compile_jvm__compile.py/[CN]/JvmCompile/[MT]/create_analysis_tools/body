@@ -1,3 +1,0 @@
-def create_analysis_tools(self):
-    'Returns an AnalysisTools implementation.\n\n    Subclasses must implement.\n    '
-    raise NotImplementedError()

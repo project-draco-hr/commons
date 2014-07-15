@@ -1,6 +1,0 @@
-def rename(cls, phase, name):
-    '\n      Renames the given phase and ensures all future requests for the old name are mapped to the\n      given phase instance.\n    '
-    cls.phases.pop(phase.name)
-    cls.renames[phase.name] = name
-    phase.name = name
-    cls.phases[name] = phase

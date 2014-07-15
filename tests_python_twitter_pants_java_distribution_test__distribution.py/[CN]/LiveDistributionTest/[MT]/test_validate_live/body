@@ -1,7 +1,0 @@
-@pytest.mark.skipif('not LiveDistributionTest.JAVA', reason='No java executable on the PATH.')
-def test_validate_live(self):
-    with pytest.raises(Distribution.Error):
-        Distribution(bin_path=os.path.dirname(self.JAVA), minimum_version='999.9.9').validate()
-    Distribution(bin_path=os.path.dirname(self.JAVA)).validate()
-    Distribution(bin_path=os.path.dirname(self.JAVA), minimum_version='1.3.1').validate()
-    Distribution.locate(jdk=False)

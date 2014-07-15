@@ -1,3 +1,0 @@
-def safe_create_data(self, typename, init_func):
-    "Ensures that a data item is created if it doesn't already exist."
-    self.get_data(typename, init_func)

@@ -1,5 +1,0 @@
-def _create_java_target(self, target, dependees):
-
-    def create_target(files, deps):
-        return self.context.add_new_target(os.path.join(self.combined_dir, 'gen-java'), JavaLibrary, name=target.id, sources=files, provides=target.provides, dependencies=deps, excludes=target.excludes)
-    return self._inject_target(target, dependees, self.gen_java, 'java', create_target)

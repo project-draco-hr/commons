@@ -1,8 +1,0 @@
-def __init__(self, run_tracker, settings):
-    Reporter.__init__(self, run_tracker, settings)
-    self._html_dir = settings.html_dir
-    self._renderer = MustacheRenderer(settings.template_dir, __name__)
-    self._buildroot = get_buildroot()
-    self._html_path_base = os.path.relpath(self._html_dir, self._buildroot)
-    self._report_file = None
-    self._output_files = defaultdict(dict)

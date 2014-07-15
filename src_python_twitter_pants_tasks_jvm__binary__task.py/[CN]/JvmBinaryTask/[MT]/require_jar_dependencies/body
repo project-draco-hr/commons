@@ -1,2 +1,0 @@
-def require_jar_dependencies(self, predicate=None):
-    self.context.products.require('jar_dependencies', predicate=(predicate or self.is_binary))

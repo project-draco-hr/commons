@@ -1,4 +1,0 @@
-def write(self, path, contents):
-    with safe_open(path, 'w') as fp:
-        fp.write(contents)
-    return path

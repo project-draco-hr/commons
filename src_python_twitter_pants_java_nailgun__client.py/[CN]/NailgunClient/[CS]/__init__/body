@@ -1,9 +1,0 @@
-def __init__(self, host=DEFAULT_NG_HOST, port=DEFAULT_NG_PORT, ins=sys.stdin, out=sys.stdout, err=sys.stderr, work_dir=None):
-    'Creates a nailgun client that can be used to issue zero or more nailgun commands.\n\n    :param string host: the nailgun server to contact (defaults to localhost)\n    :param int port: the port the nailgun server is listening on (defaults to the default nailgun\n      port: 2113)\n    :param file ins: a file to read command standard input from (defaults to stdin) - can be None\n      in which case no input is read\n    :param file out: a stream to write command standard output to (defaults to stdout)\n    :param file err: a stream to write command standard error to (defaults to stderr)\n    :param string work_dir: the working directory for all nailgun commands (defaults to PWD)\n    '
-    self._host = host
-    self._port = port
-    self._ins = ins
-    self._out = out
-    self._err = err
-    self._work_dir = (work_dir or os.path.abspath(os.path.curdir))
-    self.execute = self.__call__

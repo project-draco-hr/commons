@@ -1,8 +1,0 @@
-def __getattr__(self, name):
-    try:
-        return Target.__getattribute__(self, name)
-    except AttributeError as e:
-        try:
-            return getattr(self.get(), name)
-        except (AttributeError, LookupError):
-            raise e

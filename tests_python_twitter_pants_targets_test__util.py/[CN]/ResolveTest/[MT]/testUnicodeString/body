@@ -1,2 +1,0 @@
-def testUnicodeString(self):
-    self.assertEquals(resolve(u'asdf', clazz=MockPantsTarget).foo, u'asdf')

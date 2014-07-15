@@ -1,2 +1,0 @@
-def jar(org, name, rev):
-    return ("jar('%s', '%s', '%s')" % (org, name, rev))

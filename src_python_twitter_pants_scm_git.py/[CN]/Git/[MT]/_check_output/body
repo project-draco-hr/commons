@@ -1,7 +1,0 @@
-def _check_output(self, args, failure_msg=None, raise_type=None):
-    cmd = self._create_git_cmdline(args)
-    self._log_call(cmd)
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-    (out, _) = process.communicate()
-    self._check_result(cmd, process.returncode, failure_msg, raise_type)
-    return out

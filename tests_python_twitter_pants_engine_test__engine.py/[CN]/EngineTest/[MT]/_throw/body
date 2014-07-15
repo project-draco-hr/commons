@@ -1,5 +1,0 @@
-def _throw(self, error):
-
-    def throw():
-        raise error
-    return throw

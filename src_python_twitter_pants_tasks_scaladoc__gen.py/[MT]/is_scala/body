@@ -1,2 +1,0 @@
-def is_scala(target):
-    return target.has_sources('.scala')

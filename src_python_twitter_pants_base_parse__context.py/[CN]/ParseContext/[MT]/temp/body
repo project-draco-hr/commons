@@ -1,7 +1,0 @@
-@classmethod
-@contextmanager
-def temp(cls, basedir=None):
-    'Activates a temporary parse context in the given basedir relative to the build root or else\n    in the build root dir itself if no basedir is specified.\n    '
-    context = cls(BuildFile(get_buildroot(), (basedir or 'BUILD.temp'), must_exist=False))
-    with cls.activate(context):
-        yield

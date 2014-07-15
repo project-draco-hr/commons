@@ -1,4 +1,0 @@
-@classmethod
-def roots(cls, target_type):
-    'Returns the set of roots for given target type.'
-    return cls._ROOTS_BY_TYPE[target_type]

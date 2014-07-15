@@ -1,4 +1,0 @@
-@property
-def binary(self):
-    self._maybe_resolve_binary()
-    return self._resolved_binary

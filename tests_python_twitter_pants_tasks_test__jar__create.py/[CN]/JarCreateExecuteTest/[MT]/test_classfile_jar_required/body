@@ -1,4 +1,0 @@
-def test_classfile_jar_required(self):
-    context = self.context()
-    context.products.require('jars')
-    self.assert_classfile_jar_contents(context)

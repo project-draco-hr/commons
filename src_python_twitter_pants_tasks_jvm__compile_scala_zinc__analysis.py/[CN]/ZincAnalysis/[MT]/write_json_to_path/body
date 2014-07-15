@@ -1,3 +1,0 @@
-def write_json_to_path(self, outfile_path):
-    with open(outfile_path, 'w') as outfile:
-        self.write_json(outfile)

@@ -1,3 +1,0 @@
-def __init__(self, root):
-    self._root = os.path.join(root, GLOBAL_CACHE_KEY_GEN_VERSION)
-    safe_mkdir(self._root)
