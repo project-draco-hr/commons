@@ -19,7 +19,7 @@ def _add_args_resources(self, target, resources_by_target, transitive):
                         lines.update(resource.readlines())
     if lines:
         args = Args.for_target(target, transitive, classes_by_target)
-        lines = filter(args.matches, lines)
+        lines = set(filter(args.matches, lines))
     if transitive:
         resource_path = os.path.join(self.RESOURCE_RELDIR, self.RESOURCE_BASENAME)
         for (base_dir, jar_path) in self.list_external_jar_dependencies(target):
