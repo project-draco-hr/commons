@@ -1,3 +1,0 @@
-def __init__(self, url, opener=None):
-    self._url = urlparse.urlparse(url)
-    self._opener = opener

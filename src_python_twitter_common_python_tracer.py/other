@@ -1,7 +1,2 @@
-from contextlib import contextmanager
-import os
-import sys
-import threading
-import time
-__all__ = ('Tracer',)
-TRACER = Tracer(predicate=Tracer.env_filter('PYTHON_VERBOSE'), prefix='twitter.common.python: ')
+from __future__ import absolute_import
+from pex.tracer import *

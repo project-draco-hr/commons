@@ -1,2 +1,0 @@
-def crawl(self, *args, **kw):
-    return self._hrefs

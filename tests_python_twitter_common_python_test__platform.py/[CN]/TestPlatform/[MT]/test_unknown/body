@@ -1,7 +1,0 @@
-def test_unknown(self):
-    with pytest.raises(Platform.UnknownPlatformError):
-        Platform.compatible('macosx-10.0-morfgorf', 'macosx-10.1-morfgorf')
-    with pytest.raises(Platform.UnknownPlatformError):
-        Platform.compatible('macosx-10.0-x86_64', 'macosx-10.1-morfgorf')
-    with pytest.raises(Platform.UnknownPlatformError):
-        Platform.compatible('macosx-10.0-morfgorf', 'macosx-10.1-x86_64')

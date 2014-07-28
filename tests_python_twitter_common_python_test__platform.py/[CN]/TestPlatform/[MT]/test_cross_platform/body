@@ -1,3 +1,0 @@
-def test_cross_platform(self):
-    assert (not Platform.compatible('linux-x86_64', 'macosx-10.0-x86_64'))
-    assert (not Platform.compatible('linux-i386', 'linux-x86_64'))

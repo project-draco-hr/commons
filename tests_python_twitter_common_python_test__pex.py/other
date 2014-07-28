@@ -1,8 +1,0 @@
-import os
-import subprocess
-import sys
-import textwrap
-from twitter.common.contextutil import temporary_dir
-from twitter.common.python.compatibility import nested
-from twitter.common.python.pex_builder import PEXBuilder
-import pytest

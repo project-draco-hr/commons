@@ -1,4 +1,0 @@
-@mock.patch(('%s.urlopen' % URLLIB_REQUEST))
-def test_local_open(urlopen_mock):
-    urlopen_mock.return_value = 'data'
-    assert (Web().open('/local/filename') == 'data')
