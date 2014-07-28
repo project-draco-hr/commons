@@ -1,2 +1,2 @@
 def build_file_aliases():
-    return BuildFileAliases.create(objects=dict(commons_version=Version('src/python/twitter/common/VERSION').version))
+    return BuildFileAliases.create(objects=dict(commons_version=Version('src/python/twitter/common/VERSION').version), context_aware_object_factories=dict(read_contents=read_contents_factory))
