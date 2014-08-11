@@ -1,5 +1,3 @@
 def register_goals():
-    changed = Phase('changed').with_description('Print the targets changed since some prior commit.')
-    changed.install(Goal(name='changed', action=ScmWhatChanged))
-    compile = Phase('compile')
-    compile.install(Goal(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']))
+    task(name='changed', action=WhatChanged).install().with_description('Print the targets changed since some prior commit.')
+    task(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']).install('compile')

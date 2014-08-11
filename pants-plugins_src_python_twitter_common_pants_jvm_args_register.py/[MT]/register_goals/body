@@ -1,3 +1,2 @@
 def register_goals():
-    resources = Phase('resources')
-    resources.install(Goal(name='args-apt', action=ResourceMapper, dependencies=['compile']))
+    task(name='args-apt', action=ResourceMapper, dependencies=['compile']).install('resources')
