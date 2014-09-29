@@ -1,0 +1,6 @@
+@staticmethod
+def _set_string_margin(s, first_line_indentation, other_lines_indentation):
+    '\n      Given a multi-line string, resets the indentation to the given number of spaces.\n    '
+    lines = s.strip().splitlines()
+    lines = ([((' ' * first_line_indentation) + line.strip()) for line in lines[:1]] + [((' ' * other_lines_indentation) + line.strip()) for line in lines[1:]])
+    return '\n'.join(lines)
