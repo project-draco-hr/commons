@@ -3,6 +3,6 @@ def iterate(self):
         try:
             with open(self._filename, 'r') as fp:
                 self._sample = json.load(fp)
-        except (EnvironmentError, ValueError) as e:
+        except (IOError, OSError, ValueError) as e:
             if log:
                 log.warn(('Failed to collect sample: %s' % e))
