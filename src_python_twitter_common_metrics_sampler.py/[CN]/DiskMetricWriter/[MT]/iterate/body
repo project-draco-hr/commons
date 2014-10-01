@@ -1,3 +1,7 @@
 def iterate(self):
     with open(self._filename, 'w') as fp:
-        json.dump(self._provider.sample(), fp)
+        try:
+            json.dump(self._provider.sample(), fp)
+        except EnvironmentError as e:
+            if log:
+                log.warn(('Failed to write sample: %s' % e))
