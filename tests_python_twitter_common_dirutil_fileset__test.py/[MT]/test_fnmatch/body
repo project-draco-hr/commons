@@ -5,13 +5,20 @@ def test_fnmatch():
         assert leq(Fileset.zglobs('[].txt'))
         assert leq(Fileset.zglobs('.*'), '.txt')
         assert leq(Fileset.zglobs('*.py', '.*'), '.txt')
+        assert leq(Fileset.rglobs(''))
         assert leq(Fileset.rglobs('*.txt'))
         assert leq(Fileset.rglobs('?.txt'))
         assert leq(Fileset.rglobs('[].txt'))
         assert leq(Fileset.rglobs('.*'), '.txt')
         assert leq(Fileset.rglobs('*.py', '.*'), '.txt')
+        assert leq(Fileset.rglobs('.*', '.*'), '.txt')
     with Fileset.over(['a.txt']):
         for operation in (Fileset.rglobs, Fileset.zglobs):
             assert leq(operation('*.txt'), 'a.txt')
             assert leq(operation('?.txt'), 'a.txt')
             assert leq(operation('[abcd].txt'), 'a.txt')
+    with temporary_dir() as tempdir:
+        touch(os.path.join(tempdir, '.txt'))
+        assert leq(Fileset.globs('.txt', root=tempdir), '.txt')
+        assert leq(Fileset.globs('*.txt', root=tempdir))
+        assert leq(Fileset.globs('', root=tempdir))
