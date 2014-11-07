@@ -1,6 +1,0 @@
-@atexit.register
-def _cleanup():
-    for (_, po) in TunnelHelper.TUNNELS.values():
-        safe_kill(po)
-    for (_, po) in TunnelHelper.PROXIES.values():
-        safe_kill(po)
