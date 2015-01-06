@@ -1,6 +1,4 @@
 {
-  if (updaterHandler.isCancelled()) {
-    throw new IllegalStateException("LowResClock invoked after being closed!");
-  }
+  checkNotClosed();
   underlying.waitFor(millis);
 }

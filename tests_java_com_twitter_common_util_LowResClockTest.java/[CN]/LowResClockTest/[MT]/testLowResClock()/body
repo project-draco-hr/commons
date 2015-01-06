@@ -1,23 +1,18 @@
 {
-  final SynchronousQueue<Token> queue=new SynchronousQueue<Token>();
-  final WaitingFakeClock clock=new WaitingFakeClock(queue);
+  final WaitingFakeClock clock=new WaitingFakeClock();
+  final long start=clock.nowMillis();
   ScheduledExecutorService mockExecutor=createMock(ScheduledExecutorService.class);
   final Capture<Runnable> runnable=new Capture<Runnable>();
   final Capture<Long> period=new Capture<Long>();
-  mockExecutor.scheduleWithFixedDelay(capture(runnable),eq(0L),captureLong(period),eq(TimeUnit.MILLISECONDS));
-  expectLastCall().andAnswer(new IAnswer(){
+  mockExecutor.scheduleAtFixedRate(capture(runnable),anyLong(),captureLong(period),eq(TimeUnit.MILLISECONDS));
+  expectLastCall().andAnswer(new IAnswer<ScheduledFuture<?>>(){
     public ScheduledFuture<?> answer(){
-      final Thread t=new Thread(){
+      final Thread ticker=new Thread(){
         @Override public void run(){
-          long t=clock.nowMillis();
+          Tick tick=new Tick(clock,start,period.getValue(),runnable.getValue());
           try {
             while (true) {
-              Token token=queue.take();
-              if (clock.nowMillis() >= t + period.getValue()) {
-                runnable.getValue().run();
-                t=clock.nowMillis();
-              }
-              token.notifyCompletion();
+              clock.doOnAdvance(tick);
             }
           }
  catch (          InterruptedException e) {
@@ -25,8 +20,8 @@
         }
       }
 ;
-      t.setDaemon(true);
-      t.start();
+      ticker.setDaemon(true);
+      ticker.start();
       final ScheduledFuture<?> future=createMock(ScheduledFuture.class);
       final AtomicBoolean stopped=new AtomicBoolean(false);
       expect(future.isCancelled()).andAnswer(new IAnswer<Boolean>(){
@@ -37,7 +32,7 @@
 ).anyTimes();
       expect(future.cancel(anyBoolean())).andAnswer(new IAnswer<Boolean>(){
         @Override public Boolean answer() throws Throwable {
-          t.interrupt();
+          ticker.interrupt();
           stopped.set(true);
           return true;
         }

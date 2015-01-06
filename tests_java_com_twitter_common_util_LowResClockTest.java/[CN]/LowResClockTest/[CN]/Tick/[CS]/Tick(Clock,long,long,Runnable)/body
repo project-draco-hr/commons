@@ -1,0 +1,6 @@
+{
+  this.clock=clock;
+  time=startTime;
+  this.period=period;
+  this.advancer=advancer;
+}

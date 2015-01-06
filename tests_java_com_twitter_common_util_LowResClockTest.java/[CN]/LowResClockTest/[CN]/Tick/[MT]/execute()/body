@@ -1,0 +1,6 @@
+{
+  if (clock.nowMillis() >= time + period) {
+    advancer.run();
+    time=clock.nowMillis();
+  }
+}

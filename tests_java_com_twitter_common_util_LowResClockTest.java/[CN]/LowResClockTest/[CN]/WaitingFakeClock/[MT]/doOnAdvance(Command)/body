@@ -1,0 +1,5 @@
+{
+  CountDownLatch signal=signalQueue.take();
+  action.execute();
+  signal.countDown();
+}
