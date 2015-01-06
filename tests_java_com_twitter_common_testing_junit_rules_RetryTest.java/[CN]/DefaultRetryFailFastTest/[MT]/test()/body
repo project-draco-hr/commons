@@ -1,0 +1,3 @@
+{
+  doTest(0,Result.FAILURE);
+}
