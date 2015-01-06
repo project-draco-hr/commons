@@ -1,3 +1,2 @@
-from pants.backend.core.tasks.what_changed import WhatChanged
 from pants.backend.jvm.tasks.checkstyle import Checkstyle
 from pants.goal.task_registrar import TaskRegistrar as task

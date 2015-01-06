@@ -1,0 +1,3 @@
+def __init__(self, staging_dir):
+    self._staging_dir = staging_dir
+    self._fetched = []

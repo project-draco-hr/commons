@@ -1,9 +1,9 @@
 {
   List<Long> data=new ArrayList<Long>();
+  ClassLoader cl=getClass().getClassLoader();
+  InputStreamReader input=new InputStreamReader(cl.getResourceAsStream("resources/real_latencies.data"));
+  BufferedReader reader=new BufferedReader(input);
   try {
-    ClassLoader cl=getClass().getClassLoader();
-    InputStreamReader input=new InputStreamReader(cl.getResourceAsStream("resources/real_latencies.data"));
-    BufferedReader reader=new BufferedReader(input);
     String line=reader.readLine();
     int i=0;
     while (data.size() < n) {
@@ -17,7 +17,7 @@
       }
     }
   }
- catch (  Exception e) {
+ catch (  IOException e) {
     e.printStackTrace();
   }
   return data;

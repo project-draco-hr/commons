@@ -1,3 +1,2 @@
 def register_goals():
-    task(name='changed', action=WhatChanged).install().with_description('Print the targets changed since some prior commit.')
     task(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']).install('compile')

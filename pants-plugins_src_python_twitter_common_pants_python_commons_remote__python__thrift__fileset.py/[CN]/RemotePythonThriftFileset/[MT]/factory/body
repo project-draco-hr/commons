@@ -1,0 +1,4 @@
+@classmethod
+def factory(cls, parse_context):
+    staging_dir = os.path.join(get_buildroot(), parse_context.rel_path)
+    return cls(staging_dir)
