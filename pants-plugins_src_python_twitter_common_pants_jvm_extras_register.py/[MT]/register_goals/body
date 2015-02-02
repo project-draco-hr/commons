@@ -1,2 +1,2 @@
 def register_goals():
-    task(name='checkstyle', action=Checkstyle, dependencies=['gen', 'resolve']).install('compile')
+    task(name='checkstyle', action=Checkstyle).install('compile')
