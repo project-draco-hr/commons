@@ -1,0 +1,3 @@
+def test_sleep_negative():
+    with pytest.raises(IOError):
+        ThreadedClock(0).sleep((-1))

@@ -1,3 +1,4 @@
 @abstractmethod
 def sleep(self, amount):
+    'Block until the clock time is >= clock.time() + amount.\n\n    :param amount: The amount of time to wait.\n    :type amount: Anything that can be coerced to a float.\n    '
     pass

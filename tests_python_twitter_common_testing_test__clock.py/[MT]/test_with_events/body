@@ -1,0 +1,33 @@
+@pytest.mark.parametrize('num_threads', (1, 10))
+def test_with_events(num_threads):
+    event = threading.Event()
+    hits = []
+    (hits_before, hits_after) = (0, 0)
+    clock = ThreadedClock(0)
+
+    def hit_me():
+        clock.sleep(0.1)
+        hits.append(True)
+    threads = []
+    for _ in range(num_threads):
+        th = threading.Thread(target=hit_me)
+        th.daemon = True
+        th.start()
+        threads.append(th)
+    clock.converge(threads=threads)
+    for th in threads:
+        clock.assert_waiting(th, 0.1)
+    clock.tick(0.05)
+    clock.converge(threads=threads)
+    hits_before += len(hits)
+    with pytest.raises(AssertionError):
+        clock.assert_waiting(threads[0], 234)
+    clock.tick(0.05)
+    clock.converge(threads=threads)
+    hits_after += len(hits)
+    for th in threads:
+        clock.assert_not_waiting(th)
+        with pytest.raises(AssertionError):
+            clock.assert_waiting(th, 0.1)
+    assert (hits_before == 0)
+    assert (hits_after == num_threads)
