@@ -1,6 +1,7 @@
 Function<String,String> canonicalizer
 String name
 String help
+boolean argFile
 Arg<T> arg
 TypeToken<T> type
 List<Annotation> verifierAnnotations

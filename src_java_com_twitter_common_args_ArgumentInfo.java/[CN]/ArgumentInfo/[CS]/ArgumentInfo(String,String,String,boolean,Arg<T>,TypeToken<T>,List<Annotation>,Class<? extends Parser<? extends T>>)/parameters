@@ -1,6 +1,7 @@
 String canonicalName
 String name
 String help
+boolean argFile
 Arg<T> arg
 TypeToken<T> type
 List<Annotation> verifierAnnotations

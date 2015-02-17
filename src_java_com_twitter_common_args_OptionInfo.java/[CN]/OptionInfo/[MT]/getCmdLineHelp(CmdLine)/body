@@ -1,0 +1,7 @@
+{
+  String help=cmdLine.help();
+  if (cmdLine.argFile()) {
+    help=String.format(ARG_FILE_HELP_TEMPLATE,help,cmdLine.name(),cmdLine.name());
+  }
+  return help;
+}

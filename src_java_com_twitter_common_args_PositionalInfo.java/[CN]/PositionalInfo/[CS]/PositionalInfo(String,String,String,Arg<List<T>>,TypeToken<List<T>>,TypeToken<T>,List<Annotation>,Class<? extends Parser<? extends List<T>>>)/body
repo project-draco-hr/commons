@@ -1,4 +1,4 @@
 {
-  super(canonicalName,name,help,arg,type,verifierAnnotations,parser);
+  super(canonicalName,name,help,false,arg,type,verifierAnnotations,parser);
   this.elementType=elementType;
 }
