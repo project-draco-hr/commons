@@ -18,7 +18,7 @@ def http_request(self, path, fields=None, files=None, headers=None, method=None)
     if method:
         r.get_method = (lambda : method)
     try:
-        return urllib2.urlopen(r).read()
+        return urllib2.urlopen(r, timeout=self.timeout).read()
     except urllib2.URLError as e:
         try:
             self.debug(e.read())
