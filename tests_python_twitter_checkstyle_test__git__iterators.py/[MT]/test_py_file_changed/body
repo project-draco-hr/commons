@@ -1,5 +1,11 @@
 def test_py_file_changed(tmpdir, repo):
+    repo.heads.master.checkout()
+    python_filename_on_master = 'some-python-file.py'
+    tmpdir.join('some-python-file.py').write('some python in master')
+    repo.index.add([python_filename_on_master])
+    repo.index.commit('commit on master')
+    repo.heads.feature_branch.checkout()
     tmpdir.join(python_filename).write('some python to check')
     repo.index.add([python_filename])
     repo.index.commit('modify a python file')
-    assert ([f[0] for f in git_iterator(None, Options())] == [python_filename])
+    assert ([f[0] for f in git_iterator(None, Options())] == [tmpdir.join(python_filename).strpath])
