@@ -1,3 +1,0 @@
-{
-  entries.put(jarPath,new ReadableEntry(contents,jarPath));
-}

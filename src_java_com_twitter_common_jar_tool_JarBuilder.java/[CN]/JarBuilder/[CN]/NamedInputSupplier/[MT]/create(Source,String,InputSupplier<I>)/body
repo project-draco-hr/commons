@@ -1,3 +1,0 @@
-{
-  return new NamedInputSupplier<I>(source,name,inputSupplier);
-}

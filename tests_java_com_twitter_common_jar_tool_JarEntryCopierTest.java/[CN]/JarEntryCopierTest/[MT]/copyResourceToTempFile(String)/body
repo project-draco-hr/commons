@@ -1,9 +1,0 @@
-{
-  File resourcePathFile=new File(resourcePath);
-  String[] nameParts=resourcePathFile.getName().split("\\.");
-  assertEquals(2,nameParts.length);
-  File tempFile=File.createTempFile("testSuperShadySimple" + nameParts[0],".jar");
-  tempFile.deleteOnExit();
-  Files.copy(resourcePathFile,tempFile);
-  return tempFile;
-}

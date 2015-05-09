@@ -1,3 +1,0 @@
-{
-  assertEquals(ImmutableList.copyOf(entries),ImmutableList.copyOf(JarBuilder.relpathComponents(fullPath,relativeTo)));
-}

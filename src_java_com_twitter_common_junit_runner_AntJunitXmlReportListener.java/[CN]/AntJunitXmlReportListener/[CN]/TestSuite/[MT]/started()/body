@@ -1,6 +1,0 @@
-{
-  if (startNs == 0) {
-    timestamp=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
-    startNs=System.nanoTime();
-  }
-}

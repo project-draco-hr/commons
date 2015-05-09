@@ -1,3 +1,0 @@
-{
-  return new String(ByteStreams.toByteArray(content),Charsets.UTF_8);
-}

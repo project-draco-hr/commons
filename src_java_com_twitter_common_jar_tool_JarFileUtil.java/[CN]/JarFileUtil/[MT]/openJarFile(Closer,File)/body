@@ -1,3 +1,0 @@
-{
-  return openJarFile(closer,file,true);
-}

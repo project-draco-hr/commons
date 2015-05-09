@@ -1,4 +1,0 @@
-{
-  super(field,fieldType);
-  Preconditions.checkArgument(field.getType().isAssignableFrom(fieldType));
-}

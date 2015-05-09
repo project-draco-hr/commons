@@ -1,3 +1,0 @@
-{
-  return write(compress,DuplicateHandler.always(DuplicateAction.SKIP));
-}

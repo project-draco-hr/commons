@@ -1,5 +1,0 @@
-{
-  super(true);
-  this.numRetries=numRetries;
-  this.err=err;
-}

@@ -1,3 +1,0 @@
-{
-  return write(false,DuplicateHandler.always(DuplicateAction.SKIP));
-}

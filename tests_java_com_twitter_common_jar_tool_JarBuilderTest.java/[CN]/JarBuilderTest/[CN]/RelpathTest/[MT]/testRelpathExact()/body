@@ -1,4 +1,0 @@
-{
-  assertRelpath(new File("/a/b/c"),new File("/a/b/c"));
-  assertRelpath(new File("a/b/c"),new File("a/b/c"));
-}

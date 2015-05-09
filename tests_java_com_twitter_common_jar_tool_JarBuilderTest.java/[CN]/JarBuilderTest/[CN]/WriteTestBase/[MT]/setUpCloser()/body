@@ -1,4 +1,0 @@
-{
-  temporary=com.twitter.common.io.FileUtils.SYSTEM_TMP;
-  tearDownCloser=Closer.create();
-}

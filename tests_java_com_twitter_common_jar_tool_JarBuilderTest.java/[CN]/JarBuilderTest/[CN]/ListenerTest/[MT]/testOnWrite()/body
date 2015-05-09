@@ -1,8 +1,0 @@
-{
-  Listener listener=createMock(Listener.class);
-  Capture<Entry> written=new Capture<Entry>();
-  listener.onWrite(capture(written));
-  replay(listener);
-  jarBuilder(newFile(),listener).add(content("simple write"),"simple/write").write();
-  assertEquals("simple/write",written.getValue().getJarPath());
-}

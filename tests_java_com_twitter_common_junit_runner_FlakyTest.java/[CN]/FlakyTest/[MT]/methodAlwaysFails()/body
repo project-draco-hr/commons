@@ -1,7 +1,0 @@
-{
-  numTestMethodInvocationsPerTestInstance++;
-  Assume.assumeTrue(TestRegistry.consoleRunnerTestRunsFlakyTests);
-  TestRegistry.registerTestCall("flaky3");
-  numFlaky3Invocations++;
-  throw new Exception("flaky3 failed on invocation number " + numFlaky3Invocations);
-}

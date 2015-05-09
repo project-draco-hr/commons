@@ -1,2 +1,0 @@
-JarWriter writer
-Iterable<ReadableJarEntry> entries

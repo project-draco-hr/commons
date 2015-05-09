@@ -1,4 +1,0 @@
-{
-  this.defaultAction=Preconditions.checkNotNull(defaultAction);
-  this.policies=ImmutableList.copyOf(policies);
-}

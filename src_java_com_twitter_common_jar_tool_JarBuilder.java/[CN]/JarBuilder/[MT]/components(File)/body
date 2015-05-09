@@ -1,9 +1,0 @@
-{
-  LinkedList<String> components=Lists.newLinkedList();
-  File path=file;
-  do {
-    components.addFirst(path.getName());
-  }
- while ((path=path.getParentFile()) != null);
-  return components;
-}

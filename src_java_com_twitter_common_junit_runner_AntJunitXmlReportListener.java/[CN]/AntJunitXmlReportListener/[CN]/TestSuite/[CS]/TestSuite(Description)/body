@@ -1,9 +1,0 @@
-{
-  name=test.getClassName();
-  try {
-    hostname=InetAddress.getLocalHost().getHostName();
-  }
- catch (  UnknownHostException e) {
-    hostname="localhost";
-  }
-}

@@ -1,5 +1,0 @@
-{
-  message=failure.getMessage();
-  type=failure.getException().getClass().getName();
-  stacktrace=failure.getTrace();
-}

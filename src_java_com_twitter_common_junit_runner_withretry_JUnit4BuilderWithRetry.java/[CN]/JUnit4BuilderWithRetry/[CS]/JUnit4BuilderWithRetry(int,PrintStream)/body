@@ -1,4 +1,0 @@
-{
-  this.numRetries=numRetries;
-  this.err=err;
-}

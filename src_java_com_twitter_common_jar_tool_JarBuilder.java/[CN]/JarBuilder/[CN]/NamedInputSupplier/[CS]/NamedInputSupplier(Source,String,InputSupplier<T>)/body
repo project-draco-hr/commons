@@ -1,5 +1,0 @@
-{
-  this.source=source;
-  this.name=name;
-  this.inputSupplier=tInputSupplier;
-}

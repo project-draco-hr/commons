@@ -1,3 +1,0 @@
-{
-  assertListing(jar,Arrays.asList(paths),false);
-}

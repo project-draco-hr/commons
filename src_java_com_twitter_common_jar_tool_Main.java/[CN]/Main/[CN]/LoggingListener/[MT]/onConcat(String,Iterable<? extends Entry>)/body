@@ -1,5 +1,0 @@
-{
-  if (LOG.isLoggable(Level.FINE)) {
-    LOG.fine(String.format("Concatenating %s!%s from %s",target.getPath(),entryName,identify(entries)));
-  }
-}

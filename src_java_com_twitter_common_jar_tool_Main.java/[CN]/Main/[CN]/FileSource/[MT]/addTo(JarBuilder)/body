@@ -1,8 +1,0 @@
-{
-  if (source.isDirectory()) {
-    jarBuilder.addDirectory(source,Optional.fromNullable(destination));
-  }
- else {
-    jarBuilder.addFile(source,destination);
-  }
-}

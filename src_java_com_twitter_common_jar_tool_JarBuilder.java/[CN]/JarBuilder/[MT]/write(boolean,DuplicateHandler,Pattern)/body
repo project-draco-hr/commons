@@ -1,3 +1,0 @@
-{
-  return write(compress,duplicateHandler,ImmutableList.copyOf(skipPatterns));
-}

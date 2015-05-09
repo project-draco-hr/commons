@@ -1,3 +1,0 @@
-{
-  createSuites(description.getChildren());
-}
