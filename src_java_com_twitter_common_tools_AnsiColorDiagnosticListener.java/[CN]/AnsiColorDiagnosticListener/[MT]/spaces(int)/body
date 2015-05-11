@@ -1,5 +1,0 @@
-{
-  char[] spaces=new char[count];
-  Arrays.fill(spaces,' ');
-  return new String(spaces);
-}

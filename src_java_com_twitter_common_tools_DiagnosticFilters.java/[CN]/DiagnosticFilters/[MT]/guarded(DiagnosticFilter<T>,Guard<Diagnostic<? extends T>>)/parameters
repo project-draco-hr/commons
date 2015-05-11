@@ -1,2 +1,0 @@
-DiagnosticFilter<T> guarded
-Guard<Diagnostic<? extends T>> guard

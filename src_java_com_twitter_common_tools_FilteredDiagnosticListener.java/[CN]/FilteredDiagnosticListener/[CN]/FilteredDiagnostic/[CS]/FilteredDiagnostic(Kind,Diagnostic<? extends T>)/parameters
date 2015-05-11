@@ -1,2 +1,0 @@
-Kind filteredKind
-Diagnostic<? extends T> delegate

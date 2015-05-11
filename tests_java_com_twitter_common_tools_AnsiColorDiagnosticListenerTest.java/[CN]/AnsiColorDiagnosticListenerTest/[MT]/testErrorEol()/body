@@ -1,7 +1,0 @@
-{
-  expectDiagnostic(Kind.ERROR,"error","a\nbcd\n",5L,6L,4L);
-  control.replay();
-  listener.reportOn(diagnostic);
-  assertErr("error","bcd","   ^");
-  assertNoOut();
-}

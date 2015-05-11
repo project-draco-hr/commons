@@ -1,5 +1,0 @@
-{
-  this.compiler=compiler;
-  this.diagnosticListener=diagnosticListener;
-  this.standardFileManager=standardFileManager;
-}
