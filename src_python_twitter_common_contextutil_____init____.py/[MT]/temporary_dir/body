@@ -1,6 +1,6 @@
 @contextmanager
 def temporary_dir(root_dir=None, cleanup=True):
-    '\n    A with-context that creates a temporary directory.\n\n    You may specify the following keyword args:\n      root_dir [path]: The parent directory to create the temporary directory.\n      cleanup [True/False]: Whether or not to clean up the temporary directory.\n  '
+    "\n    A with-context that creates a temporary directory.\n\n    You may specify the following keyword args:\n\n    :param str root_dir: The parent directory to create the temporary directory.\n    :param bool cleanup: Whether or not to clean up the temporary directory.\n\n    For example:\n\n    >>> with temporary_dir() as td:\n    ...   with open(os.path.join(td, 'my_file.txt')) as fp:\n    ...     fp.write(junk)\n\n\n  "
     path = tempfile.mkdtemp(dir=root_dir)
     try:
         yield path
