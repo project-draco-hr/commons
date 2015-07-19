@@ -1,3 +1,4 @@
 @abstractmethod
 def time(self):
+    'The current time.\n\n    :rtype: float\n    '
     pass

@@ -1,0 +1,23 @@
+import sys
+import os
+from os.path import dirname
+parent = dirname(os.path.abspath(__file__))
+for num in xrange(3):
+    parent = dirname(parent)
+sys.path.insert(0, parent)
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.ifconfig']
+templates_path = ['_templates']
+source_suffix = '.rst'
+master_doc = 'index'
+project = u'twitter.common (python)'
+copyright = u'Twitter'
+version = '0.3.3'
+release = '0.3.3'
+exclude_patterns = ['_build']
+pygments_style = 'sphinx'
+html_theme = 'default'
+html_static_path = ['_static']
+intersphinx_mapping = {'http://docs.python.org/': None, }
+autodoc_mock_imports = ['git']
+for mod_name in ['git', 'socks', 'thrift', 'thrift.transport', 'thrift.protocol', 'thrift.TSerialization', 'zookeeper']:
+    sys.modules[mod_name] = Mock()

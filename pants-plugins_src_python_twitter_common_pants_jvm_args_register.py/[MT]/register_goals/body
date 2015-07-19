@@ -1,2 +1,2 @@
 def register_goals():
-    task(name='args-apt', action=ResourceMapper, dependencies=['compile']).install('resources')
+    task(name='args-apt', action=ResourceMapper).install('resources')

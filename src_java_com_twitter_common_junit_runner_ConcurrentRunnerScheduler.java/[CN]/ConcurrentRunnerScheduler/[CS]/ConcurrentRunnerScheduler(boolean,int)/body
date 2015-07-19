@@ -1,7 +1,0 @@
-{
-  this.defaultParallel=defaultParallel;
-  ThreadFactory threadFactory=new ThreadFactoryBuilder().setDaemon(true).setNameFormat("concurrent-junit-runner-%d").build();
-  completionService=new ExecutorCompletionService<Void>(Executors.newFixedThreadPool(numThreads,threadFactory));
-  concurrentTasks=new LinkedList<Future<Void>>();
-  serialTasks=new LinkedList<Runnable>();
-}

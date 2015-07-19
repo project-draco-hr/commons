@@ -1,4 +1,0 @@
-{
-  ConsoleRunner.main(asArgsArray("MockTest1 MockTest2 MockTest3 -test-shard 1/2 -parallel-threads 4 -default-parallel"));
-  Assert.assertEquals("test12 test21 test31",TestRegistry.getCalledTests());
-}

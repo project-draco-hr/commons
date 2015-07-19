@@ -1,6 +1,0 @@
-{
-  super(testClass);
-  this.testClass=testClass;
-  this.numRetries=numRetries;
-  this.err=err;
-}

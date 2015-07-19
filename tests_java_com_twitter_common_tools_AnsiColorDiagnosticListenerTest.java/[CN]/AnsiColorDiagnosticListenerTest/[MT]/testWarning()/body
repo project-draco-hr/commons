@@ -1,7 +1,0 @@
-{
-  expectDiagnostic(Kind.WARNING,"warning","abcdefg",1L,3L,2L);
-  control.replay();
-  listener.reportOn(diagnostic);
-  assertErr("warning","abcdefg"," ^");
-  assertNoOut();
-}

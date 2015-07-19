@@ -1,0 +1,3 @@
+def assert_not_waiting(self, thread):
+    'Make an assertion that `thread` is not waiting.\n\n    :param thread: A :class:`threading.Thread` object.\n    '
+    assert (not any((waiter for waiter in self._waiters if (waiter.thread == thread)))), ('Thread %s is unexpectedly waiting.' % thread)

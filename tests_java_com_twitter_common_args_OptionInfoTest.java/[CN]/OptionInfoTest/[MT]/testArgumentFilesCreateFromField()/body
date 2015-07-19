@@ -1,0 +1,7 @@
+{
+  OptionInfo optionInfo=OptionInfo.createFromField(App.class.getDeclaredField("files"),app);
+  assertEquals("files",optionInfo.getName());
+  assertEquals(String.format(OptionInfo.ARG_FILE_HELP_TEMPLATE,"help.","files","files"),optionInfo.getHelp());
+  assertTrue(optionInfo.argFile());
+  assertEquals("com.twitter.common.args.OptionInfoTest.App.files",optionInfo.getCanonicalName());
+}

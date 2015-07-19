@@ -1,4 +1,0 @@
-{
-  this.started=description;
-  super.testStarted(description);
-}

@@ -1,3 +1,0 @@
-{
-  entries.put(jarEntry.getName(),new ReadableJarEntry(contents,jarEntry));
-}

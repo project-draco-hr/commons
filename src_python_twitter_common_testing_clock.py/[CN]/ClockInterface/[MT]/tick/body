@@ -1,3 +1,4 @@
 @abstractmethod
 def tick(self, amount):
+    'Advance the clock by `amount`.\n\n    :param amount: The amount to advance the clock.\n    :type amount: Anything that can be coerced to a float.\n    '
     pass

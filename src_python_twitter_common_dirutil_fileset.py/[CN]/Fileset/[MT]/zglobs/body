@@ -1,6 +1,6 @@
 @classmethod
 def zglobs(cls, *globspecs, **kw):
-    'Returns a Fileset that matches zsh-style globs, including \'**/\' for recursive globbing.\n\n       By default searches from the current working directory.  Can be overridden\n       with the \'root\' keyword argument.  File names starting with \'.\' are not\n       returned unless explicitly globbed.  For example, ".*" matches ".bashrc" but\n       "*" does not, mirroring the semantics of \'ls\' without \'-a\'.\n    '
+    'Returns a Fileset that matches zsh-style globs, including `**/` for recursive globbing.\n\n       By default searches from the current working directory.  Can be overridden\n       with the \'root\' keyword argument.  File names starting with \'.\' are not\n       returned unless explicitly globbed.  For example, ".*" matches ".bashrc" but\n       "*" does not, mirroring the semantics of \'ls\' without \'-a\'.\n    '
     root = kw.pop('root', os.curdir)
     patterns = [(os.path.basename(spec).startswith('*'), re.compile(fnmatch_translate_extended(spec))) for spec in globspecs]
 

@@ -1,3 +1,0 @@
-{
-  out.append(Util.isAssertionFailure(failure) ? 'F' : 'E');
-}

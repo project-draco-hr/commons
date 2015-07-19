@@ -1,14 +1,14 @@
 def tick(self, amount):
-    time.sleep(0.1)
     now = self._time
     end = (now + amount)
     while True:
         waiter = self._pop_waiter(end)
         if (not waiter):
             break
-        (waiter_time, waiter_handshake) = waiter
-        print ('Time now: %s' % self._time)
-        self._time = waiter_time
-        waiter_handshake.ack()
-    print ('Time now: %s' % self._time)
+        if self._log:
+            self._log(('[%r] Time now: %s' % (self, self._time)))
+        self._time = waiter.wait_until
+        waiter.ack()
+    if self._log:
+        self._log(('[%r] Time now: %s' % (self, self._time)))
     self._time = end

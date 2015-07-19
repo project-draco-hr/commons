@@ -1,0 +1,20 @@
+def test_not_converged():
+    clock1 = ThreadedClock(0)
+    clock2 = ThreadedClock(0)
+
+    def run():
+        clock1.sleep(1)
+        clock2.sleep(1)
+    th = threading.Thread(target=run)
+    th.daemon = True
+    th.start()
+    assert clock1.converge(threads=[th])
+    clock1.assert_waiting(th, 1)
+    assert (clock2.converge(threads=[th], timeout=0.1) is False)
+    clock2.assert_not_waiting(th)
+    clock1.tick(1)
+    clock2.tick(2)
+    clock1.converge(threads=[th])
+    clock2.converge(threads=[th])
+    clock1.assert_not_waiting(th)
+    clock2.assert_not_waiting(th)

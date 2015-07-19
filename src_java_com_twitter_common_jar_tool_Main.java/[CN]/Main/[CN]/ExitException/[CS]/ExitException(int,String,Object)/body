@@ -1,4 +1,0 @@
-{
-  super(String.format(message,args));
-  this.code=code;
-}

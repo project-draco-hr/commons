@@ -1,3 +1,0 @@
-List<Request> requests
-boolean defaultParallel
-int numThreads

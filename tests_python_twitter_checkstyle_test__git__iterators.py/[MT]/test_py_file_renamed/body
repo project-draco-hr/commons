@@ -4,4 +4,4 @@ def test_py_file_renamed(tmpdir, repo):
     repo.index.remove([python_filename])
     repo.index.add([new_python_filename])
     repo.index.commit('rename a python file')
-    assert ([f[0] for f in git_iterator(None, Options())] == [new_python_filename])
+    assert ([f[0] for f in git_iterator(None, Options())] == [tmpdir.join(new_python_filename).strpath])

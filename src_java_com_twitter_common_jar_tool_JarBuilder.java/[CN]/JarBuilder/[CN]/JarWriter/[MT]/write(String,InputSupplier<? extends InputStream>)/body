@@ -1,5 +1,0 @@
-{
-  ensureParentDir(path);
-  out.putNextEntry(entryFactory.createEntry(path,contents));
-  ByteStreams.copy(contents,out);
-}

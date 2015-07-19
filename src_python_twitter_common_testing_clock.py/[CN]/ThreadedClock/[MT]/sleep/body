@@ -1,5 +1,7 @@
 def sleep(self, amount):
-    waiter_end = (self._time + amount)
-    waiter_handshake = Handshake()
-    self._waiters.append((waiter_end, waiter_handshake))
-    waiter_handshake.syn()
+    if (amount < 0):
+        raise IOError('Cannot sleep < 0.')
+    waiter = _Waiter(amount, (self._time + amount))
+    self._waiters.append(waiter)
+    self._waiters.sort()
+    waiter.syn()

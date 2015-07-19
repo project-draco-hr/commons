@@ -1,0 +1,6 @@
+{
+  File argfile=tmpDir.newFile();
+  Files.write("1.txt,2.txt\n",argfile,Charsets.UTF_8);
+  new ArgScanner().parse(Args.from(ArgFilters.selectClass(App.class),app),ImmutableList.of("-files=@" + argfile.getCanonicalPath()));
+  assertEquals(ImmutableList.of(new File("1.txt"),new File("2.txt")),app.files.get());
+}

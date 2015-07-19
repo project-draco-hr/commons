@@ -1,6 +1,6 @@
 @contextmanager
 def pushd(directory):
-    '\n    A with-context that encapsulates pushd/popd.\n  '
+    '\n    A with-context that encapsulates pushd/popd.\n\n    >>> with pushd(\'subdir/data\'):\n    ...  glob.glob("*json") # run code in subdir\n\n  '
     cwd = os.getcwd()
     os.chdir(directory)
     try:

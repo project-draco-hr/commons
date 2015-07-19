@@ -1,3 +1,0 @@
-{
-  return entry.getSource().identify(entry.getName());
-}

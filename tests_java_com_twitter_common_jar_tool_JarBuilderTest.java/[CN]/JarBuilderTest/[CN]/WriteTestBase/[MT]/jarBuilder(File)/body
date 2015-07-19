@@ -1,3 +1,0 @@
-{
-  return jarBuilder(destinationJar,Listener.NOOP);
-}

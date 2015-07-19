@@ -1,0 +1,12 @@
+def test_sleep_0():
+    clock = ThreadedClock(0)
+    event = threading.Event()
+
+    def run():
+        clock.sleep(0)
+        event.set()
+    th = threading.Thread(target=run)
+    th.daemon = True
+    th.start()
+    assert clock.converge(threads=[th])
+    assert event.is_set()

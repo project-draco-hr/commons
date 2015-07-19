@@ -1,8 +1,0 @@
-{
-  fire(new Event<Exception>(){
-    @Override public void fire(    RunListener listener) throws Exception {
-      listener.testRunStarted(description);
-    }
-  }
-);
-}

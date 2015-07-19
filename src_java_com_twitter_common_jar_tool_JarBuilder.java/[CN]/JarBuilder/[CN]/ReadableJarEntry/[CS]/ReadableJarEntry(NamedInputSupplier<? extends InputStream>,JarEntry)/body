@@ -1,4 +1,0 @@
-{
-  super(contents,jarEntry.getName());
-  this.jarEntry=jarEntry;
-}

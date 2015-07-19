@@ -1,5 +1,0 @@
-{
-  if (++tests == testCases.size()) {
-    time=convertTimeSpanNs(System.nanoTime() - startNs);
-  }
-}

@@ -1,5 +1,0 @@
-{
-  Preconditions.checkArgument(fieldType.isAssignableFrom(field.getType()));
-  this.field=field;
-  this.fieldType=fieldType;
-}

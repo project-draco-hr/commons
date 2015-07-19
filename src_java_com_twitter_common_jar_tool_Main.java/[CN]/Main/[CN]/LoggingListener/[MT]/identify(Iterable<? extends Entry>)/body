@@ -1,8 +1,0 @@
-{
-  return Joiner.on(",").join(FluentIterable.from(entries).transform(new Function<Entry,String>(){
-    @Override public String apply(    Entry input){
-      return identify(input);
-    }
-  }
-));
-}

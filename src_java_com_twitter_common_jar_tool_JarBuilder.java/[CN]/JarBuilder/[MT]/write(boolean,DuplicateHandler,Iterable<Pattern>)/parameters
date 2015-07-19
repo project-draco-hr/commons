@@ -1,3 +1,0 @@
-boolean compress
-DuplicateHandler duplicateHandler
-Iterable<Pattern> skipPatterns

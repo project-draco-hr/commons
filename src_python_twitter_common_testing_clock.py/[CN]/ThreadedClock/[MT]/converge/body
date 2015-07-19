@@ -1,0 +1,9 @@
+def converge(self, threads, timeout=None):
+    'Wait until the supplied threads are finished or sleeping on this clock.\n\n    This method should be called to ensure deterministic tests.\n\n    :param threads: An iterable of :class:`threading.Thread` objects to test for blocking.\n    :keyword timeout: A *real wall clock* timeout to wait for the threads to converge. If\n        timeout is None, wait forever.\n    :returns: True once all threads are finished or sleeping, False if the timeout expires\n        without convergence.\n    '
+    self.tick(0)
+    total_time = 0
+    while (not self.converged(threads)):
+        total_time += self.thread_yield()
+        if (timeout and (total_time >= timeout)):
+            return False
+    return True

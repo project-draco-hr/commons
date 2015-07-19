@@ -1,6 +1,6 @@
 @contextmanager
 def environment_as(**kwargs):
-    "Update the environment to the supplied values, for example:\n\n  with environment_as(PYTHONPATH='foo:bar:baz',\n                      PYTHON='/usr/bin/python2.6'):\n    subprocess.Popen(foo).wait()\n  "
+    "Update the environment to the supplied values, for example:\n\n  >>> with environment_as(PYTHONPATH='foo:bar:baz', PYTHON='/usr/bin/python2.7'):\n  ...  subprocess.Popen(foo).wait()\n\n  "
     new_environment = kwargs
     old_environment = {}
 

@@ -1,5 +1,0 @@
-{
-  File file=new File(newFolder(),name);
-  org.apache.commons.io.FileUtils.touch(file);
-  return file;
-}

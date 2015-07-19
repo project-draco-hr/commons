@@ -1,9 +1,0 @@
-{
-  File builtJar=jarBuilder().write();
-  doWithJar(builtJar,new ExceptionalClosure<JarFile,IOException>(){
-    @Override public void execute(    JarFile created) throws IOException {
-      assertListing(created);
-    }
-  }
-);
-}

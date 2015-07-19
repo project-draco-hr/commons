@@ -1,4 +1,0 @@
-{
-  this.filteredKind=filteredKind;
-  this.delegate=delegate;
-}

@@ -1,4 +1,0 @@
-{
-  registerTests(description.getChildren());
-  super.testRunStarted(description);
-}

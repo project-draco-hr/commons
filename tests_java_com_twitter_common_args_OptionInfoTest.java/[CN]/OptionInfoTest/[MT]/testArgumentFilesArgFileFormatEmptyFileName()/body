@@ -1,0 +1,3 @@
+{
+  new ArgScanner().parse(Args.from(ArgFilters.selectClass(App.class),app),ImmutableList.of("-files=@"));
+}

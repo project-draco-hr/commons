@@ -1,0 +1,9 @@
+{
+  OptionInfo optionInfo=OptionInfo.createFromField(App.class.getDeclaredField("flag"),app);
+  assertEquals("flag",optionInfo.getName());
+  assertEquals("help.",optionInfo.getHelp());
+  assertFalse(optionInfo.argFile());
+  assertEquals("com.twitter.common.args.OptionInfoTest.App.flag",optionInfo.getCanonicalName());
+  assertEquals("no_flag",optionInfo.getNegatedName());
+  assertEquals("com.twitter.common.args.OptionInfoTest.App.no_flag",optionInfo.getCanonicalNegatedName());
+}

@@ -1,4 +1,0 @@
-{
-  ConsoleRunner.main(asArgsArray("MockTest1 MockTest2 MockTest3 -test-shard 2/3"));
-  Assert.assertEquals("test13 test31",TestRegistry.getCalledTests());
-}

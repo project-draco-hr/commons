@@ -1,4 +1,0 @@
-{
-  ensureParentDir(path);
-  JarEntryCopier.copyEntry(out,path,jarIn,srcJarEntry);
-}

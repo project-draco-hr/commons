@@ -1,4 +1,0 @@
-JarFile jar
-String path
-String expectedContent
-boolean compressed

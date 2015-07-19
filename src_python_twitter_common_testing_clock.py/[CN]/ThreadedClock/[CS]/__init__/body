@@ -1,3 +1,5 @@
-def __init__(self, initial_value=0):
-    self._time = initial_value
+def __init__(self, initial_value=0, log=None):
+    'Construct a ThreadedClock.\n\n    :keyword initial_value: The initial value of the clock. Defaults to 0.\n    :keyword logger: A callable for accepting log messages.  Defaults to writing to sys.stderr.\n    '
+    self._time = float(initial_value)
     self._waiters = []
+    self._log = (log or (lambda msg: sys.stderr.write((msg + '\n'))))

@@ -1,8 +1,0 @@
-{
-  assertRelpath(new File("/a/b/c"),new File("/a/b/d"),"..","c");
-  assertRelpath(new File("/a/b/c"),new File("/a/d/e"),"..","..","b","c");
-  assertRelpath(new File("/a/b/c"),new File("/d/e/f"),"..","..","..","a","b","c");
-  assertRelpath(new File("a/b/c"),new File("a/b/d"),"..","c");
-  assertRelpath(new File("a/b/c"),new File("a/d/e"),"..","..","b","c");
-  assertRelpath(new File("a/b/c"),new File("d/e/f"),"..","..","..","a","b","c");
-}

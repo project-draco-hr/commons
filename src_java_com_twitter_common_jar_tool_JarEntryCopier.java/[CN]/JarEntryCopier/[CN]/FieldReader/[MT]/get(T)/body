@@ -1,8 +1,0 @@
-{
-  try {
-    return (V)field.get(instance);
-  }
- catch (  IllegalAccessException e) {
-    throw new RuntimeException(e);
-  }
-}

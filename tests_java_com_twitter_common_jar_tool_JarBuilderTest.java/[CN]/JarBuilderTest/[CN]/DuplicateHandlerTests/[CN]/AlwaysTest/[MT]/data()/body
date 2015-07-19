@@ -1,8 +1,0 @@
-{
-  return FluentIterable.from(ImmutableList.copyOf(DuplicateAction.values())).transform(new Function<DuplicateAction,Object[]>(){
-    @Override public Object[] apply(    DuplicateAction item){
-      return new Object[]{item};
-    }
-  }
-).toList();
-}

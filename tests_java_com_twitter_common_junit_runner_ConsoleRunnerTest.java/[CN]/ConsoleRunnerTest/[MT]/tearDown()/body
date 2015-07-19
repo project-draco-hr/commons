@@ -1,4 +1,0 @@
-{
-  ConsoleRunner.setCallSystemExitOnFinish(true);
-  ConsoleRunner.setExitStatus(0);
-}
