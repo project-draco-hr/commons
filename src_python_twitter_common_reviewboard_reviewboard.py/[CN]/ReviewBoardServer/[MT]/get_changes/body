@@ -1,0 +1,4 @@
+def get_changes(self, rb_id, start=0, max_results=25):
+    '\n    Returns a list of changes of the sepcified review request.\n    '
+    url = ('api/review-requests/%s/changes/' % rb_id)
+    return self._smart_query(url, 'changes', start, max_results)

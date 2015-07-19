@@ -1,0 +1,4 @@
+def get_diffs(self, rb_id):
+    '\n    Returns a list of diffs of the sepcified review request.\n    '
+    rsp = self.api_call(('api/review-requests/%s/diffs/' % rb_id))
+    return rsp['diffs']
