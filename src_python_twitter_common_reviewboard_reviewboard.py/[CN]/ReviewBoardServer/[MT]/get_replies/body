@@ -1,4 +1,4 @@
 def get_replies(self, rb_id, review, start=0, max_results=25):
     "\n    Fetches replies to a given review in a review request.\n    If max_results is negative, then ignores 'start' and returns all reviews.\n    "
-    url = ('/api/review-requests/%s/reviews/%s/replies/' % (rb_id, review))
+    url = ('api/review-requests/%s/reviews/%s/replies/' % (rb_id, review))
     return self._smart_query(url, 'replies', start, max_results)
