@@ -4,4 +4,4 @@ def test_get_diffs(mock_method):
     rbs = ReviewBoardServer('http://example.com', username='user', password='pass1')
     rb_id = 123
     assert (len(rbs.get_diffs(rb_id)) == 2)
-    mock_method.assert_called_once_with(('api/review-requests/%d/diffs/' % rb_id), None, None, {'Accept': 'application/json', }, method=None)
+    assert (mock_method.mock_calls == [call(('api/review-requests/%d/diffs/' % rb_id), None, None, {'Accept': 'application/json', }, method=None)])

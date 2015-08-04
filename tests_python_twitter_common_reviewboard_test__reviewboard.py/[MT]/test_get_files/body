@@ -5,4 +5,4 @@ def test_get_files(mock_method):
     rb_id = 123
     revision = 456
     assert (len(rbs.get_files(rb_id, revision)) == 2)
-    mock_method.assert_called_once_with(('api/review-requests/%d/diffs/%d/files/?start=0&max-results=25' % (rb_id, revision)), None, None, {'Accept': 'application/json', }, method=None)
+    assert (mock_method.mock_calls == [call(('api/review-requests/%d/diffs/%d/files/?start=0&max-results=25' % (rb_id, revision)), None, None, {'Accept': 'application/json', }, method=None)])
