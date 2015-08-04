@@ -1,4 +1,4 @@
-@mock.patch.object(ReviewBoardServer, 'http_request', autospec=True)
+@mock.patch.object(ReviewBoardServer, 'http_request', autospec=True, spec_set=True)
 def test_get_reviews(mock_method):
     mock_method.return_value = '{\n    "stat" : "ok",\n    "reviews" : [\n      { "id" : 123 }, { "id" : 456 }\n    ]\n  }'
     rbs = ReviewBoardServer('http://example.com', username='user', password='pass1')
