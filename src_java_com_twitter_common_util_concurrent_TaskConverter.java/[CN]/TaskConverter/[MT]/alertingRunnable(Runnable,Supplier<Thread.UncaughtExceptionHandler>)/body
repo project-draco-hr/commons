@@ -1,0 +1,14 @@
+{
+  return new Runnable(){
+    @Override public void run(){
+      try {
+        runnable.run();
+      }
+ catch (      Throwable t) {
+        handler.get().uncaughtException(Thread.currentThread(),t);
+        throw Throwables.propagate(t);
+      }
+    }
+  }
+;
+}

@@ -1,6 +1,7 @@
 def test_zglobs():
     FILELIST = ['foo.txt', '.hidden_file', 'a/', 'a/foo.txt', 'a/.hidden_file', 'a/b/', 'a/b/foo.txt', 'a/b/.hidden_file', 'foo/bar/baz.txt', 'foo/', 'foo/bar/', 'a/b/c/']
     with Fileset.over(FILELIST):
+        assert (ll(Fileset.zglobs('')) == 0)
         assert (ll(Fileset.zglobs('*.txt')) == 1)
         assert (ll(Fileset.zglobs('.*')) == 1)
         assert (ll(Fileset.zglobs('*/*.txt')) == 1)

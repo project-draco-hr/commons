@@ -1,0 +1,15 @@
+{
+  initializeWith(h,data);
+  initializeWith(real,data);
+  long histSize=ObjectSizeCalculator.getObjectSize(h);
+  long realSize=ObjectSizeCalculator.getObjectSize(real);
+  System.out.println("Real Histogram size: " + realSize + "B, Approx histogram size: "+ histSize+ "B");
+  double[] quantiles=DEFAULT_QUANTILES;
+  for (int i=0; i < quantiles.length; i++) {
+    double q=quantiles[i];
+    long realQuantile=real.getQuantile(q);
+    long metricsQuantile=h.getQuantile(q);
+    double delta=1000 * Math.abs(metricsQuantile - realQuantile) / realQuantile;
+    System.out.println("Quantile: " + q + "\tReal: "+ realQuantile+ " \tApprox: "+ metricsQuantile+ " (???: "+ (delta / 10.0)+ "%)");
+  }
+}

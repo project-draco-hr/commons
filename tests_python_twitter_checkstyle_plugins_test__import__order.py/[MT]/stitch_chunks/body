@@ -1,0 +1,3 @@
+def stitch_chunks(newlines, *chunks):
+    stitched = ('\n' * newlines).join(map(IMPORT_CHUNKS.get, chunks))
+    return stitched

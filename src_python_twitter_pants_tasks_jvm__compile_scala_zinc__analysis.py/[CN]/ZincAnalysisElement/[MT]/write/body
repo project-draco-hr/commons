@@ -1,2 +1,0 @@
-def write(self, outfile, inline_vals=True, rebasings=None):
-    self._write_multiple_sections(outfile, self.headers, self.args, inline_vals, rebasings)

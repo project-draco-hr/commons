@@ -1,0 +1,28 @@
+{
+  Preconditions.checkNotNull(filter);
+  Preconditions.checkNotNull(sources);
+  Configuration configuration=Configuration.load();
+  ArgsInfo staticInfo=Args.fromConfiguration(configuration,filter);
+  final ImmutableSet.Builder<PositionalInfo<?>> positionalInfos=ImmutableSet.<PositionalInfo<?>>builder().addAll(staticInfo.getPositionalInfo().asSet());
+  final ImmutableSet.Builder<OptionInfo<?>> optionInfos=ImmutableSet.<OptionInfo<?>>builder().addAll(staticInfo.getOptionInfos());
+  for (  Object source : sources) {
+    Class<?> clazz=source instanceof Class ? (Class)source : source.getClass();
+    for (    Field field : clazz.getDeclaredFields()) {
+      if (filter.apply(field)) {
+        boolean cmdLine=field.isAnnotationPresent(CmdLine.class);
+        boolean positional=field.isAnnotationPresent(Positional.class);
+        if (cmdLine && positional) {
+          throw new IllegalArgumentException("An Arg cannot be annotated with both @CmdLine and @Positional, found bad Arg " + "field: " + field);
+        }
+ else         if (cmdLine) {
+          optionInfos.add(OptionInfo.createFromField(field,source));
+        }
+ else         if (positional) {
+          positionalInfos.add(PositionalInfo.createFromField(field,source));
+        }
+      }
+    }
+  }
+  @Nullable PositionalInfo<?> positionalInfo=Iterables.getOnlyElement(positionalInfos.build(),null);
+  return new ArgsInfo(configuration,Optional.fromNullable(positionalInfo),optionInfos.build());
+}

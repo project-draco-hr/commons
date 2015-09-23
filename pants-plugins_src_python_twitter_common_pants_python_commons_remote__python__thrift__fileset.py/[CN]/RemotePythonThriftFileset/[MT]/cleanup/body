@@ -1,0 +1,3 @@
+def cleanup(self):
+    for fetched in self._fetched:
+        safe_delete(fetched)

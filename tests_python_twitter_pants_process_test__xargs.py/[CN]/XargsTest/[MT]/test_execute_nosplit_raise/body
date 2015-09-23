@@ -1,7 +1,0 @@
-def test_execute_nosplit_raise(self):
-    exception = Exception()
-    self.call(['one', 'two', 'three', 'four']).AndRaise(exception)
-    self.mox.ReplayAll()
-    with pytest.raises(Exception) as raised:
-        self.xargs.execute(['one', 'two', 'three', 'four'])
-    self.assertTrue((exception is raised.value))

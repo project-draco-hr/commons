@@ -1,0 +1,3 @@
+@staticmethod
+def maybe_has_args(target):
+    return target.is_jvm

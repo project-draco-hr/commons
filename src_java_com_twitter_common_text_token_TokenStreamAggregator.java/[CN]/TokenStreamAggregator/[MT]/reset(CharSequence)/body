@@ -1,6 +1,0 @@
-{
-  Preconditions.checkNotNull(input);
-  for (  TokenStream stream : aggregatedStreams) {
-    stream.reset(input);
-  }
-}

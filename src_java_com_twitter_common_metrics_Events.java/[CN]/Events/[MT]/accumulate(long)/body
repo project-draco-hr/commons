@@ -1,4 +1,4 @@
 {
-  totalEvents.incrementAndGet();
-  totalValue.addAndGet(value);
+  totalEvents.increment();
+  totalValue.add(value);
 }

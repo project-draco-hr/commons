@@ -1,6 +1,0 @@
-@staticmethod
-def init_repo(remote_name, remote):
-    subprocess.check_call(['git', 'init'])
-    subprocess.check_call(['git', 'config', 'user.email', 'you@example.com'])
-    subprocess.check_call(['git', 'config', 'user.name', 'Your Name'])
-    subprocess.check_call(['git', 'remote', 'add', remote_name, remote])

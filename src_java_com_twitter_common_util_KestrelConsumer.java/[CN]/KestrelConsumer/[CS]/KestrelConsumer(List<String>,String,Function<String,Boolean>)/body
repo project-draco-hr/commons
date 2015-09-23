@@ -1,8 +1,0 @@
-{
-  Preconditions.checkNotNull(kestrelServers);
-  Preconditions.checkNotNull(queueName);
-  Preconditions.checkNotNull(taskHandler);
-  this.kestrelServers=kestrelServers;
-  this.queueName=queueName;
-  this.taskHandler=taskHandler;
-}

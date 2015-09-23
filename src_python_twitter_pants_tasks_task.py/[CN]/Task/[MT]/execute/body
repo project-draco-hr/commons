@@ -1,3 +1,0 @@
-def execute(self, targets):
-    'Executes this task against targets, which may be a subset of the current context targets.'
-    raise TaskError('execute() not implemented')

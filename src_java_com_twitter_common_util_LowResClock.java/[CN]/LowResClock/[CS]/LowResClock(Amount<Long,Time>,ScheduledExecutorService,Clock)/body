@@ -1,0 +1,13 @@
+{
+  long sleepTimeMs=resolution.as(Time.MILLISECONDS);
+  Preconditions.checkArgument(sleepTimeMs > 0);
+  underlying=clock;
+  Runnable ticker=new Runnable(){
+    @Override public void run(){
+      time=underlying.nowMillis();
+    }
+  }
+;
+  ticker.run();
+  updaterHandler=executor.scheduleAtFixedRate(ticker,sleepTimeMs,sleepTimeMs,TimeUnit.MILLISECONDS);
+}

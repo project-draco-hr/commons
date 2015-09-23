@@ -1,6 +1,0 @@
-def setUp(self):
-    super(FetcherTest, self).setUp()
-    self.requests = self.mox.CreateMockAnything()
-    self.response = self.mox.CreateMock(requests.Response)
-    self.fetcher = Fetcher(requests_api=self.requests)
-    self.listener = self.mox.CreateMock(Fetcher.Listener)

@@ -1,0 +1,6 @@
+{
+  tries++;
+  if (lastResult != null && tries > successfulTries) {
+    lastResult.execute();
+  }
+}

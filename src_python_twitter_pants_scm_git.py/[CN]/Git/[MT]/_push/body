@@ -1,3 +1,0 @@
-def _push(self, *refs):
-    (remote, merge) = self._get_upstream()
-    self._check_call((['push', remote, merge] + list(refs)), raise_type=Scm.RemoteException)

@@ -1,2 +1,0 @@
-def test_layout_here(self):
-    self.assertEqual('projectB/src/main/scala', self.target('projectB/src/main/scala:test').target_base)

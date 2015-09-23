@@ -1,9 +1,0 @@
-def test_groups(self):
-    self.install_goal('resolve')
-    self.install_goal('javac', group=Group('jvm', (lambda t: t.is_java)), dependencies=['resolve'], phase='compile')
-    self.install_goal('scalac', group=Group('jvm', (lambda t: t.is_scala)), dependencies=['resolve'], phase='compile')
-    self.install_goal('checkstyle', phase='compile')
-    result = self.engine.execute(self.context, self.as_phases('compile'))
-    self.assertEqual(0, result)
-    expected = [self.construct_action('checkstyle'), self.construct_action('scalac'), self.construct_action('javac'), self.construct_action('resolve'), self.execute_action('resolve'), self.execute_action('javac', targets=self.targets('src/java:a')), self.execute_action('scalac', targets=self.targets('src/scala:b')), self.execute_action('javac', targets=self.targets('src/java:c')), self.execute_action('scalac', targets=self.targets('src/scala:d')), self.execute_action('javac', targets=self.targets('src/java:e')), self.execute_action('checkstyle')]
-    self.assertEqual(expected, self.recorded_actions)

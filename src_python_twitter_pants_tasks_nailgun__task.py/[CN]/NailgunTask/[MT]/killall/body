@@ -1,7 +1,0 @@
-@staticmethod
-def killall(logger=None, everywhere=False):
-    'Kills all nailgun servers launched by pants in the current repo.\n\n    Returns ``True`` if all nailguns were successfully killed, ``False`` otherwise.\n\n    :param logger: a callable that accepts a message string describing the killed nailgun process\n    :param bool everywhere: ``True`` to kill all nailguns servers launched by pants on this machine\n    '
-    if (not NailgunExecutor.killall):
-        return False
-    else:
-        return NailgunExecutor.killall(logger=logger, everywhere=everywhere)

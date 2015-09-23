@@ -1,0 +1,10 @@
+'\nFile iterators for determining over which files checkstyle should be run.\n'
+from difflib import SequenceMatcher
+from functools import partial
+import os
+from twitter.common.dirutil.fileset import Fileset
+try:
+    from git import Diff, Repo
+    HAS_GIT = True
+except ImportError:
+    HAS_GIT = False

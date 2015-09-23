@@ -1,4 +1,0 @@
-@property
-def can_set_native_method_prefix(self):
-    'Returns `True` if the ability to set he native method prefix is needed by this agent.'
-    return self._can_set_native_method_prefix

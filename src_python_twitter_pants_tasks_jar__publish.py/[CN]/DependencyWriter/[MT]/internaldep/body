@@ -1,3 +1,0 @@
-def internaldep(self, jar_dependency, dep=None, configurations=None):
-    '\n      Subclasses must return a template data for the given internal target (provided in jar\n      dependency form).\n    '
-    raise NotImplementedError()

@@ -11,6 +11,16 @@
     @Override public byte[] authToken(){
       return authToken;
     }
+    @Override public boolean equals(    Object o){
+      if (!(o instanceof Credentials)) {
+        return false;
+      }
+      Credentials other=(Credentials)o;
+      return new EqualsBuilder().append(scheme,other.scheme()).append(authToken,other.authToken()).isEquals();
+    }
+    @Override public int hashCode(){
+      return Objects.hashCode(scheme,authToken);
+    }
   }
 ;
 }

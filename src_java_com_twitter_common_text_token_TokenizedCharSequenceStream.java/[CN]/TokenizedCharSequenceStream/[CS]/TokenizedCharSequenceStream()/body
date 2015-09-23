@@ -1,10 +1,10 @@
 {
-  super(new TokenStream(){
-    @Override public boolean incrementToken(){
+  super(new TwitterTokenStream(){
+    @Override public final boolean incrementToken(){
       return false;
     }
-    @Override public void reset(    CharSequence input){
-      throw new IllegalArgumentException("Input must be an instance of TokenizedCharSequence" + " because there is no TokenStream in the downstream to tokenized a text.");
+    @Override public void reset(){
+      throw new IllegalArgumentException("Input must be an instance of TokenizedCharSequence" + " because there is no TwitterTokenStream in the downstream to tokenized a text.");
     }
   }
 );

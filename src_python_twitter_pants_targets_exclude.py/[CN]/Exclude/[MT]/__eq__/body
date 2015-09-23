@@ -1,2 +1,0 @@
-def __eq__(self, other):
-    return all([other, (type(other) == Exclude), (self.org == other.org), (self.name == other.name)])

@@ -1,4 +1,0 @@
-def test_singleton(self):
-    self.assertEqual(BuildRoot().path, BuildRoot().path)
-    BuildRoot().path = self.new_root
-    self.assertEqual(BuildRoot().path, BuildRoot().path)

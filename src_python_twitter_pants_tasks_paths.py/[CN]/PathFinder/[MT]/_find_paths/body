@@ -1,9 +1,0 @@
-@classmethod
-def _find_paths(cls, from_target, to_target, log):
-    (from_target, to_target) = cls._coerce_to_targets(from_target, to_target)
-    log.debug(('Looking for all paths from %s to %s' % (from_target.address.reference(), to_target.address.reference())))
-    paths = cls._find_paths_rec(from_target, to_target)
-    print(('Found %d paths' % len(paths)))
-    print('')
-    for path in paths:
-        log.debug(('\t[%s]' % ', '.join([target.address.reference() for target in path])))

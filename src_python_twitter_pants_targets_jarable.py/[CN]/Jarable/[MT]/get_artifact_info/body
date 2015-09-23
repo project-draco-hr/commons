@@ -1,7 +1,0 @@
-def get_artifact_info(self):
-    "Returns a triple composed of a :class:`twitter.pants.targets.jar_dependency.JarDependency`\n    describing the jar for this target, this target's artifact identifier and a bool indicating if\n    this target is exportable.\n    "
-    exported = bool(self.provides)
-    org = (self.provides.org if exported else 'internal')
-    module = (self.provides.name if exported else self.identifier)
-    id_ = (('%s-%s' % (self.provides.org, self.provides.name)) if exported else self.identifier)
-    return (JarDependency(org=org, name=module, rev=None), id_, exported)

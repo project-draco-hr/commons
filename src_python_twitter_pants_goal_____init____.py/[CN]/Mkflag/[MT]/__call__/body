@@ -1,3 +1,0 @@
-def __call__(self, name, negate=False):
-    "Creates a prefixed flag with an optional negated prefix.\n\n    name: The simple flag name to be prefixed.\n    negate: True to prefix the flag with '--no-'.\n    "
-    return ('--%s%s-%s' % (('no-' if negate else ''), self._namespace('-'), name))

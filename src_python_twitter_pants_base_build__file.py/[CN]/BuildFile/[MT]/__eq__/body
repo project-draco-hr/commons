@@ -1,3 +1,0 @@
-def __eq__(self, other):
-    result = (other and (type(other) == BuildFile) and (self.full_path == other.full_path))
-    return result

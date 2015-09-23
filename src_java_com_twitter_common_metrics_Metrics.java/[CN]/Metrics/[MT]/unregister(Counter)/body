@@ -1,0 +1,4 @@
+{
+  String key=counter.getName();
+  return counters.remove(key) != null;
+}

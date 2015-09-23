@@ -1,8 +1,0 @@
-def __init__(self, context, workspace, outstream=sys.stdout):
-    if (not isinstance(workspace, Workspace)):
-        raise ValueError(('WhatChanged requires a Workspace, given %s' % workspace))
-    super(WhatChanged, self).__init__(context, outstream)
-    self._workspace = workspace
-    self._parent = context.options.what_changed_create_prefix
-    self._show_files = context.options.what_changed_show_files
-    self._filemap = defaultdict(set)

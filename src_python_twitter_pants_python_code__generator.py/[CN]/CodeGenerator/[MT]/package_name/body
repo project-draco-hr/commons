@@ -1,2 +1,0 @@
-def package_name(self):
-    return ('%s%s' % (self.target.id, self.suffix))

@@ -1,2 +1,0 @@
-def make_dag(nodes):
-    return DoubleDag(nodes, (lambda t: t.dependencies), MockLogger(Report.INFO))

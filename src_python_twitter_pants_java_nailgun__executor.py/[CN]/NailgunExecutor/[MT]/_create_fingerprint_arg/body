@@ -1,3 +1,0 @@
-@classmethod
-def _create_fingerprint_arg(cls, fingerprint):
-    return (cls._PANTS_FINGERPRINT_ARG_PREFIX + fingerprint)

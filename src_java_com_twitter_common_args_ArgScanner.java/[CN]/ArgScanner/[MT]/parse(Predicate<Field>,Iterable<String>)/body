@@ -1,5 +1,7 @@
 {
+  Preconditions.checkNotNull(filter);
+  ImmutableList<String> arguments=ImmutableList.copyOf(args);
   Configuration configuration=load();
-  Args.ArgumentInfo argumentInfo=Args.fromConfiguration(configuration,filter);
-  return parse(argumentInfo,configuration,args);
+  ArgsInfo argsInfo=Args.fromConfiguration(configuration,filter);
+  return parse(argsInfo,arguments);
 }

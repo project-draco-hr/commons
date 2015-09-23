@@ -1,6 +1,0 @@
-def test_getstring(self):
-    self.assertEquals('/a/b/42', self.config.get('a', 'path'))
-    self.assertEquals('/a/b/42::foo', self.config.get('a', 'embed'))
-    self.assertEquals('\nLet it be known\nthat.', self.config.get('b', 'disclaimer'))
-    self.checkDefaults(self.config.get, '')
-    self.checkDefaults(self.config.get, '42')

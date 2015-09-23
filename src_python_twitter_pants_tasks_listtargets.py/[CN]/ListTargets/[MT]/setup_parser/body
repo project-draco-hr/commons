@@ -1,6 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    super(ListTargets, cls).setup_parser(option_group, args, mkflag)
-    option_group.add_option(mkflag('provides'), action='store_true', dest='list_provides', default=False, help='Specifies only targets that provide an artifact should be listed. The output will be 2 columns in this case: [target address] [artifact id]')
-    option_group.add_option(mkflag('provides-columns'), dest='list_provides_columns', default='address,artifact_id', help='Specifies the columns to include in listing output when restricting the listing to targets that provide an artifact. Available columns are: address, artifact_id, repo_name, repo_url and repo_db')
-    option_group.add_option(mkflag('documented'), action='store_true', dest='list_documented', default=False, help='Prints only targets that are documented with a description.')

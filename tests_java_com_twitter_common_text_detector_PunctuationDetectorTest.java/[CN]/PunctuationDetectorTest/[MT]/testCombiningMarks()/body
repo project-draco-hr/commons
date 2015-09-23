@@ -1,0 +1,24 @@
+{
+  TwitterTokenStream regexTokenizerStream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  regexTokenizerStream.reset("word \u0301 \u030b \u0314 \u031b \u0327 word \u0650 \u0653 \u093e \u0948 \u0e34 word");
+  PunctuationDetector stream=new PunctuationDetector.Builder(regexTokenizerStream).build();
+  int cnt=0;
+  while (stream.incrementToken()) {
+    if ("word".equals(stream.term().toString())) {
+      assertFalse(TokenType.PUNCTUATION.equals(stream.type()));
+    }
+ else {
+      assertEquals(TokenType.PUNCTUATION,stream.type());
+    }
+    cnt++;
+  }
+  assertEquals(13,cnt);
+  regexTokenizerStream.reset();
+  stream=new PunctuationDetector.Builder(regexTokenizerStream).useCombiningMarks(false).build();
+  cnt=0;
+  while (stream.incrementToken()) {
+    assertFalse(TokenType.PUNCTUATION.equals(stream.type()));
+    cnt++;
+  }
+  assertEquals(13,cnt);
+}

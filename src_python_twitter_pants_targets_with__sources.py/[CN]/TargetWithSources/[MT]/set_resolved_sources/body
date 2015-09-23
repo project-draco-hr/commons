@@ -1,3 +1,0 @@
-def set_resolved_sources(self, sources):
-    'Set resolved sources directly, skipping the resolution.\n\n    Useful when synthesizing targets.\n    '
-    self._resolved_sources = sources

@@ -1,0 +1,25 @@
+{
+  metrics=Metrics.createDetached();
+  FakeClock clock=new FakeClock();
+  Amount<Long,Time> window=WindowedApproxHistogram.DEFAULT_WINDOW;
+  int slices=WindowedApproxHistogram.DEFAULT_SLICES;
+  Amount<Long,Time> delta=Amount.of(window.as(Time.MILLISECONDS) / N,Time.MILLISECONDS);
+  Amount<Long,Data> maxMem=WindowedApproxHistogram.DEFAULT_MAX_MEMORY;
+  for (int i=0; i < 10; i++) {
+    metrics.createCounter("counter-" + i).increment();
+    HistogramInterface h=new Histogram("hist-" + i,window,slices,maxMem,null,Histogram.DEFAULT_QUANTILES,clock,metrics);
+    for (int j=0; j < N; j++) {
+      h.add(j);
+      clock.advance(delta);
+    }
+  }
+  hist=new Histogram("hist",window,slices,maxMem,null,Histogram.DEFAULT_QUANTILES,clock);
+  approxHist=new WindowedApproxHistogram(window,slices,maxMem,clock);
+  winStats=new WindowedStatistics(window,slices,clock);
+  for (int j=0; j < N; j++) {
+    hist.add(j);
+    approxHist.add(j);
+    winStats.accumulate(j);
+    clock.advance(delta);
+  }
+}

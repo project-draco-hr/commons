@@ -1,5 +1,5 @@
 {
-  group=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group",new CustomScheme());
+  Group group=new Group(zkClient,ZooKeeperUtils.EVERYONE_READ_CREATOR_ALL,"/a/group",new CustomScheme());
   listener=new RecordingListener();
   group.watch(listener);
   assertEmptyMembershipObserved();

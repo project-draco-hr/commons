@@ -1,3 +1,0 @@
-{
-  this(name,new ApproximateHistogram(maxMemory),DEFAULT_QUANTILES,registry);
-}

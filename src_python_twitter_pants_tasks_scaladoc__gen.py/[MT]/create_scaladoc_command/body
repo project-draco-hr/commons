@@ -1,9 +1,0 @@
-def create_scaladoc_command(classpath, gendir, *targets):
-    sources = []
-    for target in targets:
-        sources.extend(target.sources_relative_to_buildroot())
-    if (not sources):
-        return None
-    command = ['scaladoc', '-usejavacp', '-classpath', ':'.join(classpath), '-d', gendir]
-    command.extend(sources)
-    return command

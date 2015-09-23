@@ -1,2 +1,0 @@
-def empty(self):
-    return (len(self.by_target) == 0)

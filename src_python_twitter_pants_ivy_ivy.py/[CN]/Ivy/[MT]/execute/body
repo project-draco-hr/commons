@@ -1,9 +1,0 @@
-def execute(self, jvm_options=None, args=None, executor=None, workunit_factory=None, workunit_name=None, workunit_labels=None):
-    'Executes the ivy commandline client with the given args.\n\n    Raises Ivy.Error if the command fails for any reason.\n    '
-    runner = self.runner(jvm_options=jvm_options, args=args, executor=executor)
-    try:
-        result = util.execute_runner(runner, workunit_factory, workunit_name, workunit_labels)
-        if (result != 0):
-            raise self.Error(('Ivy command failed with exit code %d%s' % (result, ((': ' + ' '.join(args)) if args else ''))))
-    except self._java.Error as e:
-        raise self.Error(('Problem executing ivy: %s' % e))

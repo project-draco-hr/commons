@@ -1,5 +1,0 @@
-def _overwrite(self, filename, s):
-    'Overwrite a file with the specified contents.'
-    if os.path.exists(self._html_dir):
-        with open(os.path.join(self._html_dir, filename), 'w') as f:
-            f.write(s)

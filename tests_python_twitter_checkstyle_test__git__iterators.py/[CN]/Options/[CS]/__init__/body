@@ -1,0 +1,2 @@
+def __init__(self, diff=None):
+    self.diff = diff

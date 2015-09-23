@@ -1,0 +1,14 @@
+def matches(self, line):
+    line = line.strip()
+    if (not line):
+        return False
+    components = line.split(' ')
+    keyname = components[0]
+    if (keyname in ('positional', 'field')):
+        return (components[1] in self._classnames)
+    elif (keyname == 'parser'):
+        return (components[2] in self._classnames)
+    elif (keyname == 'verifier'):
+        return ((components[2] in self._classnames) and (components[3] in self._classnames))
+    else:
+        return True

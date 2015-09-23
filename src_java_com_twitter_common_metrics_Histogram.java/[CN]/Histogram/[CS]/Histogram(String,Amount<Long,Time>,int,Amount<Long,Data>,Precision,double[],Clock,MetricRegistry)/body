@@ -1,0 +1,21 @@
+{
+  Preconditions.checkArgument(precision != null ^ maxMemory != null,"You must specify either memory or precision constraint but not both!");
+  Preconditions.checkNotNull(window);
+  Preconditions.checkArgument(0 < slices);
+  for (  double q : quantiles) {
+    Preconditions.checkArgument(0.0 <= q && q <= 1.0);
+  }
+  Preconditions.checkNotNull(clock);
+  this.name=MorePreconditions.checkNotBlank(name);
+  this.quantiles=Preconditions.checkNotNull(quantiles);
+  if (maxMemory != null) {
+    this.histogram=new WindowedApproxHistogram(window,slices,maxMemory,clock);
+  }
+ else {
+    this.histogram=new WindowedApproxHistogram(window,slices,precision,clock);
+  }
+  this.stats=new WindowedStatistics(window,slices,clock);
+  if (registry != null) {
+    registry.registerHistogram(this);
+  }
+}

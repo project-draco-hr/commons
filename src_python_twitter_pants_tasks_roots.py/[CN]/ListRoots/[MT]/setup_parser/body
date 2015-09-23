@@ -1,3 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    super(ListRoots, cls).setup_parser(option_group, args, mkflag)

@@ -1,0 +1,10 @@
+def read_contents_factory(parse_context):
+
+    def read_contents(*paths):
+        'Returns the concatenated contents of the files at the given paths relative to this BUILD\n    file.\n    '
+        contents = ''
+        for path in paths:
+            with open(os.path.join(parse_context.rel_path, path)) as fp:
+                contents += fp.read()
+        return contents
+    return read_contents

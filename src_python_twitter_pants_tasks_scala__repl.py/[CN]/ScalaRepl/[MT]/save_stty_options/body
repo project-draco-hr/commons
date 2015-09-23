@@ -1,3 +1,0 @@
-def save_stty_options(self):
-    "\n    The scala REPL changes some stty parameters and doesn't save/restore them after\n    execution, so if you have a terminal with non-default stty options, you end\n    up to a broken terminal (need to do a 'reset').\n    "
-    self.stty_options = self.run_cmd('stty -g 2>/dev/null')

@@ -1,2 +1,0 @@
-def _show_output(self, workunit):
-    return (self._show_output_indented(workunit) or self._show_output_unindented(workunit))

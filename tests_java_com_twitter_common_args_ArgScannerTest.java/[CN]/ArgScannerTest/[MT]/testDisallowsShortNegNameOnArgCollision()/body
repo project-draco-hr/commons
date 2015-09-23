@@ -1,0 +1,3 @@
+{
+  parse(ImmutableList.of(NameClashA.class,NameClashB.class),"-no_boolean");
+}

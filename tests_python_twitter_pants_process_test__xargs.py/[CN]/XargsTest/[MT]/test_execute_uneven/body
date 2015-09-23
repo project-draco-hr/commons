@@ -1,6 +1,0 @@
-def test_execute_uneven(self):
-    self.call(['one', 'two', 'three']).AndRaise(self.TOO_BIG)
-    self.call(['one']).AndReturn(0)
-    self.call(['two', 'three']).AndReturn(0)
-    self.mox.ReplayAll()
-    self.assertEqual(0, self.xargs.execute(['one', 'two', 'three']))

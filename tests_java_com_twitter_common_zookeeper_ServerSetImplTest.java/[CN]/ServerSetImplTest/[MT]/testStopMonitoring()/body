@@ -1,0 +1,14 @@
+{
+  ServerSetImpl client=createServerSet();
+  Command stopMonitoring=client.watch(serverSetMonitor);
+  assertChangeFiredEmpty();
+  ServerSetImpl server=createServerSet();
+  EndpointStatus foo=join(server,"foo");
+  assertChangeFired("foo");
+  EndpointStatus bar=join(server,"bar");
+  assertChangeFired("foo","bar");
+  stopMonitoring.execute();
+  foo.leave();
+  assertTrue(serverSetBuffer.isEmpty());
+  assertTrue(serverSetBuffer.isEmpty());
+}

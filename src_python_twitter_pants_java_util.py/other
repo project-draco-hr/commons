@@ -1,3 +1,0 @@
-from twitter.pants.base.workunit import WorkUnit
-from .executor import Executor, SubprocessExecutor
-from .nailgun_executor import NailgunExecutor

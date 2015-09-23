@@ -1,0 +1,38 @@
+{
+  stats.refresh();
+  final long count=stats.populationSize();
+  final long sum=stats.sum();
+  final double avg=stats.mean();
+  final long min=count == 0 ? 0L : stats.min();
+  final long max=count == 0 ? 0L : stats.max();
+  final double stddev=stats.standardDeviation();
+  final Percentile[] ps=new Percentile[quantiles.length];
+  long[] values=histogram.getQuantiles(quantiles);
+  for (int i=0; i < ps.length; i++) {
+    ps[i]=new Percentile(quantiles[i],values[i]);
+  }
+  return new Snapshot(){
+    @Override public long count(){
+      return count;
+    }
+    @Override public long sum(){
+      return sum;
+    }
+    @Override public double avg(){
+      return avg;
+    }
+    @Override public long min(){
+      return min;
+    }
+    @Override public long max(){
+      return max;
+    }
+    @Override public double stddev(){
+      return stddev;
+    }
+    @Override public Percentile[] percentiles(){
+      return ps;
+    }
+  }
+;
+}

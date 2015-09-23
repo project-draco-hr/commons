@@ -1,0 +1,6 @@
+def __call__(self, base_url, sources):
+
+    def fetch():
+        atexit.register(self.cleanup)
+        return self._fetch(base_url, sources)
+    return Fileset(fetch)

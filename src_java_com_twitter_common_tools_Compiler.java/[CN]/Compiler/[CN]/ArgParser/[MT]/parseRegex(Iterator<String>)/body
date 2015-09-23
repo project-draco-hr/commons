@@ -1,6 +1,0 @@
-{
-  if (!iter.hasNext()) {
-    throw new IllegalArgumentException(String.format("%s requires an argument specifying a warning message regex",WARN_IGNORE_MESSAGE_REGEX));
-  }
-  return Pattern.compile(iter.next());
-}

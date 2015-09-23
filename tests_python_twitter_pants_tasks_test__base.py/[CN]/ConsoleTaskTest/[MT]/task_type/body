@@ -1,4 +1,0 @@
-@classmethod
-def task_type(cls):
-    'Subclasses must return the type of the ConsoleTask subclass under test.'
-    raise NotImplementedError()

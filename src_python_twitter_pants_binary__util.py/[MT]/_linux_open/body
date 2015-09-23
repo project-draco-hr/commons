@@ -1,6 +1,0 @@
-def _linux_open(files):
-    cmd = 'xdg-open'
-    if (not _cmd_exists(cmd)):
-        raise TaskError(("The program '%s' isn't in your PATH. Please install and re-run this goal." % cmd))
-    for f in list(files):
-        subprocess.call([cmd, f])

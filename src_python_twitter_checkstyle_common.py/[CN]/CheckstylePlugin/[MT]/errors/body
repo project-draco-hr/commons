@@ -1,0 +1,4 @@
+def errors(self):
+    for nit in self:
+        if (nit.severity is Nit.ERROR):
+            yield nit

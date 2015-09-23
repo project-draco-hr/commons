@@ -1,2 +1,0 @@
-def _read_sha(self, cache_key):
-    return self._read_sha_by_id(cache_key.id)

@@ -1,2 +1,0 @@
-def __init__(self, cycle):
-    Exception.__init__(self, ('Cycle detected:\n\t%s' % ' ->\n\t'.join((str(target.address) for target in cycle))))

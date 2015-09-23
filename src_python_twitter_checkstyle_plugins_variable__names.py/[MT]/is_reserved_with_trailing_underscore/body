@@ -1,0 +1,5 @@
+def is_reserved_with_trailing_underscore(name):
+    'For example, super_, id_, type_'
+    if (name.endswith('_') and (not name.endswith('__'))):
+        return is_reserved_name(name[:(-1)])
+    return False

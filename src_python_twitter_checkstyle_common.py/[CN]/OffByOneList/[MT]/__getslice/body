@@ -1,0 +1,5 @@
+def __getslice(self, sl):
+    if ((sl.start == 0) or (sl.stop == 0)):
+        raise IndexError
+    new_slice = slice(((sl.start - 1) if (sl.start > 0) else sl.start), ((sl.stop - 1) if (sl.stop > 0) else sl.stop))
+    return self._list[new_slice]

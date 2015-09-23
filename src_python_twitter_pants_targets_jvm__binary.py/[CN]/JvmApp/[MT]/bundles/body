@@ -1,4 +1,0 @@
-@property
-def bundles(self):
-    self._maybe_resolve_bundles()
-    return self._resolved_bundles

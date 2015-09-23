@@ -1,4 +1,0 @@
-def rename(self, name):
-    'Renames this goal.'
-    PhaseBase.rename(self, name)
-    return self

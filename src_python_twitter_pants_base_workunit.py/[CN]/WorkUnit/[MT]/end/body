@@ -1,9 +1,0 @@
-def end(self):
-    'Mark the time at which this workunit ended.'
-    self.end_time = time.time()
-    for output in self._outputs.values():
-        output.close()
-    is_tool = self.has_label(WorkUnit.TOOL)
-    path = self.path()
-    self.run_tracker.cumulative_timings.add_timing(path, self.duration(), is_tool)
-    self.run_tracker.self_timings.add_timing(path, self._self_time(), is_tool)

@@ -1,0 +1,16 @@
+{
+  long x;
+  double y;
+  int i=n;
+  while (i != 0) {
+    winStats.refresh();
+    x=winStats.max();
+    x=winStats.min();
+    x=winStats.populationSize();
+    x=winStats.range();
+    x=winStats.sum();
+    y=winStats.mean();
+    y=winStats.standardDeviation();
+    i--;
+  }
+}

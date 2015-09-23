@@ -1,9 +1,0 @@
-{
-  this.failFast=failFast;
-  this.suppressOutput=suppressOutput;
-  this.xmlReport=xmlReport;
-  this.perTestTimer=perTestTimer;
-  this.outdir=outdir;
-  this.defaultParallel=defaultParallel;
-  this.parallelThreads=parallelThreads;
-}

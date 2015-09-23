@@ -1,6 +1,0 @@
-def __init__(self, name, url, push_db, exclusives=None):
-    '\n    :param string name: Name of the repository.\n    :param string url: Optional URL of the repository.\n    :param string push_db: Path of the push history file.\n    '
-    super(Repository, self).__init__(name, exclusives=exclusives)
-    self.name = name
-    self.url = url
-    self.push_db = push_db

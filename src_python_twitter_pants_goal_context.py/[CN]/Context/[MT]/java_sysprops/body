@@ -1,6 +1,0 @@
-@property
-def java_sysprops(self):
-    'The system properties of the JVM we use.'
-    if (self._java_sysprops is None):
-        self._java_sysprops = Distribution.cached().system_properties
-    return self._java_sysprops

@@ -1,8 +1,0 @@
-def try_insert(self, cache_key, paths):
-    with temporary_file_path() as tarfile:
-        artifact = TarballArtifact(self.artifact_root, tarfile, self.compress)
-        artifact.collect(paths)
-        with open(tarfile, 'rb') as infile:
-            remote_path = self._remote_path_for_key(cache_key)
-            if (not self._request('PUT', remote_path, body=infile)):
-                raise self.CacheError(('Failed to PUT to %s. Error: 404' % self._url_string(remote_path)))

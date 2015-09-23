@@ -1,3 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    option_group.add_option(mkflag('include_all'), mkflag('include_all', negate=True), dest='args_resource_mapper_include_all', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Include all arg fields resources.')

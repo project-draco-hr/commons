@@ -1,0 +1,11 @@
+{
+  zooKeeperClient=createMock(ZooKeeperClient.class);
+  zk=createMock(ZooKeeper.class);
+  deserializer=createMock(new Clazz<NodeDeserializer<String>>(){
+  }
+);
+  dataUpdateListener=createMock(new Clazz<Closure<String>>(){
+  }
+);
+  node=new ZooKeeperNode<String>(zooKeeperClient,"/foo",deserializer,dataUpdateListener);
+}

@@ -1,5 +1,0 @@
-@pytest.mark.skipif('not LiveDistributionTest.JAVAC', reason='No javac executable on the PATH.')
-def test_validate_live_jdk(self):
-    Distribution(bin_path=os.path.dirname(self.JAVAC), jdk=True).validate()
-    Distribution(bin_path=os.path.dirname(self.JAVAC), jdk=True).binary('javap')
-    Distribution.locate(jdk=True)

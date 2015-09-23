@@ -1,0 +1,14 @@
+{
+  super(Statistics.class,window,slices,new Supplier<Statistics>(){
+    @Override public Statistics get(){
+      return new Statistics();
+    }
+  }
+,new Function<Statistics,Statistics>(){
+    @Override public Statistics apply(    Statistics s){
+      s.clear();
+      return s;
+    }
+  }
+,clock);
+}

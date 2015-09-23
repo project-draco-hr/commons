@@ -1,0 +1,7 @@
+{
+  int s=0;
+  for (  Integer[] box : getTenured()) {
+    s+=box[0];
+  }
+  return s;
+}

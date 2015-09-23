@@ -1,5 +1,0 @@
-def __init__(self, rv=DEFAULT_DATA, code=200):
-    self.rv = rv
-    self.code = code
-    self.opened = threading.Event()
-    self.error = None

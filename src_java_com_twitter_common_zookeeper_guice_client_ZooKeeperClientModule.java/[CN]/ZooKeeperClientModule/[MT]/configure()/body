@@ -1,0 +1,13 @@
+{
+  Key<ZooKeeperClient> clientKey=keyFactory.create(ZooKeeperClient.class);
+  if (config.inProcess) {
+    requireBinding(ShutdownRegistry.class);
+    bind(ClientConfig.class).toInstance(config);
+    bind(clientKey).toProvider(LocalClientProvider.class).in(Singleton.class);
+  }
+ else {
+    ZooKeeperClient client=new ZooKeeperClient(config.sessionTimeout,config.credentials,config.chrootPath,config.servers);
+    bind(clientKey).toInstance(client);
+  }
+  expose(clientKey);
+}

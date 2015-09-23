@@ -1,2 +1,0 @@
-def info(self, *msg_elements):
-    self._run_tracker.log(Report.INFO, *msg_elements)

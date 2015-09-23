@@ -1,5 +1,0 @@
-def __init__(self, all_vts, invalid_vts, partition_size_hint=None):
-    self.all_vts = all_vts
-    self.all_vts_partitioned = (self._partition_versioned_targets(all_vts, partition_size_hint) if partition_size_hint else all_vts)
-    self.invalid_vts = invalid_vts
-    self.invalid_vts_partitioned = (self._partition_versioned_targets(invalid_vts, partition_size_hint) if partition_size_hint else invalid_vts)

@@ -1,2 +1,0 @@
-def __repr__(self):
-    return ('ProductMapping(%s) {\n  %s\n}' % (self.typename, '\n  '.join((('%s => %s\n    %s' % (str(target), basedir, outputs)) for (target, outputs_by_basedir) in self.by_target.items() for (basedir, outputs) in outputs_by_basedir.items()))))

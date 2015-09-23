@@ -1,0 +1,4 @@
+Clock clock
+long startTime
+long period
+Runnable advancer

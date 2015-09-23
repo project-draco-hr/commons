@@ -1,0 +1,18 @@
+{
+  FakeClock clock=new FakeClock();
+  Amount<Long,Time> window=Amount.of(100L,Time.MILLISECONDS);
+  int slices=10;
+  long sliceDuration=window.as(Time.NANOSECONDS) / slices;
+  WindowedApproxHistogram h=new WindowedApproxHistogram(window,slices,DEFAULT_MAX_MEMORY,clock);
+  h.add(Long.MIN_VALUE);
+  clock.advance(Amount.of(2 * sliceDuration,Time.NANOSECONDS));
+  assertEquals(Long.MIN_VALUE,h.getQuantile(0.0));
+  assertEquals(Long.MIN_VALUE,h.getQuantile(0.5));
+  assertEquals(Long.MIN_VALUE,h.getQuantile(1.0));
+  h.add(Long.MAX_VALUE);
+  clock.advance(Amount.of(2 * sliceDuration,Time.NANOSECONDS));
+  assertEquals(Long.MIN_VALUE,h.getQuantile(0.0));
+  assertEquals(Long.MIN_VALUE,h.getQuantile(0.25));
+  assertEquals(Long.MAX_VALUE,h.getQuantile(0.75));
+  assertEquals(Long.MAX_VALUE,h.getQuantile(1.0));
+}

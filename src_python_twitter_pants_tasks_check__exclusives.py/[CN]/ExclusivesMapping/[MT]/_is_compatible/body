@@ -1,9 +1,0 @@
-def _is_compatible(self, mod_key, other_key):
-    mod_map = self._key_to_map(mod_key)
-    other_map = self._key_to_map(other_key)
-    for k in mod_map:
-        vm = mod_map[k]
-        vo = other_map[k]
-        if (not ((vm == vo) or (vm == '<none>'))):
-            return False
-    return True

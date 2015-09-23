@@ -1,0 +1,8 @@
+def test_breaking_out_regex(self):
+    vars_subsystem = VarsSubsystem()
+    regex = vars_subsystem.compile_stats_filters(['alpha', 'beta.*'])
+    assert regex.match('alpha')
+    assert (not regex.match('something_alpha_something'))
+    assert regex.match('beta')
+    assert regex.match('beta_suffix')
+    assert (not regex.match('abeta'))

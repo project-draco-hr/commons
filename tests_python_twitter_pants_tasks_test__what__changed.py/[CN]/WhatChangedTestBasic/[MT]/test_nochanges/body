@@ -1,2 +1,0 @@
-def test_nochanges(self):
-    self.assert_console_output(workspace=self.workspace())

@@ -1,6 +1,0 @@
-def get_all(self):
-    'Returns the cache stats as a list of dicts.'
-    ret = []
-    for (cache_name, stat) in self.stats_per_cache.items():
-        ret.append({'cache_name': cache_name, 'num_hits': len(stat.hit_targets), 'num_misses': len(stat.miss_targets), 'hits': stat.hit_targets, 'misses': stat.miss_targets, })
-    return ret

@@ -1,0 +1,7 @@
+def test_class_names():
+    p8 = PEP8VariableNames(PythonFile.from_statement('\n    class dhis_not_right(object):\n      pass\n  '))
+    nits = list(p8.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T000')
+    assert (nits[0]._line_number == 1)
+    assert (nits[0].severity == Nit.ERROR)

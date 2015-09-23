@@ -1,7 +1,0 @@
-def on_context_exit(self, func, *args, **kwargs):
-    ' Registers a command to invoke just before this parse context is exited.\n\n    It is an error to attempt to register an on_context_exit action outside an active parse\n    context.\n    '
-    if (not hasattr(self, '_on_context_exit')):
-        raise self.ContextError('Can only register context exit actions when a parse context is active')
-    if (not callable(func)):
-        raise TypeError('func must be a callable object')
-    self._on_context_exit.append((func, args, kwargs))

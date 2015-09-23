@@ -1,11 +1,11 @@
 {
-  Histogram hist=new Histogram(name,metrics);
-  Map<String,Number> sample=metrics.sample();
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "min"));
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "max"));
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "count"));
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "sum"));
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "avg"));
-  long[] expected={0L,0L,0L,0L,0L,0L,0L,0L};
-  checkQuantiles(expected,sample);
+  Histogram hist=new Histogram(name);
+  Snapshot sample=hist.snapshot();
+  assertEquals(0L,sample.min());
+  assertEquals(0L,sample.max());
+  assertEquals(0L,sample.count());
+  assertEquals(0L,sample.sum());
+  assertEquals(0.0,sample.avg(),0.1);
+  long[] expected={0L,0L,0L,0L,0L,0L};
+  checkQuantiles(expected,sample,ERROR);
 }

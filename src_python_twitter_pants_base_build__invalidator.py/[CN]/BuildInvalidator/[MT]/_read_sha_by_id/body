@@ -1,8 +1,0 @@
-def _read_sha_by_id(self, id):
-    try:
-        with open(self._sha_file_by_id(id), 'rb') as fd:
-            return fd.read().strip()
-    except IOError as e:
-        if (e.errno != errno.ENOENT):
-            raise
-        return None

@@ -1,0 +1,7 @@
+{
+  String loggerName=record.getLoggerName();
+  if (loggerName == null) {
+    loggerName=UNKNOWN_LOGGERNAME;
+  }
+  return loggerRepository.getLogger(loggerName);
+}

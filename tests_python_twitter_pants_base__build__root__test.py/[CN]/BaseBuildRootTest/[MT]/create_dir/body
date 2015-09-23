@@ -1,4 +1,0 @@
-@classmethod
-def create_dir(cls, relpath):
-    'Creates a directory under the buildroot.\n\n    relpath: The relative path to the directory from the build root.\n    '
-    safe_mkdir(os.path.join(cls.build_root, relpath))

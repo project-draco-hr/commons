@@ -1,4 +1,0 @@
-@property
-def internal_dependencies(self):
-    self._maybe_apply_deps()
-    return self._internal_dependencies

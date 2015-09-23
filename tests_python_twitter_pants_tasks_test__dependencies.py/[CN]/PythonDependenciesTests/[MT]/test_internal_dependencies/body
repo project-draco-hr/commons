@@ -1,3 +1,0 @@
-def test_internal_dependencies(self):
-    with pytest.raises(TaskError):
-        self.assert_console_output(args=['--test-internal-only'], targets=[self.target('dependencies:python_root')])

@@ -1,3 +1,0 @@
-def cleanup(self):
-    'Called on SIGINT (e.g., when the user hits ctrl-c).\n    Subcommands may override to perform cleanup before exit.'
-    pass

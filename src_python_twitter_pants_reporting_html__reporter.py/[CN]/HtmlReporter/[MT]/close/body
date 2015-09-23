@@ -1,6 +1,0 @@
-def close(self):
-    'Implementation of Reporter callback.'
-    self._report_file.close()
-    for files in self._output_files.values():
-        for f in files.values():
-            f.close()

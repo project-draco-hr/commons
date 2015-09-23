@@ -1,0 +1,62 @@
+{
+  final WaitingFakeClock clock=new WaitingFakeClock();
+  final long start=clock.nowMillis();
+  ScheduledExecutorService mockExecutor=createMock(ScheduledExecutorService.class);
+  final Capture<Runnable> runnable=new Capture<Runnable>();
+  final Capture<Long> period=new Capture<Long>();
+  mockExecutor.scheduleAtFixedRate(capture(runnable),anyLong(),captureLong(period),eq(TimeUnit.MILLISECONDS));
+  expectLastCall().andAnswer(new IAnswer<ScheduledFuture<?>>(){
+    public ScheduledFuture<?> answer(){
+      final Thread ticker=new Thread(){
+        @Override public void run(){
+          Tick tick=new Tick(clock,start,period.getValue(),runnable.getValue());
+          try {
+            while (true) {
+              clock.doOnAdvance(tick);
+            }
+          }
+ catch (          InterruptedException e) {
+          }
+        }
+      }
+;
+      ticker.setDaemon(true);
+      ticker.start();
+      final ScheduledFuture<?> future=createMock(ScheduledFuture.class);
+      final AtomicBoolean stopped=new AtomicBoolean(false);
+      expect(future.isCancelled()).andAnswer(new IAnswer<Boolean>(){
+        @Override public Boolean answer() throws Throwable {
+          return stopped.get();
+        }
+      }
+).anyTimes();
+      expect(future.cancel(anyBoolean())).andAnswer(new IAnswer<Boolean>(){
+        @Override public Boolean answer() throws Throwable {
+          ticker.interrupt();
+          stopped.set(true);
+          return true;
+        }
+      }
+);
+      replay(future);
+      return future;
+    }
+  }
+);
+  replay(mockExecutor);
+  LowResClock lowRes=new LowResClock(Amount.of(1L,Time.SECONDS),mockExecutor,clock);
+  long t=lowRes.nowMillis();
+  clock.advance(Amount.of(100L,Time.MILLISECONDS));
+  assertEquals(t,lowRes.nowMillis());
+  clock.advance(Amount.of(900L,Time.MILLISECONDS));
+  assertEquals(t + 1000,lowRes.nowMillis());
+  clock.advance(Amount.of(100L,Time.MILLISECONDS));
+  assertEquals(t + 1000,lowRes.nowMillis());
+  lowRes.close();
+  try {
+    lowRes.nowMillis();
+    fail("Closed clock should throw exception!");
+  }
+ catch (  IllegalStateException e) {
+  }
+}

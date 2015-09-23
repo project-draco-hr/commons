@@ -1,3 +1,0 @@
-def add_conflict(self, key, values):
-    'Register a conflict on an exclusives key.\n    Parameters:\n      key the exclusives key with a conflicting_exclusives\n      value the different values used for the key in different targets.\n    '
-    self.conflicting_exclusives[key] = values

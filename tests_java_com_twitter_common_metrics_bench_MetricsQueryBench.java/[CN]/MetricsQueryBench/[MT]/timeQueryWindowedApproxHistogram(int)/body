@@ -1,0 +1,8 @@
+{
+  long[] res;
+  int i=n;
+  while (i != 0) {
+    res=approxHist.getQuantiles(QUANTILES);
+    i--;
+  }
+}

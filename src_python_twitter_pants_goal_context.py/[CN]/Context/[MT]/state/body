@@ -1,5 +1,0 @@
-@contextmanager
-def state(self, key, default=None):
-    value = self._state.get(key, default)
-    yield value
-    self._state[key] = value

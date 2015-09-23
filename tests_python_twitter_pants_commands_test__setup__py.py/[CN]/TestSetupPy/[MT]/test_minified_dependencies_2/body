@@ -1,6 +1,0 @@
-def test_minified_dependencies_2(self):
-    dep_map = {'foo': ['bar', 'baz'], 'bar': ['baz'], 'baz': [], }
-    target_map = create_dependencies(dep_map)
-    assert (SetupPy.minified_dependencies(target_map['foo']) == OrderedSet([target_map['bar']]))
-    assert (SetupPy.minified_dependencies(target_map['bar']) == OrderedSet([target_map['baz']]))
-    assert (SetupPy.minified_dependencies(target_map['baz']) == OrderedSet())

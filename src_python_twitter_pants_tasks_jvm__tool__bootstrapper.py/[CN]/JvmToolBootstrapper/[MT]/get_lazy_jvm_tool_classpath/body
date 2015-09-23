@@ -1,7 +1,0 @@
-def get_lazy_jvm_tool_classpath(self, key, executor=None):
-    'Get a lazy classpath for the tool previously registered under the key.\n\n    Returns a no-arg callable. Invoking it returns a list of paths.\n    '
-    callback_product_map = (self._products.get_data('jvm_build_tools_classpath_callbacks') or {})
-    callback = callback_product_map.get(key)
-    if (not callback):
-        raise TaskError(('No bootstrap callback registered for %s' % key))
-    return (lambda : callback(executor=executor))

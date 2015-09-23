@@ -1,2 +1,0 @@
-def execute_action(self, tag, targets=None):
-    return ('execute', tag, (targets or self.context.targets()))

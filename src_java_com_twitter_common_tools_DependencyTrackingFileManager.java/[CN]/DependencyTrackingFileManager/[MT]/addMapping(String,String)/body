@@ -1,8 +1,0 @@
-{
-  List<String> classFiles=sourceToClasses.get(sourceFile);
-  if (classFiles == null || priorSources.remove(sourceFile)) {
-    classFiles=new ArrayList<String>();
-    sourceToClasses.put(sourceFile,classFiles);
-  }
-  classFiles.add(classFile);
-}

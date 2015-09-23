@@ -1,9 +1,0 @@
-@classmethod
-def setUpClass(cls):
-    super(CheckPublishedDepsTest, cls).setUpClass()
-    cls.create_file('repo/pushdb/publish.properties', dedent('\n        revision.major.org.name%lib1=2\n        revision.minor.org.name%lib1=0\n        revision.patch.org.name%lib1=0\n        revision.sha.org.name%lib1=12345\n        revision.major.org.name%lib2=2\n        revision.minor.org.name%lib2=0\n        revision.patch.org.name%lib2=0\n        revision.sha.org.name%lib2=12345\n        '))
-    cls.create_target('repo/BUILD', dedent("\n        import os\n        repo(name='repo',\n             url='http://www.www.com',\n             push_db=os.path.join(os.path.dirname(__file__), 'pushdb', 'publish.properties'))\n        "))
-    cls.create_target('provider/BUILD', dedent("\n        java_library(name='lib1',\n          provides=artifact(\n            org='org.name',\n            name='lib1',\n            repo=pants('repo')),\n          sources=[])\n        java_library(name='lib2',\n          provides=artifact(\n            org='org.name',\n            name='lib2',\n            repo=pants('repo')),\n          sources=[])\n        "))
-    cls.create_target('outdated/BUILD', dedent("\n        jar_library(name='outdated',\n          dependencies=[jar(org='org.name', name='lib1', rev='1.0.0')]\n        )\n        "))
-    cls.create_target('uptodate/BUILD', dedent("\n        jar_library(name='uptodate',\n          dependencies=[jar(org='org.name', name='lib2', rev='2.0.0')]\n        )\n        "))
-    cls.create_target('both/BUILD', dedent("\n        dependencies(name='both',\n          dependencies=[\n            pants('outdated'),\n            pants('uptodate'),\n          ]\n        )\n        "))

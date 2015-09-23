@@ -1,7 +1,0 @@
-def _run_zinc(self, args, workunit_name='zinc', workunit_labels=None):
-    zinc_args = ['-log-level', (self.context.options.log_level or 'info')]
-    if (not self._color):
-        zinc_args.append('-no-color')
-    zinc_args.extend(self._zinc_jar_args)
-    zinc_args.extend(args)
-    return self._nailgun_task.runjava(classpath=self._zinc_classpath, main=ZincUtils._ZINC_MAIN, jvm_options=self._jvm_options, args=zinc_args, workunit_name=workunit_name, workunit_labels=workunit_labels)

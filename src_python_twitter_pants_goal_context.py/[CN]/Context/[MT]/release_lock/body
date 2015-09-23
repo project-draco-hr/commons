@@ -1,8 +1,0 @@
-def release_lock(self):
-    "Release the global lock if it's held.\n    Returns True if the lock was held before this call.\n    "
-    if self._lock.is_unlocked():
-        return False
-    else:
-        self._lock.release()
-        self._lock = Lock.unlocked()
-        return True

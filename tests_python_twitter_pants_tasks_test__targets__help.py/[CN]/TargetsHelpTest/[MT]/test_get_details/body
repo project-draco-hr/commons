@@ -1,2 +1,0 @@
-def test_get_details(self):
-    self.assert_console_output(TargetsHelp.DETAILS_HEADER.substitute(name='my_target', desc=TargetsHelpTest.MyTarget.__doc__), '  name: The name of this target.', '   foo: Another argument.  (default: None)', args=['--test-details=my_target'])

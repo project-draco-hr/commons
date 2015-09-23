@@ -1,0 +1,6 @@
+{
+  String key=histogram.getName();
+  checkNameCollision(key);
+  histograms.put(key,histogram);
+  return histogram;
+}

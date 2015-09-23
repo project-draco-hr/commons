@@ -1,2 +1,0 @@
-def __repr__(self):
-    return ('VTS(%s, %s)' % (','.join((target.id for target in self.targets)), ('valid' if self.valid else 'invalid')))

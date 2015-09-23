@@ -1,3 +1,0 @@
-def with_description(self, description):
-    self.description = description
-    return self

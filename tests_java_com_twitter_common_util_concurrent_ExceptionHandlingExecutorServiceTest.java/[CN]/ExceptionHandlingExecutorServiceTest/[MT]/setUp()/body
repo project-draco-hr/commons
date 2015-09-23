@@ -1,0 +1,11 @@
+{
+  signallingHandler=createMock(Thread.UncaughtExceptionHandler.class);
+  executorService=MoreExecutors.exceptionHandlingExecutor(Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("ExceptionHandlingExecutorServiceTest-%d").build()),signallingHandler);
+  final ExecutorServiceShutdown executorServiceShutdown=new ExecutorServiceShutdown(executorService,Amount.of(3L,Time.SECONDS));
+  addTearDown(new TearDown(){
+    @Override public void tearDown() throws Exception {
+      executorServiceShutdown.execute();
+    }
+  }
+);
+}

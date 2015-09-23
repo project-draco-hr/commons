@@ -1,0 +1,32 @@
+{
+  Preconditions.checkArgument(0.0 <= quantile && quantile <= 1.0,"quantile must be in the range 0.0 to 1.0 inclusive");
+  long count=initIndices();
+  if (count == 0) {
+    return 0L;
+  }
+  long sum=0;
+  long target=(long)Math.ceil(count * (1.0 - quantile));
+  int iHist=-1;
+  int iBiggest=-1;
+  do {
+    long biggest=Long.MIN_VALUE;
+    for (int i=0; i < histograms.length; i++) {
+      ApproximateHistogram hist=histograms[i];
+      int indexBiggest=hist.biggest(hist.indices);
+      if (indexBiggest >= 0) {
+        long value=hist.buffer[indexBiggest][hist.indices[indexBiggest]];
+        if (iBiggest == -1 || biggest <= value) {
+          iBiggest=indexBiggest;
+          biggest=value;
+          iHist=i;
+        }
+      }
+    }
+    histograms[iHist].indices[iBiggest]--;
+    sum+=histograms[iHist].weight(iBiggest);
+  }
+ while (sum < target);
+  ApproximateHistogram hist=histograms[iHist];
+  int i=hist.indices[iBiggest];
+  return hist.buffer[iBiggest][i + 1];
+}

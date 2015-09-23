@@ -1,9 +1,0 @@
-def insert(self, cache_key, paths):
-    "Cache the output of a build.\n\n    If there is an existing set of artifacts for this key they are deleted.\n\n    TODO: Check that they're equal? They might not have to be if there are multiple equivalent\n          outputs.\n\n    cache_key: A CacheKey object.\n    paths: List of absolute paths to generated dirs/files. These must be under the artifact_root.\n    "
-    missing_files = filter((lambda f: (not os.path.exists(f))), paths)
-    try:
-        if missing_files:
-            raise ArtifactCache.CacheError(('Tried to cache nonexistent files: %s' % missing_files))
-        self.try_insert(cache_key, paths)
-    except Exception as e:
-        self.log.error(('Error while writing to artifact cache: %s. ' % e))

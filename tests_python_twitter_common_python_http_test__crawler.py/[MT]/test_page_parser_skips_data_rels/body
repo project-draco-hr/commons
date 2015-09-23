@@ -1,7 +1,0 @@
-def test_page_parser_skips_data_rels():
-    for ext in PageParser.REL_SKIP_EXTENSIONS:
-        things = ('things%s' % ext)
-        assert (lpp(("<a href='%s' rel=download>" % things)) == ([things], []))
-    for ext in ('.html', '.xml', '', '.txt', '.tar.gz.txt'):
-        things = ('things%s' % ext)
-        assert (lpp(("<a href='%s' rel=download>" % things)) == ([things], [things]))

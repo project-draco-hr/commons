@@ -1,7 +1,0 @@
-def _get_all_run_infos(self):
-    'Find the RunInfos for all runs since the last clean-all.'
-    info_dir = self._settings.info_dir
-    if (not os.path.isdir(info_dir)):
-        return []
-    paths = [os.path.join(info_dir, x) for x in os.listdir(info_dir)]
-    return filter((lambda d: ('timestamp' in d)), [RunInfo(os.path.join(p, 'info')).get_as_dict() for p in paths if (os.path.isdir(p) and (not os.path.islink(p)))])

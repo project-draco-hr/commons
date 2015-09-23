@@ -1,8 +1,0 @@
-def execute(self, targets):
-    with self._guard_sigpipe():
-        try:
-            for value in self.console_output(targets):
-                self._outstream.write(str(value))
-                self._outstream.write(self._console_separator)
-        finally:
-            self._outstream.flush()

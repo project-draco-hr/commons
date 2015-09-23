@@ -1,4 +1,2 @@
-import contextlib
-import os
-import zipfile
-__all__ = ('bootstrap_pex',)
+from __future__ import absolute_import
+from pex.pex_bootstrapper import *

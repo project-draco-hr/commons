@@ -1,0 +1,24 @@
+{
+  List<Long> data=new ArrayList<Long>();
+  ClassLoader cl=getClass().getClassLoader();
+  InputStreamReader input=new InputStreamReader(cl.getResourceAsStream("resources/real_latencies.data"));
+  BufferedReader reader=new BufferedReader(input);
+  try {
+    String line=reader.readLine();
+    int i=0;
+    while (data.size() < n) {
+      if (line == null || "".equals(line)) {
+        data.add(data.get(i++));
+      }
+ else {
+        long x=(long)(1000 * Double.parseDouble(line));
+        data.add(x);
+        line=reader.readLine();
+      }
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  return data;
+}

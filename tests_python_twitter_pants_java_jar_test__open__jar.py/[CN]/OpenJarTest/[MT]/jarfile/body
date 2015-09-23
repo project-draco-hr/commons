@@ -1,5 +1,0 @@
-@contextmanager
-def jarfile(self):
-    with temporary_file() as fd:
-        fd.close()
-        yield fd.name

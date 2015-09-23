@@ -1,0 +1,3 @@
+{
+  return name + DEFAULT_SCOPE_DELIMITER + metricName;
+}

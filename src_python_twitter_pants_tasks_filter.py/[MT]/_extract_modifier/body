@@ -1,7 +1,0 @@
-def _extract_modifier(value):
-    if value.startswith('+'):
-        return (_identity, value[1:])
-    elif value.startswith('-'):
-        return (operator.not_, value[1:])
-    else:
-        return (_identity, value)

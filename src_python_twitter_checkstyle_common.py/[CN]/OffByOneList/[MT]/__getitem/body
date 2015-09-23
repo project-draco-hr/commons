@@ -1,0 +1,6 @@
+def __getitem(self, item):
+    if (item == 0):
+        raise IndexError
+    if (item < 0):
+        return self._list[item]
+    return self._list[(item - 1)]

@@ -1,3 +1,0 @@
-{
-  return name + SCOPE_DELIMITER + metricName;
-}

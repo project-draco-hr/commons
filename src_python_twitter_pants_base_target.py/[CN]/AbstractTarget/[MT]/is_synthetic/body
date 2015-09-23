@@ -1,4 +1,0 @@
-@property
-def is_synthetic(self):
-    'Returns True if the target is a synthetic target injected by the runtime.'
-    return self.has_label('synthetic')

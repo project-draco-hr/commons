@@ -1,3 +1,0 @@
-def console_output(self, _):
-    while (not self.halt.isSet()):
-        yield 'jake'

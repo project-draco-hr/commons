@@ -1,10 +1,11 @@
 {
-  final Set<T> set=Sets.newHashSet();
-  hostSet.monitor(new DynamicHostSet.HostChangeMonitor<T>(){
+  final ImmutableSet.Builder<T> snapshot=ImmutableSet.builder();
+  Command unwatch=hostSet.watch(new HostChangeMonitor<T>(){
     @Override public void onChange(    ImmutableSet<T> hostSet){
-      set.addAll(hostSet);
+      snapshot.addAll(hostSet);
     }
   }
 );
-  return ImmutableSet.copyOf(set);
+  unwatch.execute();
+  return snapshot.build();
 }

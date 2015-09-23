@@ -1,0 +1,10 @@
+{
+  Integer returnValue=123;
+  Callable<Integer> callable=createMock(new Clazz<Callable<Integer>>(){
+  }
+);
+  callable.call();
+  expectLastCall().andReturn(returnValue);
+  control.replay();
+  assertEquals(returnValue,executorService.submit(callable).get());
+}

@@ -1,0 +1,6 @@
+def test_continuation_with_exception():
+    tw = TrailingWhitespace(PythonFile.from_statement('\n  test_string_001 = ("   "  \n                     "   ")\n  '))
+    nits = list(tw.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T200')
+    assert (nits[0].severity == Nit.ERROR)

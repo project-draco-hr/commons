@@ -1,5 +1,0 @@
-def create(self, basedir, outdir, name, prefix=None):
-    tarpath = os.path.join(outdir, ('%s.%s' % (name, self.extension)))
-    with open_tar(tarpath, self.mode, dereference=True, errorlevel=1) as tar:
-        tar.add(basedir, arcname=(prefix or ''))
-    return tarpath

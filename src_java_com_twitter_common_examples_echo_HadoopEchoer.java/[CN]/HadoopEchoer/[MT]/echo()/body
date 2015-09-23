@@ -1,0 +1,21 @@
+{
+  Closer closer=Closer.create();
+  try {
+    Configuration conf=new Configuration();
+    Path p=new Path(FILENAME);
+    FileSystem fs=closer.register(p.getFileSystem(conf));
+    FSDataInputStream fsDataInputStream=closer.register(fs.open(p));
+    InputStreamReader inputStreamReader=closer.register(new InputStreamReader(fsDataInputStream));
+    BufferedReader bufferedReader=closer.register(new BufferedReader(inputStreamReader));
+    ByteArrayOutputStream byteArrayOutputStream=closer.register(new ByteArrayOutputStream());
+    String line=bufferedReader.readLine();
+    if (line == null) {
+      throw new RuntimeException("Failed reading line from " + FILENAME);
+    }
+    byteArrayOutputStream.write(line.getBytes());
+    return byteArrayOutputStream.toString();
+  }
+  finally {
+    closer.close();
+  }
+}

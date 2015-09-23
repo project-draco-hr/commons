@@ -1,4 +1,0 @@
-def resolve(self, spec):
-    'Returns an iterator over the target(s) the given address points to.'
-    with ParseContext.temp():
-        return Pants(spec).resolve()

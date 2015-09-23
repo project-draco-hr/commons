@@ -1,0 +1,5 @@
+{
+  PunctuationDetector detector=detector();
+  detector.detectCombiningMarksAsPunctuation(useCombiningMarks);
+  return detector;
+}

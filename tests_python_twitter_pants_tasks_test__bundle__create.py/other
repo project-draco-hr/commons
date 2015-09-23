@@ -1,4 +1,0 @@
-import unittest
-from twitter.pants.base.context_utils import create_context
-from twitter.pants.tasks.bundle_create import BundleCreate
-sample_ini_test_1 = '\n[DEFAULT]\npants_distdir = /tmp/dist\n'

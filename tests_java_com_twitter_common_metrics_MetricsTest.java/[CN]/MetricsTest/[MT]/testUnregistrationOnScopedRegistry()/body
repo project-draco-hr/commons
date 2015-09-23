@@ -1,0 +1,26 @@
+{
+  String scope="scope";
+  MetricRegistry registry=metrics.scope(scope);
+  Counter counter=registry.createCounter("counter");
+  assertTrue("Metrics contains counter",metrics.sample().containsKey(counter.getName()));
+  registry.unregister(counter);
+  assertFalse("Metrics doesn't contains counter",metrics.sample().containsKey(counter.getName()));
+  final long x=1L;
+  Gauge<Number> gauge=registry.registerGauge(new AbstractGauge<Number>("gauge"){
+    @Override public Number read(){
+      return x;
+    }
+  }
+);
+  assertTrue("Metrics contains gauge",metrics.sample().containsKey(gauge.getName()));
+  registry.unregister(gauge);
+  assertFalse("Metrics doesn't contains gauge",metrics.sample().containsKey(gauge.getName()));
+  HistogramInterface histo=registry.createHistogram("histo");
+  assertTrue("Metrics contains histo",metrics.sample().containsKey(histo.getName() + ".count"));
+  registry.unregister(histo);
+  assertFalse("Metrics doesn't contains histo",metrics.sample().containsKey(histo.getName() + ".count"));
+  Counter counterZ=registry.createCounter("counter_zzz");
+  assertTrue("Metrics contains counter",metrics.sample().containsKey(counterZ.getName()));
+  registry.unregister("counter_zzz");
+  assertFalse("Metrics doesn't contains counter",metrics.sample().containsKey(counterZ.getName()));
+}

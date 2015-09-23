@@ -1,3 +1,0 @@
-@classmethod
-def define_target(cls, path, name, ttype='python_library', deps=()):
-    cls.create_target(path, dedent(("\n        %(type)s(name='%(name)s',\n          dependencies=[%(deps)s]\n        )\n        " % dict(type=ttype, name=name, deps=','.join(deps)))))

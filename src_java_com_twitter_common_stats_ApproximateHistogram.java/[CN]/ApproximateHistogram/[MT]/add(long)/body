@@ -13,4 +13,5 @@
   }
   leafCount++;
   count++;
+  leavesSorted=(leafCount == 1);
 }

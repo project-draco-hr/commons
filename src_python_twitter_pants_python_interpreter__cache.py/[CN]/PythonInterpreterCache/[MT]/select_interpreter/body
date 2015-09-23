@@ -1,5 +1,0 @@
-@classmethod
-def select_interpreter(cls, compatibilities, allow_multiple=False):
-    if allow_multiple:
-        return compatibilities
-    return ([min(compatibilities)] if compatibilities else [])

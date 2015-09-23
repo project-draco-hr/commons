@@ -1,8 +1,0 @@
-def __init__(self, ins, sock, buff_size):
-    threading.Thread.__init__(self)
-    self.daemon = True
-    self._ins = ins
-    self._sock = sock
-    self._buff_size = buff_size
-    self._send_chunk = partial(NailgunSession._send_chunk, sock)
-    self._stopping = threading.Event()

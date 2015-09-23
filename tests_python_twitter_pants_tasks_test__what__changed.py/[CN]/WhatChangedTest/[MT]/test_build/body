@@ -1,2 +1,0 @@
-def test_build(self):
-    self.assert_console_output('root/src/py/a/BUILD:alpha', 'root/src/py/a/BUILD:beta', workspace=self.workspace(files=['root/src/py/a/BUILD']))

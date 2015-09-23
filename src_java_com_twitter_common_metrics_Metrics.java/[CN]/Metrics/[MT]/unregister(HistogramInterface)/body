@@ -1,0 +1,4 @@
+{
+  String key=histogram.getName();
+  return histograms.remove(key) != null;
+}

@@ -1,5 +1,0 @@
-{
-  OutputStream old=this.out;
-  this.out=out;
-  return old;
-}

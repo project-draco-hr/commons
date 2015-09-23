@@ -1,3 +1,0 @@
-@classmethod
-def resources(cls, path, name, *sources):
-    return cls.library(path, 'resources', name, sources)

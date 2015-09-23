@@ -1,0 +1,6 @@
+{
+  Statistics stats=createAndLoad(EMPTY_SET);
+  assertEquals(0L,stats.populationSize());
+  stats=createAndLoad(TEST_SET_A);
+  assertEquals(TEST_SET_A.size(),stats.populationSize());
+}

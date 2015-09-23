@@ -1,9 +1,0 @@
-def classnames_from_source_file(self, srcfile):
-    relsrc = (os.path.relpath(srcfile, get_buildroot()) if os.path.isabs(srcfile) else srcfile)
-    source_products = self.context.products.get_data('classes_by_source').get(relsrc)
-    if (not source_products):
-        self.context.log.warn(('Source file %s generated no classes' % srcfile))
-    else:
-        for (_, classes) in source_products.rel_paths():
-            for cls in classes:
-                yield JUnitRun.classfile_to_classname(cls)

@@ -1,6 +1,0 @@
-__author__ = 'John Sirois'
-import os
-from twitter.common.collections.ordereddict import OrderedDict
-from twitter.common.collections.orderedset import OrderedSet
-from twitter.pants.targets.jvm_binary import JvmBinary
-from twitter.pants.tasks import Task

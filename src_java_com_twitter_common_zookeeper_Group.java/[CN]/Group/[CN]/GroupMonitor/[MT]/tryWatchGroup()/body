@@ -1,4 +1,7 @@
 {
+  if (stopped) {
+    return;
+  }
   try {
     backoffHelper.doUntilSuccess(tryWatchGroup);
   }

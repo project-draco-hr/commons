@@ -1,2 +1,0 @@
-def test_compile_idls(self):
-    self.assert_console_output('src/thrift/dependent/BUILD:my-example', 'src/thrift/example/BUILD:compiled_scala', 'src/thrift/example/BUILD:compiled_scala_user', targets=[self.target('src/thrift/example:mybird')])

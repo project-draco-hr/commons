@@ -15,6 +15,7 @@ def configure_clp():
     parser.add_option('-e', '--entry-point', dest='entry_point', default=None, help='The entry point for this pex; Omiting this will enter the python REPL with sources and requirements available for import.  Can be either a module or EntryPoint (module:function) format.')
     parser.add_option('-r', '--requirement', dest='requirements', metavar='REQUIREMENT', default=[], action='append', help='requirement to be included; may be specified multiple times.')
     parser.add_option('--repo', dest='repos', metavar='PATH', default=[], action='append', help='Additional repository path (directory or URL) to look for requirements.')
+    parser.add_option('-i', '--index', dest='indices', metavar='URL', default=[], action='append', help='Additional cheeseshop indices to use to satisfy requirements.')
     parser.add_option('-s', '--source-dir', dest='source_dirs', metavar='DIR', default=[], action='append', help='Source to be packaged; This <DIR> should be a pip-installable project with a setup.py.')
     parser.add_option('-v', '--verbosity', dest='verbosity', default=False, action='store_true', help='Turn on logging verbosity.')
     return parser

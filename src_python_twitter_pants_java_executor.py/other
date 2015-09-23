@@ -1,9 +1,0 @@
-from abc import abstractmethod, abstractproperty
-from contextlib import contextmanager
-import os
-import subprocess
-from twitter.common import log
-from twitter.common.collections import maybe_list
-from twitter.common.contextutil import environment_as
-from twitter.common.lang import AbstractClass, Compatibility
-from twitter.pants.java.distribution import Distribution

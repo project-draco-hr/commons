@@ -1,3 +1,0 @@
-def getpassword(self, repository):
-    self._ensure_loaded()
-    return self._password[repository]

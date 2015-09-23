@@ -1,5 +1,5 @@
 {
-  expectVarScrape(ImmutableMap.<String,Object>of("str","foobar","int",5,"float",4.16126));
+  expectVarScrape(ImmutableMap.<String,Object>of("float",4.16126,"int",5,"str","foobar"));
   control.replay();
   checkOutput(Arrays.asList("float 4.16126","int 5","str foobar"));
 }

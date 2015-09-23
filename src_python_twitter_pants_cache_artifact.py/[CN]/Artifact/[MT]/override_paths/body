@@ -1,2 +1,0 @@
-def override_paths(self, paths):
-    self._relpaths = set([os.path.relpath(path, self._artifact_root) for path in paths])

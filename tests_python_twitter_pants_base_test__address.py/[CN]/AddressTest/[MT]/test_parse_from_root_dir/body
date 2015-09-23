@@ -1,4 +1,0 @@
-def test_parse_from_root_dir(self):
-    with self.workspace('a/b/c/BUILD') as root_dir:
-        self.assertAddress(root_dir, 'a/b/c/BUILD', 'c', Address.parse(root_dir, 'a/b/c', is_relative=False))
-        self.assertAddress(root_dir, 'a/b/c/BUILD', 'c', Address.parse(root_dir, 'a/b/c', is_relative=True))

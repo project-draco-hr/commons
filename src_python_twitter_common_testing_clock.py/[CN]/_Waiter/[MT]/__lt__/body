@@ -1,0 +1,4 @@
+def __lt__(self, other):
+    if (not isinstance(other, _Waiter)):
+        raise TypeError('Can only compare two Waiter objects.')
+    return (self.wait_until < other.wait_until)

@@ -1,0 +1,2 @@
+def strip_newline(stmt):
+    return textwrap.dedent('\n'.join(filter(None, stmt.splitlines())))

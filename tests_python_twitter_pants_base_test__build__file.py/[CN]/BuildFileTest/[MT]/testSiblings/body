@@ -1,6 +1,0 @@
-def testSiblings(self):
-    buildfile = BuildFileTest.buildfile('grandparent/parent/BUILD.twitter')
-    self.assertEquals(OrderedSet([buildfile]), OrderedSet(self.buildfile.siblings()))
-    self.assertEquals(OrderedSet([self.buildfile]), OrderedSet(buildfile.siblings()))
-    buildfile = BuildFileTest.buildfile('grandparent/parent/child2/child3/BUILD')
-    self.assertEquals(OrderedSet(), OrderedSet(buildfile.siblings()))

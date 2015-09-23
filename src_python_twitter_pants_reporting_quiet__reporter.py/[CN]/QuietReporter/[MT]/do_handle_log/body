@@ -1,7 +1,0 @@
-def do_handle_log(self, workunit, level, *msg_elements):
-    'Implementation of Reporter callback.'
-    elements = [(e if isinstance(e, basestring) else e[0]) for e in msg_elements]
-    msg = ('\n' + ''.join(elements))
-    if self.settings.color:
-        msg = _maybe_color(msg)
-    self._emit(msg)

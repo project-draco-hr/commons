@@ -1,7 +1,0 @@
-def force_invalidate(self, vts):
-    'Force invalidation of a VersionedTargetSet.'
-    for vt in vts.versioned_targets:
-        self._invalidator.force_invalidate(vt.cache_key)
-        vt.valid = False
-    self._invalidator.force_invalidate(vts.cache_key)
-    vts.valid = False

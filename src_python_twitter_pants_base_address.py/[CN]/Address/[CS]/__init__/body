@@ -1,6 +1,0 @@
-def __init__(self, buildfile, target_name):
-    '\n    :param BuildFile buildfile: A BuildFile defined in the repo.\n    :param string target_name: The name of a target defined in buildfile.\n    '
-    assert isinstance(buildfile, BuildFile)
-    assert isinstance(target_name, Compatibility.string)
-    self.buildfile = buildfile
-    self.target_name = target_name

@@ -1,9 +1,0 @@
-def console_output(self, targets):
-    'Display a list of installed target types, or details about a specific target type.'
-    target_types = {}
-    for target_type in SourceRoot._ROOTS_BY_TYPE.keys():
-        target_types[target_type.__name__] = target_type
-    if (self.context.options.goal_targets_details is None):
-        return self._get_installed_targets(target_types)
-    else:
-        return self._get_details(target_types[self.ALIAS_TO_TARGET[self.context.options.goal_targets_details]])

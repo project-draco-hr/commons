@@ -1,0 +1,14 @@
+{
+  if (LOCALHOST.equalsIgnoreCase(host) || myName.equalsIgnoreCase(host)) {
+    return;
+  }
+  String message=String.format("Connecting to %s is blocked by %s.",host,this.getClass().getSimpleName());
+  if (!InetAddresses.isInetAddress(host)) {
+    throw new SecurityException(message);
+  }
+  InetAddress addr=InetAddresses.forString(host);
+  if (addr.isAnyLocalAddress() || addr.isLoopbackAddress() || myAddresses.contains(addr)) {
+    return;
+  }
+  throw new SecurityException(message);
+}

@@ -1,0 +1,3 @@
+def register_goals():
+    task(name='checkstyle', action=Checkstyle).install('compile')
+    task(name='scalastyle', action=Scalastyle).install('compile')

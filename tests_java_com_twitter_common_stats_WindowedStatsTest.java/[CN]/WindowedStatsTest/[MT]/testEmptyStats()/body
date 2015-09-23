@@ -1,0 +1,5 @@
+{
+  FakeClock clock=new FakeClock();
+  WindowedStatistics ws=new WindowedStatistics(window,slices,clock);
+  assertEmpty(ws);
+}

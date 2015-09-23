@@ -1,6 +1,0 @@
-def test_binary_cycle(self):
-    with ParseContext.temp():
-        foo = python_library(name='foo', provides=setup_py(name='foo', version='0.0.0').with_binaries(foo_binary=pants(':foo_bin')))
-        foo_bin = python_binary(name='foo_bin', entry_point='foo.bin.foo', dependencies=[pants(':foo')])
-    with pytest.raises(TargetDefinitionException):
-        SetupPy.minified_dependencies(foo)

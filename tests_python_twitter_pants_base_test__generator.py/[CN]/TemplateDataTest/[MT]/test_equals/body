@@ -1,2 +1,0 @@
-def test_equals(self):
-    self.assertEqual(self.data, TemplateData(baz=42).extend(foo='bar'))

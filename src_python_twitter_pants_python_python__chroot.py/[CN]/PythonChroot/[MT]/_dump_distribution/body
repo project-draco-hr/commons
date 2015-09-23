@@ -1,3 +1,0 @@
-def _dump_distribution(self, dist):
-    self.debug(('  Dumping distribution: .../%s' % os.path.basename(dist.location)))
-    self._builder.add_distribution(dist)

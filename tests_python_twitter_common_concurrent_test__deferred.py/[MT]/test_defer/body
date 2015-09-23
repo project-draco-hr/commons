@@ -1,12 +1,14 @@
 def test_defer():
-    clock = ThreadedClock()
     DELAY = 3
+    clock = ThreadedClock()
     results = Queue(maxsize=1)
 
     def func():
         results.put_nowait('success')
     defer(func, delay=DELAY, clock=clock)
     with Timer(clock=clock) as timer:
-        clock.tick(4)
+        with pytest.raises(Empty):
+            results.get_nowait()
+        clock.tick((DELAY + 1))
         assert (results.get() == 'success')
-    assert (timer.elapsed >= DELAY)
+    assert (timer.elapsed == (DELAY + 1))

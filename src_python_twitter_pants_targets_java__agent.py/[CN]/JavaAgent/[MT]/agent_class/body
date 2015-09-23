@@ -1,4 +1,0 @@
-@property
-def agent_class(self):
-    'The post-launch-time agent fully qualified class name.\n\n    Either ``agent_class`` or ``premain`` will be defined and the other will be `None`.\n    '
-    return self._agent_class

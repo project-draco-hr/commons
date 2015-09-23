@@ -1,0 +1,3 @@
+@classmethod
+def flatten_lines(self, *line_or_line_list):
+    return itertools.chain(*line_or_line_list)

@@ -1,4 +1,0 @@
-@classmethod
-def as_phases(cls, *phase_names):
-    'Converts the given phase names to a list of ``Phase`` objects.'
-    return map(cls.as_phase, phase_names)

@@ -1,0 +1,8 @@
+{
+  long[] results=new long[quantiles.length];
+  for (int i=0; i < results.length; i++) {
+    double q=quantiles[i];
+    results[i]=h.getQuantile(q);
+  }
+  return results;
+}

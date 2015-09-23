@@ -1,0 +1,15 @@
+@classmethod
+def build_exception_map(cls, tokens):
+    'Generates a set of ranges where we accept trailing slashes, specifically within comments\n       and strings.\n    '
+    exception_ranges = defaultdict(list)
+    for token in tokens:
+        (token_type, _, token_start, token_end) = token[0:4]
+        if (token_type in (tokenize.COMMENT, tokenize.STRING)):
+            if (token_start[0] == token_end[0]):
+                exception_ranges[token_start[0]].append((token_start[1], token_end[1]))
+            else:
+                exception_ranges[token_start[0]].append((token_start[1], sys.maxint))
+                for line in range((token_start[0] + 1), token_end[0]):
+                    exception_ranges[line].append((0, sys.maxint))
+                exception_ranges[token_end[0]].append((0, token_end[1]))
+    return exception_ranges

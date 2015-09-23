@@ -1,3 +1,0 @@
-def prepare_gen(self, targets):
-    '\n      Subclasses should override if they need to prepare for potential upcoming calls to genlang.\n\n      Note that this does not mean genlang will necessarily be called.\n    '
-    pass

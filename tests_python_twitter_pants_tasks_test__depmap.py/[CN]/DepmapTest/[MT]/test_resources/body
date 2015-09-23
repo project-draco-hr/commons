@@ -1,2 +1,0 @@
-def test_resources(self):
-    self.assert_console_output('internal-src.java.a.a_java', '  internal-resources.a.a_resources', targets=[self.target('src/java/a:a_java')])

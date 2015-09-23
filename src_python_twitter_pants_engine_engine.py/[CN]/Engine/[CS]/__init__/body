@@ -1,3 +1,0 @@
-def __init__(self, print_timing=False):
-    'Creates an engine that prints no timings by default.\n\n    :param print_timing: ``True`` to print detailed timings at the end of the run.\n    '
-    self._print_timing = print_timing

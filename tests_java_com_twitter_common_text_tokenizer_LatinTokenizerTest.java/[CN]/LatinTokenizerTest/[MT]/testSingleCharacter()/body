@@ -1,0 +1,11 @@
+{
+  testTokenizer(tokenizer,"",new String[0]);
+  testTokenizer(tokenizer," ",new String[0]);
+  testTokenizer(tokenizer,"a","a");
+  testTokenizer(tokenizer,"\n",new String[0]);
+  testTokenizer(tokenizerWithPunct,"\n","\n");
+  testTokenizer(tokenizer,".",new String[0]);
+  testTokenizer(tokenizerWithPunct,".",".");
+  testTokenizer(tokenizer,"#",new String[0]);
+  testTokenizer(tokenizerWithPunct,"#","#");
+}

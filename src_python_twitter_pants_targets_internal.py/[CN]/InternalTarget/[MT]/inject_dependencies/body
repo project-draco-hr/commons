@@ -1,2 +1,0 @@
-def inject_dependencies(self):
-    self.update_dependencies(resolve(self._injected_deps))

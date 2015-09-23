@@ -1,3 +1,0 @@
-def test_builddict_empty(self):
-    'Execution should be silent.'
-    self.assertEqual('', self.execute_task())

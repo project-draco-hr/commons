@@ -1,4 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    super(CheckPublishedDeps, cls).setup_parser(option_group, args, mkflag)
-    option_group.add_option(mkflag('print-uptodate'), mkflag('print-uptodate', negate=True), dest='check_deps_print_uptodate', default=False, action='callback', callback=mkflag.set_bool, help='[%default] Also print up-to-date dependencies.')

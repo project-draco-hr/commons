@@ -1,4 +1,0 @@
-@classmethod
-def targets(cls, spec):
-    "Resolves a target spec to one or more Target objects.\n\n    spec: Either BUILD target address or else a target glob using the siblings ':' or\n          descendants '::' suffixes.\n\n    Returns the set of all Targets found.\n    "
-    return set((target for (target, _) in SpecParser(cls.build_root).parse(spec) if target))

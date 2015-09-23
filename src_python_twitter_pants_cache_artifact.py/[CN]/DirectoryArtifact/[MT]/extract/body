@@ -1,9 +1,0 @@
-def extract(self):
-    for (dir_name, _, filenames) in os.walk(self._directory):
-        for filename in filenames:
-            filename = os.path.join(dir_name, filename)
-            relpath = os.path.relpath(filename, self._directory)
-            dst = os.path.join(self._artifact_root, relpath)
-            safe_mkdir_for(dst)
-            shutil.copy(filename, dst)
-            self._relpaths.add(relpath)

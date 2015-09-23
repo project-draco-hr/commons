@@ -1,3 +1,0 @@
-@classmethod
-def create_context(cls, **kwargs):
-    return Context(cls.config, run_tracker=None, **kwargs)

@@ -1,8 +1,0 @@
-@classmethod
-def from_goal(cls, goal):
-    'Creates a ``GroupMember`` from goal metadata.'
-    if (not isinstance(goal, Goal)):
-        raise ValueError(('The given goal must be a ``Goal`` object, given %s' % goal))
-    if (not goal.group):
-        raise ValueError(('Can only form a GroupMember from goals with a group defined, goal %s has no group' % goal.name))
-    return cls(goal.group.name, goal.name, goal.group.predicate)

@@ -1,0 +1,26 @@
+{
+  Preconditions.checkArgument(0.0 <= q && q <= 1.0,"quantile must be in the range 0.0 to 1.0 inclusive");
+  if (count == 0) {
+    return 0L;
+  }
+  int buf0Size=Math.min(bufferSize,leafCount);
+  int buf1Size=Math.max(0,leafCount - buf0Size);
+  long sum=0;
+  long target=(long)Math.ceil(count * (1.0 - q));
+  int i;
+  if (!leavesSorted) {
+    Arrays.sort(buffer[0],0,buf0Size);
+    Arrays.sort(buffer[1],0,buf1Size);
+    leavesSorted=true;
+  }
+  Arrays.fill(indices,bufferSize - 1);
+  indices[0]=buf0Size - 1;
+  indices[1]=buf1Size - 1;
+  do {
+    i=biggest(indices);
+    indices[i]--;
+    sum+=weight(i);
+  }
+ while (sum < target);
+  return buffer[i][indices[i] + 1];
+}

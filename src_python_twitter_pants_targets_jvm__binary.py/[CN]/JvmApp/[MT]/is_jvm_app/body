@@ -1,2 +1,0 @@
-def is_jvm_app(self):
-    return True

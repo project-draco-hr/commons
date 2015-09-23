@@ -1,5 +1,0 @@
-@mock.patch('socket.gethostbyname')
-def test_open_resolve_failure(gethostbyname_mock):
-    gethostbyname_mock.side_effect = socket.gaierror(errno.EADDRNOTAVAIL, 'Could not resolve host.')
-    with pytest.raises(FetchError):
-        Web().open('http://www.google.com')

@@ -1,2 +1,0 @@
-def changelog(self, target, sha):
-    return self.scm.changelog(from_commit=sha, files=[os.path.join(target.target_base, source) for source in target.sources])

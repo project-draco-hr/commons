@@ -1,0 +1,15 @@
+{
+  long startTime=clock.nowNanos();
+  request.setAttribute(REQUEST_START_TIME,startTime);
+  try {
+    chain.doFilter(request,response);
+  }
+ catch (  IOException e) {
+    exceptionCount.incrementAndGet();
+    throw e;
+  }
+catch (  ServletException e) {
+    exceptionCount.incrementAndGet();
+    throw e;
+  }
+}

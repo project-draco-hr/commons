@@ -1,5 +1,0 @@
-def fetchers_from_config(config):
-    fetchers = []
-    fetchers.extend((Fetcher([url]) for url in config.getlist('python-repos', 'repos', [])))
-    fetchers.extend((PyPIFetcher(url) for url in config.getlist('python-repos', 'indices', [])))
-    return fetchers

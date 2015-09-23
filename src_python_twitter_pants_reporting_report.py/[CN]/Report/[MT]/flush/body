@@ -1,3 +1,0 @@
-def flush(self):
-    with self._lock:
-        self._notify()

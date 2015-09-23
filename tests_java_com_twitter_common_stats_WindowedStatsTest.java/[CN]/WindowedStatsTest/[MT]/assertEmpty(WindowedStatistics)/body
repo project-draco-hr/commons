@@ -1,0 +1,8 @@
+{
+  assertEquals(Long.MIN_VALUE,ws.max());
+  assertEquals(Long.MAX_VALUE,ws.min());
+  assertEquals(0L,ws.populationSize());
+  assertEquals(0L,ws.sum());
+  assertEquals(0.0,ws.mean(),0.01);
+  assertEquals(0.0,ws.standardDeviation(),0.01);
+}

@@ -1,3 +1,0 @@
-import pytest
-import unittest
-from twitter.pants.base.revision import Revision

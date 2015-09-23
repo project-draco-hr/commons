@@ -1,2 +1,0 @@
-def test_dup(self):
-    self.assert_console_output('common/a/one.py common/a/BUILD:a', 'common/c/four.py common/c/BUILD:c', targets=[self.target('common/a'), self.target('common/c'), self.target('common/a')])

@@ -24,6 +24,6 @@
     responseBody.write(profileBytes);
   }
   finally {
-    Closeables.closeQuietly(responseBody);
+    Closeables.close(responseBody,true);
   }
 }

@@ -1,6 +1,0 @@
-@classmethod
-def locate(cls):
-    'Attempts to find the current root directory and buildfile.\n\n    If there is an active parse context (see do_in_context), then it is returned.\n    '
-    if (not cls._active):
-        raise cls.ContextError('No parse context active.')
-    return next(reversed(cls._active))

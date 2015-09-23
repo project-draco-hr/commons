@@ -1,0 +1,2 @@
+def make_statement(statement):
+    return '\n'.join(textwrap.dedent(statement).splitlines()[1:])

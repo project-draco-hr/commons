@@ -1,3 +1,0 @@
-def ivy(self, java_executor=None, bootstrap_workunit_factory=None):
-    'Returns an ivy instance bootstrapped by this bootstrapper.\n\n    :param java_executor: the optional java executor to use\n    :param bootstrap_workunit_factory: the optional workunit to bootstrap under.\n    :raises: Bootstrapper.Error if ivy could not be bootstrapped\n    '
-    return Ivy(self._get_classpath(java_executor, bootstrap_workunit_factory), java_executor=java_executor, ivy_settings=self._ivy_settings, ivy_cache_dir=self.ivy_cache_dir)

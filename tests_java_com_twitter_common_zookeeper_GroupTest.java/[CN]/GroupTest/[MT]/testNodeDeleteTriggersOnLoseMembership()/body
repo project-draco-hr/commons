@@ -7,7 +7,7 @@
   }
 ;
   assertEmptyMembershipObserved();
-  Membership membership=group.join(onLoseMembership);
+  Membership membership=joinGroup.join(onLoseMembership);
   assertMembershipObserved(membership.getMemberId());
   membership.cancel();
   lostMembership.await();

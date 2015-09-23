@@ -1,8 +1,0 @@
-def _log_conflicts(self, conflicts_by_artifacts, target):
-    self.context.log.warn(('\n ===== For target %s:' % target))
-    for (artifacts, duplicate_files) in conflicts_by_artifacts.items():
-        if (len(artifacts) < 2):
-            continue
-        self.context.log.warn(('Duplicate classes and/or resources detected in artifacts: %s' % str(artifacts)))
-        for duplicate_file in list(duplicate_files)[:10]:
-            self.context.log.warn(('     %s' % duplicate_file))

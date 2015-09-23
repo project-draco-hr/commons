@@ -1,2 +1,0 @@
-def create_analysis_tools(self):
-    return AnalysisTools(self.context, ZincAnalysisParser(self._classes_dir), ZincAnalysis)

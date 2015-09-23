@@ -1,0 +1,11 @@
+{
+  Preconditions.checkNotNull(field);
+  Positional positional=field.getAnnotation(Positional.class);
+  if (positional == null) {
+    throw new Configuration.ConfigurationException("No @Positional Arg annotation for field " + field);
+  }
+  Preconditions.checkArgument(TypeUtil.getRawType(TypeUtil.getTypeParam(field)) == List.class,"Field is annotated for positional parsing but is not of Arg<List<?>> type");
+  Type nestedType=TypeUtil.extractTypeToken(TypeUtil.getTypeParam(field));
+  @SuppressWarnings({"unchecked","rawtypes"}) PositionalInfo<?> positionalInfo=new PositionalInfo(field.getDeclaringClass().getCanonicalName() + "." + field.getName(),"[positional args]",positional.help(),ArgumentInfo.getArgForField(field,Optional.fromNullable(instance)),TypeUtil.getTypeParamTypeToken(field),TypeToken.of(nestedType),Arrays.asList(field.getAnnotations()),positional.parser());
+  return positionalInfo;
+}

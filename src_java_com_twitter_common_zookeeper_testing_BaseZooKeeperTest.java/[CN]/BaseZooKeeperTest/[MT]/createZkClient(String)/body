@@ -1,0 +1,3 @@
+{
+  return zkTestServer.createClient(chrootPath);
+}

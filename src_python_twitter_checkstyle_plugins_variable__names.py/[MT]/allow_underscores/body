@@ -1,0 +1,11 @@
+def allow_underscores(num):
+
+    def wrap(function):
+
+        @wraps(function)
+        def wrapped_function(name):
+            if name.startswith(('_' * (num + 1))):
+                return False
+            return function(name.lstrip('_'))
+        return wrapped_function
+    return wrap

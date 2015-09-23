@@ -1,4 +1,0 @@
-def _order_target_list(self, targets):
-    'Orders the targets topologically, from least to most dependent.'
-    targets = set((t for t in targets if isinstance(t, Target)))
-    return filter(targets.__contains__, reversed(InternalTarget.sort_targets(targets)))

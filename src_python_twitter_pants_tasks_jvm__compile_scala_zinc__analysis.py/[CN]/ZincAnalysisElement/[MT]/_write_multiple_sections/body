@@ -1,4 +1,0 @@
-def _write_multiple_sections(self, outfile, headers, reps, inline_vals=True, rebasings=None):
-    'Write multiple sections.'
-    for (header, rep) in zip(headers, reps):
-        self._write_section(outfile, header, rep, inline_vals, rebasings)

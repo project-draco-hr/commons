@@ -1,5 +1,3 @@
 {
-  Preconditions.checkNotNull(hosts);
-  Thrift<scribe.Iface> thrift=ThriftFactory.create(scribe.Iface.class).withMaxConnectionsPerEndpoint(MAX_CONNECTIONS_PER_HOST).useFramedTransport(true).build(Sets.newHashSet(hosts));
-  client=thrift.builder().withRetries(MAX_RETRIES).withRequestTimeout(REQUEST_TIMEOUT).create();
+  this(hosts,MAX_CONNECTIONS_PER_HOST);
 }

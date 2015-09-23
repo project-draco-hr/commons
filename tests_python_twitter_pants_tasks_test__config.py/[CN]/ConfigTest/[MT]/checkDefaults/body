@@ -1,4 +1,0 @@
-def checkDefaults(self, accessor, default):
-    self.assertEquals(None, accessor('c', 'fast'))
-    self.assertEquals(None, accessor('c', 'preempt', None))
-    self.assertEquals(default, accessor('c', 'jake', default=default))

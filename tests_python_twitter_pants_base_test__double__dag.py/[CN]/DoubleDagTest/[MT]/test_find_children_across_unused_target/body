@@ -1,6 +1,0 @@
-def test_find_children_across_unused_target(self):
-    a = MockTarget('a')
-    b = MockTarget('b', [a])
-    c = MockTarget('c', [b])
-    d = MockTarget('d', [c, a])
-    e = MockTarget('e', [d])

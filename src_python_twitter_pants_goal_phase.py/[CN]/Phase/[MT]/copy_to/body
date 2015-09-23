@@ -1,6 +1,0 @@
-def copy_to(self, name):
-    'Copies this phase to the new named phase carrying along goal dependencies and description.'
-    copy = Phase(name)
-    copy.goals().extend(self.goals())
-    copy.description = self.description
-    return copy

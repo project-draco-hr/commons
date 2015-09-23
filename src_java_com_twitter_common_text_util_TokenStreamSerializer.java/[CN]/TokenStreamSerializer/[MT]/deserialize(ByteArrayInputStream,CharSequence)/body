@@ -1,11 +1,11 @@
 {
   final AttributeInputStream input=new AttributeInputStream(bais);
-  TokenStream tokenStream=new TokenStream(){
+  TwitterTokenStream twitterTokenStream=new TwitterTokenStream(){
     CharSequence chars=charSequence;
     int token;
     Version version;
     int numTokens;
-    @Override public boolean incrementToken(){
+    @Override public final boolean incrementToken(){
       if (token < numTokens) {
         token++;
         try {
@@ -18,8 +18,9 @@
       }
       return false;
     }
-    @Override public void reset(    CharSequence newChars){
-      Preconditions.checkArgument(newChars == null || newChars == chars,"this TokenStream does not do actual tokenization and only supports reset(null)");
+    @Override public void reset(){
+      CharSequence newChars=inputCharSequence();
+      Preconditions.checkArgument(newChars == null || newChars == chars,"this TwitterTokenStream does not do actual tokenization and only supports reset(null)");
       try {
         input.reset();
         bais.reset();
@@ -36,6 +37,6 @@
     }
   }
 ;
-  tokenStream.reset(null);
-  return tokenStream;
+  twitterTokenStream.reset(null);
+  return twitterTokenStream;
 }

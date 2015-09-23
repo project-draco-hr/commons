@@ -1,4 +1,0 @@
-def __init__(self, timeout, tries):
-    'Try pinging the given number of times, each with the given timeout.'
-    self._timeout = timeout
-    self._tries = tries

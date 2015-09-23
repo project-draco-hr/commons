@@ -1,4 +1,0 @@
-@classmethod
-def default_ivy(cls, java_executor=None, bootstrap_workunit_factory=None):
-    'Returns an Ivy instance using the default global bootstrapper.\n\n    By default runs ivy via a subprocess java executor.\n\n    :param java_executor: the optional java executor to use\n    :param bootstrap_workunit_factory: the optional workunit to bootstrap under.\n    :returns: an Ivy instance.\n    :raises: Bootstrapper.Error if the default ivy instance could not be bootstrapped\n    '
-    return cls.instance().ivy(java_executor=java_executor, bootstrap_workunit_factory=bootstrap_workunit_factory)

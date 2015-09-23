@@ -1,0 +1,7 @@
+{
+  App app=new App();
+  new ArgScanner().parse(Args.from(ArgFilters.selectClass(App.class),app),ImmutableList.of("-name=bob","-db=fred","1","137"));
+  assertEquals(new File("fred"),App.DB.get());
+  assertEquals("bob",app.name.get());
+  assertEquals(ImmutableList.of(1,137),app.values.get());
+}

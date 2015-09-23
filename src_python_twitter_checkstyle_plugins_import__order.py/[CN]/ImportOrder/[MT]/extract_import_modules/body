@@ -1,0 +1,7 @@
+@classmethod
+def extract_import_modules(cls, node):
+    if isinstance(node, ast.Import):
+        return [alias.name for alias in node.names]
+    elif isinstance(node, ast.ImportFrom):
+        return [node.module]
+    return []

@@ -1,4 +1,0 @@
-@classmethod
-def _clear_all_addresses(cls):
-    cls._targets_by_address = {}
-    cls._addresses_by_buildfile = collections.defaultdict(OrderedSet)

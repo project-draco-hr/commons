@@ -1,19 +1,22 @@
 {
   int n=10000;
-  Histogram hist=new Histogram(name,Amount.of(4L,Data.KB),metrics);
+  FakeClock clock=new FakeClock();
+  int slices=2;
+  double error=DEFAULT_PRECISION.getEpsilon() * n * slices;
+  HistogramInterface hist=new Histogram(name,Amount.of(1L,Time.MINUTES),slices,Amount.of(32L,Data.KB),null,DEFAULT_QUANTILES,clock);
   for (int i=1; i <= n; ++i) {
     hist.add(i);
   }
-  Map<String,Number> sample=metrics.sample();
-  assertEquals(1L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "min"));
-  assertEquals((long)n,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "max"));
-  assertEquals((long)n,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "count"));
-  assertEquals((long)(n * (n + 1) / 2),sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "sum"));
-  assertEquals((long)n / 2,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "avg"));
-  double errorInPercent=0.0;
-  for (  double q : Histogram.DEFAULT_QUANTILES) {
-    String gName=name + ScopedMetrics.SCOPE_DELIMITER + Histogram.gaugeName(q);
-    errorInPercent+=Math.abs(((q * n) - sample.get(gName).doubleValue()) / (q * n));
+  clock.advance(Amount.of(31L,Time.SECONDS));
+  Snapshot sample=hist.snapshot();
+  assertEquals(1L,sample.min());
+  assertEquals((long)n,sample.max());
+  assertEquals((long)n,sample.count());
+  assertEquals((long)(n * (n + 1) / 2),sample.sum());
+  assertEquals(n * (n + 1) / (2.0 * n),sample.avg(),0.1);
+  long[] expected=new long[DEFAULT_QUANTILES.length];
+  for (int i=0; i < DEFAULT_QUANTILES.length; i++) {
+    expected[i]=(long)(DEFAULT_QUANTILES[i] * n);
   }
-  assertTrue(errorInPercent / Histogram.DEFAULT_QUANTILES.length < 0.01);
+  checkQuantiles(expected,sample,error);
 }

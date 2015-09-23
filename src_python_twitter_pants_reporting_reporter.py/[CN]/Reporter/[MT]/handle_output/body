@@ -1,3 +1,0 @@
-def handle_output(self, workunit, label, s):
-    "Handle output captured from an invoked tool (e.g., javac).\n\n    workunit: The innermost WorkUnit in which the tool was invoked.\n    label: Classifies the output e.g., 'stdout' for output captured from a tool's stdout or\n           'debug' for debug output captured from a tool's logfiles.\n    s: The content captured.\n    "
-    pass

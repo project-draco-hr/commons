@@ -1,6 +1,0 @@
-def identify(self, targets):
-    targets = list(targets)
-    if ((len(targets) == 1) and hasattr(targets[0], 'provides') and targets[0].provides):
-        return (targets[0].provides.org, targets[0].provides.name)
-    else:
-        return ('internal', Target.maybe_readable_identify(targets))

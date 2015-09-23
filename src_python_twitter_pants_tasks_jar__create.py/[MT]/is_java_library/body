@@ -1,2 +1,0 @@
-def is_java_library(target):
-    return (target.has_sources('.java') and (not is_binary(target)))

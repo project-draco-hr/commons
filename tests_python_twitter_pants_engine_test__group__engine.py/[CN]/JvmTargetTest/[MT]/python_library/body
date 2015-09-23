@@ -1,3 +1,0 @@
-@classmethod
-def python_library(cls, path, name, deps=None):
-    cls._library(path, 'python_library', name, deps)

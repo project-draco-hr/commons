@@ -1,0 +1,15 @@
+{
+  super.advance(period);
+  CountDownLatch signal=new CountDownLatch(1);
+  try {
+    signalQueue.put(signal);
+  }
+ catch (  InterruptedException e) {
+    throw new RuntimeException(e);
+  }
+  try {
+    signal.await();
+  }
+ catch (  InterruptedException e) {
+  }
+}

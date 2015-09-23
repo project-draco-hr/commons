@@ -1,2 +1,0 @@
-def execute(self, targets):
-    self.generate_execute(targets, is_java, create_javadoc_command)

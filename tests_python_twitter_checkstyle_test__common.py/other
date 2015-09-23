@@ -1,0 +1,5 @@
+import ast
+import textwrap
+from twitter.checkstyle.common import CheckstylePlugin, Nit, OffByOneList, PythonFile
+import pytest
+PYTHON_STATEMENT = make_statement('\nimport ast\nfrom os.path import (\n    join,\n    split,\n)\n\nimport zookeeper\n\n\nclass Keeper(object):\n  def __init__(self):\n    self._session = None\n\n  def session(self):\n    return self._session\n')

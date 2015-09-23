@@ -1,2 +1,0 @@
-def bump(self):
-    return Semver(self.major, self.minor, (self.patch + 1))

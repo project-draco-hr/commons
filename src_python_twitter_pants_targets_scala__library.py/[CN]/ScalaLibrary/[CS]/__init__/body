@@ -1,9 +1,0 @@
-def __init__(self, name, sources=None, java_sources=None, provides=None, dependencies=None, excludes=None, resources=None, exclusives=None):
-    "\n    :param string name: The name of this target, which combined with this\n      build file defines the target :class:`twitter.pants.base.address.Address`.\n    :param sources: A list of filenames representing the source code\n      this library is compiled from.\n    :type sources: list of strings\n    :param java_sources:\n      :class:`twitter.pants.targets.java_library.JavaLibrary` or list of\n      JavaLibrary targets this library has a circular dependency on.\n      Prefer using dependencies to express non-circular dependencies.\n    :param Artifact provides:\n      The :class:`twitter.pants.targets.artifact.Artifact`\n      to publish that represents this target outside the repo.\n    :param dependencies: List of :class:`twitter.pants.base.target.Target` instances\n      this target depends on.\n    :type dependencies: list of targets\n    :param excludes: List of :class:`twitter.pants.targets.exclude.Exclude` instances\n      to filter this target's transitive dependencies against.\n    :param resources: An optional list of paths (DEPRECATED) or ``resources``\n      targets containing resources that belong on this library's classpath.\n    :param exclusives: An optional list of exclusives tags.\n    "
-    super(ScalaLibrary, self).__init__(name, sources, provides, dependencies, excludes, exclusives=exclusives)
-    if ((sources is None) and (resources is None)):
-        raise TargetDefinitionException(self, 'Must specify sources and/or resources.')
-    self.resources = resources
-    self._java_sources = []
-    self._raw_java_sources = util.resolve(java_sources)
-    self.add_labels('scala')

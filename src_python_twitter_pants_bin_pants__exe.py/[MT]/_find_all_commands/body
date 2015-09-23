@@ -1,4 +1,0 @@
-def _find_all_commands():
-    for cmd in Command.all_commands():
-        cls = Command.get_command(cmd)
-        yield ('%s\t%s' % (cmd, cls.__doc__))

@@ -1,0 +1,3 @@
+from pants.backend.jvm.tasks.checkstyle import Checkstyle
+from pants.backend.jvm.tasks.scalastyle import Scalastyle
+from pants.goal.task_registrar import TaskRegistrar as task

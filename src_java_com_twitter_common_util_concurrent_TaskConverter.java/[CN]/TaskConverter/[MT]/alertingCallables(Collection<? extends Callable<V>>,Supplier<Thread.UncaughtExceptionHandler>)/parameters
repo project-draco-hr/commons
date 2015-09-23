@@ -1,0 +1,2 @@
+Collection<? extends Callable<V>> callables
+Supplier<Thread.UncaughtExceptionHandler> handler

@@ -1,3 +1,0 @@
-def get(self, typename):
-    'Returns a ProductMapping for the given type name.'
-    return self.require(typename)

@@ -1,0 +1,15 @@
+{
+  ZooKeeperTestServer zooKeeperServer;
+  try {
+    zooKeeperServer=new ZooKeeperTestServer(0,shutdownRegistry);
+    zooKeeperServer.startNetwork();
+  }
+ catch (  IOException e) {
+    throw Throwables.propagate(e);
+  }
+catch (  InterruptedException e) {
+    throw Throwables.propagate(e);
+  }
+  LOG.info("Embedded zookeeper cluster started on port " + zooKeeperServer.getPort());
+  return zooKeeperServer.createClient(config.sessionTimeout,config.credentials);
+}

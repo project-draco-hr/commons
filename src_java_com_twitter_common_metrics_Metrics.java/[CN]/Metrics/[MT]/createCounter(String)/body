@@ -1,0 +1,17 @@
+{
+  final LongAdder adder=new LongAdder();
+  checkNameCollision(name);
+  counters.put(name,adder);
+  return new Counter(){
+    public String getName(){
+      return name;
+    }
+    public void increment(){
+      adder.increment();
+    }
+    public void add(    long n){
+      adder.add(n);
+    }
+  }
+;
+}

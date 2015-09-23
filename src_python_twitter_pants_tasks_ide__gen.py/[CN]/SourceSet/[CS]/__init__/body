@@ -1,9 +1,0 @@
-def __init__(self, root_dir, source_base, path, is_test):
-    '\n      root_dir: the full path to the root directory of the project containing this source set\n      source_base: the relative path from root_dir to the base of this source set\n      path: the relative path from the source_base to the base of the sources in this set\n      is_test: true iff the sources contained by this set implement test cases\n    '
-    self.root_dir = root_dir
-    self.source_base = source_base
-    self.path = path
-    self.is_test = is_test
-    self._excludes = []
-    if is_test:
-        SourceSet.TEST_BASES.add(self.source_base)

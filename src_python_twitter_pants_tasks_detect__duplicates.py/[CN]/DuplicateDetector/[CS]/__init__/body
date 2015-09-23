@@ -1,4 +1,0 @@
-def __init__(self, context):
-    JvmBinaryTask.__init__(self, context)
-    self.require_jar_dependencies()
-    self.fail_fast = context.options.fail_fast

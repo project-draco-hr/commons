@@ -1,0 +1,15 @@
+{
+  int n=10;
+  ApproximateHistogram histograms[]=new ApproximateHistogram[n];
+  for (int i=0; i < n; i++) {
+    ApproximateHistogram h=new ApproximateHistogram(Amount.of(2L + 4 * i,Data.KB));
+    h.add(i);
+    histograms[i]=h;
+  }
+  Histogram mergedHistogram=ApproximateHistogram.merge(histograms);
+  assertEquals(0L,mergedHistogram.getQuantile(0.0));
+  assertEquals(1L,mergedHistogram.getQuantile(0.1));
+  assertEquals(5L,mergedHistogram.getQuantile(0.5));
+  assertEquals(9L,mergedHistogram.getQuantile(0.9));
+  assertEquals(9L,mergedHistogram.getQuantile(0.99));
+}

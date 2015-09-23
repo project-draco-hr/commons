@@ -1,3 +1,0 @@
-@staticmethod
-def install_disable_rc_option(parser):
-    parser.add_option(RcFile._DISABLE_PANTS_RC_OPTION, action='store_true', dest='nopantsrc', default=False, help='Specifies that pantsrc files should be ignored.')

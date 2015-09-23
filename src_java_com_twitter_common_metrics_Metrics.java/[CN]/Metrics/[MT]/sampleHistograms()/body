@@ -1,0 +1,8 @@
+{
+  ImmutableMap.Builder<String,Snapshot> samples=ImmutableMap.builder();
+  for (  HistogramInterface h : histograms.values()) {
+    Snapshot snapshot=h.snapshot();
+    samples.put(h.getName(),snapshot);
+  }
+  return samples.build();
+}

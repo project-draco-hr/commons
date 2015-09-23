@@ -1,0 +1,16 @@
+{
+  if (stopWatching == null) {
+    monitors.add(monitor);
+    ImmutableList.Builder<Command> commandsBuilder=ImmutableList.builder();
+    for (    final ServerSet serverSet : serverSets) {
+      commandsBuilder.add(serverSet.watch(new HostChangeMonitor<ServiceInstance>(){
+        @Override public void onChange(        ImmutableSet<ServiceInstance> hostSet){
+          handleChange(serverSet,hostSet);
+        }
+      }
+));
+    }
+    stopWatching=Commands.compound(commandsBuilder.build());
+  }
+  return stopWatching;
+}

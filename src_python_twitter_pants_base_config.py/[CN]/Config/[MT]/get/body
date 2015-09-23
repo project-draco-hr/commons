@@ -1,3 +1,0 @@
-def get(self, section, option, type=str, default=None):
-    '\n      Retrieves option from the specified section if it exists and attempts to parse it as type.\n      If the specified section is missing a definition for the option, the value is looked up in the\n      DEFAULT section.  If there is still no definition found, the default value supplied is\n      returned.\n    '
-    return self._getinstance(section, option, type, default=default)

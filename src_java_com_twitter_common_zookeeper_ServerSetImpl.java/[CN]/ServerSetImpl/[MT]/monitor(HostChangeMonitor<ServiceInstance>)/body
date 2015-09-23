@@ -1,12 +1,4 @@
 {
-  ServerSetWatcher serverSetWatcher=new ServerSetWatcher(zkClient,monitor);
-  try {
-    serverSetWatcher.watch();
-  }
- catch (  WatchException e) {
-    throw new MonitorException("ZooKeeper watch failed.",e);
-  }
-catch (  InterruptedException e) {
-    throw new MonitorException("Interrupted while watching ZooKeeper.",e);
-  }
+  LOG.warning("This method is deprecated. Please use watch instead.");
+  watch(monitor);
 }

@@ -1,0 +1,9 @@
+{
+  HistogramInterface h;
+  int i=n;
+  while (i != 0) {
+    h=metrics.createHistogram("histogram");
+    h.add(1);
+    i--;
+  }
+}

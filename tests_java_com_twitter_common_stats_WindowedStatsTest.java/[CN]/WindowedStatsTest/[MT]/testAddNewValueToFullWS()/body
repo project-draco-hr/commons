@@ -1,0 +1,33 @@
+{
+  FakeClock clock=new FakeClock();
+  WindowedStatistics ws=new WindowedStatistics(window,slices,clock);
+  long n=1000L;
+  for (int i=0; i < n; i++) {
+    ws.accumulate(i);
+  }
+  assertEmpty(ws);
+  clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEquals(n - 1L,ws.max());
+  assertEquals(0L,ws.min());
+  assertEquals(n,ws.populationSize());
+  assertEquals(n * (n - 1) / 2,ws.sum());
+  assertEquals((n - 1) / 2.0,ws.mean(),0.01);
+  clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEquals(n - 1L,ws.max());
+  assertEquals(0L,ws.min());
+  assertEquals(n,ws.populationSize());
+  assertEquals(n * (n - 1) / 2,ws.sum());
+  assertEquals((n - 1) / 2.0,ws.mean(),0.01);
+  clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEquals(n - 1L,ws.max());
+  assertEquals(0L,ws.min());
+  assertEquals(n,ws.populationSize());
+  assertEquals(n * (n - 1) / 2,ws.sum());
+  assertEquals((n - 1) / 2.0,ws.mean(),0.01);
+  clock.advance(Amount.of(1 + sliceDuration,Time.NANOSECONDS));
+  ws.refresh();
+  assertEmpty(ws);
+}

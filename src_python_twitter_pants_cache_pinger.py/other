@@ -1,5 +1,0 @@
-import httplib
-from multiprocessing.pool import ThreadPool
-import socket
-from twitter.common.contextutil import Timer
-_global_pinger_memo = {}

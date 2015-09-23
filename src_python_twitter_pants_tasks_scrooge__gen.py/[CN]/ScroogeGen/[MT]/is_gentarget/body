@@ -1,5 +1,0 @@
-def is_gentarget(self, target):
-    result = (isinstance(target, JavaThriftLibrary) and (target.compiler in self.compiler_for_name.keys()))
-    if (result and (target.language not in self.compiler_for_name[target.compiler].langs)):
-        raise TaskError(('%s can not generate %s' % (target.compiler, target.language)))
-    return result

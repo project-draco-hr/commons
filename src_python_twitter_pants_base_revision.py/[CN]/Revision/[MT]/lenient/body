@@ -1,6 +1,0 @@
-@classmethod
-def lenient(cls, rev):
-    "A lenient revision parser that tries to split the version into logical components with\n    heuristics inspired by PHP's version_compare.\n    "
-    rev = re.sub('(\\d)([a-zA-Z])', '\\1.\\2', rev)
-    rev = re.sub('([a-zA-Z])(\\d)', '\\1.\\2', rev)
-    return cls(*map(cls._parse_atom, re.split('[.+_\\-]', rev)))

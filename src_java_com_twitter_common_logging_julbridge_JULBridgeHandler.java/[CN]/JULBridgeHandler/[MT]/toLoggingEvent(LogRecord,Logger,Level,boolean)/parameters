@@ -1,0 +1,4 @@
+LogRecord record
+Logger logger
+Level level
+boolean useExtendedLocationInfo

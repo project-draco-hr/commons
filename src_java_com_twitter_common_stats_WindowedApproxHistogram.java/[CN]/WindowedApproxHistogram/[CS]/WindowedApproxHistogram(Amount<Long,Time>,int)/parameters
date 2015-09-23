@@ -1,0 +1,2 @@
+Amount<Long,Time> window
+int slices

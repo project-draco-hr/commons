@@ -1,5 +1,6 @@
-def __init__(self, period=None):
+def __init__(self, period=None, stats_filter=None):
     self._metrics = RootMetrics()
+    self._stats_filter = stats_filter
     if (period is not None):
         self._monitor = MetricSampler(self._metrics, period)
     else:

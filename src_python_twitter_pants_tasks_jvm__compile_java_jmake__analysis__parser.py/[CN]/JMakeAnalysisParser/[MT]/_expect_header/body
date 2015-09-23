@@ -1,4 +1,0 @@
-def _expect_header(self, line, header):
-    expected = (header + ':\n')
-    if (line != expected):
-        raise ParseError(('Expected: %s. Found: %s' % (expected, line)))

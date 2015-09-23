@@ -1,3 +1,0 @@
-def test_single(self):
-    self._test({'a': 'a', }, 'a')
-    self._test({'a.b.c': 'c', }, 'a.b.c')

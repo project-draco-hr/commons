@@ -1,8 +1,0 @@
-@contextmanager
-def workspace(self, *buildfiles):
-    with temporary_dir() as root_dir:
-        set_buildroot(root_dir)
-        with pushd(root_dir):
-            for buildfile in buildfiles:
-                touch(os.path.join(root_dir, buildfile))
-            yield os.path.realpath(root_dir)

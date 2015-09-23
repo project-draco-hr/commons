@@ -1,4 +1,0 @@
-def __iter__(self):
-    sorted_excl_group_keys = self._exclusives_mapping.get_ordered_group_keys()
-    for excl_group_key in sorted_excl_group_keys:
-        yield self._exclusives_mapping.get_targets_for_group_key(excl_group_key)

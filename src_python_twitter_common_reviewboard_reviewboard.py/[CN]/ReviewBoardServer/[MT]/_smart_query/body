@@ -1,0 +1,13 @@
+def _smart_query(self, base_url, element_name, start=0, max_results=25):
+    base_url += ('&' if ('?' in base_url) else '?')
+    if (max_results < 0):
+        rsp = self.api_call(('%scounts-only=true' % base_url))
+        count = rsp['count']
+        files = []
+        while (len(files) < count):
+            rsp = self.api_call(('%sstart=%s&max-results=200' % (base_url, len(files))))
+            files.extend(rsp[element_name])
+        return files
+    else:
+        rsp = self.api_call(('%sstart=%d&max-results=%d' % (base_url, start, max_results)))
+        return rsp[element_name]

@@ -1,0 +1,15 @@
+@classmethod
+def classify_import(cls, node, name):
+    if ((name == '') or (isinstance(node, ast.ImportFrom) and (node.level > 0))):
+        return ImportType.PACKAGE
+    if name.startswith('twitter.'):
+        return ImportType.TWITTER
+    if name.startswith('gen.'):
+        return ImportType.GEN
+    try:
+        module = __import__(name)
+    except ImportError:
+        return ImportType.THIRD_PARTY
+    if ((not hasattr(module, '__file__')) or module.__file__.startswith(cls.STANDARD_LIB_PATH)):
+        return ImportType.STDLIB
+    return ImportType.THIRD_PARTY

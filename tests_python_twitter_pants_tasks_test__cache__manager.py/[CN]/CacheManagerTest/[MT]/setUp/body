@@ -1,3 +1,0 @@
-def setUp(self):
-    self._dir = tempfile.mkdtemp()
-    self.cache_manager = CacheManagerTest.TestCacheManager(self._dir)

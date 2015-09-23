@@ -1,5 +1,0 @@
-def _collect_internal_deps(self, target):
-    internal_deps = set()
-    target.walk(internal_deps.add)
-    internal_deps.discard(target)
-    return internal_deps

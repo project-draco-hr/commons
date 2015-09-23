@@ -1,3 +1,0 @@
-def get_paths(self):
-    for relpath in self._relpaths:
-        yield os.path.join(self._artifact_root, relpath)

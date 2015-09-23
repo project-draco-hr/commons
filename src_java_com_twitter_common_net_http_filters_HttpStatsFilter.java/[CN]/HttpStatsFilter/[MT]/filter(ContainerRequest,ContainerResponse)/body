@@ -1,0 +1,4 @@
+{
+  trackStats(response.getStatus());
+  return response;
+}

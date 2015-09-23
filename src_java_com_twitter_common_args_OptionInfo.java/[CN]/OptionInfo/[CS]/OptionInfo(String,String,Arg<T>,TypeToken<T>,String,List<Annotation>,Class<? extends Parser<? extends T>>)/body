@@ -1,5 +1,0 @@
-{
-  super(help,arg,type,verifierAnnotations,parser);
-  this.name=name;
-  this.prefix=Preconditions.checkNotNull(prefix);
-}

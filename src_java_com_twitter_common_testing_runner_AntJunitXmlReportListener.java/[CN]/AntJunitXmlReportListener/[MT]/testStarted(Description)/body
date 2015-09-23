@@ -1,4 +1,0 @@
-{
-  suites.get(description.getTestClass()).started();
-  cases.get(description).started();
-}

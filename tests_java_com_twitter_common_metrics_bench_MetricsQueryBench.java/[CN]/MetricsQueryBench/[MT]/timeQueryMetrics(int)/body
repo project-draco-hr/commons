@@ -1,0 +1,8 @@
+{
+  Map<String,Number> res;
+  int i=n;
+  while (i != 0) {
+    res=metrics.sample();
+    i--;
+  }
+}

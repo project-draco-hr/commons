@@ -1,3 +1,0 @@
-def getlist(self, section, option, default=None):
-    'Equivalent to calling get with expected type list'
-    return self.get(section, option, type=list, default=default)

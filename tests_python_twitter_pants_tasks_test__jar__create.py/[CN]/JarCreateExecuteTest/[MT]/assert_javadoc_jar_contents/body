@@ -1,9 +1,0 @@
-def assert_javadoc_jar_contents(self, context, empty=False, **kwargs):
-    with self.add_products(context, 'javadoc', self.jl, 'a.html', 'b.html'):
-        with self.add_products(context, 'scaladoc', self.sl, 'c.html'):
-            JarCreate(context, **kwargs).execute(context.targets())
-            if empty:
-                self.assertTrue(context.products.get('javadoc_jars').empty())
-            else:
-                self.assert_jar_contents(context, 'javadoc_jars', self.jl, 'a.html', 'b.html')
-                self.assert_jar_contents(context, 'javadoc_jars', self.sl, 'c.html')

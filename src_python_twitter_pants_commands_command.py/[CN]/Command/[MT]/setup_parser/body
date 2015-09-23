@@ -1,3 +1,0 @@
-def setup_parser(self, parser, args):
-    'Subclasses should override and confiure the OptionParser to reflect\n    the subcommand option and argument requirements.  Upon successful\n    construction, subcommands will be able to access self.options and\n    self.args.'
-    pass

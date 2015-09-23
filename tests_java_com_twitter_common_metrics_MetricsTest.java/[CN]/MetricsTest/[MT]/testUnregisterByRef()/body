@@ -1,0 +1,21 @@
+{
+  Counter counter=metrics.createCounter("counter");
+  assertTrue("Metrics contains counter",metrics.sample().containsKey(counter.getName()));
+  metrics.unregister(counter);
+  assertFalse("Metrics doesn't contains counter",metrics.sample().containsKey(counter.getName()));
+  final long x=1L;
+  Gauge<Number> gauge=new AbstractGauge<Number>("gauge"){
+    @Override public Number read(){
+      return x;
+    }
+  }
+;
+  metrics.register(gauge);
+  assertTrue("Metrics contains gauge",metrics.sample().containsKey(gauge.getName()));
+  metrics.unregister(gauge);
+  assertFalse("Metrics doesn't contains gauge",metrics.sample().containsKey(gauge.getName()));
+  HistogramInterface histo=metrics.createHistogram("histo");
+  assertTrue("Metrics contains histo",metrics.sample().containsKey(histo.getName() + ".count"));
+  metrics.unregister(histo);
+  assertFalse("Metrics doesn't contains histo",metrics.sample().containsKey(histo.getName() + ".count"));
+}

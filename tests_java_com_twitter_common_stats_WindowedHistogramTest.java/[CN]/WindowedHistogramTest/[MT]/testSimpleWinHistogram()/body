@@ -1,0 +1,17 @@
+{
+  FakeClock clock=new FakeClock();
+  Amount<Long,Time> window=Amount.of(100L,Time.MILLISECONDS);
+  int slices=10;
+  WindowedHistogram<?> wh=createFullHistogram(window,slices,clock);
+  for (int i=1; i <= slices; i++) {
+    double q=(double)i / slices;
+    assertEquals(i,wh.getQuantile(q),1.0);
+  }
+  long sliceDuration=window.as(Time.NANOSECONDS) / slices;
+  clock.advance(Amount.of(sliceDuration,Time.NANOSECONDS));
+  for (int j=0; j < 1000; j++) {
+    wh.add(11);
+  }
+  assertEquals(2,wh.getQuantile(0.05),1.0);
+  assertEquals(11,wh.getQuantile(0.99),1.0);
+}

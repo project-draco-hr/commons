@@ -1,0 +1,4 @@
+{
+  new ArgScanner().parse(Args.from(ArgFilters.selectClass(App.class),app),ImmutableList.of("-files=1.txt,2.txt"));
+  assertEquals(ImmutableList.of(new File("1.txt"),new File("2.txt")),app.files.get());
+}

@@ -1,0 +1,8 @@
+String name
+Amount<Long,Time> window
+int slices
+Amount<Long,Data> maxMemory
+Precision precision
+double[] quantiles
+Clock clock
+MetricRegistry registry

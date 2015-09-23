@@ -1,0 +1,8 @@
+String canonicalName
+String name
+String help
+Arg<List<T>> arg
+TypeToken<List<T>> type
+TypeToken<T> elementType
+List<Annotation> verifierAnnotations
+Class<? extends Parser<? extends List<T>>> parser

@@ -1,9 +1,0 @@
-@classmethod
-def setUpClass(cls):
-    super(GroupEngineTest, cls).setUpClass()
-    cls.java_library('src/java', 'a')
-    cls.scala_library('src/scala', 'b', deps=['src/java:a'])
-    cls.java_library('src/java', 'c', deps=['src/scala:b'])
-    cls.scala_library('src/scala', 'd', deps=['src/java:c'])
-    cls.java_library('src/java', 'e', deps=['src/scala:d'])
-    cls.python_library('src/python', 'f')

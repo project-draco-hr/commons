@@ -1,0 +1,6 @@
+{
+  long sliceDuration=duration.as(Time.NANOSECONDS) / slices;
+  WindowedApproxHistogram wh=new WindowedApproxHistogram(duration,slices,DEFAULT_MAX_MEMORY,clock);
+  clock.advance(Amount.of(1L,Time.NANOSECONDS));
+  return fillHistogram(wh,Amount.of(sliceDuration,Time.NANOSECONDS),slices,clock);
+}

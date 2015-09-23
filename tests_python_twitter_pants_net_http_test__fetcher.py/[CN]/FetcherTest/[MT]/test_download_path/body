@@ -1,7 +1,0 @@
-def test_download_path(self):
-    with temporary_file() as fd:
-        fd.close()
-        (downloaded, path) = self.expect_download(path_or_fd=fd.name)
-        self.assertEqual(path, fd.name)
-        with open(path) as fp:
-            self.assertEqual(downloaded, fp.read())

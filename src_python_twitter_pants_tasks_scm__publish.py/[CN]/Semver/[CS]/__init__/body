@@ -1,5 +1,0 @@
-def __init__(self, major, minor, patch, snapshot=False):
-    self.major = major
-    self.minor = minor
-    self.patch = patch
-    self.snapshot = snapshot

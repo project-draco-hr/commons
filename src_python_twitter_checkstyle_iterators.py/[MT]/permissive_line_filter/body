@@ -1,0 +1,2 @@
+def permissive_line_filter(python_file, line_number):
+    return False

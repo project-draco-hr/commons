@@ -1,0 +1,3 @@
+{
+  init(bufSize,depth);
+}

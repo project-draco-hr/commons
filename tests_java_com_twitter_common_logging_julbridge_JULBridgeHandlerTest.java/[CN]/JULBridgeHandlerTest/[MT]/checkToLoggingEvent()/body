@@ -1,0 +1,21 @@
+{
+  LogRecord record=new LogRecord(Level.FINEST,"test is {0}");
+  record.setParameters(new Object[]{"successful"});
+  record.setThreadID(42);
+  Throwable t=new Throwable();
+  record.setThrown(t);
+  record.setSourceClassName(getClass().getName());
+  record.setSourceMethodName("checkToLoggingEvent");
+  Logger log4jLogger=new JULBridgeHandler().getLogger(record);
+  org.apache.log4j.Level log4jLevel=JULBridgeLevelConverter.toLog4jLevel(Level.FINEST);
+  LoggingEvent event=JULBridgeHandler.toLoggingEvent(record,log4jLogger,log4jLevel,false);
+  assertThat(event.getLogger(),is((Category)log4jLogger));
+  assertThat(event.getLevel(),is(log4jLevel));
+  assertThat(event.getMessage(),is((Object)"test is successful"));
+  assertThat(event.getThreadName(),is("42"));
+  assertThat(event.getTimeStamp(),is(record.getMillis()));
+  assertThat(event.getThrowableInformation().getThrowable(),is(sameInstance(t)));
+  LocationInfo info=event.getLocationInformation();
+  assertThat(info.getClassName(),is(getClass().getName()));
+  assertThat(info.getMethodName(),is("checkToLoggingEvent"));
+}

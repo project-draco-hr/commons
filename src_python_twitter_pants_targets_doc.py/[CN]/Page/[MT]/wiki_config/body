@@ -1,3 +1,0 @@
-def wiki_config(self, wiki):
-    'Gets the wiki specific config for the given wiki if present or else returns None.'
-    return self._wikis.get(wiki)

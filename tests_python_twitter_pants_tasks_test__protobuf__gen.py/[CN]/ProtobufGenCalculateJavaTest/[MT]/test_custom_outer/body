@@ -1,2 +1,0 @@
-def test_custom_outer(self):
-    self.assert_java_files('jack_spratt.proto', '\n          package com.twitter.lean;\n          option java_outer_classname = "To";\n        ', 'com/twitter/lean/To.java')

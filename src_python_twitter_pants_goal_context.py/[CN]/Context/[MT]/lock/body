@@ -1,4 +1,0 @@
-@property
-def lock(self):
-    'Returns the global pants run lock so a goal can release it if needed.'
-    return self._lock

@@ -1,0 +1,5 @@
+{
+  expect(thing.testCollection(eqCollection(TEST))).andReturn(OK);
+  control.replay();
+  thing.testCollection(ImmutableList.of(3,2,2,1));
+}

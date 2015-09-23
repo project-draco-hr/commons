@@ -1,0 +1,2 @@
+def prefilter(self, content, namespace=None):
+    return ''.join([(('namespace py %s\n' % namespace) if namespace else ''), re.sub(self.FROM_RE, self.FROM_REPLACEMENT, content)])

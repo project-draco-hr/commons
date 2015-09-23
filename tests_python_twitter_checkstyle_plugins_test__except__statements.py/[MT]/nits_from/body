@@ -1,0 +1,2 @@
+def nits_from(clause):
+    return list(ExceptStatements(PythonFile.from_statement((EXCEPT_TEMPLATE % clause))).nits())

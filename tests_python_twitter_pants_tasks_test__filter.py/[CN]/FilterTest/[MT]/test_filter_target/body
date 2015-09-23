@@ -1,3 +1,0 @@
-def test_filter_target(self):
-    self.assert_console_output('common/a/BUILD:a', 'overlaps/BUILD:foo', args=['--test-target=common/a,overlaps/:foo'], targets=self.targets('::'))
-    self.assert_console_output('common/a/BUILD:foo', 'common/b/BUILD:b', 'common/b/BUILD:foo', 'common/c/BUILD:c', 'common/c/BUILD:foo', 'overlaps/BUILD:two', 'overlaps/BUILD:three', args=['--test-target=-common/a/BUILD:a,overlaps:one,overlaps:foo'], targets=self.targets('::'))

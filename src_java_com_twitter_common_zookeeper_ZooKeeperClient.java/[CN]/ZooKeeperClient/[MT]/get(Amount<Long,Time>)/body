@@ -15,9 +15,7 @@ case SyncConnected:
     break;
 }
 }
-for (Watcher watcher : watchers) {
-watcher.process(event);
-}
+eventQueue.offer(event);
 }
 }
 ;

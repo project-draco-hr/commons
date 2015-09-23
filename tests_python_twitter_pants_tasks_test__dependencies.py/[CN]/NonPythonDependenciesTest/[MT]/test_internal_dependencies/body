@@ -1,2 +1,0 @@
-def test_internal_dependencies(self):
-    self.assert_console_output('dependencies/BUILD:third', 'dependencies/BUILD:first', 'dependencies/BUILD:second', 'project/BUILD:project', args=['--test-internal-only'], targets=[self.target('project:project')])

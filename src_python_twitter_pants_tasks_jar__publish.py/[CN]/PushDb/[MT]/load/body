@@ -1,6 +1,0 @@
-@staticmethod
-def load(path):
-    'Loads a pushdb maintained in a properties file at the given path.'
-    with open(path, 'r') as props:
-        properties = Properties.load(props)
-        return PushDb(properties)

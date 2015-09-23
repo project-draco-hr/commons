@@ -1,2 +1,0 @@
-def genlangs(self):
-    return dict(java=(lambda t: t.is_jvm), python=(lambda t: t.is_python))

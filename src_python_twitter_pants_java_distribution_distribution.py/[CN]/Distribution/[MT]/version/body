@@ -1,4 +1,0 @@
-@property
-def version(self):
-    'Returns the distribution version.\n\n    Raises Distribution.Error if this distribution is not valid according to the configured\n    constraints.\n    '
-    return self._get_version(self.java)

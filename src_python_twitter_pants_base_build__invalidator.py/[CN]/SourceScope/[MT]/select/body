@@ -1,3 +1,0 @@
-@abstractmethod
-def select(self, target):
-    'Selects source files from the given target and returns them as absolute paths.'

@@ -1,0 +1,7 @@
+{
+  List<AttributeSerializer> attributeSerializersCopy=Lists.newArrayListWithCapacity(attributeSerializers.size());
+  for (  AttributeSerializer serializer : attributeSerializers) {
+    attributeSerializersCopy.add(serializer.newInstance());
+  }
+  return new TokenStreamSerializer(attributeSerializersCopy);
+}

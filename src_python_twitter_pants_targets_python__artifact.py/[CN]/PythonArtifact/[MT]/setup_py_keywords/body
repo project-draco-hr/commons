@@ -1,3 +1,0 @@
-@property
-def setup_py_keywords(self):
-    return self._kw

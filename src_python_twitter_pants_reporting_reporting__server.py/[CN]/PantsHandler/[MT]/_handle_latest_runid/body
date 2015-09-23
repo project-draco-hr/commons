@@ -1,7 +1,0 @@
-def _handle_latest_runid(self, relpath, params):
-    "Handle request for the latest run id.\n\n    Used by client-side javascript to detect when there's a new run to display.\n    "
-    latest_runinfo = self._get_run_info_dict('latest')
-    if (latest_runinfo is None):
-        self._send_content('none', 'text/plain')
-    else:
-        self._send_content(latest_runinfo['id'], 'text/plain')

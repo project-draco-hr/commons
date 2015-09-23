@@ -1,8 +1,0 @@
-@classmethod
-def parse(cls, endpoint):
-    'Parses an endpoint from a string of the form fingerprint:pid:port'
-    components = endpoint.split(':')
-    if (len(components) != 3):
-        raise ValueError(('Invalid endpoint spec %s' % endpoint))
-    (fingerprint, pid, port) = components
-    return cls(fingerprint, int(pid), int(port))

@@ -1,10 +1,9 @@
 {
-  TokenStream stream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
+  TwitterTokenStream stream=new RegexTokenizer.Builder().setDelimiterPattern(Pattern.compile(" ")).build();
   stream.reset("When I was young , I liked insects .");
-  TokenTypeAttribute typeAttr=stream.getAttribute(TokenTypeAttribute.class);
   int cnt=0;
   while (stream.incrementToken()) {
-    assertFalse(TokenType.PUNCTUATION.equals(typeAttr.getType()));
+    assertFalse(TokenType.PUNCTUATION.equals(stream.type()));
     cnt++;
   }
   assertEquals(9,cnt);

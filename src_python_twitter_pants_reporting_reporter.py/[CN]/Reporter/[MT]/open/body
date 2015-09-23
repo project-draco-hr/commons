@@ -1,3 +1,0 @@
-def open(self):
-    'Begin the report.'
-    pass

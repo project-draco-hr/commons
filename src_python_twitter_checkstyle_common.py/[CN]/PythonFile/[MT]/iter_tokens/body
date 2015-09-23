@@ -1,0 +1,3 @@
+@classmethod
+def iter_tokens(cls, blob):
+    return tokenize.generate_tokens(Compatibility.StringIO(blob).readline)

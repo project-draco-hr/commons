@@ -1,4 +1,0 @@
-@property
-def config(self):
-    'Returns a Config object containing the configuration data found in pants.ini.'
-    return self._config

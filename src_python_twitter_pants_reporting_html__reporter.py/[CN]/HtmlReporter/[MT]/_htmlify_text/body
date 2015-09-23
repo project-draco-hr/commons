@@ -1,4 +1,0 @@
-def _htmlify_text(self, s):
-    'Make text HTML-friendly.'
-    colored = self._handle_ansi_color_codes(cgi.escape(str(s)))
-    return linkify(self._buildroot, colored).replace('\n', '</br>')

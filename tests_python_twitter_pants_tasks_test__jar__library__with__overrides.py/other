@@ -1,6 +1,0 @@
-import unittest
-from twitter.pants.base import ParseContext
-from twitter.pants.targets.exclude import Exclude
-from twitter.pants.targets.jar_library import JarLibrary
-from twitter.pants.targets.jar_dependency import JarDependency
-from twitter.pants.targets.pants_target import Pants

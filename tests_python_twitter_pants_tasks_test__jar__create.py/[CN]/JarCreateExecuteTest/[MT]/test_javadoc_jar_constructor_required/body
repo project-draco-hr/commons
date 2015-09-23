@@ -1,2 +1,0 @@
-def test_javadoc_jar_constructor_required(self):
-    self.assert_javadoc_jar_contents(self.context(), jar_javadoc=True)

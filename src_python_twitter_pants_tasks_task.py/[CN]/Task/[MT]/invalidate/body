@@ -1,3 +1,0 @@
-def invalidate(self):
-    'Invalidates all targets for this task.'
-    BuildInvalidator(self._build_invalidator_dir).force_invalidate_all()

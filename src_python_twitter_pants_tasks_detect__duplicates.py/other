@@ -1,7 +1,0 @@
-import os
-from collections import defaultdict
-from contextlib import closing
-from zipfile import ZipFile
-from twitter.pants.java.jar import Manifest
-from .jvm_binary_task import JvmBinaryTask
-from . import TaskError

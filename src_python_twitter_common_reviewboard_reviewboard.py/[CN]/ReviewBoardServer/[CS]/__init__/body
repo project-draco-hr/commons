@@ -1,4 +1,4 @@
-def __init__(self, url, cookie_file=None, info=None, repository=None, username=None, password=None, debug=False):
+def __init__(self, url, cookie_file=None, info=None, repository=None, username=None, password=None, debug=False, timeout=None):
     self._debug = debug
     if (cookie_file is None):
         if ('USERPROFILE' in os.environ):
@@ -16,6 +16,7 @@ def __init__(self, url, cookie_file=None, info=None, repository=None, username=N
     self.info = info
     self.cookie_file = cookie_file
     self.cookie_jar = cookielib.MozillaCookieJar(self.cookie_file)
+    self.timeout = timeout
     if ((not self.has_valid_cookie()) and ((not username) or (not password))):
         print('==> Review Board Login Required')
         print(('Enter username and password for Review Board at %s' % self.url))

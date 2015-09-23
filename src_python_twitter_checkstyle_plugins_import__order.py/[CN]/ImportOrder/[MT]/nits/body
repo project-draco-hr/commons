@@ -1,0 +1,15 @@
+def nits(self):
+    errors = []
+    module_order = []
+    for chunk in self.iter_import_chunks():
+        (module_types, chunk_errors) = self.classify_imports(chunk)
+        errors.extend(chunk_errors)
+        module_order.append(list(module_types))
+    numbered_module_order = []
+    for modules in module_order:
+        if (len(modules) > 0):
+            if (modules[0] is not ImportType.UNKNOWN):
+                numbered_module_order.append(modules[0])
+    if (numbered_module_order != sorted(numbered_module_order)):
+        errors.append(self.error('T406', ('Out of order import chunks: Got %s and expect %s.' % (ImportType.order_names(numbered_module_order), ImportType.order_names(sorted(numbered_module_order)))), self.python_file.tree))
+    return errors

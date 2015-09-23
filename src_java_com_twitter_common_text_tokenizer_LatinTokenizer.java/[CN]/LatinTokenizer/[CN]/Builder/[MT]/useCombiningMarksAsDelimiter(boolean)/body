@@ -1,0 +1,7 @@
+{
+  if (useCombiningMarks) {
+    setDelimiterPattern(SPLIT_PATTERN);
+  }
+ else   setDelimiterPattern(SPLIT_PATTERN_WITHOUT_COMBINING_MARKS);
+  return this;
+}

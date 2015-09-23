@@ -1,3 +1,0 @@
-def test_linkify_https(self):
-    url = 'https://foobar.com/baz/qux'
-    self._do_test_linkify(url, url)

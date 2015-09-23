@@ -1,3 +1,0 @@
-@staticmethod
-def _get_pidfile_dir():
-    return os.path.join(get_buildroot(), '.pids', 'daemon')

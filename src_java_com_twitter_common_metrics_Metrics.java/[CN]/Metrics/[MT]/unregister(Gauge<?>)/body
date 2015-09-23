@@ -1,0 +1,4 @@
+{
+  String key=gauge.getName();
+  return gauges.remove(key) != null;
+}

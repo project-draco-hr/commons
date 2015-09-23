@@ -1,0 +1,4 @@
+def get_files(self, rb_id, revision, start=0, max_results=25):
+    "\n    Returns a list of files in the specified diff.\n    If max_results is negative, then ignores 'start' and returns all the files.\n    "
+    url = ('api/review-requests/%d/diffs/%d/files/' % (rb_id, revision))
+    return self._smart_query(url, 'files', start, max_results)

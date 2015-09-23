@@ -1,0 +1,7 @@
+def git_iterator(args, options):
+    if (not HAS_GIT):
+        raise ValueError('Git has not been enabled for this checkstyle library!')
+    repo = Repo()
+    diff_commit = repo.rev_parse((options.diff or repo.git.merge_base('master', 'HEAD')))
+    for (filename, line_filter) in filter(None, map(tuple_from_diff, diff_commit.diff(None))):
+        yield (os.path.join(repo.working_tree_dir, filename), line_filter)

@@ -1,2 +1,0 @@
-def select(self, tgt):
-    return tgt.expand_files(self._recursive, self._include_buildfile)

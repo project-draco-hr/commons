@@ -1,0 +1,6 @@
+def execute(self):
+    resources_by_target = self.context.products.get_data('resources_by_target', (lambda : defaultdict(MultipleRootedProducts)))
+    for target in self.context.targets(predicate=Args.maybe_has_args):
+        self._add_args_resources(target, resources_by_target, transitive=False)
+    for binary in self.context.targets(predicate=self.is_binary):
+        self._add_args_resources(binary, resources_by_target, transitive=True)

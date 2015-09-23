@@ -1,0 +1,27 @@
+{
+  int currentIndex=getCurrentIndex();
+  if (lastIndex != currentIndex) {
+    lastIndex=currentIndex;
+    double x=0.0;
+    variance=0.0;
+    mean=0.0;
+    sum=0L;
+    populationSize=0L;
+    min=Long.MAX_VALUE;
+    max=Long.MIN_VALUE;
+    for (    Statistics s : getTenured()) {
+      if (s.populationSize() == 0) {
+        continue;
+      }
+      x+=s.populationSize() * (s.variance() + s.mean() * s.mean());
+      sum+=s.sum();
+      populationSize+=s.populationSize();
+      min=Math.min(min,s.min());
+      max=Math.max(max,s.max());
+    }
+    if (populationSize != 0) {
+      mean=((double)sum) / populationSize;
+      variance=x / populationSize - mean * mean;
+    }
+  }
+}

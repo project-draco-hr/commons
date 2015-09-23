@@ -1,0 +1,24 @@
+{
+  request.setAttribute(HttpStatsFilter.REQUEST_START_TIME,REQUEST_TIME.getValue());
+  expectLastCall().times(2);
+  clock.advance(REQUEST_TIME);
+  filterChain.doFilter(anyObject(HttpServletRequest.class),anyObject(HttpServletResponse.class));
+  expectLastCall().andThrow(new IOException());
+  filterChain.doFilter(anyObject(HttpServletRequest.class),anyObject(HttpServletResponse.class));
+  expectLastCall().andThrow(new ServletException());
+  control.replay();
+  try {
+    filter.doFilter(request,response,filterChain);
+    fail("Filter should have re-thrown the exception.");
+  }
+ catch (  IOException e) {
+    assertEquals(1,filter.exceptionCount.get());
+  }
+  try {
+    filter.doFilter(request,response,filterChain);
+    fail("Filter should have re-thrown the exception.");
+  }
+ catch (  ServletException e) {
+    assertEquals(2,filter.exceptionCount.get());
+  }
+}

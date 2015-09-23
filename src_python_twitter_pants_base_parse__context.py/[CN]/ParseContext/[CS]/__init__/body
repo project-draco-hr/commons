@@ -1,4 +1,0 @@
-def __init__(self, buildfile):
-    self.buildfile = buildfile
-    self._active_buildfile = buildfile
-    self._parsed = False

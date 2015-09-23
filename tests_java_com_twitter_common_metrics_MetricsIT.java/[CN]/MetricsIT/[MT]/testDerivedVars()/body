@@ -1,10 +1,10 @@
 {
-  AtomicLong longVar=root.registerLong("long");
-  MetricRegistry barScope=root.scope("bar");
-  AtomicLong longVar2=barScope.registerLong("long");
+  Counter longVar=metrics.createCounter("long");
+  MetricRegistry barScope=metrics.scope("bar");
+  Counter longVar2=barScope.createCounter("long");
   checkSamples(ImmutableMap.<String,Number>of("long",0L,"bar.long",0L));
-  longVar.addAndGet(10);
+  longVar.add(10);
   checkSamples(ImmutableMap.<String,Number>of("long",10L,"bar.long",0L));
-  longVar2.addAndGet(20);
+  longVar2.add(20);
   checkSamples(ImmutableMap.<String,Number>of("long",10L,"bar.long",20L));
 }

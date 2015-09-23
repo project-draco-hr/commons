@@ -1,4 +1,0 @@
-@classmethod
-def create_target(cls, relpath, target):
-    'Adds the given target specification to the BUILD file at relpath.\n\n    relpath: The relative path to the BUILD file from the build root.\n    target:  A string containing the target definition as it would appear in a BUILD file.\n    '
-    cls.create_file(cls.build_path(relpath), target, mode='a')

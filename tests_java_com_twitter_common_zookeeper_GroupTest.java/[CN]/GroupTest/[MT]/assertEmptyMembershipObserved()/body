@@ -1,4 +1,3 @@
 {
-  Iterable<String> membershipChange=listener.take();
-  assertTrue("Expected an empty membershipChange, got: " + membershipChange + " queued: "+ listener,Iterables.isEmpty(membershipChange));
+  assertMembershipObserved();
 }

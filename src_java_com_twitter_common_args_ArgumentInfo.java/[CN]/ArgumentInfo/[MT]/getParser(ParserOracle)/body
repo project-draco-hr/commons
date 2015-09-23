@@ -1,6 +1,6 @@
 {
   Preconditions.checkNotNull(parserOracle);
-  if (parser == null || Parser.class.equals(parser)) {
+  if (parser == null || NoParser.class.equals(parser)) {
     return parserOracle.get(type);
   }
  else {

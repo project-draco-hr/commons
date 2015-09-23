@@ -1,3 +1,0 @@
-def scratch_dir(self, key, default_name=None):
-    "Returns a named scratch dir.\n\n    By default this will be a child of the `scratch_root` with the same name as the key.\n\n    :param string key: The pants.ini config key this scratch dir can be overridden with.\n    :param default_name: A name to use instead of the keyname for the scratch dir.\n\n    User's can override the location using the key in pants.ini.\n    "
-    return self._config.get(self._section, key, default=os.path.join(self.scratch_root, (default_name or key)))

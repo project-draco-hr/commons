@@ -1,0 +1,4 @@
+def __init__(self, python_file):
+    if (not isinstance(python_file, PythonFile)):
+        raise TypeError('CheckstylePlugin takes PythonFile objects.')
+    self.python_file = python_file

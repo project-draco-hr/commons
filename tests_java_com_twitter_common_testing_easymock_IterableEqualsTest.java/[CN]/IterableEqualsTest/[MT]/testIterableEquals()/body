@@ -1,0 +1,5 @@
+{
+  expect(thing.testIterable(eqIterable(TEST))).andReturn(OK);
+  control.replay();
+  thing.testIterable(ImmutableList.of(3,2,2,1));
+}

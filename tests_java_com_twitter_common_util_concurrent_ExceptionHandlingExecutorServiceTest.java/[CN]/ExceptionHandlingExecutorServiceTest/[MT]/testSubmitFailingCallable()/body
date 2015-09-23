@@ -1,0 +1,15 @@
+{
+  signallingHandler.uncaughtException(anyObject(Thread.class),eq(EXCEPTION));
+  Callable<Void> callable=createMock(new Clazz<Callable<Void>>(){
+  }
+);
+  expect(callable.call()).andThrow(EXCEPTION);
+  control.replay();
+  try {
+    executorService.submit(callable).get();
+    fail(EXCEPTION.getClass().getSimpleName() + " should be thrown.");
+  }
+ catch (  ExecutionException e) {
+    assertEquals(EXCEPTION,e.getCause());
+  }
+}

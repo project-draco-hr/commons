@@ -1,4 +1,0 @@
-{
-  Preconditions.checkState(closed,"Capture must be closed by all users before it can be read");
-  return Files.toByteArray(file);
-}

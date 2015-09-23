@@ -1,0 +1,9 @@
+{
+  assertEquals(expectedQuantiles.length,DEFAULT_QUANTILES.length);
+  Percentile[] measureQuantiles=sample.percentiles();
+  for (int i=0; i < expectedQuantiles.length; i++) {
+    double expected=expectedQuantiles[i];
+    double measure=measureQuantiles[i].getValue();
+    assertEquals(expected,measure,e);
+  }
+}

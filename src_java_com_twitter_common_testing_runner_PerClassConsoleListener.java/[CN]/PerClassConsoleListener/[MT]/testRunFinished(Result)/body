@@ -1,4 +1,0 @@
-{
-  out.println(" [" + result.getRunTime() + " ms]");
-  super.printFailures(result);
-}

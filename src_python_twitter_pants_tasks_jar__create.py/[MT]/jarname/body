@@ -1,3 +1,0 @@
-def jarname(target, extension='.jar'):
-    (_, id_, _) = target.get_artifact_info()
-    return safe_filename(id_, extension, max_length=200)

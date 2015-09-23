@@ -1,6 +1,0 @@
-{
-  Preconditions.checkNotNull(name);
-  checkArgument(!HELP_ARGS.contains(name),String.format("Argument name '%s' is reserved for builtin argument help",name));
-  checkArgument(ARG_NAME_PATTERN.matcher(name).matches(),String.format("Argument name '%s' does not match required pattern %s",name,ARG_NAME_RE));
-  return name;
-}

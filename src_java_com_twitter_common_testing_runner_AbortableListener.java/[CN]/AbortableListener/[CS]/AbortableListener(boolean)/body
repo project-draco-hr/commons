@@ -1,4 +1,0 @@
-{
-  this.failFast=failFast;
-  addListener(result.createListener());
-}

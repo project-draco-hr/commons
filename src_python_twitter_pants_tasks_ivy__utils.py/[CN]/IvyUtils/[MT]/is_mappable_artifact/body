@@ -1,3 +1,0 @@
-def is_mappable_artifact(self, org, name, path):
-    'Subclasses can override to determine whether a given artifact represents a mappable\n    artifact.'
-    return self.is_classpath_artifact(path)

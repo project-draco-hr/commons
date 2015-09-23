@@ -12,4 +12,5 @@ def create_tunnel(cls, remote_host, remote_port, tunnel_host, tunnel_port=None, 
     if (not cls.wait_for_accept(tunnel_port, ssh_popen, timeout)):
         raise cls.TunnelError(('Could not establish tunnel to %s via %s' % (remote_host, tunnel_host)))
     cls.log('session established')
+    atexit.register(safe_kill, ssh_popen)
     return ('localhost', tunnel_port)

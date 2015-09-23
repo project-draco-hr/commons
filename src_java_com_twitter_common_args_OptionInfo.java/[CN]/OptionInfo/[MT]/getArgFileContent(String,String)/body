@@ -1,0 +1,11 @@
+{
+  if (argFilePath.isEmpty()) {
+    throw new IllegalArgumentException(String.format("Invalid null/empty value for argument '%s'.",optionName));
+  }
+  try {
+    return Files.toString(new File(argFilePath),Charsets.UTF_8);
+  }
+ catch (  IOException e) {
+    throw new IllegalArgumentException(String.format("Unable to read argument '%s' value from file '%s'.",optionName,argFilePath),e);
+  }
+}

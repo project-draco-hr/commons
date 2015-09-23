@@ -1,7 +1,0 @@
-def update(self, vts):
-    'Mark a changed or invalidated VersionedTargetSet as successfully processed.'
-    for vt in vts.versioned_targets:
-        self._invalidator.update(vt.cache_key)
-        vt.valid = True
-    self._invalidator.update(vts.cache_key)
-    vts.valid = True

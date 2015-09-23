@@ -1,5 +1,0 @@
-def main():
-    try:
-        _run()
-    except KeyboardInterrupt:
-        _exit_and_fail('Interrupted by user.')

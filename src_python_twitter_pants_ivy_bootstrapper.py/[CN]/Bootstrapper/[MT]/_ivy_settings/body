@@ -1,4 +1,0 @@
-@property
-def _ivy_settings(self):
-    "Returns the bootstrapped ivysettings.xml path.\n\n    By default the ivy.ivy_settings value found in pants.ini but can be overridden by via the\n    PANTS_IVY_SETTINGS_XML environment variable.  If neither is specified defaults to ivy's built\n    in default ivysettings.xml of standard public resolvers.\n    "
-    return (os.getenv('PANTS_IVY_SETTINGS_XML') or self._config.get('ivy', 'ivy_settings'))

@@ -1,5 +1,0 @@
-@classmethod
-def union(cls, targets, name=None):
-    name = (name or (cls.synthetic_name(targets) + '-union'))
-    with ParseContext.temp():
-        return cls(name, dependencies=targets)

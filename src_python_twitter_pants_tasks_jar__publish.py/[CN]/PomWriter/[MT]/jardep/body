@@ -1,2 +1,0 @@
-def jardep(self, jar):
-    return TemplateData(org=jar.org, name=jar.name, rev=jar.rev, scope='compile', excludes=[self.create_exclude(exclude) for exclude in jar.excludes if exclude.name])

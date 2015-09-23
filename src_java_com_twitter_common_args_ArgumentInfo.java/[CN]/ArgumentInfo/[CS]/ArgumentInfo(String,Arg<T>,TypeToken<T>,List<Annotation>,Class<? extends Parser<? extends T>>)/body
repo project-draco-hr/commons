@@ -1,7 +1,0 @@
-{
-  this.help=MorePreconditions.checkNotBlank(help);
-  this.arg=Preconditions.checkNotNull(arg);
-  this.type=Preconditions.checkNotNull(type);
-  this.verifierAnnotations=ImmutableList.copyOf(verifierAnnotations);
-  this.parser=parser;
-}

@@ -1,6 +1,0 @@
-def calculate_tests(self, targets):
-    tests = OrderedSet()
-    for target in targets:
-        if (target.is_scala and target.is_test):
-            tests.update(target.sources_relative_to_buildroot())
-    return tests

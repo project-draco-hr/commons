@@ -1,0 +1,3 @@
+def set_usage_based_on_commands(self):
+    '\n      Sets the usage message automatically, to show the available commands.\n    '
+    self.set_usage(('Please run with one of the following commands:\n' + '\n'.join([('  %-22s%s' % (command, self._set_string_margin((docstring or ''), 0, 24))) for (command, docstring) in self.get_commands_and_docstrings()])))

@@ -1,3 +1,0 @@
-@abstractmethod
-def attempt(self, timer, context, phases):
-    'Given the target context and phases specified (command line goals), attempt to achieve all\n    goals.\n\n    :param timer: A ``Timer`` that should be used to record goal timings.\n    :param context: The pants run context.\n    :param list phases: A list of ``Phase`` objects representing the command line goals explicitly\n                        requested.\n    '

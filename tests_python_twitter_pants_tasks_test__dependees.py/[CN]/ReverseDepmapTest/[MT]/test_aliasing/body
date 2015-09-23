@@ -1,2 +1,0 @@
-def test_aliasing(self):
-    self.assert_console_output('overlaps/BUILD:five', targets=[self.target('overlaps:four')])

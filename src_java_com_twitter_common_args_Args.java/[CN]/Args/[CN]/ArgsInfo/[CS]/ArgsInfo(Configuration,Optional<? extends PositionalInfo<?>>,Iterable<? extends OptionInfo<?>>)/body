@@ -1,0 +1,5 @@
+{
+  this.configuration=Preconditions.checkNotNull(configuration);
+  this.positionalInfo=Preconditions.checkNotNull(positionalInfo);
+  this.optionInfos=ImmutableList.copyOf(optionInfos);
+}

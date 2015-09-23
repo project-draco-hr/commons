@@ -1,3 +1,0 @@
-def test_sort(self):
-    targets = [self.target('common/a'), self.target('common/c'), self.target('common/b')]
-    self.assertEqual(['common/a/BUILD:a', 'common/b/BUILD:b', 'common/c/BUILD:c'], list(self.execute_console_task(targets=targets)))

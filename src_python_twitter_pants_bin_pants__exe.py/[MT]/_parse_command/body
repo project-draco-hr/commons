@@ -1,3 +1,0 @@
-def _parse_command(root_dir, args):
-    (command, args) = _synthesize_command(root_dir, args)
-    return (Command.get_command(command), args)

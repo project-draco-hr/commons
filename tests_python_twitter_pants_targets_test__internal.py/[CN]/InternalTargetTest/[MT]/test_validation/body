@@ -1,6 +1,0 @@
-def test_validation(self):
-    with ParseContext.temp('InternalTargetTest/test_validation'):
-        InternalTarget(name='valid', dependencies=None)
-        self.assertRaises(TargetDefinitionException, InternalTarget, name=1, dependencies=None)
-        InternalTarget(name='valid2', dependencies=Target(name='mybird'))
-        self.assertRaises(TargetDefinitionException, InternalTarget, name='valid3', dependencies=1)

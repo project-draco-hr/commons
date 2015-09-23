@@ -1,0 +1,6 @@
+def compile_stats_filters(self, regexes_list):
+    if (len(regexes_list) > 0):
+        full_regexes = [(('^' + regex) + '$') for regex in regexes_list]
+        return re.compile((('(' + ')|('.join(full_regexes)) + ')'))
+    else:
+        return None

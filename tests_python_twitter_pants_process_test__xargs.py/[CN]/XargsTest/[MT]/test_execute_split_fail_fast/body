@@ -1,5 +1,0 @@
-def test_execute_split_fail_fast(self):
-    self.call(['one', 'two', 'three', 'four']).AndRaise(self.TOO_BIG)
-    self.call(['one', 'two']).AndReturn(42)
-    self.mox.ReplayAll()
-    self.assertEqual(42, self.xargs.execute(['one', 'two', 'three', 'four']))

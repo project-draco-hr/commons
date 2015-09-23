@@ -1,4 +1,0 @@
-@property
-def dependencies(self):
-    self._maybe_resolve_binary()
-    return super(JvmApp, self).dependencies

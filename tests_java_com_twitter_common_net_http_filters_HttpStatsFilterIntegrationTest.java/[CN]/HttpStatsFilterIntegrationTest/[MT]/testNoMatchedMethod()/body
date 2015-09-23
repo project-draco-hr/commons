@@ -1,0 +1,9 @@
+{
+  try {
+    getResource("/what");
+    fail("Should have thrown a 404.");
+  }
+ catch (  UniformInterfaceException e) {
+    assertStatValue("http_404_responses_events",1);
+  }
+}

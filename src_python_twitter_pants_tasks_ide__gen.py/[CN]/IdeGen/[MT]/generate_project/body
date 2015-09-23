@@ -1,2 +1,0 @@
-def generate_project(self, project):
-    raise NotImplementedError('Subclasses must generate a project for an ide')

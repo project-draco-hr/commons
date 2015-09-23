@@ -1,4 +1,0 @@
-@property
-def dependencies(self):
-    self._maybe_apply_deps()
-    return self._dependencies

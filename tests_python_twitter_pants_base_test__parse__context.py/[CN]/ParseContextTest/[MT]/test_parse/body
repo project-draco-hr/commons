@@ -1,8 +1,0 @@
-def test_parse(self):
-    with temporary_dir() as root_dir:
-        buildfile = create_buildfile(root_dir, 'a', content=dedent(("\n          with open('%s/a/b', 'w') as b:\n            b.write('jack spratt')\n        " % root_dir)).strip())
-        b_file = os.path.join(root_dir, 'a', 'b')
-        self.assertFalse(os.path.exists(b_file))
-        ParseContext(buildfile).parse()
-        with open(b_file, 'r') as b:
-            self.assertEquals('jack spratt', b.read())

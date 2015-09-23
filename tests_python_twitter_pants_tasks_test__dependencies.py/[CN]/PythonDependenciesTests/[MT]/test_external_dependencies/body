@@ -1,3 +1,0 @@
-def test_external_dependencies(self):
-    with pytest.raises(TaskError):
-        self.assert_console_output(args=['--test-external-only'], targets=[self.target('dependencies:python_root')])

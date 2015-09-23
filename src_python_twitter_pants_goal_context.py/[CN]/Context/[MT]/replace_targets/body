@@ -1,7 +1,0 @@
-def replace_targets(self, target_roots):
-    'Replaces all targets in the context with the given roots and their transitive\n    dependencies.\n    '
-    self._target_roots = list(target_roots)
-    self._targets = OrderedSet()
-    for target in self._target_roots:
-        self.add_target(target)
-    self.id = Target.identify(self._targets)

@@ -1,2 +1,0 @@
-def __init__(self, run_tracker, settings):
-    Reporter.__init__(self, run_tracker, settings)

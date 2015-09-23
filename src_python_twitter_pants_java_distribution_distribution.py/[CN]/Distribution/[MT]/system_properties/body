@@ -1,4 +1,0 @@
-@property
-def system_properties(self):
-    'Returns a dict containing the system properties of this java distribution.'
-    return dict(self._get_system_properties(self.java))

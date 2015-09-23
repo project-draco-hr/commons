@@ -1,0 +1,3 @@
+def exemplar_pass(statement):
+    nits = list(FutureCompatibility(PythonFile.from_statement(statement)).nits())
+    assert (len(nits) == 0)

@@ -1,0 +1,4 @@
+{
+  Stat<Long> stat=Stats.getVariable(statName);
+  assertEquals(expectedValue,stat.read().longValue());
+}

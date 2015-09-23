@@ -1,0 +1,6 @@
+{
+  LocationInfo locationInfo=useExtendedLocationInfo ? new LocationInfo(new Throwable(),record.getSourceClassName()) : new LocationInfo("?",record.getSourceClassName(),record.getSourceMethodName(),"?");
+  String threadName=String.valueOf(record.getThreadID());
+  ThrowableInformation throwableInformation=record.getThrown() == null ? null : new ThrowableInformation(record.getThrown());
+  return new LoggingEvent(record.getSourceClassName(),logger,record.getMillis(),level,formatMessage(record),threadName,throwableInformation,null,locationInfo,null);
+}

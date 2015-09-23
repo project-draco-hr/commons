@@ -1,0 +1,9 @@
+{
+  aggregatedStreams=ImmutableList.copyOf(streams);
+  for (  TwitterTokenStream stream : streams) {
+    Iterator<Class<? extends Attribute>> it=stream.getAttributeClassesIterator();
+    while (it.hasNext()) {
+      addAttribute(it.next());
+    }
+  }
+}

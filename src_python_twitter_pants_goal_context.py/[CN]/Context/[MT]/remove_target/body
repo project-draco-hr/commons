@@ -1,5 +1,0 @@
-def remove_target(self, target):
-    'Removes the given Target object from the context completely if present.'
-    if (target in self.target_roots):
-        self.target_roots.remove(target)
-    self._targets.discard(target)

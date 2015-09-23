@@ -1,4 +1,0 @@
-@classmethod
-def all_roots(cls):
-    'Returns a mapping from source roots to the associated target types.'
-    return dict(cls._TYPES_BY_ROOT)

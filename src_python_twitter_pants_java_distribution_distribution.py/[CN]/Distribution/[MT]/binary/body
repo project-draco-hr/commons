@@ -1,6 +1,0 @@
-def binary(self, name):
-    "Returns the path to the command of the given name for this distribution.\n\n    For example: ::\n\n        >>> d = Distribution()\n        >>> jar = d.binary('jar')\n        >>> jar\n        '/usr/bin/jar'\n        >>>\n\n    If this distribution has no valid command of the given name raises Distribution.Error.\n    "
-    if (not isinstance(name, Compatibility.string)):
-        raise ValueError(('name must be a binary name, given %s of type %s' % (name, type(name))))
-    self.validate()
-    return self._validated_executable(name)

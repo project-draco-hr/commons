@@ -1,2 +1,0 @@
-def key_for(self, tid, sources):
-    return CacheKey(tid, tid, len(sources), [])

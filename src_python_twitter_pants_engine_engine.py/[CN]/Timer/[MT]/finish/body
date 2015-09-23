@@ -1,4 +1,0 @@
-def finish(self):
-    'Finishes this timer if not already finished.\n\n    Calls to ``timed`` after this will raise a ValueError since the timing window is complete.\n    '
-    if (self._elapsed is None):
-        self._elapsed = (self._now() - self._start)

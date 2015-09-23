@@ -1,5 +1,0 @@
-def __init__(self, exclusives_mapping):
-    'Creates an iterator that yields lists of compatible targets.``.\n\n    Chunks will be returned in least exclusive to most exclusive order.\n\n    :param exclusives_mapping: An ``ExclusivesMapping`` that contains the exclusive chunked targets\n      to iterate.\n    '
-    if (not isinstance(exclusives_mapping, ExclusivesMapping)):
-        raise ValueError(('An ExclusivesMapping is required, given %s of type %s' % (exclusives_mapping, type(exclusives_mapping))))
-    self._exclusives_mapping = exclusives_mapping

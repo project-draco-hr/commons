@@ -1,0 +1,10 @@
+{
+  Command badCommand=createMock(new Clazz<Command>(){
+  }
+);
+  c1.execute();
+  badCommand.execute();
+  expectLastCall().andThrow(new RuntimeException("Cannot Run"));
+  control.replay();
+  Commands.compound(Arrays.asList(c1,badCommand,c2)).execute();
+}

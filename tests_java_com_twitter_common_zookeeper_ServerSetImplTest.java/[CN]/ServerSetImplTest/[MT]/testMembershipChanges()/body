@@ -1,6 +1,6 @@
 {
   ServerSetImpl client=createServerSet();
-  client.monitor(serverSetMonitor);
+  client.watch(serverSetMonitor);
   assertChangeFiredEmpty();
   ServerSetImpl server=createServerSet();
   EndpointStatus foo=join(server,"foo");

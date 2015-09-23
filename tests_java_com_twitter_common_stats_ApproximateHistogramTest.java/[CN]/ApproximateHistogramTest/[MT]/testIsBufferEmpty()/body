@@ -1,0 +1,13 @@
+{
+  ApproximateHistogram hist=new ApproximateHistogram(b,h);
+  for (int i=0; i < 3 * b; i++) {
+    hist.add(i);
+  }
+  assertEquals(false,hist.isBufferEmpty(2));
+  assertEquals(true,hist.isBufferEmpty(3));
+  for (int i=0; i < 2 * b; i++) {
+    hist.add(i);
+  }
+  assertEquals(true,hist.isBufferEmpty(2));
+  assertEquals(false,hist.isBufferEmpty(3));
+}

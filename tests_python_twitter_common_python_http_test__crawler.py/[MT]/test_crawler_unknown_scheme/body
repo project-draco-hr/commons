@@ -1,2 +1,0 @@
-def test_crawler_unknown_scheme():
-    (Crawler(enable_cache=False).execute('ftp://ftp.cdrom.com') == (set(), set()))

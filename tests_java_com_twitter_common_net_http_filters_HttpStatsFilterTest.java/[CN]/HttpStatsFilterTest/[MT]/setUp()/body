@@ -1,0 +1,10 @@
+{
+  clock=new FakeClock();
+  request=createMock(HttpServletRequest.class);
+  response=createMock(HttpServletResponse.class);
+  filterChain=createMock(FilterChain.class);
+  filter=new HttpStatsFilter(clock);
+  containerRequest=createMock(ContainerRequest.class);
+  containerResponse=createMock(ContainerResponse.class);
+  injectContextVars();
+}

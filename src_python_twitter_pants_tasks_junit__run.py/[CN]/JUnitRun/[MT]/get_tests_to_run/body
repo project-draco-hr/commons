@@ -1,4 +1,0 @@
-def get_tests_to_run(self):
-    for test_spec in self.tests_to_run:
-        for c in self.interpret_test_spec(test_spec):
-            yield c

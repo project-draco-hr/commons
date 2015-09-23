@@ -1,2 +1,0 @@
-def empty_prefix(self):
-    return 'pcd entries:\n0 items\n'

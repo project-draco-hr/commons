@@ -1,0 +1,4 @@
+{
+  sync(getCurrentIndex());
+  return buffers[(int)(index % buffers.length)];
+}

@@ -1,2 +1,0 @@
-def _sha_file(self, cache_key):
-    return self._sha_file_by_id(cache_key.id)

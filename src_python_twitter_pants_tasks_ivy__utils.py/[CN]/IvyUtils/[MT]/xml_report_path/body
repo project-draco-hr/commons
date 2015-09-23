@@ -1,5 +1,0 @@
-def xml_report_path(self, targets, conf):
-    'The path to the xml report ivy creates after a retrieve.'
-    (org, name) = self.identify(targets)
-    cachedir = Bootstrapper.instance().ivy_cache_dir
-    return os.path.join(cachedir, ('%s-%s-%s.xml' % (org, name, conf)))

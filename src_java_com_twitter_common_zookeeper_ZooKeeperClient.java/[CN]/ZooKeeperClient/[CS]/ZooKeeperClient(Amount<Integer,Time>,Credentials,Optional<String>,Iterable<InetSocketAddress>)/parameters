@@ -1,0 +1,4 @@
+Amount<Integer,Time> sessionTimeout
+Credentials credentials
+Optional<String> chrootPath
+Iterable<InetSocketAddress> zooKeeperServers

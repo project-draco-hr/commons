@@ -1,0 +1,3 @@
+def mv(self, src, dest):
+    '\n    Move a src file to dest\n    '
+    return self._call('-mv', src, dest, suppress_output=True)

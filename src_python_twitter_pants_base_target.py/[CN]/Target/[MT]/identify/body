@@ -1,4 +1,0 @@
-@classmethod
-def identify(cls, targets):
-    'Generates an id for a set of targets.'
-    return cls.combine_ids((target.id for target in targets))

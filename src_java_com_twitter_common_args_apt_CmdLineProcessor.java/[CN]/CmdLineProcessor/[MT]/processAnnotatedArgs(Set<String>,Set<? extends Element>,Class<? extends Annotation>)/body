@@ -1,0 +1,14 @@
+{
+  return Optional.presentInstances(Iterables.transform(args,new Function<Element,Optional<ArgInfo>>(){
+    @Override public Optional<ArgInfo> apply(    Element arg){
+      @Nullable TypeElement containingType=processArg(parsedTypes,arg,argAnnotation);
+      if (containingType == null) {
+        return Optional.absent();
+      }
+ else {
+        return Optional.of(new ArgInfo(getBinaryName(containingType),arg.getSimpleName().toString()));
+      }
+    }
+  }
+));
+}

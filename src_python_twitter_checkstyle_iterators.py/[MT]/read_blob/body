@@ -1,0 +1,7 @@
+def read_blob(blob):
+    'Helper to read a blob which may possibly be unstaged and in the working tree.'
+    if (blob.hexsha != Diff.NULL_HEX_SHA):
+        return blob.data_stream.read()
+    else:
+        with open(blob.path) as fp:
+            return fp.read()

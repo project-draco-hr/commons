@@ -1,0 +1,10 @@
+{
+  expect(serverSet1.watch(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject())).andReturn(stop1);
+  expect(serverSet2.watch(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject())).andReturn(stop2);
+  expect(serverSet3.watch(EasyMock.<HostChangeMonitor<ServiceInstance>>anyObject())).andReturn(stop3);
+  stop1.execute();
+  stop2.execute();
+  stop3.execute();
+  control.replay();
+  compoundServerSet.watch(compoundMonitor).execute();
+}

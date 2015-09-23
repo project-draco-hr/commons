@@ -1,2 +1,0 @@
-def is_java(target):
-    return (target.has_sources('.java') or target.is_java)

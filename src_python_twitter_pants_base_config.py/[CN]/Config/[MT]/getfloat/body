@@ -1,3 +1,0 @@
-def getfloat(self, section, option, default=None):
-    'Equivalent to calling get with expected type float'
-    return self.get(section, option, type=float, default=default)

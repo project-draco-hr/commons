@@ -1,3 +1,0 @@
-import os
-from contextlib import contextmanager
-from twitter.common.lang import Singleton

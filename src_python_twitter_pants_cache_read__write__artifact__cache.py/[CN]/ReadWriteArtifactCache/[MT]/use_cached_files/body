@@ -1,5 +1,0 @@
-def use_cached_files(self, cache_key):
-    if self._read_artifact_cache:
-        return self._read_artifact_cache.use_cached_files(cache_key)
-    else:
-        return None

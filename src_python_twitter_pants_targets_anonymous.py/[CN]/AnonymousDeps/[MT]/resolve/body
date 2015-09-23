@@ -1,4 +1,0 @@
-def resolve(self):
-    for dependency in self.dependencies:
-        for dep in dependency.resolve():
-            yield dep

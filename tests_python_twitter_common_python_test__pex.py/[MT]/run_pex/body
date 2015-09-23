@@ -1,4 +1,0 @@
-def run_pex(pex, env=None):
-    po = subprocess.Popen(pex, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
-    po.wait()
-    return (po.stdout.read(), po.returncode)

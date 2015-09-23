@@ -1,4 +1,0 @@
-def lpp(page):
-    links = PageParser.links(page)
-    rels = PageParser.rel_links(page)
-    return (list(links), list(rels))

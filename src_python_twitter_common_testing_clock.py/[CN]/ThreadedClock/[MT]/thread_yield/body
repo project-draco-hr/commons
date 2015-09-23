@@ -1,0 +1,4 @@
+@classmethod
+def thread_yield(cls):
+    time.sleep(cls.THREAD_YIELD_TIMEOUT)
+    return cls.THREAD_YIELD_TIMEOUT

@@ -16,7 +16,7 @@
         }
       }
       List<LoggerConfig> loggerConfigs=Lists.newArrayList();
-      for (      String logger : logBean.getLoggerNames()) {
+      for (      String logger : Ordering.natural().immutableSortedCopy(logBean.getLoggerNames())) {
         loggerConfigs.add(new LoggerConfig(logger,logBean.getLoggerLevel(logger)));
       }
       stringTemplate.setAttribute("loggers",loggerConfigs);

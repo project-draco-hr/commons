@@ -1,3 +1,0 @@
-def commit_push(self, coordinates):
-    self.scm.refresh()
-    self.scm.commit(('pants build committing publish data for push of %s' % coordinates))

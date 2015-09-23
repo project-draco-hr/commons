@@ -1,1 +1,0 @@
-namedtuple('Endpoint', ['fingerprint', 'pid', 'port'])

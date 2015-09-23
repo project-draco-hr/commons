@@ -1,3 +1,0 @@
-def __init__(self, distribution=None):
-    super(CommandLineGrabber, self).__init__(distribution=distribution)
-    self._command = None

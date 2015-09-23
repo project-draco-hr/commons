@@ -1,2 +1,0 @@
-def _format_aggregated_timings(self, aggregated_timings):
-    return '\n'.join([('%(timing).3f %(label)s' % x) for x in aggregated_timings.get_all()])

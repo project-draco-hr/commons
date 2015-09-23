@@ -1,6 +1,10 @@
 {
   Parser<? extends T> parser=getParser(parserOracle);
-  Object result=parser.parse(parserOracle,getType().getType(),value);
+  String finalValue=value;
+  if (argFile() && !Strings.isNullOrEmpty(value) && value.startsWith(ARG_FILE_INDICATOR)) {
+    finalValue=getArgFileContent(optionName,value.substring(ARG_FILE_INDICATOR.length()));
+  }
+  Object result=parser.parse(parserOracle,getType().getType(),finalValue);
   if (isBoolean()) {
     if (Predicates.in(Arrays.asList(getNegatedName(),getCanonicalNegatedName())).apply(optionName)) {
       result=!(Boolean)result;

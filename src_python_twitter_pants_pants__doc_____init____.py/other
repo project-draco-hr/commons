@@ -1,3 +1,0 @@
-__author__ = 'Mark McBride'
-from twitter.pants.pants_doc.doc_builder import DocBuilder
-__all__ = ['DocBuilder']

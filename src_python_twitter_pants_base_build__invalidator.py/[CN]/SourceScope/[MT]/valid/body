@@ -1,3 +1,0 @@
-@abstractmethod
-def valid(self, target):
-    'Returns True if the given target can be used with this SourceScope.'

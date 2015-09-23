@@ -1,0 +1,11 @@
+from collections import defaultdict
+import os
+from textwrap import dedent
+import zipfile
+from twitter.common.contextutil import open_zip
+from twitter.common.dirutil import safe_mkdir, safe_open
+from pants.backend.core.targets.resources import Resources
+from pants.backend.jvm.tasks.jvm_binary_task import JvmBinaryTask
+from pants.base.address import SyntheticAddress
+from pants.base.build_environment import get_buildroot
+from pants.goal.products import MultipleRootedProducts

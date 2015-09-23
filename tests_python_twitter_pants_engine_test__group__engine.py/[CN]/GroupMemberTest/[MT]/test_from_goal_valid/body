@@ -1,6 +1,0 @@
-def test_from_goal_valid(self):
-
-    def predicate(tgt):
-        return (tgt == 42)
-    goal = Goal('fred', action=(lambda : None), group=Group('heathers', predicate))
-    self.assertEqual(GroupMember('heathers', 'fred', predicate), GroupMember.from_goal(goal))

@@ -1,3 +1,0 @@
-def setUp(self):
-    super(JarCreateExecuteTest, self).setUp()
-    self.jar_outdir = tempfile.mkdtemp()

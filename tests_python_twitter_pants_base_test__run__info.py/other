@@ -1,3 +1,0 @@
-import unittest2 as unittest
-from twitter.common.contextutil import temporary_file_path
-from twitter.pants.base.run_info import RunInfo

@@ -1,0 +1,6 @@
+{
+  for (  Long x : data) {
+    h.add(x);
+  }
+  return h;
+}

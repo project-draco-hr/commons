@@ -1,3 +1,0 @@
-def __init__(self, hrefs):
-    self._hrefs = hrefs
-    self.opener = None

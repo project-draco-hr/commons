@@ -1,9 +1,0 @@
-def test_write_dir(self):
-    with temporary_dir() as chroot:
-        dir = os.path.join(chroot, 'a/b/c')
-        safe_mkdir(dir)
-        with self.jarfile() as jarfile:
-            with open_jar(jarfile, 'w') as jar:
-                jar.write(dir, 'd/e')
-            with open_jar(jarfile) as jar:
-                self.assertEquals(['d/', 'd/e/'], jar.namelist())

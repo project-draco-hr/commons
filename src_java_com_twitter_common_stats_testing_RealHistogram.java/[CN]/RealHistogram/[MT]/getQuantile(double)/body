@@ -1,0 +1,4 @@
+{
+  Collections.sort(buffer);
+  return buffer.get((int)(quantile * buffer.size()));
+}

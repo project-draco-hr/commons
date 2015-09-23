@@ -1,0 +1,3 @@
+{
+  AppLauncher.launch(PingPongServer.class,args);
+}

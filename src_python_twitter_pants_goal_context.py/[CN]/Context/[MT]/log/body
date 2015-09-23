@@ -1,4 +1,0 @@
-@property
-def log(self):
-    'Returns the preferred logger for goals to use.'
-    return self._log

@@ -1,4 +1,0 @@
-from textwrap import dedent
-from twitter.pants.base.target import TargetDefinitionException
-from twitter.pants.tasks.what_changed import WhatChanged, Workspace
-from twitter.pants.tasks.test_base import ConsoleTaskTest

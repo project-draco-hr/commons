@@ -1,4 +1,0 @@
-def test_non_internal_targets(self):
-    self.python_library('root2', 'colorless', deps=[])
-    with pytest.raises(ValueError):
-        self.iterate('root2:colorless')

@@ -1,3 +1,5 @@
 def defer(closure, **kw):
-    'Run a closure with a specified delay on its own thread.\n\n    Args:\n      closure (function)\n    Keyword args:\n      delay (in seconds, or Amount of Time, default 0)\n      clock (the clock to use for time() and sleep(), default time)\n  '
-    Deferred(closure, **kw).start()
+    'Run a closure with a specified delay on its own thread.\n\n  :param closure: The callable to be deferred.\n  :keyword delay: The delay in seconds or :class:`Amount` of :class:`Time`, default 0.\n  :keyword clock: The clock interface to use for ``time`` and ``sleep``, default ``time`` module.\n  :returns: A deferred thread handle.\n  :rtype: :class:`Deferred`\n  '
+    deferred = Deferred(closure, **kw)
+    deferred.start()
+    return deferred

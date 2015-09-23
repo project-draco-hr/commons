@@ -1,4 +1,0 @@
-def test_pure_python(self):
-    assert Platform.compatible(None, None)
-    assert Platform.compatible(None, 'i386')
-    assert Platform.compatible(None, 'universal')

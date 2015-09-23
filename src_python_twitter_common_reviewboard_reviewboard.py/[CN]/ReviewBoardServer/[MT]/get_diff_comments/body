@@ -1,0 +1,4 @@
+def get_diff_comments(self, rb_id, revision, file_id, start=0, max_results=25):
+    "\n    Returns a list of diff comments for the specified file.\n    If max_results is negative, then ignores 'start' and returns all the files.\n    "
+    url = ('api/review-requests/%d/diffs/%d/files/%d/diff-comments/' % (rb_id, revision, file_id))
+    return self._smart_query(url, 'diff_comments', start, max_results)

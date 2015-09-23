@@ -1,14 +1,24 @@
 {
-  Histogram hist=new Histogram(name,metrics);
-  for (int i=-100; i <= 100; ++i) {
-    hist.add(i);
+  FakeClock clock=new FakeClock();
+  HistogramInterface hist=new Histogram(name,DEFAULT_WINDOW,DEFAULT_SLICES,DEFAULT_MAX_MEMORY,null,DEFAULT_QUANTILES,clock);
+  int[] data=new int[201];
+  for (int i=0; i < data.length; ++i) {
+    data[i]=-100 + i;
   }
-  Map<String,Number> sample=metrics.sample();
-  assertEquals(-100L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "min"));
-  assertEquals(100L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "max"));
-  assertEquals(201L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "count"));
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "sum"));
-  assertEquals(0L,sample.get(name + ScopedMetrics.SCOPE_DELIMITER + "avg"));
-  long[] expected={-51L,-1L,49L,79L,89L,97L,99L,99L};
-  checkQuantiles(expected,sample);
+  for (  int x : data) {
+    hist.add(x);
+  }
+  clock.advance(Amount.of(31L,Time.SECONDS));
+  Snapshot sample=hist.snapshot();
+  assertEquals(-100L,sample.min());
+  assertEquals(100L,sample.max());
+  assertEquals((long)data.length,sample.count());
+  assertEquals(0L,sample.sum());
+  assertEquals(0.0,sample.avg(),0.1);
+  long[] expected=new long[DEFAULT_QUANTILES.length];
+  for (int i=0; i < DEFAULT_QUANTILES.length; i++) {
+    int idx=(int)(DEFAULT_QUANTILES[i] * data.length);
+    expected[i]=data[idx];
+  }
+  checkQuantiles(expected,sample,ERROR);
 }

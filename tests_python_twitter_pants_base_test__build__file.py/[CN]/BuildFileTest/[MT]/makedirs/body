@@ -1,3 +1,0 @@
-@classmethod
-def makedirs(cls, path):
-    safe_mkdir(os.path.join(BuildFileTest.root_dir, path))

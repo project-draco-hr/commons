@@ -1,3 +1,0 @@
-@abstractproperty
-def identifier(self):
-    'Subclasses should return a stable unique identifier for the jarable target.'

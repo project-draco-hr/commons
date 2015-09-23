@@ -1,3 +1,0 @@
-@abstractproperty
-def tag_name(self):
-    'Returns the name of the current tag if any.'

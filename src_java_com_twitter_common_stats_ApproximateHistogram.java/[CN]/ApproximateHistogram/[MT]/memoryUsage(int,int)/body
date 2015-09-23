@@ -1,0 +1,3 @@
+{
+  return 176 + (24 * depth) + (bufferSize * ELEM_SIZE * (depth + 3));
+}

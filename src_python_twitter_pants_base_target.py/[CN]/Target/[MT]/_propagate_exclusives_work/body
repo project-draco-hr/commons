@@ -1,4 +1,0 @@
-def _propagate_exclusives_work(self, target):
-    if hasattr(target, 'declared_exclusives'):
-        self.add_to_exclusives(target.declared_exclusives)
-    return None

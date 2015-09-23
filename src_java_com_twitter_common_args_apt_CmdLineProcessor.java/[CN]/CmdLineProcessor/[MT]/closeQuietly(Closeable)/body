@@ -1,0 +1,8 @@
+{
+  try {
+    closeable.close();
+  }
+ catch (  IOException e) {
+    log(Kind.MANDATORY_WARNING,"Failed to close %s: %s",closeable,e);
+  }
+}

@@ -1,0 +1,2 @@
+import warnings
+warnings.warn('\ntwitter.common.python has been renamed to pex.  please switch imports\nto use pex instead.\n')

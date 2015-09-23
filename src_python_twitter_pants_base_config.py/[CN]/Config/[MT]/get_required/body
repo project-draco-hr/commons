@@ -1,6 +1,0 @@
-def get_required(self, section, option, type=str):
-    'Retrieves option from the specified section and attempts to parse it as type.\n    If the specified section is missing a definition for the option, the value is\n    looked up in the DEFAULT section. If there is still no definition found,\n    a `ConfigError` is raised.\n\n    :param string section: Section to lookup the option in, before looking in DEFAULT.\n    :param string option: Option to retrieve.\n    :param type: Type to retrieve the option as.\n    :returns: The option as the specified type.\n    :raises: :class:`twitter.pants.base.config.Config.ConfigError` if option is not found.\n    '
-    val = self.get(section, option, type=type)
-    if (val is None):
-        raise Config.ConfigError(('Required option %s.%s is not defined.' % (section, option)))
-    return val

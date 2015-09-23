@@ -1,0 +1,7 @@
+{
+  Arrays.fill(hist.indices,b - 1);
+  int buf0Size=Math.min(b,hist.leafCount);
+  int buf1Size=Math.max(0,hist.leafCount - buf0Size);
+  hist.indices[0]=buf0Size - 1;
+  hist.indices[1]=buf1Size - 1;
+}

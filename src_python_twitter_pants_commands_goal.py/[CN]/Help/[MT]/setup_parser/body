@@ -1,7 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    default = None
-    if ((len(args) > 1) and (not args[1].startswith('-'))):
-        default = args[1]
-        del args[1]
-    option_group.add_option(mkflag('goal'), dest='help_goal', default=default)

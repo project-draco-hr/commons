@@ -1,0 +1,6 @@
+import ast
+import textwrap
+from twitter.checkstyle.common import Nit, PythonFile
+from twitter.checkstyle.plugins.import_order import ImportOrder, ImportType
+IMPORT_CHUNKS = {ImportType.STDLIB: strip_newline('\n  import ast\n  from collections import namedtuple\n  import time\n  '), ImportType.TWITTER: strip_newline('\n  from twitter.common import app\n  from twitter.common.dirutil import (\n      safe_mkdtemp,\n      safe_open,\n      safe_rmtree)\n  '), ImportType.GEN: strip_newline('\n  from gen.twitter.aurora.ttypes import TwitterTaskInfo\n  '), ImportType.PACKAGE: strip_newline('\n  from .import_order import (\n      ImportOrder,\n      ImportType\n  )\n  '), ImportType.THIRD_PARTY: strip_newline('\n  from kazoo.client import KazooClient\n  import zookeeper\n  '), }
+PAIRS = ((ImportType.STDLIB, ImportType.TWITTER), (ImportType.TWITTER, ImportType.GEN), (ImportType.PACKAGE, ImportType.THIRD_PARTY))

@@ -1,5 +1,0 @@
-@classmethod
-def clear(cls):
-    'Remove all phases and goals.\n\n    This method is EXCLUSIVELY for use in tests.\n    '
-    cls._goals_by_phase.clear()
-    cls._phase_by_goal.clear()

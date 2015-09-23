@@ -1,0 +1,11 @@
+def previous_blank_lines(self, line_number):
+    blanks = 0
+    while (line_number > 1):
+        line_number -= 1
+        line_value = self.python_file.lines[line_number].strip()
+        if line_value.startswith('#'):
+            continue
+        if line_value:
+            break
+        blanks += 1
+    return blanks

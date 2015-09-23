@@ -1,3 +1,0 @@
-def has_section(self, section):
-    'Return whether or not this config has the section.'
-    return self.configparser.has_section(section)

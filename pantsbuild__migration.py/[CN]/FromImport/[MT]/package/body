@@ -1,2 +1,0 @@
-def package(self):
-    return self._from

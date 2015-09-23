@@ -1,0 +1,16 @@
+{
+  super(Integer[].class,window,slices,new Supplier<Integer[]>(){
+    @Override public Integer[] get(){
+      Integer[] box=new Integer[1];
+      box[0]=0;
+      return box;
+    }
+  }
+,new Function<Integer[],Integer[]>(){
+    @Override public Integer[] apply(    Integer[] xs){
+      xs[0]=0;
+      return xs;
+    }
+  }
+,clock);
+}

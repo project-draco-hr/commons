@@ -1,2 +1,0 @@
-def python_requirement(name):
-    return ("python_requirement('%s')" % name)

@@ -1,4 +1,0 @@
-def attempt(self, timer, context, phases):
-    self._attempts.append((timer, context, phases))
-    if self._action:
-        self._action()

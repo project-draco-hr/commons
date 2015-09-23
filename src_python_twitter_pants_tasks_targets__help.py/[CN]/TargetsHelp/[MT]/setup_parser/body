@@ -1,4 +1,0 @@
-@classmethod
-def setup_parser(cls, option_group, args, mkflag):
-    super(TargetsHelp, cls).setup_parser(option_group, args, mkflag)
-    option_group.add_option(mkflag('details'), dest='goal_targets_details', default=None, help='Display detailed information about the specific target type.')

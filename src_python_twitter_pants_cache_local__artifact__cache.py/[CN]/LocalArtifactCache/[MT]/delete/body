@@ -1,2 +1,0 @@
-def delete(self, cache_key):
-    safe_delete(self._cache_file_for_key(cache_key))

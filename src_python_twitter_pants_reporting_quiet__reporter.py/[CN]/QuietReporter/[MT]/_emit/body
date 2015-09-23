@@ -1,2 +1,0 @@
-def _emit(self, s):
-    sys.stdout.write(s)

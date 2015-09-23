@@ -1,0 +1,8 @@
+{
+  if (useCombiningMarks) {
+    setRegexPattern(DEFAULT_PUNCTUATION_PATTERN);
+  }
+ else {
+    setRegexPattern(PUNCTUATION_PATTERN_WITHOUT_COMBINING_MARKS);
+  }
+}

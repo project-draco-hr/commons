@@ -1,0 +1,44 @@
+def proxy_main():
+
+    def main(args, options):
+        plugins = list_plugins()
+        if options.list_plugins:
+            for plugin in plugins:
+                print(('\n%s' % plugin.__name__))
+                if plugin.__doc__:
+                    for line in plugin.__doc__.splitlines():
+                        print(('    %s' % line))
+                else:
+                    print('    No information')
+            return
+        if options.plugins:
+            plugins_map = dict(((plugin.__name__, plugin) for plugin in plugins))
+            plugins = list(filter(None, map(plugins_map.get, options.plugins)))
+        if options.skip_plugins:
+            plugins_map = dict(((plugin.__name__, plugin) for plugin in plugins))
+            for plugin in options.skip_plugins:
+                plugins_map.pop(plugin, None)
+            plugins = list(plugins_map.values())
+        if (args and (not options.diff)):
+            iterator = path_iterator(args, options)
+        else:
+            iterator = git_iterator(args, options)
+        severity = Nit.COMMENT
+        for (number, name) in Nit.SEVERITY.items():
+            if (name == options.severity):
+                severity = number
+        should_fail = False
+        for (filename, line_filter) in iterator:
+            try:
+                python_file = PythonFile.parse(filename)
+            except SyntaxError as e:
+                print(('%s:SyntaxError: %s' % (filename, e)))
+                continue
+            for checker in plugins:
+                for nit in apply_filter(python_file, checker, line_filter):
+                    if (nit.severity >= severity):
+                        print(nit)
+                        print()
+                    should_fail |= ((nit.severity >= Nit.ERROR) or ((nit.severity >= Nit.WARNING) and options.strict))
+        return int(should_fail)
+    app.main()

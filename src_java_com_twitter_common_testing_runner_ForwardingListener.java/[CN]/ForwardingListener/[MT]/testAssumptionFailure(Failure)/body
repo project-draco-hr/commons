@@ -1,8 +1,0 @@
-{
-  fire(new Event<RuntimeException>(){
-    @Override public void fire(    RunListener listener){
-      listener.testAssumptionFailure(failure);
-    }
-  }
-);
-}

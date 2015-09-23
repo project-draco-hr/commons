@@ -1,0 +1,8 @@
+{
+  populationSize=0;
+  sum=0;
+  accumulatedVariance=0;
+  runningMean=0;
+  minValue=Long.MAX_VALUE;
+  maxValue=Long.MIN_VALUE;
+}

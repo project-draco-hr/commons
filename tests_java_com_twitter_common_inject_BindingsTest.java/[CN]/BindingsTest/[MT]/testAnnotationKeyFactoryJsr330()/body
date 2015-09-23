@@ -1,0 +1,5 @@
+{
+  KeyFactory factory=Bindings.annotatedKeyFactory(NAME_KEY);
+  assertEquals(Key.get(String.class,NAME_KEY),factory.create(String.class));
+  assertEquals(Key.get(STRING_LIST,NAME_KEY),factory.create(STRING_LIST));
+}

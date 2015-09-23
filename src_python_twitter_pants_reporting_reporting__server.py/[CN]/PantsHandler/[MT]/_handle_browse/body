@@ -1,9 +1,0 @@
-def _handle_browse(self, relpath, params):
-    'Handle requests to browse the filesystem under the build root.'
-    abspath = os.path.normpath(os.path.join(self._root, relpath))
-    if (not abspath.startswith(self._root)):
-        raise ValueError
-    if os.path.isdir(abspath):
-        self._serve_dir(abspath, params)
-    elif os.path.isfile(abspath):
-        self._serve_file(abspath, params)

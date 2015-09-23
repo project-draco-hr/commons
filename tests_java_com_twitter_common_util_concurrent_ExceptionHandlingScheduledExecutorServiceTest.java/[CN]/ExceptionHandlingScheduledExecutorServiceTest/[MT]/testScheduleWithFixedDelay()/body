@@ -1,0 +1,14 @@
+{
+  signallingHandler.uncaughtException(anyObject(Thread.class),eq(EXCEPTION));
+  Runnable runnable=createMock(Runnable.class);
+  runnable.run();
+  expectLastCall().andThrow(EXCEPTION);
+  control.replay();
+  try {
+    executorService.scheduleWithFixedDelay(runnable,0,10,TimeUnit.MILLISECONDS).get();
+    fail(EXCEPTION.getClass().getSimpleName() + " should be thrown.");
+  }
+ catch (  ExecutionException e) {
+    assertEquals(EXCEPTION,e.getCause());
+  }
+}

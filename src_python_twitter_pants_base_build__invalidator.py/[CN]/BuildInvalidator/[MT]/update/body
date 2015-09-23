@@ -1,3 +1,0 @@
-def update(self, cache_key):
-    'Makes cache_key the valid version of the corresponding target set.\n\n    :param cache_key: A CacheKey object (typically returned by BuildInvalidator.key_for()).\n    '
-    self._write_sha(cache_key)

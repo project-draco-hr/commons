@@ -1,2 +1,0 @@
-def __init__(self, relations, stamps, apis, source_infos, compilations, compile_setup):
-    (self.relations, self.stamps, self.apis, self.source_infos, self.compilations, self.compile_setup) = (relations, stamps, apis, source_infos, compilations, compile_setup)

@@ -1,0 +1,7 @@
+def assert_waiting(self, thread, amount=None):
+    'Make an assertion that `thread` is waiting, possibly for a specific `amount`.\n\n    :param thread: A :class:`threading.Thread` object.\n    :param amount: The amount that the thread should be waiting, if specified.\n    '
+    waiters = [waiter for waiter in self._waiters if (waiter.thread == thread)]
+    if (len(waiters) != 1):
+        assert False, ('Thread %s is not currently sleeping.' % thread)
+    if ((amount is not None) and (waiters[0].wait_amount != amount)):
+        assert False, ('Thread %s is sleeping %s, expected %s.' % (thread, waiters[0].wait_amount, amount))

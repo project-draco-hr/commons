@@ -1,3 +1,0 @@
-def getusername(self, repository):
-    self._ensure_loaded()
-    return self._login[repository]

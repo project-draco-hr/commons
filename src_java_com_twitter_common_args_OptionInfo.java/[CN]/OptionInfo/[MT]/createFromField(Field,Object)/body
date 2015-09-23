@@ -1,0 +1,18 @@
+{
+  CmdLine cmdLine=field.getAnnotation(CmdLine.class);
+  if (cmdLine == null) {
+    throw new Configuration.ConfigurationException("No @CmdLine Arg annotation for field " + field);
+  }
+  String name=cmdLine.name();
+  Preconditions.checkNotNull(name);
+  checkArgument(!HELP_ARGS.contains(name),String.format("Argument name '%s' is reserved for builtin argument help",name));
+  checkArgument(ARG_NAME_PATTERN.matcher(name).matches(),String.format("Argument name '%s' does not match required pattern %s",name,ARG_NAME_RE));
+  Function<String,String> canonicalizer=new Function<String,String>(){
+    @Override public String apply(    String name){
+      return field.getDeclaringClass().getCanonicalName() + "." + name;
+    }
+  }
+;
+  @SuppressWarnings({"unchecked","rawtypes"}) OptionInfo<?> optionInfo=new OptionInfo(canonicalizer,name,getCmdLineHelp(cmdLine),cmdLine.argFile(),ArgumentInfo.getArgForField(field,Optional.fromNullable(instance)),TypeUtil.getTypeParamTypeToken(field),Arrays.asList(field.getAnnotations()),cmdLine.parser());
+  return optionInfo;
+}

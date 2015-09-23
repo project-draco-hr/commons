@@ -1,3 +1,0 @@
-def test_sort_reverse(self):
-    targets = [self.target('common/c'), self.target('common/a'), self.target('common/b')]
-    self.assertEqual(['common/c/BUILD:c', 'common/b/BUILD:b', 'common/a/BUILD:a'], list(self.execute_console_task(targets=targets, args=['--test-reverse'])))

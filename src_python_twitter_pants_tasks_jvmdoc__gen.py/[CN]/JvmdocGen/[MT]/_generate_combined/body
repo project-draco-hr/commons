@@ -1,9 +1,0 @@
-def _generate_combined(self, classpath, targets, create_jvmdoc_command):
-    gendir = os.path.join(self._output_dir, 'combined')
-    if targets:
-        safe_mkdir(gendir, clean=True)
-        command = create_jvmdoc_command(classpath, gendir, *targets)
-        if command:
-            create_jvmdoc(command, gendir)
-    if self.open:
-        binary_util.ui_open(os.path.join(gendir, 'index.html'))

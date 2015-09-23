@@ -1,0 +1,22 @@
+{
+  int n=10;
+  int m=5000;
+  ApproximateHistogram histograms[]=new ApproximateHistogram[n];
+  int x=0;
+  for (int i=0; i < n; i++) {
+    ApproximateHistogram h=new ApproximateHistogram();
+    while (x < m * (i + 1)) {
+      h.add(x);
+      x+=1;
+    }
+    histograms[i]=h;
+  }
+  long sum=m * n;
+  double maxError=ApproximateHistogram.DEFAULT_PRECISION.getEpsilon() * ApproximateHistogram.DEFAULT_PRECISION.getN();
+  Histogram mergedHistogram=ApproximateHistogram.merge(histograms);
+  for (int i=1; i < 10; i++) {
+    double q=i / 10.0;
+    double expected=q * sum;
+    assertEquals(expected,mergedHistogram.getQuantile(q),maxError);
+  }
+}

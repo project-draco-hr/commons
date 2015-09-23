@@ -1,0 +1,3 @@
+@classmethod
+def prepare(cls, options, round_manager):
+    round_manager.require_data('classes_by_target')

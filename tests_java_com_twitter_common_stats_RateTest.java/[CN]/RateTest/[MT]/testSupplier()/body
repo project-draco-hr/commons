@@ -1,0 +1,12 @@
+{
+  Supplier<Long> supplier=new Supplier<Long>(){
+    long value=0;
+    @Override public Long get(){
+      value+=10;
+      return value;
+    }
+  }
+;
+  control.replay();
+  assertResults(Rate.of("test",supplier).withTicker(ticker).build(),10,10,10);
+}

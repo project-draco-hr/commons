@@ -1,2 +1,0 @@
-def is_gentarget(self, target):
-    return ((isinstance(target, JavaThriftLibrary) and (target.compiler == 'thrift')) or isinstance(target, PythonThriftLibrary))

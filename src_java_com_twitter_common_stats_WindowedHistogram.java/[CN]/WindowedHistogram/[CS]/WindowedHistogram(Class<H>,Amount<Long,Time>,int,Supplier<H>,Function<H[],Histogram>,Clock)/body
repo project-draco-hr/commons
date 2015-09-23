@@ -1,0 +1,11 @@
+{
+  super(clazz,window,slices,sliceProvider,new Function<H,H>(){
+    @Override public H apply(    H h){
+      h.clear();
+      return h;
+    }
+  }
+,clock);
+  Preconditions.checkNotNull(merger);
+  this.merger=merger;
+}

@@ -1,2 +1,0 @@
-def _cmd_exists(cmd):
-    return (subprocess.call(['/usr/bin/which', cmd], shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0)

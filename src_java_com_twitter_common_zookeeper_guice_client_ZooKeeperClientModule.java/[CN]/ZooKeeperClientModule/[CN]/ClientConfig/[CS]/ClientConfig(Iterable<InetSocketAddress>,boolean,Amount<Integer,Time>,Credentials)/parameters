@@ -1,0 +1,4 @@
+Iterable<InetSocketAddress> servers
+boolean inProcess
+Amount<Integer,Time> sessionTimeout
+Credentials credentials

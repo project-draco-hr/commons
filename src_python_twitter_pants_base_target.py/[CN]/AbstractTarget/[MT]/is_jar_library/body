@@ -1,4 +1,0 @@
-@property
-def is_jar_library(self):
-    'Returns True if the target is an external jar library.'
-    return self.has_label('jars')

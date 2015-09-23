@@ -1,0 +1,7 @@
+def test_builtin_overrides():
+    p8 = PEP8VariableNames(PythonFile.from_statement('\n    def range():\n      print("Not in a class body")\n    \n    class DhisRight(object):\n      def any(self):\n        print("In a class body")\n  '))
+    nits = list(p8.nits())
+    assert (len(nits) == 1)
+    assert (nits[0].code == 'T801')
+    assert (nits[0]._line_number == 1)
+    assert (nits[0].severity == Nit.ERROR)

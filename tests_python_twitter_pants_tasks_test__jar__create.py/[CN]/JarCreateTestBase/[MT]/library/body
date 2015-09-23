@@ -1,5 +1,0 @@
-@classmethod
-def library(cls, path, target_type, name, sources):
-    cls.create_files(path, sources)
-    cls.create_target(path, dedent(("\n      %(target_type)s(name='%(name)s',\n        sources=[%(sources)s],\n      )\n    " % dict(target_type=target_type, name=name, sources=repr((sources or []))))))
-    return cls.target(('%s:%s' % (path, name)))

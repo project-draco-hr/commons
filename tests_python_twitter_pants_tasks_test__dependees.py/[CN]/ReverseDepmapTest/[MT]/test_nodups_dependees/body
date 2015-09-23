@@ -1,2 +1,0 @@
-def test_nodups_dependees(self):
-    self.assert_console_output('overlaps/BUILD:two', 'overlaps/BUILD:three', targets=[self.target('common/a'), self.target('overlaps:one')])

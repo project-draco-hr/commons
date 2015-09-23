@@ -1,4 +1,0 @@
-@property
-def jvm_args(self):
-    'Default jvm args the nailgun will be launched with.\n\n    By default no special jvm args are used.  If a value for ``jvm_args`` is specified in pants.ini\n    globally in the ``DEFAULT`` section or in the ``nailgun`` section, then that list will be used.\n    '
-    return self.context.config.getlist('nailgun', 'jvm_args', default=[])

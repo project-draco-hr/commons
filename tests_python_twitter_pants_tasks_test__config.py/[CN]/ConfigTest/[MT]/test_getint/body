@@ -1,3 +1,0 @@
-def test_getint(self):
-    self.assertEquals(42, self.config.getint('a', 'answer'))
-    self.checkDefaults(self.config.get, 42)

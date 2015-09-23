@@ -1,2 +1,0 @@
-def test_one(self):
-    self.assert_console_output('common/b/two.py common/b/BUILD:b', 'common/b/three.py common/b/BUILD:b', targets=[self.target('common/b')])

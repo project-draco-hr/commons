@@ -1,0 +1,11 @@
+{
+  c1=createMock(new Clazz<Command>(){
+  }
+);
+  c2=createMock(new Clazz<Command>(){
+  }
+);
+  c3=createMock(new Clazz<Command>(){
+  }
+);
+}

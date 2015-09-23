@@ -1,0 +1,4 @@
+@classmethod
+def from_statement(cls, statement):
+    'A helper to construct a PythonFile from a triple-quoted string, for testing.'
+    return cls('\n'.join(textwrap.dedent(statement).splitlines()[1:]))

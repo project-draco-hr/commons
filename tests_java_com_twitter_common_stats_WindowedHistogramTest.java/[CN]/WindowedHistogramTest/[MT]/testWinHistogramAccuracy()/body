@@ -1,0 +1,12 @@
+{
+  FakeClock ticker=new FakeClock();
+  Amount<Long,Time> window=Amount.of(100L,Time.MILLISECONDS);
+  int slices=10;
+  Amount<Long,Time> sliceDuration=Amount.of(window.as(Time.NANOSECONDS) / slices,Time.NANOSECONDS);
+  WindowedHistogram<?> wh=createFullHistogram(window,slices,ticker);
+  RealHistogram rh=fillHistogram(new RealHistogram(),sliceDuration,slices,new FakeClock());
+  assertEquals(wh.getQuantile(0.5),rh.getQuantile(0.5));
+  assertEquals(wh.getQuantile(0.75),rh.getQuantile(0.75));
+  assertEquals(wh.getQuantile(0.9),rh.getQuantile(0.9));
+  assertEquals(wh.getQuantile(0.99),rh.getQuantile(0.99));
+}

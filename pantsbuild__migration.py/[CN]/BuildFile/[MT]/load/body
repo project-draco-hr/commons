@@ -1,3 +1,0 @@
-def load(self):
-    with open(self._path, u'r') as infile:
-        self._old_lines = [line.rstrip() for line in infile.read().splitlines()]

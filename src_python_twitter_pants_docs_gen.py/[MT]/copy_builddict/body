@@ -1,7 +1,0 @@
-def copy_builddict(docs_dir):
-    for filename in ['build_dictionary.rst', 'goals_reference.rst']:
-        filepath = os.path.abspath(os.path.join(docs_dir, '../../../../../dist/builddict', filename))
-        try:
-            shutil.copy(filepath, docs_dir)
-        except IOError as e:
-            raise IOError(('Forgot to `./pants goal builddict` first? \n\n%s' % e))

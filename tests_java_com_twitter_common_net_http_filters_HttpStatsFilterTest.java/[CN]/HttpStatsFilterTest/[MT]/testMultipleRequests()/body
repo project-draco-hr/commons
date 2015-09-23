@@ -1,0 +1,16 @@
+{
+  int numCalls=2;
+  expect(containerResponse.getStatus()).andReturn(HttpServletResponse.SC_OK).times(numCalls);
+  expect(servletRequest.getAttribute(HttpStatsFilter.REQUEST_START_TIME)).andReturn(clock.nowNanos()).times(numCalls);
+  String value="some_value";
+  expectAnnotationValue(value,numCalls);
+  control.replay();
+  clock.advance(REQUEST_TIME);
+  for (int i=0; i < numCalls; i++) {
+    filter.filter(containerRequest,containerResponse);
+  }
+  SlidingStats stat=filter.requestCounters.get(Pair.of(value,HttpServletResponse.SC_OK));
+  assertEquals(numCalls,stat.getEventCounter().get());
+  assertEquals(REQUEST_TIME.getValue() * numCalls,stat.getTotalCounter().get());
+  assertEquals(numCalls,filter.statusCounters.get(HttpServletResponse.SC_OK).getEventCounter().get());
+}

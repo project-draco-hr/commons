@@ -1,5 +1,0 @@
-@staticmethod
-def get_current_server_port():
-    'Returns the port of the currently-running server, or None if no server is detected.'
-    pidfiles_and_ports = ReportingServerManager.get_current_server_pidfiles_and_ports()
-    return (pidfiles_and_ports[0][1] if pidfiles_and_ports else None)

@@ -1,0 +1,9 @@
+{
+  @SuppressWarnings("unchecked") final Class<? extends T> rawType=(Class<? extends T>)type.getRawType();
+  return FluentIterable.from(getVerifiers(verifierOracle)).transform(new Function<ValueVerifier<T>,String>(){
+    @Override public String apply(    ValueVerifier<T> verifier){
+      return verifier.toString(rawType);
+    }
+  }
+).toList();
+}

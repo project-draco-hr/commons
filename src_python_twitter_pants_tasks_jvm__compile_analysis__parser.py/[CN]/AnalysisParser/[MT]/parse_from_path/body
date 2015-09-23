@@ -1,4 +1,0 @@
-def parse_from_path(self, infile_path):
-    'Parse an analysis instance from a text file.'
-    with open(infile_path, 'r') as infile:
-        return self.parse(infile)

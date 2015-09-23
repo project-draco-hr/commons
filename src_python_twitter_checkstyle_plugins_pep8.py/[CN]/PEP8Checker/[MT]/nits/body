@@ -1,0 +1,3 @@
+def nits(self):
+    report = self.STYLE_GUIDE.check_files([self.python_file.filename])
+    return report.twitter_errors

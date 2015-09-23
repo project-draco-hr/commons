@@ -1,0 +1,9 @@
+{
+  long currentIndex=getCurrentIndex();
+  if (mergedHistIndex < currentIndex) {
+    H[] tmp=getTenured();
+    mergedHistogram=merger.apply(tmp);
+    mergedHistIndex=currentIndex;
+  }
+  return mergedHistogram.getQuantile(quantile);
+}

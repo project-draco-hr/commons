@@ -1,0 +1,19 @@
+{
+  HistogramInterface h=new HistogramInterface(){
+    @Override public String getName(){
+      return scopeName(histogram.getName());
+    }
+    @Override public void clear(){
+      histogram.clear();
+    }
+    @Override public void add(    long n){
+      histogram.add(n);
+    }
+    @Override public Snapshot snapshot(){
+      return histogram.snapshot();
+    }
+  }
+;
+  parent.registerHistogram(h);
+  return h;
+}

@@ -1,7 +1,6 @@
 {
-  ApproximateHistogram hist=new ApproximateHistogram();
-  hist.init(b,h);
-  addToHist(hist,8 * b);
+  ApproximateHistogram hist=new ApproximateHistogram(b,h);
+  initializeValues(hist,8 * b,Suppliers.ofInstance(1L));
   assertEquals(3,hist.currentTop);
   hist.add(1);
   assertEquals(3,hist.currentTop);

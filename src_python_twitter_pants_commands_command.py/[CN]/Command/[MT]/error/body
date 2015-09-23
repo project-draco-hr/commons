@@ -1,2 +1,0 @@
-def error(self, message=None, show_help=True):
-    'Reports the error message, optionally followed by pants help, and then exits.'

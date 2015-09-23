@@ -1,8 +1,0 @@
-def do_DELETE(self):
-    path = self.translate_path(self.path)
-    if os.path.exists(path):
-        os.unlink(path)
-        self.send_response(200)
-    else:
-        self.send_error(404, 'File not found')
-    self.end_headers()

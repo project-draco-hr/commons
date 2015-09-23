@@ -1,5 +1,0 @@
-def install(self, phase=None, first=False, replace=False, before=None, after=None):
-    "Install this goal in the specified phase (or a new phase with the same name as this Goal).\n\n    The placement of the goal in the execution list of the phase defaults to the end but can be\n    influence by specifying exactly one of the following arguments:\n\n    :param first: Places this goal 1st in the phase's execution list\n    :param replace: Replaces any existing goals in the phase with this goal\n    :param before: Places this goal before the named goal in the phase's execution list\n    :param after: Places this goal after the named goal in the phase's execution list\n    "
-    phase = Phase((phase or self.name))
-    phase.install(self, first, replace, before, after)
-    return phase

@@ -1,3 +1,0 @@
-def split(self, splits, catchall=False):
-    'Split the analysis according to splits, which is a list of K iterables of source files.\n\n    If catchall is False, returns a list of K ZincAnalysis objects, one for each of the splits, in order.\n    If catchall is True, returns K+1 ZincAnalysis objects, the last one containing the analysis for any\n    remainder sources not mentioned in the K splits.\n    '
-    raise NotImplementedError()

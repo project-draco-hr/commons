@@ -1,4 +1,0 @@
-@property
-def timings(self):
-    'Returns the phase timings as an ordered mapping from the ``Phase`` objects executed to\n    ordered mappings of the ``Goal`` objects executed in the phase to the list of timings\n    corresponding to each execution of the goal.\n\n    Note that the list of timings will be singleton for all goals except those participating in a\n    ``Group``.  Grouped goals will have or more timings in the list corresponding to each chunk of\n    targets the goal executed against when iterating the group.\n    '
-    return self._timings

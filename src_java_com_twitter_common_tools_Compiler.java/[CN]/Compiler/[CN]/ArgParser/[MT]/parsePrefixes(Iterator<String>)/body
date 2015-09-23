@@ -1,6 +1,0 @@
-{
-  if (!iter.hasNext()) {
-    throw new IllegalArgumentException(String.format("%s requires an argument specifying path prefixes to ignore",WARN_IGNORE_PATH_PREFIXES));
-  }
-  return Arrays.asList(iter.next().split(File.pathSeparator));
-}

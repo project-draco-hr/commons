@@ -1,9 +1,0 @@
-def test_execution_order(self):
-    self.installed_goal('invalidate')
-    self.installed_goal('clean-all', dependencies=['invalidate'])
-    self.installed_goal('resolve')
-    self.installed_goal('javac', dependencies=['resolve'], phase='compile')
-    self.installed_goal('scalac', dependencies=['resolve'], phase='compile')
-    self.installed_goal('junit', dependencies=['compile'], phase='test')
-    self.assertEqual(self.as_phases('invalidate', 'clean-all', 'resolve', 'compile', 'test'), list(Engine.execution_order(self.as_phases('clean-all', 'test'))))
-    self.assertEqual(self.as_phases('resolve', 'compile', 'test', 'invalidate', 'clean-all'), list(Engine.execution_order(self.as_phases('test', 'clean-all'))))

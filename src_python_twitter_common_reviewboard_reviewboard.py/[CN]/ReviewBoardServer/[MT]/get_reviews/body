@@ -1,0 +1,2 @@
+def get_reviews(self, rb_id, start=0, max_results=25):
+    return self.fetch_reviews(rb_id, start, max_results)

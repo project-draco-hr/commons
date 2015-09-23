@@ -1,0 +1,26 @@
+{
+  final List<LoggingEvent> events=new LinkedList<LoggingEvent>();
+  org.apache.log4j.Logger log4jRoot=new RootLogger(org.apache.log4j.Level.ALL);
+  LoggerRepository loggerRepository=new Hierarchy(log4jRoot);
+  loggerRepository.setThreshold(org.apache.log4j.Level.INFO);
+  log4jRoot.addAppender(new AppenderSkeleton(){
+    @Override public boolean requiresLayout(){
+      return false;
+    }
+    @Override public void close(){
+    }
+    @Override protected void append(    LoggingEvent event){
+      events.add(event);
+    }
+  }
+);
+  JULBridgeLogManager.assimilate(loggerRepository);
+  Logger.getLogger("test.1").log(Level.INFO,"test message 1");
+  Logger.getLogger("test.2").log(Level.FINE,"test message 2");
+  Logger.getLogger("test.3").log(Level.WARNING,"test message 3");
+  assertThat(events.size(),is(2));
+  assertThat(events.get(0).getLoggerName(),is("test.1"));
+  assertThat(events.get(0).getMessage(),is((Object)"test message 1"));
+  assertThat(events.get(1).getLoggerName(),is("test.3"));
+  assertThat(events.get(1).getMessage(),is((Object)"test message 3"));
+}

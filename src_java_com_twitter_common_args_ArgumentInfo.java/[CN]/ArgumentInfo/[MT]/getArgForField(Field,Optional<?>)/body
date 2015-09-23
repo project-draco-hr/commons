@@ -1,0 +1,11 @@
+{
+  Preconditions.checkArgument(field.getType() == Arg.class,"Field is annotated for argument parsing but is not of Arg type: " + field);
+  Preconditions.checkArgument(Modifier.isStatic(field.getModifiers()) || instance.isPresent(),"Non-static argument fields are not supported, found " + field);
+  field.setAccessible(true);
+  try {
+    return (Arg<?>)field.get(instance.orNull());
+  }
+ catch (  IllegalAccessException e) {
+    throw new RuntimeException("Cannot get arg value for " + field);
+  }
+}

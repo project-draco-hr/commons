@@ -1,2 +1,0 @@
-def cache_key(self):
-    return ''.join((str(getattr(self, key)) for key in self._HASH_KEYS))

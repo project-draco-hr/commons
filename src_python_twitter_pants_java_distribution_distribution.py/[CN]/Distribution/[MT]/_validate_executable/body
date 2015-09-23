@@ -1,5 +1,0 @@
-def _validate_executable(self, name):
-    exe = os.path.join(self._bin_path, name)
-    if (not self._is_executable(exe)):
-        raise self.Error(('Failed to locate the %s executable, %s does not appear to be a valid %s distribution' % (name, self, ('JDK' if self._jdk else 'JRE'))))
-    return exe

@@ -1,4 +1,0 @@
-def __init__(self, artifact_root, tarfile, compress):
-    Artifact.__init__(self, artifact_root)
-    self._tarfile = tarfile
-    self._compress = compress

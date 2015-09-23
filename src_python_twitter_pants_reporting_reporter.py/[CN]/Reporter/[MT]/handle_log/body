@@ -1,4 +1,0 @@
-def handle_log(self, workunit, level, *msg_elements):
-    'Handle a message logged by pants code.\n\n    level: One of the constants above.\n\n    Each element in msg_elements is either a message or a (message, detail) pair.\n    A subclass must show the message, but may choose to show the detail in some\n    sensible way (e.g., when the message text is clicked on in a browser).\n\n    This convenience implementation filters by log level and then delegates to do_handle_log.\n    '
-    if (level <= self.settings.log_level):
-        self.do_handle_log(workunit, level, *msg_elements)

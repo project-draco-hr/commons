@@ -1,7 +1,0 @@
-def _key_for(self, target, dependency_keys):
-
-    def fingerprint_extra(sha):
-        sha.update(self._extra_data)
-        for key in sorted(dependency_keys):
-            sha.update(key)
-    return self._cache_key_generator.key_for_target(target, sources=self._sources, fingerprint_extra=fingerprint_extra)

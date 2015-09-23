@@ -1,0 +1,6 @@
+{
+  int j=hist.biggest(hist.indices);
+  int idx=hist.indices[j];
+  hist.indices[j]-=1;
+  return hist.buffer[j][idx];
+}

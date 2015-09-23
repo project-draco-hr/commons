@@ -1,0 +1,4 @@
+{
+  long now=clock.nowMillis();
+  return (int)(now / sliceDuration);
+}

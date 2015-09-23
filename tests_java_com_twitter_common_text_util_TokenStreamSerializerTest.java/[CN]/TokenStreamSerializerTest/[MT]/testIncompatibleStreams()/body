@@ -1,7 +1,7 @@
 {
   final String text="Test that incompatible streams are - actually -incompatible.";
   TextTokenizer tokenizer=new DefaultTextTokenizer.Builder().setKeepPunctuation(false).build();
-  TokenStream stream=tokenizer.getDefaultTokenStream();
+  TwitterTokenStream stream=tokenizer.getDefaultTokenStream();
   stream.reset(text);
   TokenStreamSerializer serializer=TokenStreamSerializer.builder().add(new CharSequenceTermAttributeSerializer()).add(new TokenTypeAttributeSerializer()).add(new PositionIncrementAttributeSerializer()).build();
   byte[] data=serializer.serialize(stream);

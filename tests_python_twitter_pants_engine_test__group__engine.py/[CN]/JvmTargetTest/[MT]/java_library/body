@@ -1,3 +1,0 @@
-@classmethod
-def java_library(cls, path, name, deps=None):
-    cls._library(path, 'java_library', name, deps)

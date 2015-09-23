@@ -1,2 +1,0 @@
-def add_hit(self, cache_name, tgt):
-    self._add_stat(0, cache_name, tgt)

@@ -1,7 +1,0 @@
-def test_top_level(self):
-    with self.workspace('BUILD') as root_dir:
-        self.assertAddress(root_dir, 'BUILD', 'c', Address.parse(root_dir, ':c'))
-        self.assertAddress(root_dir, 'BUILD', 'c', Address.parse(root_dir, '.:c'))
-        self.assertAddress(root_dir, 'BUILD', 'c', Address.parse(root_dir, './:c'))
-        self.assertAddress(root_dir, 'BUILD', 'c', Address.parse(root_dir, './BUILD:c'))
-        self.assertAddress(root_dir, 'BUILD', 'c', Address.parse(root_dir, 'BUILD:c'))

@@ -1,3 +1,0 @@
-def existing_hash(self, id):
-    'Returns the existing hash for the specified id.\n\n    Returns None if there is no existing hash for this id.\n    '
-    return self._read_sha_by_id(id)

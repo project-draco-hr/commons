@@ -1,0 +1,2 @@
+def noqa_file_filter(python_file):
+    return any(((_NOQA_FILE_SEARCH(line) is not None) for line in python_file.lines))

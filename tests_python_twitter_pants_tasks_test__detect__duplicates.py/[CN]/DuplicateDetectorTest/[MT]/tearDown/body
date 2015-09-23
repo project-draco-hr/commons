@@ -1,2 +1,0 @@
-def tearDown(self):
-    safe_rmtree(self.base_dir)

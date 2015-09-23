@@ -1,3 +1,0 @@
-def test_empty_dependencies(self):
-    with ParseContext.temp():
-        JarLibrary('test-jar-library-with-empty-dependencies', [])

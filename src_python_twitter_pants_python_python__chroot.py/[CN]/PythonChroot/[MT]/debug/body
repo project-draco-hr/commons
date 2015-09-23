@@ -1,3 +1,0 @@
-def debug(self, msg, indent=0):
-    if (os.getenv('PANTS_VERBOSE') is not None):
-        print(('%s%s' % ((' ' * indent), msg)))

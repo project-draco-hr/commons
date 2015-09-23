@@ -1,0 +1,14 @@
+{
+  super(ApproximateHistogram.class,window,slices,new Supplier<ApproximateHistogram>(){
+    private Amount<Long,Data> perHistogramMemory=Amount.of(maxMemory.as(Data.BYTES) / (slices + 1),Data.BYTES);
+    @Override public ApproximateHistogram get(){
+      return new ApproximateHistogram(perHistogramMemory);
+    }
+  }
+,new Function<ApproximateHistogram[],Histogram>(){
+    @Override public Histogram apply(    ApproximateHistogram[] histograms){
+      return ApproximateHistogram.merge(histograms);
+    }
+  }
+,clock);
+}

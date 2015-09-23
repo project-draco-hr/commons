@@ -1,2 +1,0 @@
-def is_binary(target):
-    return isinstance(target, JvmBinary)

@@ -1,7 +1,0 @@
-def get_data(self, typename, init_func=None):
-    " Returns a data product.\n\n    If the product isn't found, returns None, unless init_func is set, in which case the product's\n    value is set to the return value of init_func(), and returned."
-    if (typename not in self.data_products):
-        if (not init_func):
-            return None
-        self.data_products[typename] = init_func()
-    return self.data_products.get(typename)

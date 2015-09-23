@@ -1,2 +1,0 @@
-def artifact_cache_reads_enabled(self):
-    return (bool(self._read_artifact_cache_spec) and self.context.options.read_from_artifact_cache)

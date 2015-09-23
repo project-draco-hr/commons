@@ -1,3 +1,0 @@
-def try_insert(self, cache_key, paths):
-    'Attempt to cache the output of a build, without error-handling.\n\n    cache_key: A CacheKey object.\n    paths: List of absolute paths to generated dirs/files. These must be under the artifact_root.\n    '
-    pass
