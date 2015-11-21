@@ -12,7 +12,8 @@
       }
       @Nullable String parsedType=getTypeArgument(parser,parserType);
       if (parsedType != null) {
-        configBuilder.addParser(parsedType,getBinaryName(parser));
+        String parserClassName=getBinaryName(parser);
+        getBuilder(parserClassName).addParser(parsedType,getBinaryName(parser));
       }
     }
   }

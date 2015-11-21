@@ -20,7 +20,7 @@
         TypeMirror customParserType=getClassType(cmdLine,"parser",parserType).asType();
         if (typeUtils.isSameType(parserType.asType(),customParserType)) {
           if (!checkTypePresent(parsedTypes,typeArgument)) {
-            error("No parser registered for %s, %s.%s is un-parseable",typeArgument,containingType,annotationElement);
+            error("No parser registered for %s; %s.%s is un-parseable",typeArgument,containingType,annotationElement);
           }
         }
  else {

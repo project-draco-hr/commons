@@ -1,7 +1,0 @@
-{
-  this.nextResourceIndex=nextResourceIndex;
-  this.positionalInfos=ImmutableSet.copyOf(positionalInfos);
-  this.cmdLineInfos=ImmutableSet.copyOf(cmdLineInfos);
-  this.parserInfos=ImmutableSet.copyOf(parserInfos);
-  this.verifierInfos=ImmutableSet.copyOf(verifierInfos);
-}

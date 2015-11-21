@@ -1,4 +1,0 @@
-{
-  @Nullable FileObject resource=createCommandLineDb(configuration);
-  return openResource(resource);
-}

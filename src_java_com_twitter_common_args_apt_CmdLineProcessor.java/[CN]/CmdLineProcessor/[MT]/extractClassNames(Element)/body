@@ -1,0 +1,10 @@
+{
+  if (!(element instanceof TypeElement)) {
+    return ImmutableList.<String>of();
+  }
+  Iterable<String> classNames=ImmutableList.of(getBinaryName((TypeElement)element));
+  for (  Element child : element.getEnclosedElements()) {
+    classNames=Iterables.concat(classNames,extractClassNames(child));
+  }
+  return classNames;
+}

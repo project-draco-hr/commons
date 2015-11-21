@@ -1,0 +1,7 @@
+{
+  ImmutableList.Builder<String> classNames=new ImmutableList.Builder<String>();
+  for (  Element element : roundEnv.getRootElements()) {
+    classNames.addAll(extractClassNames(element));
+  }
+  return classNames.build();
+}

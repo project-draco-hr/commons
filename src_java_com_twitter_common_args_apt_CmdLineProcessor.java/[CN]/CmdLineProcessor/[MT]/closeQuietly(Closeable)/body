@@ -1,4 +1,7 @@
 {
+  if (closeable == null) {
+    return;
+  }
   try {
     closeable.close();
   }

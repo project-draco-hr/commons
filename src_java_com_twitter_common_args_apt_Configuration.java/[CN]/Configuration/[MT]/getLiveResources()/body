@@ -1,0 +1,15 @@
+{
+  ClassLoader classLoader=Configuration.class.getClassLoader();
+  ClassPath classPath=ClassPath.from(classLoader);
+  ImmutableMap.Builder<String,URL> resources=new ImmutableMap.Builder<String,URL>();
+  for (  ClassPath.ResourceInfo resourceInfo : classPath.getResources()) {
+    String name=resourceInfo.getResourceName();
+    if (name.startsWith(DEFAULT_RESOURCE_PREFIX) && name.endsWith(DEFAULT_RESOURCE_SUFFIX)) {
+      String className=name.substring(DEFAULT_RESOURCE_PREFIX.length(),name.length() - DEFAULT_RESOURCE_SUFFIX.length());
+      if (classExists(classLoader,className)) {
+        resources.put(className,resourceInfo.url());
+      }
+    }
+  }
+  return resources.build();
+}

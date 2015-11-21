@@ -1,0 +1,13 @@
+{
+  Type keyType=typeParams.get(0);
+  Parser<?> keyParser=parserOracle.get(TypeToken.of(keyType));
+  Type valueType=typeParams.get(1);
+  Parser<?> valueParser=parserOracle.get(TypeToken.of(valueType));
+  ImmutableMultimap.Builder<Object,Object> multimapBuilder=ImmutableMultimap.builder();
+  for (  String keyAndValue : Parsers.MULTI_VALUE_SPLITTER.split(raw)) {
+    List<String> fields=ImmutableList.copyOf(KEY_VALUE_SPLITTER.split(keyAndValue));
+    checkArgument(fields.size() == 2,"Failed to parse key/value pair: " + keyAndValue);
+    multimapBuilder.put(keyParser.parse(parserOracle,keyType,fields.get(0)),valueParser.parse(parserOracle,valueType,fields.get(1)));
+  }
+  return multimapBuilder.build();
+}

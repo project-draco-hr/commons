@@ -1,3 +1,0 @@
-{
-  return String.format("%s/%s",DEFAULT_RESOURCE_PACKAGE.replace('.','/'),getResourceName(index));
-}

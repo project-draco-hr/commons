@@ -1,2 +1,0 @@
-def register_goals():
-    task(name='python-eval', action=PythonEval).install('compile')

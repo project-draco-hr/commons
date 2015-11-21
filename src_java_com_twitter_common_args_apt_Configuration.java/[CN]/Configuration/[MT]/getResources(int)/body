@@ -1,3 +1,0 @@
-{
-  return Iterators.forEnumeration(Configuration.class.getClassLoader().getResources(getResourcePath(index)));
-}

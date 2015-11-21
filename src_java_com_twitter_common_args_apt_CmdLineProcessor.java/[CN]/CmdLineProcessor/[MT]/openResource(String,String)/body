@@ -1,4 +1,0 @@
-{
-  @Nullable FileObject resource=createResource(packageName,name);
-  return openResource(resource);
-}

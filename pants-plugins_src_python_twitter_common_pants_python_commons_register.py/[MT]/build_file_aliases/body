@@ -1,2 +1,2 @@
 def build_file_aliases():
-    return BuildFileAliases.create(objects={'commons_version': Version('src/python/twitter/common/VERSION').version, 'public': public_repo, }, context_aware_object_factories={'read_contents': read_contents_factory, 'remote_python_thrift_fileset': RemotePythonThriftFileset.factory, })
+    return BuildFileAliases(objects={'commons_version': Version('src/python/twitter/common/VERSION').version, 'public': public_repo, }, context_aware_object_factories={'read_contents': read_contents_factory, 'remote_python_thrift_fileset': RemotePythonThriftFileset.factory, })

@@ -1,3 +1,0 @@
-@classmethod
-def product_types(cls):
-    return ['resources_by_target']

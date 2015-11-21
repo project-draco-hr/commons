@@ -1,0 +1,3 @@
+{
+  return createResource(Configuration.DEFAULT_RESOURCE_PACKAGE,className + Configuration.DEFAULT_RESOURCE_SUFFIX);
+}

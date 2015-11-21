@@ -1,0 +1,9 @@
+{
+  try {
+    cl.loadClass(className);
+    return true;
+  }
+ catch (  ClassNotFoundException e) {
+    return false;
+  }
+}

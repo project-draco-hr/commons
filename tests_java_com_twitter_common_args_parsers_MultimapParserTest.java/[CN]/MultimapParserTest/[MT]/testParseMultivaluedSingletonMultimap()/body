@@ -1,0 +1,5 @@
+{
+  assertEquals(ImmutableMultimap.of("k","v1","k","v2"),parse(new TypeToken<Multimap<String,String>>(){
+  }
+.getType(),"k=v1,k=v2"));
+}

@@ -1,3 +1,0 @@
-{
-  return new Configuration(configuration.nextResourceIndex + 1,positionalInfos,argInfos,parserInfos,verifierInfos);
-}

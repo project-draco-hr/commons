@@ -1,0 +1,11 @@
+{
+  assertEquals(ImmutableMultimap.of("k","v"),parse(new TypeToken<Multimap<String,String>>(){
+  }
+.getType(),"k=v"));
+  assertEquals(ImmutableMultimap.of("k",1),parse(new TypeToken<Multimap<String,Integer>>(){
+  }
+.getType(),"k=1"));
+  assertEquals(ImmutableMultimap.of("k",Amount.of(2,Time.SECONDS)),parse(new TypeToken<Multimap<String,Amount<Integer,Time>>>(){
+  }
+.getType(),"k=2secs"));
+}

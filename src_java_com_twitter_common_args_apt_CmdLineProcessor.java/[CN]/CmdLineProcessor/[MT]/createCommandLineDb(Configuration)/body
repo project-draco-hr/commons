@@ -1,4 +1,0 @@
-{
-  String name=isMain ? Configuration.mainResourceName() : configuration.nextResourceName();
-  return createResource(Configuration.DEFAULT_RESOURCE_PACKAGE,name);
-}

@@ -1,0 +1,17 @@
+{
+  final Set<Object> setOfObjects=ImmutableSet.copyOf(obj);
+  return new Predicate<Field>(){
+    @Override public boolean apply(    Field field){
+      if (Modifier.isStatic(field.getModifiers())) {
+        return false;
+      }
+      for (      Object o : setOfObjects) {
+        if (field.getDeclaringClass().isAssignableFrom(o.getClass())) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+;
+}

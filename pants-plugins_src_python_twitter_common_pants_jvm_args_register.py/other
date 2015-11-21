@@ -1,2 +1,0 @@
-from pants.goal.task_registrar import TaskRegistrar as task
-from twitter.common.pants.jvm.args.tasks.resource_mapper import ResourceMapper

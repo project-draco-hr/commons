@@ -3,7 +3,6 @@
     return processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT,packageName,name);
   }
  catch (  IOException e) {
-    error("Failed to create resource file to store %s/%s: %s",packageName,name,Throwables.getStackTraceAsString(e));
-    return null;
+    throw new RuntimeException("Failed to create resource file to store %s/%s:".format(packageName,name),e);
   }
 }

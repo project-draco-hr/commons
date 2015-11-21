@@ -11,6 +11,7 @@
         error("Found a @Verifier annotation on a non-Verifier %s",element);
         return;
       }
+      String verifierClassName=getBinaryName(verifier);
       @Nullable AnnotationMirror verifierFor=getAnnotationMirror(verifier,verifierForType);
       if (verifierFor != null) {
         @Nullable TypeElement verifyAnnotationType=getClassType(verifierFor,"value",null);
@@ -18,7 +19,7 @@
           @Nullable String verifiedType=getTypeArgument(verifier,verifierType);
           if (verifiedType != null) {
             String verifyAnnotationClassName=elementUtils.getBinaryName(verifyAnnotationType).toString();
-            configBuilder.addVerifier(verifiedType,verifyAnnotationClassName,getBinaryName(verifier));
+            getBuilder(verifierClassName).addVerifier(verifiedType,verifyAnnotationClassName,verifierClassName);
           }
         }
       }
