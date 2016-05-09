@@ -1,2 +1,2 @@
 def __key(self):
-    return (self.service_endpoint, frozenset(sorted(self.__additional_endpoints_string())), self.status, self._shard)
+    return (self.service_endpoint, frozenset(sorted(self.__additional_endpoints_string())), self.status, self._shard, self._member_id)

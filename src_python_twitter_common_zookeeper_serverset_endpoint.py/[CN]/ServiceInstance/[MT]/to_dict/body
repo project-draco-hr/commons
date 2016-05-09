@@ -3,4 +3,6 @@ def to_dict(cls, service_instance):
     instance = dict(serviceEndpoint=Endpoint.to_dict(service_instance.service_endpoint), additionalEndpoints=dict(((name, Endpoint.to_dict(endpoint)) for (name, endpoint) in service_instance.additional_endpoints.items())), status=service_instance.status.name())
     if (service_instance.shard is not None):
         instance.update(shard=service_instance.shard)
+    if (service_instance.member_id is not None):
+        instance.update(member_id=service_instance.member_id)
     return instance

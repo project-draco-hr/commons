@@ -1,0 +1,3 @@
+@property
+def member_id(self):
+    return self._member_id

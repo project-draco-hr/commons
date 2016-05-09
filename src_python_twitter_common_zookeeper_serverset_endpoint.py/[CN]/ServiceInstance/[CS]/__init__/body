@@ -1,7 +1,8 @@
-def __init__(self, service_endpoint, additional_endpoints=None, status='ALIVE', shard=None):
+def __init__(self, service_endpoint, additional_endpoints=None, status='ALIVE', shard=None, member_id=None):
     if (not isinstance(service_endpoint, Endpoint)):
         raise ValueError(('Expected service_endpoint to be an Endpoint, got %r' % service_endpoint))
     self._shard = shard
+    self._member_id = member_id
     self._service_endpoint = service_endpoint
     self._additional_endpoints = (additional_endpoints or {})
     if (not isinstance(self._additional_endpoints, dict)):

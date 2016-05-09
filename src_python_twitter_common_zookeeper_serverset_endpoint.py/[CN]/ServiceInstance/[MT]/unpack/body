@@ -1,10 +1,11 @@
 @classmethod
-def unpack(cls, blob):
+def unpack(cls, blob, member_id=None):
+    'Return a ServiceInstance object from the json or thrift implementation of\n      a serverset member.\n      The member_id needs to be passed in separately because the info method from the group\n      (either Group or KazooGroup) does not include it.\n    '
     try:
-        return cls.unpack_json(blob)
+        return cls.unpack_json(blob, member_id)
     except Exception as e1:
         try:
-            return cls.unpack_thrift(blob)
+            return cls.unpack_thrift(blob, member_id)
         except Exception as e2:
             log.debug(('Failed to deserialize JSON: %s (%s) && Thrift: %s (%s)' % (e1, e1.__class__.__name__, e2, e2.__class__.__name__)))
             return None

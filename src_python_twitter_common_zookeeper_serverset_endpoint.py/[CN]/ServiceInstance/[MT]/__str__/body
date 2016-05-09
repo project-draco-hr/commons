@@ -1,2 +1,2 @@
 def __str__(self):
-    return ('ServiceInstance(%s, %saddl: %s, status: %s)' % (self.service_endpoint, (('shard: %s, ' % self._shard) if (self._shard is not None) else ''), ' : '.join(self.__additional_endpoints_string()), self.status))
+    return ('ServiceInstance(%s, %s, %saddl: %s, status: %s)' % (self.service_endpoint, (('shard: %s, ' % self._shard) if (self._shard is not None) else ''), (('member_id: %s, ' % self._member_id) if (self._member_id is not None) else ''), ' : '.join(self.__additional_endpoints_string()), self.status))

@@ -1,0 +1,9 @@
+@staticmethod
+def __check_int(item):
+    if (item is not None):
+        try:
+            item = int(item)
+        except ValueError:
+            log.warn(('Failed to deserialize value %r' % item))
+            item = None
+    return item

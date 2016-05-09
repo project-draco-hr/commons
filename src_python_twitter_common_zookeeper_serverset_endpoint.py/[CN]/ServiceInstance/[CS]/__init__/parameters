@@ -3,3 +3,4 @@ service_endpoint
 additional_endpoints
 status
 shard
+member_id
