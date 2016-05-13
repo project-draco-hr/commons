@@ -1,0 +1,5 @@
+def test_endpoint_from_dict():
+    expected = {Endpoint('smfd-akb-12-sr1', 31181): {'host': 'smfd-akb-12-sr1', 'port': 31181, }, Endpoint('smfd-akb-12-sr1', 31181, '1.2.3.4'): {'host': 'smfd-akb-12-sr1', 'port': 31181, 'inet': '1.2.3.4', }, Endpoint('smfd-akb-12-sr1', 31181, '1.2.3.4', '2001:db8:5678:ffff:ffff:ffff:ffff:ffff'): {'host': 'smfd-akb-12-sr1', 'port': 31181, 'inet': '1.2.3.4', 'inet6': '2001:db8:5678:ffff:ffff:ffff:ffff:ffff', }, Endpoint('smfd-akb-12-sr1', 31181, None, '2001:db8:5678:ffff:ffff:ffff:ffff:ffff'): {'host': 'smfd-akb-12-sr1', 'port': 31181, 'inet6': '2001:db8:5678:ffff:ffff:ffff:ffff:ffff', }, }
+    for (endpoint, dic) in expected.items():
+        assert (Endpoint.to_dict(endpoint) == dic)
+        assert (Endpoint.from_dict(dic) == endpoint)

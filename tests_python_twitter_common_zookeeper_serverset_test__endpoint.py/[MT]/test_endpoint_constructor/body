@@ -1,0 +1,9 @@
+def test_endpoint_constructor():
+    Endpoint('host', 8340)
+    Endpoint('host', 8340, '1.2.3.4')
+    Endpoint('host', 8340, None, '2001:db8:1234:ffff:ffff:ffff:ffff:ffff')
+    Endpoint('host', 8340, '1.2.3.4', '2001:db8:1234:ffff:ffff:ffff:ffff:ffff')
+    with pytest.raises(ValueError):
+        Endpoint('host', 8340, 'not an IP')
+    with pytest.raises(ValueError):
+        Endpoint('host', 8340, None, 'not an IPv6')

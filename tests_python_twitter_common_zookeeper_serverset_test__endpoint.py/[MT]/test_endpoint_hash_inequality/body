@@ -1,2 +1,5 @@
 def test_endpoint_hash_inequality():
     assert (Endpoint('host', 8340).__hash__() != Endpoint('xhost', 8341).__hash__())
+    assert (Endpoint('host', 8340).__hash__() != Endpoint('host', 8341).__hash__())
+    assert (Endpoint('host', 8340, '1.2.3.4', '2001:db8:1234:ffff:ffff:ffff:ffff:ffff').__hash__() != Endpoint('host', 8340, '5.6.7.8', '2001:db8:5678:ffff:ffff:ffff:ffff:ffff').__hash__())
+    assert (Endpoint('host', 8340, None, '2001:db8:1234:ffff:ffff:ffff:ffff:ffff').__hash__() != Endpoint('host', 8340, None, '2001:db8:5678:ffff:ffff:ffff:ffff:ffff').__hash__())

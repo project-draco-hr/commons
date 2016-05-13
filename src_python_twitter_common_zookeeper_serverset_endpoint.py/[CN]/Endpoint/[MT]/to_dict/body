@@ -1,3 +1,8 @@
 @classmethod
 def to_dict(cls, endpoint):
-    return {'host': endpoint.host, 'port': endpoint.port, }
+    d = {'host': endpoint.host, 'port': endpoint.port, }
+    if (endpoint.inet is not None):
+        d['inet'] = endpoint.inet
+    if (endpoint.inet6 is not None):
+        d['inet6'] = endpoint.inet6
+    return d
