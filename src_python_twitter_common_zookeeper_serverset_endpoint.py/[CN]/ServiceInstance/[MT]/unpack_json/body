@@ -4,7 +4,7 @@ def unpack_json(cls, blob, member_id=None):
     for key in ('status', 'serviceEndpoint', 'additionalEndpoints'):
         if (key not in blob):
             raise ValueError(('Expected to find %s in ServiceInstance JSON!' % key))
-    additional_endpoints = dict(((name, Endpoint(value['host'], value['port'])) for (name, value) in blob['additionalEndpoints'].items()))
+    additional_endpoints = dict(((name, Endpoint.from_dict(value)) for (name, value) in blob['additionalEndpoints'].items()))
     shard = cls.__check_int(blob.get('shard'))
     member_id = cls.__check_int(member_id)
-    return cls(service_endpoint=Endpoint(blob['serviceEndpoint']['host'], blob['serviceEndpoint']['port']), additional_endpoints=additional_endpoints, status=Status.from_string(blob['status']), shard=shard, member_id=member_id)
+    return cls(service_endpoint=Endpoint.from_dict(blob['serviceEndpoint']), additional_endpoints=additional_endpoints, status=Status.from_string(blob['status']), shard=shard, member_id=member_id)

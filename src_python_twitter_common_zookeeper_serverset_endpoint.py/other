@@ -1,4 +1,5 @@
 import json
+import socket
 from thrift.TSerialization import deserialize as thrift_deserialize
 from gen.twitter.thrift.endpoint.ttypes import Endpoint as ThriftEndpoint, ServiceInstance as ThriftServiceInstance
 try:

@@ -1,1 +1,2 @@
+import pytest
 from twitter.common.zookeeper.serverset.endpoint import Endpoint, ServiceInstance, Status

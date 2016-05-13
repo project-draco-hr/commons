@@ -1,7 +1,20 @@
-def __init__(self, host, port):
+def __init__(self, host, port, inet=None, inet6=None):
+    'host -- the hostname of the device where this endpoint can be found\n       port -- the port number the device serves this endpoint on\n       inet -- a human-readable representation of the  IPv4 address of the device\n               where this endpoint can be found.\n       inet6 -- a human-readable representation of the IPv6 address of the device\n                where this endpoint can be found.\n\n    `inet` and/or `inet6` can be used when present to avoid a DNS lookup.\n\n    '
     if (not isinstance(host, Compatibility.string)):
         raise ValueError('Expected host to be a string!')
     if (not isinstance(port, int)):
         raise ValueError('Expected port to be an integer!')
+    if (inet is not None):
+        try:
+            socket.inet_pton(socket.AF_INET, inet)
+        except socket.error:
+            raise ValueError(('Expected "%s" to be a string containing a valid IPv4 address!' % inet))
+    if (inet6 is not None):
+        try:
+            socket.inet_pton(socket.AF_INET6, inet6)
+        except socket.error:
+            raise ValueError(('Expected "%s" to be a string containing a valid IPv6 address!' % inet6))
     self._host = host
     self._port = port
+    self._inet = inet
+    self._inet6 = inet6

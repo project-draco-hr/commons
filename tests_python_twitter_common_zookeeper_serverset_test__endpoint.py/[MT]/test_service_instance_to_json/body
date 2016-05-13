@@ -1,0 +1,5 @@
+def test_service_instance_to_json():
+    json = '{\n    "additionalEndpoints": {\n        "aurora": {\n            "host": "hostname",\n            "inet6": "2001:db8:1234:ffff:ffff:ffff:ffff:ffff",\n            "port": 22\n        },\n        "health": {\n            "host": "hostname",\n            "inet": "1.2.3.4",\n            "port": 23\n        },\n        "http": {\n            "host": "hostname",\n            "inet": "1.2.3.4",\n            "inet6": "2001:db8:1234:ffff:ffff:ffff:ffff:ffff",\n            "port": 23\n        }\n    },\n    "serviceEndpoint": {\n        "host": "hostname",\n        "port": 24\n    },\n    "shard": 1,\n    "status": "ALIVE"\n  }'
+    service_instance = ServiceInstance(Endpoint('hostname', 24), {'aurora': Endpoint('hostname', 22, '1.2.3.4'), 'health': Endpoint('hostname', 23, None, '2001:db8:1234:ffff:ffff:ffff:ffff:ffff'), 'http': Endpoint('hostname', 23, '1.2.3.4', '2001:db8:1234:ffff:ffff:ffff:ffff:ffff'), }, 'ALIVE', 1)
+    assert (ServiceInstance.unpack(json) == service_instance)
+    assert (ServiceInstance.unpack(ServiceInstance.pack(service_instance)) == service_instance)

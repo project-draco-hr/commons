@@ -1,0 +1,3 @@
+@property
+def inet(self):
+    return self._inet

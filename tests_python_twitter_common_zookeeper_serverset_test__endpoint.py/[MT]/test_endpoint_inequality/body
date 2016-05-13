@@ -1,2 +1,5 @@
 def test_endpoint_inequality():
-    assert (Endpoint('host', 8340) != Endpoint('xhost', 8341))
+    assert (Endpoint('host', 8340) != Endpoint('xhost', 8340))
+    assert (Endpoint('host', 8340) != Endpoint('host', 8341))
+    assert (Endpoint('host', 8340, '1.2.3.4', '2001:db8:1234:ffff:ffff:ffff:ffff:ffff') != Endpoint('host', 8340, '5.6.7.8', '2001:db8:5678:ffff:ffff:ffff:ffff:ffff'))
+    assert (Endpoint('host', 8340, None, '2001:db8:1234:ffff:ffff:ffff:ffff:ffff') != Endpoint('host', 8340, None, '2001:db8:5678:ffff:ffff:ffff:ffff:ffff'))

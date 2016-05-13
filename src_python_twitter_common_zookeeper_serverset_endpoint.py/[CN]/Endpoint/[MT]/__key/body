@@ -1,2 +1,2 @@
 def __key(self):
-    return (self.host, self.port)
+    return (self.host, self.port, self._inet, self._inet6)

@@ -1,0 +1,5 @@
+@classmethod
+def from_dict(cls, value):
+    inet = value.get('inet')
+    inet6 = value.get('inet6')
+    return Endpoint(value['host'], value['port'], inet, inet6)
