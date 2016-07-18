@@ -1,9 +1,14 @@
-def __init__(self, config, command_class=CommandUtil, heap_limit=Amount(256, Data.MB)):
-    'heap_limit is the maximum heap that should be allocated to the hadoop process,\n    defined using twitter.common.quantity.Data.'
+def __init__(self, config, command_class=CommandUtil, heap_limit=Amount(256, Data.MB), use_hadoop_v1=False):
+    '\n    heap_limit is the maximum heap that should be allocated to the command process,\n    defined using twitter.common.quantity.Data.\n\n    use_hadoop_v1 sets the command to hadoop instead of hdfs.\n    '
     if (not os.path.isdir(config)):
-        raise ValueError('hadoop requires root of a config tree')
+        raise ValueError('Command requires root of a config tree')
     self._config = config
     self._cmd_class = command_class
     if (heap_limit is None):
-        raise ValueError('The hadoop heap_limit must not be specified as "None".')
+        raise ValueError('The hdfs heap_limit must not be specified as "None".')
     self._heap_limit = heap_limit
+    self.cli_command = 'hdfs'
+    if self.use_hadoop_v1:
+        self.cli_command = 'hadoop'
+    if (self._cmd_class.execute_suppress_stdout_stderr(self.cli_command) != 0):
+        raise OSError('The "{0}" utility is not available on the system PATH'.format(self.cli_command))

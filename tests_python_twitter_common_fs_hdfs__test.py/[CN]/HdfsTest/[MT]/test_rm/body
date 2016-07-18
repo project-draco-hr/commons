@@ -1,5 +1,5 @@
 def test_rm(self):
     hdfs_helper = HDFSHelper('/etc/hadoop/hadoop-conf-tst-smf1', command_class=MockCommandUtil)
     cmd = hdfs_helper.rm('dest')
-    expected_cmd = 'hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -rm dest'
+    expected_cmd = 'hdfs --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -rm dest'
     self.assertEqual(cmd, expected_cmd)

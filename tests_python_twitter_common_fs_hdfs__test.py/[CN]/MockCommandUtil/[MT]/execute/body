@@ -7,20 +7,20 @@ def execute(cmd, get_output=True):
     if (((cmd[4] == '-lsr') or (cmd[4] == '-ls')) and (cmd[5] == 'empty')):
         return (0, None)
     if (cmd[4] == '-test'):
-        return (' '.join(cmd) == 'hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -test -e hadoop_dir')
+        return (' '.join(cmd) == 'hdfs --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -test -e hadoop_dir')
     if (cmd[4] == '-copyToLocal'):
         if get_output:
             tmp_file = cmd[6]
-            if (' '.join(cmd) == (('hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -copyToLocal ' + 'somefile ') + tmp_file)):
+            if (' '.join(cmd) == (('hdfs --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -copyToLocal ' + 'somefile ') + tmp_file)):
                 with open(tmp_file, 'w') as f:
                     f.write('read_test')
                 return 0
-            elif (' '.join(cmd) == (('hadoop --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -copyToLocal ' + 'non_exist ') + tmp_file)):
+            elif (' '.join(cmd) == (('hdfs --config /etc/hadoop/hadoop-conf-tst-smf1 dfs -copyToLocal ' + 'non_exist ') + tmp_file)):
                 return 1
     if (cmd[4] == '-copyFromLocal'):
         if (cmd[5] != 'text_file'):
             tmp_file = cmd[5]
             with open(tmp_file, 'r') as f:
                 text1 = f.read()
-            return ((text1 == 'write_text') and (' '.join(cmd) == ' '.join(['hadoop', '--config', '/etc/hadoop/hadoop-conf-tst-smf1', 'dfs', '-copyFromLocal', tmp_file, 'somefile'])))
+            return ((text1 == 'write_text') and (' '.join(cmd) == ' '.join(['hdfs', '--config', '/etc/hadoop/hadoop-conf-tst-smf1', 'dfs', '-copyFromLocal', tmp_file, 'somefile'])))
     return ' '.join(cmd)

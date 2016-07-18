@@ -1,5 +1,5 @@
 def get(self, src, dst):
-    '\n    Copy file(s) in hdfs to local path (via proxy if necessary).\n    NOTE: If src matches multiple files, make sure dst is a directory!\n    '
+    '\n    Copy file(s) in HDFS to local path (via proxy if necessary).\n    NOTE: If src matches multiple files, make sure dst is a directory!\n    '
     if isinstance(src, list):
         hdfs_src = ' '.join(src)
     else:

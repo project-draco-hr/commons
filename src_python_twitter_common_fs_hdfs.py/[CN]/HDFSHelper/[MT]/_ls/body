@@ -1,5 +1,5 @@
 def _ls(self, path, is_dir=False, is_recursive=False):
-    '\n    Return list of [hdfs_full_path, filesize]\n    Raises exception when the hadoop ls command returns error\n    '
+    '\n    Return list of [hdfs_full_path, filesize]\n    Raises exception when the HDFS ls command returns error\n    '
     hdfs_cmd = ('-lsr' if is_recursive else '-ls')
     (exit_code, ls_result) = self._call(hdfs_cmd, path, return_output=True)
     if (exit_code != 0):

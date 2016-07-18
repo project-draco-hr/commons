@@ -2,3 +2,4 @@ self
 config
 command_class
 heap_limit
+use_hadoop_v1

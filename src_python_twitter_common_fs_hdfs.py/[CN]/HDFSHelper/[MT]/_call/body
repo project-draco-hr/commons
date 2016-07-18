@@ -1,6 +1,6 @@
 def _call(self, cmd, *args, **kwargs):
-    'Runs hadoop fs command  with the given command and args.\n    Checks the result of the call by default but this can be disabled with check=False.\n    '
-    cmd = (['hadoop', '--config', self._config, 'dfs', cmd] + list(args))
+    'Runs fs command with the given command and args.\n    Checks the result of the call by default but this can be disabled with check=False.\n    '
+    cmd = ([self.cli_command, '--config', self._config, 'dfs', cmd] + list(args))
     heapsize = str(int(self._heap_limit.as_(Data.MB)))
     with environment_as(HADOOP_HEAPSIZE=heapsize):
         if kwargs.get('check'):

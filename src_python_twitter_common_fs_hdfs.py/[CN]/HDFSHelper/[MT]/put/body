@@ -1,5 +1,5 @@
 def put(self, src, dst):
-    '\n    Copy the local file src to a hadoop path dst.\n    '
+    '\n    Copy the local file src to a HDFS path dst.\n    '
     abs_src = os.path.expanduser(src)
     assert os.path.exists(abs_src), ('File does not exist, cannot copy: %s' % abs_src)
     return self._do_put(abs_src, dst)
